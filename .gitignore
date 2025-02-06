@@ -1,0 +1,24 @@
+# temp files
+*.bak
+*.orig
+*.log
+*.hprof
+build/
+
+# Gradle
+.idea/**/gradle.xml
+.idea/**/libraries
+.idea/jarRepositories.xml
+.gradle/
+
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/sonarlint-state.xml
+.idea/sonarlint.xml
+
+# IntelliJ
+.idea/vcs.xml
