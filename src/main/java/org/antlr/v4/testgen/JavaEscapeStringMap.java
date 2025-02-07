@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -10,54 +14,52 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- *
  * @author Sam Harwell
  */
 public class JavaEscapeStringMap extends AbstractMap<String, Object> {
 
-	@Override
-	public Object get(Object key) {
-		if (key instanceof String) {
-			String str = (String)key;
-			StringBuilder builder = new StringBuilder(str.length());
-			for (int i = 0; i < str.length(); i++) {
-				switch (str.charAt(i)) {
-				case '\\':
-					builder.append("\\\\");
-					break;
+  @Override
+  public Object get(Object key) {
+    if (key instanceof String str) {
+      StringBuilder builder = new StringBuilder(str.length());
+      for (int i = 0; i < str.length(); i++) {
+        switch (str.charAt(i)) {
+          case '\\':
+            builder.append("\\\\");
+            break;
 
-				case '\r':
-					// normalize \r\n to just \n
-					break;
+          case '\r':
+            // normalize \r\n to just \n
+            break;
 
-				case '\n':
-					builder.append("\\n");
-					break;
+          case '\n':
+            builder.append("\\n");
+            break;
 
-				case '"':
-					builder.append("\\\"");
-					break;
+          case '"':
+            builder.append("\\\"");
+            break;
 
-				default:
-					builder.append(str.charAt(i));
-					break;
-				}
-			}
+          default:
+            builder.append(str.charAt(i));
+            break;
+        }
+      }
 
-			return builder.toString();
-		}
+      return builder.toString();
+    }
 
-		return super.get(key);
-	}
+    return super.get(key);
+  }
 
-	@Override
-	public boolean containsKey(Object key) {
-		return key instanceof String;
-	}
+  @Override
+  public boolean containsKey(Object key) {
+    return key instanceof String;
+  }
 
-	@Override
-	public Set<Entry<String, Object>> entrySet() {
-		return Collections.emptySet();
-	}
+  @Override
+  public Set<Entry<String, Object>> entrySet() {
+    return Collections.emptySet();
+  }
 
 }

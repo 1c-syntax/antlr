@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.CharStream;
@@ -26,98 +29,97 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @since 4.2
  */
 public final class LexerCustomAction implements LexerAction {
-	private final int ruleIndex;
-	private final int actionIndex;
+  private final int ruleIndex;
+  private final int actionIndex;
 
-	/**
-	 * Constructs a custom lexer action with the specified rule and action
-	 * indexes.
-	 *
-	 * @param ruleIndex The rule index to use for calls to
-	 * {@link Recognizer#action}.
-	 * @param actionIndex The action index to use for calls to
-	 * {@link Recognizer#action}.
-	 */
-	public LexerCustomAction(int ruleIndex, int actionIndex) {
-		this.ruleIndex = ruleIndex;
-		this.actionIndex = actionIndex;
-	}
+  /**
+   * Constructs a custom lexer action with the specified rule and action
+   * indexes.
+   *
+   * @param ruleIndex   The rule index to use for calls to
+   *                    {@link Recognizer#action}.
+   * @param actionIndex The action index to use for calls to
+   *                    {@link Recognizer#action}.
+   */
+  public LexerCustomAction(int ruleIndex, int actionIndex) {
+    this.ruleIndex = ruleIndex;
+    this.actionIndex = actionIndex;
+  }
 
-	/**
-	 * Gets the rule index to use for calls to {@link Recognizer#action}.
-	 *
-	 * @return The rule index for the custom action.
-	 */
-	public int getRuleIndex() {
-		return ruleIndex;
-	}
+  /**
+   * Gets the rule index to use for calls to {@link Recognizer#action}.
+   *
+   * @return The rule index for the custom action.
+   */
+  public int getRuleIndex() {
+    return ruleIndex;
+  }
 
-	/**
-	 * Gets the action index to use for calls to {@link Recognizer#action}.
-	 *
-	 * @return The action index for the custom action.
-	 */
-	public int getActionIndex() {
-		return actionIndex;
-	}
+  /**
+   * Gets the action index to use for calls to {@link Recognizer#action}.
+   *
+   * @return The action index for the custom action.
+   */
+  public int getActionIndex() {
+    return actionIndex;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @return This method returns {@link LexerActionType#CUSTOM}.
-	 */
-	@Override
-	public LexerActionType getActionType() {
-		return LexerActionType.CUSTOM;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@link LexerActionType#CUSTOM}.
+   */
+  @Override
+  public LexerActionType getActionType() {
+    return LexerActionType.CUSTOM;
+  }
 
-	/**
-	 * Gets whether the lexer action is position-dependent. Position-dependent
-	 * actions may have different semantics depending on the {@link CharStream}
-	 * index at the time the action is executed.
-	 *
-	 * <p>Custom actions are position-dependent since they may represent a
-	 * user-defined embedded action which makes calls to methods like
-	 * {@link Lexer#getText}.</p>
-	 *
-	 * @return This method returns {@code true}.
-	 */
-	@Override
-	public boolean isPositionDependent() {
-		return true;
-	}
+  /**
+   * Gets whether the lexer action is position-dependent. Position-dependent
+   * actions may have different semantics depending on the {@link CharStream}
+   * index at the time the action is executed.
+   *
+   * <p>Custom actions are position-dependent since they may represent a
+   * user-defined embedded action which makes calls to methods like
+   * {@link Lexer#getText}.</p>
+   *
+   * @return This method returns {@code true}.
+   */
+  @Override
+  public boolean isPositionDependent() {
+    return true;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>Custom actions are implemented by calling {@link Lexer#action} with the
-	 * appropriate rule and action indexes.</p>
-	 */
-	@Override
-	public void execute(@NotNull Lexer lexer) {
-		lexer.action(null, ruleIndex, actionIndex);
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>Custom actions are implemented by calling {@link Lexer#action} with the
+   * appropriate rule and action indexes.</p>
+   */
+  @Override
+  public void execute(@NotNull Lexer lexer) {
+    lexer.action(null, ruleIndex, actionIndex);
+  }
 
-	@Override
-	public int hashCode() {
-		int hash = MurmurHash.initialize();
-		hash = MurmurHash.update(hash, getActionType().ordinal());
-		hash = MurmurHash.update(hash, ruleIndex);
-		hash = MurmurHash.update(hash, actionIndex);
-		return MurmurHash.finish(hash, 3);
-	}
+  @Override
+  public int hashCode() {
+    int hash = MurmurHash.initialize();
+    hash = MurmurHash.update(hash, getActionType().ordinal());
+    hash = MurmurHash.update(hash, ruleIndex);
+    hash = MurmurHash.update(hash, actionIndex);
+    return MurmurHash.finish(hash, 3);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		else if (!(obj instanceof LexerCustomAction)) {
-			return false;
-		}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    } else if (!(obj instanceof LexerCustomAction)) {
+      return false;
+    }
 
-		LexerCustomAction other = (LexerCustomAction)obj;
-		return ruleIndex == other.ruleIndex
-			&& actionIndex == other.actionIndex;
-	}
+    LexerCustomAction other = (LexerCustomAction) obj;
+    return ruleIndex == other.ruleIndex
+      && actionIndex == other.actionIndex;
+  }
 }

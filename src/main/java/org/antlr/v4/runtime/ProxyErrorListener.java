@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -18,30 +22,29 @@ import java.util.Collection;
  * @author Sam Harwell
  */
 public class ProxyErrorListener<Symbol> implements ANTLRErrorListener<Symbol> {
-	private final Collection<? extends ANTLRErrorListener<? super Symbol>> delegates;
+  private final Collection<? extends ANTLRErrorListener<? super Symbol>> delegates;
 
-	public ProxyErrorListener(Collection<? extends ANTLRErrorListener<? super Symbol>> delegates) {
-		if (delegates == null) {
-			throw new NullPointerException("delegates");
-		}
+  public ProxyErrorListener(Collection<? extends ANTLRErrorListener<? super Symbol>> delegates) {
+    if (delegates == null) {
+      throw new NullPointerException("delegates");
+    }
 
-		this.delegates = delegates;
-	}
+    this.delegates = delegates;
+  }
 
-	protected Collection<? extends ANTLRErrorListener<? super Symbol>> getDelegates() {
-		return delegates;
-	}
+  protected Collection<? extends ANTLRErrorListener<? super Symbol>> getDelegates() {
+    return delegates;
+  }
 
-	@Override
-	public <T extends Symbol> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
-											   @Nullable T offendingSymbol,
-											   int line,
-											   int charPositionInLine,
-											   @NotNull String msg,
-											   @Nullable RecognitionException e)
-	{
-		for (ANTLRErrorListener<? super Symbol> listener : delegates) {
-			listener.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);
-		}
-	}
+  @Override
+  public <T extends Symbol> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
+                                             @Nullable T offendingSymbol,
+                                             int line,
+                                             int charPositionInLine,
+                                             @NotNull String msg,
+                                             @Nullable RecognitionException e) {
+    for (ANTLRErrorListener<? super Symbol> listener : delegates) {
+      listener.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);
+    }
+  }
 }

@@ -1,42 +1,65 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.tool.ast;
 
 import org.antlr.runtime.Token;
 import org.antlr.v4.analysis.LeftRecursiveRuleAltInfo;
 import org.antlr.v4.tool.Alternative;
 
-/** Any ALT (which can be child of ALT_REWRITE node) */
+/**
+ * Any ALT (which can be child of ALT_REWRITE node)
+ */
 public class AltAST extends GrammarASTWithOptions {
-	public Alternative alt;
+  public Alternative alt;
 
-	/** If we transformed this alt from a left-recursive one, need info on it */
-	public LeftRecursiveRuleAltInfo leftRecursiveAltInfo;
+  /**
+   * If we transformed this alt from a left-recursive one, need info on it
+   */
+  public LeftRecursiveRuleAltInfo leftRecursiveAltInfo;
 
-	/** If someone specified an outermost alternative label with #foo.
-	 *  Token type will be ID.
-	 */
-	public GrammarAST altLabel;
+  /**
+   * If someone specified an outermost alternative label with #foo.
+   * Token type will be ID.
+   */
+  public GrammarAST altLabel;
 
-	public AltAST(AltAST node) {
-		super(node);
-		this.alt = node.alt;
-		this.altLabel = node.altLabel;
-		this.leftRecursiveAltInfo = node.leftRecursiveAltInfo;
-	}
+  public AltAST(AltAST node) {
+    super(node);
+    this.alt = node.alt;
+    this.altLabel = node.altLabel;
+    this.leftRecursiveAltInfo = node.leftRecursiveAltInfo;
+  }
 
-	public AltAST(Token t) { super(t); }
-	public AltAST(int type) { super(type); }
-	public AltAST(int type, Token t) { super(type, t); }
-	public AltAST(int type, Token t, String text) { super(type,t,text); }
+  public AltAST(Token t) {
+    super(t);
+  }
 
-	@Override
-	public AltAST dupNode() { return new AltAST(this); }
+  public AltAST(int type) {
+    super(type);
+  }
 
-	@Override
-	public Object visit(GrammarASTVisitor v) { return v.visit(this); }
+  public AltAST(int type, Token t) {
+    super(type, t);
+  }
+
+  public AltAST(int type, Token t, String text) {
+    super(type, t, text);
+  }
+
+  @Override
+  public AltAST dupNode() {
+    return new AltAST(this);
+  }
+
+  @Override
+  public Object visit(GrammarASTVisitor v) {
+    return v.visit(this);
+  }
 }

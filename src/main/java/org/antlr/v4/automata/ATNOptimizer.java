@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.automata;
 
 import org.antlr.v4.misc.CharSupport;
@@ -28,148 +31,144 @@ import org.antlr.v4.tool.Rule;
 import java.util.List;
 
 /**
- *
  * @author Sam Harwell
  */
 public class ATNOptimizer {
 
-	public static void optimize(@NotNull Grammar g, @NotNull ATN atn) {
-		optimizeSets(g, atn);
-		optimizeStates(atn);
-	}
+  public static void optimize(@NotNull Grammar g, @NotNull ATN atn) {
+    optimizeSets(g, atn);
+    optimizeStates(atn);
+  }
 
-	private static void optimizeSets(Grammar g, ATN atn) {
-		if (g.isParser()) {
-			// parser codegen doesn't currently support SetTransition
-			return;
-		}
+  private static void optimizeSets(Grammar g, ATN atn) {
+    if (g.isParser()) {
+      // parser codegen doesn't currently support SetTransition
+      return;
+    }
 
-		int removedStates = 0;
-		List<DecisionState> decisions = atn.decisionToState;
-		for (DecisionState decision : decisions) {
-			if (decision.ruleIndex >= 0) {
-				Rule rule = g.getRule(decision.ruleIndex);
-				if (Character.isLowerCase(rule.name.charAt(0))) {
-					// parser codegen doesn't currently support SetTransition
-					continue;
-				}
-			}
+    int removedStates = 0;
+    List<DecisionState> decisions = atn.decisionToState;
+    for (DecisionState decision : decisions) {
+      if (decision.ruleIndex >= 0) {
+        Rule rule = g.getRule(decision.ruleIndex);
+        if (Character.isLowerCase(rule.name.charAt(0))) {
+          // parser codegen doesn't currently support SetTransition
+          continue;
+        }
+      }
 
-			IntervalSet setTransitions = new IntervalSet();
-			for (int i = 0; i < decision.getNumberOfTransitions(); i++) {
-				Transition epsTransition = decision.transition(i);
-				if (!(epsTransition instanceof EpsilonTransition)) {
-					continue;
-				}
+      IntervalSet setTransitions = new IntervalSet();
+      for (int i = 0; i < decision.getNumberOfTransitions(); i++) {
+        Transition epsTransition = decision.transition(i);
+        if (!(epsTransition instanceof EpsilonTransition)) {
+          continue;
+        }
 
-				if (epsTransition.target.getNumberOfTransitions() != 1) {
-					continue;
-				}
+        if (epsTransition.target.getNumberOfTransitions() != 1) {
+          continue;
+        }
 
-				Transition transition = epsTransition.target.transition(0);
-				if (!(transition.target instanceof BlockEndState)) {
-					continue;
-				}
+        Transition transition = epsTransition.target.transition(0);
+        if (!(transition.target instanceof BlockEndState)) {
+          continue;
+        }
 
-				if (transition instanceof NotSetTransition) {
-					// TODO: not yet implemented
-					continue;
-				}
+        if (transition instanceof NotSetTransition) {
+          // TODO: not yet implemented
+          continue;
+        }
 
-				if (transition instanceof AtomTransition
-					|| transition instanceof RangeTransition
-					|| transition instanceof SetTransition)
-				{
-					setTransitions.add(i);
-				}
-			}
+        if (transition instanceof AtomTransition
+          || transition instanceof RangeTransition
+          || transition instanceof SetTransition) {
+          setTransitions.add(i);
+        }
+      }
 
-			// due to min alt resolution policies, can only collapse sequential alts
-			for (int i = setTransitions.getIntervals().size() - 1; i >= 0; i--) {
-				Interval interval = setTransitions.getIntervals().get(i);
-				if (interval.length() <= 1) {
-					continue;
-				}
+      // due to min alt resolution policies, can only collapse sequential alts
+      for (int i = setTransitions.getIntervals().size() - 1; i >= 0; i--) {
+        Interval interval = setTransitions.getIntervals().get(i);
+        if (interval.length() <= 1) {
+          continue;
+        }
 
-				ATNState blockEndState = decision.transition(interval.a).target.transition(0).target;
-				IntervalSet matchSet = new IntervalSet();
-				for (int j = interval.a; j <= interval.b; j++) {
-					Transition matchTransition = decision.transition(j).target.transition(0);
-					if (matchTransition instanceof NotSetTransition) {
-						throw new UnsupportedOperationException("Not yet implemented.");
-					}
-					IntervalSet set =  matchTransition.label();
-					List<Interval> intervals = set.getIntervals();
-					int n = intervals.size();
-					for (Interval setInterval : intervals) {
-						int a = setInterval.a;
-						int b = setInterval.b;
-						if (a != -1 && b != -1) {
-							for (int v = a; v <= b; v++) {
-								if (matchSet.contains(v)) {
-									// TODO: Token is missing (i.e. position in source is not displayed).
-									g.tool.errMgr.grammarError(ErrorType.CHARACTERS_COLLISION_IN_SET, g.fileName,
-										null,
-										CharSupport.getANTLRCharLiteralForChar(v),
-										CharSupport.getIntervalSetEscapedString(matchSet));
-									break;
-								}
-							}
-						}
-					}
-					matchSet.addAll(set);
-				}
+        ATNState blockEndState = decision.transition(interval.a).target.transition(0).target;
+        IntervalSet matchSet = new IntervalSet();
+        for (int j = interval.a; j <= interval.b; j++) {
+          Transition matchTransition = decision.transition(j).target.transition(0);
+          if (matchTransition instanceof NotSetTransition) {
+            throw new UnsupportedOperationException("Not yet implemented.");
+          }
+          IntervalSet set = matchTransition.label();
+          List<Interval> intervals = set.getIntervals();
+          int n = intervals.size();
+          for (Interval setInterval : intervals) {
+            int a = setInterval.a;
+            int b = setInterval.b;
+            if (a != -1 && b != -1) {
+              for (int v = a; v <= b; v++) {
+                if (matchSet.contains(v)) {
+                  // TODO: Token is missing (i.e. position in source is not displayed).
+                  g.tool.errMgr.grammarError(ErrorType.CHARACTERS_COLLISION_IN_SET, g.fileName,
+                    null,
+                    CharSupport.getANTLRCharLiteralForChar(v),
+                    CharSupport.getIntervalSetEscapedString(matchSet));
+                  break;
+                }
+              }
+            }
+          }
+          matchSet.addAll(set);
+        }
 
-				Transition newTransition;
-				if (matchSet.getIntervals().size() == 1) {
-					if (matchSet.size() == 1) {
-						newTransition = CodePointTransitions.createWithCodePoint(blockEndState, matchSet.getMinElement());
-					}
-					else {
-						Interval matchInterval = matchSet.getIntervals().get(0);
-						newTransition = CodePointTransitions.createWithCodePointRange(blockEndState, matchInterval.a, matchInterval.b);
-					}
-				}
-				else {
-					newTransition = new SetTransition(blockEndState, matchSet);
-				}
+        Transition newTransition;
+        if (matchSet.getIntervals().size() == 1) {
+          if (matchSet.size() == 1) {
+            newTransition = CodePointTransitions.createWithCodePoint(blockEndState, matchSet.getMinElement());
+          } else {
+            Interval matchInterval = matchSet.getIntervals().get(0);
+            newTransition = CodePointTransitions.createWithCodePointRange(blockEndState, matchInterval.a, matchInterval.b);
+          }
+        } else {
+          newTransition = new SetTransition(blockEndState, matchSet);
+        }
 
-				decision.transition(interval.a).target.setTransition(0, newTransition);
-				for (int j = interval.a + 1; j <= interval.b; j++) {
-					Transition removed = decision.removeTransition(interval.a + 1);
-					atn.removeState(removed.target);
-					removedStates++;
-				}
-			}
-		}
+        decision.transition(interval.a).target.setTransition(0, newTransition);
+        for (int j = interval.a + 1; j <= interval.b; j++) {
+          Transition removed = decision.removeTransition(interval.a + 1);
+          atn.removeState(removed.target);
+          removedStates++;
+        }
+      }
+    }
 
 //		System.out.println("ATN optimizer removed " + removedStates + " states by collapsing sets.");
-	}
+  }
 
-	private static void optimizeStates(ATN atn) {
-		List<ATNState> states = atn.states;
+  private static void optimizeStates(ATN atn) {
+    List<ATNState> states = atn.states;
 
-		int current = 0;
-		for (int i = 0; i < states.size(); i++) {
-			ATNState state = states.get(i);
-			if (state == null) {
-				continue;
-			}
+    int current = 0;
+    for (int i = 0; i < states.size(); i++) {
+      ATNState state = states.get(i);
+      if (state == null) {
+        continue;
+      }
 
-			if (i != current) {
-				state.stateNumber = current;
-				states.set(current, state);
-				states.set(i, null);
-			}
+      if (i != current) {
+        state.stateNumber = current;
+        states.set(current, state);
+        states.set(i, null);
+      }
 
-			current++;
-		}
+      current++;
+    }
 
 //		System.out.println("ATN optimizer removed " + (states.size() - current) + " null states.");
-		states.subList(current, states.size()).clear();
-	}
+    states.subList(current, states.size()).clear();
+  }
 
-	private ATNOptimizer() {
-	}
+  private ATNOptimizer() {
+  }
 
 }

@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.tree.xpath;
 
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -15,17 +18,17 @@ import java.util.Collection;
 import java.util.List;
 
 public class XPathWildcardElement extends XPathElement {
-	public XPathWildcardElement() {
-		super(XPath.WILDCARD);
-	}
+  public XPathWildcardElement() {
+    super(XPath.WILDCARD);
+  }
 
-	@Override
-	public Collection<ParseTree> evaluate(final ParseTree t) {
-		if ( invert ) return new ArrayList<ParseTree>(); // !* is weird but valid (empty)
-		List<ParseTree> kids = new ArrayList<ParseTree>();
-		for (Tree c : Trees.getChildren(t)) {
-			kids.add((ParseTree)c);
-		}
-		return kids;
-	}
+  @Override
+  public Collection<ParseTree> evaluate(final ParseTree t) {
+    if (invert) return new ArrayList<ParseTree>(); // !* is weird but valid (empty)
+    List<ParseTree> kids = new ArrayList<ParseTree>();
+    for (Tree c : Trees.getChildren(t)) {
+      kids.add((ParseTree) c);
+    }
+    return kids;
+  }
 }

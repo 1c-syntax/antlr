@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -19,26 +23,25 @@ import java.io.IOException;
  */
 @Deprecated
 public class ANTLRFileStream extends ANTLRInputStream {
-	protected String fileName;
+  protected String fileName;
 
-	public ANTLRFileStream(@NotNull String fileName) throws IOException {
-		this(fileName, null);
-	}
+  public ANTLRFileStream(@NotNull String fileName) throws IOException {
+    this(fileName, null);
+  }
 
-	public ANTLRFileStream(@NotNull String fileName, String encoding) throws IOException {
-		this.fileName = fileName;
-		load(fileName, encoding);
-	}
+  public ANTLRFileStream(@NotNull String fileName, String encoding) throws IOException {
+    this.fileName = fileName;
+    load(fileName, encoding);
+  }
 
-	public void load(@NotNull String fileName, @Nullable String encoding)
-		throws IOException
-	{
-		data = Utils.readFile(fileName, encoding);
-		this.n = data.length;
-	}
+  public void load(@NotNull String fileName, @Nullable String encoding)
+    throws IOException {
+    data = Utils.readFile(fileName, encoding);
+    this.n = data.length;
+  }
 
-	@Override
-	public String getSourceName() {
-		return fileName;
-	}
+  @Override
+  public String getSourceName() {
+    return fileName;
+  }
 }

@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -21,44 +25,40 @@ import java.util.BitSet;
  * @author Sam Harwell
  */
 public class BaseErrorListener implements ParserErrorListener {
-	@Override
-	public <T extends Token> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
-											  @Nullable T offendingSymbol,
-											  int line,
-											  int charPositionInLine,
-											  @NotNull String msg,
-											  @Nullable RecognitionException e)
-	{
-	}
+  @Override
+  public <T extends Token> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
+                                            @Nullable T offendingSymbol,
+                                            int line,
+                                            int charPositionInLine,
+                                            @NotNull String msg,
+                                            @Nullable RecognitionException e) {
+  }
 
-	@Override
-	public void reportAmbiguity(@NotNull Parser recognizer,
-								@NotNull DFA dfa,
-								int startIndex,
-								int stopIndex,
-								boolean exact,
-								@Nullable BitSet ambigAlts,
-								@NotNull ATNConfigSet configs)
-	{
-	}
+  @Override
+  public void reportAmbiguity(@NotNull Parser recognizer,
+                              @NotNull DFA dfa,
+                              int startIndex,
+                              int stopIndex,
+                              boolean exact,
+                              @Nullable BitSet ambigAlts,
+                              @NotNull ATNConfigSet configs) {
+  }
 
-	@Override
-	public void reportAttemptingFullContext(@NotNull Parser recognizer,
-											@NotNull DFA dfa,
-											int startIndex,
-											int stopIndex,
-											@Nullable BitSet conflictingAlts,
-											@NotNull SimulatorState conflictState)
-	{
-	}
+  @Override
+  public void reportAttemptingFullContext(@NotNull Parser recognizer,
+                                          @NotNull DFA dfa,
+                                          int startIndex,
+                                          int stopIndex,
+                                          @Nullable BitSet conflictingAlts,
+                                          @NotNull SimulatorState conflictState) {
+  }
 
-	@Override
-	public void reportContextSensitivity(@NotNull Parser recognizer,
-										 @NotNull DFA dfa,
-										 int startIndex,
-										 int stopIndex,
-										 int prediction,
-										 @NotNull SimulatorState acceptState)
-	{
-	}
+  @Override
+  public void reportContextSensitivity(@NotNull Parser recognizer,
+                                       @NotNull DFA dfa,
+                                       int startIndex,
+                                       int stopIndex,
+                                       int prediction,
+                                       @NotNull SimulatorState acceptState) {
+  }
 }

@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
@@ -37,36 +40,40 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
  * @see Parser#setErrorHandler(ANTLRErrorStrategy)
  */
 public class BailErrorStrategy extends DefaultErrorStrategy {
-    /** Instead of recovering from exception {@code e}, re-throw it wrapped
-     *  in a {@link ParseCancellationException} so it is not caught by the
-     *  rule function catches.  Use {@link Exception#getCause()} to get the
-	 *  original {@link RecognitionException}.
-     */
-    @Override
-    public void recover(Parser recognizer, RecognitionException e) {
-		for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
-			context.exception = e;
-		}
-
-        throw new ParseCancellationException(e);
+  /**
+   * Instead of recovering from exception {@code e}, re-throw it wrapped
+   * in a {@link ParseCancellationException} so it is not caught by the
+   * rule function catches.  Use {@link Exception#getCause()} to get the
+   * original {@link RecognitionException}.
+   */
+  @Override
+  public void recover(Parser recognizer, RecognitionException e) {
+    for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
+      context.exception = e;
     }
 
-    /** Make sure we don't attempt to recover inline; if the parser
-     *  successfully recovers, it won't throw an exception.
-     */
-    @Override
-    public Token recoverInline(Parser recognizer)
-        throws RecognitionException
-    {
-		InputMismatchException e = new InputMismatchException(recognizer);
-		for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
-			context.exception = e;
-		}
+    throw new ParseCancellationException(e);
+  }
 
-        throw new ParseCancellationException(e);
+  /**
+   * Make sure we don't attempt to recover inline; if the parser
+   * successfully recovers, it won't throw an exception.
+   */
+  @Override
+  public Token recoverInline(Parser recognizer)
+    throws RecognitionException {
+    InputMismatchException e = new InputMismatchException(recognizer);
+    for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
+      context.exception = e;
     }
 
-    /** Make sure we don't attempt to recover from problems in subrules. */
-    @Override
-    public void sync(Parser recognizer) { }
+    throw new ParseCancellationException(e);
+  }
+
+  /**
+   * Make sure we don't attempt to recover from problems in subrules.
+   */
+  @Override
+  public void sync(Parser recognizer) {
+  }
 }

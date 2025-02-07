@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -15,21 +19,21 @@ package org.antlr.v4.runtime.misc;
  */
 public interface EqualityComparator<T> {
 
-	/**
-	 * This method returns a hash code for the specified object.
-	 *
-	 * @param obj The object.
-	 * @return The hash code for {@code obj}.
-	 */
-	int hashCode(T obj);
+  /**
+   * This method returns a hash code for the specified object.
+   *
+   * @param obj The object.
+   * @return The hash code for {@code obj}.
+   */
+  int hashCode(T obj);
 
-	/**
-	 * This method tests if two objects are equal.
-	 *
-	 * @param a The first object to compare.
-	 * @param b The second object to compare.
-	 * @return {@code true} if {@code a} equals {@code b}, otherwise {@code false}.
-	 */
-	boolean equals(T a, T b);
+  /**
+   * This method tests if two objects are equal.
+   *
+   * @param a The first object to compare.
+   * @param b The second object to compare.
+   * @return {@code true} if {@code a} equals {@code b}, otherwise {@code false}.
+   */
+  boolean equals(T a, T b);
 
 }

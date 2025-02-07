@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.tool;
 
 import org.antlr.v4.runtime.atn.ATNSimulator;
@@ -25,333 +28,356 @@ import java.util.Map;
 import java.util.Set;
 
 public class Rule implements AttributeResolver {
-	/** Rule refs have a predefined set of attributes as well as
-     *  the return values and args.
-     *
-     *  These must be consistent with ActionTranslator.rulePropToModelMap, ...
-     */
-	public static final AttributeDict predefinedRulePropertiesDict =
-		new AttributeDict(AttributeDict.DictType.PREDEFINED_RULE);
-	static {
-		predefinedRulePropertiesDict.add(new Attribute("parser"));
-		predefinedRulePropertiesDict.add(new Attribute("text"));
-		predefinedRulePropertiesDict.add(new Attribute("start"));
-		predefinedRulePropertiesDict.add(new Attribute("stop"));
-		predefinedRulePropertiesDict.add(new Attribute("ctx"));
-	}
+  /**
+   * Rule refs have a predefined set of attributes as well as
+   * the return values and args.
+   * <p>
+   * These must be consistent with ActionTranslator.rulePropToModelMap, ...
+   */
+  public static final AttributeDict predefinedRulePropertiesDict =
+    new AttributeDict(AttributeDict.DictType.PREDEFINED_RULE);
 
-	public static final Set<String> validLexerCommands = new HashSet<String>();
-	static {
-		// CALLS
-		validLexerCommands.add("mode");
-		validLexerCommands.add("pushMode");
-		validLexerCommands.add("type");
-		validLexerCommands.add("channel");
+  static {
+    predefinedRulePropertiesDict.add(new Attribute("parser"));
+    predefinedRulePropertiesDict.add(new Attribute("text"));
+    predefinedRulePropertiesDict.add(new Attribute("start"));
+    predefinedRulePropertiesDict.add(new Attribute("stop"));
+    predefinedRulePropertiesDict.add(new Attribute("ctx"));
+  }
 
-		// ACTIONS
-		validLexerCommands.add("popMode");
-		validLexerCommands.add("skip");
-		validLexerCommands.add("more");
-	}
+  public static final Set<String> validLexerCommands = new HashSet<String>();
 
-	public String name;
-	private String baseContext;
-	public List<GrammarAST> modifiers;
+  static {
+    // CALLS
+    validLexerCommands.add("mode");
+    validLexerCommands.add("pushMode");
+    validLexerCommands.add("type");
+    validLexerCommands.add("channel");
 
-	public RuleAST ast;
-	public AttributeDict args;
-	public AttributeDict retvals;
-	public AttributeDict locals;
+    // ACTIONS
+    validLexerCommands.add("popMode");
+    validLexerCommands.add("skip");
+    validLexerCommands.add("more");
+  }
 
-	/** In which grammar does this rule live? */
-	public Grammar g;
+  public String name;
+  private String baseContext;
+  public List<GrammarAST> modifiers;
 
-	/** If we're in a lexer grammar, we might be in a mode */
-	public String mode;
+  public RuleAST ast;
+  public AttributeDict args;
+  public AttributeDict retvals;
+  public AttributeDict locals;
 
-    /** Map a name to an action for this rule like @init {...}.
-     *  The code generator will use this to fill holes in the rule template.
-     *  I track the AST node for the action in case I need the line number
-     *  for errors.
-     */
-    public Map<String, ActionAST> namedActions =
-        new HashMap<String, ActionAST>();
+  /**
+   * In which grammar does this rule live?
+   */
+  public Grammar g;
 
-    /** Track exception handlers; points at "catch" node of (catch exception action)
-	 *  don't track finally action
-	 */
-    public List<GrammarAST> exceptions = new ArrayList<GrammarAST>();
+  /**
+   * If we're in a lexer grammar, we might be in a mode
+   */
+  public String mode;
 
-	/** Track all executable actions other than named actions like @init
-	 *  and catch/finally (not in an alt). Also tracks predicates, rewrite actions.
-	 *  We need to examine these actions before code generation so
-	 *  that we can detect refs to $rule.attr etc...
-	 *
-	 *  This tracks per rule; Alternative objs also track per alt.
-	 */
-	public List<ActionAST> actions = new ArrayList<ActionAST>();
+  /**
+   * Map a name to an action for this rule like @init {...}.
+   * The code generator will use this to fill holes in the rule template.
+   * I track the AST node for the action in case I need the line number
+   * for errors.
+   */
+  public Map<String, ActionAST> namedActions =
+    new HashMap<String, ActionAST>();
 
-	public ActionAST finallyAction;
+  /**
+   * Track exception handlers; points at "catch" node of (catch exception action)
+   * don't track finally action
+   */
+  public List<GrammarAST> exceptions = new ArrayList<GrammarAST>();
 
-	public int numberOfAlts;
+  /**
+   * Track all executable actions other than named actions like @init
+   * and catch/finally (not in an alt). Also tracks predicates, rewrite actions.
+   * We need to examine these actions before code generation so
+   * that we can detect refs to $rule.attr etc...
+   * <p>
+   * This tracks per rule; Alternative objs also track per alt.
+   */
+  public List<ActionAST> actions = new ArrayList<ActionAST>();
 
-	public boolean isStartRule = true; // nobody calls us
+  public ActionAST finallyAction;
 
-	/** 1..n alts */
-	public Alternative[] alt;
+  public int numberOfAlts;
 
-	/** All rules have unique index 0..n-1 */
-	public int index;
+  public boolean isStartRule = true; // nobody calls us
 
-	public int actionIndex = -1; // if lexer; 0..n-1 for n actions in a rule
+  /**
+   * 1..n alts
+   */
+  public Alternative[] alt;
 
-	public Rule(Grammar g, String name, RuleAST ast, int numberOfAlts) {
-		this.g = g;
-		this.name = name;
-		this.ast = ast;
-		this.numberOfAlts = numberOfAlts;
-		alt = new Alternative[numberOfAlts+1]; // 1..n
-		for (int i=1; i<=numberOfAlts; i++) alt[i] = new Alternative(this, i);
-	}
+  /**
+   * All rules have unique index 0..n-1
+   */
+  public int index;
 
-	public String getBaseContext() {
-		if (baseContext != null && !baseContext.isEmpty()) {
-			return baseContext;
-		}
+  public int actionIndex = -1; // if lexer; 0..n-1 for n actions in a rule
 
-		String optionBaseContext = ast.getOptionString("baseContext");
-		if (optionBaseContext != null && !optionBaseContext.isEmpty()) {
-			return optionBaseContext;
-		}
+  public Rule(Grammar g, String name, RuleAST ast, int numberOfAlts) {
+    this.g = g;
+    this.name = name;
+    this.ast = ast;
+    this.numberOfAlts = numberOfAlts;
+    alt = new Alternative[numberOfAlts + 1]; // 1..n
+    for (int i = 1; i <= numberOfAlts; i++) alt[i] = new Alternative(this, i);
+  }
 
-		int variantDelimiter = name.indexOf(ATNSimulator.RULE_VARIANT_DELIMITER);
-		if (variantDelimiter >= 0) {
-			return name.substring(0, variantDelimiter);
-		}
-
-		return name;
-	}
-
-	public void setBaseContext(String baseContext) {
-		this.baseContext = baseContext;
-	}
-
-	public void defineActionInAlt(int currentAlt, ActionAST actionAST) {
-		actions.add(actionAST);
-		alt[currentAlt].actions.add(actionAST);
-		if ( g.isLexer() ) {
-			defineLexerAction(actionAST);
-		}
-	}
-
-	/** Lexer actions are numbered across rules 0..n-1 */
-	public void defineLexerAction(ActionAST actionAST) {
-		actionIndex = g.lexerActions.size();
-		g.lexerActions.computeIfAbsent(actionAST, k -> actionIndex);
-	}
-
-	public void definePredicateInAlt(int currentAlt, PredAST predAST) {
-		actions.add(predAST);
-		alt[currentAlt].actions.add(predAST);
-		g.sempreds.computeIfAbsent(predAST, k -> g.sempreds.size());
-	}
-
-	public Attribute resolveRetvalOrProperty(String y) {
-		if ( retvals!=null ) {
-			Attribute a = retvals.get(y);
-			if ( a!=null ) return a;
-		}
-		AttributeDict d = getPredefinedScope(LabelType.RULE_LABEL);
-		return d.get(y);
-	}
-
-	public Set<String> getTokenRefs() {
-        Set<String> refs = new HashSet<String>();
-		for (int i=1; i<=numberOfAlts; i++) {
-			refs.addAll(alt[i].tokenRefs.keySet());
-		}
-		return refs;
+  public String getBaseContext() {
+    if (baseContext != null && !baseContext.isEmpty()) {
+      return baseContext;
     }
 
-    public Set<String> getElementLabelNames() {
-        Set<String> refs = new HashSet<String>();
-        for (int i=1; i<=numberOfAlts; i++) {
-            refs.addAll(alt[i].labelDefs.keySet());
+    String optionBaseContext = ast.getOptionString("baseContext");
+    if (optionBaseContext != null && !optionBaseContext.isEmpty()) {
+      return optionBaseContext;
+    }
+
+    int variantDelimiter = name.indexOf(ATNSimulator.RULE_VARIANT_DELIMITER);
+    if (variantDelimiter >= 0) {
+      return name.substring(0, variantDelimiter);
+    }
+
+    return name;
+  }
+
+  public void setBaseContext(String baseContext) {
+    this.baseContext = baseContext;
+  }
+
+  public void defineActionInAlt(int currentAlt, ActionAST actionAST) {
+    actions.add(actionAST);
+    alt[currentAlt].actions.add(actionAST);
+    if (g.isLexer()) {
+      defineLexerAction(actionAST);
+    }
+  }
+
+  /**
+   * Lexer actions are numbered across rules 0..n-1
+   */
+  public void defineLexerAction(ActionAST actionAST) {
+    actionIndex = g.lexerActions.size();
+    g.lexerActions.computeIfAbsent(actionAST, k -> actionIndex);
+  }
+
+  public void definePredicateInAlt(int currentAlt, PredAST predAST) {
+    actions.add(predAST);
+    alt[currentAlt].actions.add(predAST);
+    g.sempreds.computeIfAbsent(predAST, k -> g.sempreds.size());
+  }
+
+  public Attribute resolveRetvalOrProperty(String y) {
+    if (retvals != null) {
+      Attribute a = retvals.get(y);
+      if (a != null) return a;
+    }
+    AttributeDict d = getPredefinedScope(LabelType.RULE_LABEL);
+    return d.get(y);
+  }
+
+  public Set<String> getTokenRefs() {
+    Set<String> refs = new HashSet<String>();
+    for (int i = 1; i <= numberOfAlts; i++) {
+      refs.addAll(alt[i].tokenRefs.keySet());
+    }
+    return refs;
+  }
+
+  public Set<String> getElementLabelNames() {
+    Set<String> refs = new HashSet<String>();
+    for (int i = 1; i <= numberOfAlts; i++) {
+      refs.addAll(alt[i].labelDefs.keySet());
+    }
+    if (refs.isEmpty()) return null;
+    return refs;
+  }
+
+  public MultiMap<String, LabelElementPair> getElementLabelDefs() {
+    MultiMap<String, LabelElementPair> defs =
+      new MultiMap<String, LabelElementPair>();
+    for (int i = 1; i <= numberOfAlts; i++) {
+      for (List<LabelElementPair> pairs : alt[i].labelDefs.values()) {
+        for (LabelElementPair p : pairs) {
+          defs.map(p.label.getText(), p);
         }
-		if ( refs.isEmpty() ) return null;
-        return refs;
+      }
     }
+    return defs;
+  }
 
-    public MultiMap<String, LabelElementPair> getElementLabelDefs() {
-        MultiMap<String, LabelElementPair> defs =
-            new MultiMap<String, LabelElementPair>();
-        for (int i=1; i<=numberOfAlts; i++) {
-            for (List<LabelElementPair> pairs : alt[i].labelDefs.values()) {
-                for (LabelElementPair p : pairs) {
-                    defs.map(p.label.getText(), p);
-                }
-            }
+  public boolean hasAltSpecificContexts() {
+    return getAltLabels() != null;
+  }
+
+  /**
+   * Used for recursive rules (subclass), which have 1 alt, but many original alts
+   */
+  public int getOriginalNumberOfAlts() {
+    return numberOfAlts;
+  }
+
+  /**
+   * Get {@code #} labels. The keys of the map are the labels applied to outer
+   * alternatives of a lexer rule, and the values are collections of pairs
+   * (alternative number and {@link AltAST}) identifying the alternatives with
+   * this label. Unlabeled alternatives are not included in the result.
+   */
+  public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
+    Map<String, List<Tuple2<Integer, AltAST>>> labels = new LinkedHashMap<String, List<Tuple2<Integer, AltAST>>>();
+    for (int i = 1; i <= numberOfAlts; i++) {
+      GrammarAST altLabel = alt[i].ast.altLabel;
+      if (altLabel != null) {
+        List<Tuple2<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<Tuple2<Integer, AltAST>>());
+
+        list.add(Tuple.create(i, alt[i].ast));
+      }
+    }
+    if (labels.isEmpty()) return null;
+    return labels;
+  }
+
+  public List<AltAST> getUnlabeledAltASTs() {
+    List<AltAST> alts = new ArrayList<AltAST>();
+    for (int i = 1; i <= numberOfAlts; i++) {
+      GrammarAST altLabel = alt[i].ast.altLabel;
+      if (altLabel == null) alts.add(alt[i].ast);
+    }
+    if (alts.isEmpty()) return null;
+    return alts;
+  }
+
+  /**
+   * $x		Attribute: rule arguments, return values, predefined rule prop.
+   */
+  @Override
+  public Attribute resolveToAttribute(String x, ActionAST node) {
+    if (args != null) {
+      Attribute a = args.get(x);
+      if (a != null) return a;
+    }
+    if (retvals != null) {
+      Attribute a = retvals.get(x);
+      if (a != null) return a;
+    }
+    if (locals != null) {
+      Attribute a = locals.get(x);
+      if (a != null) return a;
+    }
+    AttributeDict properties = getPredefinedScope(LabelType.RULE_LABEL);
+    return properties.get(x);
+  }
+
+  /**
+   * $x.y	Attribute: x is surrounding rule, label ref (in any alts)
+   */
+  @Override
+  public Attribute resolveToAttribute(String x, String y, ActionAST node) {
+    LabelElementPair anyLabelDef = getAnyLabelDef(x);
+    if (anyLabelDef != null) {
+      if (anyLabelDef.type == LabelType.RULE_LABEL) {
+        return g.getRule(anyLabelDef.element.getText()).resolveRetvalOrProperty(y);
+      } else {
+        AttributeDict scope = getPredefinedScope(anyLabelDef.type);
+        if (scope == null) {
+          return null;
         }
-        return defs;
+
+        return scope.get(y);
+      }
+    }
+    return null;
+
+  }
+
+  @Override
+  public boolean resolvesToLabel(String x, ActionAST node) {
+    LabelElementPair anyLabelDef = getAnyLabelDef(x);
+    return anyLabelDef != null &&
+      (anyLabelDef.type == LabelType.RULE_LABEL ||
+        anyLabelDef.type == LabelType.TOKEN_LABEL);
+  }
+
+  @Override
+  public boolean resolvesToListLabel(String x, ActionAST node) {
+    LabelElementPair anyLabelDef = getAnyLabelDef(x);
+    return anyLabelDef != null &&
+      (anyLabelDef.type == LabelType.RULE_LIST_LABEL ||
+        anyLabelDef.type == LabelType.TOKEN_LIST_LABEL);
+  }
+
+  @Override
+  public boolean resolvesToToken(String x, ActionAST node) {
+    LabelElementPair anyLabelDef = getAnyLabelDef(x);
+    return anyLabelDef != null && anyLabelDef.type == LabelType.TOKEN_LABEL;
+  }
+
+  @Override
+  public boolean resolvesToAttributeDict(String x, ActionAST node) {
+    return resolvesToToken(x, node);
+  }
+
+  public Rule resolveToRule(String x) {
+    if (x.equals(this.name)) return this;
+    LabelElementPair anyLabelDef = getAnyLabelDef(x);
+    if (anyLabelDef != null && anyLabelDef.type == LabelType.RULE_LABEL) {
+      return g.getRule(anyLabelDef.element.getText());
+    }
+    return g.getRule(x);
+  }
+
+  public LabelElementPair getAnyLabelDef(String x) {
+    List<LabelElementPair> labels = getElementLabelDefs().get(x);
+    if (labels != null) return labels.get(0);
+    return null;
+  }
+
+  public AttributeDict getPredefinedScope(LabelType ltype) {
+    String grammarLabelKey = g.getTypeString() + ":" + ltype;
+    return Grammar.grammarAndLabelRefTypeToScope.get(grammarLabelKey);
+  }
+
+  public boolean isFragment() {
+    if (modifiers == null) return false;
+    for (GrammarAST a : modifiers) {
+      if (a.getText().equals("fragment")) return true;
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return name.hashCode();
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
 
-	public boolean hasAltSpecificContexts() {
-		return getAltLabels()!=null;
-	}
-
-	/** Used for recursive rules (subclass), which have 1 alt, but many original alts */
-	public int getOriginalNumberOfAlts() {
-		return numberOfAlts;
-	}
-
-	/**
-	 * Get {@code #} labels. The keys of the map are the labels applied to outer
-	 * alternatives of a lexer rule, and the values are collections of pairs
-	 * (alternative number and {@link AltAST}) identifying the alternatives with
-	 * this label. Unlabeled alternatives are not included in the result.
-	 */
-	public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
-		Map<String, List<Tuple2<Integer, AltAST>>> labels = new LinkedHashMap<String, List<Tuple2<Integer, AltAST>>>();
-		for (int i=1; i<=numberOfAlts; i++) {
-			GrammarAST altLabel = alt[i].ast.altLabel;
-			if ( altLabel!=null ) {
-				List<Tuple2<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<Tuple2<Integer, AltAST>>());
-
-				list.add(Tuple.create(i, alt[i].ast));
-			}
-		}
-		if ( labels.isEmpty() ) return null;
-		return labels;
-	}
-
-	public List<AltAST> getUnlabeledAltASTs() {
-		List<AltAST> alts = new ArrayList<AltAST>();
-		for (int i=1; i<=numberOfAlts; i++) {
-			GrammarAST altLabel = alt[i].ast.altLabel;
-			if ( altLabel==null ) alts.add(alt[i].ast);
-		}
-		if ( alts.isEmpty() ) return null;
-		return alts;
-	}
-
-	/**  $x		Attribute: rule arguments, return values, predefined rule prop.
-	 */
-	@Override
-	public Attribute resolveToAttribute(String x, ActionAST node) {
-		if ( args!=null ) {
-			Attribute a = args.get(x);   	if ( a!=null ) return a;
-		}
-		if ( retvals!=null ) {
-			Attribute a = retvals.get(x);	if ( a!=null ) return a;
-		}
-		if ( locals!=null ) {
-			Attribute a = locals.get(x);	if ( a!=null ) return a;
-		}
-		AttributeDict properties = getPredefinedScope(LabelType.RULE_LABEL);
-		return properties.get(x);
-	}
-
-	/** $x.y	Attribute: x is surrounding rule, label ref (in any alts) */
-	@Override
-	public Attribute resolveToAttribute(String x, String y, ActionAST node) {
-		LabelElementPair anyLabelDef = getAnyLabelDef(x);
-		if ( anyLabelDef!=null ) {
-			if ( anyLabelDef.type==LabelType.RULE_LABEL ) {
-				return g.getRule(anyLabelDef.element.getText()).resolveRetvalOrProperty(y);
-			}
-			else {
-				AttributeDict scope = getPredefinedScope(anyLabelDef.type);
-				if (scope == null) {
-					return null;
-				}
-
-				return scope.get(y);
-			}
-		}
-		return null;
-
-	}
-
-	@Override
-	public boolean resolvesToLabel(String x, ActionAST node) {
-		LabelElementPair anyLabelDef = getAnyLabelDef(x);
-		return anyLabelDef!=null &&
-			   (anyLabelDef.type==LabelType.RULE_LABEL ||
-				anyLabelDef.type==LabelType.TOKEN_LABEL);
-	}
-
-	@Override
-	public boolean resolvesToListLabel(String x, ActionAST node) {
-		LabelElementPair anyLabelDef = getAnyLabelDef(x);
-		return anyLabelDef!=null &&
-			   (anyLabelDef.type==LabelType.RULE_LIST_LABEL ||
-				anyLabelDef.type==LabelType.TOKEN_LIST_LABEL);
-	}
-
-	@Override
-	public boolean resolvesToToken(String x, ActionAST node) {
-		LabelElementPair anyLabelDef = getAnyLabelDef(x);
-		if ( anyLabelDef!=null && anyLabelDef.type==LabelType.TOKEN_LABEL ) return true;
-		return false;
-	}
-
-	@Override
-	public boolean resolvesToAttributeDict(String x, ActionAST node) {
-		if ( resolvesToToken(x, node) ) return true;
-		return false;
-	}
-
-	public Rule resolveToRule(String x) {
-		if ( x.equals(this.name) ) return this;
-		LabelElementPair anyLabelDef = getAnyLabelDef(x);
-		if ( anyLabelDef!=null && anyLabelDef.type==LabelType.RULE_LABEL ) {
-			return g.getRule(anyLabelDef.element.getText());
-		}
-		return g.getRule(x);
-	}
-
-	public LabelElementPair getAnyLabelDef(String x) {
-		List<LabelElementPair> labels = getElementLabelDefs().get(x);
-		if ( labels!=null ) return labels.get(0);
-		return null;
-	}
-
-    public AttributeDict getPredefinedScope(LabelType ltype) {
-        String grammarLabelKey = g.getTypeString() + ":" + ltype;
-        return Grammar.grammarAndLabelRefTypeToScope.get(grammarLabelKey);
+    if (!(obj instanceof Rule)) {
+      return false;
     }
 
-	public boolean isFragment() {
-		if ( modifiers==null ) return false;
-		for (GrammarAST a : modifiers) {
-			if ( a.getText().equals("fragment") ) return true;
-		}
-		return false;
-	}
+    return name.equals(((Rule) obj).name);
+  }
 
-	@Override
-	public int hashCode() { return name.hashCode(); }
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-
-		if (!(obj instanceof Rule)) {
-			return false;
-		}
-
-		return name.equals(((Rule)obj).name);
-	}
-
-	@Override
-    public String toString() {
-		StringBuilder buf = new StringBuilder();
-		buf.append("Rule{name=").append(name);
-		if ( args!=null ) buf.append(", args=").append(args);
-		if ( retvals!=null ) buf.append(", retvals=").append(retvals);
-		buf.append("}");
-		return buf.toString();
-    }
+  @Override
+  public String toString() {
+    StringBuilder buf = new StringBuilder();
+    buf.append("Rule{name=").append(name);
+    if (args != null) buf.append(", args=").append(args);
+    if (retvals != null) buf.append(", retvals=").append(retvals);
+    buf.append("}");
+    return buf.toString();
+  }
 }

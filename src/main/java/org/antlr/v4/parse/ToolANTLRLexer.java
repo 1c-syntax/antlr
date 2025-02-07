@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.parse;
 
 import org.antlr.runtime.CharStream;
@@ -13,21 +16,21 @@ import org.antlr.v4.Tool;
 import org.antlr.v4.tool.ErrorType;
 
 public class ToolANTLRLexer extends ANTLRLexer {
-	public Tool tool;
+  public Tool tool;
 
-	public ToolANTLRLexer(CharStream input, Tool tool) {
-		super(input);
-		this.tool = tool;
-	}
+  public ToolANTLRLexer(CharStream input, Tool tool) {
+    super(input);
+    this.tool = tool;
+  }
 
-	@Override
-	public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
-		String msg = getErrorMessage(e, tokenNames);
-		tool.errMgr.syntaxError(ErrorType.SYNTAX_ERROR, getSourceName(), e.token, e, msg);
-	}
+  @Override
+  public void displayRecognitionError(String[] tokenNames, RecognitionException e) {
+    String msg = getErrorMessage(e, tokenNames);
+    tool.errMgr.syntaxError(ErrorType.SYNTAX_ERROR, getSourceName(), e.token, e, msg);
+  }
 
-	@Override
-	public void grammarError(ErrorType etype, Token token, Object... args) {
-		tool.errMgr.grammarError(etype, getSourceName(), token, args);
-	}
+  @Override
+  public void grammarError(ErrorType etype, Token token, Object... args) {
+    tool.errMgr.grammarError(etype, getSourceName(), token, args);
+  }
 }

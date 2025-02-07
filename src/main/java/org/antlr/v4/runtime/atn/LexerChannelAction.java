@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.Lexer;
@@ -19,76 +22,78 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @since 4.2
  */
 public final class LexerChannelAction implements LexerAction {
-	private final int channel;
+  private final int channel;
 
-	/**
-	 * Constructs a new {@code channel} action with the specified channel value.
-	 * @param channel The channel value to pass to {@link Lexer#setChannel}.
-	 */
-	public LexerChannelAction(int channel) {
-		this.channel = channel;
-	}
+  /**
+   * Constructs a new {@code channel} action with the specified channel value.
+   *
+   * @param channel The channel value to pass to {@link Lexer#setChannel}.
+   */
+  public LexerChannelAction(int channel) {
+    this.channel = channel;
+  }
 
-	/**
-	 * Gets the channel to use for the {@link Token} created by the lexer.
-	 *
-	 * @return The channel to use for the {@link Token} created by the lexer.
-	 */
-	public int getChannel() {
-		return channel;
-	}
+  /**
+   * Gets the channel to use for the {@link Token} created by the lexer.
+   *
+   * @return The channel to use for the {@link Token} created by the lexer.
+   */
+  public int getChannel() {
+    return channel;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@link LexerActionType#CHANNEL}.
-	 */
-	@Override
-	public LexerActionType getActionType() {
-		return LexerActionType.CHANNEL;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@link LexerActionType#CHANNEL}.
+   */
+  @Override
+  public LexerActionType getActionType() {
+    return LexerActionType.CHANNEL;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@code false}.
-	 */
-	@Override
-	public boolean isPositionDependent() {
-		return false;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@code false}.
+   */
+  @Override
+  public boolean isPositionDependent() {
+    return false;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>This action is implemented by calling {@link Lexer#setChannel} with the
-	 * value provided by {@link #getChannel}.</p>
-	 */
-	@Override
-	public void execute(@NotNull Lexer lexer) {
-		lexer.setChannel(channel);
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This action is implemented by calling {@link Lexer#setChannel} with the
+   * value provided by {@link #getChannel}.</p>
+   */
+  @Override
+  public void execute(@NotNull Lexer lexer) {
+    lexer.setChannel(channel);
+  }
 
-	@Override
-	public int hashCode() {
-		int hash = MurmurHash.initialize();
-		hash = MurmurHash.update(hash, getActionType().ordinal());
-		hash = MurmurHash.update(hash, channel);
-		return MurmurHash.finish(hash, 2);
-	}
+  @Override
+  public int hashCode() {
+    int hash = MurmurHash.initialize();
+    hash = MurmurHash.update(hash, getActionType().ordinal());
+    hash = MurmurHash.update(hash, channel);
+    return MurmurHash.finish(hash, 2);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		else if (!(obj instanceof LexerChannelAction)) {
-			return false;
-		}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    } else if (!(obj instanceof LexerChannelAction)) {
+      return false;
+    }
 
-		return channel == ((LexerChannelAction)obj).channel;
-	}
+    return channel == ((LexerChannelAction) obj).channel;
+  }
 
-	@Override
-	public String toString() {
-		return String.format("channel(%d)", channel);
-	}
+  @Override
+  public String toString() {
+    return String.format("channel(%d)", channel);
+  }
 }

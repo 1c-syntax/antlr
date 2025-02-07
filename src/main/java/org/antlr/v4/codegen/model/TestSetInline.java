@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.codegen.model;
 
 import org.antlr.v4.codegen.OutputModelFactory;
@@ -13,48 +16,49 @@ import org.antlr.v4.tool.ast.GrammarAST;
 import java.util.ArrayList;
 import java.util.List;
 
-/** */
+/**
+ *
+ */
 public class TestSetInline extends SrcOp {
-	public int bitsetWordSize;
-	public String varName;
-	public Bitset[] bitsets;
+  public int bitsetWordSize;
+  public String varName;
+  public Bitset[] bitsets;
 
-	public TestSetInline(OutputModelFactory factory, GrammarAST ast, IntervalSet set, int wordSize) {
-		super(factory, ast);
-		bitsetWordSize = wordSize;
-		Bitset[] withZeroOffset = createBitsets(factory, set, wordSize, true);
-		Bitset[] withoutZeroOffset = createBitsets(factory, set, wordSize, false);
-		this.bitsets = withZeroOffset.length <= withoutZeroOffset.length ? withZeroOffset : withoutZeroOffset;
-		this.varName = "_la";
-	}
+  public TestSetInline(OutputModelFactory factory, GrammarAST ast, IntervalSet set, int wordSize) {
+    super(factory, ast);
+    bitsetWordSize = wordSize;
+    Bitset[] withZeroOffset = createBitsets(factory, set, wordSize, true);
+    Bitset[] withoutZeroOffset = createBitsets(factory, set, wordSize, false);
+    this.bitsets = withZeroOffset.length <= withoutZeroOffset.length ? withZeroOffset : withoutZeroOffset;
+    this.varName = "_la";
+  }
 
-	private static Bitset[] createBitsets(OutputModelFactory factory,
-										  IntervalSet set,
-										  int wordSize,
-										  boolean useZeroOffset) {
-		List<Bitset> bitsetList = new ArrayList<Bitset>();
-		for (int ttype : set.toArray()) {
-			Bitset current = !bitsetList.isEmpty() ? bitsetList.get(bitsetList.size() - 1) : null;
-			if (current == null || ttype > (current.shift + wordSize-1)) {
-				current = new Bitset();
-				if (useZeroOffset && ttype >= 0 && ttype < wordSize-1) {
-					current.shift = 0;
-				}
-				else {
-					current.shift = ttype;
-				}
+  private static Bitset[] createBitsets(OutputModelFactory factory,
+                                        IntervalSet set,
+                                        int wordSize,
+                                        boolean useZeroOffset) {
+    List<Bitset> bitsetList = new ArrayList<Bitset>();
+    for (int ttype : set.toArray()) {
+      Bitset current = !bitsetList.isEmpty() ? bitsetList.get(bitsetList.size() - 1) : null;
+      if (current == null || ttype > (current.shift + wordSize - 1)) {
+        current = new Bitset();
+        if (useZeroOffset && ttype >= 0 && ttype < wordSize - 1) {
+          current.shift = 0;
+        } else {
+          current.shift = ttype;
+        }
 
-				bitsetList.add(current);
-			}
+        bitsetList.add(current);
+      }
 
-			current.ttypes.add(factory.getTarget().getTokenTypeAsTargetLabel(factory.getGrammar(), ttype));
-		}
+      current.ttypes.add(factory.getTarget().getTokenTypeAsTargetLabel(factory.getGrammar(), ttype));
+    }
 
-		return bitsetList.toArray(new Bitset[0]);
-	}
+    return bitsetList.toArray(new Bitset[0]);
+  }
 
-	public static final class Bitset {
-		public int shift;
-		public final List<String> ttypes = new ArrayList<String>();
-	}
+  public static final class Bitset {
+    public int shift;
+    public final List<String> ttypes = new ArrayList<String>();
+  }
 }

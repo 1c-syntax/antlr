@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.tool;
 
 import org.antlr.runtime.BitSet;
@@ -12,40 +15,40 @@ import org.antlr.v4.tool.ast.GrammarAST;
 
 
 public class LabelElementPair {
-    public static final BitSet tokenTypeForTokens = new BitSet();
-    static {
-        tokenTypeForTokens.add(ANTLRParser.TOKEN_REF);
-        tokenTypeForTokens.add(ANTLRParser.STRING_LITERAL);
-        tokenTypeForTokens.add(ANTLRParser.WILDCARD);
+  public static final BitSet tokenTypeForTokens = new BitSet();
+
+  static {
+    tokenTypeForTokens.add(ANTLRParser.TOKEN_REF);
+    tokenTypeForTokens.add(ANTLRParser.STRING_LITERAL);
+    tokenTypeForTokens.add(ANTLRParser.WILDCARD);
+  }
+
+  public GrammarAST label;
+  public GrammarAST element;
+  public LabelType type;
+
+  public LabelElementPair(Grammar g, GrammarAST label, GrammarAST element, int labelOp) {
+    this.label = label;
+    this.element = element;
+    // compute general case for label type
+    if (element.getFirstDescendantWithType(tokenTypeForTokens) != null) {
+      if (labelOp == ANTLRParser.ASSIGN) type = LabelType.TOKEN_LABEL;
+      else type = LabelType.TOKEN_LIST_LABEL;
+    } else if (element.getFirstDescendantWithType(ANTLRParser.RULE_REF) != null) {
+      if (labelOp == ANTLRParser.ASSIGN) type = LabelType.RULE_LABEL;
+      else type = LabelType.RULE_LIST_LABEL;
     }
 
-    public GrammarAST label;
-    public GrammarAST element;
-    public LabelType type;
-
-    public LabelElementPair(Grammar g, GrammarAST label, GrammarAST element, int labelOp) {
-        this.label = label;
-        this.element = element;
-        // compute general case for label type
-        if ( element.getFirstDescendantWithType(tokenTypeForTokens)!=null ) {
-            if ( labelOp==ANTLRParser.ASSIGN ) type = LabelType.TOKEN_LABEL;
-            else type = LabelType.TOKEN_LIST_LABEL;
-        }
-        else if ( element.getFirstDescendantWithType(ANTLRParser.RULE_REF)!=null ) {
-            if ( labelOp==ANTLRParser.ASSIGN ) type = LabelType.RULE_LABEL;
-            else type = LabelType.RULE_LIST_LABEL;
-        }
-
-        // now reset if lexer and string
-        if ( g.isLexer() ) {
-            if ( element.getFirstDescendantWithType(ANTLRParser.STRING_LITERAL)!=null ) {
-                if ( labelOp==ANTLRParser.ASSIGN ) type = LabelType.LEXER_STRING_LABEL;
-            }
-        }
+    // now reset if lexer and string
+    if (g.isLexer()) {
+      if (element.getFirstDescendantWithType(ANTLRParser.STRING_LITERAL) != null) {
+        if (labelOp == ANTLRParser.ASSIGN) type = LabelType.LEXER_STRING_LABEL;
+      }
     }
+  }
 
-    @Override
-    public String toString() {
-        return label.getText()+" "+type+" "+element.toString();
-    }
+  @Override
+  public String toString() {
+    return label.getText() + " " + type + " " + element.toString();
+  }
 }
