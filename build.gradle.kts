@@ -160,6 +160,7 @@ publishing {
             }
 
             pom {
+                name.set(project.name)
                 description.set("ANTLR4 special fork")
                 url.set("https://github.com/1c-syntax/antlr")
                 licenses {
