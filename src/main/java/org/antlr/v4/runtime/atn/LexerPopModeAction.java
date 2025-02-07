@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.Lexer;
@@ -20,60 +23,62 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @since 4.2
  */
 public final class LexerPopModeAction implements LexerAction {
-	/**
-	 * Provides a singleton instance of this parameterless lexer action.
-	 */
-	public static final LexerPopModeAction INSTANCE = new LexerPopModeAction();
+  /**
+   * Provides a singleton instance of this parameterless lexer action.
+   */
+  public static final LexerPopModeAction INSTANCE = new LexerPopModeAction();
 
-	/**
-	 * Constructs the singleton instance of the lexer {@code popMode} command.
-	 */
-	private LexerPopModeAction() {
-	}
+  /**
+   * Constructs the singleton instance of the lexer {@code popMode} command.
+   */
+  private LexerPopModeAction() {
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@link LexerActionType#POP_MODE}.
-	 */
-	@Override
-	public LexerActionType getActionType() {
-		return LexerActionType.POP_MODE;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@link LexerActionType#POP_MODE}.
+   */
+  @Override
+  public LexerActionType getActionType() {
+    return LexerActionType.POP_MODE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@code false}.
-	 */
-	@Override
-	public boolean isPositionDependent() {
-		return false;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@code false}.
+   */
+  @Override
+  public boolean isPositionDependent() {
+    return false;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>This action is implemented by calling {@link Lexer#popMode}.</p>
-	 */
-	@Override
-	public void execute(@NotNull Lexer lexer) {
-		lexer.popMode();
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This action is implemented by calling {@link Lexer#popMode}.</p>
+   */
+  @Override
+  public void execute(@NotNull Lexer lexer) {
+    lexer.popMode();
+  }
 
-	@Override
-	public int hashCode() {
-		int hash = MurmurHash.initialize();
-		hash = MurmurHash.update(hash, getActionType().ordinal());
-		return MurmurHash.finish(hash, 1);
-	}
+  @Override
+  public int hashCode() {
+    int hash = MurmurHash.initialize();
+    hash = MurmurHash.update(hash, getActionType().ordinal());
+    return MurmurHash.finish(hash, 1);
+  }
 
-	@Override
-	@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-	public boolean equals(Object obj) {
-		return obj == this;
-	}
+  @Override
+  @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
+  public boolean equals(Object obj) {
+    return obj == this;
+  }
 
-	@Override
-	public String toString() {
-		return "popMode";
-	}
+  @Override
+  public String toString() {
+    return "popMode";
+  }
 }

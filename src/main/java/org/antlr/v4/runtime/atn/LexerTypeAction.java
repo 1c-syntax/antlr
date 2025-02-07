@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.Lexer;
@@ -18,75 +21,78 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @since 4.2
  */
 public class LexerTypeAction implements LexerAction {
-	private final int type;
+  private final int type;
 
-	/**
-	 * Constructs a new {@code type} action with the specified token type value.
-	 * @param type The type to assign to the token using {@link Lexer#setType}.
-	 */
-	public LexerTypeAction(int type) {
-		this.type = type;
-	}
+  /**
+   * Constructs a new {@code type} action with the specified token type value.
+   *
+   * @param type The type to assign to the token using {@link Lexer#setType}.
+   */
+  public LexerTypeAction(int type) {
+    this.type = type;
+  }
 
-	/**
-	 * Gets the type to assign to a token created by the lexer.
-	 * @return The type to assign to a token created by the lexer.
-	 */
-	public int getType() {
-		return type;
-	}
+  /**
+   * Gets the type to assign to a token created by the lexer.
+   *
+   * @return The type to assign to a token created by the lexer.
+   */
+  public int getType() {
+    return type;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@link LexerActionType#TYPE}.
-	 */
-	@Override
-	public LexerActionType getActionType() {
-		return LexerActionType.TYPE;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@link LexerActionType#TYPE}.
+   */
+  @Override
+  public LexerActionType getActionType() {
+    return LexerActionType.TYPE;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 * @return This method returns {@code false}.
-	 */
-	@Override
-	public boolean isPositionDependent() {
-		return false;
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * @return This method returns {@code false}.
+   */
+  @Override
+  public boolean isPositionDependent() {
+    return false;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>This action is implemented by calling {@link Lexer#setType} with the
-	 * value provided by {@link #getType}.</p>
-	 */
-	@Override
-	public void execute(@NotNull Lexer lexer) {
-		lexer.setType(type);
-	}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This action is implemented by calling {@link Lexer#setType} with the
+   * value provided by {@link #getType}.</p>
+   */
+  @Override
+  public void execute(@NotNull Lexer lexer) {
+    lexer.setType(type);
+  }
 
-	@Override
-	public int hashCode() {
-		int hash = MurmurHash.initialize();
-		hash = MurmurHash.update(hash, getActionType().ordinal());
-		hash = MurmurHash.update(hash, type);
-		return MurmurHash.finish(hash, 2);
-	}
+  @Override
+  public int hashCode() {
+    int hash = MurmurHash.initialize();
+    hash = MurmurHash.update(hash, getActionType().ordinal());
+    hash = MurmurHash.update(hash, type);
+    return MurmurHash.finish(hash, 2);
+  }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		else if (!(obj instanceof LexerTypeAction)) {
-			return false;
-		}
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    } else if (!(obj instanceof LexerTypeAction)) {
+      return false;
+    }
 
-		return type == ((LexerTypeAction)obj).type;
-	}
+    return type == ((LexerTypeAction) obj).type;
+  }
 
-	@Override
-	public String toString() {
-		return String.format("type(%d)", type);
-	}
+  @Override
+  public String toString() {
+    return String.format("type(%d)", type);
+  }
 }

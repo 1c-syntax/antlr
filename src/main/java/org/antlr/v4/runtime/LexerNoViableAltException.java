@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.atn.ATNConfigSet;
@@ -15,46 +18,50 @@ import org.antlr.v4.runtime.misc.Utils;
 import java.util.Locale;
 
 public class LexerNoViableAltException extends RecognitionException {
-	private static final long serialVersionUID = -730999203913001726L;
+  private static final long serialVersionUID = -730999203913001726L;
 
-	/** Matching attempted at what input index? */
-	private final int startIndex;
+  /**
+   * Matching attempted at what input index?
+   */
+  private final int startIndex;
 
-	/** Which configurations did we try at input.index() that couldn't match input.LA(1)? */
-	@Nullable
-	private final ATNConfigSet deadEndConfigs;
+  /**
+   * Which configurations did we try at input.index() that couldn't match input.LA(1)?
+   */
+  @Nullable
+  private final ATNConfigSet deadEndConfigs;
 
-	public LexerNoViableAltException(@Nullable Lexer lexer,
-									 @NotNull CharStream input,
-									 int startIndex,
-									 @Nullable ATNConfigSet deadEndConfigs) {
-		super(lexer, input);
-		this.startIndex = startIndex;
-		this.deadEndConfigs = deadEndConfigs;
-	}
+  public LexerNoViableAltException(@Nullable Lexer lexer,
+                                   @NotNull CharStream input,
+                                   int startIndex,
+                                   @Nullable ATNConfigSet deadEndConfigs) {
+    super(lexer, input);
+    this.startIndex = startIndex;
+    this.deadEndConfigs = deadEndConfigs;
+  }
 
-	public int getStartIndex() {
-		return startIndex;
-	}
+  public int getStartIndex() {
+    return startIndex;
+  }
 
-	@Nullable
-	public ATNConfigSet getDeadEndConfigs() {
-		return deadEndConfigs;
-	}
+  @Nullable
+  public ATNConfigSet getDeadEndConfigs() {
+    return deadEndConfigs;
+  }
 
-	@Override
-	public CharStream getInputStream() {
-		return (CharStream)super.getInputStream();
-	}
+  @Override
+  public CharStream getInputStream() {
+    return (CharStream) super.getInputStream();
+  }
 
-	@Override
-	public String toString() {
-		String symbol = "";
-		if (startIndex >= 0 && startIndex < getInputStream().size()) {
-			symbol = getInputStream().getText(Interval.of(startIndex,startIndex));
-			symbol = Utils.escapeWhitespace(symbol, false);
-		}
+  @Override
+  public String toString() {
+    String symbol = "";
+    if (startIndex >= 0 && startIndex < getInputStream().size()) {
+      symbol = getInputStream().getText(Interval.of(startIndex, startIndex));
+      symbol = Utils.escapeWhitespace(symbol, false);
+    }
 
-		return String.format(Locale.getDefault(), "%s('%s')", LexerNoViableAltException.class.getSimpleName(), symbol);
-	}
+    return String.format(Locale.getDefault(), "%s('%s')", LexerNoViableAltException.class.getSimpleName(), symbol);
+  }
 }

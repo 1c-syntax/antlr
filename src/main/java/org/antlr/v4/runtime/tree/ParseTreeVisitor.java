@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.tree;
 
 import org.antlr.v4.runtime.misc.NotNull;
@@ -13,43 +16,43 @@ import org.antlr.v4.runtime.misc.NotNull;
  * visitors implement this interface and the {@code XVisitor} interface for
  * grammar {@code X}.
  *
- * @author Sam Harwell
  * @param <Result> The return type of the visit operation. Use {@link Void} for
- * operations with no return type.
+ *                 operations with no return type.
+ * @author Sam Harwell
  */
 public interface ParseTreeVisitor<Result> {
 
-	/**
-	 * Visit a parse tree, and return a user-defined result of the operation.
-	 *
-	 * @param tree The {@link ParseTree} to visit.
-	 * @return The result of visiting the parse tree.
-	 */
-	Result visit(@NotNull ParseTree tree);
+  /**
+   * Visit a parse tree, and return a user-defined result of the operation.
+   *
+   * @param tree The {@link ParseTree} to visit.
+   * @return The result of visiting the parse tree.
+   */
+  Result visit(@NotNull ParseTree tree);
 
-	/**
-	 * Visit the children of a node, and return a user-defined result
-	 * of the operation.
-	 *
-	 * @param node The {@link RuleNode} whose children should be visited.
-	 * @return The result of visiting the children of the node.
-	 */
-	Result visitChildren(@NotNull RuleNode node);
+  /**
+   * Visit the children of a node, and return a user-defined result
+   * of the operation.
+   *
+   * @param node The {@link RuleNode} whose children should be visited.
+   * @return The result of visiting the children of the node.
+   */
+  Result visitChildren(@NotNull RuleNode node);
 
-	/**
-	 * Visit a terminal node, and return a user-defined result of the operation.
-	 *
-	 * @param node The {@link TerminalNode} to visit.
-	 * @return The result of visiting the node.
-	 */
-	Result visitTerminal(@NotNull TerminalNode node);
+  /**
+   * Visit a terminal node, and return a user-defined result of the operation.
+   *
+   * @param node The {@link TerminalNode} to visit.
+   * @return The result of visiting the node.
+   */
+  Result visitTerminal(@NotNull TerminalNode node);
 
-	/**
-	 * Visit an error node, and return a user-defined result of the operation.
-	 *
-	 * @param node The {@link ErrorNode} to visit.
-	 * @return The result of visiting the node.
-	 */
-	Result visitErrorNode(@NotNull ErrorNode node);
+  /**
+   * Visit an error node, and return a user-defined result of the operation.
+   *
+   * @param node The {@link ErrorNode} to visit.
+   * @return The result of visiting the node.
+   */
+  Result visitErrorNode(@NotNull ErrorNode node);
 
 }

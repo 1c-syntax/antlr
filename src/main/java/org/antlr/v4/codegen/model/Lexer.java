@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.codegen.model;
 
 import org.antlr.v4.codegen.OutputModelFactory;
@@ -16,19 +19,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Lexer extends Recognizer {
-	public Map<String,Integer> channels;
-	public LexerFile file;
-	public Collection<String> modes;
+  public Map<String, Integer> channels;
+  public LexerFile file;
+  public Collection<String> modes;
 
-	@ModelElement public LinkedHashMap<Rule, RuleActionFunction> actionFuncs =
-		new LinkedHashMap<Rule, RuleActionFunction>();
+  @ModelElement
+  public LinkedHashMap<Rule, RuleActionFunction> actionFuncs =
+    new LinkedHashMap<Rule, RuleActionFunction>();
 
-	public Lexer(OutputModelFactory factory, LexerFile file) {
-		super(factory);
-		this.file = file; // who contains us?
+  public Lexer(OutputModelFactory factory, LexerFile file) {
+    super(factory);
+    this.file = file; // who contains us?
 
-		Grammar g = factory.getGrammar();
-		channels = new LinkedHashMap<String, Integer>(g.channelNameToValueMap);
-		modes = ((LexerGrammar)g).modes.keySet();
-	}
+    Grammar g = factory.getGrammar();
+    channels = new LinkedHashMap<String, Integer>(g.channelNameToValueMap);
+    modes = ((LexerGrammar) g).modes.keySet();
+  }
 }

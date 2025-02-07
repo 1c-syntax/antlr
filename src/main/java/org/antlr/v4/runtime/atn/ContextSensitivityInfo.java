@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.ParserErrorListener;
@@ -25,25 +28,23 @@ import org.antlr.v4.runtime.misc.NotNull;
  *
  * @see ParserATNSimulator#reportContextSensitivity
  * @see ParserErrorListener#reportContextSensitivity
- *
  * @since 4.3
  */
 public class ContextSensitivityInfo extends DecisionEventInfo {
-	/**
-	 * Constructs a new instance of the {@link ContextSensitivityInfo} class
-	 * with the specified detailed context sensitivity information.
-	 *
-	 * @param decision The decision number
-	 * @param state The final simulator state containing the unique
-	 * alternative identified by full-context prediction
-	 * @param input The input token stream
-	 * @param startIndex The start index for the current prediction
-	 * @param stopIndex The index at which the context sensitivity was
-	 * identified during full-context prediction
-	 */
-	public ContextSensitivityInfo(int decision, @NotNull SimulatorState state,
-								  @NotNull TokenStream input, int startIndex, int stopIndex)
-	{
-		super(decision, state, input, startIndex, stopIndex, true);
-	}
+  /**
+   * Constructs a new instance of the {@link ContextSensitivityInfo} class
+   * with the specified detailed context sensitivity information.
+   *
+   * @param decision   The decision number
+   * @param state      The final simulator state containing the unique
+   *                   alternative identified by full-context prediction
+   * @param input      The input token stream
+   * @param startIndex The start index for the current prediction
+   * @param stopIndex  The index at which the context sensitivity was
+   *                   identified during full-context prediction
+   */
+  public ContextSensitivityInfo(int decision, @NotNull SimulatorState state,
+                                @NotNull TokenStream input, int startIndex, int stopIndex) {
+    super(decision, state, input, startIndex, stopIndex, true);
+  }
 }

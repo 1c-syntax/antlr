@@ -22,3 +22,5 @@ build/
 
 # IntelliJ
 .idea/vcs.xml
+/.idea/modules.xml
+*.iml

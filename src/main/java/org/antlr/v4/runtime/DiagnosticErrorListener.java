@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.atn.ATNConfig;
@@ -38,120 +41,117 @@ import java.util.BitSet;
  * @author Sam Harwell
  */
 public class DiagnosticErrorListener extends BaseErrorListener {
-	/**
-	 * When {@code true}, only exactly known ambiguities are reported.
-	 */
-	protected final boolean exactOnly;
+  /**
+   * When {@code true}, only exactly known ambiguities are reported.
+   */
+  protected final boolean exactOnly;
 
-	/**
-	 * Initializes a new instance of {@link DiagnosticErrorListener} which only
-	 * reports exact ambiguities.
-	 */
-	public DiagnosticErrorListener() {
-		this(true);
-	}
+  /**
+   * Initializes a new instance of {@link DiagnosticErrorListener} which only
+   * reports exact ambiguities.
+   */
+  public DiagnosticErrorListener() {
+    this(true);
+  }
 
-	/**
-	 * Initializes a new instance of {@link DiagnosticErrorListener}, specifying
-	 * whether all ambiguities or only exact ambiguities are reported.
-	 *
-	 * @param exactOnly {@code true} to report only exact ambiguities, otherwise
-	 * {@code false} to report all ambiguities.
-	 */
-	public DiagnosticErrorListener(boolean exactOnly) {
-		this.exactOnly = exactOnly;
-	}
+  /**
+   * Initializes a new instance of {@link DiagnosticErrorListener}, specifying
+   * whether all ambiguities or only exact ambiguities are reported.
+   *
+   * @param exactOnly {@code true} to report only exact ambiguities, otherwise
+   *                  {@code false} to report all ambiguities.
+   */
+  public DiagnosticErrorListener(boolean exactOnly) {
+    this.exactOnly = exactOnly;
+  }
 
-	@Override
-	public void reportAmbiguity(@NotNull Parser recognizer,
-								@NotNull DFA dfa,
-								int startIndex,
-								int stopIndex,
-								boolean exact,
-								@Nullable BitSet ambigAlts,
-								@NotNull ATNConfigSet configs)
-	{
-		if (exactOnly && !exact) {
-			return;
-		}
+  @Override
+  public void reportAmbiguity(@NotNull Parser recognizer,
+                              @NotNull DFA dfa,
+                              int startIndex,
+                              int stopIndex,
+                              boolean exact,
+                              @Nullable BitSet ambigAlts,
+                              @NotNull ATNConfigSet configs) {
+    if (exactOnly && !exact) {
+      return;
+    }
 
-		String format = "reportAmbiguity d=%s: ambigAlts=%s, input='%s'";
-		String decision = getDecisionDescription(recognizer, dfa);
-		BitSet conflictingAlts = getConflictingAlts(ambigAlts, configs);
-		String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
-		String message = String.format(format, decision, conflictingAlts, text);
-		recognizer.notifyErrorListeners(message);
-	}
+    String format = "reportAmbiguity d=%s: ambigAlts=%s, input='%s'";
+    String decision = getDecisionDescription(recognizer, dfa);
+    BitSet conflictingAlts = getConflictingAlts(ambigAlts, configs);
+    String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
+    String message = String.format(format, decision, conflictingAlts, text);
+    recognizer.notifyErrorListeners(message);
+  }
 
-	@Override
-	public void reportAttemptingFullContext(@NotNull Parser recognizer,
-											@NotNull DFA dfa,
-											int startIndex,
-											int stopIndex,
-											@Nullable BitSet conflictingAlts,
-											@NotNull SimulatorState conflictState)
-	{
-		String format = "reportAttemptingFullContext d=%s, input='%s'";
-		String decision = getDecisionDescription(recognizer, dfa);
-		String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
-		String message = String.format(format, decision, text);
-		recognizer.notifyErrorListeners(message);
-	}
+  @Override
+  public void reportAttemptingFullContext(@NotNull Parser recognizer,
+                                          @NotNull DFA dfa,
+                                          int startIndex,
+                                          int stopIndex,
+                                          @Nullable BitSet conflictingAlts,
+                                          @NotNull SimulatorState conflictState) {
+    String format = "reportAttemptingFullContext d=%s, input='%s'";
+    String decision = getDecisionDescription(recognizer, dfa);
+    String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
+    String message = String.format(format, decision, text);
+    recognizer.notifyErrorListeners(message);
+  }
 
-	@Override
-	public void reportContextSensitivity(@NotNull Parser recognizer,
-										 @NotNull DFA dfa,
-										 int startIndex,
-										 int stopIndex,
-										 int prediction,
-										 @NotNull SimulatorState acceptState)
-	{
-		String format = "reportContextSensitivity d=%s, input='%s'";
-		String decision = getDecisionDescription(recognizer, dfa);
-		String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
-		String message = String.format(format, decision, text);
-		recognizer.notifyErrorListeners(message);
-	}
+  @Override
+  public void reportContextSensitivity(@NotNull Parser recognizer,
+                                       @NotNull DFA dfa,
+                                       int startIndex,
+                                       int stopIndex,
+                                       int prediction,
+                                       @NotNull SimulatorState acceptState) {
+    String format = "reportContextSensitivity d=%s, input='%s'";
+    String decision = getDecisionDescription(recognizer, dfa);
+    String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
+    String message = String.format(format, decision, text);
+    recognizer.notifyErrorListeners(message);
+  }
 
-	protected <T extends Token> String getDecisionDescription(@NotNull Parser recognizer, @NotNull DFA dfa) {
-		int decision = dfa.decision;
-		int ruleIndex = dfa.atnStartState.ruleIndex;
+  protected <T extends Token> String getDecisionDescription(@NotNull Parser recognizer, @NotNull DFA dfa) {
+    int decision = dfa.decision;
+    int ruleIndex = dfa.atnStartState.ruleIndex;
 
-		String[] ruleNames = recognizer.getRuleNames();
-		if (ruleIndex < 0 || ruleIndex >= ruleNames.length) {
-			return String.valueOf(decision);
-		}
+    String[] ruleNames = recognizer.getRuleNames();
+    if (ruleIndex < 0 || ruleIndex >= ruleNames.length) {
+      return String.valueOf(decision);
+    }
 
-		String ruleName = ruleNames[ruleIndex];
-		if (ruleName == null || ruleName.isEmpty()) {
-			return String.valueOf(decision);
-		}
+    String ruleName = ruleNames[ruleIndex];
+    if (ruleName == null || ruleName.isEmpty()) {
+      return String.valueOf(decision);
+    }
 
-		return String.format("%d (%s)", decision, ruleName);
-	}
+    return String.format("%d (%s)", decision, ruleName);
+  }
 
-	/**
-	 * Computes the set of conflicting or ambiguous alternatives from a
-	 * configuration set, if that information was not already provided by the
-	 * parser.
-	 *
-	 * @param reportedAlts The set of conflicting or ambiguous alternatives, as
-	 * reported by the parser.
-	 * @param configs The conflicting or ambiguous configuration set.
-	 * @return Returns {@code reportedAlts} if it is not {@code null}, otherwise
-	 * returns the set of alternatives represented in {@code configs}.
-	 */
-	@NotNull
-	protected BitSet getConflictingAlts(@Nullable BitSet reportedAlts, @NotNull ATNConfigSet configs) {
-		if (reportedAlts != null) {
-			return reportedAlts;
-		}
+  /**
+   * Computes the set of conflicting or ambiguous alternatives from a
+   * configuration set, if that information was not already provided by the
+   * parser.
+   *
+   * @param reportedAlts The set of conflicting or ambiguous alternatives, as
+   *                     reported by the parser.
+   * @param configs      The conflicting or ambiguous configuration set.
+   * @return Returns {@code reportedAlts} if it is not {@code null}, otherwise
+   * returns the set of alternatives represented in {@code configs}.
+   */
+  @NotNull
+  protected BitSet getConflictingAlts(@Nullable BitSet reportedAlts, @NotNull ATNConfigSet configs) {
+    if (reportedAlts != null) {
+      return reportedAlts;
+    }
 
-		BitSet result = new BitSet();
-		for (ATNConfig config : configs) {
-			result.set(config.getAlt());
-		}
+    BitSet result = new BitSet();
+    for (ATNConfig config : configs) {
+      result.set(config.getAlt());
+    }
 
-		return result;
-	}
+    return result;
+  }
 }

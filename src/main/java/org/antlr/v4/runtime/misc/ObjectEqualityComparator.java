@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -12,39 +16,39 @@ package org.antlr.v4.runtime.misc;
  * @author Sam Harwell
  */
 public final class ObjectEqualityComparator extends AbstractEqualityComparator<Object> {
-	public static final ObjectEqualityComparator INSTANCE = new ObjectEqualityComparator();
+  public static final ObjectEqualityComparator INSTANCE = new ObjectEqualityComparator();
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>This implementation returns
-	 * {@code obj.}{@link Object#hashCode hashCode()}.</p>
-	 */
-	@Override
-	public int hashCode(Object obj) {
-		if (obj == null) {
-			return 0;
-		}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation returns
+   * {@code obj.}{@link Object#hashCode hashCode()}.</p>
+   */
+  @Override
+  public int hashCode(Object obj) {
+    if (obj == null) {
+      return 0;
+    }
 
-		return obj.hashCode();
-	}
+    return obj.hashCode();
+  }
 
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>This implementation relies on object equality. If both objects are
-	 * {@code null}, this method returns {@code true}. Otherwise if only
-	 * {@code a} is {@code null}, this method returns {@code false}. Otherwise,
-	 * this method returns the result of
-	 * {@code a.}{@link Object#equals equals}{@code (b)}.</p>
-	 */
-	@Override
-	public boolean equals(Object a, Object b) {
-		if (a == null) {
-			return b == null;
-		}
+  /**
+   * {@inheritDoc}
+   *
+   * <p>This implementation relies on object equality. If both objects are
+   * {@code null}, this method returns {@code true}. Otherwise if only
+   * {@code a} is {@code null}, this method returns {@code false}. Otherwise,
+   * this method returns the result of
+   * {@code a.}{@link Object#equals equals}{@code (b)}.</p>
+   */
+  @Override
+  public boolean equals(Object a, Object b) {
+    if (a == null) {
+      return b == null;
+    }
 
-		return a.equals(b);
-	}
+    return a.equals(b);
+  }
 
 }

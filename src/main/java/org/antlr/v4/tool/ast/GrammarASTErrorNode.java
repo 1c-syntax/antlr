@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.tool.ast;
 
 import org.antlr.runtime.Token;
@@ -11,23 +14,34 @@ import org.antlr.runtime.TokenStream;
 import org.antlr.runtime.tree.CommonErrorNode;
 
 
-/** A node representing erroneous token range in token stream */
+/**
+ * A node representing erroneous token range in token stream
+ */
 public class GrammarASTErrorNode extends GrammarAST {
-    CommonErrorNode delegate;
-    public GrammarASTErrorNode(TokenStream input, Token start, Token stop,
-                               org.antlr.runtime.RecognitionException e)
-    {
-        delegate = new CommonErrorNode(input,start,stop,e);
-    }
+  CommonErrorNode delegate;
 
-    @Override
-    public boolean isNil() { return delegate.isNil(); }
+  public GrammarASTErrorNode(TokenStream input, Token start, Token stop,
+                             org.antlr.runtime.RecognitionException e) {
+    delegate = new CommonErrorNode(input, start, stop, e);
+  }
 
-    @Override
-    public int getType() { return delegate.getType(); }
+  @Override
+  public boolean isNil() {
+    return delegate.isNil();
+  }
 
-    @Override
-    public String getText() { return delegate.getText(); }
-    @Override
-    public String toString() { return delegate.toString(); }
+  @Override
+  public int getType() {
+    return delegate.getType();
+  }
+
+  @Override
+  public String getText() {
+    return delegate.getText();
+  }
+
+  @Override
+  public String toString() {
+    return delegate.toString();
+  }
 }

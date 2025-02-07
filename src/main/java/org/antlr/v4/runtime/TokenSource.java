@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -24,66 +28,66 @@ import org.antlr.v4.runtime.misc.Nullable;
  * going, looking for a valid token.</p>
  */
 public interface TokenSource {
-	/**
-	 * Return a {@link Token} object from your input stream (usually a
-	 * {@link CharStream}). Do not fail/return upon lexing error; keep chewing
-	 * on the characters until you get a good one; errors are not passed through
-	 * to the parser.
-	 */
-	@NotNull
-	public Token nextToken();
+  /**
+   * Return a {@link Token} object from your input stream (usually a
+   * {@link CharStream}). Do not fail/return upon lexing error; keep chewing
+   * on the characters until you get a good one; errors are not passed through
+   * to the parser.
+   */
+  @NotNull
+  Token nextToken();
 
-	/**
-	 * Get the line number for the current position in the input stream. The
-	 * first line in the input is line 1.
-	 *
-	 * @return The line number for the current position in the input stream, or
-	 * 0 if the current token source does not track line numbers.
-	 */
-	public int getLine();
+  /**
+   * Get the line number for the current position in the input stream. The
+   * first line in the input is line 1.
+   *
+   * @return The line number for the current position in the input stream, or
+   * 0 if the current token source does not track line numbers.
+   */
+  int getLine();
 
-	/**
-	 * Get the index into the current line for the current position in the input
-	 * stream. The first character on a line has position 0.
-	 *
-	 * @return The line number for the current position in the input stream, or
-	 * -1 if the current token source does not track character positions.
-	 */
-	public int getCharPositionInLine();
+  /**
+   * Get the index into the current line for the current position in the input
+   * stream. The first character on a line has position 0.
+   *
+   * @return The line number for the current position in the input stream, or
+   * -1 if the current token source does not track character positions.
+   */
+  int getCharPositionInLine();
 
-	/**
-	 * Get the {@link CharStream} from which this token source is currently
-	 * providing tokens.
-	 *
-	 * @return The {@link CharStream} associated with the current position in
-	 * the input, or {@code null} if no input stream is available for the token
-	 * source.
-	 */
-	@Nullable
-	public CharStream getInputStream();
+  /**
+   * Get the {@link CharStream} from which this token source is currently
+   * providing tokens.
+   *
+   * @return The {@link CharStream} associated with the current position in
+   * the input, or {@code null} if no input stream is available for the token
+   * source.
+   */
+  @Nullable
+  CharStream getInputStream();
 
-	/**
-	 * Gets the name of the underlying input source. This method returns a
-	 * non-null, non-empty string. If such a name is not known, this method
-	 * returns {@link IntStream#UNKNOWN_SOURCE_NAME}.
-	 */
-	@NotNull
-	public String getSourceName();
+  /**
+   * Gets the name of the underlying input source. This method returns a
+   * non-null, non-empty string. If such a name is not known, this method
+   * returns {@link IntStream#UNKNOWN_SOURCE_NAME}.
+   */
+  @NotNull
+  String getSourceName();
 
-	/**
-	 * Set the {@link TokenFactory} this token source should use for creating
-	 * {@link Token} objects from the input.
-	 *
-	 * @param factory The {@link TokenFactory} to use for creating tokens.
-	 */
-	public void setTokenFactory(@NotNull TokenFactory factory);
+  /**
+   * Set the {@link TokenFactory} this token source should use for creating
+   * {@link Token} objects from the input.
+   *
+   * @param factory The {@link TokenFactory} to use for creating tokens.
+   */
+  void setTokenFactory(@NotNull TokenFactory factory);
 
-	/**
-	 * Gets the {@link TokenFactory} this token source is currently using for
-	 * creating {@link Token} objects from the input.
-	 *
-	 * @return The {@link TokenFactory} currently used by this token source.
-	 */
-	@NotNull
-	public TokenFactory getTokenFactory();
+  /**
+   * Gets the {@link TokenFactory} this token source is currently using for
+   * creating {@link Token} objects from the input.
+   *
+   * @return The {@link TokenFactory} currently used by this token source.
+   */
+  @NotNull
+  TokenFactory getTokenFactory();
 }

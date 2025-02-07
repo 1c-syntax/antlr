@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.codegen;
 
 import org.antlr.v4.codegen.model.Choice;
@@ -30,82 +33,82 @@ import org.antlr.v4.tool.ast.GrammarAST;
 import java.util.List;
 
 public interface OutputModelFactory {
-	Grammar getGrammar();
+  Grammar getGrammar();
 
-	@NotNull
-	CodeGenerator getGenerator();
+  @NotNull
+  CodeGenerator getGenerator();
 
-	@NotNull
-	Target getTarget();
+  @NotNull
+  Target getTarget();
 
-	void setController(OutputModelController controller);
+  void setController(OutputModelController controller);
 
-	OutputModelController getController();
+  OutputModelController getController();
 
-	ParserFile parserFile(String fileName);
+  ParserFile parserFile(String fileName);
 
-	Parser parser(ParserFile file);
+  Parser parser(ParserFile file);
 
-	LexerFile lexerFile(String fileName);
+  LexerFile lexerFile(String fileName);
 
-	Lexer lexer(LexerFile file);
+  Lexer lexer(LexerFile file);
 
-	RuleFunction rule(Rule r);
+  RuleFunction rule(Rule r);
 
-	List<SrcOp> rulePostamble(RuleFunction function, Rule r);
+  List<SrcOp> rulePostamble(RuleFunction function, Rule r);
 
-	// ELEMENT TRIGGERS
+  // ELEMENT TRIGGERS
 
-	CodeBlockForAlt alternative(Alternative alt, boolean outerMost);
+  CodeBlockForAlt alternative(Alternative alt, boolean outerMost);
 
-	CodeBlockForAlt finishAlternative(CodeBlockForAlt blk, List<SrcOp> ops);
+  CodeBlockForAlt finishAlternative(CodeBlockForAlt blk, List<SrcOp> ops);
 
-	CodeBlockForAlt epsilon(Alternative alt, boolean outerMost);
+  CodeBlockForAlt epsilon(Alternative alt, boolean outerMost);
 
-	List<SrcOp> ruleRef(GrammarAST ID, GrammarAST label, GrammarAST args);
+  List<SrcOp> ruleRef(GrammarAST ID, GrammarAST label, GrammarAST args);
 
-	List<SrcOp> tokenRef(GrammarAST ID, GrammarAST label, GrammarAST args);
+  List<SrcOp> tokenRef(GrammarAST ID, GrammarAST label, GrammarAST args);
 
-	List<SrcOp> stringRef(GrammarAST ID, GrammarAST label);
+  List<SrcOp> stringRef(GrammarAST ID, GrammarAST label);
 
-	List<SrcOp> set(GrammarAST setAST, GrammarAST label, boolean invert);
+  List<SrcOp> set(GrammarAST setAST, GrammarAST label, boolean invert);
 
-	List<SrcOp> wildcard(GrammarAST ast, GrammarAST labelAST);
+  List<SrcOp> wildcard(GrammarAST ast, GrammarAST labelAST);
 
-	List<SrcOp> action(ActionAST ast);
+  List<SrcOp> action(ActionAST ast);
 
-	List<SrcOp> sempred(ActionAST ast);
+  List<SrcOp> sempred(ActionAST ast);
 
-	Choice getChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts, GrammarAST label);
+  Choice getChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts, GrammarAST label);
 
-	Choice getEBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
+  Choice getEBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
 
-	Choice getLL1ChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts);
+  Choice getLL1ChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts);
 
-	Choice getComplexChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts);
+  Choice getComplexChoiceBlock(BlockAST blkAST, List<CodeBlockForAlt> alts);
 
-	Choice getLL1EBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
+  Choice getLL1EBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
 
-	Choice getComplexEBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
+  Choice getComplexEBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts);
 
-	List<SrcOp> getLL1Test(IntervalSet look, GrammarAST blkAST);
+  List<SrcOp> getLL1Test(IntervalSet look, GrammarAST blkAST);
 
-	boolean needsImplicitLabel(GrammarAST ID, LabeledOp op);
+  boolean needsImplicitLabel(GrammarAST ID, LabeledOp op);
 
-	// CONTEXT INFO
+  // CONTEXT INFO
 
-	OutputModelObject getRoot();
+  OutputModelObject getRoot();
 
-	RuleFunction getCurrentRuleFunction();
+  RuleFunction getCurrentRuleFunction();
 
-	Alternative getCurrentOuterMostAlt();
+  Alternative getCurrentOuterMostAlt();
 
-	CodeBlock getCurrentBlock();
+  CodeBlock getCurrentBlock();
 
-	CodeBlockForOuterMostAlt getCurrentOuterMostAlternativeBlock();
+  CodeBlockForOuterMostAlt getCurrentOuterMostAlternativeBlock();
 
-	int getCodeBlockLevel();
+  int getCodeBlockLevel();
 
-	int getTreeLevel();
+  int getTreeLevel();
 
 }

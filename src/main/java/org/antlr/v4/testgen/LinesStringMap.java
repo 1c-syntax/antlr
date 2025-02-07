@@ -1,5 +1,9 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -11,46 +15,44 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- *
  * @author Sam Harwell
  */
 public class LinesStringMap extends AbstractMap<String, Object> {
 
-	@Override
-	public Object get(Object key) {
-		if (key instanceof String) {
-			String str = (String)key;
-			if (str.isEmpty()) {
-				return Collections.singletonList(str);
-			}
+  @Override
+  public Object get(Object key) {
+    if (key instanceof String str) {
+      if (str.isEmpty()) {
+        return Collections.singletonList(str);
+      }
 
-			ArrayList<String> result = new ArrayList<String>();
-			int startIndex = 0;
-			while (startIndex < str.length()) {
-				int endIndex = str.indexOf('\n', startIndex);
-				if (endIndex < 0) {
-					result.add(str.substring(startIndex));
-					break;
-				}
+      ArrayList<String> result = new ArrayList<String>();
+      int startIndex = 0;
+      while (startIndex < str.length()) {
+        int endIndex = str.indexOf('\n', startIndex);
+        if (endIndex < 0) {
+          result.add(str.substring(startIndex));
+          break;
+        }
 
-				result.add(str.substring(startIndex, endIndex + 1));
-				startIndex = endIndex + 1;
-			}
+        result.add(str.substring(startIndex, endIndex + 1));
+        startIndex = endIndex + 1;
+      }
 
-			return result;
-		}
+      return result;
+    }
 
-		return super.get(key);
-	}
+    return super.get(key);
+  }
 
-	@Override
-	public boolean containsKey(Object key) {
-		return key instanceof String;
-	}
+  @Override
+  public boolean containsKey(Object key) {
+    return key instanceof String;
+  }
 
-	@Override
-	public Set<Entry<String, Object>> entrySet() {
-		return Collections.emptySet();
-	}
+  @Override
+  public Set<Entry<String, Object>> entrySet() {
+    return Collections.emptySet();
+  }
 
 }

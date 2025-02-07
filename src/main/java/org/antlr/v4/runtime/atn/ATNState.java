@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.misc.IntervalSet;
@@ -75,176 +78,185 @@ import java.util.Locale;
  * <embed src="images/OptionalNonGreedy.svg" type="image/svg+xml"/>
  */
 public abstract class ATNState {
-	public static final int INITIAL_NUM_TRANSITIONS = 4;
+  public static final int INITIAL_NUM_TRANSITIONS = 4;
 
-	// constants for serialization
-	public static final int INVALID_TYPE = 0;
-	public static final int BASIC = 1;
-	public static final int RULE_START = 2;
-	public static final int BLOCK_START = 3;
-	public static final int PLUS_BLOCK_START = 4;
-	public static final int STAR_BLOCK_START = 5;
-	public static final int TOKEN_START = 6;
-	public static final int RULE_STOP = 7;
-	public static final int BLOCK_END = 8;
-	public static final int STAR_LOOP_BACK = 9;
-	public static final int STAR_LOOP_ENTRY = 10;
-	public static final int PLUS_LOOP_BACK = 11;
-	public static final int LOOP_END = 12;
+  // constants for serialization
+  public static final int INVALID_TYPE = 0;
+  public static final int BASIC = 1;
+  public static final int RULE_START = 2;
+  public static final int BLOCK_START = 3;
+  public static final int PLUS_BLOCK_START = 4;
+  public static final int STAR_BLOCK_START = 5;
+  public static final int TOKEN_START = 6;
+  public static final int RULE_STOP = 7;
+  public static final int BLOCK_END = 8;
+  public static final int STAR_LOOP_BACK = 9;
+  public static final int STAR_LOOP_ENTRY = 10;
+  public static final int PLUS_LOOP_BACK = 11;
+  public static final int LOOP_END = 12;
 
-	public static final List<String> serializationNames =
-		Collections.unmodifiableList(Arrays.asList(
-			"INVALID",
-			"BASIC",
-			"RULE_START",
-			"BLOCK_START",
-			"PLUS_BLOCK_START",
-			"STAR_BLOCK_START",
-			"TOKEN_START",
-			"RULE_STOP",
-			"BLOCK_END",
-			"STAR_LOOP_BACK",
-			"STAR_LOOP_ENTRY",
-			"PLUS_LOOP_BACK",
-			"LOOP_END"
-		));
+  public static final List<String> serializationNames =
+    Collections.unmodifiableList(Arrays.asList(
+      "INVALID",
+      "BASIC",
+      "RULE_START",
+      "BLOCK_START",
+      "PLUS_BLOCK_START",
+      "STAR_BLOCK_START",
+      "TOKEN_START",
+      "RULE_STOP",
+      "BLOCK_END",
+      "STAR_LOOP_BACK",
+      "STAR_LOOP_ENTRY",
+      "PLUS_LOOP_BACK",
+      "LOOP_END"
+    ));
 
-	public static final int INVALID_STATE_NUMBER = -1;
+  public static final int INVALID_STATE_NUMBER = -1;
 
-    /** Which ATN are we in? */
-   	public ATN atn = null;
+  /**
+   * Which ATN are we in?
+   */
+  public ATN atn = null;
 
-	public int stateNumber = INVALID_STATE_NUMBER;
+  public int stateNumber = INVALID_STATE_NUMBER;
 
-	public int ruleIndex; // at runtime, we don't have Rule objects
+  public int ruleIndex; // at runtime, we don't have Rule objects
 
-	public boolean epsilonOnlyTransitions = false;
+  public boolean epsilonOnlyTransitions = false;
 
-	/** Track the transitions emanating from this ATN state. */
-	protected final List<Transition> transitions =
-		new ArrayList<Transition>(INITIAL_NUM_TRANSITIONS);
+  /**
+   * Track the transitions emanating from this ATN state.
+   */
+  protected final List<Transition> transitions =
+    new ArrayList<Transition>(INITIAL_NUM_TRANSITIONS);
 
-	protected List<Transition> optimizedTransitions = transitions;
+  protected List<Transition> optimizedTransitions = transitions;
 
-	/** Used to cache lookahead during parsing, not used during construction */
-    public IntervalSet nextTokenWithinRule;
+  /**
+   * Used to cache lookahead during parsing, not used during construction
+   */
+  public IntervalSet nextTokenWithinRule;
 
-	/**
-	 * Gets the state number.
-	 *
-	 * @return the state number
-	 */
-	public final int getStateNumber() {
-		return stateNumber;
-	}
+  /**
+   * Gets the state number.
+   *
+   * @return the state number
+   */
+  public final int getStateNumber() {
+    return stateNumber;
+  }
 
-	/**
-	 * For all states except {@link RuleStopState}, this returns the state
-	 * number. Returns -1 for stop states.
-	 *
-	 * @return -1 for {@link RuleStopState}, otherwise the state number
-	 */
-	public int getNonStopStateNumber() {
-		return getStateNumber();
-	}
+  /**
+   * For all states except {@link RuleStopState}, this returns the state
+   * number. Returns -1 for stop states.
+   *
+   * @return -1 for {@link RuleStopState}, otherwise the state number
+   */
+  public int getNonStopStateNumber() {
+    return getStateNumber();
+  }
 
-	@Override
-	public int hashCode() { return stateNumber; }
+  @Override
+  public int hashCode() {
+    return stateNumber;
+  }
 
-	@Override
-	public boolean equals(Object o) {
-		// are these states same object?
-		if ( o instanceof ATNState ) return stateNumber==((ATNState)o).stateNumber;
-		return false;
-	}
+  @Override
+  public boolean equals(Object o) {
+    // are these states same object?
+    if (o instanceof ATNState) return stateNumber == ((ATNState) o).stateNumber;
+    return false;
+  }
 
-	public boolean isNonGreedyExitState() {
-		return false;
-	}
+  public boolean isNonGreedyExitState() {
+    return false;
+  }
 
-	@Override
-	public String toString() {
-		return String.valueOf(stateNumber);
-	}
+  @Override
+  public String toString() {
+    return String.valueOf(stateNumber);
+  }
 
-	public Transition[] getTransitions() {
-		return transitions.toArray(new Transition[0]);
-	}
+  public Transition[] getTransitions() {
+    return transitions.toArray(new Transition[0]);
+  }
 
-	public int getNumberOfTransitions() {
-		return transitions.size();
-	}
+  public int getNumberOfTransitions() {
+    return transitions.size();
+  }
 
-	public void addTransition(Transition e) {
-		addTransition(transitions.size(), e);
-	}
+  public void addTransition(Transition e) {
+    addTransition(transitions.size(), e);
+  }
 
-	public void addTransition(int index, Transition e) {
-		if (transitions.isEmpty()) {
-			epsilonOnlyTransitions = e.isEpsilon();
-		}
-		else if (epsilonOnlyTransitions != e.isEpsilon()) {
-			System.err.format(Locale.getDefault(), "ATN state %d has both epsilon and non-epsilon transitions.\n", stateNumber);
-			epsilonOnlyTransitions = false;
-		}
+  public void addTransition(int index, Transition e) {
+    if (transitions.isEmpty()) {
+      epsilonOnlyTransitions = e.isEpsilon();
+    } else if (epsilonOnlyTransitions != e.isEpsilon()) {
+      System.err.format(Locale.getDefault(), "ATN state %d has both epsilon and non-epsilon transitions.\n", stateNumber);
+      epsilonOnlyTransitions = false;
+    }
 
-		transitions.add(index, e);
-	}
+    transitions.add(index, e);
+  }
 
-	public Transition transition(int i) {
-		return transitions.get(i);
-	}
+  public Transition transition(int i) {
+    return transitions.get(i);
+  }
 
-	public void setTransition(int i, Transition e) {
-		transitions.set(i, e);
-	}
+  public void setTransition(int i, Transition e) {
+    transitions.set(i, e);
+  }
 
-	public Transition removeTransition(int index) {
-		return transitions.remove(index);
-	}
+  public Transition removeTransition(int index) {
+    return transitions.remove(index);
+  }
 
-	public abstract int getStateType();
+  public abstract int getStateType();
 
-	public final boolean onlyHasEpsilonTransitions() {
-		return epsilonOnlyTransitions;
-	}
+  public final boolean onlyHasEpsilonTransitions() {
+    return epsilonOnlyTransitions;
+  }
 
-	public void setRuleIndex(int ruleIndex) { this.ruleIndex = ruleIndex; }
+  public void setRuleIndex(int ruleIndex) {
+    this.ruleIndex = ruleIndex;
+  }
 
-	public boolean isOptimized() {
-		return optimizedTransitions != transitions;
-	}
+  public boolean isOptimized() {
+    return optimizedTransitions != transitions;
+  }
 
-	public int getNumberOfOptimizedTransitions() {
-		return optimizedTransitions.size();
-	}
+  public int getNumberOfOptimizedTransitions() {
+    return optimizedTransitions.size();
+  }
 
-	public Transition getOptimizedTransition(int i) {
-		return optimizedTransitions.get(i);
-	}
+  public Transition getOptimizedTransition(int i) {
+    return optimizedTransitions.get(i);
+  }
 
-	public void addOptimizedTransition(Transition e) {
-		if (!isOptimized()) {
-			optimizedTransitions = new ArrayList<Transition>();
-		}
+  public void addOptimizedTransition(Transition e) {
+    if (!isOptimized()) {
+      optimizedTransitions = new ArrayList<Transition>();
+    }
 
-		optimizedTransitions.add(e);
-	}
+    optimizedTransitions.add(e);
+  }
 
-	public void setOptimizedTransition(int i, Transition e) {
-		if (!isOptimized()) {
-			throw new IllegalStateException();
-		}
+  public void setOptimizedTransition(int i, Transition e) {
+    if (!isOptimized()) {
+      throw new IllegalStateException();
+    }
 
-		optimizedTransitions.set(i, e);
-	}
+    optimizedTransitions.set(i, e);
+  }
 
-	public void removeOptimizedTransition(int i) {
-		if (!isOptimized()) {
-			throw new IllegalStateException();
-		}
+  public void removeOptimizedTransition(int i) {
+    if (!isOptimized()) {
+      throw new IllegalStateException();
+    }
 
-		optimizedTransitions.remove(i);
-	}
+    optimizedTransitions.remove(i);
+  }
 
 }

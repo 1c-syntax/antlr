@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.ParserErrorListener;
@@ -38,44 +41,44 @@ import java.util.BitSet;
  *
  * @see ParserATNSimulator#reportAmbiguity
  * @see ParserErrorListener#reportAmbiguity
- *
  * @since 4.3
  */
 public class AmbiguityInfo extends DecisionEventInfo {
-	/** The set of alternative numbers for this decision event that lead to a valid parse. */
-	@NotNull
-	private final BitSet ambigAlts;
+  /**
+   * The set of alternative numbers for this decision event that lead to a valid parse.
+   */
+  @NotNull
+  private final BitSet ambigAlts;
 
-	/**
-	 * Constructs a new instance of the {@link AmbiguityInfo} class with the
-	 * specified detailed ambiguity information.
-	 *
-	 * @param decision The decision number
-	 * @param state The final simulator state identifying the ambiguous
-	 * alternatives for the current input
-	 * @param ambigAlts The set of alternatives in the decision that lead to a valid parse.
-	 *                  The predicted alt is the min(ambigAlts)
-	 * @param input The input token stream
-	 * @param startIndex The start index for the current prediction
-	 * @param stopIndex The index at which the ambiguity was identified during
-	 * prediction
-	 */
-	public AmbiguityInfo(int decision,
-						 @NotNull SimulatorState state,
-						 @NotNull BitSet ambigAlts,
-						 @NotNull TokenStream input, int startIndex, int stopIndex)
-	{
-		super(decision, state, input, startIndex, stopIndex, state.useContext);
-		this.ambigAlts = ambigAlts;
-	}
+  /**
+   * Constructs a new instance of the {@link AmbiguityInfo} class with the
+   * specified detailed ambiguity information.
+   *
+   * @param decision   The decision number
+   * @param state      The final simulator state identifying the ambiguous
+   *                   alternatives for the current input
+   * @param ambigAlts  The set of alternatives in the decision that lead to a valid parse.
+   *                   The predicted alt is the min(ambigAlts)
+   * @param input      The input token stream
+   * @param startIndex The start index for the current prediction
+   * @param stopIndex  The index at which the ambiguity was identified during
+   *                   prediction
+   */
+  public AmbiguityInfo(int decision,
+                       @NotNull SimulatorState state,
+                       @NotNull BitSet ambigAlts,
+                       @NotNull TokenStream input, int startIndex, int stopIndex) {
+    super(decision, state, input, startIndex, stopIndex, state.useContext);
+    this.ambigAlts = ambigAlts;
+  }
 
-	/**
-	 * Gets the set of alternatives in the decision that lead to a valid parse.
-	 *
-	 * @since 4.5
-	 */
-	@NotNull
-	public BitSet getAmbiguousAlternatives() {
-		return ambigAlts;
-	}
+  /**
+   * Gets the set of alternatives in the decision that lead to a valid parse.
+   *
+   * @since 4.5
+   */
+  @NotNull
+  public BitSet getAmbiguousAlternatives() {
+    return ambigAlts;
+  }
 }

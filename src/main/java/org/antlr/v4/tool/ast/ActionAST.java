@@ -1,9 +1,12 @@
 /*
- * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.tool.ast;
 
 import org.antlr.runtime.Token;
@@ -12,34 +15,46 @@ import org.antlr.v4.tool.AttributeResolver;
 import java.util.List;
 
 public class ActionAST extends GrammarASTWithOptions implements RuleElementAST {
-    // Alt, rule, grammar space
-	GrammarAST scope = null;
-	public AttributeResolver resolver;
-	public List<Token> chunks; // useful for ANTLR IDE developers
+  // Alt, rule, grammar space
+  GrammarAST scope = null;
+  public AttributeResolver resolver;
+  public List<Token> chunks; // useful for ANTLR IDE developers
 
-	public ActionAST(ActionAST node) {
-		super(node);
-		this.resolver = node.resolver;
-		this.chunks = node.chunks;
-	}
+  public ActionAST(ActionAST node) {
+    super(node);
+    this.resolver = node.resolver;
+    this.chunks = node.chunks;
+  }
 
-	public ActionAST(Token t) { super(t); }
-    public ActionAST(int type) { super(type); }
-    public ActionAST(int type, Token t) { super(type, t); }
+  public ActionAST(Token t) {
+    super(t);
+  }
 
-	@Override
-	public ActionAST dupNode() { return new ActionAST(this); }
+  public ActionAST(int type) {
+    super(type);
+  }
 
-	@Override
-	public Object visit(GrammarASTVisitor v) { return v.visit(this); }
+  public ActionAST(int type, Token t) {
+    super(type, t);
+  }
 
-	public void setScope(GrammarAST scope) {
-		this.scope = scope;
-	}
+  @Override
+  public ActionAST dupNode() {
+    return new ActionAST(this);
+  }
 
-	public GrammarAST getScope() {
-		return scope;
-	}
+  @Override
+  public Object visit(GrammarASTVisitor v) {
+    return v.visit(this);
+  }
+
+  public void setScope(GrammarAST scope) {
+    this.scope = scope;
+  }
+
+  public GrammarAST getScope() {
+    return scope;
+  }
 
 
 }
