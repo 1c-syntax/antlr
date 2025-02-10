@@ -28,7 +28,7 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1005,7 +1005,7 @@ public class ParserATNSimulator extends ATNSimulator {
 
     DFAState target = getExistingTargetState(s0, t);
     if (target == null) {
-      Tuple2<DFAState, ParserRuleContext> result = computeTargetState(dfa, s0, remainingGlobalContext, t, useContext, contextCache);
+      Pair<DFAState, ParserRuleContext> result = computeTargetState(dfa, s0, remainingGlobalContext, t, useContext, contextCache);
       target = result.getItem1();
       remainingGlobalContext = result.getItem2();
     }
@@ -1049,7 +1049,7 @@ public class ParserATNSimulator extends ATNSimulator {
    * returns {@link #ERROR}.
    */
   @NotNull
-  protected Tuple2<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa, @NotNull DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa, @NotNull DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
     List<ATNConfig> closureConfigs = new ArrayList<ATNConfig>(s.configs);
     IntegerList contextElements = null;
     ATNConfigSet reach = new ATNConfigSet();

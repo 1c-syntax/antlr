@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.dfa.DFAState;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.BitSet;
 
@@ -164,8 +164,8 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected Tuple2<DFAState, ParserRuleContext> computeTargetState(DFA dfa, DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
-    Tuple2<DFAState, ParserRuleContext> targetState = super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa, DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
+    Pair<DFAState, ParserRuleContext> targetState = super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
 
     if (useContext) {
       decisions[currentDecision].LL_ATNTransitions++;

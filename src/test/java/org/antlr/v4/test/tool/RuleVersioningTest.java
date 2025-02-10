@@ -11,7 +11,7 @@ package org.antlr.v4.test.tool;
 
 import org.antlr.v4.runtime.misc.Predicate;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Utils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -255,14 +255,14 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
   private static class PropertiesWrapper extends AbstractMap<String, Object> {
     private final Properties properties;
-    private final List<Tuple2<String, Integer>> prefixes;
+    private final List<Pair<String, Integer>> prefixes;
     private final STGroup group;
 
     public PropertiesWrapper(Properties properties, String prefix, STGroup group) {
       this(properties, Collections.singletonList(Tuple.create(prefix, 0)), group);
     }
 
-    public PropertiesWrapper(Properties properties, List<Tuple2<String, Integer>> prefixes, STGroup group) {
+    public PropertiesWrapper(Properties properties, List<Pair<String, Integer>> prefixes, STGroup group) {
       this.properties = properties;
       this.prefixes = prefixes;
       this.group = group;
@@ -276,7 +276,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
         @Override
         public boolean eval(Entry<Object, Object> arg) {
           String key = arg.getKey().toString();
-          for (Tuple2<String, Integer> prefix : prefixes) {
+          for (Pair<String, Integer> prefix : prefixes) {
             if (key.startsWith(prefix.getItem1() + '.') || key.equals(prefix.getItem1())) {
               // don't remove items matching the prefix
               return false;
@@ -288,9 +288,9 @@ public class RuleVersioningTest extends AbstractBaseTest {
       });
 
       final Map<String, Object> subkeyValues = new HashMap<String, Object>();
-      final Map<String, List<Tuple2<String, Integer>>> subkeyPrefixes = new HashMap<String, List<Tuple2<String, Integer>>>();
+      final Map<String, List<Pair<String, Integer>>> subkeyPrefixes = new HashMap<String, List<Pair<String, Integer>>>();
       for (int i = 0; i < prefixes.size(); i++) {
-        Tuple2<String, Integer> prefix = prefixes.get(i);
+        Pair<String, Integer> prefix = prefixes.get(i);
         for (Entry<Object, Object> entry : entries) {
           String key = entry.getKey().toString();
           if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template") || key.equals(prefix.getItem1() + ".inherit")) {
@@ -306,9 +306,9 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
               assert !subkeyValues.containsKey(subkey);
               subkey = subkey.substring(0, dot);
-              List<Tuple2<String, Integer>> prefixList = subkeyPrefixes.get(subkey);
+              List<Pair<String, Integer>> prefixList = subkeyPrefixes.get(subkey);
               if (prefixList == null) {
-                prefixList = new ArrayList<Tuple2<String, Integer>>();
+                prefixList = new ArrayList<Pair<String, Integer>>();
                 subkeyPrefixes.put(subkey, prefixList);
               }
 
@@ -336,10 +336,10 @@ public class RuleVersioningTest extends AbstractBaseTest {
       }
 
       // sort prefix lists by priority
-      for (List<Tuple2<String, Integer>> list : subkeyPrefixes.values()) {
-        Collections.sort(list, new Comparator<Tuple2<String, Integer>>() {
+      for (List<Pair<String, Integer>> list : subkeyPrefixes.values()) {
+        Collections.sort(list, new Comparator<Pair<String, Integer>>() {
           @Override
-          public int compare(Tuple2<String, Integer> o1, Tuple2<String, Integer> o2) {
+          public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
             return o1.getItem2() - o2.getItem2();
           }
         });
@@ -350,7 +350,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
         public Iterator<Entry<String, Object>> iterator() {
           return new Iterator<Entry<String, Object>>() {
             final Iterator<Entry<String, Object>> valueIterator = subkeyValues.entrySet().iterator();
-            final Iterator<Entry<String, List<Tuple2<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet().iterator();
+            final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet().iterator();
 
             @Override
             public boolean hasNext() {
@@ -362,7 +362,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
               if (valueIterator.hasNext()) {
                 return valueIterator.next();
               } else {
-                final Entry<String, List<Tuple2<String, Integer>>> next = prefixIterator.next();
+                final Entry<String, List<Pair<String, Integer>>> next = prefixIterator.next();
                 return new Entry<String, Object>() {
                   @Override
                   public String getKey() {

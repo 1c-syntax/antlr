@@ -12,7 +12,7 @@ package org.antlr.v4.test.tool;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RuleContext;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.runtime.tree.xpath.XPath;
@@ -166,7 +166,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   protected void testError(String input, String path, String expected, String startRuleName, String parserName, String lexerName) throws Exception {
-    Tuple2<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
+    Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);
 
@@ -181,7 +181,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   public List<String> getNodeStrings(String input, String xpath, String startRuleName, String parserName, String lexerName) throws Exception {
-    Tuple2<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
+    Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);
 

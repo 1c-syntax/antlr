@@ -24,7 +24,7 @@ import org.antlr.v4.runtime.atn.StarLoopEntryState;
 import org.antlr.v4.runtime.atn.Transition;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.ArrayDeque;
 import java.util.BitSet;
@@ -74,8 +74,8 @@ public class ParserInterpreter extends Parser {
    * Those values are used to create new recursive rule invocation contexts
    * associated with left operand of an alt like "expr '*' expr".
    */
-  protected final Deque<Tuple2<ParserRuleContext, Integer>> _parentContextStack =
-    new ArrayDeque<Tuple2<ParserRuleContext, Integer>>();
+  protected final Deque<Pair<ParserRuleContext, Integer>> _parentContextStack =
+    new ArrayDeque<Pair<ParserRuleContext, Integer>>();
 
   /**
    * We need a map from (decision,inputIndex)->forced alt for computing ambiguous
@@ -206,7 +206,7 @@ public class ParserInterpreter extends Parser {
           if (_ctx.isEmpty()) {
             if (startRuleStartState.isPrecedenceRule) {
               ParserRuleContext result = _ctx;
-              Tuple2<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
+              Pair<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
               unrollRecursionContexts(parentContext.getItem1());
               return result;
             } else {
@@ -353,7 +353,7 @@ public class ParserInterpreter extends Parser {
   protected void visitRuleStopState(ATNState p) {
     RuleStartState ruleStartState = atn.ruleToStartState[p.ruleIndex];
     if (ruleStartState.isPrecedenceRule) {
-      Tuple2<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
+      Pair<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
       unrollRecursionContexts(parentContext.getItem1());
       setState(parentContext.getItem2());
     } else {

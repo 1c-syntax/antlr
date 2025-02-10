@@ -10,7 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 /**
  * The default mechanism for creating tokens. It's used by default in Lexer and
@@ -24,7 +24,7 @@ public interface TokenFactory {
    * are wiped to -1 in the text override is set in the CommonToken.
    */
   @NotNull
-  Token create(@NotNull Tuple2<? extends TokenSource, CharStream> source, int type, String text,
+  Token create(@NotNull Pair<? extends TokenSource, CharStream> source, int type, String text,
                int channel, int start, int stop,
                int line, int charPositionInLine);
 

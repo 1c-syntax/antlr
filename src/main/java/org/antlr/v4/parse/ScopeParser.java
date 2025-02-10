@@ -14,7 +14,7 @@ import org.antlr.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.Attribute;
 import org.antlr.v4.tool.AttributeDict;
 import org.antlr.v4.tool.ErrorType;
@@ -55,8 +55,8 @@ public class ScopeParser {
 
   public static AttributeDict parse(@Nullable ActionAST action, String s, char separator, Grammar g) {
     AttributeDict dict = new AttributeDict();
-    List<Tuple2<String, Integer>> decls = splitDecls(s, separator);
-    for (Tuple2<String, Integer> decl : decls) {
+    List<Pair<String, Integer>> decls = splitDecls(s, separator);
+    for (Pair<String, Integer> decl : decls) {
       if (decl.getItem1().trim().length() > 0) {
         Attribute a = parseAttributeDef(action, decl, g);
         dict.add(a);
@@ -71,7 +71,7 @@ public class ScopeParser {
    * but if the separator is ',' you cannot use ',' in the initvalue
    * unless you escape use "\," escape.
    */
-  public static Attribute parseAttributeDef(@Nullable ActionAST action, @NotNull Tuple2<String, Integer> decl, Grammar g) {
+  public static Attribute parseAttributeDef(@Nullable ActionAST action, @NotNull Pair<String, Integer> decl, Grammar g) {
     if (decl.getItem1() == null) return null;
 
     Attribute attr = new Attribute();
@@ -84,7 +84,7 @@ public class ScopeParser {
     }
 
     String declarator = decl.getItem1().substring(0, rightEdgeOfDeclarator + 1);
-    Tuple2<Integer, Integer> p;
+    Pair<Integer, Integer> p;
     String text = decl.getItem1();
     text = text.replaceAll("::", "");
     if (text.contains(":")) {
@@ -146,7 +146,7 @@ public class ScopeParser {
     return attr;
   }
 
-  public static Tuple2<Integer, Integer> _parsePrefixDecl(Attribute attr, String decl, ActionAST a, Grammar g) {
+  public static Pair<Integer, Integer> _parsePrefixDecl(Attribute attr, String decl, ActionAST a, Grammar g) {
     // walk backwards looking for start of an ID
     boolean inID = false;
     int start = -1;
@@ -197,7 +197,7 @@ public class ScopeParser {
     return Tuple.create(start, stop);
   }
 
-  public static Tuple2<Integer, Integer> _parsePostfixDecl(Attribute attr, String decl, ActionAST a, Grammar g) {
+  public static Pair<Integer, Integer> _parsePostfixDecl(Attribute attr, String decl, ActionAST a, Grammar g) {
     int start = -1;
     int stop = -1;
     int colon = decl.indexOf(':');
@@ -259,8 +259,8 @@ public class ScopeParser {
    * convert to a list of attributes.  Allow nested square brackets etc...
    * Set separatorChar to ';' or ',' or whatever you want.
    */
-  public static List<Tuple2<String, Integer>> splitDecls(String s, int separatorChar) {
-    List<Tuple2<String, Integer>> args = new ArrayList<Tuple2<String, Integer>>();
+  public static List<Pair<String, Integer>> splitDecls(String s, int separatorChar) {
+    List<Pair<String, Integer>> args = new ArrayList<Pair<String, Integer>>();
     _splitArgumentList(s, 0, -1, separatorChar, args);
     return args;
   }
@@ -269,7 +269,7 @@ public class ScopeParser {
                                        int start,
                                        int targetChar,
                                        int separatorChar,
-                                       List<Tuple2<String, Integer>> args) {
+                                       List<Pair<String, Integer>> args) {
     if (actionText == null) {
       return -1;
     }
