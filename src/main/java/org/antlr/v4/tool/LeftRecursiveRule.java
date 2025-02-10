@@ -12,7 +12,7 @@ package org.antlr.v4.tool;
 import org.antlr.v4.analysis.LeftRecursiveRuleAltInfo;
 import org.antlr.v4.misc.OrderedHashMap;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.RuleAST;
@@ -30,8 +30,8 @@ public class LeftRecursiveRule extends Rule {
   /**
    * Did we delete any labels on direct left-recur refs? Points at ID of ^(= ID el)
    */
-  public List<Tuple2<GrammarAST, String>> leftRecursiveRuleRefLabels =
-    new ArrayList<Tuple2<GrammarAST, String>>();
+  public List<Pair<GrammarAST, String>> leftRecursiveRuleRefLabels =
+    new ArrayList<Pair<GrammarAST, String>>();
 
   public LeftRecursiveRule(Grammar g, String name, RuleAST ast) {
     super(g, name, ast, 1);
@@ -124,14 +124,14 @@ public class LeftRecursiveRule extends Rule {
    * Get -&gt; labels from those alts we deleted for left-recursive rules.
    */
   @Override
-  public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
-    Map<String, List<Tuple2<Integer, AltAST>>> labels = new HashMap<String, List<Tuple2<Integer, AltAST>>>();
-    Map<String, List<Tuple2<Integer, AltAST>>> normalAltLabels = super.getAltLabels();
+  public Map<String, List<Pair<Integer, AltAST>>> getAltLabels() {
+    Map<String, List<Pair<Integer, AltAST>>> labels = new HashMap<String, List<Pair<Integer, AltAST>>>();
+    Map<String, List<Pair<Integer, AltAST>>> normalAltLabels = super.getAltLabels();
     if (normalAltLabels != null) labels.putAll(normalAltLabels);
     if (recPrimaryAlts != null) {
       for (LeftRecursiveRuleAltInfo altInfo : recPrimaryAlts) {
         if (altInfo.altLabel != null) {
-          List<Tuple2<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Tuple2<Integer, AltAST>>());
+          List<Pair<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Pair<Integer, AltAST>>());
 
           pairs.add(Tuple.create(altInfo.altNum, altInfo.originalAltAST));
         }
@@ -141,7 +141,7 @@ public class LeftRecursiveRule extends Rule {
       for (int i = 0; i < recOpAlts.size(); i++) {
         LeftRecursiveRuleAltInfo altInfo = recOpAlts.getElement(i);
         if (altInfo.altLabel != null) {
-          List<Tuple2<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Tuple2<Integer, AltAST>>());
+          List<Pair<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Pair<Integer, AltAST>>());
 
           pairs.add(Tuple.create(altInfo.altNum, altInfo.originalAltAST));
         }

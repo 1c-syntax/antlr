@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.misc.IntegerStack;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -39,7 +39,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   public static final int MAX_CHAR_VALUE = 0x10FFFF;
 
   public CharStream _input;
-  protected Tuple2<? extends TokenSource, CharStream> _tokenFactorySourcePair;
+  protected Pair<? extends TokenSource, CharStream> _tokenFactorySourcePair;
 
   /**
    * How to create token objects
@@ -243,9 +243,9 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
       return;
     }
 
-    if (!(input instanceof UnicodeCharStream) || !((UnicodeCharStream) input).supportsUnicodeCodePoints()) {
-      throw new UnsupportedOperationException("The input stream does not support code points required for this grammar.");
-    }
+//    if (!(input instanceof UnicodeCharStream) || !((UnicodeCharStream) input).supportsUnicodeCodePoints()) {
+//      throw new UnsupportedOperationException("The input stream does not support code points required for this grammar.");
+//    }
   }
 
   @Override

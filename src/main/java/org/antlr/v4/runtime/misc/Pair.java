@@ -12,12 +12,12 @@ package org.antlr.v4.runtime.misc;
 /**
  * @author Sam Harwell
  */
-public class Tuple2<T1, T2> {
+public class Pair<T1, T2> {
 
   private final T1 item1;
   private final T2 item2;
 
-  public Tuple2(T1 item1, T2 item2) {
+  public Pair(T1 item1, T2 item2) {
     this.item1 = item1;
     this.item2 = item2;
   }
@@ -34,11 +34,11 @@ public class Tuple2<T1, T2> {
   public boolean equals(Object obj) {
     if (obj == this) {
       return true;
-    } else if (!(obj instanceof Tuple2<?, ?>)) {
+    } else if (!(obj instanceof Pair<?, ?>)) {
       return false;
     }
 
-    Tuple2<?, ?> other = (Tuple2<?, ?>) obj;
+    Pair<?, ?> other = (Pair<?, ?>) obj;
     return Tuple.equals(this.item1, other.item1)
       && Tuple.equals(this.item2, other.item2);
   }

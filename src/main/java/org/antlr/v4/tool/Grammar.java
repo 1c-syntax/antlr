@@ -38,7 +38,7 @@ import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -599,7 +599,7 @@ public class Grammar implements AttributeResolver {
     return visitor.getUnlabeledAlternatives();
   }
 
-  public Map<String, List<Tuple2<Integer, AltAST>>> getLabeledAlternatives(RuleAST ast) throws org.antlr.runtime.RecognitionException {
+  public Map<String, List<Pair<Integer, AltAST>>> getLabeledAlternatives(RuleAST ast) throws org.antlr.runtime.RecognitionException {
     AltLabelVisitor visitor = new AltLabelVisitor(new org.antlr.runtime.tree.CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
     visitor.rule();
     return visitor.getLabeledAlternatives();
@@ -1318,7 +1318,7 @@ public class Grammar implements AttributeResolver {
   /**
    * Return list of (TOKEN_NAME node, 'literal' node) pairs
    */
-  public static List<Tuple2<GrammarAST, GrammarAST>> getStringLiteralAliasesFromLexerRules(GrammarRootAST ast) {
+  public static List<Pair<GrammarAST, GrammarAST>> getStringLiteralAliasesFromLexerRules(GrammarRootAST ast) {
     String[] patterns = {
       "(RULE %name:TOKEN_REF (BLOCK (ALT %lit:STRING_LITERAL)))",
       "(RULE %name:TOKEN_REF (BLOCK (ALT %lit:STRING_LITERAL ACTION)))",
@@ -1332,8 +1332,8 @@ public class Grammar implements AttributeResolver {
     };
     GrammarASTAdaptor adaptor = new GrammarASTAdaptor(ast.token.getInputStream());
     org.antlr.runtime.tree.TreeWizard wiz = new org.antlr.runtime.tree.TreeWizard(adaptor, ANTLRParser.tokenNames);
-    List<Tuple2<GrammarAST, GrammarAST>> lexerRuleToStringLiteral =
-      new ArrayList<Tuple2<GrammarAST, GrammarAST>>();
+    List<Pair<GrammarAST, GrammarAST>> lexerRuleToStringLiteral =
+      new ArrayList<Pair<GrammarAST, GrammarAST>>();
 
     List<GrammarAST> ruleNodes = ast.getNodesWithType(ANTLRParser.RULE);
     if (ruleNodes == null || ruleNodes.isEmpty()) return null;
@@ -1358,12 +1358,12 @@ public class Grammar implements AttributeResolver {
 
   protected static boolean defAlias(GrammarAST r, String pattern,
                                     org.antlr.runtime.tree.TreeWizard wiz,
-                                    List<Tuple2<GrammarAST, GrammarAST>> lexerRuleToStringLiteral) {
+                                    List<Pair<GrammarAST, GrammarAST>> lexerRuleToStringLiteral) {
     HashMap<String, Object> nodes = new HashMap<String, Object>();
     if (wiz.parse(r, pattern, nodes)) {
       GrammarAST litNode = (GrammarAST) nodes.get("lit");
       GrammarAST nameNode = (GrammarAST) nodes.get("name");
-      Tuple2<GrammarAST, GrammarAST> pair = Tuple.create(nameNode, litNode);
+      Pair<GrammarAST, GrammarAST> pair = Tuple.create(nameNode, litNode);
       lexerRuleToStringLiteral.add(pair);
       return true;
     }
@@ -1478,8 +1478,8 @@ public class Grammar implements AttributeResolver {
   }
 
   protected static class AltLabelVisitor extends GrammarTreeVisitor {
-    private final Map<String, List<Tuple2<Integer, AltAST>>> labeledAlternatives =
-      new LinkedHashMap<String, List<Tuple2<Integer, AltAST>>>();
+    private final Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives =
+      new LinkedHashMap<String, List<Pair<Integer, AltAST>>>();
     private final List<AltAST> unlabeledAlternatives =
       new ArrayList<AltAST>();
 
@@ -1487,7 +1487,7 @@ public class Grammar implements AttributeResolver {
       super(input);
     }
 
-    public Map<String, List<Tuple2<Integer, AltAST>>> getLabeledAlternatives() {
+    public Map<String, List<Pair<Integer, AltAST>>> getLabeledAlternatives() {
       return labeledAlternatives;
     }
 
@@ -1498,7 +1498,7 @@ public class Grammar implements AttributeResolver {
     @Override
     public void discoverOuterAlt(AltAST alt) {
       if (alt.altLabel != null) {
-        List<Tuple2<Integer, AltAST>> list = labeledAlternatives.computeIfAbsent(alt.altLabel.getText(), k -> new ArrayList<Tuple2<Integer, AltAST>>());
+        List<Pair<Integer, AltAST>> list = labeledAlternatives.computeIfAbsent(alt.altLabel.getText(), k -> new ArrayList<Pair<Integer, AltAST>>());
 
         list.add(Tuple.create(currentOuterAltNumber, alt));
       } else {

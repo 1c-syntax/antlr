@@ -22,7 +22,7 @@ import org.antlr.v4.parse.LeftRecursiveRuleWalker;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -56,8 +56,8 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
   /**
    * Pointer to ID node of ^(= ID element)
    */
-  public List<Tuple2<GrammarAST, String>> leftRecursiveRuleRefLabels =
-    new ArrayList<Tuple2<GrammarAST, String>>();
+  public List<Pair<GrammarAST, String>> leftRecursiveRuleRefLabels =
+    new ArrayList<Pair<GrammarAST, String>>();
 
   /**
    * Tokens from which rule AST comes from

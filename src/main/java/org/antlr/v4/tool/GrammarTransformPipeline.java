@@ -22,7 +22,7 @@ import org.antlr.v4.parse.BlockSetTransformer;
 import org.antlr.v4.parse.GrammarASTAdaptor;
 import org.antlr.v4.parse.GrammarToken;
 import org.antlr.v4.runtime.misc.DoubleKeyMap;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.BlockAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -476,7 +476,7 @@ public class GrammarTransformPipeline {
     }
 
     // Will track 'if' from IF : 'if' ; rules to avoid defining new token for 'if'
-    List<Tuple2<GrammarAST, GrammarAST>> litAliases =
+    List<Pair<GrammarAST, GrammarAST>> litAliases =
       Grammar.getStringLiteralAliasesFromLexerRules(lexerAST);
 
     Set<String> stringLiterals = combinedGrammar.getStringLiterals();
@@ -488,7 +488,7 @@ public class GrammarTransformPipeline {
     for (String lit : stringLiterals) {
       // if lexer already has a rule for literal, continue
       if (litAliases != null) {
-        for (Tuple2<GrammarAST, GrammarAST> pair : litAliases) {
+        for (Pair<GrammarAST, GrammarAST> pair : litAliases) {
           GrammarAST litAST = pair.getItem2();
           if (lit.equals(litAST.getText())) continue nextLit;
         }

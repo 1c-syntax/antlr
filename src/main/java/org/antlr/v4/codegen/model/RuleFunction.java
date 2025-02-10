@@ -32,7 +32,7 @@ import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.OrderedHashSet;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.Attribute;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.Grammar;
@@ -184,10 +184,10 @@ public class RuleFunction extends OutputModelObject {
     for (RuleAST ast : contextASTs) {
       try {
         unlabeledAlternatives.addAll(rule.g.getUnlabeledAlternatives(ast));
-        for (Map.Entry<String, List<Tuple2<Integer, AltAST>>> entry : rule.g.getLabeledAlternatives(ast).entrySet()) {
+        for (Map.Entry<String, List<Pair<Integer, AltAST>>> entry : rule.g.getLabeledAlternatives(ast).entrySet()) {
           List<AltAST> list = labeledAlternatives.computeIfAbsent(entry.getKey(), k -> new ArrayList<AltAST>());
 
-          for (Tuple2<Integer, AltAST> tuple : entry.getValue()) {
+          for (Pair<Integer, AltAST> tuple : entry.getValue()) {
             list.add(tuple.getItem2());
           }
         }
@@ -246,7 +246,7 @@ public class RuleFunction extends OutputModelObject {
     for (AltAST ast : altASTs) {
       List<GrammarAST> refs = getRuleTokens(ast.getNodesWithType(reftypes));
       allRefs.addAll(refs);
-      Tuple2<FrequencySet<String>, FrequencySet<String>> minAndAltFreq = getElementFrequenciesForAlt(ast);
+      Pair<FrequencySet<String>, FrequencySet<String>> minAndAltFreq = getElementFrequenciesForAlt(ast);
       FrequencySet<String> minFreq = minAndAltFreq.getItem1();
       FrequencySet<String> altFreq = minAndAltFreq.getItem2();
       for (GrammarAST t : refs) {
@@ -329,7 +329,7 @@ public class RuleFunction extends OutputModelObject {
   /**
    * Given list of X and r refs in alt, compute how many of each there are
    */
-  protected Tuple2<FrequencySet<String>, FrequencySet<String>> getElementFrequenciesForAlt(AltAST ast) {
+  protected Pair<FrequencySet<String>, FrequencySet<String>> getElementFrequenciesForAlt(AltAST ast) {
     try {
       ElementFrequenciesVisitor visitor = new ElementFrequenciesVisitor(rule.g, new CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
       visitor.outerAlternative();

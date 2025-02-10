@@ -25,8 +25,8 @@ public class MultiMap<K, V> extends LinkedHashMap<K, List<V>> {
     elementsForKey.add(value);
   }
 
-  public List<Tuple2<K, V>> getPairs() {
-    List<Tuple2<K, V>> pairs = new ArrayList<Tuple2<K, V>>();
+  public List<Pair<K, V>> getPairs() {
+    List<Pair<K, V>> pairs = new ArrayList<Pair<K, V>>();
     for (K key : keySet()) {
       for (V value : get(key)) {
         pairs.add(Tuple.create(key, value));

@@ -37,7 +37,7 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.semantics.SemanticPipeline;
@@ -475,7 +475,7 @@ public abstract class AbstractBaseTest {
   public ParseTree execParser(String startRuleName, String input,
                               String parserName, String lexerName)
     throws Exception {
-    Tuple2<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
+    Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     return execStartRule(startRuleName, parser);
   }
@@ -495,8 +495,8 @@ public abstract class AbstractBaseTest {
     return (ParseTree) startRule.invoke(parser, args);
   }
 
-  public Tuple2<Parser, Lexer> getParserAndLexer(String input,
-                                                 String parserName, String lexerName)
+  public Pair<Parser, Lexer> getParserAndLexer(String input,
+                                               String parserName, String lexerName)
     throws Exception {
     final Class<? extends Lexer> lexerClass = loadLexerClassFromTempDir(lexerName);
     final Class<? extends Parser> parserClass = loadParserClassFromTempDir(parserName);
