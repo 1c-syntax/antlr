@@ -164,7 +164,12 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa, DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa,
+                                                                 DFAState s,
+                                                                 ParserRuleContext remainingGlobalContext,
+                                                                 int t,
+                                                                 boolean useContext,
+                                                                 PredictionContextCache contextCache) {
     Pair<DFAState, ParserRuleContext> targetState = super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
 
     if (useContext) {

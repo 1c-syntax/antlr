@@ -71,7 +71,8 @@ public class RuleDependencyChecker {
     }
   }
 
-  private static void checkDependencies(List<Pair<RuleDependency, AnnotatedElement>> dependencies, Class<? extends Recognizer<?, ?>> recognizerClass) {
+  private static void checkDependencies(List<Pair<RuleDependency, AnnotatedElement>> dependencies,
+                                        Class<? extends Recognizer<?, ?>> recognizerClass) {
     String[] ruleNames = getRuleNames(recognizerClass);
     int[] ruleVersions = getRuleVersions(recognizerClass, ruleNames);
 

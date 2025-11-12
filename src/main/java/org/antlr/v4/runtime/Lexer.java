@@ -238,10 +238,8 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   protected void validateInputStream(ATN atn, CharStream input) {
-    if (atn != null && !atn.hasUnicodeSMPTransitions()) {
-      // This grammar should work with inputs that stream UTF-16 or Unicode code points.
-      return;
-    }
+    // метод оставлен для совместимости
+    // todo стоит удалить в будущем
   }
 
   @Override

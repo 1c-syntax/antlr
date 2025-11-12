@@ -1605,7 +1605,12 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa, DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
+    protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa,
+                                                                   DFAState s,
+                                                                   ParserRuleContext remainingGlobalContext,
+                                                                   int t,
+                                                                   boolean useContext,
+                                                                   PredictionContextCache contextCache) {
       computedTransitions[decision]++;
       return super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
     }

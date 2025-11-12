@@ -140,8 +140,8 @@ public class RuleDependencyProcessor extends AbstractProcessor {
         // this is the rule in the dependency set with the highest version number
         int effectiveRule = dependency.getItem1().rule();
         if (effectiveRule < 0 || effectiveRule >= ruleVersions.length) {
-          Pair<AnnotationMirror, AnnotationValue> ruleReferenceElement = findRuleDependencyProperty(dependency, RuleDependencyProperty.RULE);
-          String message = String.format("Rule dependency on unknown rule %d@%d in %s",
+          var ruleReferenceElement = findRuleDependencyProperty(dependency, RuleDependencyProperty.RULE);
+          var message = String.format("Rule dependency on unknown rule %d@%d in %s",
             dependency.getItem1().rule(),
             dependency.getItem1().version(),
             getRecognizerType(dependency.getItem1()).toString());
@@ -265,7 +265,11 @@ public class RuleDependencyProcessor extends AbstractProcessor {
     }
   }
 
-  private int checkDependencyVersion(Pair<RuleDependency, Element> dependency, String[] ruleNames, int[] ruleVersions, int relatedRule, String relation) {
+  private int checkDependencyVersion(Pair<RuleDependency, Element> dependency,
+                                     String[] ruleNames,
+                                     int[] ruleVersions,
+                                     int relatedRule,
+                                     String relation) {
     String ruleName = ruleNames[dependency.getItem1().rule()];
     String path;
     if (relation == null) {
@@ -455,7 +459,10 @@ public class RuleDependencyProcessor extends AbstractProcessor {
   }
 
   @Nullable
-  private Pair<AnnotationMirror, AnnotationValue> findRuleDependencyProperty(@NotNull Pair<RuleDependency, Element> dependency, @NotNull RuleDependencyProperty property) {
+  private Pair<AnnotationMirror, AnnotationValue> findRuleDependencyProperty(
+    @NotNull Pair<RuleDependency, Element> dependency,
+    @NotNull RuleDependencyProperty property) {
+
     TypeElement ruleDependencyTypeElement = processingEnv.getElementUtils().getTypeElement(RuleDependencyClassName);
     TypeElement ruleDependenciesTypeElement = processingEnv.getElementUtils().getTypeElement(RuleDependenciesClassName);
     List<? extends AnnotationMirror> mirrors = dependency.getItem2().getAnnotationMirrors();
@@ -497,7 +504,9 @@ public class RuleDependencyProcessor extends AbstractProcessor {
   }
 
   @Nullable
-  private AnnotationValue findRuleDependencyProperty(@NotNull Pair<RuleDependency, Element> dependency, @NotNull AnnotationMirror annotationMirror, @NotNull RuleDependencyProperty property) {
+  private AnnotationValue findRuleDependencyProperty(@NotNull Pair<RuleDependency, Element> dependency,
+                                                     @NotNull AnnotationMirror annotationMirror,
+                                                     @NotNull RuleDependencyProperty property) {
     AnnotationValue recognizerValue = null;
     AnnotationValue ruleValue = null;
     AnnotationValue versionValue = null;

@@ -1049,7 +1049,12 @@ public class ParserATNSimulator extends ATNSimulator {
    * returns {@link #ERROR}.
    */
   @NotNull
-  protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa, @NotNull DFAState s, ParserRuleContext remainingGlobalContext, int t, boolean useContext, PredictionContextCache contextCache) {
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa,
+                                                                 @NotNull DFAState s,
+                                                                 ParserRuleContext remainingGlobalContext,
+                                                                 int t,
+                                                                 boolean useContext,
+                                                                 PredictionContextCache contextCache) {
     List<ATNConfig> closureConfigs = new ArrayList<ATNConfig>(s.configs);
     IntegerList contextElements = null;
     ATNConfigSet reach = new ATNConfigSet();
