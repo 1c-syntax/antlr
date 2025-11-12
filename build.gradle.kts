@@ -7,7 +7,7 @@ plugins {
     jacoco
     id("org.cadixdev.licenser") version "0.6.1"
     id("me.qoomon.git-versioning") version "6.4.4"
-    id("org.jreleaser") version "1.20.0"
+    id("org.jreleaser") version "1.21.0"
     id("org.sonarqube") version "7.0.1.6134"
 }
 
