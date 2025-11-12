@@ -27,11 +27,10 @@ import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.BitSet;
 import java.util.Collection;
 import java.util.Comparator;
@@ -368,14 +367,8 @@ public class ParserATNSimulator extends ATNSimulator {
     DFA dfa = atn.decisionToDFA[decision];
     assert dfa != null;
     if (optimize_ll1 && !dfa.isPrecedenceDfa() && !dfa.isEmpty()) {
-      int ll_1 = input.LA(1);
-      if (ll_1 >= 0 && ll_1 <= Short.MAX_VALUE) {
-        int key = (decision << 16) + ll_1;
-        Integer alt = atn.LL1Table.get(key);
-        if (alt != null) {
-          return alt;
-        }
-      }
+      Integer alt = tryLL1Prediction(input, decision);
+      if (alt != null) return alt;
     }
 
     this.dfa = dfa;
@@ -397,26 +390,28 @@ public class ParserATNSimulator extends ATNSimulator {
     }
 
     if (state == null) {
-      if (outerContext == null) outerContext = ParserRuleContext.emptyContext();
-      if (debug) System.out.println("ATN decision " + dfa.decision +
-        " exec LA(1)==" + getLookaheadName(input) +
-        ", outerContext=" + outerContext.toString(parser));
-
       state = computeStartState(dfa, outerContext, useContext);
     }
 
-    int m = input.mark();
-    int index = input.index();
+    final int m = input.mark(), index = input.index();
     try {
-      int alt = execDFA(dfa, input, index, state);
-      if (debug)
-        System.out.println("DFA after predictATN: " + dfa.toString(parser.getVocabulary(), parser.getRuleNames()));
-      return alt;
+      return execDFA(dfa, input, index, state);
     } finally {
       this.dfa = null;
       input.seek(index);
       input.release(m);
     }
+  }
+
+  private Integer tryLL1Prediction(TokenStream input, int decision) {
+    int ll_1 = input.LA(1);
+    if (ll_1 >= 0 && ll_1 <= Short.MAX_VALUE) {
+      Integer alt = atn.LL1Table.get((decision << 16) + ll_1);
+      if (alt != null) {
+        return alt;
+      }
+    }
+    return null;
   }
 
   protected SimulatorState getStartState(@NotNull DFA dfa,
@@ -728,8 +723,6 @@ public class ParserATNSimulator extends ATNSimulator {
   protected int execATN(@NotNull DFA dfa,
                         @NotNull TokenStream input, int startIndex,
                         @NotNull SimulatorState initialState) {
-    if (debug) System.out.println("execATN decision " + dfa.decision + " exec LA(1)==" + getLookaheadName(input));
-
     final ParserRuleContext outerContext = initialState.outerContext;
     final boolean useContext = initialState.useContext;
 
@@ -828,7 +821,6 @@ public class ParserATNSimulator extends ATNSimulator {
           assert !useContext;
           assert isAcceptState(D, false);
 
-          if (debug) System.out.println("RETRY with outerContext=" + outerContext);
           SimulatorState fullContextState = computeStartState(dfa, outerContext, true);
           if (reportAmbiguities) {
             reportAttemptingFullContext(dfa, conflictingAlts, nextState, startIndex, input.index());
@@ -951,19 +943,8 @@ public class ParserATNSimulator extends ATNSimulator {
            */
           SemanticContext[] altToPred = getPredsForAmbigAlts(alts, filteredConfigs, maxAlt);
           if (altToPred != null) {
-            DFAState.PredPrediction[] predicates = getPredicatePredictions(alts, altToPred);
-            if (predicates != null) {
-              int stopIndex = input.index();
-              try {
-                input.seek(startIndex);
-                BitSet filteredAlts = evalSemanticContext(predicates, previous.outerContext, false);
-                if (!filteredAlts.isEmpty()) {
-                  return filteredAlts.nextSetBit(0);
-                }
-              } finally {
-                input.seek(stopIndex);
-              }
-            }
+            Integer filteredAlts = findFirstValidAltUsingPredicates(input, startIndex, previous, alts, altToPred);
+            if (filteredAlts != null) return filteredAlts;
           }
 
           return alts.nextSetBit(0);
@@ -971,6 +952,23 @@ public class ParserATNSimulator extends ATNSimulator {
     }
 
     throw noViableAlt(input, previous.outerContext, previous.s0.configs, startIndex);
+  }
+
+  private Integer findFirstValidAltUsingPredicates(TokenStream input, int startIndex, SimulatorState previous, BitSet alts, SemanticContext[] altToPred) {
+    DFAState.PredPrediction[] predicates = getPredicatePredictions(alts, altToPred);
+    if (predicates != null) {
+      int stopIndex = input.index();
+      try {
+        input.seek(startIndex);
+        BitSet filteredAlts = evalSemanticContext(predicates, previous.outerContext, false);
+        if (!filteredAlts.isEmpty()) {
+          return filteredAlts.nextSetBit(0);
+        }
+      } finally {
+        input.seek(stopIndex);
+      }
+    }
+    return null;
   }
 
   protected SimulatorState computeReachSet(DFA dfa, SimulatorState previous, int t, PredictionContextCache contextCache) {
@@ -1080,8 +1078,6 @@ public class ParserATNSimulator extends ATNSimulator {
       List<ATNConfig> skippedStopStates = null;
 
       for (ATNConfig c : closureConfigs) {
-        if (debug) System.out.println("testing " + getTokenName(t) + " at " + c.toString());
-
         if (c.getState() instanceof RuleStopState) {
           assert c.getContext().isEmpty();
           if (useContext && !c.getReachesIntoOuterContext() || t == IntStream.EOF) {
@@ -1488,7 +1484,6 @@ public class ParserATNSimulator extends ATNSimulator {
                                                         ATNConfigSet configs,
                                                         int nalts) {
     BitSet conflictingAlts = getConflictingAltsFromConfigSet(configs);
-    if (debug) System.out.println("predicateDFAState " + D);
     SemanticContext[] altToPred = getPredsForAmbigAlts(conflictingAlts, configs, nalts);
     // altToPred[uniqueAlt] is now our validating predicate (if any)
     DFAState.PredPrediction[] predPredictions = null;
@@ -1536,7 +1531,6 @@ public class ParserATNSimulator extends ATNSimulator {
 
     // nonambig alts are null in altToPred
     if (nPredAlts == 0) altToPred = null;
-    if (debug) System.out.println("getPredsForAmbigAlts result " + Arrays.toString(altToPred));
     return altToPred;
   }
 
@@ -1655,7 +1649,7 @@ public class ParserATNSimulator extends ATNSimulator {
 
     ATNConfigSet currentConfigs = sourceConfigs;
     Set<ATNConfig> closureBusy = new HashSet<ATNConfig>();
-    while (currentConfigs.size() > 0) {
+    while (!currentConfigs.isEmpty()) {
       ATNConfigSet intermediate = new ATNConfigSet();
       for (ATNConfig config : currentConfigs) {
         closure(config, configs, intermediate, closureBusy, collectPredicates, hasMoreContext, contextCache, 0, treatEofAsEpsilon);
@@ -1674,7 +1668,6 @@ public class ParserATNSimulator extends ATNSimulator {
                          @NotNull PredictionContextCache contextCache,
                          int depth,
                          boolean treatEofAsEpsilon) {
-    if (debug) System.out.println("closure(" + config.toString(parser, true) + ")");
 
     final PredictionContext predictionContext = config.getContext();
     if (config.getState() instanceof RuleStopState) {
@@ -1705,9 +1698,6 @@ public class ParserATNSimulator extends ATNSimulator {
         return;
       } else {
         // else if we have no context info, just chase follow links (if greedy)
-        if (debug) System.out.println("FALLING off rule " +
-          getRuleName(config.getState().ruleIndex));
-
         if (predictionContext == PredictionContext.EMPTY_FULL) {
           // no need to keep full context overhead when we step out
           config = config.transform(config.getState(), PredictionContext.EMPTY_LOCAL, false);
@@ -1724,7 +1714,6 @@ public class ParserATNSimulator extends ATNSimulator {
       configs.add(config, contextCache);
       // make sure to not return here, because EOF transitions can act as
       // both epsilon transitions and non-epsilon transitions.
-      if (debug) System.out.println("added config " + configs);
     }
 
     for (int i = 0, n = p.getNumberOfOptimizedTransitions(); i < n; i++) {
@@ -1791,7 +1780,6 @@ public class ParserATNSimulator extends ATNSimulator {
 
           assert newDepth > Integer.MIN_VALUE;
           newDepth--;
-          if (debug) System.out.println("dips into outer ctx: " + c);
         } else if (t instanceof RuleTransition) {
           if (optimize_tail_calls && ((RuleTransition) t).optimizedTailCall && (!tail_call_preserves_sll || !PredictionContext.isEmptyLocal(predictionContext))) {
             assert c.getContext() == predictionContext;
@@ -1866,7 +1854,6 @@ public class ParserATNSimulator extends ATNSimulator {
 
   @NotNull
   protected ATNConfig actionTransition(@NotNull ATNConfig config, @NotNull ActionTransition t) {
-    if (debug) System.out.println("ACTION edge " + t.ruleIndex + ":" + t.actionIndex);
     return config.transform(t.target, false);
   }
 
@@ -1875,16 +1862,6 @@ public class ParserATNSimulator extends ATNSimulator {
                                            @NotNull PrecedencePredicateTransition pt,
                                            boolean collectPredicates,
                                            boolean inContext) {
-    if (debug) {
-      System.out.println("PRED (collectPredicates=" + collectPredicates + ") " +
-        pt.precedence + ">=_p" +
-        ", ctx dependent=true");
-      if (parser != null) {
-        System.out.println("context surrounding pred is " +
-          parser.getRuleInvocationStack());
-      }
-    }
-
     ATNConfig c;
     if (collectPredicates && inContext) {
       SemanticContext newSemCtx = SemanticContext.and(config.getSemanticContext(), pt.getPredicate());
@@ -1893,7 +1870,6 @@ public class ParserATNSimulator extends ATNSimulator {
       c = config.transform(pt.target, false);
     }
 
-    if (debug) System.out.println("config from pred transition=" + c);
     return c;
   }
 
@@ -1902,16 +1878,6 @@ public class ParserATNSimulator extends ATNSimulator {
                                      @NotNull PredicateTransition pt,
                                      boolean collectPredicates,
                                      boolean inContext) {
-    if (debug) {
-      System.out.println("PRED (collectPredicates=" + collectPredicates + ") " +
-        pt.ruleIndex + ":" + pt.predIndex +
-        ", ctx dependent=" + pt.isCtxDependent);
-      if (parser != null) {
-        System.out.println("context surrounding pred is " +
-          parser.getRuleInvocationStack());
-      }
-    }
-
     ATNConfig c;
     if (collectPredicates &&
       (!pt.isCtxDependent || (pt.isCtxDependent && inContext))) {
@@ -1920,18 +1886,11 @@ public class ParserATNSimulator extends ATNSimulator {
     } else {
       c = config.transform(pt.target, false);
     }
-
-    if (debug) System.out.println("config from pred transition=" + c);
     return c;
   }
 
   @NotNull
   protected ATNConfig ruleTransition(@NotNull ATNConfig config, @NotNull RuleTransition t, @Nullable PredictionContextCache contextCache) {
-    if (debug) {
-      System.out.println("CALL rule " + getRuleName(t.target.ruleIndex) +
-        ", ctx=" + config.getContext());
-    }
-
     ATNState returnState = t.followState;
     PredictionContext newContext;
 
@@ -1947,15 +1906,7 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   private static final Comparator<ATNConfig> STATE_ALT_SORT_COMPARATOR =
-    (o1, o2) -> {
-      int diff = o1.getState().getNonStopStateNumber() - o2.getState().getNonStopStateNumber();
-      if (diff != 0) {
-        return diff;
-      }
-
-      diff = o1.getAlt() - o2.getAlt();
-      return diff;
-    };
+    Comparator.comparingInt((ATNConfig o) -> o.getState().getNonStopStateNumber()).thenComparingInt(ATNConfig::getAlt);
 
   private ConflictInfo isConflicted(@NotNull ATNConfigSet configset, PredictionContextCache contextCache) {
     if (configset.getUniqueAlt() != ATN.INVALID_ALT_NUMBER || configset.size() <= 1) {
@@ -2230,10 +2181,7 @@ public class ParserATNSimulator extends ATNSimulator {
       }
     }
 
-    if (debug) System.out.println("EDGE " + from + " -> " + to + " upon " + getTokenName(t));
     addDFAEdge(from, t, to);
-    if (debug)
-      System.out.println("DFA=\n" + dfa.toString(parser != null ? parser.getVocabulary() : VocabularyImpl.EMPTY_VOCABULARY, parser != null ? parser.getRuleNames() : null));
     return to;
   }
 

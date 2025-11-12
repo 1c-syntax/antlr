@@ -37,9 +37,8 @@ public class LogManager {
 
     @Override
     public String toString() {
-      String result = DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZONE)) +
+      return DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZONE)) +
         " " + component + " " + location.getFileName() + ":" + location.getLineNumber() + " " + msg;
-      return result;
     }
   }
 

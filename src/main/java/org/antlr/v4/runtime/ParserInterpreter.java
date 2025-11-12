@@ -23,8 +23,8 @@ import org.antlr.v4.runtime.atn.RuleTransition;
 import org.antlr.v4.runtime.atn.StarLoopEntryState;
 import org.antlr.v4.runtime.atn.Transition;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 
 import java.util.ArrayDeque;
 import java.util.BitSet;
@@ -252,17 +252,8 @@ public class ParserInterpreter extends Parser {
     Transition transition = p.transition(predictedAlt - 1);
     switch (transition.getSerializationType()) {
       case Transition.EPSILON:
-        if (pushRecursionContextStates.get(p.stateNumber) &&
-          !(transition.target instanceof LoopEndState)) {
-          // We are at the start of a left recursive rule's (...)* loop
-          // and we're not taking the exit branch of loop.
-          InterpreterRuleContext localctx =
-            createInterpreterRuleContext(_parentContextStack.peek().getItem1(),
-              _parentContextStack.peek().getItem2(),
-              _ctx.getRuleIndex());
-          pushNewRecursionContext(localctx,
-            atn.ruleToStartState[p.ruleIndex].stateNumber,
-            _ctx.getRuleIndex());
+        if (pushRecursionContextStates.get(p.stateNumber) && !(transition.target instanceof LoopEndState)) {
+          pushLeftRecursionContext(p);
         }
         break;
 
@@ -284,14 +275,7 @@ public class ParserInterpreter extends Parser {
         break;
 
       case Transition.RULE:
-        RuleStartState ruleStartState = (RuleStartState) transition.target;
-        int ruleIndex = ruleStartState.ruleIndex;
-        InterpreterRuleContext newctx = createInterpreterRuleContext(_ctx, p.stateNumber, ruleIndex);
-        if (ruleStartState.isPrecedenceRule) {
-          enterRecursionRule(newctx, ruleStartState.stateNumber, ruleIndex, ((RuleTransition) transition).precedence);
-        } else {
-          enterRule(newctx, transition.target.stateNumber, ruleIndex);
-        }
+        visitRuleTransition(p, transition);
         break;
 
       case Transition.PREDICATE:
@@ -318,6 +302,29 @@ public class ParserInterpreter extends Parser {
     }
 
     setState(transition.target.stateNumber);
+  }
+
+  private void visitRuleTransition(ATNState p, Transition transition) {
+    RuleStartState ruleStartState = (RuleStartState) transition.target;
+    int ruleIndex = ruleStartState.ruleIndex;
+    InterpreterRuleContext newctx = createInterpreterRuleContext(_ctx, p.stateNumber, ruleIndex);
+    if (ruleStartState.isPrecedenceRule) {
+      enterRecursionRule(newctx, ruleStartState.stateNumber, ruleIndex, ((RuleTransition) transition).precedence);
+    } else {
+      enterRule(newctx, transition.target.stateNumber, ruleIndex);
+    }
+  }
+
+  private void pushLeftRecursionContext(ATNState p) {
+    // We are at the start of a left recursive rule's (...)* loop
+    // and we're not taking the exit branch of loop.
+    InterpreterRuleContext localctx =
+      createInterpreterRuleContext(_parentContextStack.peek().getItem1(),
+        _parentContextStack.peek().getItem2(),
+        _ctx.getRuleIndex());
+    pushNewRecursionContext(localctx,
+      atn.ruleToStartState[p.ruleIndex].stateNumber,
+      _ctx.getRuleIndex());
   }
 
   /**
