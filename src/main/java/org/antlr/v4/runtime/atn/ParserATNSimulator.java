@@ -368,7 +368,9 @@ public class ParserATNSimulator extends ATNSimulator {
     assert dfa != null;
     if (optimize_ll1 && !dfa.isPrecedenceDfa() && !dfa.isEmpty()) {
       Integer alt = tryLL1Prediction(input, decision);
-      if (alt != null) return alt;
+      if (alt != null) {
+        return alt;
+      }
     }
 
     this.dfa = dfa;
@@ -932,7 +934,9 @@ public class ParserATNSimulator extends ATNSimulator {
           SemanticContext[] altToPred = getPredsForAmbigAlts(alts, filteredConfigs, maxAlt);
           if (altToPred != null) {
             Integer filteredAlts = findFirstValidAltUsingPredicates(input, startIndex, previous, alts, altToPred);
-            if (filteredAlts != null) return filteredAlts;
+            if (filteredAlts != null) {
+              return filteredAlts;
+            }
           }
 
           return alts.nextSetBit(0);
@@ -942,7 +946,11 @@ public class ParserATNSimulator extends ATNSimulator {
     throw noViableAlt(input, previous.outerContext, previous.s0.configs, startIndex);
   }
 
-  private Integer findFirstValidAltUsingPredicates(TokenStream input, int startIndex, SimulatorState previous, BitSet alts, SemanticContext[] altToPred) {
+  private Integer findFirstValidAltUsingPredicates(TokenStream input,
+                                                   int startIndex,
+                                                   SimulatorState previous,
+                                                   BitSet alts,
+                                                   SemanticContext[] altToPred) {
     DFAState.PredPrediction[] predicates = getPredicatePredictions(alts, altToPred);
     if (predicates != null) {
       int stopIndex = input.index();

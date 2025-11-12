@@ -253,7 +253,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
     for (int i = 0, n = unmerged.size(); i < n; i++) {
       ATNConfig unmergedConfig = unmerged.get(i);
       if (canMerge(e, key, unmergedConfig)) {
-        if (mergeConfigContext(e, contextCache, unmergedConfig)) return false;
+        if (mergeConfigContext(e, contextCache, unmergedConfig)) {
+          return false;
+        }
         if (addKey) {
           mergedConfigs.put(key, unmergedConfig);
           unmerged.remove(i);

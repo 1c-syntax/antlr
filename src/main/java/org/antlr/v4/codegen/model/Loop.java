@@ -31,7 +31,9 @@ public class Loop extends Choice {
   }
 
   public void addIterationOp(SrcOp op) {
-    if (iteration == null) iteration = new ArrayList<>();
+    if (iteration == null) {
+      iteration = new ArrayList<>();
+    }
     iteration.add(op);
   }
 }

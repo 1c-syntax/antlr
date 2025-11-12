@@ -143,7 +143,6 @@ public class LexerATNSimulator extends ATNSimulator {
 
   protected int matchATN(@NotNull CharStream input) {
     ATNState startState = atn.modeToStartState.get(mode);
-    int old_mode = mode;
 
     ATNConfigSet s0_closure = computeStartState(input, startState);
     boolean suppressEdge = s0_closure.hasSemanticContext();

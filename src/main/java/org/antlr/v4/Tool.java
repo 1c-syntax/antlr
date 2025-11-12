@@ -290,7 +290,9 @@ public class Tool {
       }
       if (Grammar.parserOptions.contains(option) ||
         Grammar.lexerOptions.contains(option)) {
-        if (grammarOptions == null) grammarOptions = new HashMap<>();
+        if (grammarOptions == null) {
+          grammarOptions = new HashMap<>();
+        }
         grammarOptions.put(option, value);
       } else {
         errMgr.grammarError(ErrorType.ILLEGAL_OPTION,
@@ -849,10 +851,10 @@ public class Tool {
     // the output directory. The file directory is either the set of sub directories
     // or just or the relative path recorded for the parent grammar. This means
     // that when we write the tokens files, or the .java files for imported grammars
-    // taht we will write them in the correct place.
+    // that we will write them in the correct place.
     if ((fileNameWithPath == null) || (fileNameWithPath.lastIndexOf(File.separatorChar) == -1)) {
       // No path is included in the file name, so make the file
-      // directory the same as the parent grammar (which might sitll be just ""
+      // directory the same as the parent grammar (which might still be just ""
       // but when it is not, we will write the file in the correct place.
       fileDirectory = ".";
 
