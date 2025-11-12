@@ -14,8 +14,8 @@ import org.antlr.v4.runtime.atn.LexerATNSimulator;
 import org.antlr.v4.runtime.misc.IntegerStack;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -242,10 +242,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
       // This grammar should work with inputs that stream UTF-16 or Unicode code points.
       return;
     }
-
-//    if (!(input instanceof UnicodeCharStream) || !((UnicodeCharStream) input).supportsUnicodeCodePoints()) {
-//      throw new UnsupportedOperationException("The input stream does not support code points required for this grammar.");
-//    }
   }
 
   @Override
