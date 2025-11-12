@@ -15,9 +15,11 @@ import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class CommonToken implements WritableToken, Serializable {
+  @Serial
   private static final long serialVersionUID = -6708843461296520577L;
 
   /**

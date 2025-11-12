@@ -207,11 +207,6 @@ public class ParserRuleContext extends RuleContext {
     return t;
   }
 
-//	public void trace(int s) {
-//		if ( states==null ) states = new ArrayList<Integer>();
-//		states.add(s);
-//	}
-
   /**
    * Used by enterOuterAlt to toss out a RuleContext previously added as
    * we entered a rule. If we have # label, we will need to remove

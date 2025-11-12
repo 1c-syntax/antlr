@@ -67,20 +67,7 @@ public class ErrorManager {
       locationValid = true;
     }
     if (msg.fileName != null) {
-      String displayFileName = msg.fileName;
-      if (format.equals("antlr")) {
-        // Don't show path to file in messages in ANTLR format;
-        // they're too long.
-        File f = new File(msg.fileName);
-        if (f.exists()) {
-          displayFileName = f.getName();
-        }
-      } else {
-        // For other message formats, use the full filename in the
-        // message.  This assumes that these formats are intended to
-        // be parsed by IDEs, and so they need the full path to
-        // resolve correctly.
-      }
+      var displayFileName = getDisplayFileName(msg);
       locationST.add("file", displayFileName);
       locationValid = true;
     }
@@ -90,9 +77,25 @@ public class ErrorManager {
 
     if (locationValid) reportST.add("location", locationST);
     reportST.add("message", messageFormatST);
-    //((DebugST)reportST).inspect();
-//		reportST.impl.dump();
     return reportST;
+  }
+
+  private String getDisplayFileName(ANTLRMessage msg) {
+    var displayFileName = msg.fileName;
+    if (format.equals("antlr")) {
+      // Don't show path to file in messages in ANTLR format;
+      // they're too long.
+      File f = new File(msg.fileName);
+      if (f.exists()) {
+        displayFileName = f.getName();
+      }
+    } else {
+      // For other message formats, use the full filename in the
+      // message.  This assumes that these formats are intended to
+      // be parsed by IDEs, and so they need the full path to
+      // resolve correctly.
+    }
+    return displayFileName;
   }
 
   /**
@@ -194,8 +197,7 @@ public class ErrorManager {
         break;
       }
     }
-    StackTraceElement location = stack[i];
-    return location;
+    return stack[i];
   }
 
   // S U P P O R T  C O D E

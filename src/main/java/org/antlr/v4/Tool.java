@@ -312,12 +312,6 @@ public class Tool {
       if (gen_dependencies) {
         BuildDependencyGenerator dep =
           new BuildDependencyGenerator(this, g);
-				/*
-					List outputFiles = dep.getGeneratedFileList();
-					List dependents = dep.getDependenciesFileList();
-					System.out.println("output: "+outputFiles);
-					System.out.println("dependents: "+dependents);
-					 */
         System.out.println(dep.getDependencies().render());
 
       } else if (errMgr.getNumErrors() == 0) {
@@ -360,14 +354,9 @@ public class Tool {
         if (errMgr.getNumErrors() > prevErrors) {
           return;
         }
-
-//				System.out.println("lexer tokens="+lexerg.tokenNameToTypeMap);
-//				System.out.println("lexer strings="+lexerg.stringLiteralToTypeMap);
       }
     }
     if (g.implicitLexer != null) g.importVocab(g.implicitLexer);
-//		System.out.println("tokens="+g.tokenNameToTypeMap);
-//		System.out.println("strings="+g.stringLiteralToTypeMap);
     processNonCombinedGrammar(g, gencode);
   }
 
@@ -500,23 +489,10 @@ public class Tool {
       root.fileName = fileName;
       String grammarName = root.getChild(0).getText();
 
-      GrammarAST tokenVocabNode = findOptionValueAST(root, "tokenVocab");
+      var tokenVocabNode = findOptionValueAST(root, "tokenVocab");
       // Make grammars depend on any tokenVocab options
       if (tokenVocabNode != null) {
-        String vocabName = tokenVocabNode.getText();
-        // Strip quote characters if any
-        int len = vocabName.length();
-        int firstChar = vocabName.charAt(0);
-        int lastChar = vocabName.charAt(len - 1);
-        if (len >= 2 && firstChar == '\'' && lastChar == '\'') {
-          vocabName = vocabName.substring(1, len - 1);
-        }
-        // If the name contains a path delimited by forward slashes,
-        // use only the part after the last slash as the name
-        int lastSlash = vocabName.lastIndexOf('/');
-        if (lastSlash >= 0) {
-          vocabName = vocabName.substring(lastSlash + 1);
-        }
+        var vocabName = getVocabName(tokenVocabNode);
         g.addEdge(grammarName, vocabName);
       }
       // add cycle to graph so we always process a grammar if no error
@@ -536,6 +512,24 @@ public class Tool {
     }
 
     return sortedRoots;
+  }
+
+  private static String getVocabName(GrammarAST tokenVocabNode) {
+    var vocabName = tokenVocabNode.getText();
+    // Strip quote characters if any
+    var len = vocabName.length();
+    var firstChar = vocabName.charAt(0);
+    var lastChar = vocabName.charAt(len - 1);
+    if (len >= 2 && firstChar == '\'' && lastChar == '\'') {
+      vocabName = vocabName.substring(1, len - 1);
+    }
+    // If the name contains a path delimited by forward slashes,
+    // use only the part after the last slash as the name
+    var lastSlash = vocabName.lastIndexOf('/');
+    if (lastSlash >= 0) {
+      vocabName = vocabName.substring(lastSlash + 1);
+    }
+    return vocabName;
   }
 
   /**
@@ -816,6 +810,38 @@ public class Tool {
    */
   public File getOutputDirectory(String fileNameWithPath) {
     File outputDir;
+    var fileDirectory = getFileDirectory(fileNameWithPath);
+    if (haveOutputDir) {
+      if (exact_output_dir) {
+        // -o /tmp /var/lib/t.g4 => /tmp/T.java
+        // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
+        // -o . /usr/lib/t.g4 => ./T.java
+        // -o /tmp subdir/t.g4 => /tmp/T.java
+        outputDir = new File(outputDirectory);
+      } else if (new File(fileDirectory).isAbsolute() || fileDirectory.startsWith("~")) {
+        // isAbsolute doesn't count this :(
+
+        // -o /tmp /var/lib/t.g4 => /tmp/T.java
+        // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
+        // -o . /usr/lib/t.g4 => ./T.java
+
+        // somebody set the dir, it takes precendence; write new file there
+        outputDir = new File(outputDirectory);
+      } else {
+        // -o /tmp subdir/t.g4 => /tmp/subdir/T.java
+        outputDir = new File(outputDirectory, fileDirectory);
+      }
+    } else {
+      // they didn't specify a -o dir so just write to location
+      // where grammar is, absolute or relative, this will only happen
+      // with command line invocation as build tools will always
+      // supply an output directory.
+      outputDir = new File(fileDirectory);
+    }
+    return outputDir;
+  }
+
+  private static String getFileDirectory(String fileNameWithPath) {
     String fileDirectory;
 
     // Some files are given to us without a PATH but should should
@@ -833,39 +859,7 @@ public class Tool {
     } else {
       fileDirectory = fileNameWithPath.substring(0, fileNameWithPath.lastIndexOf(File.separatorChar));
     }
-    if (haveOutputDir) {
-      if (exact_output_dir) {
-        // -o /tmp /var/lib/t.g4 => /tmp/T.java
-        // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
-        // -o . /usr/lib/t.g4 => ./T.java
-        // -o /tmp subdir/t.g4 => /tmp/T.java
-        outputDir = new File(outputDirectory);
-      } else if (fileDirectory != null &&
-        (new File(fileDirectory).isAbsolute() ||
-          fileDirectory.startsWith("~"))) { // isAbsolute doesn't count this :(
-
-        // -o /tmp /var/lib/t.g4 => /tmp/T.java
-        // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
-        // -o . /usr/lib/t.g4 => ./T.java
-
-        // somebody set the dir, it takes precendence; write new file there
-        outputDir = new File(outputDirectory);
-      } else {
-        // -o /tmp subdir/t.g4 => /tmp/subdir/T.java
-        if (fileDirectory != null) {
-          outputDir = new File(outputDirectory, fileDirectory);
-        } else {
-          outputDir = new File(outputDirectory);
-        }
-      }
-    } else {
-      // they didn't specify a -o dir so just write to location
-      // where grammar is, absolute or relative, this will only happen
-      // with command line invocation as build tools will always
-      // supply an output directory.
-      outputDir = new File(fileDirectory);
-    }
-    return outputDir;
+    return fileDirectory;
   }
 
   protected void writeDOTFile(Grammar g, Rule r, String dot) throws IOException {

@@ -43,9 +43,13 @@ public class RangeBorderCharactersData {
           notImpliedCharacters.append((char) i);
         }
       }
-      if (notImpliedCharacters.length() > 0) {
-        grammar.tool.errMgr.grammarError(ErrorType.RANGE_PROBABLY_CONTAINS_NOT_IMPLIED_CHARACTERS, grammar.fileName, tree.getToken(),
-          (char) from, (char) to, notImpliedCharacters.toString());
+      if (!notImpliedCharacters.isEmpty()) {
+        grammar.tool.errMgr.grammarError(ErrorType.RANGE_PROBABLY_CONTAINS_NOT_IMPLIED_CHARACTERS,
+          grammar.fileName,
+          tree.getToken(),
+          (char) from,
+          (char) to,
+          notImpliedCharacters.toString());
       }
     }
     return new RangeBorderCharactersData(lowerFrom, upperFrom, lowerTo, upperTo, mixOfLowerAndUpperCharCase);

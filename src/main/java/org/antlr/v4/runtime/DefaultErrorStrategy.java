@@ -163,21 +163,9 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    */
   @Override
   public void recover(Parser recognizer, RecognitionException e) {
-//		System.out.println("recover in "+recognizer.getRuleInvocationStack()+
-//						   " index="+recognizer.getInputStream().index()+
-//						   ", lastErrorIndex="+
-//						   lastErrorIndex+
-//						   ", states="+lastErrorStates);
     if (lastErrorIndex == recognizer.getInputStream().index() &&
       lastErrorStates != null &&
       lastErrorStates.contains(recognizer.getState())) {
-      // uh oh, another error at same token index and previously-visited
-      // state in ATN; must be a case where LT(1) is in the recovery
-      // token set so nothing got consumed. Consume a single token
-      // at least to prevent an infinite loop; this is a failsafe.
-//			System.err.println("seen error condition before index="+
-//							   lastErrorIndex+", states="+lastErrorStates);
-//			System.err.println("FAILSAFE consumes "+recognizer.getTokenNames()[recognizer.getInputStream().LA(1)]);
       recognizer.consume();
     }
     lastErrorIndex = recognizer.getInputStream().index();
@@ -546,12 +534,6 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
     IntervalSet expecting = getExpectedTokens(recognizer);
     if (expecting.contains(nextTokenType)) {
       reportUnwantedToken(recognizer);
-			/*
-			System.err.println("recoverFromMismatchedToken deleting "+
-							   ((TokenStream)recognizer.getInputStream()).LT(1)+
-							   " since "+((TokenStream)recognizer.getInputStream()).LT(2)+
-							   " is what we want");
-			*/
       recognizer.consume(); // simply delete extra token
       // we want to return the token we're actually matching
       Token matchedSymbol = recognizer.getCurrentToken();
@@ -768,11 +750,8 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * Consume tokens until one matches the given token set.
    */
   protected void consumeUntil(@NotNull Parser recognizer, @NotNull IntervalSet set) {
-//		System.err.println("consumeUntil("+set.toString(recognizer.getTokenNames())+")");
     int ttype = recognizer.getInputStream().LA(1);
     while (ttype != Token.EOF && !set.contains(ttype)) {
-      //System.out.println("consume during recover LA(1)="+getTokenNames()[input.LA(1)]);
-//			recognizer.getInputStream().consume();
       recognizer.consume();
       ttype = recognizer.getInputStream().LA(1);
     }

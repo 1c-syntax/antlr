@@ -10,7 +10,6 @@
 package org.antlr.v4.codegen.model.decl;
 
 import org.antlr.v4.codegen.OutputModelFactory;
-import org.antlr.v4.codegen.model.DispatchMethod;
 import org.antlr.v4.codegen.model.ListenerDispatchMethod;
 import org.antlr.v4.codegen.model.VisitorDispatchMethod;
 import org.antlr.v4.tool.Rule;
@@ -41,11 +40,6 @@ public class AltLabelStructDecl extends StructDecl {
     if (factory.getGrammar().tool.gen_visitor) {
       dispatchMethods.add(new VisitorDispatchMethod(factory));
     }
-  }
-
-  @Override
-  public int hashCode() {
-    return name.hashCode();
   }
 
   @Override

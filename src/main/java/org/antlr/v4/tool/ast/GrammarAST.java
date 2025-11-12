@@ -204,25 +204,10 @@ public class GrammarAST extends CommonTree {
   public void setType(int type) {
     token.setType(type);
   }
-//
-//	@Override
-//	public String getText() {
-//		if ( textOverride!=null ) return textOverride;
-//        if ( token!=null ) {
-//            return token.getText();
-//        }
-//        return "";
-//	}
 
   public void setText(String text) {
-//		textOverride = text; // don't alt tokens as others might see
     token.setText(text); // we delete surrounding tree, so ok to alter
   }
-
-//	@Override
-//	public boolean equals(Object obj) {
-//		return super.equals(obj);
-//	}
 
   @Override
   public GrammarAST dupNode() {

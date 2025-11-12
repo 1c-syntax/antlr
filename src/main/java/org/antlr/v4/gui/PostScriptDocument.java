@@ -158,14 +158,6 @@ public class PostScriptDocument {
     ps.append("stroke\n");
   }
 
-//	public void rarrow(double x, double y) {
-//		ps.append(String.format(Locale.US, "%1.3f %1.3f rarrow\n", x,y));
-//	}
-//
-//	public void darrow(double x, double y) {
-//		ps.append(String.format(Locale.US, "%1.3f %1.3f darrow\n", x,y));
-//	}
-
   public void text(String s, double x, double y) {
     StringBuilder buf = new StringBuilder();
     // escape \, (, ): \\,  \(,  \)

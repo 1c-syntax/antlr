@@ -12,7 +12,10 @@ package org.antlr.v4.parse;
 import org.antlr.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import java.io.Serial;
+
 public class v3TreeGrammarException extends ParseCancellationException {
+  @Serial
   private static final long serialVersionUID = -8383611621498312969L;
 
   public Token location;

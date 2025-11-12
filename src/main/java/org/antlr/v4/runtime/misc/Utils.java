@@ -73,7 +73,7 @@ public class Utils {
   public static String escapeWhitespace(String s, boolean escapeSpaces) {
     StringBuilder buf = new StringBuilder();
     for (char c : s.toCharArray()) {
-      if (c == ' ' && escapeSpaces) buf.append('\u00B7');
+      if (c == ' ' && escapeSpaces) buf.append('·');
       else if (c == '\t') buf.append("\\t");
       else if (c == '\n') buf.append("\\n");
       else if (c == '\r') buf.append("\\r");
@@ -125,7 +125,7 @@ public class Utils {
     } else {
       isr = new InputStreamReader(fis);
     }
-    char[] data = null;
+    char[] data;
     try {
       data = new char[size];
       int n = isr.read(data);

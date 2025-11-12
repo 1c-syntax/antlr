@@ -182,7 +182,6 @@ public abstract class PredictionContext {
         canReturnRight = false;
         leftIndex++;
       } else {
-        assert context1ReturnState < context0ReturnState;
         parentsList[count] = context1.getParent(rightIndex);
         returnStatesList[count] = context1ReturnState;
         canReturnLeft = false;
@@ -314,11 +313,6 @@ public abstract class PredictionContext {
 
   @Override
   public abstract boolean equals(Object o);
-
-  //@Override
-  //public String toString() {
-  //	return toString(null, Integer.MAX_VALUE);
-  //}
 
   public String[] toStrings(Recognizer<?, ?> recognizer, int currentState) {
     return toStrings(recognizer, PredictionContext.EMPTY_FULL, currentState);

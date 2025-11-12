@@ -27,7 +27,5 @@ public class Sync extends SrcOp {
               String position) {
     super(factory, blkOrEbnfRootAST);
     this.decision = decision;
-//		this.expecting = factory.createExpectingBitSet(ast, decision, expecting, position);
-//		factory.defineBitSet(this.expecting);
   }
 }

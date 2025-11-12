@@ -108,7 +108,7 @@ public class XPath {
     loop:
     while (i < n) {
       Token el = tokens.get(i);
-      Token next = null;
+      Token next;
       switch (el.getType()) {
         case XPathLexer.ROOT:
         case XPathLexer.ANYWHERE:

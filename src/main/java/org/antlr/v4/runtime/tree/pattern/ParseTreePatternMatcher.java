@@ -206,11 +206,10 @@ public class ParseTreePatternMatcher {
       parser.getATNWithBypassAlts(),
       tokens);
 
-    ParseTree tree = null;
+    ParseTree tree;
     try {
       parserInterp.setErrorHandler(new BailErrorStrategy());
       tree = parserInterp.parse(patternRuleIndex);
-//			System.out.println("pattern tree = "+tree.toStringTree(parserInterp));
     } catch (ParseCancellationException e) {
       throw (RecognitionException) e.getCause();
     } catch (RecognitionException re) {

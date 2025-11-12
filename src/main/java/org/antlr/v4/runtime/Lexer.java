@@ -153,9 +153,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
         _text = null;
         do {
           _type = Token.INVALID_TYPE;
-//				System.out.println("nextToken line "+tokenStartLine+" at "+((char)input.LA(1))+
-//								   " in mode "+mode+
-//								   " at index "+input.index());
           int ttype;
           try {
             ttype = getInterpreter().match(_input, _mode);

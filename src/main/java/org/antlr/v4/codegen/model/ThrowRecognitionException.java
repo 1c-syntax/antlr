@@ -24,11 +24,8 @@ public class ThrowRecognitionException extends SrcOp {
 
   public ThrowRecognitionException(OutputModelFactory factory, GrammarAST ast, IntervalSet expecting) {
     super(factory, ast);
-    //this.decision = ((BlockStartState)ast.ATNState).decision;
     grammarLine = ast.getLine();
     grammarLine = ast.getCharPositionInLine();
     grammarFile = factory.getGrammar().fileName;
-    //this.expecting = factory.createExpectingBitSet(ast, decision, expecting, "error");
-//		factory.defineBitSet(this.expecting);
   }
 }

@@ -292,13 +292,6 @@ public class DOTGenerator {
     // this is an example of ST's lazy eval :)
     // define stop state first; seems to be a bug in DOT where doublecircle
     // shape only works if we define them first. weird.
-//		ATNState stopState = startState.atn.ruleToStopState.get(startState.rule);
-//		if ( stopState!=null ) {
-//			ST st = stlib.getInstanceOf("stopstate");
-//			st.add("name", "s"+stopState.stateNumber);
-//			st.add("label", getStateLabel(stopState));
-//			dot.add("states", st);
-//		}
     for (ATNState s : markedStates) {
       if (!(s instanceof RuleStopState)) continue;
       ST st = stlib.getInstanceOf("stopstate");

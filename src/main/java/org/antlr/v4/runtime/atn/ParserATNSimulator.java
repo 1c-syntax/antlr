@@ -556,9 +556,6 @@ public class ParserATNSimulator extends ATNSimulator {
           (!s.configs.getDipsIntoOuterContext() && s.configs.isExactConflict()) ||
           (treat_sllk1_conflict_as_ambiguity && input.index() == startIndex)) {
           // we don't report the ambiguity again
-          //if ( !acceptState.configset.hasSemanticContext() ) {
-          //	reportAmbiguity(dfa, acceptState, startIndex, input.index(), acceptState.configset.getConflictingAlts(), acceptState.configset);
-          //}
         } else {
           assert !state.useContext;
 

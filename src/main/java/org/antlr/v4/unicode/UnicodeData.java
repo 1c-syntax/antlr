@@ -12,7 +12,6 @@ package org.antlr.v4.unicode;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.IntervalSet;
 
-import javax.annotation.processing.Generated;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -55757,7 +55756,7 @@ public enum UnicodeData {
     propertyAliases.put("InTangut_Components".toLowerCase(Locale.US), "blk=Tangut_Components".toLowerCase(Locale.US));
     addPropertyAliases_p2();
   }
-  
+
   static private void addPropertyAliases_p2() {
     propertyAliases.put("Bidi_Class=L".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));
     propertyAliases.put("Bidi_Class=Left_To_Right".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));

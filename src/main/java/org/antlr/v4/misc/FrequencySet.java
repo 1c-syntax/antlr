@@ -9,12 +9,14 @@
  */
 package org.antlr.v4.misc;
 
+import java.io.Serial;
 import java.util.HashMap;
 
 /**
  * Count how many of each key we have; not thread safe
  */
 public class FrequencySet<T> extends HashMap<T, MutableInt> {
+  @Serial
   private static final long serialVersionUID = -134984205245480177L;
 
   public int count(T key) {

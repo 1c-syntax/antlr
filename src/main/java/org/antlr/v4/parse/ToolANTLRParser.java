@@ -36,8 +36,6 @@ public class ToolANTLRParser extends ANTLRParser {
       String paraphrase = paraphrases.peek();
       msg = msg + " while " + paraphrase;
     }
-    //	List stack = getRuleInvocationStack(e, this.getClass().getName());
-    //	msg += ", rule stack = "+stack;
     tool.errMgr.syntaxError(ErrorType.SYNTAX_ERROR, getSourceName(), e.token, e, msg);
   }
 

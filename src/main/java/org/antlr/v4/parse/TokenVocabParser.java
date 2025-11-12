@@ -44,12 +44,12 @@ public class TokenVocabParser {
     Map<String, Integer> tokens = new LinkedHashMap<>();
     int maxTokenType = -1;
     File fullFile = getImportedVocabFile();
-    FileInputStream fis = null;
+    FileInputStream fis;
     BufferedReader br = null;
     Tool tool = g.tool;
     String vocabName = g.getOptionString("tokenVocab");
     try {
-      Pattern tokenDefPattern = Pattern.compile("([^\n]+?)[ \\t]*?=[ \\t]*?([0-9]+)");
+      var tokenDefPattern = Pattern.compile("([^\n]+?)[ \\t]*?=[ \\t]*?([0-9]+)");
       fis = new FileInputStream(fullFile);
       InputStreamReader isr;
       if (tool.grammarEncoding != null) {

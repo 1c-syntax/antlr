@@ -286,23 +286,19 @@ public class IntervalSet implements IntSet {
           result.intervals.add(resultI + 1, afterCurrent);
           resultI++;
           rightI++;
-          continue;
         } else {
           // replace the current interval
           result.intervals.set(resultI, beforeCurrent);
           resultI++;
-          continue;
         }
       } else {
         if (afterCurrent != null) {
           // replace the current interval
           result.intervals.set(resultI, afterCurrent);
           rightI++;
-          continue;
         } else {
           // remove the current interval (thus no need to increment resultI)
           result.intervals.remove(resultI);
-          continue;
         }
       }
     }

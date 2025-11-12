@@ -160,8 +160,8 @@ public class TestGenerator {
   public void writeFile(File file, String content) throws IOException {
     file.getParentFile().mkdirs();
 
-    FileOutputStream fos = new FileOutputStream(file);
-    try (OutputStreamWriter osw = new OutputStreamWriter(fos, encoding != null ? encoding : "UTF-8")) {
+    try (var fos = new FileOutputStream(file);
+         var osw = new OutputStreamWriter(fos, encoding != null ? encoding : "UTF-8")) {
       osw.write(content);
     }
   }
