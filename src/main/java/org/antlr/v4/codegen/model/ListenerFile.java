@@ -37,13 +37,13 @@ public class ListenerFile extends OutputFile {
   /**
    * The names of all listener contexts.
    */
-  public Set<String> listenerNames = new LinkedHashSet<String>();
+  public Set<String> listenerNames = new LinkedHashSet<>();
   /**
    * For listener contexts created for a labeled outer alternative, maps from
    * a listener context name to the name of the rule which defines the
    * context.
    */
-  public Map<String, String> listenerLabelRuleNames = new LinkedHashMap<String, String>();
+  public Map<String, String> listenerLabelRuleNames = new LinkedHashMap<>();
 
   @ModelElement
   public Action header;

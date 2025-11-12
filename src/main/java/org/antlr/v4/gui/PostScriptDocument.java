@@ -20,7 +20,7 @@ public class PostScriptDocument {
   public static final Map<String, String> POSTSCRIPT_FONT_NAMES;
 
   static {
-    POSTSCRIPT_FONT_NAMES = new HashMap<String, String>();
+    POSTSCRIPT_FONT_NAMES = new HashMap<>();
     POSTSCRIPT_FONT_NAMES.put(Font.SANS_SERIF + ".plain", "ArialMT");
     POSTSCRIPT_FONT_NAMES.put(Font.SANS_SERIF + ".bold", "Arial-BoldMT");
     POSTSCRIPT_FONT_NAMES.put(Font.SANS_SERIF + ".italic", "Arial-ItalicMT");
@@ -83,26 +83,28 @@ public class PostScriptDocument {
     b.append("%!PS-Adobe-3.0 EPSF-3.0\n");
     b.append(boundingBox).append("\n");
     b.append("0.3 setlinewidth\n");
-    b.append("%% x y w h highlight\n" +
-      "/highlight {\n" +
-      "        4 dict begin\n" +
-      "        /h exch def\n" +
-      "        /w exch def\n" +
-      "        /y exch def\n" +
-      "        /x exch def\n" +
-      "        gsave\n" +
-      "        newpath\n" +
-      "        x y moveto\n" +
-      "        0 h rlineto     % up to left corner\n" +
-      "        w 0 rlineto     % to upper right corner\n" +
-      "        0 h neg rlineto % to lower right corner\n" +
-      "        w neg 0 rlineto % back home to lower left corner\n" +
-      "        closepath\n" +
-      "        .95 .83 .82 setrgbcolor\n" +
-      "        fill\n" +
-      "        grestore\n" +
-      "        end\n" +
-      "} def\n");
+    b.append("""
+      %% x y w h highlight
+      /highlight {
+              4 dict begin
+              /h exch def
+              /w exch def
+              /y exch def
+              /x exch def
+              gsave
+              newpath
+              x y moveto
+              0 h rlineto     % up to left corner
+              w 0 rlineto     % to upper right corner
+              0 h neg rlineto % to lower right corner
+              w neg 0 rlineto % back home to lower left corner
+              closepath
+              .95 .83 .82 setrgbcolor
+              fill
+              grestore
+              end
+      } def
+      """);
 
     return b;
   }

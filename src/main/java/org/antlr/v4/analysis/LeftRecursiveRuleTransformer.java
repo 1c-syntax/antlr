@@ -68,7 +68,7 @@ public class LeftRecursiveRuleTransformer {
   public void translateLeftRecursiveRules() {
     String language = g.getOptionString("language");
     // translate all recursive rules
-    List<String> leftRecursiveRuleNames = new ArrayList<String>();
+    List<String> leftRecursiveRuleNames = new ArrayList<>();
     for (Rule r : rules) {
       if (!Grammar.isTokenName(r.name)) {
         if (LeftRecursiveRuleAnalyzer.hasImmediateRecursiveRuleRefs(r.ast, r.name)) {
@@ -80,7 +80,6 @@ public class LeftRecursiveRuleTransformer {
             // match the patterns for precedence rules.
 
             // better given an error that non-conforming left-recursion exists
-            //tool.errMgr.grammarError(ErrorType.NONCONFORMING_LR_RULE, g.fileName, ((GrammarAST)r.ast.getChild(0)).token, r.name);
           }
         }
       }
@@ -154,13 +153,13 @@ public class LeftRecursiveRuleTransformer {
     basics.visit(t, "rule");
 
     // track recursive alt info for codegen
-    r.recPrimaryAlts = new ArrayList<LeftRecursiveRuleAltInfo>();
+    r.recPrimaryAlts = new ArrayList<>();
     r.recPrimaryAlts.addAll(leftRecursiveRuleWalker.prefixAndOtherAlts);
     if (r.recPrimaryAlts.isEmpty()) {
       tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS, g.fileName, ((GrammarAST) r.ast.getChild(0)).getToken(), r.name);
     }
 
-    r.recOpAlts = new OrderedHashMap<Integer, LeftRecursiveRuleAltInfo>();
+    r.recOpAlts = new OrderedHashMap<>();
     r.recOpAlts.putAll(leftRecursiveRuleWalker.binaryAlts);
     r.recOpAlts.putAll(leftRecursiveRuleWalker.ternaryAlts);
     r.recOpAlts.putAll(leftRecursiveRuleWalker.suffixAlts);

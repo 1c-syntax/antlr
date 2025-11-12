@@ -115,7 +115,7 @@ public class ParserRuleContext extends RuleContext {
 
     // copy any error nodes to alt label node
     if (ctx.children != null) {
-      this.children = new ArrayList<ParseTree>();
+      this.children = new ArrayList<>();
       // reset parent pointer for any error nodes
       for (ParseTree child : ctx.children) {
         if (child instanceof ErrorNodeImpl) {
@@ -154,7 +154,7 @@ public class ParserRuleContext extends RuleContext {
   public <T extends ParseTree> T addAnyChild(T t) {
     assert t.getParent() == null || t.getParent() == this;
 
-    if (children == null) children = new ArrayList<ParseTree>();
+    if (children == null) children = new ArrayList<>();
     children.add(t);
     return t;
   }
@@ -223,8 +223,10 @@ public class ParserRuleContext extends RuleContext {
     }
   }
 
+  /**
+   * Override to make type more specific
+   */
   @Override
-  /** Override to make type more specific */
   public ParserRuleContext getParent() {
     return (ParserRuleContext) super.getParent();
   }
@@ -283,7 +285,7 @@ public class ParserRuleContext extends RuleContext {
         Token symbol = tnode.getSymbol();
         if (symbol.getType() == ttype) {
           if (tokens == null) {
-            tokens = new ArrayList<TerminalNode>();
+            tokens = new ArrayList<>();
           }
           tokens.add(tnode);
         }
@@ -310,7 +312,7 @@ public class ParserRuleContext extends RuleContext {
     for (ParseTree o : children) {
       if (ctxType.isInstance(o)) {
         if (contexts == null) {
-          contexts = new ArrayList<T>();
+          contexts = new ArrayList<>();
         }
 
         contexts.add(ctxType.cast(o));

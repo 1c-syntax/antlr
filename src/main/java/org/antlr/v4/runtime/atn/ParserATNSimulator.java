@@ -406,10 +406,7 @@ public class ParserATNSimulator extends ATNSimulator {
   private Integer tryLL1Prediction(TokenStream input, int decision) {
     int ll_1 = input.LA(1);
     if (ll_1 >= 0 && ll_1 <= Short.MAX_VALUE) {
-      Integer alt = atn.LL1Table.get((decision << 16) + ll_1);
-      if (alt != null) {
-        return alt;
-      }
+      return atn.LL1Table.get((decision << 16) + ll_1);
     }
     return null;
   }
@@ -552,10 +549,6 @@ public class ParserATNSimulator extends ATNSimulator {
         t = input.LA(1);
       }
     }
-//		if ( acceptState==null ) {
-//			if ( debug ) System.out.println("!!! no viable alt in dfa");
-//			return -1;
-//		}
 
     if (!state.useContext && s.configs.getConflictInfo() != null) {
       if (dfa.atnStartState instanceof DecisionState) {
@@ -767,8 +760,6 @@ public class ParserATNSimulator extends ATNSimulator {
         }
 
         predictedAlt = D.getPrediction();
-//				int k = input.index() - startIndex + 1; // how much input we used
-//				System.out.println("used k="+k);
         boolean attemptFullContext = conflictingAlts != null && userWantsCtxSensitive;
         if (attemptFullContext) {
           // Only exact conflicts are known to be ambiguous when local
@@ -1053,7 +1044,7 @@ public class ParserATNSimulator extends ATNSimulator {
                                                                  int t,
                                                                  boolean useContext,
                                                                  PredictionContextCache contextCache) {
-    List<ATNConfig> closureConfigs = new ArrayList<ATNConfig>(s.configs);
+    List<ATNConfig> closureConfigs = new ArrayList<>(s.configs);
     IntegerList contextElements = null;
     ATNConfigSet reach = new ATNConfigSet();
     boolean stepIntoGlobal;
@@ -1082,7 +1073,7 @@ public class ParserATNSimulator extends ATNSimulator {
           assert c.getContext().isEmpty();
           if (useContext && !c.getReachesIntoOuterContext() || t == IntStream.EOF) {
             if (skippedStopStates == null) {
-              skippedStopStates = new ArrayList<ATNConfig>();
+              skippedStopStates = new ArrayList<>();
             }
 
             skippedStopStates.add(c);
@@ -1422,7 +1413,7 @@ public class ParserATNSimulator extends ATNSimulator {
    */
   @NotNull
   protected ATNConfigSet applyPrecedenceFilter(@NotNull ATNConfigSet configs, ParserRuleContext globalContext, PredictionContextCache contextCache) {
-    Map<Integer, PredictionContext> statesFromAlt1 = new HashMap<Integer, PredictionContext>();
+    Map<Integer, PredictionContext> statesFromAlt1 = new HashMap<>();
     ATNConfigSet configSet = new ATNConfigSet();
     for (ATNConfig config : configs) {
       // handle alt 1 first
@@ -1535,7 +1526,7 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   protected DFAState.PredPrediction[] getPredicatePredictions(BitSet ambigAlts, SemanticContext[] altToPred) {
-    List<DFAState.PredPrediction> pairs = new ArrayList<DFAState.PredPrediction>();
+    List<DFAState.PredPrediction> pairs = new ArrayList<>();
     boolean containsPredicate = false;
     for (int i = 1; i < altToPred.length; i++) {
       SemanticContext pred = altToPred[i];
@@ -1648,7 +1639,7 @@ public class ParserATNSimulator extends ATNSimulator {
     }
 
     ATNConfigSet currentConfigs = sourceConfigs;
-    Set<ATNConfig> closureBusy = new HashSet<ATNConfig>();
+    Set<ATNConfig> closureBusy = new HashSet<>();
     while (!currentConfigs.isEmpty()) {
       ATNConfigSet intermediate = new ATNConfigSet();
       for (ATNConfig config : currentConfigs) {
@@ -1818,38 +1809,26 @@ public class ParserATNSimulator extends ATNSimulator {
 
   @Nullable
   protected ATNConfig getEpsilonTarget(@NotNull ATNConfig config, @NotNull Transition t, boolean collectPredicates, boolean inContext, PredictionContextCache contextCache, boolean treatEofAsEpsilon) {
-    switch (t.getSerializationType()) {
-      case Transition.RULE:
-        return ruleTransition(config, (RuleTransition) t, contextCache);
-
-      case Transition.PRECEDENCE:
-        return precedenceTransition(config, (PrecedencePredicateTransition) t, collectPredicates, inContext);
-
-      case Transition.PREDICATE:
-        return predTransition(config, (PredicateTransition) t, collectPredicates, inContext);
-
-      case Transition.ACTION:
-        return actionTransition(config, (ActionTransition) t);
-
-      case Transition.EPSILON:
-        return config.transform(t.target, false);
-
-      case Transition.ATOM:
-      case Transition.RANGE:
-      case Transition.SET:
+    return switch (t.getSerializationType()) {
+      case Transition.RULE -> ruleTransition(config, (RuleTransition) t, contextCache);
+      case Transition.PRECEDENCE ->
+        precedenceTransition(config, (PrecedencePredicateTransition) t, collectPredicates, inContext);
+      case Transition.PREDICATE -> predTransition(config, (PredicateTransition) t, collectPredicates, inContext);
+      case Transition.ACTION -> actionTransition(config, (ActionTransition) t);
+      case Transition.EPSILON -> config.transform(t.target, false);
+      case Transition.ATOM, Transition.RANGE, Transition.SET -> {
         // EOF transitions act like epsilon transitions after the first EOF
         // transition is traversed
         if (treatEofAsEpsilon) {
           if (t.matches(Token.EOF, 0, 1)) {
-            return config.transform(t.target, false);
+            yield config.transform(t.target, false);
           }
         }
 
-        return null;
-
-      default:
-        return null;
-    }
+        yield null;
+      }
+      default -> null;
+    };
   }
 
   @NotNull
@@ -1913,7 +1892,7 @@ public class ParserATNSimulator extends ATNSimulator {
       return null;
     }
 
-    List<ATNConfig> configs = new ArrayList<ATNConfig>(configset);
+    List<ATNConfig> configs = new ArrayList<>(configset);
     configs.sort(STATE_ALT_SORT_COMPARATOR);
 
     boolean exact = !configset.getDipsIntoOuterContext();

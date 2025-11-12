@@ -24,16 +24,14 @@ public class Loop extends Choice {
   @ModelElement
   public List<SrcOp> iteration;
 
-  public Loop(OutputModelFactory factory,
-              GrammarAST blkOrEbnfRootAST,
-              List<CodeBlockForAlt> alts) {
+  public Loop(OutputModelFactory factory, GrammarAST blkOrEbnfRootAST, List<CodeBlockForAlt> alts) {
     super(factory, blkOrEbnfRootAST, alts);
     boolean nongreedy = (blkOrEbnfRootAST instanceof QuantifierAST) && !((QuantifierAST) blkOrEbnfRootAST).isGreedy();
     exitAlt = nongreedy ? 1 : alts.size() + 1;
   }
 
   public void addIterationOp(SrcOp op) {
-    if (iteration == null) iteration = new ArrayList<SrcOp>();
+    if (iteration == null) iteration = new ArrayList<>();
     iteration.add(op);
   }
 }

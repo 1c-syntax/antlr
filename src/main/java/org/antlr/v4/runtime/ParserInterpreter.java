@@ -74,8 +74,7 @@ public class ParserInterpreter extends Parser {
    * Those values are used to create new recursive rule invocation contexts
    * associated with left operand of an alt like "expr '*' expr".
    */
-  protected final Deque<Pair<ParserRuleContext, Integer>> _parentContextStack =
-    new ArrayDeque<Pair<ParserRuleContext, Integer>>();
+  protected final Deque<Pair<ParserRuleContext, Integer>> _parentContextStack = new ArrayDeque<>();
 
   /**
    * We need a map from (decision,inputIndex)->forced alt for computing ambiguous

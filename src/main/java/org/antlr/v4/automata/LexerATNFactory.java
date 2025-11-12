@@ -71,7 +71,7 @@ public class LexerATNFactory extends ParserATNFactory {
    * actions, but are required during code generation for creating
    * {@link LexerAction} instances that are usable by a lexer interpreter.
    */
-  public static final Map<String, Integer> COMMON_CONSTANTS = new HashMap<String, Integer>();
+  public static final Map<String, Integer> COMMON_CONSTANTS = new HashMap<>();
 
   static {
     COMMON_CONSTANTS.put("HIDDEN", Lexer.HIDDEN);
@@ -84,18 +84,18 @@ public class LexerATNFactory extends ParserATNFactory {
     COMMON_CONSTANTS.put("MIN_CHAR_VALUE", Lexer.MIN_CHAR_VALUE);
   }
 
-  private final List<String> ruleCommands = new ArrayList<String>();
+  private final List<String> ruleCommands = new ArrayList<>();
 
   private final boolean caseInsensitive;
 
   /**
    * Maps from an action index to a {@link LexerAction} object.
    */
-  protected Map<Integer, LexerAction> indexToActionMap = new HashMap<Integer, LexerAction>();
+  protected Map<Integer, LexerAction> indexToActionMap = new HashMap<>();
   /**
    * Maps from a {@link LexerAction} object to the action index.
    */
-  protected Map<LexerAction, Integer> actionToIndexMap = new HashMap<LexerAction, Integer>();
+  protected Map<LexerAction, Integer> actionToIndexMap = new HashMap<>();
 
   public LexerATNFactory(LexerGrammar g) {
     super(g);
@@ -197,12 +197,10 @@ public class LexerATNFactory extends ParserATNFactory {
     ATNState right = newState(node);
     boolean isCtxDependent = false;
     int lexerActionIndex = getLexerActionIndex(lexerAction);
-    ActionTransition a =
-      new ActionTransition(right, currentRule.index, lexerActionIndex, isCtxDependent);
+    ActionTransition a = new ActionTransition(right, currentRule.index, lexerActionIndex, isCtxDependent);
     left.addTransition(a);
     node.atnState = left;
-    Handle h = new Handle(left, right);
-    return h;
+    return new Handle(left, right);
   }
 
   @Override
@@ -466,7 +464,7 @@ public class LexerATNFactory extends ParserATNFactory {
     chars = chars.substring(1, chars.length() - 1);
     IntervalSet set = new IntervalSet();
 
-    if (chars.length() == 0) {
+    if (chars.isEmpty()) {
       g.tool.errMgr.grammarError(ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED,
         g.fileName, charSetAST.getToken(), "[]");
       return set;
@@ -766,7 +764,7 @@ public class LexerATNFactory extends ParserATNFactory {
       return null;
     }
 
-    List<String> modeNames = new ArrayList<String>(((LexerGrammar) g).modes.keySet());
+    List<String> modeNames = new ArrayList<>(((LexerGrammar) g).modes.keySet());
     int mode = modeNames.indexOf(modeName);
     if (mode >= 0) {
       return mode;

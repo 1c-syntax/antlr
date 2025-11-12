@@ -65,7 +65,7 @@ import java.util.Map;
  *
  */
 public class ParserFactory extends DefaultOutputModelFactory {
-  private final Map<Rule, RuleFunction> ruleFunctions = new HashMap<Rule, RuleFunction>();
+  private final Map<Rule, RuleFunction> ruleFunctions = new HashMap<>();
 
   public ParserFactory(CodeGenerator gen) {
     super(gen);
@@ -299,19 +299,12 @@ public class ParserFactory extends DefaultOutputModelFactory {
   public Choice getComplexEBNFBlock(GrammarAST ebnfRoot, List<CodeBlockForAlt> alts) {
     int ebnf = 0;
     if (ebnfRoot != null) ebnf = ebnfRoot.getType();
-    Choice c = null;
-    switch (ebnf) {
-      case ANTLRParser.OPTIONAL:
-        c = new OptionalBlock(this, ebnfRoot, alts);
-        break;
-      case ANTLRParser.CLOSURE:
-        c = new StarBlock(this, ebnfRoot, alts);
-        break;
-      case ANTLRParser.POSITIVE_CLOSURE:
-        c = new PlusBlock(this, ebnfRoot, alts);
-        break;
-    }
-    return c;
+    return switch (ebnf) {
+      case ANTLRParser.OPTIONAL -> new OptionalBlock(this, ebnfRoot, alts);
+      case ANTLRParser.CLOSURE -> new StarBlock(this, ebnfRoot, alts);
+      case ANTLRParser.POSITIVE_CLOSURE -> new PlusBlock(this, ebnfRoot, alts);
+      default -> null;
+    };
   }
 
   @Override

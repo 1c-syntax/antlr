@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.misc;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -19,12 +20,13 @@ import java.util.Map;
  * LinkedHashMap.
  */
 public class OrderedHashMap<K, V> extends LinkedHashMap<K, V> {
+  @Serial
   private static final long serialVersionUID = -4127551298268351889L;
 
   /**
    * Track the elements as they are added to the set
    */
-  protected List<K> elements = new ArrayList<K>();
+  protected List<K> elements = new ArrayList<>();
 
   public K getKey(int i) {
     return elements.get(i);

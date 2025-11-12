@@ -52,7 +52,7 @@ public class LexerGrammar extends Grammar {
       return false;
     }
 
-    if (modes == null) modes = new MultiMap<String, Rule>();
+    if (modes == null) modes = new MultiMap<>();
     modes.map(r.mode, r);
     return true;
   }
