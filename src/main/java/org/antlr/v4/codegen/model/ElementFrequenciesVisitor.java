@@ -31,7 +31,7 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
    * to ensure that {@link #combineMin} doesn't merge an empty set (all zeros)
    * with the results of the first alternative.
    */
-  private static final FrequencySet<String> SENTINEL = new FrequencySet<String>();
+  private static final FrequencySet<String> SENTINEL = new FrequencySet<>();
 
   final Grammar grammar;
   final Deque<FrequencySet<String>> frequencies;
@@ -40,9 +40,9 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
   public ElementFrequenciesVisitor(Grammar grammar, TreeNodeStream input) {
     super(input);
     this.grammar = grammar;
-    frequencies = new ArrayDeque<FrequencySet<String>>();
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies = new ArrayDeque<FrequencySet<String>>();
+    frequencies = new ArrayDeque<>();
+    frequencies.push(new FrequencySet<>());
+    minFrequencies = new ArrayDeque<>();
     minFrequencies.push(SENTINEL);
   }
 
@@ -120,7 +120,7 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
    * to the maximum value given by {@code clip}.
    */
   protected static FrequencySet<String> combineAndClip(FrequencySet<String> a, FrequencySet<String> b, int clip) {
-    FrequencySet<String> result = new FrequencySet<String>();
+    FrequencySet<String> result = new FrequencySet<>();
     for (Map.Entry<String, MutableInt> entry : a.entrySet()) {
       for (int i = 0; i < entry.getValue().v; i++) {
         result.add(entry.getKey());
@@ -174,8 +174,8 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
 
   @Override
   protected void enterAlternative(AltAST tree) {
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies.push(new FrequencySet<String>());
+    frequencies.push(new FrequencySet<>());
+    minFrequencies.push(new FrequencySet<>());
   }
 
   @Override
@@ -186,8 +186,8 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
 
   @Override
   protected void enterElement(GrammarAST tree) {
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies.push(new FrequencySet<String>());
+    frequencies.push(new FrequencySet<>());
+    minFrequencies.push(new FrequencySet<>());
   }
 
   @Override
@@ -198,8 +198,8 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
 
   @Override
   protected void enterBlockSet(GrammarAST tree) {
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies.push(new FrequencySet<String>());
+    frequencies.push(new FrequencySet<>());
+    minFrequencies.push(new FrequencySet<>());
   }
 
   @Override
@@ -242,8 +242,8 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
 
   @Override
   protected void enterLexerAlternative(GrammarAST tree) {
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies.push(new FrequencySet<String>());
+    frequencies.push(new FrequencySet<>());
+    minFrequencies.push(new FrequencySet<>());
   }
 
   @Override
@@ -254,8 +254,8 @@ public class ElementFrequenciesVisitor extends GrammarTreeVisitor {
 
   @Override
   protected void enterLexerElement(GrammarAST tree) {
-    frequencies.push(new FrequencySet<String>());
-    minFrequencies.push(new FrequencySet<String>());
+    frequencies.push(new FrequencySet<>());
+    minFrequencies.push(new FrequencySet<>());
   }
 
   @Override

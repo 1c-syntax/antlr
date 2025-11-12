@@ -32,21 +32,21 @@ public class Alternative implements AttributeResolver {
   public int altNum;
 
   // token IDs, string literals in this alt
-  public MultiMap<String, TerminalAST> tokenRefs = new MultiMap<String, TerminalAST>();
+  public MultiMap<String, TerminalAST> tokenRefs = new MultiMap<>();
 
   // does not include labels
-  public MultiMap<String, GrammarAST> tokenRefsInActions = new MultiMap<String, GrammarAST>();
+  public MultiMap<String, GrammarAST> tokenRefsInActions = new MultiMap<>();
 
   // all rule refs in this alt
-  public MultiMap<String, GrammarAST> ruleRefs = new MultiMap<String, GrammarAST>();
+  public MultiMap<String, GrammarAST> ruleRefs = new MultiMap<>();
 
   // does not include labels
-  public MultiMap<String, GrammarAST> ruleRefsInActions = new MultiMap<String, GrammarAST>();
+  public MultiMap<String, GrammarAST> ruleRefsInActions = new MultiMap<>();
 
   /**
    * A list of all LabelElementPair attached to tokens like id=ID, ids+=ID
    */
-  public MultiMap<String, LabelElementPair> labelDefs = new MultiMap<String, LabelElementPair>();
+  public MultiMap<String, LabelElementPair> labelDefs = new MultiMap<>();
 
   // track all token, rule, label refs in rewrite (right of ->)
   //public List<GrammarAST> rewriteElements = new ArrayList<GrammarAST>();
@@ -59,7 +59,7 @@ public class Alternative implements AttributeResolver {
    * <p>
    * This tracks per alt
    */
-  public List<ActionAST> actions = new ArrayList<ActionAST>();
+  public List<ActionAST> actions = new ArrayList<>();
 
   public Alternative(Rule r, int altNum) {
     this.rule = r;

@@ -58,8 +58,7 @@ public class AttributeDict {
    * The list of {@link Attribute} objects.
    */
   @NotNull
-  public final LinkedHashMap<String, Attribute> attributes =
-    new LinkedHashMap<String, Attribute>();
+  public final LinkedHashMap<String, Attribute> attributes = new LinkedHashMap<>();
 
   public AttributeDict() {
   }
@@ -95,7 +94,7 @@ public class AttributeDict {
       return Collections.emptySet();
     }
 
-    Set<String> result = new HashSet<String>(attributes.keySet());
+    Set<String> result = new HashSet<>(attributes.keySet());
     result.retainAll(other.attributes.keySet());
     return result;
   }

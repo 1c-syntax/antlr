@@ -47,9 +47,8 @@ public class Utils {
   public static String sortLinesInString(String s) {
     String[] lines = s.split("\n");
     Arrays.sort(lines);
-    String[] linesL = lines;
     StringBuilder buf = new StringBuilder();
-    for (String l : linesL) {
+    for (String l : lines) {
       buf.append(l);
       buf.append('\n');
     }
@@ -58,18 +57,10 @@ public class Utils {
 
   public static <T extends GrammarAST> List<String> nodesToStrings(List<T> nodes) {
     if (nodes == null) return null;
-    List<String> a = new ArrayList<String>();
+    List<String> a = new ArrayList<>();
     for (T t : nodes) a.add(t.getText());
     return a;
   }
-
-//	public static <T> List<T> list(T... values) {
-//		List<T> x = new ArrayList<T>(values.length);
-//		for (T v : values) {
-//			if ( v!=null ) x.add(v);
-//		}
-//		return x;
-//	}
 
   public static String capitalize(String s) {
     return Character.toUpperCase(s.charAt(0)) + s.substring(1);
@@ -85,7 +76,7 @@ public class Utils {
    */
   public static <From, To> List<To> select(List<From> list, Func1<From, To> selector) {
     if (list == null) return null;
-    List<To> b = new ArrayList<To>();
+    List<To> b = new ArrayList<>();
     for (From f : list) {
       b.add(selector.eval(f));
     }

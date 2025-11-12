@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class InvokeRule extends RuleElement implements LabeledOp {
   public String name;
-  public OrderedHashSet<Decl> labels = new OrderedHashSet<Decl>(); // TODO: should need just 1
+  public OrderedHashSet<Decl> labels = new OrderedHashSet<>(); // TODO: should need just 1
   public String ctxName;
 
   @ModelElement

@@ -26,8 +26,8 @@ import java.util.Map;
 public enum UnicodeData {
   ;
 
-  private static final Map<String, IntervalSet> propertyCodePointRanges = new HashMap<String, IntervalSet>(1020);
-  private static final Map<String, String> propertyAliases = new HashMap<String, String>(2237);
+  private static final Map<String, IntervalSet> propertyCodePointRanges = new HashMap<>(1020);
+  private static final Map<String, String> propertyAliases = new HashMap<>(2237);
 
   // Work around Java 64k bytecode method limit by splitting up static
   // initialization into one method per Unicode property

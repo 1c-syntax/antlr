@@ -81,7 +81,7 @@ public class Grammar implements AttributeResolver {
    */
   public static final String INVALID_RULE_NAME = "<invalid>";
 
-  public static final Set<String> parserOptions = new HashSet<String>();
+  public static final Set<String> parserOptions = new HashSet<>();
 
   static {
     parserOptions.add("superClass");
@@ -97,24 +97,24 @@ public class Grammar implements AttributeResolver {
 
   public static final Set<String> lexerOptions = parserOptions;
 
-  public static final Set<String> ruleOptions = new HashSet<String>();
+  public static final Set<String> ruleOptions = new HashSet<>();
 
   static {
     ruleOptions.add("baseContext");
   }
 
-  public static final Set<String> ParserBlockOptions = new HashSet<String>();
+  public static final Set<String> ParserBlockOptions = new HashSet<>();
 
   static {
     ParserBlockOptions.add("sll");
   }
 
-  public static final Set<String> LexerBlockOptions = new HashSet<String>();
+  public static final Set<String> LexerBlockOptions = new HashSet<>();
 
   /**
    * Legal options for rule refs like id&lt;key=value&gt;
    */
-  public static final Set<String> ruleRefOptions = new HashSet<String>();
+  public static final Set<String> ruleRefOptions = new HashSet<>();
 
   static {
     ruleRefOptions.add(LeftRecursiveRuleTransformer.PRECEDENCE_OPTION_NAME);
@@ -124,23 +124,23 @@ public class Grammar implements AttributeResolver {
   /**
    * Legal options for terminal refs like ID&lt;assoc=right&gt;
    */
-  public static final Set<String> tokenOptions = new HashSet<String>();
+  public static final Set<String> tokenOptions = new HashSet<>();
 
   static {
     tokenOptions.add("assoc");
     tokenOptions.add(LeftRecursiveRuleTransformer.TOKENINDEX_OPTION_NAME);
   }
 
-  public static final Set<String> actionOptions = new HashSet<String>();
+  public static final Set<String> actionOptions = new HashSet<>();
 
-  public static final Set<String> semPredOptions = new HashSet<String>();
+  public static final Set<String> semPredOptions = new HashSet<>();
 
   static {
     semPredOptions.add(LeftRecursiveRuleTransformer.PRECEDENCE_OPTION_NAME);
     semPredOptions.add("fail");
   }
 
-  public static final Set<String> doNotCopyOptionsToLexer = new HashSet<String>();
+  public static final Set<String> doNotCopyOptionsToLexer = new HashSet<>();
 
   static {
     doNotCopyOptionsToLexer.add("superClass");
@@ -150,7 +150,7 @@ public class Grammar implements AttributeResolver {
   }
 
   public static final Map<String, AttributeDict> grammarAndLabelRefTypeToScope =
-    new HashMap<String, AttributeDict>();
+    new HashMap<>();
 
   static {
     grammarAndLabelRefTypeToScope.put("parser:RULE_LABEL", Rule.predefinedRulePropertiesDict);
@@ -203,8 +203,8 @@ public class Grammar implements AttributeResolver {
    * All rules defined in this specific grammar, not imported. Also does
    * not include lexical rules if combined.
    */
-  public OrderedHashMap<String, Rule> rules = new OrderedHashMap<String, Rule>();
-  public List<Rule> indexToRule = new ArrayList<Rule>();
+  public OrderedHashMap<String, Rule> rules = new OrderedHashMap<>();
+  public List<Rule> indexToRule = new ArrayList<>();
 
   /**
    * This maps a context name &rarr; a collection of {@link RuleAST} nodes in
@@ -221,7 +221,7 @@ public class Grammar implements AttributeResolver {
    * duplication is performed after nodes from imported grammars are merged
    * into the AST.</p>
    */
-  public final Map<String, List<RuleAST>> contextASTs = new HashMap<String, List<RuleAST>>();
+  public final Map<String, List<RuleAST>> contextASTs = new HashMap<>();
 
   int ruleNumber = 0; // used to get rule indexes (0..n-1)
   int stringLiteralRuleNumber = 0; // used to invent rule names for 'keyword', ';', ... (0..n-1)
@@ -234,7 +234,7 @@ public class Grammar implements AttributeResolver {
 
   public Map<Integer, Interval> stateToGrammarRegionMap;
 
-  public Map<Integer, DFA> decisionDFAs = new HashMap<Integer, DFA>();
+  public Map<Integer, DFA> decisionDFAs = new HashMap<>();
 
   public List<IntervalSet[]> decisionLOOK;
 
@@ -256,26 +256,26 @@ public class Grammar implements AttributeResolver {
    * Map token like {@code ID} (but not literals like {@code 'while'}) to its
    * token type.
    */
-  public final Map<String, Integer> tokenNameToTypeMap = new LinkedHashMap<String, Integer>();
+  public final Map<String, Integer> tokenNameToTypeMap = new LinkedHashMap<>();
 
   /**
    * Map token literals like {@code 'while'} to its token type. It may be that
    * {@code WHILE="while"=35}, in which case both {@link #tokenNameToTypeMap}
    * and this field will have entries both mapped to 35.
    */
-  public final Map<String, Integer> stringLiteralToTypeMap = new LinkedHashMap<String, Integer>();
+  public final Map<String, Integer> stringLiteralToTypeMap = new LinkedHashMap<>();
 
   /**
    * Reverse index for {@link #stringLiteralToTypeMap}. Indexed with raw token
    * type. 0 is invalid.
    */
-  public final List<String> typeToStringLiteralList = new ArrayList<String>();
+  public final List<String> typeToStringLiteralList = new ArrayList<>();
 
   /**
    * Map a token type to its token name. Indexed with raw token type. 0 is
    * invalid.
    */
-  public final List<String> typeToTokenList = new ArrayList<String>();
+  public final List<String> typeToTokenList = new ArrayList<>();
 
   /**
    * The maximum channel value which is assigned by this grammar. Values below
@@ -287,7 +287,7 @@ public class Grammar implements AttributeResolver {
    * Map channel like {@code COMMENTS_CHANNEL} to its constant channel value.
    * Only user-defined channels are defined in this map.
    */
-  public final Map<String, Integer> channelNameToValueMap = new LinkedHashMap<String, Integer>();
+  public final Map<String, Integer> channelNameToValueMap = new LinkedHashMap<>();
 
   /**
    * Map a constant channel value to its name. Indexed with raw channel value.
@@ -295,7 +295,7 @@ public class Grammar implements AttributeResolver {
    * {@link Token#HIDDEN_CHANNEL} are not stored in this list, so the values
    * at the corresponding indexes is {@code null}.
    */
-  public final List<String> channelValueToNameList = new ArrayList<String>();
+  public final List<String> channelValueToNameList = new ArrayList<>();
 
   /**
    * Map a name to an action.
@@ -303,19 +303,19 @@ public class Grammar implements AttributeResolver {
    * I track the AST node for the action in case I need the line number
    * for errors.
    */
-  public Map<String, ActionAST> namedActions = new HashMap<String, ActionAST>();
+  public Map<String, ActionAST> namedActions = new HashMap<>();
 
   /**
    * Tracks all user lexer actions in all alternatives of all rules.
    * Doesn't track sempreds.  maps tree node to action index (alt number 1..n).
    */
-  public LinkedHashMap<ActionAST, Integer> lexerActions = new LinkedHashMap<ActionAST, Integer>();
+  public LinkedHashMap<ActionAST, Integer> lexerActions = new LinkedHashMap<>();
 
   /**
    * All sempreds found in grammar; maps tree node to sempred index;
    * sempred index is 0..n-1
    */
-  public LinkedHashMap<PredAST, Integer> sempreds = new LinkedHashMap<PredAST, Integer>();
+  public LinkedHashMap<PredAST, Integer> sempreds = new LinkedHashMap<>();
   /**
    * Map the other direction upon demand
    */
@@ -435,9 +435,9 @@ public class Grammar implements AttributeResolver {
     if (ast == null) return;
     GrammarAST i = (GrammarAST) ast.getFirstChildWithType(ANTLRParser.IMPORT);
     if (i == null) return;
-    Set<String> visited = new HashSet<String>();
+    Set<String> visited = new HashSet<>();
     visited.add(this.name);
-    importedGrammars = new ArrayList<Grammar>();
+    importedGrammars = new ArrayList<>();
     for (Object c : i.getChildren()) {
       GrammarAST t = (GrammarAST) c;
       String importedGrammarName = null;
@@ -538,27 +538,8 @@ public class Grammar implements AttributeResolver {
     return true;
   }
 
-//	public int getNumRules() {
-//		int n = rules.size();
-//		List<Grammar> imports = getAllImportedGrammars();
-//		if ( imports!=null ) {
-//			for (Grammar g : imports) n += g.getNumRules();
-//		}
-//		return n;
-//	}
-
   public Rule getRule(String name) {
-    Rule r = rules.get(name);
-    return r;
-		/*
-		List<Grammar> imports = getAllImportedGrammars();
-		if ( imports==null ) return null;
-		for (Grammar g : imports) {
-			r = g.getRule(name); // recursively walk up hierarchy
-			if ( r!=null ) return r;
-		}
-		return null;
-		*/
+    return rules.get(name);
   }
 
   public ATN getATN() {
@@ -615,7 +596,7 @@ public class Grammar implements AttributeResolver {
       return null;
     }
 
-    LinkedHashMap<String, Grammar> delegates = new LinkedHashMap<String, Grammar>();
+    LinkedHashMap<String, Grammar> delegates = new LinkedHashMap<>();
     for (Grammar d : importedGrammars) {
       delegates.put(d.fileName, d);
       List<Grammar> ds = d.getAllImportedGrammars();
@@ -626,7 +607,7 @@ public class Grammar implements AttributeResolver {
       }
     }
 
-    return new ArrayList<Grammar>(delegates.values());
+    return new ArrayList<>(delegates.values());
   }
 
   public List<Grammar> getImportedGrammars() {
@@ -652,7 +633,7 @@ public class Grammar implements AttributeResolver {
   public List<Grammar> getGrammarAncestors() {
     Grammar root = getOutermostGrammar();
     if (this == root) return null;
-    List<Grammar> grammars = new ArrayList<Grammar>();
+    List<Grammar> grammars = new ArrayList<>();
     // walk backwards to root, collecting grammars
     Grammar p = this.parent;
     while (p != null) {
@@ -727,9 +708,7 @@ public class Grammar implements AttributeResolver {
     } else { // must be a label like ID
       I = tokenNameToTypeMap.get(token);
     }
-    int i = (I != null) ? I : Token.INVALID_TYPE;
-    //tool.log("grammar", "grammar type "+type+" "+tokenName+"->"+i);
-    return i;
+    return (I != null) ? I : Token.INVALID_TYPE;
   }
 
   public String getTokenName(String literal) {
@@ -821,8 +800,7 @@ public class Grammar implements AttributeResolver {
    */
   public int getChannelValue(String channel) {
     Integer I = channelNameToValueMap.get(channel);
-    int i = (I != null) ? I : -1;
-    return i;
+    return (I != null) ? I : -1;
   }
 
   /**
@@ -948,7 +926,7 @@ public class Grammar implements AttributeResolver {
   public String joinPredicateOperands(SemanticContext.Operator op, String separator) {
     StringBuilder buf = new StringBuilder();
     for (SemanticContext operand : op.getOperands()) {
-      if (buf.length() > 0) {
+      if (!buf.isEmpty()) {
         buf.append(separator);
       }
 
@@ -959,7 +937,7 @@ public class Grammar implements AttributeResolver {
   }
 
   public LinkedHashMap<Integer, PredAST> getIndexToPredicateMap() {
-    LinkedHashMap<Integer, PredAST> indexToPredMap = new LinkedHashMap<Integer, PredAST>();
+    LinkedHashMap<Integer, PredAST> indexToPredMap = new LinkedHashMap<>();
     for (Rule r : rules.values()) {
       for (ActionAST a : r.actions) {
         if (a instanceof PredAST p) {
@@ -984,12 +962,6 @@ public class Grammar implements AttributeResolver {
    */
   public int getMaxCharValue() {
     return Lexer.MAX_CHAR_VALUE;
-//		if ( generator!=null ) {
-//			return generator.target.getMaxCharValue(generator);
-//		}
-//		else {
-//			return Label.MAX_CHAR_VALUE;
-//		}
   }
 
   /**
@@ -1056,8 +1028,6 @@ public class Grammar implements AttributeResolver {
     for (Map.Entry<String, Integer> channel : importG.channelNameToValueMap.entrySet()) {
       defineChannelName(channel.getKey(), channel.getValue());
     }
-//		this.tokenNameToTypeMap.putAll( importG.tokenNameToTypeMap );
-//		this.stringLiteralToTypeMap.putAll( importG.stringLiteralToTypeMap );
     int max = Math.max(this.typeToTokenList.size(), importG.typeToTokenList.size());
     Utils.setSize(typeToTokenList, max);
     for (int ttype = 0; ttype < importG.typeToTokenList.size(); ttype++) {
@@ -1234,14 +1204,11 @@ public class Grammar implements AttributeResolver {
    * default scope should be "parser".
    */
   public String getDefaultActionScope() {
-    switch (getType()) {
-      case ANTLRParser.LEXER:
-        return "lexer";
-      case ANTLRParser.PARSER:
-      case ANTLRParser.COMBINED:
-        return "parser";
-    }
-    return null;
+    return switch (getType()) {
+      case ANTLRParser.LEXER -> "lexer";
+      case ANTLRParser.PARSER, ANTLRParser.COMBINED -> "parser";
+      default -> null;
+    };
   }
 
   public int getType() {
@@ -1279,18 +1246,14 @@ public class Grammar implements AttributeResolver {
   }
 
   public static String getGrammarTypeToFileNameSuffix(int type) {
-    switch (type) {
-      case ANTLRParser.LEXER:
-        return "Lexer";
-      case ANTLRParser.PARSER:
-        return "Parser";
+    return switch (type) {
+      case ANTLRParser.LEXER -> "Lexer";
+      case ANTLRParser.PARSER -> "Parser";
       // if combined grammar, gen Parser and Lexer will be done later
       // TODO: we are separate now right?
-      case ANTLRParser.COMBINED:
-        return "Parser";
-      default:
-        return "<invalid>";
-    }
+      case ANTLRParser.COMBINED -> "Parser";
+      default -> "<invalid>";
+    };
   }
 
   public String getOptionString(String key) {
@@ -1332,15 +1295,12 @@ public class Grammar implements AttributeResolver {
     };
     GrammarASTAdaptor adaptor = new GrammarASTAdaptor(ast.token.getInputStream());
     org.antlr.runtime.tree.TreeWizard wiz = new org.antlr.runtime.tree.TreeWizard(adaptor, ANTLRParser.tokenNames);
-    List<Pair<GrammarAST, GrammarAST>> lexerRuleToStringLiteral =
-      new ArrayList<Pair<GrammarAST, GrammarAST>>();
+    List<Pair<GrammarAST, GrammarAST>> lexerRuleToStringLiteral = new ArrayList<>();
 
     List<GrammarAST> ruleNodes = ast.getNodesWithType(ANTLRParser.RULE);
     if (ruleNodes == null || ruleNodes.isEmpty()) return null;
 
     for (GrammarAST r : ruleNodes) {
-      //tool.log("grammar", r.toStringTree());
-//			System.out.println("chk: "+r.toStringTree());
       org.antlr.runtime.tree.Tree name = r.getChild(0);
       if (name.getType() == ANTLRParser.TOKEN_REF) {
         // check rule against patterns
@@ -1350,7 +1310,6 @@ public class Grammar implements AttributeResolver {
             defAlias(r, pattern, wiz, lexerRuleToStringLiteral);
           if (isLitRule) break;
         }
-//				if ( !isLitRule ) System.out.println("no pattern matched");
       }
     }
     return lexerRuleToStringLiteral;
@@ -1359,7 +1318,7 @@ public class Grammar implements AttributeResolver {
   protected static boolean defAlias(GrammarAST r, String pattern,
                                     org.antlr.runtime.tree.TreeWizard wiz,
                                     List<Pair<GrammarAST, GrammarAST>> lexerRuleToStringLiteral) {
-    HashMap<String, Object> nodes = new HashMap<String, Object>();
+    HashMap<String, Object> nodes = new HashMap<>();
     if (wiz.parse(r, pattern, nodes)) {
       GrammarAST litNode = (GrammarAST) nodes.get("lit");
       GrammarAST nameNode = (GrammarAST) nodes.get("name");
@@ -1371,7 +1330,7 @@ public class Grammar implements AttributeResolver {
   }
 
   public Set<String> getStringLiterals() {
-    final Set<String> strings = new LinkedHashSet<String>();
+    final Set<String> strings = new LinkedHashSet<>();
     GrammarTreeVisitor collector = new GrammarTreeVisitor() {
       @Override
       public void stringRef(TerminalAST ref) {
@@ -1392,24 +1351,19 @@ public class Grammar implements AttributeResolver {
   }
 
   public static Map<Integer, Interval> getStateToGrammarRegionMap(GrammarRootAST ast, IntervalSet grammarTokenTypes) {
-    Map<Integer, Interval> stateToGrammarRegionMap = new HashMap<Integer, Interval>();
+    Map<Integer, Interval> stateToGrammarRegionMap = new HashMap<>();
     if (ast == null) return stateToGrammarRegionMap;
 
     List<GrammarAST> nodes = ast.getNodesWithType(grammarTokenTypes);
     for (GrammarAST n : nodes) {
       if (n.atnState != null) {
         Interval tokenRegion = Interval.of(n.getTokenStartIndex(), n.getTokenStopIndex());
-        org.antlr.runtime.tree.Tree ruleNode = null;
-        // RULEs, BLOCKs of transformed recursive rules point to original token interval
-        switch (n.getType()) {
-          case ANTLRParser.RULE:
-            ruleNode = n;
-            break;
-          case ANTLRParser.BLOCK:
-          case ANTLRParser.CLOSURE:
-            ruleNode = n.getAncestor(ANTLRParser.RULE);
-            break;
-        }
+        org.antlr.runtime.tree.Tree ruleNode = switch (n.getType()) {
+          // RULEs, BLOCKs of transformed recursive rules point to original token interval
+          case ANTLRParser.RULE -> n;
+          case ANTLRParser.BLOCK, ANTLRParser.CLOSURE -> n.getAncestor(ANTLRParser.RULE);
+          default -> null;
+        };
         if (ruleNode instanceof RuleAST) {
           String ruleName = ((RuleAST) ruleNode).getRuleName();
           Rule r = ast.g.getRule(ruleName);
@@ -1447,7 +1401,7 @@ public class Grammar implements AttributeResolver {
 
     char[] serializedAtn = ATNSerializer.getSerializedAsChars(atn, Arrays.asList(getRuleNames()));
     ATN deserialized = new ATNDeserializer().deserialize(serializedAtn);
-    List<String> allChannels = new ArrayList<String>();
+    List<String> allChannels = new ArrayList<>();
     allChannels.add("DEFAULT_TOKEN_CHANNEL");
     allChannels.add("HIDDEN");
     allChannels.addAll(channelValueToNameList);
@@ -1478,10 +1432,8 @@ public class Grammar implements AttributeResolver {
   }
 
   protected static class AltLabelVisitor extends GrammarTreeVisitor {
-    private final Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives =
-      new LinkedHashMap<String, List<Pair<Integer, AltAST>>>();
-    private final List<AltAST> unlabeledAlternatives =
-      new ArrayList<AltAST>();
+    private final Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives = new LinkedHashMap<>();
+    private final List<AltAST> unlabeledAlternatives = new ArrayList<>();
 
     public AltLabelVisitor(org.antlr.runtime.tree.TreeNodeStream input) {
       super(input);

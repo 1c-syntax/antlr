@@ -87,7 +87,7 @@ public class LeftFactoringRuleTransformer {
 
       LOGGER.log(Level.FINE, "Left factoring {0} out of alts in grammar rule {1}", new Object[]{Arrays.toString(rules), r.name});
 
-      Set<GrammarAST> translatedBlocks = new HashSet<GrammarAST>();
+      Set<GrammarAST> translatedBlocks = new HashSet<>();
       List<GrammarAST> blocks = r.ast.getNodesWithType(ANTLRParser.BLOCK);
       blockLoop:
       for (GrammarAST block : blocks) {
@@ -113,7 +113,7 @@ public class LeftFactoringRuleTransformer {
   }
 
   protected boolean expandOptionalQuantifiersForBlock(GrammarAST block, boolean variant) {
-    List<GrammarAST> children = new ArrayList<GrammarAST>();
+    List<GrammarAST> children = new ArrayList<>();
     for (int i = 0; i < block.getChildCount(); i++) {
       GrammarAST child = (GrammarAST) block.getChild(i);
       if (child.getType() != ANTLRParser.ALT) {

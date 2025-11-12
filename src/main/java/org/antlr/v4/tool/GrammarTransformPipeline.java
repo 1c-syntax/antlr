@@ -188,16 +188,16 @@ public class GrammarTransformPipeline {
 
     // Compute list of rules in root grammar and ensure we have a RULES node
     GrammarAST RULES = (GrammarAST) root.getFirstChildWithType(ANTLRParser.RULES);
-    Set<String> rootRuleNames = new HashSet<String>();
+    Set<String> rootRuleNames = new HashSet<>();
     // make list of rules we have in root grammar
     List<GrammarAST> rootRules = RULES.getNodesWithType(ANTLRParser.RULE);
     for (GrammarAST r : rootRules) rootRuleNames.add(r.getChild(0).getText());
 
     // make list of modes we have in root grammar
     List<GrammarAST> rootModes = root.getNodesWithType(ANTLRParser.MODE);
-    Set<String> rootModeNames = new HashSet<String>();
+    Set<String> rootModeNames = new HashSet<>();
     for (GrammarAST m : rootModes) rootModeNames.add(m.getChild(0).getText());
-    List<GrammarAST> addedModes = new ArrayList<GrammarAST>();
+    List<GrammarAST> addedModes = new ArrayList<>();
 
     for (Grammar imp : imports) {
       // COPY CHANNELS
@@ -238,15 +238,14 @@ public class GrammarTransformPipeline {
         tokensRoot.addChildren(Arrays.asList(imp_tokensRoot.getChildren().toArray(EMPTY_TREE_ARRAY)));
       }
 
-      List<GrammarAST> all_actionRoots = new ArrayList<GrammarAST>();
+      List<GrammarAST> all_actionRoots = new ArrayList<>();
       List<GrammarAST> imp_actionRoots = imp.ast.getAllChildrenWithType(ANTLRParser.AT);
       if (actionRoots != null) all_actionRoots.addAll(actionRoots);
       all_actionRoots.addAll(imp_actionRoots);
 
       // COPY ACTIONS
       if (imp_actionRoots != null) {
-        DoubleKeyMap<String, String, GrammarAST> namedActions =
-          new DoubleKeyMap<String, String, GrammarAST>();
+        DoubleKeyMap<String, String, GrammarAST> namedActions = new DoubleKeyMap<>();
 
         rootGrammar.tool.log("grammar", "imported actions: " + imp_actionRoots);
         for (GrammarAST at : all_actionRoots) {
@@ -433,7 +432,7 @@ public class GrammarTransformPipeline {
     }
 
     // COPY all named actions, but only move those with lexer:: scope
-    List<GrammarAST> actionsWeMoved = new ArrayList<GrammarAST>();
+    List<GrammarAST> actionsWeMoved = new ArrayList<>();
     for (GrammarAST e : elements) {
       if (e.getType() == ANTLRParser.AT) {
         lexerAST.addChild((Tree) adaptor.dupTree(e));
@@ -455,7 +454,7 @@ public class GrammarTransformPipeline {
 
     GrammarAST lexerRulesRoot = adaptor.create(ANTLRParser.RULES, "RULES");
     lexerAST.addChild(lexerRulesRoot);
-    List<GrammarAST> rulesWeMoved = new ArrayList<GrammarAST>();
+    List<GrammarAST> rulesWeMoved = new ArrayList<>();
     GrammarASTWithOptions[] rules;
     if (combinedRulesRoot.getChildCount() > 0) {
       rules = combinedRulesRoot.getChildren().toArray(EMPTY_GRAMMARASTWITHOPTIONS_ARRAY);

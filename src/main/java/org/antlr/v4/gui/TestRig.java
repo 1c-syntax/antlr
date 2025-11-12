@@ -48,7 +48,7 @@ public class TestRig {
 
   protected String grammarName;
   protected String startRuleName;
-  protected final List<String> inputFiles = new ArrayList<String>();
+  protected final List<String> inputFiles = new ArrayList<>();
   protected boolean printTree = false;
   protected boolean gui = false;
   protected String psFile = null;
@@ -60,10 +60,11 @@ public class TestRig {
 
   public TestRig(String[] args) throws Exception {
     if (args.length < 2) {
-      System.err.println("java org.antlr.v4.gui.TestRig GrammarName startRuleName\n" +
-        "  [-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]\n" +
-        "  [-trace] [-diagnostics] [-SLL]\n" +
-        "  [input-filename(s)]");
+      System.err.println("""
+        java org.antlr.v4.gui.TestRig GrammarName startRuleName
+          [-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]
+          [-trace] [-diagnostics] [-SLL]
+          [input-filename(s)]""");
       System.err.println("Use startRuleName='tokens' if GrammarName is a lexer grammar.");
       System.err.println("Omitting input-filename makes rig read from stdin.");
       return;

@@ -35,14 +35,14 @@ import java.util.logging.Logger;
 public class RuleDependencyChecker {
   private static final Logger LOGGER = Logger.getLogger(RuleDependencyChecker.class.getName());
 
-  private static final Set<Class<?>> checkedTypes = new HashSet<Class<?>>();
+  private static final Set<Class<?>> checkedTypes = new HashSet<>();
 
   public static void checkDependencies(Class<?> dependentClass) {
     if (isChecked(dependentClass)) {
       return;
     }
 
-    List<Class<?>> typesToCheck = new ArrayList<Class<?>>();
+    List<Class<?>> typesToCheck = new ArrayList<>();
     typesToCheck.add(dependentClass);
     Collections.addAll(typesToCheck, dependentClass.getDeclaredClasses());
     for (final Class<?> clazz : typesToCheck) {
@@ -98,7 +98,7 @@ public class RuleDependencyChecker {
       }
     }
 
-    if (incompatible.length() != 0) {
+    if (!incompatible.isEmpty()) {
       throw new IllegalStateException(incompatible.toString());
     }
 
@@ -168,7 +168,7 @@ public class RuleDependencyChecker {
   }
 
   public static List<Pair<RuleDependency, AnnotatedElement>> getDependencies(Class<?> clazz) {
-    List<Pair<RuleDependency, AnnotatedElement>> result = new ArrayList<Pair<RuleDependency, AnnotatedElement>>();
+    List<Pair<RuleDependency, AnnotatedElement>> result = new ArrayList<>();
     ElementType[] supportedTarget = RuleDependency.class.getAnnotation(Target.class).value();
     for (ElementType target : supportedTarget) {
       switch (target) {

@@ -64,9 +64,9 @@ public class TreePostScriptGenerator {
     doc = new PostScriptDocument(fontName, fontSize);
     boolean compareNodeIdentities = true;
     this.treeLayout =
-      new TreeLayout<Tree>(getTreeLayoutAdaptor(root),
+      new TreeLayout<>(getTreeLayoutAdaptor(root),
         new VariableExtentProvide(),
-        new DefaultConfiguration<Tree>(gapBetweenLevels,
+        new DefaultConfiguration<>(gapBetweenLevels,
           gapBetweenNodes,
           Configuration.Location.Bottom),
         compareNodeIdentities);

@@ -43,7 +43,7 @@ public abstract class GrammarASTWithOptions extends GrammarAST {
   }
 
   public void setOption(String key, GrammarAST node) {
-    if (options == null) options = new HashMap<String, GrammarAST>();
+    if (options == null) options = new HashMap<>();
     options.put(key, node);
   }
 

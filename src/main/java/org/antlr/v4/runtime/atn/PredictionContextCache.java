@@ -23,12 +23,9 @@ import java.util.Objects;
 public class PredictionContextCache {
   public static final PredictionContextCache UNCACHED = new PredictionContextCache(false);
 
-  private final Map<PredictionContext, PredictionContext> contexts =
-    new HashMap<PredictionContext, PredictionContext>();
-  private final Map<PredictionContextAndInt, PredictionContext> childContexts =
-    new HashMap<PredictionContextAndInt, PredictionContext>();
-  private final Map<IdentityCommutativePredictionContextOperands, PredictionContext> joinContexts =
-    new HashMap<IdentityCommutativePredictionContextOperands, PredictionContext>();
+  private final Map<PredictionContext, PredictionContext> contexts = new HashMap<>();
+  private final Map<PredictionContextAndInt, PredictionContext> childContexts = new HashMap<>();
+  private final Map<IdentityCommutativePredictionContextOperands, PredictionContext> joinContexts = new HashMap<>();
 
   private final boolean enableCache;
 

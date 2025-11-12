@@ -39,7 +39,7 @@ public abstract class LL1Loop extends Choice {
   }
 
   public void addIterationOp(SrcOp op) {
-    if (iteration == null) iteration = new ArrayList<SrcOp>();
+    if (iteration == null) iteration = new ArrayList<>();
     iteration.add(op);
   }
 

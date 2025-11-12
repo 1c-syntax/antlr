@@ -259,7 +259,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * rather than a single variable as this implementation does).
    */
   public void emit(Token token) {
-    //System.err.println("emit "+token);
     this._token = token;
   }
 
@@ -383,7 +382,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * Forces load of all tokens. Does not include EOF token.
    */
   public List<? extends Token> getAllTokens() {
-    List<Token> tokens = new ArrayList<Token>();
+    List<Token> tokens = new ArrayList<>();
     Token t = nextToken();
     while (t.getType() != Token.EOF) {
       tokens.add(t);
@@ -416,22 +415,13 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   public String getErrorDisplay(int c) {
-    String s = String.valueOf((char) c);
-    switch (c) {
-      case Token.EOF:
-        s = "<EOF>";
-        break;
-      case '\n':
-        s = "\\n";
-        break;
-      case '\t':
-        s = "\\t";
-        break;
-      case '\r':
-        s = "\\r";
-        break;
-    }
-    return s;
+    return switch (c) {
+      case Token.EOF -> "<EOF>";
+      case '\n' -> "\\n";
+      case '\t' -> "\\t";
+      case '\r' -> "\\r";
+      default -> String.valueOf((char) c);
+    };
   }
 
   public String getCharErrorDisplay(int c) {

@@ -49,9 +49,9 @@ public class ATNPrinter {
 
   public String asString() {
     if (start == null) return null;
-    marked = new HashSet<ATNState>();
+    marked = new HashSet<>();
 
-    work = new ArrayList<ATNState>();
+    work = new ArrayList<>();
     work.add(start);
 
     StringBuilder buf = new StringBuilder();
@@ -61,7 +61,6 @@ public class ATNPrinter {
       s = work.remove(0);
       if (marked.contains(s)) continue;
       int n = s.getNumberOfTransitions();
-//			System.out.println("visit "+s+"; edges="+n);
       marked.add(s);
       for (int i = 0; i < n; i++) {
         Transition t = s.transition(i);

@@ -128,8 +128,7 @@ public abstract class ATNState {
   /**
    * Track the transitions emanating from this ATN state.
    */
-  protected final List<Transition> transitions =
-    new ArrayList<Transition>(INITIAL_NUM_TRANSITIONS);
+  protected final List<Transition> transitions = new ArrayList<>(INITIAL_NUM_TRANSITIONS);
 
   protected List<Transition> optimizedTransitions = transitions;
 
@@ -237,7 +236,7 @@ public abstract class ATNState {
 
   public void addOptimizedTransition(Transition e) {
     if (!isOptimized()) {
-      optimizedTransitions = new ArrayList<Transition>();
+      optimizedTransitions = new ArrayList<>();
     }
 
     optimizedTransitions.add(e);

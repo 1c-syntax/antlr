@@ -272,7 +272,7 @@ public class GrammarParserInterpreter extends ParserInterpreter {
                                                                  int stopIndex,
                                                                  int startRuleIndex)
     throws RecognitionException {
-    List<ParserRuleContext> trees = new ArrayList<ParserRuleContext>();
+    List<ParserRuleContext> trees = new ArrayList<>();
     // Create a new parser interpreter to parse the ambiguous subphrase
     ParserInterpreter parser = deriveTempParserInterpreter(g, originalParser, tokens);
 
@@ -337,7 +337,7 @@ public class GrammarParserInterpreter extends ParserInterpreter {
                                                                int decision,
                                                                int startIndex,
                                                                int stopIndex) {
-    List<ParserRuleContext> trees = new ArrayList<ParserRuleContext>();
+    List<ParserRuleContext> trees = new ArrayList<>();
     // Create a new parser interpreter to parse the ambiguous subphrase
     ParserInterpreter parser = deriveTempParserInterpreter(g, originalParser, tokens);
 
@@ -445,11 +445,8 @@ public class GrammarParserInterpreter extends ParserInterpreter {
       if (firstErrorTokenIndex == -1) {
         firstErrorTokenIndex = errIndex; // latch
       }
-//			System.err.println("recoverInline: error at " + errIndex);
-      InputMismatchException e = new InputMismatchException(recognizer);
-//			TokenStream input = recognizer.getInputStream(); // seek EOF
-//			input.seek(input.size() - 1);
-      throw e;
+
+      throw new InputMismatchException(recognizer);
     }
 
     @Override

@@ -15,7 +15,6 @@ import org.antlr.v4.runtime.misc.Nullable;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,18 +62,16 @@ public abstract class Transition {
 
   @SuppressWarnings("serial")
   public static final Map<Class<? extends Transition>, Integer> serializationTypes =
-    Collections.unmodifiableMap(new HashMap<Class<? extends Transition>, Integer>() {{
-      put(EpsilonTransition.class, EPSILON);
-      put(RangeTransition.class, RANGE);
-      put(RuleTransition.class, RULE);
-      put(PredicateTransition.class, PREDICATE);
-      put(AtomTransition.class, ATOM);
-      put(ActionTransition.class, ACTION);
-      put(SetTransition.class, SET);
-      put(NotSetTransition.class, NOT_SET);
-      put(WildcardTransition.class, WILDCARD);
-      put(PrecedencePredicateTransition.class, PRECEDENCE);
-    }});
+    Map.of(EpsilonTransition.class, EPSILON,
+      RangeTransition.class, RANGE,
+      RuleTransition.class, RULE,
+      PredicateTransition.class, PREDICATE,
+      AtomTransition.class, ATOM,
+      ActionTransition.class, ACTION,
+      SetTransition.class, SET,
+      NotSetTransition.class, NOT_SET,
+      WildcardTransition.class, WILDCARD,
+      PrecedencePredicateTransition.class, PRECEDENCE);
 
   /**
    * The target of this transition.

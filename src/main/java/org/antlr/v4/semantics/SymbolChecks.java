@@ -50,13 +50,13 @@ import java.util.Set;
 public class SymbolChecks {
   Grammar g;
   SymbolCollector collector;
-  Map<String, Rule> nameToRuleMap = new HashMap<String, Rule>();
-  Set<String> tokenIDs = new HashSet<String>();
-  Map<String, Set<String>> actionScopeToActionNames = new HashMap<String, Set<String>>();
+  Map<String, Rule> nameToRuleMap = new HashMap<>();
+  Set<String> tokenIDs = new HashSet<>();
+  Map<String, Set<String>> actionScopeToActionNames = new HashMap<>();
 
   public ErrorManager errMgr;
 
-  protected final Set<String> reservedNames = new HashSet<String>();
+  protected final Set<String> reservedNames = new HashSet<>();
 
   {
     reservedNames.addAll(LexerATNFactory.getCommonConstants());
@@ -97,7 +97,7 @@ public class SymbolChecks {
         scope = nameNode.getText();
         name = ampersandAST.getChild(1).getText();
       }
-      Set<String> scopeActions = actionScopeToActionNames.computeIfAbsent(scope, k -> new HashSet<String>());
+      Set<String> scopeActions = actionScopeToActionNames.computeIfAbsent(scope, k -> new HashSet<>());
       // init scope
       if (!scopeActions.contains(name)) {
         scopeActions.add(name);
@@ -119,13 +119,13 @@ public class SymbolChecks {
     for (Rule r : rules) {
       checkForAttributeConflicts(r);
 
-      Map<String, LabelElementPair> labelNameSpace = new HashMap<String, LabelElementPair>();
+      Map<String, LabelElementPair> labelNameSpace = new HashMap<>();
       for (int i = 1; i <= r.numberOfAlts; i++) {
         Alternative a = r.alt[i];
         for (List<LabelElementPair> pairs : a.labelDefs.values()) {
           if (r.hasAltSpecificContexts()) {
             // Collect labelName-labeledRules map for rule with alternative labels.
-            Map<String, List<LabelElementPair>> labelPairs = new HashMap<String, List<LabelElementPair>>();
+            Map<String, List<LabelElementPair>> labelPairs = new HashMap<>();
             for (LabelElementPair p : pairs) {
               String labelName = findAltLabelName(p.label);
               if (labelName != null) {
@@ -133,7 +133,7 @@ public class SymbolChecks {
                 if (labelPairs.containsKey(labelName)) {
                   list = labelPairs.get(labelName);
                 } else {
-                  list = new ArrayList<LabelElementPair>();
+                  list = new ArrayList<>();
                   labelPairs.put(labelName, list);
                 }
                 list.add(p);
@@ -347,8 +347,8 @@ public class SymbolChecks {
       LexerGrammar lexerGrammar = (LexerGrammar) g;
       for (List<Rule> rules : lexerGrammar.modes.values()) {
         // Collect string literal lexer rules for each mode
-        List<Rule> stringLiteralRules = new ArrayList<Rule>();
-        List<List<String>> stringLiteralValues = new ArrayList<List<String>>();
+        List<Rule> stringLiteralRules = new ArrayList<>();
+        List<List<String>> stringLiteralValues = new ArrayList<>();
         for (Rule rule : rules) {
           List<String> ruleStringAlts = getSingleTokenValues(rule);
           if (ruleStringAlts != null && ruleStringAlts.size() > 0) {
@@ -381,7 +381,7 @@ public class SymbolChecks {
    * {@return} list of simple string literals for rule {@param rule}
    */
   private List<String> getSingleTokenValues(Rule rule) {
-    List<String> values = new ArrayList<String>();
+    List<String> values = new ArrayList<>();
     for (Alternative alt : rule.alt) {
       if (alt != null) {
         // select first alt if token has a command

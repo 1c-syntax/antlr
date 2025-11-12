@@ -48,16 +48,16 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
 
   public Tool tool;
   public String ruleName;
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> binaryAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> ternaryAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> suffixAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public List<LeftRecursiveRuleAltInfo> prefixAndOtherAlts = new ArrayList<LeftRecursiveRuleAltInfo>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> binaryAlts = new LinkedHashMap<>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> ternaryAlts = new LinkedHashMap<>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> suffixAlts = new LinkedHashMap<>();
+  public List<LeftRecursiveRuleAltInfo> prefixAndOtherAlts = new ArrayList<>();
 
   /**
    * Pointer to ID node of ^(= ID element)
    */
   public List<Pair<GrammarAST, String>> leftRecursiveRuleRefLabels =
-    new ArrayList<Pair<GrammarAST, String>>();
+    new ArrayList<>();
 
   /**
    * Tokens from which rule AST comes from
@@ -72,7 +72,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
   public STGroup codegenTemplates;
   public String language;
 
-  public Map<Integer, ASSOC> altAssociativity = new HashMap<Integer, ASSOC>();
+  public Map<Integer, ASSOC> altAssociativity = new HashMap<>();
 
   public LeftRecursiveRuleAnalyzer(GrammarAST ruleAST,
                                    Tool tool, String ruleName, String language) {
@@ -231,7 +231,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
     ruleST.add("setResultAction", setResultST);
     ruleST.add("userRetvals", retvals);
 
-    LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> opPrecRuleAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
+    LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> opPrecRuleAlts = new LinkedHashMap<>();
     opPrecRuleAlts.putAll(binaryAlts);
     opPrecRuleAlts.putAll(ternaryAlts);
     opPrecRuleAlts.putAll(suffixAlts);
@@ -386,7 +386,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
 
         if (node instanceof GrammarASTWithOptions o) {
           for (Map.Entry<String, GrammarAST> entry : o.getOptions().entrySet()) {
-            if (elementOptions.length() > 0) {
+            if (!elementOptions.isEmpty()) {
               elementOptions.append(',');
             }
 
@@ -407,7 +407,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
       }
 
       // now that we have the actual element, we can add the options.
-      if (elementOptions.length() > 0) {
+      if (!elementOptions.isEmpty()) {
         buf.append('<').append(elementOptions).append('>');
       }
     }

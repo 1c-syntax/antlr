@@ -97,8 +97,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
    *
    * @see ATNDeserializationOptions#isGenerateRuleBypassTransitions()
    */
-  private static final Map<String, ATN> bypassAltsAtnCache =
-    new WeakHashMap<String, ATN>();
+  private static final Map<String, ATN> bypassAltsAtnCache = new WeakHashMap<>();
 
   /**
    * The error handling strategy for the parser. The default value is a new
@@ -368,7 +367,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     }
 
     if (_parseListeners == null) {
-      _parseListeners = new ArrayList<ParseTreeListener>();
+      _parseListeners = new ArrayList<>();
     }
 
     this._parseListeners.add(listener);
@@ -525,7 +524,9 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     return _input;
   }
 
-  /** Set the token stream and reset the parser. */
+  /**
+   * Set the token stream and reset the parser.
+   */
   public void setTokenStream(TokenStream input) {
     this._input = null;
     reset();
@@ -898,7 +899,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 
   public List<String> getRuleInvocationStack(RuleContext p) {
     String[] ruleNames = getRuleNames();
-    List<String> stack = new ArrayList<String>();
+    List<String> stack = new ArrayList<>();
     while (p != null) {
       // compute what follows who invoked us
       int ruleIndex = p.getRuleIndex();
@@ -913,7 +914,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
    * For debugging and other purposes.
    */
   public List<String> getDFAStrings() {
-    List<String> s = new ArrayList<String>();
+    List<String> s = new ArrayList<>();
     for (int d = 0; d < _interp.atn.decisionToDFA.length; d++) {
       DFA dfa = _interp.atn.decisionToDFA[d];
       s.add(dfa.toString(getVocabulary(), getRuleNames()));

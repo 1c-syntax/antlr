@@ -92,11 +92,11 @@ public class ParserATNFactory implements ATNFactory {
 
   @NotNull
   protected final List<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>> preventEpsilonClosureBlocks =
-    new ArrayList<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>>();
+    new ArrayList<>();
 
   @NotNull
   protected final List<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>> preventEpsilonOptionalBlocks =
-    new ArrayList<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>>();
+    new ArrayList<>();
 
   public ParserATNFactory(@NotNull Grammar g) {
     if (g == null) {
@@ -294,8 +294,7 @@ public class ParserATNFactory implements ATNFactory {
   @NotNull
   @Override
   public Handle ruleRef(@NotNull GrammarAST node) {
-    Handle h = _ruleRef(node);
-    return h;
+    return _ruleRef(node);
   }
 
   @NotNull
@@ -461,8 +460,6 @@ public class ParserATNFactory implements ATNFactory {
       opt.visit(alt.left);
     }
     Handle h = new Handle(start, end);
-//		FASerializer ser = new FASerializer(g, h.left);
-//		System.out.println(blkAST.toStringTree()+":\n"+ser);
     blkAST.atnState = start;
 
     return h;
@@ -658,10 +655,8 @@ public class ParserATNFactory implements ATNFactory {
       }
     }
 
-    if (a != null) {
-      int index = prepend ? 0 : a.getNumberOfTransitions();
-      a.addTransition(index, new EpsilonTransition(b));
-    }
+    int index = prepend ? 0 : a.getNumberOfTransitions();
+    a.addTransition(index, new EpsilonTransition(b));
   }
 
   /**
