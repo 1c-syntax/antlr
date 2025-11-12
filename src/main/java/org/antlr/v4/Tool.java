@@ -61,7 +61,6 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +77,7 @@ public class Tool {
   public static final String GRAMMAR_EXTENSION = ".g4";
   public static final String LEGACY_GRAMMAR_EXTENSION = ".g";
 
-  public static final List<String> ALL_GRAMMAR_EXTENSIONS =
-    Collections.unmodifiableList(Arrays.asList(GRAMMAR_EXTENSION, LEGACY_GRAMMAR_EXTENSION));
+  public static final List<String> ALL_GRAMMAR_EXTENSIONS = List.of(GRAMMAR_EXTENSION, LEGACY_GRAMMAR_EXTENSION);
 
   public enum OptionArgType {NONE, STRING} // NONE implies boolean
 

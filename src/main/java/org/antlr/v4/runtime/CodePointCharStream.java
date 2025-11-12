@@ -66,30 +66,26 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     // points stored in the underlying array (byte[],
     // char[], or int[]), so we can avoid lots of virtual
     // method calls to ByteBuffer.get(offset).
-    switch (codePointBuffer.getType()) {
-      case BYTE:
-        return new CodePoint8BitCharStream(
-          codePointBuffer.position(),
-          codePointBuffer.remaining(),
-          name,
-          codePointBuffer.byteArray(),
-          codePointBuffer.arrayOffset());
-      case CHAR:
-        return new CodePoint16BitCharStream(
-          codePointBuffer.position(),
-          codePointBuffer.remaining(),
-          name,
-          codePointBuffer.charArray(),
-          codePointBuffer.arrayOffset());
-      case INT:
-        return new CodePoint32BitCharStream(
-          codePointBuffer.position(),
-          codePointBuffer.remaining(),
-          name,
-          codePointBuffer.intArray(),
-          codePointBuffer.arrayOffset());
-    }
-    throw new UnsupportedOperationException("Not reached");
+    return switch (codePointBuffer.getType()) {
+      case BYTE -> new CodePoint8BitCharStream(
+        codePointBuffer.position(),
+        codePointBuffer.remaining(),
+        name,
+        codePointBuffer.byteArray(),
+        codePointBuffer.arrayOffset());
+      case CHAR -> new CodePoint16BitCharStream(
+        codePointBuffer.position(),
+        codePointBuffer.remaining(),
+        name,
+        codePointBuffer.charArray(),
+        codePointBuffer.arrayOffset());
+      case INT -> new CodePoint32BitCharStream(
+        codePointBuffer.position(),
+        codePointBuffer.remaining(),
+        name,
+        codePointBuffer.intArray(),
+        codePointBuffer.arrayOffset());
+    };
   }
 
   @Override

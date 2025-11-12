@@ -51,15 +51,11 @@ public class CodePointBuffer {
   }
 
   public int position() {
-    switch (type) {
-      case BYTE:
-        return byteBuffer.position();
-      case CHAR:
-        return charBuffer.position();
-      case INT:
-        return intBuffer.position();
-    }
-    throw new UnsupportedOperationException("Not reached");
+    return switch (type) {
+      case BYTE -> byteBuffer.position();
+      case CHAR -> charBuffer.position();
+      case INT -> intBuffer.position();
+    };
   }
 
   public void position(int newPosition) {
@@ -77,27 +73,19 @@ public class CodePointBuffer {
   }
 
   public int remaining() {
-    switch (type) {
-      case BYTE:
-        return byteBuffer.remaining();
-      case CHAR:
-        return charBuffer.remaining();
-      case INT:
-        return intBuffer.remaining();
-    }
-    throw new UnsupportedOperationException("Not reached");
+    return switch (type) {
+      case BYTE -> byteBuffer.remaining();
+      case CHAR -> charBuffer.remaining();
+      case INT -> intBuffer.remaining();
+    };
   }
 
   public int get(int offset) {
-    switch (type) {
-      case BYTE:
-        return byteBuffer.get(offset);
-      case CHAR:
-        return charBuffer.get(offset);
-      case INT:
-        return intBuffer.get(offset);
-    }
-    throw new UnsupportedOperationException("Not reached");
+    return switch (type) {
+      case BYTE -> byteBuffer.get(offset);
+      case CHAR -> charBuffer.get(offset);
+      case INT -> intBuffer.get(offset);
+    };
   }
 
   Type getType() {
@@ -105,15 +93,11 @@ public class CodePointBuffer {
   }
 
   int arrayOffset() {
-    switch (type) {
-      case BYTE:
-        return byteBuffer.arrayOffset();
-      case CHAR:
-        return charBuffer.arrayOffset();
-      case INT:
-        return intBuffer.arrayOffset();
-    }
-    throw new UnsupportedOperationException("Not reached");
+    return switch (type) {
+      case BYTE -> byteBuffer.arrayOffset();
+      case CHAR -> charBuffer.arrayOffset();
+      case INT -> intBuffer.arrayOffset();
+    };
   }
 
   byte[] byteArray() {

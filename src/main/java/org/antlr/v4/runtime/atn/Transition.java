@@ -13,8 +13,6 @@ import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -46,8 +44,7 @@ public abstract class Transition {
 
 
   public static final List<String> serializationNames =
-    Collections.unmodifiableList(Arrays.asList(
-      "INVALID",
+    List.of("INVALID",
       "EPSILON",
       "RANGE",
       "RULE",
@@ -57,8 +54,7 @@ public abstract class Transition {
       "SET",
       "NOT_SET",
       "WILDCARD",
-      "PRECEDENCE"
-    ));
+      "PRECEDENCE");
 
   @SuppressWarnings("serial")
   public static final Map<Class<? extends Transition>, Integer> serializationTypes =
