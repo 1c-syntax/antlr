@@ -85,10 +85,10 @@ public class BuildDependencyGenerator {
     Target target = generator.getTarget();
     if (target == null) {
       // if the target could not be loaded, no code will be generated.
-      return new ArrayList<File>();
+      return new ArrayList<>();
     }
 
-    List<File> files = new ArrayList<File>();
+    List<File> files = new ArrayList<>();
 
     // add generated recognizer; e.g., TParser.java
     if (generator.getTarget().needsHeader()) {
@@ -152,21 +152,14 @@ public class BuildDependencyGenerator {
       files.add(getOutputFile(generator.getBaseVisitorFileName(false)));
     }
 
-
     // handle generated files for imported grammars
     List<Grammar> imports = g.getAllImportedGrammars();
     if (imports != null) {
       for (Grammar g : imports) {
-//				File outputDir = tool.getOutputDirectory(g.fileName);
-//				String fname = groomQualifiedFileName(outputDir.toString(), g.getRecognizerName() + extST.render());
-//				files.add(new File(outputDir, fname));
         files.add(getOutputFile(g.fileName));
       }
     }
 
-    if (files.isEmpty()) {
-      return null;
-    }
     return files;
   }
 
@@ -225,7 +218,7 @@ public class BuildDependencyGenerator {
    * @return List of dependencies other than imported grammars
    */
   public List<File> getNonImportDependenciesFileList() {
-    List<File> files = new ArrayList<File>();
+    List<File> files = new ArrayList<>();
 
     // handle token vocabulary loads
     String tokenVocab = g.getOptionString("tokenVocab");

@@ -79,7 +79,7 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getAllChildrenWithType(int type) {
-    List<GrammarAST> nodes = new ArrayList<GrammarAST>();
+    List<GrammarAST> nodes = new ArrayList<>();
     for (int i = 0; children != null && i < children.size(); i++) {
       Tree t = (Tree) children.get(i);
       if (t.getType() == type) {
@@ -90,8 +90,8 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getNodesWithType(IntervalSet types) {
-    List<GrammarAST> nodes = new ArrayList<GrammarAST>();
-    List<GrammarAST> work = new LinkedList<GrammarAST>();
+    List<GrammarAST> nodes = new ArrayList<>();
+    List<GrammarAST> work = new LinkedList<>();
     work.add(this);
     GrammarAST t;
     while (!work.isEmpty()) {
@@ -105,7 +105,7 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getNodesWithTypePreorderDFS(IntervalSet types) {
-    ArrayList<GrammarAST> nodes = new ArrayList<GrammarAST>();
+    ArrayList<GrammarAST> nodes = new ArrayList<>();
     getNodesWithTypePreorderDFS_(nodes, types);
     return nodes;
   }

@@ -87,9 +87,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
   private int cachedHashCode = -1;
 
   public ATNConfigSet() {
-    this.mergedConfigs = new HashMap<Long, ATNConfig>();
-    this.unmerged = new ArrayList<ATNConfig>();
-    this.configs = new ArrayList<ATNConfig>();
+    this.mergedConfigs = new HashMap<>();
+    this.unmerged = new ArrayList<>();
+    this.configs = new ArrayList<>();
 
     this.uniqueAlt = ATN.INVALID_ALT_NUMBER;
   }
@@ -103,8 +103,8 @@ public class ATNConfigSet implements Set<ATNConfig> {
       this.mergedConfigs = (HashMap<Long, ATNConfig>) set.mergedConfigs.clone();
       this.unmerged = (ArrayList<ATNConfig>) set.unmerged.clone();
     } else {
-      this.mergedConfigs = new HashMap<Long, ATNConfig>(set.configs.size());
-      this.unmerged = new ArrayList<ATNConfig>();
+      this.mergedConfigs = new HashMap<>(set.configs.size());
+      this.unmerged = new ArrayList<>();
     }
 
     this.configs = (ArrayList<ATNConfig>) set.configs.clone();
@@ -157,7 +157,7 @@ public class ATNConfigSet implements Set<ATNConfig> {
   }
 
   public Set<ATNState> getStates() {
-    Set<ATNState> states = new HashSet<ATNState>();
+    Set<ATNState> states = new HashSet<>();
     for (ATNConfig c : this.configs) {
       states.add(c.getState());
     }
@@ -428,7 +428,7 @@ public class ATNConfigSet implements Set<ATNConfig> {
 
   public String toString(boolean showContext) {
     StringBuilder buf = new StringBuilder();
-    List<ATNConfig> sortedConfigs = new ArrayList<ATNConfig>(configs);
+    List<ATNConfig> sortedConfigs = new ArrayList<>(configs);
     sortedConfigs.sort((o1, o2) -> {
       if (o1.getAlt() != o2.getAlt()) {
         return o1.getAlt() - o2.getAlt();

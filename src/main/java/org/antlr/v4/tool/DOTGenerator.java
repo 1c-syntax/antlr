@@ -138,7 +138,7 @@ public class DOTGenerator {
         buf.append(':');
         // get a list of configs for just this alt
         // it will help us print better later
-        List<ATNConfig> configsInAlt = new ArrayList<ATNConfig>();
+        List<ATNConfig> configsInAlt = new ArrayList<>();
         for (ATNConfig c : configurations) {
           if (c.getAlt() != alt) continue;
           configsInAlt.add(c);
@@ -157,8 +157,7 @@ public class DOTGenerator {
         }
       }
     }
-    String stateLabel = buf.toString();
-    return stateLabel;
+    return buf.toString();
   }
 
   public String getDOT(ATNState startState) {
@@ -182,12 +181,12 @@ public class DOTGenerator {
     if (startState == null) return null;
 
     // The output DOT graph for visualization
-    Set<ATNState> markedStates = new HashSet<ATNState>();
+    Set<ATNState> markedStates = new HashSet<>();
     ST dot = stlib.getInstanceOf("atn");
     dot.add("startState", startState.stateNumber);
     dot.add("rankdir", rankdir);
 
-    List<ATNState> work = new LinkedList<ATNState>();
+    List<ATNState> work = new LinkedList<>();
 
     work.add(startState);
     while (!work.isEmpty()) {
@@ -319,99 +318,6 @@ public class DOTGenerator {
 
     return dot.render();
   }
-
-
-  /** Do a depth-first walk of the state machine graph and
-   *  fill a DOT description template.  Keep filling the
-   *  states and edges attributes.  We know this is an ATN
-   *  for a rule so don't traverse edges to other rules and
-   *  don't go past rule end state.
-   */
-//    protected void walkRuleATNCreatingDOT(ST dot,
-//                                          ATNState s)
-//    {
-//        if ( markedStates.contains(s) ) {
-//            return; // already visited this node
-//        }
-//
-//        markedStates.add(s.stateNumber); // mark this node as completed.
-//
-//        // first add this node
-//        ST stateST;
-//        if ( s instanceof RuleStopState ) {
-//            stateST = stlib.getInstanceOf("stopstate");
-//        }
-//        else {
-//            stateST = stlib.getInstanceOf("state");
-//        }
-//        stateST.add("name", getStateLabel(s));
-//        dot.add("states", stateST);
-//
-//        if ( s instanceof RuleStopState )  {
-//            return; // don't go past end of rule node to the follow states
-//        }
-//
-//        // special case: if decision point, then line up the alt start states
-//        // unless it's an end of block
-//		if ( s instanceof DecisionState ) {
-//			GrammarAST n = ((ATNState)s).ast;
-//			if ( n!=null && s instanceof BlockEndState ) {
-//				ST rankST = stlib.getInstanceOf("decision-rank");
-//				ATNState alt = (ATNState)s;
-//				while ( alt!=null ) {
-//					rankST.add("states", getStateLabel(alt));
-//					if ( alt.transition(1) !=null ) {
-//						alt = (ATNState)alt.transition(1).target;
-//					}
-//					else {
-//						alt=null;
-//					}
-//				}
-//				dot.add("decisionRanks", rankST);
-//			}
-//		}
-//
-//        // make a DOT edge for each transition
-//		ST edgeST = null;
-//		for (int i = 0; i < s.getNumberOfTransitions(); i++) {
-//            Transition edge = (Transition) s.transition(i);
-//            if ( edge instanceof RuleTransition ) {
-//                RuleTransition rr = ((RuleTransition)edge);
-//                // don't jump to other rules, but display edge to follow node
-//                edgeST = stlib.getInstanceOf("edge");
-//				if ( rr.rule.g != grammar ) {
-//					edgeST.add("label", "<"+rr.rule.g.name+"."+rr.rule.name+">");
-//				}
-//				else {
-//					edgeST.add("label", "<"+rr.rule.name+">");
-//				}
-//				edgeST.add("src", getStateLabel(s));
-//				edgeST.add("target", getStateLabel(rr.followState));
-//				edgeST.add("arrowhead", arrowhead);
-//                dot.add("edges", edgeST);
-//				walkRuleATNCreatingDOT(dot, rr.followState);
-//                continue;
-//            }
-//			if ( edge instanceof ActionTransition ) {
-//				edgeST = stlib.getInstanceOf("action-edge");
-//			}
-//			else if ( edge instanceof PredicateTransition ) {
-//				edgeST = stlib.getInstanceOf("edge");
-//			}
-//			else if ( edge.isEpsilon() ) {
-//				edgeST = stlib.getInstanceOf("epsilon-edge");
-//			}
-//			else {
-//				edgeST = stlib.getInstanceOf("edge");
-//			}
-//			edgeST.add("label", getEdgeLabel(edge.toString(grammar)));
-//            edgeST.add("src", getStateLabel(s));
-//			edgeST.add("target", getStateLabel(edge.target));
-//			edgeST.add("arrowhead", arrowhead);
-//            dot.add("edges", edgeST);
-//            walkRuleATNCreatingDOT(dot, edge.target); // keep walkin'
-//        }
-//    }
 
   /**
    * Fix edge strings so they print out in DOT properly;

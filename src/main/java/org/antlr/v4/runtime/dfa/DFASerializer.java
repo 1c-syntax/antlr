@@ -76,10 +76,10 @@ public class DFASerializer {
   @Override
   public String toString() {
     if (dfa.s0.get() == null) return null;
-    StringBuilder buf = new StringBuilder();
+    var buf = new StringBuilder();
 
     if (dfa.states != null) {
-      List<DFAState> states = new ArrayList<DFAState>(dfa.states.values());
+      List<DFAState> states = new ArrayList<>(dfa.states.values());
       states.sort(Comparator.comparingInt(o -> o.stateNumber));
 
       for (DFAState s : states) {
@@ -117,9 +117,10 @@ public class DFASerializer {
         }
       }
     }
-    String output = buf.toString();
-    if (output.length() == 0) return null;
-    //return Utils.sortLinesInString(output);
+    var output = buf.toString();
+    if (output.isEmpty()) {
+      return null;
+    }
     return output;
   }
 

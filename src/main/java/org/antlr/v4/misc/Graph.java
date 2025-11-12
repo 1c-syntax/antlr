@@ -34,7 +34,7 @@ public class Graph<T> {
     }
 
     public void addEdge(Node<T> n) {
-      if (edges == Collections.EMPTY_LIST) edges = new ArrayList<Node<T>>();
+      if (edges == Collections.EMPTY_LIST) edges = new ArrayList<>();
       if (!edges.contains(n)) edges.add(n);
     }
 
@@ -47,7 +47,7 @@ public class Graph<T> {
   /**
    * Map from node payload to node containing it
    */
-  protected Map<T, Node<T>> nodes = new LinkedHashMap<T, Node<T>>();
+  protected Map<T, Node<T>> nodes = new LinkedHashMap<>();
 
   public void addEdge(T a, T b) {
     //System.out.println("add edge "+a+" to "+b);
@@ -59,7 +59,7 @@ public class Graph<T> {
   public Node<T> getNode(T a) {
     Node<T> existing = nodes.get(a);
     if (existing != null) return existing;
-    Node<T> n = new Node<T>(a);
+    Node<T> n = new Node<>(a);
     nodes.put(a, n);
     return n;
   }
@@ -77,8 +77,8 @@ public class Graph<T> {
    * I want.
    */
   public List<T> sort() {
-    Set<Node<T>> visited = new OrderedHashSet<Node<T>>();
-    ArrayList<T> sorted = new ArrayList<T>();
+    Set<Node<T>> visited = new OrderedHashSet<>();
+    ArrayList<T> sorted = new ArrayList<>();
     while (visited.size() < nodes.size()) {
       // pick any unvisited node, n
       Node<T> n = null;
