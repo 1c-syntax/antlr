@@ -13,8 +13,8 @@ import org.antlr.runtime.BaseRecognizer;
 import org.antlr.runtime.CommonToken;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.tool.Attribute;
 import org.antlr.v4.tool.AttributeDict;
 import org.antlr.v4.tool.ErrorType;
@@ -57,7 +57,7 @@ public class ScopeParser {
     AttributeDict dict = new AttributeDict();
     List<Pair<String, Integer>> decls = splitDecls(s, separator);
     for (Pair<String, Integer> decl : decls) {
-      if (decl.getItem1().trim().length() > 0) {
+      if (!decl.getItem1().trim().isEmpty()) {
         Attribute a = parseAttributeDef(action, decl, g);
         dict.add(a);
       }
@@ -191,7 +191,7 @@ public class ScopeParser {
     }
 
     attr.type = attr.type.trim();
-    if (attr.type.length() == 0) {
+    if (attr.type.isEmpty()) {
       attr.type = null;
     }
     return Tuple.create(start, stop);
@@ -244,7 +244,7 @@ public class ScopeParser {
     }
     attr.type = attr.type.trim();
 
-    if (attr.type.length() == 0) {
+    if (attr.type.isEmpty()) {
       attr.type = null;
     }
     return Tuple.create(start, stop);
@@ -260,7 +260,7 @@ public class ScopeParser {
    * Set separatorChar to ';' or ',' or whatever you want.
    */
   public static List<Pair<String, Integer>> splitDecls(String s, int separatorChar) {
-    List<Pair<String, Integer>> args = new ArrayList<Pair<String, Integer>>();
+    List<Pair<String, Integer>> args = new ArrayList<>();
     _splitArgumentList(s, 0, -1, separatorChar, args);
     return args;
   }
@@ -344,7 +344,7 @@ public class ScopeParser {
         index++;
       }
       //System.out.println("arg="+arg);
-      if (arg.length() > 0) {
+      if (!arg.isEmpty()) {
         args.add(Tuple.create(arg.trim(), index));
       }
     }

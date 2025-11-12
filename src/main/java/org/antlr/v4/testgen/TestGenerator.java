@@ -69,7 +69,7 @@ public class TestGenerator {
         testIndex.load();
         Map<String, Object> templateNames = testIndex.rawGetDictionary("TestTemplates");
         if (templateNames != null && !templateNames.isEmpty()) {
-          final ArrayList<String> sortedTemplateNames = new ArrayList<String>(templateNames.keySet());
+          final ArrayList<String> sortedTemplateNames = new ArrayList<>(templateNames.keySet());
           Collections.sort(sortedTemplateNames);
           generateTestFile(testIndex, targetGroup,
             testdir,
@@ -89,8 +89,7 @@ public class TestGenerator {
     File targetFolder = getOutputDir(testdir);
     String testName = testdir.substring(testdir.lastIndexOf('/') + 1);
     File targetFile = new File(targetFolder, "Test" + testName + ".java");
-//		System.out.println("Generating file "+targetFile.getAbsolutePath());
-    List<ST> templates = new ArrayList<ST>();
+    List<ST> templates = new ArrayList<>();
     for (String template : testTemplates) {
       STGroup testGroup = new STGroupFile(testdir + "/" + template + STGroup.GROUP_FILE_EXTENSION);
       importLanguageTemplates(testGroup, targetGroup);
@@ -126,7 +125,7 @@ public class TestGenerator {
 
     try {
       String output = testFileTemplate.render();
-      if (errors.errors.size() > 0) {
+      if (!errors.errors.isEmpty()) {
         System.err.println("errors in " + targetGroup.getName() + ": " + errors);
       }
       writeFile(targetFile, output);
@@ -162,11 +161,8 @@ public class TestGenerator {
     file.getParentFile().mkdirs();
 
     FileOutputStream fos = new FileOutputStream(file);
-    OutputStreamWriter osw = new OutputStreamWriter(fos, encoding != null ? encoding : "UTF-8");
-    try {
+    try (OutputStreamWriter osw = new OutputStreamWriter(fos, encoding != null ? encoding : "UTF-8")) {
       osw.write(content);
-    } finally {
-      osw.close();
     }
   }
 

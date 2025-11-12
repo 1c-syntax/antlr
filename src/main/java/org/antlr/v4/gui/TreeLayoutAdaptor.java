@@ -28,7 +28,7 @@ public class TreeLayoutAdaptor implements TreeForTreeLayout<Tree> {
 
     @Override
     public Iterator<Tree> iterator() {
-      return new Iterator<Tree>() {
+      return new Iterator<>() {
         private int i = 0;
 
         @Override
@@ -62,7 +62,7 @@ public class TreeLayoutAdaptor implements TreeForTreeLayout<Tree> {
 
     @Override
     public Iterator<Tree> iterator() {
-      return new Iterator<Tree>() {
+      return new Iterator<>() {
         private int i = tree.getChildCount();
 
         @Override

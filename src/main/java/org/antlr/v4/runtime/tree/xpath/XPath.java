@@ -102,8 +102,7 @@ public class XPath {
     }
 
     List<Token> tokens = tokenStream.getTokens();
-//		System.out.println("path="+path+"=>"+tokens);
-    List<XPathElement> elements = new ArrayList<XPathElement>();
+    List<XPathElement> elements = new ArrayList<>();
     int n = tokens.size();
     int i = 0;
     loop:
@@ -156,33 +155,33 @@ public class XPath {
     String word = wordToken.getText();
     int ttype = parser.getTokenType(word);
     int ruleIndex = parser.getRuleIndex(word);
-    switch (wordToken.getType()) {
-      case XPathLexer.WILDCARD:
-        return anywhere ?
-          new XPathWildcardAnywhereElement() :
-          new XPathWildcardElement();
-      case XPathLexer.TOKEN_REF:
-      case XPathLexer.STRING:
+    return switch (wordToken.getType()) {
+      case XPathLexer.WILDCARD -> anywhere ?
+        new XPathWildcardAnywhereElement() :
+        new XPathWildcardElement();
+      case XPathLexer.TOKEN_REF, XPathLexer.STRING -> {
         if (ttype == Token.INVALID_TYPE) {
           throw new IllegalArgumentException(word +
             " at index " +
             wordToken.getStartIndex() +
             " isn't a valid token name");
         }
-        return anywhere ?
+        yield anywhere ?
           new XPathTokenAnywhereElement(word, ttype) :
           new XPathTokenElement(word, ttype);
-      default:
+      }
+      default -> {
         if (ruleIndex == -1) {
           throw new IllegalArgumentException(word +
             " at index " +
             wordToken.getStartIndex() +
             " isn't a valid rule name");
         }
-        return anywhere ?
+        yield anywhere ?
           new XPathRuleAnywhereElement(word, ruleIndex) :
           new XPathRuleElement(word, ruleIndex);
-    }
+      }
+    };
   }
 
 
@@ -204,7 +203,7 @@ public class XPath {
 
     int i = 0;
     while (i < elements.length) {
-      Collection<ParseTree> next = new LinkedHashSet<ParseTree>();
+      Collection<ParseTree> next = new LinkedHashSet<>();
       for (ParseTree node : work) {
         if (node.getChildCount() > 0) {
           // only try to match next element if it has children

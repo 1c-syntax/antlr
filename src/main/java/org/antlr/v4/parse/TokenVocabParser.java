@@ -41,7 +41,7 @@ public class TokenVocabParser {
    * Load a vocab file {@code <vocabName>.tokens} and return mapping.
    */
   public Map<String, Integer> load() {
-    Map<String, Integer> tokens = new LinkedHashMap<String, Integer>();
+    Map<String, Integer> tokens = new LinkedHashMap<>();
     int maxTokenType = -1;
     File fullFile = getImportedVocabFile();
     FileInputStream fis = null;
@@ -81,7 +81,7 @@ public class TokenVocabParser {
           maxTokenType = Math.max(maxTokenType, tokenType);
           lineNum++;
         } else {
-          if (tokenDef.length() > 0) { // ignore blank lines
+          if (!tokenDef.isEmpty()) { // ignore blank lines
             tool.errMgr.toolError(ErrorType.TOKENS_FILE_SYNTAX_ERROR,
               vocabName + CodeGenerator.VOCAB_FILE_EXTENSION,
               " bad token def: " + tokenDef,

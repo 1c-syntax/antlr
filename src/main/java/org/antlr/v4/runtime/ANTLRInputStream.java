@@ -105,8 +105,8 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     if (readChunkSize <= 0) {
       readChunkSize = READ_BUFFER_SIZE;
     }
-    // System.out.println("load "+size+" in chunks of "+readChunkSize);
-    try {
+
+    try (r) {
       // alloc initial buffer size.
       data = new char[size];
       // read all the data in chunks of readChunkSize
@@ -114,19 +114,14 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
       int p = 0;
       do {
         if (p + readChunkSize > data.length) { // overflow?
-          // System.out.println("### overflow p="+p+", data.length="+data.length);
           data = Arrays.copyOf(data, data.length * 2);
         }
         numRead = r.read(data, p, readChunkSize);
-        // System.out.println("read "+numRead+" chars; p was "+p+" is now "+(p+numRead));
         p += numRead;
       } while (numRead != -1); // while not EOF
       // set the actual size of the data available;
       // EOF subtracted one above in p+=numRead; add one back
       n = p + 1;
-      //System.out.println("n="+n);
-    } finally {
-      r.close();
     }
   }
 
@@ -146,11 +141,7 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
       throw new IllegalStateException("cannot consume EOF");
     }
 
-    //System.out.println("prev p="+p+", c="+(char)data[p]);
-    if (p < n) {
-      p++;
-      //System.out.println("p moves to "+p+" (c='"+(char)data[p]+"')");
-    }
+    p++;
   }
 
   @Override

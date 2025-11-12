@@ -68,8 +68,7 @@ public class SemanticPipeline {
 
     // CLONE RULE ASTs FOR CONTEXT REFERENCE
     for (Rule rule : ruleCollector.rules.values()) {
-      List<RuleAST> list = g.contextASTs.computeIfAbsent(rule.getBaseContext(), k -> new ArrayList<RuleAST>());
-
+      List<RuleAST> list = g.contextASTs.computeIfAbsent(rule.getBaseContext(), k -> new ArrayList<>());
       list.add((RuleAST) rule.ast.dupTree());
     }
 
@@ -174,7 +173,7 @@ public class SemanticPipeline {
 
     // FOR ALL X : 'xxx'; RULES, DEFINE 'xxx' AS TYPE X
     List<Pair<GrammarAST, GrammarAST>> litAliases = Grammar.getStringLiteralAliasesFromLexerRules(g.ast);
-    Set<String> conflictingLiterals = new HashSet<String>();
+    Set<String> conflictingLiterals = new HashSet<>();
     if (litAliases != null) {
       for (Pair<GrammarAST, GrammarAST> pair : litAliases) {
         GrammarAST nameAST = pair.getItem1();

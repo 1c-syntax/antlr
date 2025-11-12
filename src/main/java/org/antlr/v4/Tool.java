@@ -155,12 +155,12 @@ public class Tool {
 
   public final String[] args;
 
-  protected List<String> grammarFiles = new ArrayList<String>();
+  protected List<String> grammarFiles = new ArrayList<>();
 
   public ErrorManager errMgr;
   public LogManager logMgr = new LogManager();
 
-  List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<ANTLRToolListener>();
+  List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<>();
 
   /**
    * Track separately so if someone adds a listener, it's the only one
@@ -286,13 +286,13 @@ public class Tool {
     if (eq > 0 && arg.length() > 3) {
       String option = arg.substring("-D".length(), eq);
       String value = arg.substring(eq + 1);
-      if (value.length() == 0) {
+      if (value.isEmpty()) {
         errMgr.toolError(ErrorType.BAD_OPTION_SET_SYNTAX, arg);
         return;
       }
       if (Grammar.parserOptions.contains(option) ||
         Grammar.lexerOptions.contains(option)) {
-        if (grammarOptions == null) grammarOptions = new HashMap<String, String>();
+        if (grammarOptions == null) grammarOptions = new HashMap<>();
         grammarOptions.put(option, value);
       } else {
         errMgr.grammarError(ErrorType.ILLEGAL_OPTION,
@@ -422,13 +422,13 @@ public class Tool {
   public boolean checkForRuleIssues(final Grammar g) {
     // check for redefined rules
     GrammarAST RULES = (GrammarAST) g.ast.getFirstChildWithType(ANTLRParser.RULES);
-    List<GrammarAST> rules = new ArrayList<GrammarAST>(RULES.getAllChildrenWithType(ANTLRParser.RULE));
+    List<GrammarAST> rules = new ArrayList<>(RULES.getAllChildrenWithType(ANTLRParser.RULE));
     for (GrammarAST mode : g.ast.getAllChildrenWithType(ANTLRParser.MODE)) {
       rules.addAll(mode.getAllChildrenWithType(ANTLRParser.RULE));
     }
 
     boolean redefinition = false;
-    final Map<String, RuleAST> ruleToAST = new HashMap<String, RuleAST>();
+    final Map<String, RuleAST> ruleToAST = new HashMap<>();
     for (GrammarAST r : rules) {
       RuleAST ruleAST = (RuleAST) r;
       GrammarAST ID = (GrammarAST) ruleAST.getChild(0);
@@ -491,8 +491,8 @@ public class Tool {
 
   public List<GrammarRootAST> sortGrammarByTokenVocab(List<String> fileNames) {
 //		System.out.println(fileNames);
-    Graph<String> g = new Graph<String>();
-    List<GrammarRootAST> roots = new ArrayList<GrammarRootAST>();
+    Graph<String> g = new Graph<>();
+    List<GrammarRootAST> roots = new ArrayList<>();
     for (String fileName : fileNames) {
       GrammarAST t = parseGrammar(fileName);
       if (t == null || t instanceof GrammarASTErrorNode) continue; // came back as error node
@@ -527,9 +527,7 @@ public class Tool {
     }
 
     List<String> sortedGrammarNames = g.sort();
-//		System.out.println("sortedGrammarNames="+sortedGrammarNames);
-
-    List<GrammarRootAST> sortedRoots = new ArrayList<GrammarRootAST>();
+    List<GrammarRootAST> sortedRoots = new ArrayList<>();
     for (String grammarName : sortedGrammarNames) {
       for (GrammarRootAST root : roots) {
         if (root.getGrammarName().equals(grammarName)) {
@@ -585,8 +583,7 @@ public class Tool {
       }
 
       ANTLRFileStream in = new ANTLRFileStream(file.getAbsolutePath(), grammarEncoding);
-      GrammarRootAST t = parse(fileName, in);
-      return t;
+      return parse(fileName, in);
     } catch (IOException ioe) {
       errMgr.toolError(ErrorType.CANNOT_OPEN_FILE, ioe, fileName);
     }
@@ -607,7 +604,7 @@ public class Tool {
     return g;
   }
 
-  private final Map<String, Grammar> importedGrammars = new HashMap<String, Grammar>();
+  private final Map<String, Grammar> importedGrammars = new HashMap<>();
 
   /**
    * Try current dir then dir of g then lib dir
@@ -684,7 +681,7 @@ public class Tool {
 
   public void generateATNs(Grammar g) {
     DOTGenerator dotGenerator = new DOTGenerator(g);
-    List<Grammar> grammars = new ArrayList<Grammar>();
+    List<Grammar> grammars = new ArrayList<>();
     grammars.add(g);
     List<Grammar> imported = g.getAllImportedGrammars();
     if (imported != null) grammars.addAll(imported);
