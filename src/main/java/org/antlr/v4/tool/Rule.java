@@ -12,7 +12,7 @@ package org.antlr.v4.tool;
 import org.antlr.v4.runtime.atn.ATNSimulator;
 import org.antlr.v4.runtime.misc.MultiMap;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -231,12 +231,12 @@ public class Rule implements AttributeResolver {
    * (alternative number and {@link AltAST}) identifying the alternatives with
    * this label. Unlabeled alternatives are not included in the result.
    */
-  public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
-    Map<String, List<Tuple2<Integer, AltAST>>> labels = new LinkedHashMap<String, List<Tuple2<Integer, AltAST>>>();
+  public Map<String, List<Pair<Integer, AltAST>>> getAltLabels() {
+    Map<String, List<Pair<Integer, AltAST>>> labels = new LinkedHashMap<String, List<Pair<Integer, AltAST>>>();
     for (int i = 1; i <= numberOfAlts; i++) {
       GrammarAST altLabel = alt[i].ast.altLabel;
       if (altLabel != null) {
-        List<Tuple2<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<Tuple2<Integer, AltAST>>());
+        List<Pair<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<Pair<Integer, AltAST>>());
 
         list.add(Tuple.create(i, alt[i].ast));
       }

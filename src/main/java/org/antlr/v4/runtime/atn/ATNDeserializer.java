@@ -16,7 +16,7 @@ import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple3;
 
 import java.io.InvalidClassException;
@@ -213,8 +213,8 @@ public class ATNDeserializer {
     //
     // STATES
     //
-    List<Tuple2<LoopEndState, Integer>> loopBackStateNumbers = new ArrayList<Tuple2<LoopEndState, Integer>>();
-    List<Tuple2<BlockStartState, Integer>> endStateNumbers = new ArrayList<Tuple2<BlockStartState, Integer>>();
+    List<Pair<LoopEndState, Integer>> loopBackStateNumbers = new ArrayList<Pair<LoopEndState, Integer>>();
+    List<Pair<BlockStartState, Integer>> endStateNumbers = new ArrayList<Pair<BlockStartState, Integer>>();
     int nstates = toInt(data[p++]);
     for (int i = 0; i < nstates; i++) {
       int stype = toInt(data[p++]);
@@ -241,11 +241,11 @@ public class ATNDeserializer {
     }
 
     // delay the assignment of loop back and end states until we know all the state instances have been initialized
-    for (Tuple2<LoopEndState, Integer> pair : loopBackStateNumbers) {
+    for (Pair<LoopEndState, Integer> pair : loopBackStateNumbers) {
       pair.getItem1().loopBackState = atn.states.get(pair.getItem2());
     }
 
-    for (Tuple2<BlockStartState, Integer> pair : endStateNumbers) {
+    for (Pair<BlockStartState, Integer> pair : endStateNumbers) {
       pair.getItem1().endState = (BlockEndState) atn.states.get(pair.getItem2());
     }
 

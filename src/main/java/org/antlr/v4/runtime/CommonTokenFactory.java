@@ -10,7 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 
 /**
  * This default implementation of {@link TokenFactory} creates
@@ -70,7 +70,7 @@ public class CommonTokenFactory implements TokenFactory {
   }
 
   @Override
-  public CommonToken create(Tuple2<? extends TokenSource, CharStream> source, int type, String text,
+  public CommonToken create(Pair<? extends TokenSource, CharStream> source, int type, String text,
                             int channel, int start, int stop,
                             int line, int charPositionInLine) {
     CommonToken t = new CommonToken(source, type, channel, start, stop);

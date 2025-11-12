@@ -11,7 +11,7 @@ package org.antlr.v4.codegen.model;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.v4.codegen.OutputModelFactory;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.Rule;
 import org.antlr.v4.tool.ast.ActionAST;
@@ -56,7 +56,7 @@ public class VisitorFile extends OutputFile {
     for (Map.Entry<String, List<RuleAST>> entry : g.contextASTs.entrySet()) {
       for (RuleAST ruleAST : entry.getValue()) {
         try {
-          Map<String, List<Tuple2<Integer, AltAST>>> labeledAlternatives = g.getLabeledAlternatives(ruleAST);
+          Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives = g.getLabeledAlternatives(ruleAST);
           visitorNames.addAll(labeledAlternatives.keySet());
         } catch (RecognitionException ex) {
         }
@@ -68,9 +68,9 @@ public class VisitorFile extends OutputFile {
     }
 
     for (Rule r : g.rules.values()) {
-      Map<String, List<Tuple2<Integer, AltAST>>> labels = r.getAltLabels();
+      Map<String, List<Pair<Integer, AltAST>>> labels = r.getAltLabels();
       if (labels != null) {
-        for (Map.Entry<String, List<Tuple2<Integer, AltAST>>> pair : labels.entrySet()) {
+        for (Map.Entry<String, List<Pair<Integer, AltAST>>> pair : labels.entrySet()) {
           visitorLabelRuleNames.put(pair.getKey(), r.name);
         }
       }
