@@ -413,8 +413,8 @@ public class TokenStreamRewriter {
 
   public String getText(String programName, Interval interval) {
     List<RewriteOperation> rewrites = programs.get(programName);
-    int start = interval.a;
-    int stop = interval.b;
+    int start = interval.a();
+    int stop = interval.b();
 
     // ensure start/end are in range
     if (stop > tokens.size() - 1) stop = tokens.size() - 1;

@@ -381,7 +381,7 @@ public class ATNSerializer {
 
     for (IntervalSet set : sets) {
       boolean containsEof = set.contains(Token.EOF);
-      if (containsEof && set.getIntervals().get(0).b == Token.EOF) {
+      if (containsEof && set.getIntervals().get(0).b() == Token.EOF) {
         data.add(set.getIntervals().size() - 1);
       } else {
         data.add(set.getIntervals().size());
@@ -389,17 +389,17 @@ public class ATNSerializer {
 
       data.add(containsEof ? 1 : 0);
       for (Interval I : set.getIntervals()) {
-        if (I.a == Token.EOF) {
-          if (I.b == Token.EOF) {
+        if (I.a() == Token.EOF) {
+          if (I.b() == Token.EOF) {
             continue;
           } else {
             codePointSerializer.serializeCodePoint(data, 0);
           }
         } else {
-          codePointSerializer.serializeCodePoint(data, I.a);
+          codePointSerializer.serializeCodePoint(data, I.a());
         }
 
-        codePointSerializer.serializeCodePoint(data, I.b);
+        codePointSerializer.serializeCodePoint(data, I.b());
       }
     }
   }

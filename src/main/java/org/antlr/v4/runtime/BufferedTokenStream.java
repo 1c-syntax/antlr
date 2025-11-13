@@ -473,8 +473,8 @@ public class BufferedTokenStream implements TokenStream {
   @NotNull
   @Override
   public String getText(Interval interval) {
-    int start = interval.a;
-    int stop = interval.b;
+    int start = interval.a();
+    int stop = interval.b();
     if (start < 0 || stop < 0) return "";
     sync(stop);
     if (stop >= tokens.size()) stop = tokens.size() - 1;

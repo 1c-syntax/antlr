@@ -1,9 +1,9 @@
 /**
  * This file is a part of ANTLR.
- *
+ * <p>
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
  * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
- *
+ * <p>
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -170,28 +170,12 @@ public class AttributeChecks implements ActionSplitterListener {
 
   @Override
   public void nonLocalAttr(String expr, Token x, Token y) {
-    Rule r = g.getRule(x.getText());
-    if (r == null) {
-      errMgr.grammarError(ErrorType.UNDEFINED_RULE_IN_NONLOCAL_REF,
-        g.fileName, x, x.getText(), y.getText(), expr);
-    } else if (r.resolveToAttribute(y.getText(), null) == null) {
-      errMgr.grammarError(ErrorType.UNKNOWN_RULE_ATTRIBUTE,
-        g.fileName, y, y.getText(), x.getText(), expr);
-
-    }
+    nonLocalAttributes(expr, x, y);
   }
 
   @Override
   public void setNonLocalAttr(String expr, Token x, Token y, Token rhs) {
-    Rule r = g.getRule(x.getText());
-    if (r == null) {
-      errMgr.grammarError(ErrorType.UNDEFINED_RULE_IN_NONLOCAL_REF,
-        g.fileName, x, x.getText(), y.getText(), expr);
-    } else if (r.resolveToAttribute(y.getText(), null) == null) {
-      errMgr.grammarError(ErrorType.UNKNOWN_RULE_ATTRIBUTE,
-        g.fileName, y, y.getText(), x.getText(), expr);
-
-    }
+    nonLocalAttributes(expr, x, y);
   }
 
   @Override
@@ -240,4 +224,14 @@ public class AttributeChecks implements ActionSplitterListener {
     return null;
   }
 
+  private void nonLocalAttributes(String expr, Token x, Token y) {
+    var r = g.getRule(x.getText());
+    if (r == null) {
+      errMgr.grammarError(ErrorType.UNDEFINED_RULE_IN_NONLOCAL_REF,
+        g.fileName, x, x.getText(), y.getText(), expr);
+    } else if (r.resolveToAttribute(y.getText(), null) == null) {
+      errMgr.grammarError(ErrorType.UNKNOWN_RULE_ATTRIBUTE,
+        g.fileName, y, y.getText(), x.getText(), expr);
+    }
+  }
 }

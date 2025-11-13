@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.misc;
 
+import javax.annotation.meta.TypeQualifierNickname;
+import javax.annotation.meta.When;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -47,5 +49,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.CLASS)
 @Target({ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE})
+@javax.annotation.Nonnull(when = When.UNKNOWN)
+@TypeQualifierNickname
 public @interface Nullable {
 }

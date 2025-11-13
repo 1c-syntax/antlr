@@ -11,27 +11,16 @@ package org.antlr.v4.runtime.misc;
 
 /**
  * An immutable inclusive interval a..b
+ *
+ * @param a The start of the interval.
+ * @param b The end of the interval (inclusive).
  */
-public class Interval {
+public record Interval(int a, int b) {
   public static final int INTERVAL_POOL_MAX_VALUE = 1000;
 
   public static final Interval INVALID = new Interval(-1, -2);
 
   private static final Interval[] cache = new Interval[INTERVAL_POOL_MAX_VALUE + 1];
-
-  /**
-   * The start of the interval.
-   */
-  public final int a;
-  /**
-   * The end of the interval (inclusive).
-   */
-  public final int b;
-
-  public Interval(int a, int b) {
-    this.a = a;
-    this.b = b;
-  }
 
   /**
    * Interval objects are used readonly so share all with the
@@ -64,20 +53,11 @@ public class Interval {
   public boolean equals(Object o) {
     if (o == this) {
       return true;
-    } else if (!(o instanceof Interval)) {
+    } else if (!(o instanceof Interval other)) {
       return false;
+    } else {
+      return this.a == other.a && this.b == other.b;
     }
-
-    Interval other = (Interval) o;
-    return this.a == other.a && this.b == other.b;
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = 23;
-    hash = hash * 31 + a;
-    hash = hash * 31 + b;
-    return hash;
   }
 
   /**
@@ -169,6 +149,7 @@ public class Interval {
   }
 
   @Override
+  @NotNull
   public String toString() {
     return a + ".." + b;
   }

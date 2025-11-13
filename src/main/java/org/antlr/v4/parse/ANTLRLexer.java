@@ -2885,12 +2885,12 @@ public class ANTLRLexer extends Lexer {
         if (state.backtracking == 0) {
           if (hCount < 4) {
             Interval badRange = Interval.of(getCharIndex() - 2 - hCount, getCharIndex());
-            String lastChar = input.substring(badRange.b, badRange.b);
+            String lastChar = input.substring(badRange.b(), badRange.b());
             if (lastChar.codePointAt(0) == '\'') {
-              badRange = new Interval(badRange.a, badRange.b - 1);
+              badRange = new Interval(badRange.a(), badRange.b() - 1);
             }
-            String bad = input.substring(badRange.a, badRange.b);
-            Token t = new CommonToken(input, state.type, state.channel, badRange.a, badRange.b);
+            String bad = input.substring(badRange.a(), badRange.b());
+            Token t = new CommonToken(input, state.type, state.channel, badRange.a(), badRange.b());
             t.setLine(input.getLine());
             t.setCharPositionInLine(input.getCharPositionInLine() - hCount - 2);
             grammarError(ErrorType.INVALID_ESCAPE_SEQUENCE, t, bad);

@@ -44,6 +44,7 @@ dependencies {
     api("org.antlr", "antlr-runtime", "3.5.3")
     api("org.antlr", "ST4", "4.3.4")
     compileOnly("com.ibm.icu", "icu4j", "58.3")
+    compileOnly("com.github.spotbugs", "spotbugs-annotations", "4.9.8")
     implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
 
     testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")

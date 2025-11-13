@@ -984,7 +984,7 @@ public class ATNDeserializer {
       IntervalSet matchSet = new IntervalSet();
       for (int i = 0; i < setTransitions.getIntervals().size(); i++) {
         Interval interval = setTransitions.getIntervals().get(i);
-        for (int j = interval.a; j <= interval.b; j++) {
+        for (int j = interval.a(); j <= interval.b(); j++) {
           Transition matchTransition = decision.getOptimizedTransition(j).target.getOptimizedTransition(0);
           if (matchTransition instanceof NotSetTransition) {
             throw new UnsupportedOperationException("Not yet implemented.");
@@ -1000,7 +1000,7 @@ public class ATNDeserializer {
           newTransition = new AtomTransition(blockEndState, matchSet.getMinElement());
         } else {
           Interval matchInterval = matchSet.getIntervals().get(0);
-          newTransition = new RangeTransition(blockEndState, matchInterval.a, matchInterval.b);
+          newTransition = new RangeTransition(blockEndState, matchInterval.a(), matchInterval.b());
         }
       } else {
         newTransition = new SetTransition(blockEndState, matchSet);

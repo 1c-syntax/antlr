@@ -293,8 +293,8 @@ public class UnbufferedTokenStream implements TokenStream {
     int bufferStartIndex = getBufferStartIndex();
     int bufferStopIndex = bufferStartIndex + tokens.length - 1;
 
-    int start = interval.a;
-    int stop = interval.b;
+    int start = interval.a();
+    int stop = interval.b();
     if (start < bufferStartIndex || stop > bufferStopIndex) {
       throw new UnsupportedOperationException("interval " + interval + " not in token buffer window: " +
         bufferStartIndex + ".." + bufferStopIndex);

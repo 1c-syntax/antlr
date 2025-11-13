@@ -212,8 +212,8 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
 
   @Override
   public String getText(Interval interval) {
-    int start = interval.a;
-    int stop = interval.b;
+    int start = interval.a();
+    int stop = interval.b();
     if (stop >= n) stop = n - 1;
     int count = stop - start + 1;
     if (start >= n) return "";

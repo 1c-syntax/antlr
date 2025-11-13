@@ -317,7 +317,7 @@ public class LexerATNFactory extends ParserATNFactory {
       Transition transition;
       if (set.getIntervals().size() == 1) {
         Interval interval = set.getIntervals().get(0);
-        transition = CodePointTransitions.createWithCodePointRange(right, interval.a, interval.b);
+        transition = CodePointTransitions.createWithCodePointRange(right, interval.a(), interval.b());
       } else {
         transition = new SetTransition(right, set);
       }

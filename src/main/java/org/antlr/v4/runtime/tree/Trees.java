@@ -246,7 +246,7 @@ public class Trees {
     for (int i = 0; i < t.getChildCount(); i++) {
       ParseTree child = t.getChild(i);
       Interval range = child.getSourceInterval();
-      if (child instanceof ParserRuleContext && (range.b < startIndex || range.a > stopIndex)) {
+      if (child instanceof ParserRuleContext && (range.b() < startIndex || range.a() > stopIndex)) {
         if (isAncestorOf(child, root)) { // replace only if subtree doesn't have displayed root
           CommonToken abbrev = new CommonToken(Token.INVALID_TYPE, "...");
           t.children.set(i, new TerminalNodeImpl(abbrev));

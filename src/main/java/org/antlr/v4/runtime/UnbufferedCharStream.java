@@ -292,23 +292,23 @@ public class UnbufferedCharStream implements UnicodeCharStream, CharStream {
 
   @Override
   public String getText(Interval interval) {
-    if (interval.a < 0 || interval.b < interval.a - 1) {
+    if (interval.a() < 0 || interval.b() < interval.a() - 1) {
       throw new IllegalArgumentException("invalid interval");
     }
 
     int bufferStartIndex = getBufferStartIndex();
     if (n > 0 && data[n - 1] == Character.MAX_VALUE) {
-      if (interval.a + interval.length() > bufferStartIndex + n) {
+      if (interval.a() + interval.length() > bufferStartIndex + n) {
         throw new IllegalArgumentException("the interval extends past the end of the stream");
       }
     }
 
-    if (interval.a < bufferStartIndex || interval.b >= bufferStartIndex + n) {
+    if (interval.a() < bufferStartIndex || interval.b() >= bufferStartIndex + n) {
       throw new UnsupportedOperationException("interval " + interval + " outside buffer: " +
         bufferStartIndex + ".." + (bufferStartIndex + n - 1));
     }
     // convert from absolute to local index
-    int i = interval.a - bufferStartIndex;
+    int i = interval.a() - bufferStartIndex;
     return new String(data, i, interval.length());
   }
 

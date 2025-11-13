@@ -358,11 +358,11 @@ public class GrammarParserInterpreter extends ParserInterpreter {
         stopTreeAt = errorHandler.firstErrorTokenIndex; // cut off rest at first error
       }
       Interval overallRange = tt.getSourceInterval();
-      if (stopTreeAt > overallRange.b) {
+      if (stopTreeAt > overallRange.b()) {
         // If we try to look beyond range of tree, stopTreeAt must be EOF
         // for which there is no EOF ref in grammar. That means tree
         // will not have node for stopTreeAt; limit to overallRange.b
-        stopTreeAt = overallRange.b;
+        stopTreeAt = overallRange.b();
       }
       ParserRuleContext subtree =
         Trees.getRootOfSubtreeEnclosingRegion(tt,
