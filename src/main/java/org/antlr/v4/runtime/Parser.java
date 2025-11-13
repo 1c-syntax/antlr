@@ -44,23 +44,23 @@ import java.util.WeakHashMap;
 public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
   public class TraceListener implements ParseTreeListener {
     @Override
-    public void enterEveryRule(ParserRuleContext ctx) {
+    public void enterEveryRule(@NotNull ParserRuleContext ctx) {
       System.out.println("enter   " + getRuleNames()[ctx.getRuleIndex()] +
         ", LT(1)=" + _input.LT(1).getText());
     }
 
     @Override
-    public void exitEveryRule(ParserRuleContext ctx) {
+    public void exitEveryRule(@NotNull ParserRuleContext ctx) {
       System.out.println("exit    " + getRuleNames()[ctx.getRuleIndex()] +
         ", LT(1)=" + _input.LT(1).getText());
     }
 
     @Override
-    public void visitErrorNode(ErrorNode node) {
+    public void visitErrorNode(@NotNull ErrorNode node) {
     }
 
     @Override
-    public void visitTerminal(TerminalNode node) {
+    public void visitTerminal(@NotNull TerminalNode node) {
       ParserRuleContext parent = (ParserRuleContext) node.getParent().getRuleContext();
       Token token = node.getSymbol();
       System.out.println("consume " + token + " rule " +
@@ -72,19 +72,19 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     public static final TrimToSizeListener INSTANCE = new TrimToSizeListener();
 
     @Override
-    public void visitTerminal(TerminalNode node) {
+    public void visitTerminal(@NotNull TerminalNode node) {
     }
 
     @Override
-    public void visitErrorNode(ErrorNode node) {
+    public void visitErrorNode(@NotNull ErrorNode node) {
     }
 
     @Override
-    public void enterEveryRule(ParserRuleContext ctx) {
+    public void enterEveryRule(@NotNull ParserRuleContext ctx) {
     }
 
     @Override
-    public void exitEveryRule(ParserRuleContext ctx) {
+    public void exitEveryRule(@NotNull ParserRuleContext ctx) {
       if (ctx.children instanceof ArrayList) {
         ((ArrayList<?>) ctx.children).trimToSize();
       }

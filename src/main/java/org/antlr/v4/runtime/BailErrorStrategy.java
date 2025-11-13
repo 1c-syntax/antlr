@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 /**
@@ -47,7 +48,7 @@ public class BailErrorStrategy extends DefaultErrorStrategy {
    * original {@link RecognitionException}.
    */
   @Override
-  public void recover(Parser recognizer, RecognitionException e) {
+  public void recover(@NotNull Parser recognizer, @NotNull RecognitionException e) {
     for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
       context.exception = e;
     }
@@ -59,8 +60,9 @@ public class BailErrorStrategy extends DefaultErrorStrategy {
    * Make sure we don't attempt to recover inline; if the parser
    * successfully recovers, it won't throw an exception.
    */
+  @NotNull
   @Override
-  public Token recoverInline(Parser recognizer)
+  public Token recoverInline(@NotNull Parser recognizer)
     throws RecognitionException {
     InputMismatchException e = new InputMismatchException(recognizer);
     for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
@@ -74,6 +76,6 @@ public class BailErrorStrategy extends DefaultErrorStrategy {
    * Make sure we don't attempt to recover from problems in subrules.
    */
   @Override
-  public void sync(Parser recognizer) {
+  public void sync(@NotNull Parser recognizer) {
   }
 }

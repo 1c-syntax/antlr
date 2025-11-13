@@ -22,7 +22,7 @@ import org.antlr.v4.runtime.misc.NotNull;
  * If you want to trigger events in multiple listeners during a single
  * tree walk, you can use the ParseTreeDispatcher object available at
  * <p>
- * https://github.com/antlr/antlr4/issues/841
+ * <a href="https://github.com/antlr/antlr4/issues/841">...</a>
  */
 public interface ParseTreeListener {
   void visitTerminal(@NotNull TerminalNode node);

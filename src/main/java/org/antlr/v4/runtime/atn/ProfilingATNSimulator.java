@@ -18,6 +18,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Pair;
 
 import java.util.BitSet;
+import java.util.Objects;
 
 /**
  * @since 4.3
@@ -104,12 +105,13 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected SimulatorState getStartState(DFA dfa, TokenStream input, ParserRuleContext outerContext, boolean useContext) {
+  protected SimulatorState getStartState(@NotNull DFA dfa, @NotNull TokenStream input, @NotNull ParserRuleContext outerContext, boolean useContext) {
     SimulatorState state = super.getStartState(dfa, input, outerContext, useContext);
     currentState = state;
     return state;
   }
 
+  @NotNull
   @Override
   protected SimulatorState computeStartState(DFA dfa, ParserRuleContext globalContext, boolean useContext) {
     SimulatorState state = super.computeStartState(dfa, globalContext, useContext);
@@ -132,7 +134,7 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected DFAState getExistingTargetState(DFAState previousD, int t) {
+  protected DFAState getExistingTargetState(@NotNull DFAState previousD, int t) {
     // this method is called after each time the input position advances
     if (currentState.useContext) {
       _llStopIndex = _input.index();
@@ -163,9 +165,10 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
     return existingTargetState;
   }
 
+  @NotNull
   @Override
-  protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa,
-                                                                 DFAState s,
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa,
+                                                                 @NotNull DFAState s,
                                                                  ParserRuleContext remainingGlobalContext,
                                                                  int t,
                                                                  boolean useContext,
@@ -182,7 +185,7 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected boolean evalSemanticContext(SemanticContext pred, ParserRuleContext parserCallStack, int alt) {
+  protected boolean evalSemanticContext(@NotNull SemanticContext pred, ParserRuleContext parserCallStack, int alt) {
     boolean result = super.evalSemanticContext(pred, parserCallStack, alt);
     if (!(pred instanceof SemanticContext.PrecedencePredicate)) {
       boolean fullContext = _llStopIndex >= 0;
@@ -196,7 +199,7 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected void reportContextSensitivity(DFA dfa, int prediction, SimulatorState acceptState, int startIndex, int stopIndex) {
+  protected void reportContextSensitivity(@NotNull DFA dfa, int prediction, @NotNull SimulatorState acceptState, int startIndex, int stopIndex) {
     if (prediction != conflictingAltResolvedBySLL) {
       decisions[currentDecision].contextSensitivities.add(
         new ContextSensitivityInfo(currentDecision, acceptState, _input, startIndex, stopIndex)
@@ -206,24 +209,18 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected void reportAttemptingFullContext(DFA dfa, BitSet conflictingAlts, SimulatorState conflictState, int startIndex, int stopIndex) {
-    if (conflictingAlts != null) {
-      conflictingAltResolvedBySLL = conflictingAlts.nextSetBit(0);
-    } else {
-      conflictingAltResolvedBySLL = conflictState.s0.configs.getRepresentedAlternatives().nextSetBit(0);
-    }
+  protected void reportAttemptingFullContext(@NotNull DFA dfa, BitSet conflictingAlts, @NotNull SimulatorState conflictState, int startIndex, int stopIndex) {
+    conflictingAltResolvedBySLL = Objects.requireNonNullElseGet(
+        conflictingAlts,
+        conflictState.s0.configs::getRepresentedAlternatives)
+      .nextSetBit(0);
     decisions[currentDecision].LL_Fallback++;
     super.reportAttemptingFullContext(dfa, conflictingAlts, conflictState, startIndex, stopIndex);
   }
 
   @Override
   protected void reportAmbiguity(@NotNull DFA dfa, DFAState D, int startIndex, int stopIndex, boolean exact, @NotNull BitSet ambigAlts, @NotNull ATNConfigSet configs) {
-    int prediction;
-    if (ambigAlts != null) {
-      prediction = ambigAlts.nextSetBit(0);
-    } else {
-      prediction = configs.getRepresentedAlternatives().nextSetBit(0);
-    }
+    int prediction = ambigAlts.nextSetBit(0);
     if (conflictingAltResolvedBySLL != ATN.INVALID_ALT_NUMBER && prediction != conflictingAltResolvedBySLL) {
       // Even though this is an ambiguity we are reporting, we can
       // still detect some context sensitivities.  Both SLL and LL

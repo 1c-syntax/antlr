@@ -71,12 +71,10 @@ public class BufferedTokenStream implements TokenStream {
   protected boolean fetchedEOF;
 
   public BufferedTokenStream(@NotNull TokenSource tokenSource) {
-    if (tokenSource == null) {
-      throw new NullPointerException("tokenSource cannot be null");
-    }
     this.tokenSource = tokenSource;
   }
 
+  @NotNull
   @Override
   public TokenSource getTokenSource() {
     return tokenSource;
@@ -190,6 +188,7 @@ public class BufferedTokenStream implements TokenStream {
     return n;
   }
 
+  @NotNull
   @Override
   public Token get(int i) {
     if (i < 0 || i >= tokens.size()) {
@@ -228,8 +227,10 @@ public class BufferedTokenStream implements TokenStream {
   @Override
   public Token LT(int k) {
     lazyInit();
-    if (k == 0) return null;
-    if (k < 0) return LB(-k);
+//    if (k == 0) return null;
+    if (k < 0) {
+      return LB(-k);
+    }
 
     int i = p + k - 1;
     sync(i);
@@ -237,7 +238,6 @@ public class BufferedTokenStream implements TokenStream {
       // EOF must be last token
       return tokens.get(tokens.size() - 1);
     }
-//		if ( i>range ) range = i;
     return tokens.get(i);
   }
 
@@ -456,6 +456,7 @@ public class BufferedTokenStream implements TokenStream {
     return hidden;
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     return tokenSource.getSourceName();
@@ -472,7 +473,7 @@ public class BufferedTokenStream implements TokenStream {
 
   @NotNull
   @Override
-  public String getText(Interval interval) {
+  public String getText(@NotNull Interval interval) {
     int start = interval.a();
     int stop = interval.b();
     if (start < 0 || stop < 0) return "";
@@ -490,7 +491,7 @@ public class BufferedTokenStream implements TokenStream {
 
   @NotNull
   @Override
-  public String getText(RuleContext ctx) {
+  public String getText(@NotNull RuleContext ctx) {
     return getText(ctx.getSourceInterval());
   }
 

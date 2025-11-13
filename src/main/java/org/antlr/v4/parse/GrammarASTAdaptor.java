@@ -39,7 +39,7 @@ public class GrammarASTAdaptor extends CommonTreeAdaptor {
   }
 
   @Override
-  /** Make sure even imaginary nodes know the input stream */
+  // Make sure even imaginary nodes know the input stream
   public GrammarAST create(int tokenType, String text) {
     GrammarAST t;
     if (tokenType == ANTLRParser.RULE) {

@@ -29,6 +29,7 @@ import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.atn.RuleStartState;
 import org.antlr.v4.runtime.atn.StarLoopEntryState;
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.Trees;
 
 import java.lang.reflect.Constructor;
@@ -352,22 +353,9 @@ public class GrammarParserInterpreter extends ParserInterpreter {
       parser.setErrorHandler(errorHandler);
       parser.reset();
       parser.addDecisionOverride(decision, startIndex, alt);
-      ParserRuleContext tt = parser.parse(startRuleIndex);
-      int stopTreeAt = stopIndex;
-      if (errorHandler.firstErrorTokenIndex >= 0) {
-        stopTreeAt = errorHandler.firstErrorTokenIndex; // cut off rest at first error
-      }
-      Interval overallRange = tt.getSourceInterval();
-      if (stopTreeAt > overallRange.b()) {
-        // If we try to look beyond range of tree, stopTreeAt must be EOF
-        // for which there is no EOF ref in grammar. That means tree
-        // will not have node for stopTreeAt; limit to overallRange.b
-        stopTreeAt = overallRange.b();
-      }
-      ParserRuleContext subtree =
-        Trees.getRootOfSubtreeEnclosingRegion(tt,
-          startIndex,
-          stopTreeAt);
+      var tt = parser.parse(startRuleIndex);
+      int stopTreeAt = getStopTreeAt(stopIndex, errorHandler, tt);
+      var subtree = Trees.getRootOfSubtreeEnclosingRegion(tt, startIndex, stopTreeAt);
       // Use higher of overridden decision tree or tree enclosing all tokens
       if (Trees.isAncestorOf(parser.getOverrideDecisionRoot(), subtree)) {
         subtree = parser.getOverrideDecisionRoot();
@@ -377,6 +365,21 @@ public class GrammarParserInterpreter extends ParserInterpreter {
     }
 
     return trees;
+  }
+
+  private static int getStopTreeAt(int stopIndex, BailButConsumeErrorStrategy errorHandler, ParserRuleContext tt) {
+    int stopTreeAt = stopIndex;
+    if (errorHandler.firstErrorTokenIndex >= 0) {
+      stopTreeAt = errorHandler.firstErrorTokenIndex; // cut off rest at first error
+    }
+    Interval overallRange = tt.getSourceInterval();
+    if (stopTreeAt > overallRange.b()) {
+      // If we try to look beyond range of tree, stopTreeAt must be EOF
+      // for which there is no EOF ref in grammar. That means tree
+      // will not have node for stopTreeAt; limit to overallRange.b
+      stopTreeAt = overallRange.b();
+    }
+    return stopTreeAt;
   }
 
   /**
@@ -427,20 +430,20 @@ public class GrammarParserInterpreter extends ParserInterpreter {
     public int firstErrorTokenIndex = -1;
 
     @Override
-    public void recover(Parser recognizer, RecognitionException e) {
+    public void recover(@NotNull Parser recognizer, @NotNull RecognitionException e) {
       int errIndex = recognizer.getInputStream().index();
       if (firstErrorTokenIndex == -1) {
         firstErrorTokenIndex = errIndex; // latch
       }
-//			System.err.println("recover: error at " + errIndex);
       TokenStream input = recognizer.getInputStream();
       if (input.index() < input.size() - 1) { // don't consume() eof
         recognizer.consume(); // just kill this bad token and let it continue.
       }
     }
 
+    @NotNull
     @Override
-    public Token recoverInline(Parser recognizer) throws RecognitionException {
+    public Token recoverInline(@NotNull Parser recognizer) throws RecognitionException {
       int errIndex = recognizer.getInputStream().index();
       if (firstErrorTokenIndex == -1) {
         firstErrorTokenIndex = errIndex; // latch
@@ -450,7 +453,7 @@ public class GrammarParserInterpreter extends ParserInterpreter {
     }
 
     @Override
-    public void sync(Parser recognizer) {
+    public void sync(@NotNull Parser recognizer) {
     } // don't consume anything; let it fail later
   }
 }

@@ -157,11 +157,14 @@ public class TreeViewer extends JComponent {
         double y2 = childBounds.getMinY();
         if (getUseCurvedEdges()) {
           CubicCurve2D c = new CubicCurve2D.Double();
-          double ctrlx1 = x1;
-          double ctrly1 = (y1 + y2) / 2;
-          double ctrlx2 = x2;
-          double ctrly2 = y1;
-          c.setCurve(x1, y1, ctrlx1, ctrly1, ctrlx2, ctrly2, x2, y2);
+          c.setCurve(x1,
+            y1,
+            x1,             // ctrlx1
+            (y1 + y2) / 2,  // ctrly1
+            x2,             // ctrlx2
+            y1,             // ctrly2
+            x2,
+            y2);
           ((Graphics2D) g).draw(c);
         } else {
           g.drawLine((int) x1, (int) y1,

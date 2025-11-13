@@ -1590,7 +1590,7 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public int adaptivePredict(TokenStream input, int decision, ParserRuleContext outerContext, boolean useContext) {
+    public int adaptivePredict(@NotNull TokenStream input, int decision, ParserRuleContext outerContext, boolean useContext) {
       if (useContext) {
         fullContextFallback[decision]++;
       }
@@ -1604,9 +1604,10 @@ public class PerformanceTest extends AbstractBaseTest {
       return super.getExistingTargetState(previousD, t);
     }
 
+    @NotNull
     @Override
-    protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa,
-                                                                   DFAState s,
+    protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa,
+                                                                   @NotNull DFAState s,
                                                                    ParserRuleContext remainingGlobalContext,
                                                                    int t,
                                                                    boolean useContext,
@@ -1631,7 +1632,7 @@ public class PerformanceTest extends AbstractBaseTest {
     public static DescriptiveErrorListener INSTANCE = new DescriptiveErrorListener();
 
     @Override
-    public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Token> void syntaxError(@NotNull Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, @NotNull String msg, RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1650,7 +1651,7 @@ public class PerformanceTest extends AbstractBaseTest {
     public static DescriptiveLexerErrorListener INSTANCE = new DescriptiveLexerErrorListener();
 
     @Override
-    public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Integer> void syntaxError(@NotNull Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, @NotNull String msg, RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1958,26 +1959,26 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public void visitTerminal(TerminalNode node) {
+    public void visitTerminal(@NotNull TerminalNode node) {
       checksum.update(VISIT_TERMINAL);
       updateChecksum(checksum, node.getSymbol());
     }
 
     @Override
-    public void visitErrorNode(ErrorNode node) {
+    public void visitErrorNode(@NotNull ErrorNode node) {
       checksum.update(VISIT_ERROR_NODE);
       updateChecksum(checksum, node.getSymbol());
     }
 
     @Override
-    public void enterEveryRule(ParserRuleContext ctx) {
+    public void enterEveryRule(@NotNull ParserRuleContext ctx) {
       checksum.update(ENTER_RULE);
       updateChecksum(checksum, ctx.getRuleIndex());
       updateChecksum(checksum, ctx.getStart());
     }
 
     @Override
-    public void exitEveryRule(ParserRuleContext ctx) {
+    public void exitEveryRule(@NotNull ParserRuleContext ctx) {
       checksum.update(EXIT_RULE);
       updateChecksum(checksum, ctx.getRuleIndex());
       updateChecksum(checksum, ctx.getStop());

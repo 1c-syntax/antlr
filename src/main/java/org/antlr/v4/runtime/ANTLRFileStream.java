@@ -40,6 +40,7 @@ public class ANTLRFileStream extends ANTLRInputStream {
     this.n = data.length;
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     return fileName;

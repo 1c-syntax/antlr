@@ -112,6 +112,7 @@ public class LexerATNFactory extends ParserATNFactory {
     return COMMON_CONSTANTS.keySet();
   }
 
+  @NotNull
   @Override
   public ATN createATN() {
     // BUILD ALL START STATES (ONE PER MODE)
@@ -152,14 +153,16 @@ public class LexerATNFactory extends ParserATNFactory {
     return atn;
   }
 
+  @NotNull
   @Override
-  public Handle rule(GrammarAST ruleAST, String name, Handle blk) {
+  public Handle rule(@NotNull GrammarAST ruleAST, @NotNull String name, @NotNull Handle blk) {
     ruleCommands.clear();
     return super.rule(ruleAST, name, blk);
   }
 
+  @NotNull
   @Override
-  public Handle action(ActionAST action) {
+  public Handle action(@NotNull ActionAST action) {
     int ruleIndex = currentRule.index;
     int actionIndex = g.lexerActions.get(action);
     LexerCustomAction lexerAction = new LexerCustomAction(ruleIndex, actionIndex);
@@ -177,8 +180,9 @@ public class LexerATNFactory extends ParserATNFactory {
     return lexerActionIndex;
   }
 
+  @NotNull
   @Override
-  public Handle action(String action) {
+  public Handle action(@NotNull String action) {
     if (action.trim().isEmpty()) {
       ATNState left = newState(null);
       ATNState right = newState(null);
@@ -203,15 +207,17 @@ public class LexerATNFactory extends ParserATNFactory {
     return new Handle(left, right);
   }
 
+  @NotNull
   @Override
-  public Handle lexerAltCommands(Handle alt, Handle cmds) {
+  public Handle lexerAltCommands(@NotNull Handle alt, @NotNull Handle cmds) {
     Handle h = new Handle(alt.left, cmds.right);
     epsilon(alt.right, cmds.left);
     return h;
   }
 
+  @NotNull
   @Override
-  public Handle lexerCallCommand(GrammarAST ID, GrammarAST arg) {
+  public Handle lexerCallCommand(@NotNull GrammarAST ID, @NotNull GrammarAST arg) {
     LexerAction lexerAction = createLexerAction(ID, arg);
     if (lexerAction != null) {
       return action(ID, lexerAction);
@@ -241,8 +247,9 @@ public class LexerATNFactory extends ParserATNFactory {
     return action(cmdST.render());
   }
 
+  @NotNull
   @Override
-  public Handle lexerCommand(GrammarAST ID) {
+  public Handle lexerCommand(@NotNull GrammarAST ID) {
     LexerAction lexerAction = createLexerAction(ID, null);
     if (lexerAction != null) {
       return action(ID, lexerAction);
@@ -270,8 +277,9 @@ public class LexerATNFactory extends ParserATNFactory {
     return action(cmdST.render());
   }
 
+  @NotNull
   @Override
-  public Handle range(GrammarAST a, GrammarAST b) {
+  public Handle range(@NotNull GrammarAST a, @NotNull GrammarAST b) {
     ATNState left = newState(a);
     ATNState right = newState(b);
     int t1 = CharSupport.getCharValueFromGrammarCharLiteral(a.getText());
@@ -284,8 +292,9 @@ public class LexerATNFactory extends ParserATNFactory {
     return new Handle(left, right);
   }
 
+  @NotNull
   @Override
-  public Handle set(GrammarAST associatedAST, List<GrammarAST> alts, boolean invert) {
+  public Handle set(@NotNull GrammarAST associatedAST, @NotNull List<GrammarAST> alts, boolean invert) {
     ATNState left = newState(associatedAST);
     ATNState right = newState(associatedAST);
     IntervalSet set = new IntervalSet();
@@ -358,8 +367,9 @@ public class LexerATNFactory extends ParserATNFactory {
    * if "caseInsensitive" option is enabled, "fog" will be treated as
    * o-('f'|'F') -> o-('o'|'O') -> o-('g'|'G')
    */
+  @NotNull
   @Override
-  public Handle stringLiteral(TerminalAST stringLiteralAST) {
+  public Handle stringLiteral(@NotNull TerminalAST stringLiteralAST) {
     String chars = stringLiteralAST.getText();
     ATNState left = newState(stringLiteralAST);
     ATNState right;
@@ -386,8 +396,9 @@ public class LexerATNFactory extends ParserATNFactory {
   /**
    * [Aa\t \u1234a-z\]\p{Letter}\-] char sets
    */
+  @NotNull
   @Override
-  public Handle charSetLiteral(GrammarAST charSetAST) {
+  public Handle charSetLiteral(@NotNull GrammarAST charSetAST) {
     ATNState left = newState(charSetAST);
     ATNState right = newState(charSetAST);
     IntervalSet set = getSetFromCharSetLiteral(charSetAST);
@@ -642,8 +653,9 @@ public class LexerATNFactory extends ParserATNFactory {
     }
   }
 
+  @NotNull
   @Override
-  public Handle tokenRef(TerminalAST node) {
+  public Handle tokenRef(@NotNull TerminalAST node) {
     // Ref to EOF in lexer yields char transition on -1
     if (node.getText().equals("EOF")) {
       ATNState left = newState(node);

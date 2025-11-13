@@ -91,12 +91,14 @@ public class CommonTokenStream extends BufferedTokenStream {
     return tokens.get(i);
   }
 
+  @NotNull
   @Override
   public Token LT(int k) {
-    //System.out.println("enter LT("+k+")");
     lazyInit();
-    if (k == 0) return null;
-    if (k < 0) return LB(-k);
+//    if (k == 0) return null;
+    if (k < 0) {
+      return LB(-k);
+    }
     int i = p;
     int n = 1; // we know tokens[p] is a good one
     // find k good tokens
@@ -107,7 +109,6 @@ public class CommonTokenStream extends BufferedTokenStream {
       }
       n++;
     }
-//		if ( i>range ) range = i;
     return tokens.get(i);
   }
 

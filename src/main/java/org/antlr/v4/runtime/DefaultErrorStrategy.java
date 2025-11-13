@@ -65,7 +65,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * ensure that the handler is not in error recovery mode.</p>
    */
   @Override
-  public void reset(Parser recognizer) {
+  public void reset(@NotNull Parser recognizer) {
     endErrorCondition(recognizer);
   }
 
@@ -83,7 +83,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * {@inheritDoc}
    */
   @Override
-  public boolean inErrorRecoveryMode(Parser recognizer) {
+  public boolean inErrorRecoveryMode(@NotNull Parser recognizer) {
     return errorRecoveryMode;
   }
 
@@ -105,7 +105,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * <p>The default implementation simply calls {@link #endErrorCondition}.</p>
    */
   @Override
-  public void reportMatch(Parser recognizer) {
+  public void reportMatch(@NotNull Parser recognizer) {
     endErrorCondition(recognizer);
   }
 
@@ -129,8 +129,8 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * </ul>
    */
   @Override
-  public void reportError(Parser recognizer,
-                          RecognitionException e) {
+  public void reportError(@NotNull Parser recognizer,
+                          @NotNull RecognitionException e) {
     // if we've already reported an error and have not matched a token
     // yet successfully, don't report any errors.
     if (inErrorRecoveryMode(recognizer)) {
@@ -162,7 +162,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * that can follow the current rule.</p>
    */
   @Override
-  public void recover(Parser recognizer, RecognitionException e) {
+  public void recover(@NotNull Parser recognizer, @NotNull RecognitionException e) {
     if (lastErrorIndex == recognizer.getInputStream().index() &&
       lastErrorStates != null &&
       lastErrorStates.contains(recognizer.getState())) {
@@ -222,7 +222,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * functionality by simply overriding this method as a blank { }.</p>
    */
   @Override
-  public void sync(Parser recognizer) throws RecognitionException {
+  public void sync(@NotNull Parser recognizer) throws RecognitionException {
     ATNState s = recognizer.getInterpreter().atn.states.get(recognizer.getState());
 //		System.err.println("sync @ "+s.stateNumber+"="+s.getClass().getSimpleName());
     // If already recovering, don't try to sync
@@ -447,8 +447,9 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
    * is in the set of tokens that can follow the {@code ')'} token reference
    * in rule {@code atom}. It can assume that you forgot the {@code ')'}.
    */
+  @NotNull
   @Override
-  public Token recoverInline(Parser recognizer)
+  public Token recoverInline(@NotNull Parser recognizer)
     throws RecognitionException {
     // SINGLE TOKEN DELETION
     Token matchedSymbol = singleTokenDeletion(recognizer);

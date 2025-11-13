@@ -13,6 +13,7 @@ import org.antlr.v4.codegen.CodeGenerator;
 import org.antlr.v4.codegen.Target;
 import org.antlr.v4.codegen.UnicodeEscapes;
 import org.antlr.v4.misc.CharSupport;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.StringRenderer;
@@ -85,13 +86,14 @@ public class JavaTarget extends Target {
   public String getTargetStringLiteralFromANTLRStringLiteral(
     CodeGenerator generator,
     String literal, boolean addQuotes) {
-    StringBuilder sb = new StringBuilder();
-    String is = literal;
+    var sb = new StringBuilder();
 
-    if (addQuotes) sb.append('"');
+    if (addQuotes) {
+      sb.append('"');
+    }
 
-    for (int i = 1; i < is.length() - 1; ) {
-      int codePoint = is.codePointAt(i);
+    for (int i = 1; i < literal.length() - 1; ) {
+      int codePoint = literal.codePointAt(i);
       int toAdvance = Character.charCount(codePoint);
       if (codePoint == '\\') {
         // Anything escaped is what it is! We assume that
@@ -100,7 +102,7 @@ public class JavaTarget extends Target {
         // is what the default implementation is dealing with and remove
         // the escape. The C target does this for instance.
         //
-        int escapedCodePoint = is.codePointAt(i + toAdvance);
+        int escapedCodePoint = literal.codePointAt(i + toAdvance);
         toAdvance++;
         switch (escapedCodePoint) {
           // Pass through any escapes that Java also needs
@@ -117,16 +119,16 @@ public class JavaTarget extends Target {
             break;
 
           case 'u':    // Either unnnn or u{nnnnnn}
-            if (is.charAt(i + toAdvance) == '{') {
-              while (is.charAt(i + toAdvance) != '}') {
+            if (literal.charAt(i + toAdvance) == '{') {
+              while (literal.charAt(i + toAdvance) != '}') {
                 toAdvance++;
               }
               toAdvance++;
             } else {
               toAdvance += 4;
             }
-            if (i + toAdvance <= is.length()) { // we might have an invalid \\uAB or something
-              String fullEscape = is.substring(i, i + toAdvance);
+            if (i + toAdvance <= literal.length()) { // we might have an invalid \\uAB or something
+              String fullEscape = literal.substring(i, i + toAdvance);
               appendUnicodeEscapedCodePoint(
                 CharSupport.getCharValueFromCharInGrammarLiteral(fullEscape),
                 sb);
@@ -194,6 +196,7 @@ public class JavaTarget extends Target {
     return getBadWords().contains(idNode.getText());
   }
 
+  @NotNull
   @Override
   protected STGroup loadTemplates() {
     STGroup result = targetTemplates.get();

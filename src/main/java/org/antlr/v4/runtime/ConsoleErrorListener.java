@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 /**
  * @author Sam Harwell
  */
@@ -31,11 +33,11 @@ public class ConsoleErrorListener implements ANTLRErrorListener<Object> {
    * </pre>
    */
   @Override
-  public <T> void syntaxError(Recognizer<T, ?> recognizer,
+  public <T> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
                               T offendingSymbol,
                               int line,
                               int charPositionInLine,
-                              String msg,
+                              @NotNull String msg,
                               RecognitionException e) {
     System.err.println("line " + line + ":" + charPositionInLine + " " + msg);
   }

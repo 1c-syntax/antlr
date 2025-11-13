@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.dfa;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -66,6 +68,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     return null;
   }
 
+  @NotNull
   @Override
   public AbstractEdgeMap<T> put(int key, T value) {
     if (key < minIndex || key > maxIndex) {
@@ -84,6 +87,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     }
   }
 
+  @NotNull
   @Override
   public AbstractEdgeMap<T> remove(int key) {
     if (key == this.key && this.value != null) {
@@ -93,6 +97,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     return this;
   }
 
+  @NotNull
   @Override
   public AbstractEdgeMap<T> clear() {
     if (this.value != null) {
@@ -102,6 +107,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     return this;
   }
 
+  @NotNull
   @Override
   public Map<Integer, T> toMap() {
     if (isEmpty()) {
@@ -111,6 +117,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     return Collections.singletonMap(key, value);
   }
 
+  @NotNull
   @Override
   public Set<Map.Entry<Integer, T>> entrySet() {
     return new EntrySet();

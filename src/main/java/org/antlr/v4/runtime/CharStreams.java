@@ -43,7 +43,7 @@ import java.nio.file.Files;
  * a primary concern. See the extreme debugging and spelunking
  * needed to identify this issue in our timing rig:
  * <p>
- * https://github.com/antlr/antlr4/pull/1781
+ * <a href="https://github.com/antlr/antlr4/pull/1781">...</a>
  * <p>
  * The ANTLR character streams still buffer all the input when you create
  * the stream, as they have done for ~20 years. If you need unbuffered

@@ -63,8 +63,7 @@ public class Trees {
   /**
    * Save this tree in a postscript file
    */
-  public static void save(Tree t, @Nullable List<String> ruleNames, String fileName)
-    throws IOException, PrintException {
+  public static void save(Tree t, @Nullable List<String> ruleNames, String fileName) throws IOException {
     writePS(t, ruleNames, fileName);
   }
 

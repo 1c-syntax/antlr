@@ -1008,11 +1008,13 @@ public abstract class AbstractBaseTest {
       return types.size();
     }
 
+    @NotNull
     @Override
     public String getSourceName() {
       return UNKNOWN_SOURCE_NAME;
     }
 
+    @NotNull
     @Override
     public Token LT(int i) {
       CommonToken t;
@@ -1023,11 +1025,13 @@ public abstract class AbstractBaseTest {
       return t;
     }
 
+    @NotNull
     @Override
     public Token get(int i) {
       return new org.antlr.v4.runtime.CommonToken(types.get(i));
     }
 
+    @NotNull
     @Override
     public TokenSource getTokenSource() {
       return null;
@@ -1041,13 +1045,13 @@ public abstract class AbstractBaseTest {
 
     @NotNull
     @Override
-    public String getText(Interval interval) {
+    public String getText(@NotNull Interval interval) {
       throw new UnsupportedOperationException("can't give strings");
     }
 
     @NotNull
     @Override
-    public String getText(RuleContext ctx) {
+    public String getText(@NotNull RuleContext ctx) {
       throw new UnsupportedOperationException("can't give strings");
     }
 

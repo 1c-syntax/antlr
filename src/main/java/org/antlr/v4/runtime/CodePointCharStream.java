@@ -159,8 +159,9 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     /**
      * Return the UTF-16 encoded string for the given interval
      */
+    @NotNull
     @Override
-    public String getText(Interval interval) {
+    public String getText(@NotNull Interval interval) {
       int startIdx = Math.min(interval.a(), size);
       int len = Math.min(interval.b() - interval.a() + 1, size - startIdx);
 
@@ -213,8 +214,9 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     /**
      * Return the UTF-16 encoded string for the given interval
      */
+    @NotNull
     @Override
-    public String getText(Interval interval) {
+    public String getText(@NotNull Interval interval) {
       int startIdx = Math.min(interval.a(), size);
       int len = Math.min(interval.b() - interval.a() + 1, size - startIdx);
 
@@ -270,8 +272,9 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     /**
      * Return the UTF-16 encoded string for the given interval
      */
+    @NotNull
     @Override
-    public String getText(Interval interval) {
+    public String getText(@NotNull Interval interval) {
       int startIdx = Math.min(interval.a(), size);
       int len = Math.min(interval.b() - interval.a() + 1, size - startIdx);
 

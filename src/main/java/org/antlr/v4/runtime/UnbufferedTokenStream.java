@@ -79,6 +79,7 @@ public class UnbufferedTokenStream implements TokenStream {
     fill(1); // prime the pump
   }
 
+  @NotNull
   @Override
   public Token get(int i) {
     int bufferStartIndex = getBufferStartIndex();
@@ -89,6 +90,7 @@ public class UnbufferedTokenStream implements TokenStream {
     return tokens[i - bufferStartIndex];
   }
 
+  @NotNull
   @Override
   public Token LT(int i) {
     if (i == -1) {
@@ -114,6 +116,7 @@ public class UnbufferedTokenStream implements TokenStream {
     return LT(i).getType();
   }
 
+  @NotNull
   @Override
   public TokenSource getTokenSource() {
     return tokenSource;
@@ -127,7 +130,7 @@ public class UnbufferedTokenStream implements TokenStream {
 
   @NotNull
   @Override
-  public String getText(RuleContext ctx) {
+  public String getText(@NotNull RuleContext ctx) {
     return getText(ctx.getSourceInterval());
   }
 
@@ -282,6 +285,7 @@ public class UnbufferedTokenStream implements TokenStream {
     throw new UnsupportedOperationException("Unbuffered stream cannot know its size");
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     return tokenSource.getSourceName();
@@ -289,7 +293,7 @@ public class UnbufferedTokenStream implements TokenStream {
 
   @NotNull
   @Override
-  public String getText(Interval interval) {
+  public String getText(@NotNull Interval interval) {
     int bufferStartIndex = getBufferStartIndex();
     int bufferStopIndex = bufferStartIndex + tokens.length - 1;
 

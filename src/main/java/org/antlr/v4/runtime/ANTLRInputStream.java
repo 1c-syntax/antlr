@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -210,8 +211,9 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     }
   }
 
+  @NotNull
   @Override
-  public String getText(Interval interval) {
+  public String getText(@NotNull Interval interval) {
     int start = interval.a();
     int stop = interval.b();
     if (stop >= n) stop = n - 1;
@@ -220,6 +222,7 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     return new String(data, start, count);
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     if (name == null || name.isEmpty()) {

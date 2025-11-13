@@ -49,13 +49,15 @@ public class JavaUnicodeInputStream implements CharStream {
     return source.index();
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     return source.getSourceName();
   }
 
+  @NotNull
   @Override
-  public String getText(Interval interval) {
+  public String getText(@NotNull Interval interval) {
     return source.getText(interval);
   }
 

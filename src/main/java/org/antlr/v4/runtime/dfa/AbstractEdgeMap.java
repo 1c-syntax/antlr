@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.dfa;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import java.util.AbstractSet;
 import java.util.Map;
 import java.util.Objects;
@@ -28,11 +30,13 @@ public abstract class AbstractEdgeMap<T> implements EdgeMap<T> {
     this.maxIndex = maxIndex;
   }
 
+  @NotNull
   @Override
   public abstract AbstractEdgeMap<T> put(int key, T value);
 
+  @NotNull
   @Override
-  public AbstractEdgeMap<T> putAll(EdgeMap<? extends T> m) {
+  public AbstractEdgeMap<T> putAll(@NotNull EdgeMap<? extends T> m) {
     AbstractEdgeMap<T> result = this;
     for (Map.Entry<Integer, ? extends T> entry : m.entrySet()) {
       result = result.put(entry.getKey(), entry.getValue());
@@ -41,9 +45,11 @@ public abstract class AbstractEdgeMap<T> implements EdgeMap<T> {
     return result;
   }
 
+  @NotNull
   @Override
   public abstract AbstractEdgeMap<T> clear();
 
+  @NotNull
   @Override
   public abstract AbstractEdgeMap<T> remove(int key);
 

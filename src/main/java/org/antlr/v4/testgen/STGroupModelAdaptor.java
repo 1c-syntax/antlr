@@ -21,8 +21,11 @@ import org.stringtemplate.v4.misc.STNoSuchPropertyException;
 public class STGroupModelAdaptor implements ModelAdaptor<STGroup> {
 
   @Override
-  public Object getProperty(Interpreter interp, ST self, STGroup o, Object property, String propertyName) throws STNoSuchPropertyException {
-    STGroup group = o;
+  public Object getProperty(Interpreter interp,
+                            ST self,
+                            STGroup group,
+                            Object property,
+                            String propertyName) throws STNoSuchPropertyException {
     if (group.isDictionary(propertyName)) {
       return group.rawGetDictionary(propertyName);
     }

@@ -116,6 +116,7 @@ public final class HashEdgeMap<T> extends AbstractEdgeMap<T> {
     return value;
   }
 
+  @NotNull
   @Override
   public AbstractEdgeMap<T> put(int key, T value) {
     if (key < minIndex || key > maxIndex) {
@@ -165,6 +166,7 @@ public final class HashEdgeMap<T> extends AbstractEdgeMap<T> {
     }
   }
 
+  @NotNull
   @Override
   public HashEdgeMap<T> remove(int key) {
     if (get(key) == null) {
@@ -178,6 +180,7 @@ public final class HashEdgeMap<T> extends AbstractEdgeMap<T> {
     return result;
   }
 
+  @NotNull
   @Override
   public AbstractEdgeMap<T> clear() {
     if (isEmpty()) {
@@ -187,6 +190,7 @@ public final class HashEdgeMap<T> extends AbstractEdgeMap<T> {
     return new EmptyEdgeMap<>(minIndex, maxIndex);
   }
 
+  @NotNull
   @Override
   public Map<Integer, T> toMap() {
     if (isEmpty()) {
@@ -207,6 +211,7 @@ public final class HashEdgeMap<T> extends AbstractEdgeMap<T> {
     }
   }
 
+  @NotNull
   @Override
   public Set<Map.Entry<Integer, T>> entrySet() {
     return toMap().entrySet();

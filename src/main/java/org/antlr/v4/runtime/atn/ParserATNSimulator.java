@@ -2089,7 +2089,7 @@ public class ParserATNSimulator extends ATNSimulator {
           trans = "Atom " + getTokenName(at.label);
         } else if (t instanceof SetTransition st) {
           boolean not = st instanceof NotSetTransition;
-          trans = (not ? "~" : "") + "Set " + st.set.toString();
+          trans = (not ? "~" : "") + "Set " + st.set;
         }
       }
       System.err.println(c.toString(parser, true) + ":" + trans);

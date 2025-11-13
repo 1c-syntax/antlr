@@ -12,11 +12,12 @@ package org.antlr.v4.runtime.tree.xpath;
 import org.antlr.v4.runtime.ANTLRErrorListener;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
+import org.antlr.v4.runtime.misc.NotNull;
 
 public class XPathLexerErrorListener implements ANTLRErrorListener<Integer> {
   @Override
-  public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol,
-                                              int line, int charPositionInLine, String msg,
+  public <T extends Integer> void syntaxError(@NotNull Recognizer<T, ?> recognizer, T offendingSymbol,
+                                              int line, int charPositionInLine, @NotNull String msg,
                                               RecognitionException e) {
   }
 }

@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -281,6 +282,7 @@ public class UnbufferedCharStream implements UnicodeCharStream, CharStream {
     throw new UnsupportedOperationException("Unbuffered stream cannot know its size");
   }
 
+  @NotNull
   @Override
   public String getSourceName() {
     if (name == null || name.isEmpty()) {
@@ -290,8 +292,9 @@ public class UnbufferedCharStream implements UnicodeCharStream, CharStream {
     return name;
   }
 
+  @NotNull
   @Override
-  public String getText(Interval interval) {
+  public String getText(@NotNull Interval interval) {
     if (interval.a() < 0 || interval.b() < interval.a() - 1) {
       throw new IllegalArgumentException("invalid interval");
     }
