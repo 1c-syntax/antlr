@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -154,14 +154,6 @@ public class ParserFactory extends DefaultOutputModelFactory {
         matchOp.labels.add(d);
         rf.addContextDecl(ID.getAltLabel(), d);
       }
-
-//			Decl d = getTokenLabelDecl(label);
-//			((MatchToken)matchOp).labels.add(d);
-//			getCurrentRuleFunction().addContextDecl(ID.getAltLabel(), d);
-//			if ( labelAST.parent.getType() == ANTLRParser.PLUS_ASSIGN ) {
-//				TokenListDecl l = getTokenListLabelDecl(label);
-//				getCurrentRuleFunction().addContextDecl(ID.getAltLabel(), l);
-//			}
     }
     if (controller.needsImplicitLabel(ID, matchOp)) defineImplicitLabel(ID, matchOp);
     AddToLabelList listLabelOp = getAddToListOpIfListLabelPresent(matchOp, labelAST);

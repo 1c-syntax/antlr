@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -937,15 +937,15 @@ public class Grammar implements AttributeResolver {
   }
 
   public LinkedHashMap<Integer, PredAST> getIndexToPredicateMap() {
-    LinkedHashMap<Integer, PredAST> indexToPredMap = new LinkedHashMap<>();
+    LinkedHashMap<Integer, PredAST> indexes = new LinkedHashMap<>();
     for (Rule r : rules.values()) {
       for (ActionAST a : r.actions) {
         if (a instanceof PredAST p) {
-          indexToPredMap.put(sempreds.get(p), p);
+          indexes.put(sempreds.get(p), p);
         }
       }
     }
-    return indexToPredMap;
+    return indexes;
   }
 
   public String getPredicateDisplayString(SemanticContext.Predicate pred) {

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -368,7 +368,9 @@ public class ParserATNSimulator extends ATNSimulator {
     assert dfa != null;
     if (optimize_ll1 && !dfa.isPrecedenceDfa() && !dfa.isEmpty()) {
       Integer alt = tryLL1Prediction(input, decision);
-      if (alt != null) return alt;
+      if (alt != null) {
+        return alt;
+      }
     }
 
     this.dfa = dfa;
@@ -556,9 +558,6 @@ public class ParserATNSimulator extends ATNSimulator {
           (!s.configs.getDipsIntoOuterContext() && s.configs.isExactConflict()) ||
           (treat_sllk1_conflict_as_ambiguity && input.index() == startIndex)) {
           // we don't report the ambiguity again
-          //if ( !acceptState.configset.hasSemanticContext() ) {
-          //	reportAmbiguity(dfa, acceptState, startIndex, input.index(), acceptState.configset.getConflictingAlts(), acceptState.configset);
-          //}
         } else {
           assert !state.useContext;
 
@@ -935,7 +934,9 @@ public class ParserATNSimulator extends ATNSimulator {
           SemanticContext[] altToPred = getPredsForAmbigAlts(alts, filteredConfigs, maxAlt);
           if (altToPred != null) {
             Integer filteredAlts = findFirstValidAltUsingPredicates(input, startIndex, previous, alts, altToPred);
-            if (filteredAlts != null) return filteredAlts;
+            if (filteredAlts != null) {
+              return filteredAlts;
+            }
           }
 
           return alts.nextSetBit(0);
@@ -945,7 +946,11 @@ public class ParserATNSimulator extends ATNSimulator {
     throw noViableAlt(input, previous.outerContext, previous.s0.configs, startIndex);
   }
 
-  private Integer findFirstValidAltUsingPredicates(TokenStream input, int startIndex, SimulatorState previous, BitSet alts, SemanticContext[] altToPred) {
+  private Integer findFirstValidAltUsingPredicates(TokenStream input,
+                                                   int startIndex,
+                                                   SimulatorState previous,
+                                                   BitSet alts,
+                                                   SemanticContext[] altToPred) {
     DFAState.PredPrediction[] predicates = getPredicatePredictions(alts, altToPred);
     if (predicates != null) {
       int stopIndex = input.index();

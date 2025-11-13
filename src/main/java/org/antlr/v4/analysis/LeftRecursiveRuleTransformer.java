@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -103,15 +103,12 @@ public class LeftRecursiveRuleTransformer {
   public boolean translateLeftRecursiveRule(GrammarRootAST ast,
                                             LeftRecursiveRule r,
                                             String language) {
-    //tool.log("grammar", ruleAST.toStringTree());
     GrammarAST prevRuleAST = r.ast;
     String ruleName = prevRuleAST.getChild(0).getText();
     LeftRecursiveRuleAnalyzer leftRecursiveRuleWalker =
       new LeftRecursiveRuleAnalyzer(prevRuleAST, tool, ruleName, language);
     boolean isLeftRec;
     try {
-//			System.out.println("TESTING ---------------\n"+
-//							   leftRecursiveRuleWalker.text(ruleAST));
       isLeftRec = leftRecursiveRuleWalker.rec_rule();
     } catch (RecognitionException re) {
       isLeftRec = false; // didn't match; oh well
@@ -124,7 +121,6 @@ public class LeftRecursiveRuleTransformer {
     // replace old rule's AST; first create text of altered rule
     GrammarAST RULES = (GrammarAST) ast.getFirstChildWithType(ANTLRParser.RULES);
     String newRuleText = leftRecursiveRuleWalker.getArtificialOpPrecRule();
-//		System.out.println("created: "+newRuleText);
     // now parse within the context of the grammar that originally created
     // the AST we are transforming. This could be an imported grammar so
     // we cannot just reference this.g because the role might come from
@@ -234,7 +230,6 @@ public class LeftRecursiveRuleTransformer {
    * </pre>
    */
   public void setAltASTPointers(LeftRecursiveRule r, RuleAST t) {
-//		System.out.println("RULE: "+t.toStringTree());
     BlockAST ruleBlk = (BlockAST) t.getFirstChildWithType(ANTLRParser.BLOCK);
     AltAST mainAlt = (AltAST) ruleBlk.getChild(0);
     BlockAST primaryBlk = (BlockAST) mainAlt.getChild(0);
@@ -244,16 +239,12 @@ public class LeftRecursiveRuleTransformer {
       altInfo.altAST = (AltAST) primaryBlk.getChild(i);
       altInfo.altAST.leftRecursiveAltInfo = altInfo;
       altInfo.originalAltAST.leftRecursiveAltInfo = altInfo;
-//			altInfo.originalAltAST.parent = altInfo.altAST.parent;
-//			System.out.println(altInfo.altAST.toStringTree());
     }
     for (int i = 0; i < r.recOpAlts.size(); i++) {
       LeftRecursiveRuleAltInfo altInfo = r.recOpAlts.getElement(i);
       altInfo.altAST = (AltAST) opsBlk.getChild(i);
       altInfo.altAST.leftRecursiveAltInfo = altInfo;
       altInfo.originalAltAST.leftRecursiveAltInfo = altInfo;
-//			altInfo.originalAltAST.parent = altInfo.altAST.parent;
-//			System.out.println(altInfo.altAST.toStringTree());
     }
   }
 

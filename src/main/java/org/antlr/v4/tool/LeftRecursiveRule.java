@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -85,7 +85,9 @@ public class LeftRecursiveRule extends Rule {
    * @since 4.5.1
    */
   public int[] getPrimaryAlts() {
-    if (recPrimaryAlts.isEmpty()) return null;
+    if (recPrimaryAlts.isEmpty()) {
+      return null;
+    }
     int[] alts = new int[recPrimaryAlts.size() + 1];
     for (int i = 0; i < recPrimaryAlts.size(); i++) { // recPrimaryAlts is a List not Map like recOpAlts
       LeftRecursiveRuleAltInfo altInfo = recPrimaryAlts.get(i);
@@ -109,7 +111,9 @@ public class LeftRecursiveRule extends Rule {
    * @since 4.5.1
    */
   public int[] getRecursiveOpAlts() {
-    if (recOpAlts.isEmpty()) return null;
+    if (recOpAlts.isEmpty()) {
+      return null;
+    }
     int[] alts = new int[recOpAlts.size() + 1];
     int alt = 1;
     for (LeftRecursiveRuleAltInfo altInfo : recOpAlts.values()) {

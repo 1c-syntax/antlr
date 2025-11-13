@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -228,15 +228,7 @@ public class TreeViewer extends JComponent {
       RenderingHints.VALUE_ANTIALIAS_ON);
 
     // Anti-alias the text
-    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-      RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-//		AffineTransform at = g2.getTransform();
-//        g2.scale(
-//            (double) this.getWidth() / 400,
-//            (double) this.getHeight() / 400);
-//
-//		g2.setTransform(at);
+    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
     paintEdges(g, getTree().getRoot());
 

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -351,7 +351,7 @@ public class SymbolChecks {
         List<List<String>> stringLiteralValues = new ArrayList<>();
         for (Rule rule : rules) {
           List<String> ruleStringAlts = getSingleTokenValues(rule);
-          if (ruleStringAlts != null && ruleStringAlts.size() > 0) {
+          if (!ruleStringAlts.isEmpty()) {
             stringLiteralRules.add(rule);
             stringLiteralValues.add(ruleStringAlts);
           }

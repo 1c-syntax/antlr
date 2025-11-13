@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -267,14 +267,6 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
     String v = null;
     @SuppressWarnings("unused")
     boolean ok = checkElementOptions(elem, ID, valueAST);
-//		if ( ok ) {
-//			if ( v!=null ) {
-//				t.setOption(ID.getText(), v);
-//			}
-//			else {
-//				t.setOption(TerminalAST.defaultTokenOption, v);
-//			}
-//		}
   }
 
   /**

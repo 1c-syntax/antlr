@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -206,11 +206,6 @@ public class ParserRuleContext extends RuleContext {
     t.setParent(this);
     return t;
   }
-
-//	public void trace(int s) {
-//		if ( states==null ) states = new ArrayList<Integer>();
-//		states.add(s);
-//	}
 
   /**
    * Used by enterOuterAlt to toss out a RuleContext previously added as

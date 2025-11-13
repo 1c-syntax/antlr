@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -110,7 +110,7 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
       // alloc initial buffer size.
       data = new char[size];
       // read all the data in chunks of readChunkSize
-      int numRead = 0;
+      int numRead;
       int p = 0;
       do {
         if (p + readChunkSize > data.length) { // overflow?
@@ -157,11 +157,8 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     }
 
     if ((p + i - 1) >= n) {
-      //System.out.println("char LA("+i+")=EOF; p="+p);
       return IntStream.EOF;
     }
-    //System.out.println("char LA("+i+")="+(char)data[p+i-1]+"; p="+p);
-    //System.out.println("LA("+i+"); p="+p+" n="+n+" data.length="+data.length);
     return data[p + i - 1];
   }
 
@@ -220,9 +217,6 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     if (stop >= n) stop = n - 1;
     int count = stop - start + 1;
     if (start >= n) return "";
-//		System.err.println("data: "+Arrays.toString(data)+", n="+n+
-//						   ", start="+start+
-//						   ", stop="+stop);
     return new String(data, start, count);
   }
 

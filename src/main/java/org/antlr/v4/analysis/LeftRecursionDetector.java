@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -46,15 +46,11 @@ public class LeftRecursionDetector {
 
   public void check() {
     for (RuleStartState start : atn.ruleToStartState) {
-      //System.out.print("check "+start.rule.name);
       rulesVisitedPerRuleCheck.clear();
       rulesVisitedPerRuleCheck.add(start);
-      //FASerializer ser = new FASerializer(atn.g, start);
-      //System.out.print(":\n"+ser+"\n");
 
       check(g.getRule(start.ruleIndex), start, new HashSet<>());
     }
-    //System.out.println("cycles="+listOfRecursiveCycles);
     if (!listOfRecursiveCycles.isEmpty()) {
       g.tool.errMgr.leftRecursionCycles(g.fileName, listOfRecursiveCycles);
     }

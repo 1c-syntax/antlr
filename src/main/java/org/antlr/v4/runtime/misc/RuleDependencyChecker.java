@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -172,12 +172,7 @@ public class RuleDependencyChecker {
     ElementType[] supportedTarget = RuleDependency.class.getAnnotation(Target.class).value();
     for (ElementType target : supportedTarget) {
       switch (target) {
-        case TYPE:
-          if (!clazz.isAnnotation()) {
-            getElementDependencies(clazz, result);
-          }
-          break;
-        case ANNOTATION_TYPE:
+        case TYPE, ANNOTATION_TYPE:
           if (!clazz.isAnnotation()) {
             getElementDependencies(clazz, result);
           }

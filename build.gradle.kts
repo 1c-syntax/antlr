@@ -5,7 +5,7 @@ plugins {
     `java-library`
     `maven-publish`
     jacoco
-    id("org.cadixdev.licenser") version "0.6.1"
+    id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.21.0"
     id("org.sonarqube") version "7.0.1.6134"
@@ -50,6 +50,8 @@ dependencies {
     testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")
     testImplementation("org.assertj", "assertj-core", "3.27.0")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:1.14.1")
 }
 
 java {
@@ -100,8 +102,8 @@ if ("2025" != curYear) {
     curYear = "2025-$curYear"
 }
 license {
-    header(rootProject.file("license/HEADER.txt"))
-    newLine(false)
+    header = rootProject.file("license/HEADER.txt")
+    strictCheck = true
     ext["year"] = curYear
     ext["name"] = "Valery Maximov <maximovvalery@gmail.com>"
     ext["project"] = "ANTLR"

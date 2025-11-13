@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -276,10 +276,7 @@ public class ATNSerializer {
 
             arg3 = at.isCtxDependent ? 1 : 0;
             break;
-          case Transition.SET:
-            arg1 = setIndices.get(((SetTransition) t).set);
-            break;
-          case Transition.NOT_SET:
+          case Transition.SET, Transition.NOT_SET:
             arg1 = setIndices.get(((SetTransition) t).set);
             break;
           case Transition.WILDCARD:
@@ -308,7 +305,7 @@ public class ATNSerializer {
       data.add(atn.lexerActions.length);
       for (LexerAction action : atn.lexerActions) {
         data.add(action.getActionType().ordinal());
-        int mode = 0;
+        int mode;
         switch (action.getActionType()) {
           case CHANNEL:
             int channel = ((LexerChannelAction) action).getChannel();
@@ -329,12 +326,7 @@ public class ATNSerializer {
             data.add(0);
             break;
 
-          case MORE:
-            data.add(0);
-            data.add(0);
-            break;
-
-          case POP_MODE:
+          case MORE, POP_MODE, SKIP:
             data.add(0);
             data.add(0);
             break;
@@ -342,11 +334,6 @@ public class ATNSerializer {
           case PUSH_MODE:
             mode = ((LexerPushModeAction) action).getMode();
             data.add(mode != -1 ? mode : 0xFFFF);
-            data.add(0);
-            break;
-
-          case SKIP:
-            data.add(0);
             data.add(0);
             break;
 

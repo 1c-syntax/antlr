@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -352,10 +352,6 @@ public class ATNDeserializer {
       int arg2 = toInt(data[p + 4]);
       int arg3 = toInt(data[p + 5]);
       Transition trans = edgeFactory(atn, ttype, src, trg, arg1, arg2, arg3, sets);
-//			System.out.println("EDGE "+trans.getClass().getSimpleName()+" "+
-//							   src+"->"+trg+
-//					   " "+Transition.serializationNames[ttype]+
-//					   " "+arg1+","+arg2+","+arg3);
       ATNState srcState = atn.states.get(src);
       srcState.addTransition(trans);
       p += 6;
@@ -1220,10 +1216,6 @@ public class ATNDeserializer {
       case PUSH_MODE -> new LexerPushModeAction(data1);
       case SKIP -> LexerSkipAction.INSTANCE;
       case TYPE -> new LexerTypeAction(data1);
-      default -> {
-        var message = String.format(Locale.getDefault(), "The specified lexer action type %d is not valid.", type);
-        throw new IllegalArgumentException(message);
-      }
     };
   }
 }

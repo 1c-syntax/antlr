@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -433,10 +433,6 @@ public class ATNConfig {
 
   public String toString(@Nullable Recognizer<?, ?> recog, boolean showAlt, boolean showContext) {
     StringBuilder buf = new StringBuilder();
-//		if ( state.ruleIndex>=0 ) {
-//			if ( recog!=null ) buf.append(recog.getRuleNames()[state.ruleIndex]+":");
-//			else buf.append(state.ruleIndex+":");
-//		}
     String[] contexts;
     if (showContext) {
       contexts = getContext().toStrings(recog, this.getState().stateNumber);

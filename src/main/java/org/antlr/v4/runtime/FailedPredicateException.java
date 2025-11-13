@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.atn.PredicateTransition;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
+import java.io.Serial;
 import java.util.Locale;
 
 /**
@@ -24,6 +25,7 @@ import java.util.Locale;
  * prediction.
  */
 public class FailedPredicateException extends RecognitionException {
+  @Serial
   private static final long serialVersionUID = 5379330841495778709L;
 
   private final int ruleIndex;

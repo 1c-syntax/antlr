@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -58,7 +58,7 @@ public class TestRig {
   protected String encoding = null;
   protected boolean SLL = false;
 
-  public TestRig(String[] args) throws Exception {
+  public TestRig(String[] args) {
     if (args.length < 2) {
       System.err.println("""
         java org.antlr.v4.gui.TestRig GrammarName startRuleName
@@ -124,7 +124,7 @@ public class TestRig {
 //		System.out.println("exec "+grammarName+"."+startRuleName);
     String lexerName = grammarName + "Lexer";
     ClassLoader cl = Thread.currentThread().getContextClassLoader();
-    Class<? extends Lexer> lexerClass = null;
+    Class<? extends Lexer> lexerClass;
     try {
       lexerClass = cl.loadClass(lexerName).asSubclass(Lexer.class);
     } catch (java.lang.ClassNotFoundException cnfe) {

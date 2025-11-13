@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -15,9 +15,11 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Utils;
 
+import java.io.Serial;
 import java.util.Locale;
 
 public class LexerNoViableAltException extends RecognitionException {
+  @Serial
   private static final long serialVersionUID = -730999203913001726L;
 
   /**

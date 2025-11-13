@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,10 +12,10 @@ package org.antlr.v4.parse;
 import org.antlr.runtime.IntStream;
 import org.antlr.runtime.RecognitionException;
 
-/**
- *
- */
+import java.io.Serial;
+
 public class v4ParserException extends RecognitionException {
+  @Serial
   private static final long serialVersionUID = -7954962343881278338L;
 
   public String msg;

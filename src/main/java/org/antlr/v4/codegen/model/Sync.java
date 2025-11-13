@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -27,7 +27,5 @@ public class Sync extends SrcOp {
               String position) {
     super(factory, blkOrEbnfRootAST);
     this.decision = decision;
-//		this.expecting = factory.createExpectingBitSet(ast, decision, expecting, position);
-//		factory.defineBitSet(this.expecting);
   }
 }

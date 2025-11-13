@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -77,8 +77,7 @@ public class XPath {
   public XPath(Parser parser, String path) {
     this.parser = parser;
     this.path = path;
-    elements = split(path);
-//		System.out.println(Arrays.toString(elements));
+    this.elements = split(path);
   }
 
   // TODO: check for invalid token/rule names, bad syntax
@@ -102,13 +101,13 @@ public class XPath {
     }
 
     List<Token> tokens = tokenStream.getTokens();
-    List<XPathElement> elements = new ArrayList<>();
+    List<XPathElement> pathElements = new ArrayList<>();
     int n = tokens.size();
     int i = 0;
     loop:
     while (i < n) {
       Token el = tokens.get(i);
-      Token next = null;
+      Token next;
       switch (el.getType()) {
         case XPathLexer.ROOT:
         case XPathLexer.ANYWHERE:
@@ -122,14 +121,14 @@ public class XPath {
           }
           XPathElement pathElement = getXPathElement(next, anywhere);
           pathElement.invert = invert;
-          elements.add(pathElement);
+          pathElements.add(pathElement);
           i++;
           break;
 
         case XPathLexer.TOKEN_REF:
         case XPathLexer.RULE_REF:
         case XPathLexer.WILDCARD:
-          elements.add(getXPathElement(el, false));
+          pathElements.add(getXPathElement(el, false));
           i++;
           break;
 
@@ -140,7 +139,7 @@ public class XPath {
           throw new IllegalArgumentException("Unknowth path element " + el);
       }
     }
-    return elements.toArray(new XPathElement[0]);
+    return pathElements.toArray(new XPathElement[0]);
   }
 
   /**

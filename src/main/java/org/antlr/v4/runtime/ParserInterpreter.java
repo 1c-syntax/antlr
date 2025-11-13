@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -199,35 +199,29 @@ public class ParserInterpreter extends Parser {
 
     while (true) {
       ATNState p = getATNState();
-      switch (p.getStateType()) {
-        case ATNState.RULE_STOP:
-          // pop; return from rule
-          if (_ctx.isEmpty()) {
-            if (startRuleStartState.isPrecedenceRule) {
-              ParserRuleContext result = _ctx;
-              Pair<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
-              unrollRecursionContexts(parentContext.getItem1());
-              return result;
-            } else {
-              exitRule();
-              return rootContext;
-            }
+      if (p.getStateType() == ATNState.RULE_STOP) {// pop; return from rule
+        if (_ctx.isEmpty()) {
+          if (startRuleStartState.isPrecedenceRule) {
+            ParserRuleContext result = _ctx;
+            Pair<ParserRuleContext, Integer> parentContext = _parentContextStack.pop();
+            unrollRecursionContexts(parentContext.getItem1());
+            return result;
+          } else {
+            exitRule();
+            return rootContext;
           }
+        }
 
-          visitRuleStopState(p);
-          break;
-
-        default:
-          try {
-            visitState(p);
-          } catch (RecognitionException e) {
-            setState(atn.ruleToStopState[p.ruleIndex].stateNumber);
-            getContext().exception = e;
-            getErrorHandler().reportError(this, e);
-            recover(e);
-          }
-
-          break;
+        visitRuleStopState(p);
+      } else {
+        try {
+          visitState(p);
+        } catch (RecognitionException e) {
+          setState(atn.ruleToStopState[p.ruleIndex].stateNumber);
+          getContext().exception = e;
+          getErrorHandler().reportError(this, e);
+          recover(e);
+        }
       }
     }
   }
