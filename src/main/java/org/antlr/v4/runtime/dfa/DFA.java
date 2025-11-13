@@ -198,7 +198,7 @@ public class DFA {
    * overhead for storing the map of outgoing edges. The various
    * implementations of {@link EdgeMap} use this range to determine the best
    * memory savings will be obtained from sparse storage (e.g.
-   * {@link SingletonEdgeMap} or {@link SparseEdgeMap}) or dense storage
+   * {@link SingletonEdgeMap} or dense storage
    * ({@link ArrayEdgeMap}). Symbols values outside the range are supported
    * during prediction, but since DFA edges are never created for these
    * symbols they will always recompute the target state through a match and

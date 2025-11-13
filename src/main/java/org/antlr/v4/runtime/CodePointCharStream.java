@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.nio.charset.StandardCharsets;
 
@@ -125,6 +126,7 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
   }
 
   @Override
+  @NotNull
   public final String getSourceName() {
     if (name == null || name.isEmpty()) {
       return UNKNOWN_SOURCE_NAME;
