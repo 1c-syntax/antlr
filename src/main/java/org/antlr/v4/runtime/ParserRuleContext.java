@@ -17,6 +17,7 @@ import org.antlr.v4.runtime.tree.ErrorNodeImpl;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.tree.Trees;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -350,24 +351,7 @@ public class ParserRuleContext extends RuleContext {
   }
 
   private List<Token> computeTokens() {
-    if (children == null) {
-      return Collections.emptyList();
-    }
-
-    List<Token> results = new ArrayList<>();
-    getTokensFromParseTree(this, results);
-    return Collections.unmodifiableList(results);
-  }
-
-  private static void getTokensFromParseTree(ParseTree tree, List<Token> tokens) {
-    for (int i = 0; i < tree.getChildCount(); i++) {
-      var child = tree.getChild(i);
-      if (child instanceof TerminalNode node) {
-        tokens.add(node.getSymbol());
-      } else {
-        getTokensFromParseTree(child, tokens);
-      }
-    }
+    return Trees.getTokensFromParseTree(this);
   }
 }
 

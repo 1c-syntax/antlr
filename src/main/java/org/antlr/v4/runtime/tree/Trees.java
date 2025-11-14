@@ -14,7 +14,6 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Predicate;
@@ -25,11 +24,17 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A set of utility routines useful for all kinds of ANTLR trees.
  */
 public class Trees {
+
+  private Trees() {
+    // utility class
+  }
+
   /**
    * Print out a whole tree in LISP form. {@link #getNodeText} is used on the
    * node payloads to get the text for the nodes.  Detect
@@ -135,6 +140,45 @@ public class Trees {
   }
 
   /**
+   * Возвращает список детей нужных типов
+   *
+   * @param tree        Узел дерева, дочерние которого интересуют
+   * @param ruleIndexes Список индексов дочерних
+   * @return Список дочерних
+   */
+  public static List<ParserRuleContext> getChildren(Tree tree, Integer... ruleIndexes) {
+    List<Integer> indexes = Arrays.asList(ruleIndexes);
+    List<ParserRuleContext> kids = new ArrayList<>();
+    for (int i = 0; i < tree.getChildCount(); i++) {
+      var child = tree.getChild(i);
+      if (child instanceof ParserRuleContext parserRuleContext
+        && indexes.contains(parserRuleContext.getIndex())) {
+        kids.add(parserRuleContext);
+      }
+    }
+    return kids;
+  }
+
+  /**
+   * Получает первого ребенка с одним из нужных типов
+   *
+   * @param tree        - нода, для которой ищем ребенка
+   * @param ruleIndexes - Список типов
+   * @return Первый найденный ребенок, если не найден, вернет пустой Optional
+   */
+  public static Optional<ParserRuleContext> getFirstChild(Tree tree, Integer... ruleIndexes) {
+    List<Integer> indexes = Arrays.asList(ruleIndexes);
+    for (int i = 0; i < tree.getChildCount(); i++) {
+      var child = tree.getChild(i);
+      if (child instanceof ParserRuleContext parserRuleContext
+        && indexes.contains(parserRuleContext.getIndex())) {
+        return Optional.of(parserRuleContext);
+      }
+    }
+    return Optional.empty();
+  }
+
+  /**
    * Return a list of all ancestors of this node.  The first node of
    * list is the root and the last is the parent of this node.
    *
@@ -152,6 +196,73 @@ public class Trees {
       t = t.getParent();
     }
     return ancestors;
+  }
+
+  /**
+   * Возвращает предка нужно типа
+   *
+   * @param element Элемент, для которого ищется предок
+   * @param type    Тип предка
+   * @param <T>     Тип значения предка
+   * @return Найденный предок. Если не найден, то вернется NULL
+   */
+  @Nullable
+  public static <T extends ParserRuleContext> T getAncestor(ParserRuleContext element, int type) {
+    var parent = element.getParent();
+    if (parent == null) {
+      return null;
+    }
+    while (parent != null) {
+      if (parent.getIndex() == type) {
+        @SuppressWarnings("unchecked") // Считаем, что разработчик верно указал T, в соответствии с type
+        T result = (T) parent;
+        return result;
+      }
+      parent = parent.getParent();
+    }
+
+    return null;
+  }
+
+  /**
+   * Возвращает первого предка одного из указанных типов
+   *
+   * @param element Элемент, для которого ищется предок
+   * @param types   Типы предков
+   * @return Найденный предок. Если не найден, то вернется NULL
+   */
+  @Nullable
+  public static ParserRuleContext getAncestor(ParserRuleContext element, Collection<Integer> types) {
+    var parent = element.getParent();
+    if (parent == null) {
+      return null;
+    }
+    while (parent != null) {
+      if (types.contains(parent.getIndex())) {
+        return parent;
+      }
+      parent = parent.getParent();
+    }
+
+    return null;
+  }
+
+  /**
+   * Возвращает самого верхнего родителя
+   *
+   * @param element Элемент, для которого ищется предок
+   * @return Найденный предок. Если не найден, то вернется текущий
+   */
+  @Nullable
+  public static ParserRuleContext getAncestor(ParserRuleContext element) {
+    var parent = element.getParent();
+    if (parent == null) {
+      return element;
+    }
+    while (parent.getParent() != null) {
+      parent = parent.getParent();
+    }
+    return parent;
   }
 
   /**
@@ -263,22 +374,9 @@ public class Trees {
    * @since 4.5.1
    */
   public static List<ParseTree> getDescendants(ParseTree t) {
-    List<ParseTree> nodes = new ArrayList<>();
-    nodes.add(t);
-
-    int n = t.getChildCount();
-    for (int i = 0; i < n; i++) {
-      nodes.addAll(getDescendants(t.getChild(i)));
-    }
+    List<ParseTree> nodes = new ArrayList<>(t.getChildCount());
+    flatten(t, nodes);
     return nodes;
-  }
-
-  /**
-   * @deprecated
-   */
-  @Deprecated
-  public static List<ParseTree> descendants(ParseTree t) {
-    return getDescendants(t);
   }
 
   /**
@@ -288,22 +386,23 @@ public class Trees {
    * @since 4.5
    */
   @Nullable
-  public static ParserRuleContext getRootOfSubtreeEnclosingRegion(@NotNull ParseTree t,
+  public static ParserRuleContext getRootOfSubtreeEnclosingRegion(@NotNull ParseTree tree,
                                                                   int startTokenIndex, // inclusive
                                                                   int stopTokenIndex)  // inclusive
   {
-    int n = t.getChildCount();
-    for (int i = 0; i < n; i++) {
-      ParseTree child = t.getChild(i);
-      ParserRuleContext r = getRootOfSubtreeEnclosingRegion(child, startTokenIndex, stopTokenIndex);
-      if (r != null) return r;
-    }
-    if (t instanceof ParserRuleContext r) {
-      if (startTokenIndex >= r.getStart().getTokenIndex() && // is range fully contained in t?
-        (r.getStop() == null || stopTokenIndex <= r.getStop().getTokenIndex())) {
-        // note: r.getStop()==null likely implies that we bailed out of parser and there's nothing to the right
-        return r;
+    var count = tree.getChildCount();
+    for (var i = 0; i < count; i++) {
+      var child = tree.getChild(i);
+      var root = getRootOfSubtreeEnclosingRegion(child, startTokenIndex, stopTokenIndex);
+      if (root != null) {
+        return root;
       }
+    }
+
+    if (tree instanceof ParserRuleContext root
+      && startTokenIndex >= root.getStart().getTokenIndex() // is range fully contained in t?
+      && (root.getStop() == null || stopTokenIndex <= root.getStop().getTokenIndex())) {
+      return root;
     }
     return null;
   }
@@ -317,18 +416,21 @@ public class Trees {
    *
    * @since 4.5.1
    */
-  public static void stripChildrenOutOfRange(ParserRuleContext t,
+  public static void stripChildrenOutOfRange(ParserRuleContext ctx,
                                              ParserRuleContext root,
                                              int startIndex,
                                              int stopIndex) {
-    if (t == null) return;
-    for (int i = 0; i < t.getChildCount(); i++) {
-      ParseTree child = t.getChild(i);
-      Interval range = child.getSourceInterval();
-      if (child instanceof ParserRuleContext && (range.b < startIndex || range.a > stopIndex)) {
-        if (isAncestorOf(child, root)) { // replace only if subtree doesn't have displayed root
-          CommonToken abbrev = new CommonToken(Token.INVALID_TYPE, "...");
-          t.children.set(i, new TerminalNodeImpl(abbrev));
+    if (ctx == null) {
+      return;
+    }
+
+    for (var i = 0; i < ctx.getChildCount(); i++) {
+      var child = ctx.getChild(i);
+      var range = child.getSourceInterval();
+      if (child instanceof ParserRuleContext parserRuleContext && (range.b < startIndex || range.a > stopIndex)) {
+        if (isAncestorOf(parserRuleContext, root)) { // replace only if subtree doesn't have displayed root
+          var abbrev = new CommonToken(Token.INVALID_TYPE, "...");
+          ctx.children.set(i, new TerminalNodeImpl(abbrev));
         }
       }
     }
@@ -340,19 +442,150 @@ public class Trees {
    * @since 4.5.1
    */
   public static Tree findNodeSuchThat(Tree t, Predicate<Tree> pred) {
-    if (pred.eval(t)) return t;
+    if (pred.eval(t)) {
+      return t;
+    }
 
-    if (t == null) return null;
+    if (t == null) {
+      return null;
+    }
 
     int n = t.getChildCount();
     for (int i = 0; i < n; i++) {
-      Tree u = findNodeSuchThat(t.getChild(i), pred);
-      if (u != null) return u;
+      var node = findNodeSuchThat(t.getChild(i), pred);
+      if (node != null) {
+        return node;
+      }
     }
     return null;
   }
 
-  private Trees() {
+  /**
+   * Список токенов дерева разбора.
+   * <p>
+   * Токены формируются на основании всех потомков вида {@link TerminalNode} переданного дерева.
+   *
+   * @param tree Дерево разбора
+   * @return Список токенов
+   */
+  public static List<Token> getTokens(ParseTree tree) {
+    if (tree instanceof ParserRuleContext parserRuleContext) {
+      return parserRuleContext.getTokens();
+    } else if (tree instanceof TerminalNode node) {
+      return List.of(node.getSymbol());
+    } else {
+      return getTokensFromParseTree(tree);
+    }
+  }
+
+  /**
+   * Возвращает список токенов из дерева
+   *
+   * @param tree Дерево
+   * @return tokens Список токенов дерева
+   */
+  public static List<Token> getTokensFromParseTree(ParseTree tree) {
+    if (tree.getChildCount() == 0) {
+      return Collections.emptyList();
+    }
+
+    List<Token> results = new ArrayList<>();
+    getTokensFromParseTreeReq(tree, results);
+    return Collections.unmodifiableList(results);
+  }
+
+  /**
+   * Проверяет среди всех дочерних элементов (рекурсивно) наличие узла с ошибкой
+   *
+   * @return true - если есть узел с ошибкой
+   */
+  public static boolean treeContainsErrors(ParseTree tnc) {
+    return treeContainsErrors(tnc, true);
+  }
+
+  /**
+   * Проверяет среди дочерних элементов узла наличие узла с ошибкой.
+   * В отличие от treeContainsErrors не спускается вниз.
+   *
+   * @return true - если есть узел с ошибкой
+   */
+  public static boolean nodeContainsErrors(ParseTree tnc) {
+    return treeContainsErrors(tnc, false);
+  }
+
+  /**
+   * Выполняет поиск предыдущей ноды нужного типа
+   *
+   * @param parent - родительская нода, среди дочерних которой производится поиск
+   * @param tnc    - нода, для которой ищем предыдущую
+   * @param index  - BSLParser.RULE_*
+   * @return tnc - если предыдущая нода не найдена, вернет текущую
+   */
+  public static ParseTree getPreviousNode(ParseTree parent, ParseTree tnc, int index) {
+    List<ParseTree> descendants = getDescendantsWithFilter(parent, tnc, index);
+    int pos = descendants.indexOf(tnc);
+    if (pos > 0) {
+      return descendants.get(pos - 1);
+    }
+    return tnc;
+  }
+
+  /**
+   * @param tokens     - список токенов
+   * @param tokenIndex - индекс текущего токена в переданном списке токенов
+   * @param tokenType  - тип искомого токена
+   * @return предыдущий токен, если он был найден
+   */
+  public Optional<Token> getPreviousTokenFromDefaultChannel(List<Token> tokens, int tokenIndex, int tokenType) {
+    while (true) {
+      if (tokenIndex == 0) {
+        return Optional.empty();
+      }
+      var token = tokens.get(tokenIndex);
+      if (token.getChannel() != Token.DEFAULT_CHANNEL || token.getType() != tokenType) {
+        --tokenIndex;
+        continue;
+      }
+
+      return Optional.of(token);
+    }
+  }
+
+  /**
+   * @param tokens     - полный список токенов
+   * @param tokenIndex - индекс текущего токена в переданном списке токенов
+   * @return предыдущий токен, если он был найден
+   */
+  public static Optional<Token> getPreviousTokenFromDefaultChannel(List<Token> tokens, int tokenIndex) {
+    while (true) {
+      if (tokenIndex == 0) {
+        return Optional.empty();
+      }
+      var token = tokens.get(tokenIndex);
+      if (token.getChannel() != Token.DEFAULT_CHANNEL) {
+        tokenIndex = tokenIndex - 1;
+        continue;
+      }
+
+      return Optional.of(token);
+    }
+  }
+
+  /**
+   * Выполняет поиск следующей узла нужного типа
+   *
+   * @param parent - родительский узел, среди дочерних которой производится поиск
+   * @param tnc    - текущий узел, для которого ищем следующий
+   * @param index  - BSLParser.RULE_*
+   * @return tnc - если следующий узел не найден, вернет текущий
+   */
+  public static ParseTree getNextNode(ParseTree parent, ParseTree tnc, int index) {
+    List<ParseTree> descendants = getDescendantsWithFilter(parent, tnc, index);
+    int pos = descendants.indexOf(tnc);
+    if (pos + 1 < descendants.size()) {
+      return descendants.get(pos + 1);
+    }
+    return tnc;
   }
 
   private static <T extends ParseTree> void findAllNodesReq(ParseTree tree, Class<T> clazz, List<T> nodes) {
@@ -362,5 +595,53 @@ public class Trees {
     for (int i = 0; i < tree.getChildCount(); i++) {
       findAllNodesReq(tree.getChild(i), clazz, nodes);
     }
+  }
+
+  private static void getTokensFromParseTreeReq(ParseTree tree, List<Token> tokens) {
+    for (var i = 0; i < tree.getChildCount(); i++) {
+      var child = tree.getChild(i);
+      if (child instanceof TerminalNode node) {
+        tokens.add(node.getSymbol());
+      } else {
+        getTokensFromParseTreeReq(child, tokens);
+      }
+    }
+  }
+
+  private static void flatten(ParseTree t, List<ParseTree> flatList) {
+    flatList.add(t);
+
+    int n = t.getChildCount();
+    for (var i = 0; i < n; i++) {
+      flatten(t.getChild(i), flatList);
+    }
+  }
+
+  private static boolean treeContainsErrors(ParseTree tnc, boolean recursive) {
+    if (!(tnc instanceof ParserRuleContext ruleContext)) {
+      return false;
+    }
+
+    if (ruleContext.exception != null) {
+      return true;
+    }
+
+    return recursive
+      && ruleContext.children != null
+      && ruleContext.children.stream().anyMatch(Trees::treeContainsErrors);
+  }
+
+  private static List<ParseTree> getDescendantsWithFilter(ParseTree parent, ParseTree tnc, int ruleindex) {
+    List<ParseTree> descendants;
+    if (tnc.getIndex() == ruleindex) {
+      descendants = new ArrayList<>(findAllRuleNodes(parent, ruleindex));
+    } else {
+      descendants = org.antlr.v4.runtime.tree.Trees.getDescendants(parent)
+        .stream()
+        .filter(ParserRuleContext.class::isInstance)
+        .filter(node -> (node.equals(tnc) || node.getIndex() == ruleindex))
+        .toList();
+    }
+    return descendants;
   }
 }

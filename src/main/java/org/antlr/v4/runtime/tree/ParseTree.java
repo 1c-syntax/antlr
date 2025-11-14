@@ -46,4 +46,9 @@ public interface ParseTree extends SyntaxTree {
    * based upon the parser.
    */
   String toStringTree(Parser parser);
+
+  /**
+   * Индекс правила либо тип токена
+   */
+  int getIndex();
 }
