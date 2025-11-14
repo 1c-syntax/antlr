@@ -1,9 +1,9 @@
 /**
  * This file is a part of ANTLR.
- *
+ * <p>
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
  * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
- *
+ * <p>
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -386,6 +386,9 @@ public class Trees {
   public static Collection<ParserRuleContext> findAllTopLevelDescendantNodes(ParserRuleContext root,
                                                                              Collection<Integer> indexes) {
     List<ParserRuleContext> result = new ArrayList<>();
+    if (root.getChildCount() == 0) {
+      return Collections.emptyList();
+    }
     root.children.stream()
       .map(node -> findAllTopLevelDescendantNodesInner(node, indexes))
       .forEach(result::addAll);
@@ -620,7 +623,7 @@ public class Trees {
    * @param tokenType  - тип искомого токена
    * @return предыдущий токен, если он был найден
    */
-  public Optional<Token> getPreviousTokenFromDefaultChannel(List<Token> tokens, int tokenIndex, int tokenType) {
+  public static Optional<Token> getPreviousTokenFromDefaultChannel(List<Token> tokens, int tokenIndex, int tokenType) {
     while (true) {
       if (tokenIndex == 0) {
         return Optional.empty();
@@ -731,7 +734,7 @@ public class Trees {
     if (tnc.getIndex() == ruleindex) {
       descendants = new ArrayList<>(findAllRuleNodes(parent, ruleindex));
     } else {
-      descendants = org.antlr.v4.runtime.tree.Trees.getDescendants(parent)
+      descendants = getDescendants(parent)
         .stream()
         .filter(ParserRuleContext.class::isInstance)
         .filter(node -> (node.equals(tnc) || node.getIndex() == ruleindex))
