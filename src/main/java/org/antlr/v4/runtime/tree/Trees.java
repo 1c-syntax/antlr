@@ -628,13 +628,10 @@ public class Trees {
       if (tokenIndex == 0) {
         return Optional.empty();
       }
-      var token = tokens.get(tokenIndex);
-      if (token.getChannel() != Token.DEFAULT_CHANNEL || token.getType() != tokenType) {
-        --tokenIndex;
-        continue;
+      var token = tokens.get(--tokenIndex);
+      if (token.getChannel() == Token.DEFAULT_CHANNEL && token.getType() == tokenType) {
+        return Optional.of(token);
       }
-
-      return Optional.of(token);
     }
   }
 
@@ -648,13 +645,10 @@ public class Trees {
       if (tokenIndex == 0) {
         return Optional.empty();
       }
-      var token = tokens.get(tokenIndex);
-      if (token.getChannel() != Token.DEFAULT_CHANNEL) {
-        tokenIndex = tokenIndex - 1;
-        continue;
+      var token = tokens.get(--tokenIndex);
+      if (token.getChannel() == Token.DEFAULT_CHANNEL) {
+        return Optional.of(token);
       }
-
-      return Optional.of(token);
     }
   }
 
