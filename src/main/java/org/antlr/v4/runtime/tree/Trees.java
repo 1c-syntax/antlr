@@ -1,9 +1,9 @@
 /**
  * This file is a part of ANTLR.
- *
+ * <p>
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
  * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
- *
+ * <p>
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -12,7 +12,6 @@ package org.antlr.v4.runtime.tree;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.misc.Interval;
@@ -46,8 +45,8 @@ public class Trees {
    * parse trees and extract data appropriately.
    */
   public static String toStringTree(@NotNull Tree t, @Nullable Parser recog) {
-    String[] ruleNames = recog != null ? recog.getRuleNames() : null;
-    List<String> ruleNamesList = ruleNames != null ? Arrays.asList(ruleNames) : null;
+    var ruleNames = recog != null ? recog.getRuleNames() : null;
+    var ruleNamesList = ruleNames != null ? Arrays.asList(ruleNames) : null;
     return toStringTree(t, ruleNamesList);
   }
 
@@ -56,51 +55,70 @@ public class Trees {
    * node payloads to get the text for the nodes.
    */
   public static String toStringTree(@NotNull final Tree t, @Nullable final List<String> ruleNames) {
-    String s = Utils.escapeWhitespace(getNodeText(t, ruleNames), false);
-    if (t.getChildCount() == 0) return s;
-    StringBuilder buf = new StringBuilder();
+    var s = Utils.escapeWhitespace(getNodeText(t, ruleNames), false);
+    if (t.getChildCount() == 0) {
+      return s;
+    }
+    var buf = new StringBuilder();
     buf.append("(");
     s = Utils.escapeWhitespace(getNodeText(t, ruleNames), false);
     buf.append(s);
     buf.append(' ');
     for (int i = 0; i < t.getChildCount(); i++) {
-      if (i > 0) buf.append(' ');
+      if (i > 0) {
+        buf.append(' ');
+      }
       buf.append(toStringTree(t.getChild(i), ruleNames));
     }
     buf.append(")");
     return buf.toString();
   }
 
+  /**
+   * Возвращает строковое представление узла дерева
+   *
+   * @param t     Узел дерева
+   * @param recog Парсер, которым построено дерево
+   * @return Строковое представление узла
+   */
   public static String getNodeText(@NotNull Tree t, @Nullable Parser recog) {
-    String[] ruleNames = recog != null ? recog.getRuleNames() : null;
-    List<String> ruleNamesList = ruleNames != null ? Arrays.asList(ruleNames) : null;
+    var ruleNames = recog != null ? recog.getRuleNames() : null;
+    var ruleNamesList = ruleNames != null ? Arrays.asList(ruleNames) : null;
     return getNodeText(t, ruleNamesList);
   }
 
+  /**
+   * Возвращает строковое представление узла дерева
+   *
+   * @param t         Узел дерева
+   * @param ruleNames Список имен правил (rule) построения дерева.
+   * @return Строковое представление узла
+   */
   public static String getNodeText(@NotNull Tree t, @Nullable List<String> ruleNames) {
     if (ruleNames != null) {
-      if (t instanceof RuleNode) {
-        RuleContext ruleContext = ((RuleNode) t).getRuleContext();
-        int ruleIndex = ruleContext.getRuleIndex();
-        String ruleName = ruleNames.get(ruleIndex);
-        int altNumber = ruleContext.getAltNumber();
+      if (t instanceof RuleNode ruleNode) {
+        var ruleContext = ruleNode.getRuleContext();
+        var ruleIndex = ruleContext.getRuleIndex();
+        var ruleName = ruleNames.get(ruleIndex);
+        var altNumber = ruleContext.getAltNumber();
         if (altNumber != ATN.INVALID_ALT_NUMBER) {
           return ruleName + ":" + altNumber;
         }
         return ruleName;
       } else if (t instanceof ErrorNode) {
         return t.toString();
-      } else if (t instanceof TerminalNode) {
-        Token symbol = ((TerminalNode) t).getSymbol();
+      } else if (t instanceof TerminalNode terminalNode) {
+        var symbol = terminalNode.getSymbol();
         if (symbol != null) {
           return symbol.getText();
         }
       }
     }
+
     // no recog for rule names
-    Object payload = t.getPayload();
-    if (payload instanceof Token) {
-      return ((Token) payload).getText();
+    var payload = t.getPayload();
+    if (payload instanceof Token token) {
+      return token.getText();
     }
     return t.getPayload().toString();
   }
@@ -124,7 +142,9 @@ public class Trees {
    */
   @NotNull
   public static List<? extends Tree> getAncestors(@NotNull Tree t) {
-    if (t.getParent() == null) return Collections.emptyList();
+    if (t.getParent() == null) {
+      return Collections.emptyList();
+    }
     List<Tree> ancestors = new ArrayList<>();
     t = t.getParent();
     while (t != null) {
@@ -135,42 +155,101 @@ public class Trees {
   }
 
   /**
-   * Return true if t is u's parent or a node on path to root from u.
+   * Return true if ancestor is node's parent or a node on path to root from node.
    * Use == not equals().
    *
    * @since 4.5.1
    */
-  public static boolean isAncestorOf(Tree t, Tree u) {
-    if (t == null || u == null || t.getParent() == null) return false;
-    Tree p = u.getParent();
-    while (p != null) {
-      if (t == p) return true;
-      p = p.getParent();
+  public static boolean isAncestorOf(Tree ancestor, Tree node) {
+    if (ancestor == null || node == null || ancestor.getParent() == null) {
+      return false;
+    }
+    var parent = node.getParent();
+    while (parent != null) {
+      if (ancestor == parent) {
+        return true;
+      }
+      parent = parent.getParent();
     }
     return false;
   }
 
-  public static Collection<ParseTree> findAllTokenNodes(ParseTree t, int ttype) {
-    return findAllNodes(t, ttype, true);
+  /**
+   * Выбирает из дерева токены нужного типа, перебирая все узлы дерева
+   *
+   * @param tree      Узел дерева
+   * @param tokenType Тип токена
+   * @param <T>       Тип возвращаемых токенов, зависит от tokenType
+   * @return Коллекция токенов нужного типа
+   */
+  public static <T extends ParseTree> Collection<T> findAllTokenNodes(ParseTree tree, int tokenType) {
+    return findAllNodes(tree, tokenType, true);
   }
 
-  public static Collection<ParseTree> findAllRuleNodes(ParseTree t, int ruleIndex) {
-    return findAllNodes(t, ruleIndex, false);
+  /**
+   * Выбирает из дерева узлы (rule) нужного типа, перебирая все узлы дерева
+   *
+   * @param tree      Узел дерева
+   * @param ruleIndex Индекс правила (rule)
+   * @param <T>       Тип возвращаемых узлов, зависит от ruleIndex
+   * @return Коллекция узлов нужного типа
+   */
+  public static <T extends ParseTree> Collection<T> findAllRuleNodes(ParseTree tree, int ruleIndex) {
+    return findAllNodes(tree, ruleIndex, false);
   }
 
-  public static List<ParseTree> findAllNodes(ParseTree t, int index, boolean findTokens) {
+  /**
+   * Выбирает из дерева элементы нужного типа, перебирая все узлы дерева
+   *
+   * @param tree       Узел дерева
+   * @param index      Индекс правила (rule) или тип токена
+   * @param findTokens Переключатель, управляющий поиском токенов или узлов
+   * @param <T>        Тип возвращаемых элементов, зависит от index и findTokens
+   * @return Коллекция элементов нужного типа
+   */
+  public static <T extends ParseTree> List<T> findAllNodes(ParseTree tree, int index, boolean findTokens) {
     List<ParseTree> nodes = new ArrayList<>();
-    _findAllNodes(t, index, findTokens, nodes);
+    _findAllNodes(tree, index, findTokens, nodes);
+    if (nodes.isEmpty()) {
+      return Collections.emptyList();
+    } else {
+      // Считаем, что программист снаружи корректно указал тип, т.е. index + findTokens соответствуют T
+      @SuppressWarnings("unchecked")
+      List<T> result = (List<T>) nodes;
+      return result;
+    }
+  }
+
+  /**
+   * Выбирает из дерева элементы нужного типа, перебирая все узлы дерева
+   *
+   * @param tree      Узел дерева
+   * @param nodeClass Класс искомого элемента
+   * @param <T>       Тип искомого элемента
+   * @return Список элементов нужного типа
+   */
+  public static <T extends ParseTree> List<T> findAllNodes(ParseTree tree, Class<T> nodeClass) {
+    List<T> nodes = new ArrayList<>();
+    findAllNodesReq(tree, nodeClass, nodes);
     return nodes;
   }
 
+  /**
+   * НЕ ИСПОЛЬЗОВАТЬ СНАРУЖИ
+   * ДЛЯ ВНУТРЕННЕГО ПРИМЕНЕНИЯ
+   * TODO перевести в private
+   */
   public static void _findAllNodes(ParseTree t, int index, boolean findTokens,
                                    List<? super ParseTree> nodes) {
     // check this node (the root) first
     if (findTokens && t instanceof TerminalNode tnode) {
-      if (tnode.getSymbol().getType() == index) nodes.add(t);
+      if (tnode.getSymbol().getType() == index) {
+        nodes.add(t);
+      }
     } else if (!findTokens && t instanceof ParserRuleContext ctx) {
-      if (ctx.getRuleIndex() == index) nodes.add(t);
+      if (ctx.getRuleIndex() == index) {
+        nodes.add(t);
+      }
     }
     // check children
     for (int i = 0; i < t.getChildCount(); i++) {
@@ -274,5 +353,14 @@ public class Trees {
   }
 
   private Trees() {
+  }
+
+  private static <T extends ParseTree> void findAllNodesReq(ParseTree tree, Class<T> clazz, List<T> nodes) {
+    if (clazz.isInstance(tree)) {
+      nodes.add(clazz.cast(tree));
+    }
+    for (int i = 0; i < tree.getChildCount(); i++) {
+      findAllNodesReq(tree.getChild(i), clazz, nodes);
+    }
   }
 }
