@@ -1,9 +1,9 @@
 /**
  * This file is a part of ANTLR.
- * <p>
+ *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
  * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
- * <p>
+ *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -23,8 +23,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.IntStream;
 
 /**
  * A set of utility routines useful for all kinds of ANTLR trees.
@@ -310,6 +313,30 @@ public class Trees {
   }
 
   /**
+   * Выбирает из дерева узлы (rule) нужных типов, перебирая все узлы дерева
+   *
+   * @param tree        Узел дерева
+   * @param ruleIndexes Индексы правил (rule)
+   * @return Коллекция узлов нужных типов
+   */
+  public static Collection<ParserRuleContext> findAllRuleNodes(ParseTree tree, Integer... ruleIndexes) {
+    return findAllRuleNodes(tree, Arrays.asList(ruleIndexes));
+  }
+
+  /**
+   * Выбирает из дерева узлы (rule) нужных типов, перебирая все узлы дерева
+   *
+   * @param tree        Узел дерева
+   * @param ruleIndexes Индексы правил (rule)
+   * @return Коллекция узлов нужных типов
+   */
+  public static Collection<ParserRuleContext> findAllRuleNodes(ParseTree tree, Collection<Integer> ruleIndexes) {
+    List<ParserRuleContext> nodes = new ArrayList<>();
+    flatten(tree, nodes, ruleIndexes);
+    return nodes;
+  }
+
+  /**
    * Выбирает из дерева элементы нужного типа, перебирая все узлы дерева
    *
    * @param tree       Узел дерева
@@ -343,6 +370,26 @@ public class Trees {
     List<T> nodes = new ArrayList<>();
     findAllNodesReq(tree, nodeClass, nodes);
     return nodes;
+  }
+
+  /**
+   * Получает "первые" дочерние ноды с нужными типами
+   * ВАЖНО: поиск вглубь найденной ноды с нужными индексами не выполняется
+   * Например, если указать RULE_codeBlock, то найдется только самый верхнеуровневый блок кода, все
+   * вложенные найдены не будут
+   * ВАЖНО: начальная нода не проверяется на условие, т.к. тогда она единственная и вернется в результате
+   *
+   * @param root    - начальный узел дерева
+   * @param indexes - коллекция индексов
+   * @return найденные узлы
+   */
+  public static Collection<ParserRuleContext> findAllTopLevelDescendantNodes(ParserRuleContext root,
+                                                                             Collection<Integer> indexes) {
+    List<ParserRuleContext> result = new ArrayList<>();
+    root.children.stream()
+      .map(node -> findAllTopLevelDescendantNodesInner(node, indexes))
+      .forEach(result::addAll);
+    return result;
   }
 
   /**
@@ -514,6 +561,43 @@ public class Trees {
   }
 
   /**
+   * Проверяет наличие дочернего узла нужного типа
+   *
+   * @param tree  Текущий узел
+   * @param types Нужные типы
+   * @return Признак наличия дочернего узла
+   */
+  public static boolean nodeContains(ParseTree tree, Integer... types) {
+    var indexes = new HashSet<>(Arrays.asList(types));
+
+    if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+      return true;
+    }
+
+    return IntStream.range(0, tree.getChildCount())
+      .anyMatch(i -> nodeContains(tree.getChild(i), types));
+  }
+
+  /**
+   * Проверяет наличие дочернего узла нужного типа, исключая переданный узел
+   *
+   * @param tree    Текущий узел
+   * @param exclude Исключаемый узел
+   * @param types   Нужные типы
+   * @return Признак наличия дочернего узла
+   */
+  public static boolean nodeContains(ParseTree tree, ParseTree exclude, Integer... types) {
+    Set<Integer> indexes = new HashSet<>(Arrays.asList(types));
+
+    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getRuleIndex())) {
+      return true;
+    }
+
+    return IntStream.range(0, tree.getChildCount())
+      .anyMatch(i -> nodeContains(tree.getChild(i), exclude, types));
+  }
+
+  /**
    * Выполняет поиск предыдущей ноды нужного типа
    *
    * @param parent - родительская нода, среди дочерних которой производится поиск
@@ -617,6 +701,17 @@ public class Trees {
     }
   }
 
+  private static void flatten(ParseTree tree, List<ParserRuleContext> flatList, Collection<Integer> ruleIndexes) {
+    if (tree instanceof ParserRuleContext parserRuleContext && ruleIndexes.contains(parserRuleContext.getRuleIndex())) {
+      flatList.add(parserRuleContext);
+    }
+
+    int n = tree.getChildCount();
+    for (var i = 0; i < n; i++) {
+      flatten(tree.getChild(i), flatList, ruleIndexes);
+    }
+  }
+
   private static boolean treeContainsErrors(ParseTree tnc, boolean recursive) {
     if (!(tnc instanceof ParserRuleContext ruleContext)) {
       return false;
@@ -643,5 +738,19 @@ public class Trees {
         .toList();
     }
     return descendants;
+  }
+
+  private static Collection<ParserRuleContext> findAllTopLevelDescendantNodesInner(ParseTree root,
+                                                                                   Collection<Integer> indexes) {
+    if (root instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+      return List.of(rule);
+    }
+
+    List<ParserRuleContext> result = new ArrayList<>();
+    IntStream.range(0, root.getChildCount())
+      .mapToObj(i -> findAllTopLevelDescendantNodesInner(root.getChild(i), indexes))
+      .forEachOrdered(result::addAll);
+
+    return result;
   }
 }
