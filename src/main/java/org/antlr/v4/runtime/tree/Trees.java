@@ -104,7 +104,7 @@ public class Trees {
     if (ruleNames != null) {
       if (t instanceof RuleNode ruleNode) {
         var ruleContext = ruleNode.getRuleContext();
-        var ruleIndex = ruleContext.getRuleIndex();
+        var ruleIndex = ruleContext.getIndex();
         var ruleName = ruleNames.get(ruleIndex);
         var altNumber = ruleContext.getAltNumber();
         if (altNumber != ATN.INVALID_ALT_NUMBER) {
@@ -407,7 +407,7 @@ public class Trees {
         nodes.add(t);
       }
     } else if (!findTokens && t instanceof ParserRuleContext ctx) {
-      if (ctx.getRuleIndex() == index) {
+      if (ctx.getIndex() == index) {
         nodes.add(t);
       }
     }
@@ -575,14 +575,14 @@ public class Trees {
     }
 
     if (types.length == 1) {
-      if (tree instanceof ParserRuleContext rule && rule.getRuleIndex() == types[0]) {
+      if (tree instanceof ParserRuleContext rule && rule.getIndex() == types[0]) {
         return true;
       }
       return IntStream.range(0, tree.getChildCount())
         .anyMatch(i -> nodeContains(tree.getChild(i), types));
     } else {
       var indexes = Set.copyOf(Arrays.asList(types));
-      if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+      if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getIndex())) {
         return true;
       }
       return IntStream.range(0, tree.getChildCount())
@@ -601,7 +601,7 @@ public class Trees {
   public static boolean nodeContains(ParseTree tree, ParseTree exclude, Integer... types) {
     var indexes = Set.copyOf(Arrays.asList(types));
 
-    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getRuleIndex())) {
+    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getIndex())) {
       return true;
     }
 
@@ -633,6 +633,10 @@ public class Trees {
    * @return предыдущий токен, если он был найден
    */
   public static Optional<Token> getPreviousTokenFromDefaultChannel(List<Token> tokens, int tokenIndex, int tokenType) {
+    if (tokenIndex < 0 || tokenIndex >= tokens.size()) {
+      throw new IllegalArgumentException("tokenIndex out of range: " + tokenIndex);
+    }
+    
     while (true) {
       if (tokenIndex == 0) {
         return Optional.empty();
@@ -708,7 +712,7 @@ public class Trees {
   }
 
   private static void flatten(ParseTree tree, List<ParserRuleContext> flatList, Collection<Integer> ruleIndexes) {
-    if (tree instanceof ParserRuleContext parserRuleContext && ruleIndexes.contains(parserRuleContext.getRuleIndex())) {
+    if (tree instanceof ParserRuleContext parserRuleContext && ruleIndexes.contains(parserRuleContext.getIndex())) {
       flatList.add(parserRuleContext);
     }
 
@@ -748,7 +752,7 @@ public class Trees {
 
   private static Collection<ParserRuleContext> findAllTopLevelDescendantNodesInner(ParseTree root,
                                                                                    Collection<Integer> indexes) {
-    if (root instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+    if (root instanceof ParserRuleContext rule && indexes.contains(rule.getIndex())) {
       return List.of(rule);
     }
 
@@ -761,7 +765,7 @@ public class Trees {
   }
 
   private static boolean nodeContains(ParseTree tree, ParseTree exclude, Set<Integer> indexes) {
-    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getRuleIndex())) {
+    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getIndex())) {
       return true;
     }
 
@@ -770,7 +774,7 @@ public class Trees {
   }
 
   private static boolean nodeContains(ParseTree tree, Set<Integer> indexes) {
-    if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+    if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getIndex())) {
       return true;
     }
     return IntStream.range(0, tree.getChildCount())
