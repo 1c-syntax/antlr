@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -68,10 +67,9 @@ public class Trees {
       return s;
     }
     var buf = new StringBuilder();
-    buf.append("(");
-    s = Utils.escapeWhitespace(getNodeText(t, ruleNames), false);
-    buf.append(s);
-    buf.append(' ');
+    buf.append("(")
+      .append(s)
+      .append(' ');
     for (int i = 0; i < t.getChildCount(); i++) {
       if (i > 0) {
         buf.append(' ');
@@ -150,7 +148,7 @@ public class Trees {
    * @return Список дочерних
    */
   public static List<ParserRuleContext> getChildren(Tree tree, Integer... ruleIndexes) {
-    List<Integer> indexes = Arrays.asList(ruleIndexes);
+    var indexes = Set.copyOf(Arrays.asList(ruleIndexes));
     List<ParserRuleContext> kids = new ArrayList<>();
     for (int i = 0; i < tree.getChildCount(); i++) {
       var child = tree.getChild(i);
@@ -170,7 +168,7 @@ public class Trees {
    * @return Первый найденный ребенок, если не найден, вернет пустой Optional
    */
   public static Optional<ParserRuleContext> getFirstChild(Tree tree, Integer... ruleIndexes) {
-    List<Integer> indexes = Arrays.asList(ruleIndexes);
+    var indexes = Set.copyOf(Arrays.asList(ruleIndexes));
     for (int i = 0; i < tree.getChildCount(); i++) {
       var child = tree.getChild(i);
       if (child instanceof ParserRuleContext parserRuleContext
@@ -206,7 +204,8 @@ public class Trees {
    *
    * @param element Элемент, для которого ищется предок
    * @param type    Тип предка
-   * @param <T>     Тип значения предка
+   * @param <T>     Тип значения предка, если выбранный тип значения не будет соответствовать type,
+   *                то будет ClassCastException
    * @return Найденный предок. Если не найден, то вернется NULL
    */
   @Nullable
@@ -275,7 +274,7 @@ public class Trees {
    * @since 4.5.1
    */
   public static boolean isAncestorOf(Tree ancestor, Tree node) {
-    if (ancestor == null || node == null || ancestor.getParent() == null) {
+    if (ancestor == null || node == null) {
       return false;
     }
     var parent = node.getParent();
@@ -492,12 +491,12 @@ public class Trees {
    * @since 4.5.1
    */
   public static Tree findNodeSuchThat(Tree t, Predicate<Tree> pred) {
-    if (pred.eval(t)) {
-      return t;
-    }
-
     if (t == null) {
       return null;
+    }
+
+    if (pred.eval(t)) {
+      return t;
     }
 
     int n = t.getChildCount();
@@ -571,14 +570,24 @@ public class Trees {
    * @return Признак наличия дочернего узла
    */
   public static boolean nodeContains(ParseTree tree, Integer... types) {
-    var indexes = new HashSet<>(Arrays.asList(types));
-
-    if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
-      return true;
+    if (types.length == 0) {
+      return false;
     }
 
-    return IntStream.range(0, tree.getChildCount())
-      .anyMatch(i -> nodeContains(tree.getChild(i), types));
+    if (types.length == 1) {
+      if (tree instanceof ParserRuleContext rule && rule.getRuleIndex() == types[0]) {
+        return true;
+      }
+      return IntStream.range(0, tree.getChildCount())
+        .anyMatch(i -> nodeContains(tree.getChild(i), types));
+    } else {
+      var indexes = Set.copyOf(Arrays.asList(types));
+      if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+        return true;
+      }
+      return IntStream.range(0, tree.getChildCount())
+        .anyMatch(i -> nodeContains(tree.getChild(i), indexes));
+    }
   }
 
   /**
@@ -590,14 +599,14 @@ public class Trees {
    * @return Признак наличия дочернего узла
    */
   public static boolean nodeContains(ParseTree tree, ParseTree exclude, Integer... types) {
-    Set<Integer> indexes = new HashSet<>(Arrays.asList(types));
+    var indexes = Set.copyOf(Arrays.asList(types));
 
     if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getRuleIndex())) {
       return true;
     }
 
     return IntStream.range(0, tree.getChildCount())
-      .anyMatch(i -> nodeContains(tree.getChild(i), exclude, types));
+      .anyMatch(i -> nodeContains(tree.getChild(i), exclude, indexes));
   }
 
   /**
@@ -725,7 +734,7 @@ public class Trees {
 
   private static List<ParseTree> getDescendantsWithFilter(ParseTree parent, ParseTree tnc, int ruleindex) {
     List<ParseTree> descendants;
-    if (tnc.getIndex() == ruleindex) {
+    if (tnc instanceof ParserRuleContext && tnc.getIndex() == ruleindex) {
       descendants = new ArrayList<>(findAllRuleNodes(parent, ruleindex));
     } else {
       descendants = getDescendants(parent)
@@ -749,5 +758,22 @@ public class Trees {
       .forEachOrdered(result::addAll);
 
     return result;
+  }
+
+  private static boolean nodeContains(ParseTree tree, ParseTree exclude, Set<Integer> indexes) {
+    if (tree instanceof ParserRuleContext rule && !tree.equals(exclude) && indexes.contains(rule.getRuleIndex())) {
+      return true;
+    }
+
+    return IntStream.range(0, tree.getChildCount())
+      .anyMatch(i -> nodeContains(tree.getChild(i), exclude, indexes));
+  }
+
+  private static boolean nodeContains(ParseTree tree, Set<Integer> indexes) {
+    if (tree instanceof ParserRuleContext rule && indexes.contains(rule.getRuleIndex())) {
+      return true;
+    }
+    return IntStream.range(0, tree.getChildCount())
+      .anyMatch(i -> nodeContains(tree.getChild(i), indexes));
   }
 }
