@@ -11,6 +11,7 @@ package org.antlr.v4.runtime;
 
 import com.github._1c_syntax.utils.Lazy;
 import org.antlr.v4.runtime.atn.PredictionMode;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -22,14 +23,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 import static org.antlr.v4.runtime.Token.EOF;
 
 /**
  * Базовая реализация токенайзера
+ * <p>
+ * Требования к парсеру: класс PARSER должен иметь публичный конструктор,
+ * принимающий единственный параметр типа {@link TokenStream}.
  *
  * @param <CONTEXT> Класс контекста
- * @param <PARSER> Класс реализации парсера
+ * @param <PARSER>  Класс реализации парсера
  */
 public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extends Parser> {
 
@@ -45,9 +48,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
   }
 
-  protected Tokenizer(InputStream content, Lexer lexer, Class<PARSER> parserClass) {
-    requireNonNull(content);
-    requireNonNull(lexer);
+  protected Tokenizer(@NotNull InputStream content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
     this.content = content;
     this.lexer = lexer;
     this.parserClass = parserClass;
@@ -98,6 +99,14 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     return rootAST();
   }
 
+  /**
+   * Возвращает корневой узел AST.
+   * <p>
+   * Этот метод должен вызывать соответствующий rule-метод парсера
+   * для построения дерева разбора (например, {@code parser.compilationUnit()}).
+   *
+   * @return корневой контекст AST
+   */
   protected abstract CONTEXT rootAST();
 
   private CommonTokenStream computeTokenStream() {
