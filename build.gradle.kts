@@ -46,7 +46,9 @@ dependencies {
 
     compileOnly("com.ibm.icu", "icu4j", "77.1")
 
+    implementation("commons-io", "commons-io", "2.15.1")
     implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
+
     implementation("io.github.1c-syntax", "utils", "0.6.3")
 
     testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")

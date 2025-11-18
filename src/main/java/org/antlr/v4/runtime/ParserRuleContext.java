@@ -346,6 +346,11 @@ public class ParserRuleContext extends RuleContext {
     return text.getOrCompute();
   }
 
+  @Override
+  public ParserRuleContext getRuleContext() {
+    return (ParserRuleContext) super.getRuleContext();
+  }
+
   public List<Token> getTokens() {
     return tokens.getOrCompute();
   }
