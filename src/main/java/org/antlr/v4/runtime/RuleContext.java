@@ -164,6 +164,11 @@ public class RuleContext implements RuleNode {
     return -1;
   }
 
+  @Override
+  public int getIndex() {
+    return getRuleIndex();
+  }
+
   /**
    * For rule associated with this parse tree internal node, return
    * the outer alternative number used to match the input. Default

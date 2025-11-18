@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import com.github._1c_syntax.utils.Lazy;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -16,7 +17,7 @@ import org.antlr.v4.runtime.tree.ErrorNodeImpl;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import org.antlr.v4.runtime.tree.TerminalNodeImpl;
+import org.antlr.v4.runtime.tree.Trees;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +50,18 @@ public class ParserRuleContext extends RuleContext {
   private static final ParserRuleContext EMPTY = new ParserRuleContext();
 
   /**
+   * Ленивое хранение текста.
+   * Несколько увеличивает потребление памяти в угоду ускорения получения содержимого
+   */
+  private final Lazy<String> text = new Lazy<>(super::getText);
+
+  /**
+   * Ленивое хранение токенов.
+   * Несколько увеличивает потребление памяти в угоду ускорения получения содержимого
+   */
+  private final Lazy<List<Token>> tokens = new Lazy<>(this::computeTokens);
+
+  /**
    * If we are debugging or building a parse tree for a visitor,
    * we need to track all of the tokens and rule invocations associated
    * with this rule's context. This is empty for parsing w/o tree constr.
@@ -58,27 +71,14 @@ public class ParserRuleContext extends RuleContext {
   public List<ParseTree> children;
 
   /**
-   * For debugging/tracing purposes, we want to track all of the nodes in
-   * the ATN traversed by the parser for a particular rule.
-   * This list indicates the sequence of ATN nodes used to match
-   * the elements of the children list. This list does not include
-   * ATN nodes and other rules used to match rule invocations. It
-   * traces the rule invocation node itself but nothing inside that
-   * other rule's ATN submachine.
-   * <p>
-   * There is NOT a one-to-one correspondence between the children and
-   * states list. There are typically many nodes in the ATN traversed
-   * for each element in the children list. For example, for a rule
-   * invocation there is the invoking state and the following state.
-   * <p>
-   * The parser setState() method updates field s and adds it to this list
-   * if we are debugging/tracing.
-   * <p>
-   * This does not trace states visited during prediction.
+   * Стартовая позиция (токен начала)
    */
-//	public List<Integer> states;
+  public Token start;
 
-  public Token start, stop;
+  /**
+   * Конечная позиция (токен конца)
+   */
+  public Token stop;
 
   /**
    * The exception that forced this rule to return. If the rule successfully
@@ -154,7 +154,9 @@ public class ParserRuleContext extends RuleContext {
   public <T extends ParseTree> T addAnyChild(T t) {
     assert t.getParent() == null || t.getParent() == this;
 
-    if (children == null) children = new ArrayList<>();
+    if (children == null) {
+      children = new ArrayList<>();
+    }
     children.add(t);
     return t;
   }
@@ -177,34 +179,6 @@ public class ParserRuleContext extends RuleContext {
    */
   public ErrorNode addErrorNode(ErrorNode errorNode) {
     return addAnyChild(errorNode);
-  }
-
-  /**
-   * Add a child to this node based upon matchedToken. It
-   * creates a TerminalNodeImpl rather than using
-   * {@link Parser#createTerminalNode(ParserRuleContext, Token)}. I'm leaving this
-   * in for compatibility but the parser doesn't use this anymore.
-   */
-  @Deprecated
-  public TerminalNode addChild(Token matchedToken) {
-    TerminalNodeImpl t = new TerminalNodeImpl(matchedToken);
-    addAnyChild(t);
-    t.setParent(this);
-    return t;
-  }
-
-  /**
-   * Add a child to this node based upon badToken.  It
-   * creates a ErrorNodeImpl rather than using
-   * {@link Parser#createErrorNode(ParserRuleContext, Token)}. I'm leaving this
-   * in for compatibility but the parser doesn't use this anymore.
-   */
-  @Deprecated
-  public ErrorNode addErrorNode(Token badToken) {
-    ErrorNodeImpl t = new ErrorNodeImpl(badToken);
-    addAnyChild(t);
-    t.setParent(this);
-    return t;
   }
 
   /**
@@ -256,7 +230,7 @@ public class ParserRuleContext extends RuleContext {
     int j = -1; // what token with ttype have we found?
     for (ParseTree o : children) {
       if (o instanceof TerminalNode tnode) {
-        Token symbol = tnode.getSymbol();
+        var symbol = tnode.getSymbol();
         if (symbol.getType() == ttype) {
           j++;
           if (j == i) {
@@ -277,7 +251,7 @@ public class ParserRuleContext extends RuleContext {
     List<TerminalNode> tokens = null;
     for (ParseTree o : children) {
       if (o instanceof TerminalNode tnode) {
-        Token symbol = tnode.getSymbol();
+        var symbol = tnode.getSymbol();
         if (symbol.getType() == ttype) {
           if (tokens == null) {
             tokens = new ArrayList<>();
@@ -365,6 +339,24 @@ public class ParserRuleContext extends RuleContext {
       "start=" + start +
       ", stop=" + stop +
       '}';
+  }
+
+  @Override
+  public String getText() {
+    return text.getOrCompute();
+  }
+
+  @Override
+  public ParserRuleContext getRuleContext() {
+    return (ParserRuleContext) super.getRuleContext();
+  }
+
+  public List<Token> getTokens() {
+    return tokens.getOrCompute();
+  }
+
+  private List<Token> computeTokens() {
+    return Trees.getTokensFromParseTree(this);
   }
 }
 

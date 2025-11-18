@@ -16,4 +16,9 @@ public interface TerminalNode extends ParseTree {
 
   @Override
   RuleNode getParent();
+
+  @Override
+  default int getIndex() {
+    return getSymbol().getType();
+  }
 }
