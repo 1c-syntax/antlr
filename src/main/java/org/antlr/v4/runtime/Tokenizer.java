@@ -73,7 +73,11 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
 
   private List<Token> computeTokens() {
     var tokensTemp = new ArrayList<>(getTokenStream().getTokens());
+    if (tokensTemp.isEmpty()) {
+      return tokensTemp;
+    }
     var lastToken = tokensTemp.get(tokensTemp.size() - 1);
+    // спрячем токен в скрытый канал, чтобы не мешался
     if (lastToken.getType() == EOF && lastToken instanceof CommonToken commonToken) {
       commonToken.setChannel(Lexer.HIDDEN);
     }
