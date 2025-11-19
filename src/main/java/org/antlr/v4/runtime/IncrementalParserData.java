@@ -1,10 +1,13 @@
-/*
- * Copyright 2019 The ANTLR Project. All rights reserved.
- * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
+/**
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
+ * Use of this file is governed by the BSD-3-Clause license that
+ * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime;
-
-import java.util.*;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.Pair;
@@ -13,55 +16,13 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-/*
-  Compare the intervals in a token offset range.  This is used as a comparator for a TreeMap.
-  Note that equality is defined as containment to make searches for individual element ranges find
-  their containing range.
-  The ranges must otherwise be non-overlapping..
-*/
-class CompareTokenOffsetRanges implements Comparator<Interval> {
-
-  @Override
-  public int compare(Interval o1, Interval o2) {
-    if (o1.properlyContains(o2) || o2.properlyContains(o1)) {
-      return 0;
-    }
-    if (o1.b < o2.a) {
-      return -1;
-    } else if (o1.a > o2.b) {
-      return 1;
-    }
-    // Overlapping
-    return 0;
-  }
-}
-
-class CompareTokensByStart implements Comparator<TokenChange> {
-  @Override
-  public int compare(TokenChange tc1, TokenChange tc2) {
-    int startDifference = getStartingIndex(tc1) - getStartingIndex(tc2);
-    if (startDifference != 0)
-      return startDifference;
-    if (tc1.changeType == tc2.changeType)
-      return 0;
-    if (tc1.changeType == TokenChangeType.REMOVED)
-      return -1;
-    if (tc2.changeType == TokenChangeType.REMOVED)
-      return 1;
-    return tc1.changeType.compareTo(tc2.changeType);
-
-  }
-
-  private int getStartingIndex(TokenChange tc) {
-    if (tc.changeType == TokenChangeType.CHANGED) {
-      return tc.oldToken.getStartIndex();
-    } else if (tc.changeType == TokenChangeType.ADDED) {
-      return tc.newToken.getStartIndex();
-    } else {
-      return tc.oldToken.getStartIndex();
-    }
-  }
-}
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.NavigableSet;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * This class computes and stores data needed by the incremental parser. It is
@@ -72,7 +33,9 @@ class CompareTokensByStart implements Comparator<TokenChange> {
  * reason.
  */
 public class IncrementalParserData {
+
   private IncrementalTokenStream tokenStream;
+
   /*
    * This mapping goes from a range to a token index offset to be applied for that
    * range. It is used to figure out what token in the new stream to look at for a
@@ -92,16 +55,13 @@ public class IncrementalParserData {
   private TreeSet<Integer> changedTokens;
 
   /* This is the set of token changes that were specified by the user. */
-  private List<TokenChange> tokenChanges;
+  private final List<TokenChange> tokenChanges;
 
   /*
    * This maps from depth, rule number, starting token index, to context we've
    * seen before.
    */
-  private HashMap<String, IncrementalParserRuleContext> ruleStartMap = new HashMap<>();
-
-  public IncrementalParserData() {
-  }
+  private final HashMap<String, IncrementalParserRuleContext> ruleStartMap = new HashMap<>();
 
   public IncrementalParserData(IncrementalTokenStream tokenStream, List<TokenChange> tokenChanges,
                                IncrementalParserRuleContext oldTree) {
@@ -125,14 +85,16 @@ public class IncrementalParserData {
    *                         This is used as the upper bound of the last range.
    */
   private void computeTokenOffsetRanges(int maxOldTokenIndex) {
-    if (this.tokenChanges == null || this.tokenChanges.size() == 0) {
+    if (this.tokenChanges == null || this.tokenChanges.isEmpty()) {
       return;
     }
+
     // Construct ranges for the token change offsets, and changed token intervals.
     int indexOffset = 0;
     ArrayList<Pair<Interval, Integer>> offsetRanges = new ArrayList<>();
     this.changedTokens = new TreeSet<>();
-    Collections.sort(this.tokenChanges, new CompareTokensByStart());
+    this.tokenChanges.sort(new CompareTokensByStart());
+
     for (TokenChange tokenChange : this.tokenChanges) {
       int indexToPush = 0;
       if (tokenChange.changeType == TokenChangeType.CHANGED) {
@@ -140,9 +102,9 @@ public class IncrementalParserData {
         // We only need to add this to changed tokens, it doesn't
         // change token indexes.
         continue;
-      }
-      // If a token changed, adjust the index the tokens after it
-      else if (tokenChange.changeType == TokenChangeType.REMOVED) {
+      } else if (tokenChange.changeType == TokenChangeType.REMOVED) {
+        // If a token changed, adjust the index the tokens after it
+
         this.changedTokens.add(tokenChange.oldToken.getTokenIndex() + indexOffset);
 
         // The indexes move back one to account for the removed token.
@@ -154,30 +116,34 @@ public class IncrementalParserData {
         indexOffset += 1;
         indexToPush = tokenChange.newToken.getTokenIndex();
       }
+
       // End the previous range at the token index right before us
-      if (offsetRanges.size() != 0) {
+      if (!offsetRanges.isEmpty()) {
         int lastIdx = offsetRanges.size() - 1;
         Pair<Interval, Integer> lastItem = offsetRanges.get(lastIdx);
-        offsetRanges.set(lastIdx, new Pair<>(Interval.of(lastItem.a.a, indexToPush - 1), lastItem.b));
+        offsetRanges.set(lastIdx,
+          new Pair<>(Interval.of(lastItem.getItem1().a, indexToPush - 1), lastItem.getItem2()));
       }
+
       // Push the range this change starts at, and what the effect is on
       // the index.
       if (indexOffset != 0) {
         offsetRanges.add(new Pair<>(Interval.of(indexToPush, indexToPush), indexOffset));
       }
-
     }
+
     // End the final range at length of the old token stream. That is the
     // last possible thing we need to offset.
-    if (offsetRanges.size() != 0) {
+    if (!offsetRanges.isEmpty()) {
       int lastIdx = offsetRanges.size() - 1;
       Pair<Interval, Integer> lastItem = offsetRanges.get(lastIdx);
-      offsetRanges.set(lastIdx, new Pair<>(Interval.of(lastItem.a.a, maxOldTokenIndex), lastItem.b));
+      offsetRanges.set(lastIdx,
+        new Pair<>(Interval.of(lastItem.getItem1().a, maxOldTokenIndex), lastItem.getItem2()));
     }
 
     this.tokenOffsets = new TreeMap<>(new CompareTokenOffsetRanges());
     for (Pair<Interval, Integer> tokenRange : offsetRanges) {
-      this.tokenOffsets.put(tokenRange.a, tokenRange.b);
+      this.tokenOffsets.put(tokenRange.getItem1(), tokenRange.getItem2());
     }
   }
 
@@ -192,8 +158,9 @@ public class IncrementalParserData {
     if (this.tokenChanges == null) {
       return true;
     }
+
     // However if there are no changes, the rule is fine
-    if (this.tokenChanges.size() == 0) {
+    if (this.tokenChanges.isEmpty()) {
       return false;
     }
 
@@ -202,8 +169,10 @@ public class IncrementalParserData {
     int end = ctx.getMaxTokenIndex();
     // See if the set has anything in the range we are asking about
     boolean result = false;
+
     // Get a view of all elements >= start token to start.
     NavigableSet<Integer> tailSet = this.changedTokens.tailSet(start, true);
+
     // If *any* are in range, the rule is modified.
     // Since the set is ordered, once we go past the end of the [start, end] range,
     // we can stop.
@@ -211,15 +180,11 @@ public class IncrementalParserData {
       if (elem <= end) {
         result = true;
         break;
-      } else if (elem > end) {
-        break;
       }
-    }
-    if (result) {
-      return true;
+      break;
     }
 
-    return false;
+    return result;
   }
 
   /**
@@ -258,7 +223,6 @@ public class IncrementalParserData {
     ParseTreeWalker.DEFAULT.walk(listener, tree);
   }
 
-
   /**
    * This class does two things: 1. Simple indexer to record the rule index and
    * token index start of each rule. 2. Adjust the min max token ranges for any
@@ -274,10 +238,11 @@ public class IncrementalParserData {
      *                            Return -1 if token does not need to change.
      */
 
-    int findAdjustedTokenIndex(int oldStreamTokenIndex) {
-      Integer result = tokenOffsets.get(Interval.of(oldStreamTokenIndex, oldStreamTokenIndex));
-      if (result == null)
+    private int findAdjustedTokenIndex(int oldStreamTokenIndex) {
+      var result = tokenOffsets.get(Interval.of(oldStreamTokenIndex, oldStreamTokenIndex));
+      if (result == null) {
         return -1;
+      }
       return oldStreamTokenIndex + result;
     }
 
@@ -347,12 +312,10 @@ public class IncrementalParserData {
 
     @Override
     public void visitTerminal(TerminalNode node) {
-
     }
 
     @Override
     public void visitErrorNode(ErrorNode node) {
-
     }
 
     /**
@@ -364,14 +327,16 @@ public class IncrementalParserData {
      */
     @Override
     public void enterEveryRule(ParserRuleContext ctx) {
-      IncrementalParserRuleContext incCtx = (IncrementalParserRuleContext) ctx;
+      var incCtx = (IncrementalParserRuleContext) ctx;
+
       // Don't bother adjusting rule contexts that we can't possibly
       // reuse. Also don't touch contexts without an epoch. They must
       // represent something the incremental parser never saw,
       // since it sets epochs on all contexts it touches.
-      if (incCtx.epoch == -1)
+      if (incCtx.epoch == -1) {
         return;
-      boolean mayNeedAdjustment = tokenOffsets != null && tokenOffsets.size() != 0;
+      }
+      boolean mayNeedAdjustment = tokenOffsets != null && !tokenOffsets.isEmpty();
       if (mayNeedAdjustment) {
         adjustMinMax(incCtx);
       }
@@ -386,7 +351,55 @@ public class IncrementalParserData {
 
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {
+    }
+  }
 
+  /**
+   * Compare the intervals in a token offset range.  This is used as a comparator for a TreeMap.
+   * Note that equality is defined as containment to make searches for individual element ranges find
+   * their containing range.
+   * The ranges must otherwise be non-overlapping..
+   */
+  private static class CompareTokenOffsetRanges implements Comparator<Interval> {
+    @Override
+    public int compare(Interval o1, Interval o2) {
+      if (o1.properlyContains(o2) || o2.properlyContains(o1)) {
+        return 0;
+      }
+      if (o1.b < o2.a) {
+        return -1;
+      } else if (o1.a > o2.b) {
+        return 1;
+      }
+      // Overlapping
+      return 0;
+    }
+  }
+
+  private static class CompareTokensByStart implements Comparator<TokenChange> {
+    @Override
+    public int compare(TokenChange tc1, TokenChange tc2) {
+      int startDifference = getStartingIndex(tc1) - getStartingIndex(tc2);
+      if (startDifference != 0)
+        return startDifference;
+      if (tc1.changeType == tc2.changeType)
+        return 0;
+      if (tc1.changeType == TokenChangeType.REMOVED)
+        return -1;
+      if (tc2.changeType == TokenChangeType.REMOVED)
+        return 1;
+      return tc1.changeType.compareTo(tc2.changeType);
+
+    }
+
+    private int getStartingIndex(TokenChange tc) {
+      if (tc.changeType == TokenChangeType.CHANGED) {
+        return tc.oldToken.getStartIndex();
+      } else if (tc.changeType == TokenChangeType.ADDED) {
+        return tc.newToken.getStartIndex();
+      } else {
+        return tc.oldToken.getStartIndex();
+      }
     }
   }
 }

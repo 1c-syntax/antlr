@@ -1,8 +1,12 @@
-/*
- * Copyright 2019 The ANTLR Project. All rights reserved.
- * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
+/**
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
+ * Use of this file is governed by the BSD-3-Clause license that
+ * can be found in the LICENSE.txt file in the project root.
  */
-
 // Авторство
 // 2019/04/06, dberlin, Daniel Berlin, dberlin@dberlin.org
 
@@ -119,9 +123,6 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
     // intervals already merged into this ctx.
     return ctx.getMinMaxTokenIndex();
   }
-  /*
-   * This is part of the regular Parser API. The super method must be called.
-   */
 
   /**
    * The new recursion context is an unfortunate edge case for us. It reparents

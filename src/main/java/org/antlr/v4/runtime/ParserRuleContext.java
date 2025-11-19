@@ -152,8 +152,6 @@ public class ParserRuleContext extends RuleContext {
    * @since 4.7
    */
   public <T extends ParseTree> T addAnyChild(T t) {
-    assert t.getParent() == null || t.getParent() == this;
-
     if (children == null) {
       children = new ArrayList<>();
     }

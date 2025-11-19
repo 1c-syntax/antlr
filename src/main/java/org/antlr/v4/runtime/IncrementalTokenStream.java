@@ -1,12 +1,17 @@
-/*
- * Copyright 2019 The ANTLR Project. All rights reserved.
- * Licensed under the BSD-3-Clause license. See LICENSE file in the project root for license information.
+/**
+ * This file is a part of ANTLR.
+ *
+ * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ *
+ * Use of this file is governed by the BSD-3-Clause license that
+ * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime;
 
-import java.util.Stack;
-
 import org.antlr.v4.runtime.misc.Interval;
+
+import java.util.Stack;
 
 public class IncrementalTokenStream extends CommonTokenStream {
   /**
@@ -23,7 +28,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * indices.
    */
 
-  private Stack<Interval> minMaxStack = new Stack<Interval>();
+  private final Stack<Interval> minMaxStack = new Stack<>();
 
   /**
    * Constructs a new {@link IncrementalTokenStream} using the specified token
@@ -64,7 +69,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * Pop the current minimum/maximum token state and return it.
    */
   public Interval popMinMax() {
-    if (minMaxStack.size() == 0) {
+    if (minMaxStack.isEmpty()) {
       throw new IndexOutOfBoundsException("Can't pop the min max state when there are 0 states");
     }
     return minMaxStack.pop();
@@ -79,7 +84,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
     Token result = super.LT(k);
     // Adjust the top of the minimum maximum stack if the position/lookahead amount
     // changed.
-    if (minMaxStack.size() != 0 && (lastP != p || lastK != k)) {
+    if (!minMaxStack.isEmpty() && (lastP != p || lastK != k) && result != null) {
       int lastIdx = minMaxStack.size() - 1;
       Interval stackItem = minMaxStack.get(lastIdx);
       minMaxStack.set(lastIdx, stackItem.union(Interval.of(result.getTokenIndex(), result.getTokenIndex())));

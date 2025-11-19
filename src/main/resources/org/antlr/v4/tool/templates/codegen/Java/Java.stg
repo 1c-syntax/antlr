@@ -349,12 +349,13 @@ parser_ctor(p) ::= <<
 <if(p.file.incremental)>
 public <p.name>(IncrementalTokenStream input) {
 	this(input, null);
+	_interp = new ParserATNSimulator(this,_ATN);
 }
 
 public <p.name>(IncrementalTokenStream input, IncrementalParserData data)
 {
 	super(input, data);
-	_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
+	_interp = new ParserATNSimulator(this,_ATN);
 }
 <else>
 public <p.name>(TokenStream input) {
@@ -515,6 +516,15 @@ LeftRecursiveRuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,
 private <currentRule.ctxType> <currentRule.name>(int _p<args:{a | , <a>}>) throws RecognitionException {
 	ParserRuleContext _parentctx = _ctx;
 	int _parentState = getState();
+	<if(parser.file.incremental)>
+	// Check whether we need to execute this rule.
+	<currentRule.ctxType> guardResult = (<currentRule.ctxType>)guardRule((IncrementalParserRuleContext)_ctx, getState(), RULE_<currentRule.name>);
+	// If we found an existing context that is valid, return it.
+	if (guardResult != null) {
+		this._input.seek(guardResult.stop.getTokenIndex() + 1);
+		return guardResult;
+	}
+	<endif>
 	<currentRule.ctxType> _localctx = new <currentRule.ctxType>(_ctx, _parentState<currentRule.args:{a | , <a.name>}>);
 	<currentRule.ctxType> _prevctx = _localctx;
 	int _startState = <currentRule.startState>;
@@ -877,15 +887,18 @@ public static class <struct.name> extends <if(contextSuperClass)><contextSuperCl
 	<else>
 	public <struct.name>(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }
 	<endif>
-<endif>
-    public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
+	<endif>
 <if(parser.file.incremental)>
-	    super((IncrementalParserRuleContext) parent, invokingState);
-<else>
-	    super(parent, invokingState);
-<endif>
+	public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
+	super((IncrementalParserRuleContext)parent, invokingState);
 		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
 	}
+<else>
+	public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
+	super(parent, invokingState);
+		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
+	}
+<endif>
 	@Override public int getRuleIndex() { return RULE_<struct.derivedFromName>; }
 <if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
 	public <struct.name>() { }

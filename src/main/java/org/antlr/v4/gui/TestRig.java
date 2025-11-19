@@ -12,14 +12,12 @@ package org.antlr.v4.gui;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.DiagnosticErrorListener;
 import org.antlr.v4.runtime.IncrementalTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.atn.PredictionMode;
 
 import javax.print.PrintException;
@@ -148,7 +146,7 @@ public class TestRig {
       String parserName = grammarName + "Parser";
       parserClass = cl.loadClass(parserName).asSubclass(Parser.class);
       Constructor<? extends Parser> parserCtor = parserClass.getConstructor(IncrementalTokenStream.class);
-      parser = parserCtor.newInstance((IncrementalTokenStream)null);
+      parser = parserCtor.newInstance((IncrementalTokenStream) null);
     }
 
     Charset charset = (encoding == null ? Charset.defaultCharset() : Charset.forName(encoding));

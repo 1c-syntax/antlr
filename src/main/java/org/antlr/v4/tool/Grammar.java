@@ -517,7 +517,7 @@ public class Grammar implements AttributeResolver {
    * the instance {@code r} at index {@code r.index} in {@link #indexToRule}.
    * </p>
    *
-   * @param r
+   * @param r Rule
    * @return {@code true} if the rule was removed from the {@link Grammar}
    * instance; otherwise, {@code false} if the specified rule was not defined
    * in the grammar.
