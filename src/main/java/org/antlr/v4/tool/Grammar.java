@@ -93,6 +93,7 @@ public class Grammar implements AttributeResolver {
     parserOptions.add("accessLevel");
     parserOptions.add("exportMacro");
     parserOptions.add("caseInsensitive");
+    parserOptions.add("incremental");
   }
 
   public static final Set<String> lexerOptions = parserOptions;
@@ -147,6 +148,7 @@ public class Grammar implements AttributeResolver {
     doNotCopyOptionsToLexer.add("TokenLabelType");
     doNotCopyOptionsToLexer.add("abstract");
     doNotCopyOptionsToLexer.add("tokenVocab");
+    doNotCopyOptionsToLexer.add("incremental");
   }
 
   public static final Map<String, AttributeDict> grammarAndLabelRefTypeToScope =
