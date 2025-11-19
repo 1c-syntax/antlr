@@ -64,6 +64,11 @@ public class IncrementalParserData {
   private final HashMap<String, IncrementalParserRuleContext> ruleStartMap = new HashMap<>();
 
   public IncrementalParserData(IncrementalTokenStream tokenStream, List<TokenChange> tokenChanges,
+                               ParserRuleContext oldTree) {
+    this(tokenStream, tokenChanges, (IncrementalParserRuleContext) oldTree);
+  }
+
+  public IncrementalParserData(IncrementalTokenStream tokenStream, List<TokenChange> tokenChanges,
                                IncrementalParserRuleContext oldTree) {
     this.tokenChanges = tokenChanges;
     if (tokenChanges != null) {
