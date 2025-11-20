@@ -1,9 +1,9 @@
 /**
  * This file is a part of ANTLR.
- *
+ * <p>
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
  * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
- *
+ * <p>
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -22,6 +22,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static org.antlr.v4.runtime.Token.EOF;
@@ -52,6 +53,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
   private final boolean supportRebuild;
   private final ReentrantLock rebuildLock = new ReentrantLock();
   private CONTEXT oldAst;
+  private List<Token> oldTokens;
 
   protected Tokenizer(@NotNull String content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
     this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
@@ -112,8 +114,9 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
 
     try {
       oldAst = getAst(); // запоминаем дерево, которое было ДО
-      tokens.clear();
+      oldTokens = getTokens(); // запоминаем токены, которые были ДО
       tokenStream.clear();
+      tokens.clear();
       content = newContent;
       ast.clear();
     } finally {
@@ -140,8 +143,11 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     if (parser == null || !supportRebuild) {
       parser = createParser(thatTokenStream);
     } else {
-      var parserData = new IncrementalParserData(thatTokenStream, oldAst);
+      var newTokens = getTokens();
+      var tokenChanges = computeTokenChanges(oldTokens, newTokens);
+      var parserData = new IncrementalParserData(thatTokenStream, tokenChanges, (IncrementalParserRuleContext) oldAst);
       oldAst = null;
+      oldTokens.clear();
       parser = createParser(thatTokenStream, parserData);
     }
 
@@ -154,6 +160,88 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
       parser.getInterpreter().setPredictionMode(PredictionMode.LL);
     }
     return rootAST();
+  }
+
+  private static List<TokenChange> computeTokenChanges(List<Token> oldTokens, List<Token> newTokens) {
+    List<TokenChange> changes = new ArrayList<>();
+
+    int oldIndex = 0;
+    int newIndex = 0;
+
+    // Пропускаем одинаковые токены с начала
+    while (oldIndex < oldTokens.size() && newIndex < newTokens.size()) {
+      var oldToken = oldTokens.get(oldIndex);
+      var newToken = newTokens.get(newIndex);
+
+      if (tokensEqual(oldToken, newToken)) {
+        oldIndex++;
+        newIndex++;
+      } else {
+        break;
+      }
+    }
+
+    // Пропускаем одинаковые токены с конца
+    int oldEnd = oldTokens.size() - 1;
+    int newEnd = newTokens.size() - 1;
+
+    while (oldIndex <= oldEnd && newIndex <= newEnd) {
+      var oldToken = oldTokens.get(oldEnd);
+      var newToken = newTokens.get(newEnd);
+
+      if (tokensEqual(oldToken, newToken)) {
+        oldEnd--;
+        newEnd--;
+      } else {
+        break;
+      }
+    }
+
+    // Все токены между oldIndex и oldEnd были изменены/удалены
+    // Все токены между newIndex и newEnd были изменены/добавлены
+
+    // Для упрощения: считаем, что все токены в измененной области были изменены
+    while (oldIndex <= oldEnd && newIndex <= newEnd) {
+      var oldToken = oldTokens.get(oldIndex);
+      var newToken = newTokens.get(newIndex);
+
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.CHANGED)
+        .setOldToken((CommonToken) oldToken)
+        .setNewToken((CommonToken) newToken)
+        .build());
+
+      oldIndex++;
+      newIndex++;
+    }
+
+    // Оставшиеся старые токены были удалены
+    while (oldIndex <= oldEnd) {
+      var oldToken = oldTokens.get(oldIndex);
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.REMOVED)
+        .setOldToken((CommonToken) oldToken)
+        .build());
+      oldIndex++;
+    }
+
+    // Оставшиеся новые токены были добавлены
+    while (newIndex <= newEnd) {
+      var newToken = newTokens.get(newIndex);
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.ADDED)
+        .setNewToken((CommonToken) newToken)
+        .build());
+      newIndex++;
+    }
+
+    return changes;
+  }
+
+  private static boolean tokensEqual(Token oldToken, Token newToken) {
+    return oldToken.getType() == newToken.getType()
+      && oldToken.getChannel() == newToken.getChannel()
+      && Objects.equals(oldToken.getText(), newToken.getText());
   }
 
   /**
