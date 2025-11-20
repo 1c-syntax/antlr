@@ -63,9 +63,9 @@ public class IncrementalParserData {
    */
   private final HashMap<String, IncrementalParserRuleContext> ruleStartMap = new HashMap<>();
 
-  public IncrementalParserData(IncrementalTokenStream tokenStream, List<TokenChange> tokenChanges,
+  public IncrementalParserData(IncrementalTokenStream tokenStream,
                                ParserRuleContext oldTree) {
-    this(tokenStream, tokenChanges, (IncrementalParserRuleContext) oldTree);
+    this(tokenStream, new ArrayList<>(), (IncrementalParserRuleContext) oldTree);
   }
 
   public IncrementalParserData(IncrementalTokenStream tokenStream, List<TokenChange> tokenChanges,
@@ -102,24 +102,24 @@ public class IncrementalParserData {
 
     for (TokenChange tokenChange : this.tokenChanges) {
       int indexToPush = 0;
-      if (tokenChange.changeType == TokenChangeType.CHANGED) {
-        this.changedTokens.add(tokenChange.newToken.getTokenIndex());
+      if (tokenChange.changeType() == TokenChangeType.CHANGED) {
+        this.changedTokens.add(tokenChange.newToken().getTokenIndex());
         // We only need to add this to changed tokens, it doesn't
         // change token indexes.
         continue;
-      } else if (tokenChange.changeType == TokenChangeType.REMOVED) {
+      } else if (tokenChange.changeType() == TokenChangeType.REMOVED) {
         // If a token changed, adjust the index the tokens after it
 
-        this.changedTokens.add(tokenChange.oldToken.getTokenIndex() + indexOffset);
+        this.changedTokens.add(tokenChange.oldToken().getTokenIndex() + indexOffset);
 
         // The indexes move back one to account for the removed token.
-        indexOffset -= 1;
-        indexToPush = tokenChange.oldToken.getTokenIndex();
-      } else if (tokenChange.changeType == TokenChangeType.ADDED) {
-        this.changedTokens.add(tokenChange.newToken.getTokenIndex());
+        indexOffset--;
+        indexToPush = tokenChange.oldToken().getTokenIndex();
+      } else if (tokenChange.changeType() == TokenChangeType.ADDED) {
+        this.changedTokens.add(tokenChange.newToken().getTokenIndex());
         // The indexes move forward one to account for the removed token.
-        indexOffset += 1;
-        indexToPush = tokenChange.newToken.getTokenIndex();
+        indexOffset++;
+        indexToPush = tokenChange.newToken().getTokenIndex();
       }
 
       // End the previous range at the token index right before us
@@ -224,7 +224,7 @@ public class IncrementalParserData {
     // a future optimization. We also could just allow passing in
     // constructed maps if this turns out to be slow.
     tokenStream.fill();
-    ParseTreeListener listener = new ParseTreeProcessor();
+    var listener = new ParseTreeProcessor();
     ParseTreeWalker.DEFAULT.walk(listener, tree);
   }
 
@@ -385,25 +385,28 @@ public class IncrementalParserData {
     @Override
     public int compare(TokenChange tc1, TokenChange tc2) {
       int startDifference = getStartingIndex(tc1) - getStartingIndex(tc2);
-      if (startDifference != 0)
+      if (startDifference != 0) {
         return startDifference;
-      if (tc1.changeType == tc2.changeType)
+      }
+      if (tc1.changeType() == tc2.changeType()) {
         return 0;
-      if (tc1.changeType == TokenChangeType.REMOVED)
+      }
+      if (tc1.changeType() == TokenChangeType.REMOVED) {
         return -1;
-      if (tc2.changeType == TokenChangeType.REMOVED)
+      }
+      if (tc2.changeType() == TokenChangeType.REMOVED) {
         return 1;
-      return tc1.changeType.compareTo(tc2.changeType);
-
+      }
+      return tc1.changeType().compareTo(tc2.changeType());
     }
 
     private int getStartingIndex(TokenChange tc) {
-      if (tc.changeType == TokenChangeType.CHANGED) {
-        return tc.oldToken.getStartIndex();
-      } else if (tc.changeType == TokenChangeType.ADDED) {
-        return tc.newToken.getStartIndex();
+      if (tc.changeType() == TokenChangeType.CHANGED) {
+        return tc.oldToken().getStartIndex();
+      } else if (tc.changeType() == TokenChangeType.ADDED) {
+        return tc.newToken().getStartIndex();
       } else {
-        return tc.oldToken.getStartIndex();
+        return tc.oldToken().getStartIndex();
       }
     }
   }

@@ -7,8 +7,6 @@
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-// Авторство
-// 2019/04/06, dberlin, Daniel Berlin, dberlin@dberlin.org
 
 package org.antlr.v4.runtime;
 
@@ -16,6 +14,8 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Incremental parser implementation
@@ -37,16 +37,16 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public abstract class IncrementalParser extends Parser implements ParseTreeListener {
   // Current parser epoch. Incremented every time a new incremental parser is
   // created.
-  private static int _PARSER_EPOCH = 0;
+  private static AtomicInteger _PARSER_EPOCH = new AtomicInteger(0);
 
   private int parserEpoch;
   private IncrementalParserData parseData;
 
-  public IncrementalParser(IncrementalTokenStream input) {
+  public IncrementalParser(TokenStream input) {
     this(input, null);
   }
 
-  public IncrementalParser(IncrementalTokenStream input, IncrementalParserData parseData) {
+  public IncrementalParser(TokenStream input, IncrementalParserData parseData) {
     super(input);
     this.parseData = parseData;
     parserEpoch = IncrementalParser.incrementGlobalParserEpoch();
@@ -55,7 +55,7 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   }
 
   protected static int incrementGlobalParserEpoch() {
-    return ++IncrementalParser._PARSER_EPOCH;
+    return IncrementalParser._PARSER_EPOCH.addAndGet(1);
   }
 
   public int getParserEpoch() {
@@ -64,15 +64,22 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
 
   // Push the current token data onto the min max stack for the stream.
   private void pushCurrentTokenToMinMax() {
-    IncrementalTokenStream incStream = (IncrementalTokenStream) getInputStream();
-    Token token = this._input.LT(1);
-    incStream.pushMinMax(token.getTokenIndex(), token.getTokenIndex());
+    var incStream = getInputStream();
+    if (!(incStream instanceof IncrementalTokenStream incrementalTokenStream)) {
+      throw new IllegalStateException("IncrementalParser requires IncrementalTokenStream as input");
+    }
+    var token = this._input.LT(1);
+    incrementalTokenStream.pushMinMax(token.getTokenIndex(), token.getTokenIndex());
   }
 
   // Pop the min max stack the stream is using and return the interval.
   private Interval popCurrentMinMax(IncrementalParserRuleContext ctx) {
-    IncrementalTokenStream incStream = (IncrementalTokenStream) getInputStream();
-    return incStream.popMinMax();
+    var incStream = getInputStream();
+    if (!(incStream instanceof IncrementalTokenStream incrementalTokenStream)) {
+      throw new IllegalStateException("IncrementalParser requires IncrementalTokenStream as input");
+    }
+
+    return incrementalTokenStream.popMinMax();
   }
 
   /**
@@ -87,25 +94,28 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
       return null;
     }
     // See if we have seen this state before at this starting point.
-    IncrementalParserRuleContext existingCtx = this.parseData.tryGetContext(
-      parentCtx != null ? parentCtx.depth() + 1 : 1, getState(), ruleIndex,
+    var existingCtx = this.parseData.tryGetContext(
+      parentCtx != null ? parentCtx.depth() + 1 : 1,
+      getState(),
+      ruleIndex,
       this._input.LT(1).getTokenIndex());
+
     // We haven't see it, so we need to rerun this rule.
     if (existingCtx == null) {
       return null;
     }
+
     // We have seen it, see if it was affected by the parse
     if (this.parseData.ruleAffectedByTokenChanges(existingCtx)) {
       return null;
     }
+
     // Everything checked out, reuse the rule context - we add it to the
     // parent context as enterRule would have;
     if (this._ctx != null) {
-      IncrementalParserRuleContext parent = (IncrementalParserRuleContext) this._ctx;
+      var parent = (IncrementalParserRuleContext) this._ctx;
       // add current context to parent if we have a parent
-      if (parent != null) {
-        parent.addChild(existingCtx);
-      }
+      parent.addChild(existingCtx);
     }
     return existingCtx;
   }

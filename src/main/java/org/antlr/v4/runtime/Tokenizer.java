@@ -37,23 +37,23 @@ import static org.antlr.v4.runtime.Token.EOF;
  */
 public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extends Parser> {
 
-  protected InputStream content;
-  protected final Lexer lexer;
+  private InputStream content;
+  private final Lexer lexer;
   private final Lazy<IncrementalTokenStream> tokenStream = new Lazy<>(this::computeTokenStream);
   private final Lazy<List<Token>> tokens = new Lazy<>(this::computeTokens);
   private final Lazy<CONTEXT> ast = new Lazy<>(this::computeAST);
-  protected final Class<PARSER> parserClass;
+  private final Class<PARSER> parserClass;
   protected PARSER parser;
 
   /**
    * Признак возможности ребилда (инкрементальный парсинг).
-   * Заполняется только для инкрементальных парсеров {@link IncrementalParserData}
+   * Заполняется только для инкрементальных парсеров {@link IncrementalParser}
    */
   private final boolean supportRebuild;
   private final ReentrantLock rebuildLock = new ReentrantLock();
   private CONTEXT oldAst;
 
-  protected Tokenizer(String content, Lexer lexer, Class<PARSER> parserClass) {
+  protected Tokenizer(@NotNull String content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
     this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
   }
 
@@ -61,7 +61,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     this.content = content;
     this.lexer = lexer;
     this.parserClass = parserClass;
-    this.supportRebuild = parserClass.isAssignableFrom(IncrementalParserData.class);
+    this.supportRebuild = IncrementalParser.class.isAssignableFrom(parserClass);
   }
 
   /**
@@ -108,13 +108,18 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
       return;
     }
 
+    // контент не изменился, пересобирать нет смысла
+    if (content.equals(newContent)) {
+      return;
+    }
+
     rebuildLock.lock();
 
     try {
+      oldAst = getAst(); // запоминаем дерево, которое было ДО
       tokens.clear();
       tokenStream.clear();
       content = newContent;
-      oldAst = getAst();
       ast.clear();
     } finally {
       rebuildLock.unlock();
@@ -140,7 +145,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     if (parser == null || !supportRebuild) {
       parser = createParser(thatTokenStream);
     } else {
-      var parserData = new IncrementalParserData(thatTokenStream, new ArrayList<>(), oldAst);
+      var parserData = new IncrementalParserData(thatTokenStream, oldAst);
       oldAst = null;
       parser = createParser(thatTokenStream, parserData);
     }
@@ -194,18 +199,23 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     return tokenStreamUnboxed;
   }
 
-  private PARSER createParser(CommonTokenStream tokenStream) {
+  private PARSER createParser(IncrementalTokenStream tokenStream) {
     try {
-      return parserClass.getDeclaredConstructor(TokenStream.class)
-        .newInstance(tokenStream);
+      if (supportRebuild) {
+        return parserClass.getDeclaredConstructor(IncrementalTokenStream.class)
+          .newInstance(tokenStream);
+      } else {
+        return parserClass.getDeclaredConstructor(TokenStream.class)
+          .newInstance(tokenStream);
+      }
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       throw new RuntimeException(e);
     }
   }
 
-  private PARSER createParser(CommonTokenStream tokenStream, IncrementalParserData parserData) {
+  private PARSER createParser(IncrementalTokenStream tokenStream, IncrementalParserData parserData) {
     try {
-      return parserClass.getDeclaredConstructor(TokenStream.class, IncrementalParserData.class)
+      return parserClass.getDeclaredConstructor(IncrementalTokenStream.class, IncrementalParserData.class)
         .newInstance(tokenStream, parserData);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       throw new RuntimeException(e);

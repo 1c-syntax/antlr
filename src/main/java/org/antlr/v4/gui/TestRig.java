@@ -13,11 +13,13 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
 import org.antlr.v4.runtime.DiagnosticErrorListener;
+import org.antlr.v4.runtime.IncrementalParser;
 import org.antlr.v4.runtime.IncrementalTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.atn.PredictionMode;
 
 import javax.print.PrintException;
@@ -120,7 +122,6 @@ public class TestRig {
   }
 
   public void process() throws Exception {
-//		System.out.println("exec "+grammarName+"."+startRuleName);
     String lexerName = grammarName + "Lexer";
     ClassLoader cl = Thread.currentThread().getContextClassLoader();
     Class<? extends Lexer> lexerClass;
@@ -143,10 +144,15 @@ public class TestRig {
     Class<? extends Parser> parserClass = null;
     Parser parser = null;
     if (!startRuleName.equals(LEXER_START_RULE_NAME)) {
-      String parserName = grammarName + "Parser";
+      var parserName = grammarName + "Parser";
       parserClass = cl.loadClass(parserName).asSubclass(Parser.class);
-      Constructor<? extends Parser> parserCtor = parserClass.getConstructor(IncrementalTokenStream.class);
-      parser = parserCtor.newInstance((IncrementalTokenStream) null);
+      if (IncrementalParser.class.isAssignableFrom(parserClass)) {
+        parser = parserClass.getConstructor(IncrementalTokenStream.class)
+          .newInstance((IncrementalTokenStream) null);
+      } else {
+        parser = parserClass.getConstructor(TokenStream.class)
+          .newInstance((TokenStream) null);
+      }
     }
 
     Charset charset = (encoding == null ? Charset.defaultCharset() : Charset.forName(encoding));

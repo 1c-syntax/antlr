@@ -169,9 +169,6 @@
  *      Character.isJavaIdentifierPart(int) returns true."
  */
 
-// Авторство
-// 2019/04/06, dberlin, Daniel Berlin, dberlin@dberlin.org
-
 grammar TestIncrementalJava;
 options {
     incremental = true;

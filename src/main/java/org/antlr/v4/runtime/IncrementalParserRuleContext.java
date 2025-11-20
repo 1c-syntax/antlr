@@ -56,7 +56,7 @@ public class IncrementalParserRuleContext extends ParserRuleContext {
   /**
    * Compute the depth of this context in the parse tree.
    *
-   * @note The incremental parser uses a caching implemntation.
+   * @note The incremental parser uses a caching implementation.
    *
    */
   @Override

@@ -7,8 +7,6 @@
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-// Авторство
-// 2019/04/06, dberlin, Daniel Berlin, dberlin@dberlin.org
 
 package org.antlr.v4.test.runtime.java.api;
 
@@ -20,7 +18,6 @@ import org.antlr.v4.runtime.IncrementalParserRuleContext;
 import org.antlr.v4.runtime.IncrementalTokenStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.TokenChange;
-import org.antlr.v4.runtime.TokenChangeBuilder;
 import org.antlr.v4.runtime.TokenChangeType;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.xpath.XPath;
@@ -114,14 +111,14 @@ public class TestIncremental {
     List<Token> oldTokens = tokenStream.getTokens();
     lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_2));
     tokenStream = new IncrementalTokenStream(lexer);
-    TokenChange firstChange = new TokenChangeBuilder()
+    TokenChange firstChange = TokenChange.builder()
       .setChangeType(TokenChangeType.REMOVED)
       .setOldToken((CommonToken) oldTokens.get(3))
-      .createTokenChange();
-    TokenChange secondChange = new TokenChangeBuilder()
+      .build();
+    TokenChange secondChange = TokenChange.builder()
       .setChangeType(TokenChangeType.REMOVED)
       .setOldToken((CommonToken) oldTokens.get(4))
-      .createTokenChange();
+      .build();
 
     ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
@@ -154,14 +151,14 @@ public class TestIncremental {
     lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_3));
     tokenStream = new IncrementalTokenStream(lexer);
     tokenStream.fill();
-    TokenChange firstChange = new TokenChangeBuilder()
+    TokenChange firstChange = TokenChange.builder()
       .setChangeType(TokenChangeType.ADDED)
       .setNewToken((CommonToken) tokenStream.get(9))
-      .createTokenChange();
-    TokenChange secondChange = new TokenChangeBuilder()
+      .build();
+    TokenChange secondChange = TokenChange.builder()
       .setChangeType(TokenChangeType.ADDED)
       .setNewToken((CommonToken) tokenStream.get(10))
-      .createTokenChange();
+      .build();
 
     ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
@@ -243,11 +240,11 @@ public class TestIncremental {
     lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_2));
     tokenStream = new IncrementalTokenStream(lexer);
     tokenStream.fill();
-    TokenChange firstChange = new TokenChangeBuilder()
+    TokenChange firstChange = TokenChange.builder()
       .setChangeType(TokenChangeType.CHANGED)
       .setOldToken((CommonToken) oldTokens.get(21))
       .setNewToken((CommonToken) tokenStream.get(21))
-      .createTokenChange();
+      .build();
 
     List<TokenChange> changes = new ArrayList<>();
     changes.add(firstChange);
