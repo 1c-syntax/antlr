@@ -63,6 +63,13 @@ public class IncrementalParserData {
    */
   private final HashMap<String, IncrementalParserRuleContext> ruleStartMap = new HashMap<>();
 
+  /**
+   * Creates IncrementalParserData with an old parse tree.
+   *
+   * @param tokenStream the incremental token stream
+   * @param oldTree the previous parse tree; must be an instance of
+   *                IncrementalParserRuleContext (will throw ClassCastException otherwise)
+   */
   public IncrementalParserData(IncrementalTokenStream tokenStream,
                                ParserRuleContext oldTree) {
     this(tokenStream, new ArrayList<>(), (IncrementalParserRuleContext) oldTree);
