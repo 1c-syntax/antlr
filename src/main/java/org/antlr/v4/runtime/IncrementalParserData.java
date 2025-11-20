@@ -172,24 +172,13 @@ public class IncrementalParserData {
     // See if any changed token exists in our upper, lower bounds.
     int start = ctx.getMinTokenIndex();
     int end = ctx.getMaxTokenIndex();
-    // See if the set has anything in the range we are asking about
-    boolean result = false;
 
-    // Get a view of all elements >= start token to start.
+    // Get the first element >= start. If it's also <= end, the range [start, end] contains changes.
     NavigableSet<Integer> tailSet = this.changedTokens.tailSet(start, true);
-
-    // If *any* are in range, the rule is modified.
-    // Since the set is ordered, once we go past the end of the [start, end] range,
-    // we can stop.
-    for (Integer elem : tailSet) {
-      if (elem <= end) {
-        result = true;
-        break;
-      }
-      break;
+    if (tailSet.isEmpty()) {
+      return false;
     }
-
-    return result;
+    return tailSet.first() <= end;
   }
 
   /**

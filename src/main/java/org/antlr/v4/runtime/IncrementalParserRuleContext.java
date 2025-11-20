@@ -24,9 +24,7 @@ public class IncrementalParserRuleContext extends ParserRuleContext {
 
   // The interval that stores the min/max token we touched during
   // lookahead/lookbehind
-  private Interval _minMaxTokenIndex = Interval.of(Integer.MAX_VALUE, Integer.MIN_VALUE
-
-  );
+  private Interval _minMaxTokenIndex = Interval.of(Integer.MAX_VALUE, Integer.MIN_VALUE);
 
   /**
    * Get the minimum token index this rule touched.

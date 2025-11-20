@@ -28,7 +28,7 @@
 /** A Java 1.5 grammar for ANTLR v3 derived from the spec
  *
  *  This is a very close representation of the spec; the changes
- *  are comestic (remove left recursion) and also fixes (the spec
+ *  are cosmetic (remove left recursion) and also fixes (the spec
  *  isn't exactly perfect).  I have run this on the 1.4.2 source
  *  and some nasty looking enums from 1.5, but have not really
  *  tested for 1.5 compatibility.

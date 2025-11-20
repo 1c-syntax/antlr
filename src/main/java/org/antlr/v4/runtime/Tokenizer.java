@@ -108,11 +108,6 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
       return;
     }
 
-    // контент не изменился, пересобирать нет смысла
-    if (content.equals(newContent)) {
-      return;
-    }
-
     rebuildLock.lock();
 
     try {
