@@ -52,8 +52,8 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
    */
   private final boolean supportRebuild;
   private final ReentrantLock rebuildLock = new ReentrantLock();
-  private CONTEXT oldAst;
-  private List<Token> oldTokens;
+  private volatile CONTEXT oldAst;
+  private volatile List<Token> oldTokens;
 
   protected Tokenizer(@NotNull String content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
     this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
