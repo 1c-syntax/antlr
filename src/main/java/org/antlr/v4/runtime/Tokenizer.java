@@ -147,7 +147,9 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
       var tokenChanges = computeTokenChanges(oldTokens, newTokens);
       var parserData = new IncrementalParserData(thatTokenStream, tokenChanges, (IncrementalParserRuleContext) oldAst);
       oldAst = null;
-      oldTokens.clear();
+      if(oldTokens != null) {
+        oldTokens.clear();
+      }
       parser = createParser(thatTokenStream, parserData);
     }
 
