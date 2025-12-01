@@ -93,7 +93,6 @@ public class CommonTokenStream extends BufferedTokenStream {
 
   @Override
   public Token LT(int k) {
-    //System.out.println("enter LT("+k+")");
     lazyInit();
     if (k == 0) return null;
     if (k < 0) return LB(-k);
@@ -107,7 +106,6 @@ public class CommonTokenStream extends BufferedTokenStream {
       }
       n++;
     }
-//		if ( i>range ) range = i;
     return tokens.get(i);
   }
 

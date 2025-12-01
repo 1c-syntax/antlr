@@ -22,6 +22,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static org.antlr.v4.runtime.Token.EOF;
 
@@ -36,15 +38,24 @@ import static org.antlr.v4.runtime.Token.EOF;
  */
 public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extends Parser> {
 
-  private final InputStream content;
+  private InputStream content;
   private final Lexer lexer;
-  private final Lazy<CommonTokenStream> tokenStream = new Lazy<>(this::computeTokenStream);
+  private final Lazy<IncrementalTokenStream> tokenStream = new Lazy<>(this::computeTokenStream);
   private final Lazy<List<Token>> tokens = new Lazy<>(this::computeTokens);
   private final Lazy<CONTEXT> ast = new Lazy<>(this::computeAST);
   private final Class<PARSER> parserClass;
   protected PARSER parser;
 
-  protected Tokenizer(String content, Lexer lexer, Class<PARSER> parserClass) {
+  /**
+   * Признак возможности ребилда (инкрементальный парсинг).
+   * Заполняется только для инкрементальных парсеров {@link IncrementalParser}
+   */
+  private final boolean supportRebuild;
+  private final ReentrantLock rebuildLock = new ReentrantLock();
+  private volatile CONTEXT oldAst;
+  private volatile List<Token> oldTokens;
+
+  protected Tokenizer(@NotNull String content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
     this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
   }
 
@@ -52,6 +63,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     this.content = content;
     this.lexer = lexer;
     this.parserClass = parserClass;
+    this.supportRebuild = IncrementalParser.class.isAssignableFrom(parserClass);
   }
 
   /**
@@ -72,6 +84,46 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     return ast.getOrCompute();
   }
 
+  /**
+   * Выполняет обновление дерева на основании нового контента.
+   * <p>
+   * Актуально только для парсеров, поддерживающих инкрементальный анализ {@link IncrementalParserData}
+   *
+   * @param newContent Новый контент
+   */
+  public void rebuild(String newContent) {
+    if (!supportRebuild) {
+      return;
+    }
+    rebuild(IOUtils.toInputStream(newContent, StandardCharsets.UTF_8));
+  }
+
+  /**
+   * Выполняет обновление дерева на основании нового контента.
+   * <p>
+   * Актуально только для парсеров, поддерживающих инкрементальный анализ {@link IncrementalParserData}
+   *
+   * @param newContent Новый контент
+   */
+  public void rebuild(@NotNull InputStream newContent) {
+    if (!supportRebuild) {
+      return;
+    }
+
+    rebuildLock.lock();
+
+    try {
+      oldAst = getAst(); // запоминаем дерево, которое было ДО
+      oldTokens = getTokens(); // запоминаем токены, которые были ДО
+      tokenStream.clear();
+      tokens.clear();
+      content = newContent;
+      ast.clear();
+    } finally {
+      rebuildLock.unlock();
+    }
+  }
+
   private List<Token> computeTokens() {
     var tokensTemp = new ArrayList<>(getTokenStream().getTokens());
     if (tokensTemp.isEmpty()) {
@@ -87,7 +139,20 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
   }
 
   private CONTEXT computeAST() {
-    parser = createParser(getTokenStream());
+    var thatTokenStream = getTokenStream();
+    if (parser == null || !supportRebuild) {
+      parser = createParser(thatTokenStream);
+    } else {
+      var newTokens = getTokens();
+      var tokenChanges = computeTokenChanges(oldTokens, newTokens);
+      var parserData = new IncrementalParserData(thatTokenStream, tokenChanges, (IncrementalParserRuleContext) oldAst);
+      oldAst = null;
+      if(oldTokens != null) {
+        oldTokens.clear();
+      }
+      parser = createParser(thatTokenStream, parserData);
+    }
+
     parser.removeErrorListener(ConsoleErrorListener.INSTANCE);
     try {
       parser.getInterpreter().setPredictionMode(PredictionMode.SLL);
@@ -97,6 +162,88 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
       parser.getInterpreter().setPredictionMode(PredictionMode.LL);
     }
     return rootAST();
+  }
+
+  private static List<TokenChange> computeTokenChanges(List<Token> oldTokens, List<Token> newTokens) {
+    List<TokenChange> changes = new ArrayList<>();
+
+    int oldIndex = 0;
+    int newIndex = 0;
+
+    // Пропускаем одинаковые токены с начала
+    while (oldIndex < oldTokens.size() && newIndex < newTokens.size()) {
+      var oldToken = oldTokens.get(oldIndex);
+      var newToken = newTokens.get(newIndex);
+
+      if (tokensEqual(oldToken, newToken)) {
+        oldIndex++;
+        newIndex++;
+      } else {
+        break;
+      }
+    }
+
+    // Пропускаем одинаковые токены с конца
+    int oldEnd = oldTokens.size() - 1;
+    int newEnd = newTokens.size() - 1;
+
+    while (oldIndex <= oldEnd && newIndex <= newEnd) {
+      var oldToken = oldTokens.get(oldEnd);
+      var newToken = newTokens.get(newEnd);
+
+      if (tokensEqual(oldToken, newToken)) {
+        oldEnd--;
+        newEnd--;
+      } else {
+        break;
+      }
+    }
+
+    // Все токены между oldIndex и oldEnd были изменены/удалены
+    // Все токены между newIndex и newEnd были изменены/добавлены
+
+    // Для упрощения: считаем, что все токены в измененной области были изменены
+    while (oldIndex <= oldEnd && newIndex <= newEnd) {
+      var oldToken = oldTokens.get(oldIndex);
+      var newToken = newTokens.get(newIndex);
+
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.CHANGED)
+        .setOldToken((CommonToken) oldToken)
+        .setNewToken((CommonToken) newToken)
+        .build());
+
+      oldIndex++;
+      newIndex++;
+    }
+
+    // Оставшиеся старые токены были удалены
+    while (oldIndex <= oldEnd) {
+      var oldToken = oldTokens.get(oldIndex);
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.REMOVED)
+        .setOldToken((CommonToken) oldToken)
+        .build());
+      oldIndex++;
+    }
+
+    // Оставшиеся новые токены были добавлены
+    while (newIndex <= newEnd) {
+      var newToken = newTokens.get(newIndex);
+      changes.add(TokenChange.builder()
+        .setChangeType(TokenChangeType.ADDED)
+        .setNewToken((CommonToken) newToken)
+        .build());
+      newIndex++;
+    }
+
+    return changes;
+  }
+
+  private static boolean tokensEqual(Token oldToken, Token newToken) {
+    return oldToken.getType() == newToken.getType()
+      && oldToken.getChannel() == newToken.getChannel()
+      && Objects.equals(oldToken.getText(), newToken.getText());
   }
 
   /**
@@ -109,7 +256,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
    */
   protected abstract CONTEXT rootAST();
 
-  private CommonTokenStream computeTokenStream() {
+  private IncrementalTokenStream computeTokenStream() {
 
     CharStream input;
 
@@ -126,21 +273,35 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     lexer.setInputStream(input);
     lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
 
-    var tempTokenStream = new CommonTokenStream(lexer);
+    var tempTokenStream = new IncrementalTokenStream(lexer);
     tempTokenStream.fill();
     return tempTokenStream;
   }
 
-  protected CommonTokenStream getTokenStream() {
-    final CommonTokenStream tokenStreamUnboxed = tokenStream.getOrCompute();
+  protected IncrementalTokenStream getTokenStream() {
+    final var tokenStreamUnboxed = tokenStream.getOrCompute();
     tokenStreamUnboxed.seek(0);
     return tokenStreamUnboxed;
   }
 
-  private PARSER createParser(CommonTokenStream tokenStream) {
+  private PARSER createParser(IncrementalTokenStream tokenStream) {
     try {
-      return parserClass.getDeclaredConstructor(TokenStream.class)
-        .newInstance(tokenStream);
+      if (supportRebuild) {
+        return parserClass.getDeclaredConstructor(IncrementalTokenStream.class)
+          .newInstance(tokenStream);
+      } else {
+        return parserClass.getDeclaredConstructor(TokenStream.class)
+          .newInstance(tokenStream);
+      }
+    } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private PARSER createParser(IncrementalTokenStream tokenStream, IncrementalParserData parserData) {
+    try {
+      return parserClass.getDeclaredConstructor(IncrementalTokenStream.class, IncrementalParserData.class)
+        .newInstance(tokenStream, parserData);
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
       throw new RuntimeException(e);
     }

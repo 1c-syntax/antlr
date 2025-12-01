@@ -185,14 +185,17 @@ public class LexerExecTest extends AbstractBaseTest {
   @Disabled("Переделать на ANTLR runtime/Generator")
   public void testGreedyClosure() {
     String grammar =
-      "lexer grammar L;\n"
-        + "CMT : '//' .*? '\\n' CMT*;\n"
-        + "WS : (' '|'\\t')+;";
+      """
+        lexer grammar L;
+        CMT : '//' .*? '\\n' CMT*;
+        WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
     assertEquals(
-      "[@0,0:13='//blah\\n//blah\\n',<1>,1:0]\n" +
-        "[@1,14:13='<EOF>',<-1>,3:0]\n", found);
+      """
+        [@0,0:13='//blah\\n//blah\\n',<1>,1:0]
+        [@1,14:13='<EOF>',<-1>,3:0]
+        """, found);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -200,15 +203,18 @@ public class LexerExecTest extends AbstractBaseTest {
   @Disabled("Переделать на ANTLR runtime/Generator")
   public void testNonGreedyClosure() {
     String grammar =
-      "lexer grammar L;\n"
-        + "CMT : '//' .*? '\\n' CMT*?;\n"
-        + "WS : (' '|'\\t')+;";
+      """
+        lexer grammar L;
+        CMT : '//' .*? '\\n' CMT*?;
+        WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
     assertEquals(
-      "[@0,0:6='//blah\\n',<1>,1:0]\n" +
-        "[@1,7:13='//blah\\n',<1>,2:0]\n" +
-        "[@2,14:13='<EOF>',<-1>,3:0]\n", found);
+      """
+        [@0,0:6='//blah\\n',<1>,1:0]
+        [@1,7:13='//blah\\n',<1>,2:0]
+        [@2,14:13='<EOF>',<-1>,3:0]
+        """, found);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -216,14 +222,17 @@ public class LexerExecTest extends AbstractBaseTest {
   @Disabled("Переделать на ANTLR runtime/Generator")
   public void testGreedyPositiveClosure() {
     String grammar =
-      "lexer grammar L;\n"
-        + "CMT : ('//' .*? '\\n')+;\n"
-        + "WS : (' '|'\\t')+;";
+      """
+        lexer grammar L;
+        CMT : ('//' .*? '\\n')+;
+        WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
     assertEquals(
-      "[@0,0:13='//blah\\n//blah\\n',<1>,1:0]\n" +
-        "[@1,14:13='<EOF>',<-1>,3:0]\n", found);
+      """
+        [@0,0:13='//blah\\n//blah\\n',<1>,1:0]
+        [@1,14:13='<EOF>',<-1>,3:0]
+        """, found);
     assertThat(stderrDuringParse).isNull();
   }
 
