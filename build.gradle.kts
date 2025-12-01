@@ -109,6 +109,7 @@ if ("2025" != curYear) {
 license {
     header = rootProject.file("license/HEADER.txt")
     strictCheck = true
+    mapping("java", "SLASHSTAR_STYLE")
     ext["year"] = curYear
     ext["name"] = "Valery Maximov <maximovvalery@gmail.com>"
     ext["project"] = "ANTLR"
