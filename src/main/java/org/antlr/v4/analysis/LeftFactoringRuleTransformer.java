@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -87,7 +87,7 @@ public class LeftFactoringRuleTransformer {
 
       LOGGER.log(Level.FINE, "Left factoring {0} out of alts in grammar rule {1}", new Object[]{Arrays.toString(rules), r.name});
 
-      Set<GrammarAST> translatedBlocks = new HashSet<GrammarAST>();
+      Set<GrammarAST> translatedBlocks = new HashSet<>();
       List<GrammarAST> blocks = r.ast.getNodesWithType(ANTLRParser.BLOCK);
       blockLoop:
       for (GrammarAST block : blocks) {
@@ -113,7 +113,7 @@ public class LeftFactoringRuleTransformer {
   }
 
   protected boolean expandOptionalQuantifiersForBlock(GrammarAST block, boolean variant) {
-    List<GrammarAST> children = new ArrayList<GrammarAST>();
+    List<GrammarAST> children = new ArrayList<>();
     for (int i = 0; i < block.getChildCount(); i++) {
       GrammarAST child = (GrammarAST) block.getChild(i);
       if (child.getType() != ANTLRParser.ALT) {
@@ -430,28 +430,6 @@ public class LeftFactoringRuleTransformer {
         LOGGER.log(Level.WARNING, "Could not left factor ''{0}'' out of decision in rule ''{1}'': labeled rule references are not yet supported.",
           new Object[]{factoredRule, ruleAST.getChild(0).getText()});
         return null;
-        //if (!translatedChildElement.isNil()) {
-        //	GrammarAST root = adaptor.nil();
-        //	Object factoredElement = translatedChildElement;
-        //	if (outerRule) {
-        //		adaptor.addChild(root, factoredElement);
-        //	}
-        //
-        //	String action = String.format("_localctx.%s = (ContextType)_localctx.getParent().getChild(_localctx.getParent().getChildCount() - 1);", element.getChild(0).getText());
-        //	adaptor.addChild(root, new ActionAST(adaptor.createToken(ANTLRParser.ACTION, action)));
-        //	return root;
-        //}
-        //else {
-        //	GrammarAST root = adaptor.nil();
-        //	Object factoredElement = adaptor.deleteChild(translatedChildElement, 0);
-        //	if (outerRule) {
-        //		adaptor.addChild(root, factoredElement);
-        //	}
-        //
-        //	adaptor.addChild(root, element);
-        //	adaptor.replaceChildren(element, 1, 1, translatedChildElement);
-        //	return root;
-        //}
       }
 
       case ANTLRParser.RULE_REF: {

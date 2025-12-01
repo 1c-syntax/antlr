@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -21,7 +21,7 @@ import org.antlr.v4.parse.ANTLRParser;
 import org.antlr.v4.parse.GrammarASTAdaptor;
 import org.antlr.v4.parse.ScopeParser;
 import org.antlr.v4.parse.ToolANTLRParser;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.semantics.BasicSemanticChecks;
 import org.antlr.v4.semantics.RuleCollector;
 import org.antlr.v4.tool.AttributeDict;
@@ -68,7 +68,7 @@ public class LeftRecursiveRuleTransformer {
   public void translateLeftRecursiveRules() {
     String language = g.getOptionString("language");
     // translate all recursive rules
-    List<String> leftRecursiveRuleNames = new ArrayList<String>();
+    List<String> leftRecursiveRuleNames = new ArrayList<>();
     for (Rule r : rules) {
       if (!Grammar.isTokenName(r.name)) {
         if (LeftRecursiveRuleAnalyzer.hasImmediateRecursiveRuleRefs(r.ast, r.name)) {
@@ -80,7 +80,6 @@ public class LeftRecursiveRuleTransformer {
             // match the patterns for precedence rules.
 
             // better given an error that non-conforming left-recursion exists
-            //tool.errMgr.grammarError(ErrorType.NONCONFORMING_LR_RULE, g.fileName, ((GrammarAST)r.ast.getChild(0)).token, r.name);
           }
         }
       }
@@ -104,15 +103,12 @@ public class LeftRecursiveRuleTransformer {
   public boolean translateLeftRecursiveRule(GrammarRootAST ast,
                                             LeftRecursiveRule r,
                                             String language) {
-    //tool.log("grammar", ruleAST.toStringTree());
     GrammarAST prevRuleAST = r.ast;
     String ruleName = prevRuleAST.getChild(0).getText();
     LeftRecursiveRuleAnalyzer leftRecursiveRuleWalker =
       new LeftRecursiveRuleAnalyzer(prevRuleAST, tool, ruleName, language);
     boolean isLeftRec;
     try {
-//			System.out.println("TESTING ---------------\n"+
-//							   leftRecursiveRuleWalker.text(ruleAST));
       isLeftRec = leftRecursiveRuleWalker.rec_rule();
     } catch (RecognitionException re) {
       isLeftRec = false; // didn't match; oh well
@@ -125,7 +121,6 @@ public class LeftRecursiveRuleTransformer {
     // replace old rule's AST; first create text of altered rule
     GrammarAST RULES = (GrammarAST) ast.getFirstChildWithType(ANTLRParser.RULES);
     String newRuleText = leftRecursiveRuleWalker.getArtificialOpPrecRule();
-//		System.out.println("created: "+newRuleText);
     // now parse within the context of the grammar that originally created
     // the AST we are transforming. This could be an imported grammar so
     // we cannot just reference this.g because the role might come from
@@ -154,13 +149,13 @@ public class LeftRecursiveRuleTransformer {
     basics.visit(t, "rule");
 
     // track recursive alt info for codegen
-    r.recPrimaryAlts = new ArrayList<LeftRecursiveRuleAltInfo>();
+    r.recPrimaryAlts = new ArrayList<>();
     r.recPrimaryAlts.addAll(leftRecursiveRuleWalker.prefixAndOtherAlts);
     if (r.recPrimaryAlts.isEmpty()) {
       tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS, g.fileName, ((GrammarAST) r.ast.getChild(0)).getToken(), r.name);
     }
 
-    r.recOpAlts = new OrderedHashMap<Integer, LeftRecursiveRuleAltInfo>();
+    r.recOpAlts = new OrderedHashMap<>();
     r.recOpAlts.putAll(leftRecursiveRuleWalker.binaryAlts);
     r.recOpAlts.putAll(leftRecursiveRuleWalker.ternaryAlts);
     r.recOpAlts.putAll(leftRecursiveRuleWalker.suffixAlts);
@@ -180,7 +175,7 @@ public class LeftRecursiveRuleTransformer {
 
     // define labels on recursive rule refs we delete; they don't point to nodes of course
     // these are so $label in action translation works
-    for (Tuple2<GrammarAST, String> pair : leftRecursiveRuleWalker.leftRecursiveRuleRefLabels) {
+    for (Pair<GrammarAST, String> pair : leftRecursiveRuleWalker.leftRecursiveRuleRefLabels) {
       GrammarAST labelNode = pair.getItem1();
       GrammarAST labelOpNode = (GrammarAST) labelNode.getParent();
       GrammarAST elementNode = (GrammarAST) labelOpNode.getChild(1);
@@ -235,7 +230,6 @@ public class LeftRecursiveRuleTransformer {
    * </pre>
    */
   public void setAltASTPointers(LeftRecursiveRule r, RuleAST t) {
-//		System.out.println("RULE: "+t.toStringTree());
     BlockAST ruleBlk = (BlockAST) t.getFirstChildWithType(ANTLRParser.BLOCK);
     AltAST mainAlt = (AltAST) ruleBlk.getChild(0);
     BlockAST primaryBlk = (BlockAST) mainAlt.getChild(0);
@@ -245,16 +239,12 @@ public class LeftRecursiveRuleTransformer {
       altInfo.altAST = (AltAST) primaryBlk.getChild(i);
       altInfo.altAST.leftRecursiveAltInfo = altInfo;
       altInfo.originalAltAST.leftRecursiveAltInfo = altInfo;
-//			altInfo.originalAltAST.parent = altInfo.altAST.parent;
-//			System.out.println(altInfo.altAST.toStringTree());
     }
     for (int i = 0; i < r.recOpAlts.size(); i++) {
       LeftRecursiveRuleAltInfo altInfo = r.recOpAlts.getElement(i);
       altInfo.altAST = (AltAST) opsBlk.getChild(i);
       altInfo.altAST.leftRecursiveAltInfo = altInfo;
       altInfo.originalAltAST.leftRecursiveAltInfo = altInfo;
-//			altInfo.originalAltAST.parent = altInfo.altAST.parent;
-//			System.out.println(altInfo.altAST.toStringTree());
     }
   }
 

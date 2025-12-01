@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,7 +12,10 @@ package org.antlr.v4.parse;
 import org.antlr.runtime.Token;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
+import java.io.Serial;
+
 public class v3TreeGrammarException extends ParseCancellationException {
+  @Serial
   private static final long serialVersionUID = -8383611621498312969L;
 
   public Token location;

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -61,7 +61,6 @@ import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,8 +77,7 @@ public class Tool {
   public static final String GRAMMAR_EXTENSION = ".g4";
   public static final String LEGACY_GRAMMAR_EXTENSION = ".g";
 
-  public static final List<String> ALL_GRAMMAR_EXTENSIONS =
-    Collections.unmodifiableList(Arrays.asList(GRAMMAR_EXTENSION, LEGACY_GRAMMAR_EXTENSION));
+  public static final List<String> ALL_GRAMMAR_EXTENSIONS = List.of(GRAMMAR_EXTENSION, LEGACY_GRAMMAR_EXTENSION);
 
   public enum OptionArgType {NONE, STRING} // NONE implies boolean
 
@@ -155,12 +153,12 @@ public class Tool {
 
   public final String[] args;
 
-  protected List<String> grammarFiles = new ArrayList<String>();
+  protected List<String> grammarFiles = new ArrayList<>();
 
   public ErrorManager errMgr;
   public LogManager logMgr = new LogManager();
 
-  List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<ANTLRToolListener>();
+  List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<>();
 
   /**
    * Track separately so if someone adds a listener, it's the only one
@@ -286,13 +284,15 @@ public class Tool {
     if (eq > 0 && arg.length() > 3) {
       String option = arg.substring("-D".length(), eq);
       String value = arg.substring(eq + 1);
-      if (value.length() == 0) {
+      if (value.isEmpty()) {
         errMgr.toolError(ErrorType.BAD_OPTION_SET_SYNTAX, arg);
         return;
       }
       if (Grammar.parserOptions.contains(option) ||
         Grammar.lexerOptions.contains(option)) {
-        if (grammarOptions == null) grammarOptions = new HashMap<String, String>();
+        if (grammarOptions == null) {
+          grammarOptions = new HashMap<>();
+        }
         grammarOptions.put(option, value);
       } else {
         errMgr.grammarError(ErrorType.ILLEGAL_OPTION,
@@ -314,12 +314,6 @@ public class Tool {
       if (gen_dependencies) {
         BuildDependencyGenerator dep =
           new BuildDependencyGenerator(this, g);
-				/*
-					List outputFiles = dep.getGeneratedFileList();
-					List dependents = dep.getDependenciesFileList();
-					System.out.println("output: "+outputFiles);
-					System.out.println("dependents: "+dependents);
-					 */
         System.out.println(dep.getDependencies().render());
 
       } else if (errMgr.getNumErrors() == 0) {
@@ -362,14 +356,9 @@ public class Tool {
         if (errMgr.getNumErrors() > prevErrors) {
           return;
         }
-
-//				System.out.println("lexer tokens="+lexerg.tokenNameToTypeMap);
-//				System.out.println("lexer strings="+lexerg.stringLiteralToTypeMap);
       }
     }
     if (g.implicitLexer != null) g.importVocab(g.implicitLexer);
-//		System.out.println("tokens="+g.tokenNameToTypeMap);
-//		System.out.println("strings="+g.stringLiteralToTypeMap);
     processNonCombinedGrammar(g, gencode);
   }
 
@@ -422,13 +411,13 @@ public class Tool {
   public boolean checkForRuleIssues(final Grammar g) {
     // check for redefined rules
     GrammarAST RULES = (GrammarAST) g.ast.getFirstChildWithType(ANTLRParser.RULES);
-    List<GrammarAST> rules = new ArrayList<GrammarAST>(RULES.getAllChildrenWithType(ANTLRParser.RULE));
+    List<GrammarAST> rules = new ArrayList<>(RULES.getAllChildrenWithType(ANTLRParser.RULE));
     for (GrammarAST mode : g.ast.getAllChildrenWithType(ANTLRParser.MODE)) {
       rules.addAll(mode.getAllChildrenWithType(ANTLRParser.RULE));
     }
 
     boolean redefinition = false;
-    final Map<String, RuleAST> ruleToAST = new HashMap<String, RuleAST>();
+    final Map<String, RuleAST> ruleToAST = new HashMap<>();
     for (GrammarAST r : rules) {
       RuleAST ruleAST = (RuleAST) r;
       GrammarAST ID = (GrammarAST) ruleAST.getChild(0);
@@ -491,8 +480,8 @@ public class Tool {
 
   public List<GrammarRootAST> sortGrammarByTokenVocab(List<String> fileNames) {
 //		System.out.println(fileNames);
-    Graph<String> g = new Graph<String>();
-    List<GrammarRootAST> roots = new ArrayList<GrammarRootAST>();
+    Graph<String> g = new Graph<>();
+    List<GrammarRootAST> roots = new ArrayList<>();
     for (String fileName : fileNames) {
       GrammarAST t = parseGrammar(fileName);
       if (t == null || t instanceof GrammarASTErrorNode) continue; // came back as error node
@@ -502,23 +491,10 @@ public class Tool {
       root.fileName = fileName;
       String grammarName = root.getChild(0).getText();
 
-      GrammarAST tokenVocabNode = findOptionValueAST(root, "tokenVocab");
+      var tokenVocabNode = findOptionValueAST(root, "tokenVocab");
       // Make grammars depend on any tokenVocab options
       if (tokenVocabNode != null) {
-        String vocabName = tokenVocabNode.getText();
-        // Strip quote characters if any
-        int len = vocabName.length();
-        int firstChar = vocabName.charAt(0);
-        int lastChar = vocabName.charAt(len - 1);
-        if (len >= 2 && firstChar == '\'' && lastChar == '\'') {
-          vocabName = vocabName.substring(1, len - 1);
-        }
-        // If the name contains a path delimited by forward slashes,
-        // use only the part after the last slash as the name
-        int lastSlash = vocabName.lastIndexOf('/');
-        if (lastSlash >= 0) {
-          vocabName = vocabName.substring(lastSlash + 1);
-        }
+        var vocabName = getVocabName(tokenVocabNode);
         g.addEdge(grammarName, vocabName);
       }
       // add cycle to graph so we always process a grammar if no error
@@ -527,9 +503,7 @@ public class Tool {
     }
 
     List<String> sortedGrammarNames = g.sort();
-//		System.out.println("sortedGrammarNames="+sortedGrammarNames);
-
-    List<GrammarRootAST> sortedRoots = new ArrayList<GrammarRootAST>();
+    List<GrammarRootAST> sortedRoots = new ArrayList<>();
     for (String grammarName : sortedGrammarNames) {
       for (GrammarRootAST root : roots) {
         if (root.getGrammarName().equals(grammarName)) {
@@ -540,6 +514,24 @@ public class Tool {
     }
 
     return sortedRoots;
+  }
+
+  private static String getVocabName(GrammarAST tokenVocabNode) {
+    var vocabName = tokenVocabNode.getText();
+    // Strip quote characters if any
+    var len = vocabName.length();
+    var firstChar = vocabName.charAt(0);
+    var lastChar = vocabName.charAt(len - 1);
+    if (len >= 2 && firstChar == '\'' && lastChar == '\'') {
+      vocabName = vocabName.substring(1, len - 1);
+    }
+    // If the name contains a path delimited by forward slashes,
+    // use only the part after the last slash as the name
+    var lastSlash = vocabName.lastIndexOf('/');
+    if (lastSlash >= 0) {
+      vocabName = vocabName.substring(lastSlash + 1);
+    }
+    return vocabName;
   }
 
   /**
@@ -585,8 +577,7 @@ public class Tool {
       }
 
       ANTLRFileStream in = new ANTLRFileStream(file.getAbsolutePath(), grammarEncoding);
-      GrammarRootAST t = parse(fileName, in);
-      return t;
+      return parse(fileName, in);
     } catch (IOException ioe) {
       errMgr.toolError(ErrorType.CANNOT_OPEN_FILE, ioe, fileName);
     }
@@ -607,7 +598,7 @@ public class Tool {
     return g;
   }
 
-  private final Map<String, Grammar> importedGrammars = new HashMap<String, Grammar>();
+  private final Map<String, Grammar> importedGrammars = new HashMap<>();
 
   /**
    * Try current dir then dir of g then lib dir
@@ -684,7 +675,7 @@ public class Tool {
 
   public void generateATNs(Grammar g) {
     DOTGenerator dotGenerator = new DOTGenerator(g);
-    List<Grammar> grammars = new ArrayList<Grammar>();
+    List<Grammar> grammars = new ArrayList<>();
     grammars.add(g);
     List<Grammar> imported = g.getAllImportedGrammars();
     if (imported != null) grammars.addAll(imported);
@@ -821,23 +812,7 @@ public class Tool {
    */
   public File getOutputDirectory(String fileNameWithPath) {
     File outputDir;
-    String fileDirectory;
-
-    // Some files are given to us without a PATH but should should
-    // still be written to the output directory in the relative path of
-    // the output directory. The file directory is either the set of sub directories
-    // or just or the relative path recorded for the parent grammar. This means
-    // that when we write the tokens files, or the .java files for imported grammars
-    // taht we will write them in the correct place.
-    if ((fileNameWithPath == null) || (fileNameWithPath.lastIndexOf(File.separatorChar) == -1)) {
-      // No path is included in the file name, so make the file
-      // directory the same as the parent grammar (which might sitll be just ""
-      // but when it is not, we will write the file in the correct place.
-      fileDirectory = ".";
-
-    } else {
-      fileDirectory = fileNameWithPath.substring(0, fileNameWithPath.lastIndexOf(File.separatorChar));
-    }
+    var fileDirectory = getFileDirectory(fileNameWithPath);
     if (haveOutputDir) {
       if (exact_output_dir) {
         // -o /tmp /var/lib/t.g4 => /tmp/T.java
@@ -845,9 +820,8 @@ public class Tool {
         // -o . /usr/lib/t.g4 => ./T.java
         // -o /tmp subdir/t.g4 => /tmp/T.java
         outputDir = new File(outputDirectory);
-      } else if (fileDirectory != null &&
-        (new File(fileDirectory).isAbsolute() ||
-          fileDirectory.startsWith("~"))) { // isAbsolute doesn't count this :(
+      } else if (new File(fileDirectory).isAbsolute() || fileDirectory.startsWith("~")) {
+        // isAbsolute doesn't count this :(
 
         // -o /tmp /var/lib/t.g4 => /tmp/T.java
         // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
@@ -857,11 +831,7 @@ public class Tool {
         outputDir = new File(outputDirectory);
       } else {
         // -o /tmp subdir/t.g4 => /tmp/subdir/T.java
-        if (fileDirectory != null) {
-          outputDir = new File(outputDirectory, fileDirectory);
-        } else {
-          outputDir = new File(outputDirectory);
-        }
+        outputDir = new File(outputDirectory, fileDirectory);
       }
     } else {
       // they didn't specify a -o dir so just write to location
@@ -871,6 +841,27 @@ public class Tool {
       outputDir = new File(fileDirectory);
     }
     return outputDir;
+  }
+
+  private static String getFileDirectory(String fileNameWithPath) {
+    String fileDirectory;
+
+    // Some files are given to us without a PATH but should should
+    // still be written to the output directory in the relative path of
+    // the output directory. The file directory is either the set of sub directories
+    // or just or the relative path recorded for the parent grammar. This means
+    // that when we write the tokens files, or the .java files for imported grammars
+    // that we will write them in the correct place.
+    if ((fileNameWithPath == null) || (fileNameWithPath.lastIndexOf(File.separatorChar) == -1)) {
+      // No path is included in the file name, so make the file
+      // directory the same as the parent grammar (which might still be just ""
+      // but when it is not, we will write the file in the correct place.
+      fileDirectory = ".";
+
+    } else {
+      fileDirectory = fileNameWithPath.substring(0, fileNameWithPath.lastIndexOf(File.separatorChar));
+    }
+    return fileDirectory;
   }
 
   protected void writeDOTFile(Grammar g, Rule r, String dot) throws IOException {

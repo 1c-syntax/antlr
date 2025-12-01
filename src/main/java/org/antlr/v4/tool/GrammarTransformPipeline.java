@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -22,7 +22,7 @@ import org.antlr.v4.parse.BlockSetTransformer;
 import org.antlr.v4.parse.GrammarASTAdaptor;
 import org.antlr.v4.parse.GrammarToken;
 import org.antlr.v4.runtime.misc.DoubleKeyMap;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.BlockAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -188,16 +188,16 @@ public class GrammarTransformPipeline {
 
     // Compute list of rules in root grammar and ensure we have a RULES node
     GrammarAST RULES = (GrammarAST) root.getFirstChildWithType(ANTLRParser.RULES);
-    Set<String> rootRuleNames = new HashSet<String>();
+    Set<String> rootRuleNames = new HashSet<>();
     // make list of rules we have in root grammar
     List<GrammarAST> rootRules = RULES.getNodesWithType(ANTLRParser.RULE);
     for (GrammarAST r : rootRules) rootRuleNames.add(r.getChild(0).getText());
 
     // make list of modes we have in root grammar
     List<GrammarAST> rootModes = root.getNodesWithType(ANTLRParser.MODE);
-    Set<String> rootModeNames = new HashSet<String>();
+    Set<String> rootModeNames = new HashSet<>();
     for (GrammarAST m : rootModes) rootModeNames.add(m.getChild(0).getText());
-    List<GrammarAST> addedModes = new ArrayList<GrammarAST>();
+    List<GrammarAST> addedModes = new ArrayList<>();
 
     for (Grammar imp : imports) {
       // COPY CHANNELS
@@ -238,15 +238,14 @@ public class GrammarTransformPipeline {
         tokensRoot.addChildren(Arrays.asList(imp_tokensRoot.getChildren().toArray(EMPTY_TREE_ARRAY)));
       }
 
-      List<GrammarAST> all_actionRoots = new ArrayList<GrammarAST>();
+      List<GrammarAST> all_actionRoots = new ArrayList<>();
       List<GrammarAST> imp_actionRoots = imp.ast.getAllChildrenWithType(ANTLRParser.AT);
       if (actionRoots != null) all_actionRoots.addAll(actionRoots);
       all_actionRoots.addAll(imp_actionRoots);
 
       // COPY ACTIONS
       if (imp_actionRoots != null) {
-        DoubleKeyMap<String, String, GrammarAST> namedActions =
-          new DoubleKeyMap<String, String, GrammarAST>();
+        DoubleKeyMap<String, String, GrammarAST> namedActions = new DoubleKeyMap<>();
 
         rootGrammar.tool.log("grammar", "imported actions: " + imp_actionRoots);
         for (GrammarAST at : all_actionRoots) {
@@ -433,7 +432,7 @@ public class GrammarTransformPipeline {
     }
 
     // COPY all named actions, but only move those with lexer:: scope
-    List<GrammarAST> actionsWeMoved = new ArrayList<GrammarAST>();
+    List<GrammarAST> actionsWeMoved = new ArrayList<>();
     for (GrammarAST e : elements) {
       if (e.getType() == ANTLRParser.AT) {
         lexerAST.addChild((Tree) adaptor.dupTree(e));
@@ -455,7 +454,7 @@ public class GrammarTransformPipeline {
 
     GrammarAST lexerRulesRoot = adaptor.create(ANTLRParser.RULES, "RULES");
     lexerAST.addChild(lexerRulesRoot);
-    List<GrammarAST> rulesWeMoved = new ArrayList<GrammarAST>();
+    List<GrammarAST> rulesWeMoved = new ArrayList<>();
     GrammarASTWithOptions[] rules;
     if (combinedRulesRoot.getChildCount() > 0) {
       rules = combinedRulesRoot.getChildren().toArray(EMPTY_GRAMMARASTWITHOPTIONS_ARRAY);
@@ -476,7 +475,7 @@ public class GrammarTransformPipeline {
     }
 
     // Will track 'if' from IF : 'if' ; rules to avoid defining new token for 'if'
-    List<Tuple2<GrammarAST, GrammarAST>> litAliases =
+    List<Pair<GrammarAST, GrammarAST>> litAliases =
       Grammar.getStringLiteralAliasesFromLexerRules(lexerAST);
 
     Set<String> stringLiterals = combinedGrammar.getStringLiterals();
@@ -488,7 +487,7 @@ public class GrammarTransformPipeline {
     for (String lit : stringLiterals) {
       // if lexer already has a rule for literal, continue
       if (litAliases != null) {
-        for (Tuple2<GrammarAST, GrammarAST> pair : litAliases) {
+        for (Pair<GrammarAST, GrammarAST> pair : litAliases) {
           GrammarAST litAST = pair.getItem2();
           if (lit.equals(litAST.getText())) continue nextLit;
         }

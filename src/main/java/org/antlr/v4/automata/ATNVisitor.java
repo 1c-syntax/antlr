@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -23,7 +23,7 @@ import java.util.Set;
  */
 public class ATNVisitor {
   public void visit(@NotNull ATNState s) {
-    visit_(s, new HashSet<Integer>());
+    visit_(s, new HashSet<>());
   }
 
   public void visit_(@NotNull ATNState s, @NotNull Set<Integer> visited) {

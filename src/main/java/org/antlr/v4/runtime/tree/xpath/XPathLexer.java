@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -127,49 +127,41 @@ public class XPathLexer extends Lexer {
 
   @Override
   public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
-    switch (ruleIndex) {
-      case 4:
-        ID_action(_localctx, actionIndex);
-        break;
+    if (ruleIndex == 4) {
+      ID_action(_localctx, actionIndex);
     }
   }
 
   private void ID_action(RuleContext _localctx, int actionIndex) {
-    switch (actionIndex) {
-      case 0:
-
-        String text = getText();
-        if (Character.isUpperCase(text.charAt(0))) setType(TOKEN_REF);
-        else setType(RULE_REF);
-
-        break;
+    if (actionIndex == 0) {
+      var text = getText();
+      if (Character.isUpperCase(text.charAt(0))) {
+        setType(TOKEN_REF);
+      } else {
+        setType(RULE_REF);
+      }
     }
   }
 
   @Override
   public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-    switch (ruleIndex) {
-      case 5:
-        return NameChar_sempred(_localctx, predIndex);
-
-      case 6:
-        return NameStartChar_sempred(_localctx, predIndex);
-    }
-    return true;
+    return switch (ruleIndex) {
+      case 5 -> NameChar_sempred(_localctx, predIndex);
+      case 6 -> NameStartChar_sempred(_localctx, predIndex);
+      default -> true;
+    };
   }
 
   private boolean NameChar_sempred(RuleContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 0:
-        return Character.isUnicodeIdentifierPart(_input.LA(-1));
+    if (predIndex == 0) {
+      return Character.isUnicodeIdentifierPart(_input.LA(-1));
     }
     return true;
   }
 
   private boolean NameStartChar_sempred(RuleContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 1:
-        return Character.isUnicodeIdentifierStart(_input.LA(-1));
+    if (predIndex == 1) {
+      return Character.isUnicodeIdentifierStart(_input.LA(-1));
     }
     return true;
   }
@@ -193,7 +185,4 @@ public class XPathLexer extends Lexer {
       "\2\2\66\67\7)\2\2\67\22\3\2\2\2\7\2 (-\63\3\3\6\2";
   public static final ATN _ATN =
     new ATNDeserializer().deserialize(_serializedATN.toCharArray());
-
-  static {
-  }
 }

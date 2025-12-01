@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -95,7 +95,7 @@ public class NullUsageProcessor extends AbstractProcessor {
     Set<? extends Element> notNullElements = roundEnv.getElementsAnnotatedWith(notNullType);
     Set<? extends Element> nullableElements = roundEnv.getElementsAnnotatedWith(nullableType);
 
-    Set<Element> intersection = new HashSet<Element>(notNullElements);
+    Set<Element> intersection = new HashSet<>(notNullElements);
     intersection.retainAll(nullableElements);
     for (Element element : intersection) {
       String error = String.format("%s cannot be annotated with both %s and %s", element.getKind().toString().replace('_', ' ').toLowerCase(), notNullType.getSimpleName(), nullableType.getSimpleName());
@@ -109,8 +109,7 @@ public class NullUsageProcessor extends AbstractProcessor {
     checkPrimitiveTypeAnnotations(notNullElements, Diagnostic.Kind.WARNING, notNullType);
 
     // method name -> method -> annotated elements of method
-    Map<String, Map<ExecutableElement, List<Element>>> namedMethodMap =
-      new HashMap<String, Map<ExecutableElement, List<Element>>>();
+    Map<String, Map<ExecutableElement, List<Element>>> namedMethodMap = new HashMap<>();
     addElementsToNamedMethodMap(notNullElements, namedMethodMap);
     addElementsToNamedMethodMap(nullableElements, namedMethodMap);
 
@@ -207,27 +206,16 @@ public class NullUsageProcessor extends AbstractProcessor {
           continue;
       }
 
-      Map<ExecutableElement, List<Element>> annotatedMethodWithName =
-        namedMethodMap.get(method.getSimpleName().toString());
-      if (annotatedMethodWithName == null) {
-        annotatedMethodWithName = new HashMap<ExecutableElement, List<Element>>();
-        namedMethodMap.put(method.getSimpleName().toString(), annotatedMethodWithName);
-      }
-
-      List<Element> annotatedElementsOfMethod = annotatedMethodWithName.get(method);
-      if (annotatedElementsOfMethod == null) {
-        annotatedElementsOfMethod = new ArrayList<Element>();
-        annotatedMethodWithName.put(method, annotatedElementsOfMethod);
-      }
-
+      var annotatedMethodWithName = namedMethodMap.computeIfAbsent(method.getSimpleName().toString(), k -> new HashMap<>());
+      var annotatedElementsOfMethod = annotatedMethodWithName.computeIfAbsent(method, k -> new ArrayList<>());
       annotatedElementsOfMethod.add(element);
     }
   }
 
   private void checkOverriddenMethods(ExecutableElement method) {
     TypeElement declaringType = (TypeElement) method.getEnclosingElement();
-    Set<Element> errorElements = new HashSet<Element>();
-    Set<Element> warnedElements = new HashSet<Element>();
+    Set<Element> errorElements = new HashSet<>();
+    Set<Element> warnedElements = new HashSet<>();
     typeLoop:
     for (TypeMirror supertypeMirror : getAllSupertypes(processingEnv.getTypeUtils().getDeclaredType(declaringType))) {
       for (Element element : processingEnv.getTypeUtils().asElement(supertypeMirror).getEnclosedElements()) {
@@ -242,8 +230,8 @@ public class NullUsageProcessor extends AbstractProcessor {
   }
 
   private List<? extends TypeMirror> getAllSupertypes(TypeMirror type) {
-    Set<TypeMirror> supertypes = new HashSet<TypeMirror>();
-    Deque<TypeMirror> worklist = new ArrayDeque<TypeMirror>();
+    Set<TypeMirror> supertypes = new HashSet<>();
+    Deque<TypeMirror> worklist = new ArrayDeque<>();
     worklist.add(type);
     while (!worklist.isEmpty()) {
       List<? extends TypeMirror> next = processingEnv.getTypeUtils().directSupertypes(worklist.poll());
@@ -252,7 +240,7 @@ public class NullUsageProcessor extends AbstractProcessor {
       }
     }
 
-    return new ArrayList<TypeMirror>(supertypes);
+    return new ArrayList<>(supertypes);
   }
 
   private void checkOverriddenMethod(ExecutableElement overrider, ExecutableElement overridden, Set<Element> errorElements, Set<Element> warnedElements) {

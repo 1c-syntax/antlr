@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -182,7 +182,7 @@ public enum CharStreams {
    * source name. Closes the reader before returning.
    */
   public static CodePointCharStream fromReader(Reader r, String sourceName) throws IOException {
-    try {
+    try (r) {
       CodePointBuffer.Builder codePointBufferBuilder = CodePointBuffer.builder(DEFAULT_BUFFER_SIZE);
       CharBuffer charBuffer = CharBuffer.allocate(DEFAULT_BUFFER_SIZE);
       while ((r.read(charBuffer)) != -1) {
@@ -191,8 +191,6 @@ public enum CharStreams {
         charBuffer.compact();
       }
       return CodePointCharStream.fromBuffer(codePointBufferBuilder.build(), sourceName);
-    } finally {
-      r.close();
     }
   }
 
@@ -255,7 +253,7 @@ public enum CharStreams {
     CodingErrorAction decodingErrorAction,
     long inputSize)
     throws IOException {
-    try {
+    try (channel) {
       ByteBuffer utf8BytesIn = ByteBuffer.allocate(bufferSize);
       CharBuffer utf16CodeUnitsOut = CharBuffer.allocate(bufferSize);
       if (inputSize == -1) {
@@ -297,8 +295,6 @@ public enum CharStreams {
       codePointBufferBuilder.append(utf16CodeUnitsOut);
 
       return codePointBufferBuilder.build();
-    } finally {
-      channel.close();
     }
   }
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -99,12 +99,12 @@ public class UseDefAnalyzer {
   }
 
   public static Map<Rule, Set<Rule>> getRuleDependencies(Grammar g, Collection<Rule> rules) {
-    Map<Rule, Set<Rule>> dependencies = new HashMap<Rule, Set<Rule>>();
+    Map<Rule, Set<Rule>> dependencies = new HashMap<>();
 
     for (Rule r : rules) {
       List<GrammarAST> tokenRefs = r.ast.getNodesWithType(ANTLRParser.TOKEN_REF);
       for (GrammarAST tref : tokenRefs) {
-        Set<Rule> calls = dependencies.computeIfAbsent(r, k -> new HashSet<Rule>());
+        Set<Rule> calls = dependencies.computeIfAbsent(r, k -> new HashSet<>());
         calls.add(g.getRule(tref.getText()));
       }
     }

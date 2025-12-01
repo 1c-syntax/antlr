@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -37,7 +37,7 @@ public abstract class Choice extends RuleElement {
   @ModelElement
   public List<CodeBlockForAlt> alts;
   @ModelElement
-  public List<SrcOp> preamble = new ArrayList<SrcOp>();
+  public List<SrcOp> preamble = new ArrayList<>();
 
   public Choice(OutputModelFactory factory,
                 GrammarAST blkOrEbnfRootAST,
@@ -51,7 +51,7 @@ public abstract class Choice extends RuleElement {
   }
 
   public List<String[]> getAltLookaheadAsStringLists(IntervalSet[] altLookSets) {
-    List<String[]> altLook = new ArrayList<String[]>();
+    List<String[]> altLook = new ArrayList<>();
     for (IntervalSet s : altLookSets) {
       altLook.add(factory.getTarget().getTokenTypesAsTargetLabels(factory.getGrammar(), s.toArray()));
     }

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,8 +12,6 @@ package org.antlr.v4.runtime.atn;
 import org.antlr.v4.runtime.misc.IntervalSet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -96,8 +94,7 @@ public abstract class ATNState {
   public static final int LOOP_END = 12;
 
   public static final List<String> serializationNames =
-    Collections.unmodifiableList(Arrays.asList(
-      "INVALID",
+    List.of("INVALID",
       "BASIC",
       "RULE_START",
       "BLOCK_START",
@@ -109,8 +106,7 @@ public abstract class ATNState {
       "STAR_LOOP_BACK",
       "STAR_LOOP_ENTRY",
       "PLUS_LOOP_BACK",
-      "LOOP_END"
-    ));
+      "LOOP_END");
 
   public static final int INVALID_STATE_NUMBER = -1;
 
@@ -128,8 +124,7 @@ public abstract class ATNState {
   /**
    * Track the transitions emanating from this ATN state.
    */
-  protected final List<Transition> transitions =
-    new ArrayList<Transition>(INITIAL_NUM_TRANSITIONS);
+  protected final List<Transition> transitions = new ArrayList<>(INITIAL_NUM_TRANSITIONS);
 
   protected List<Transition> optimizedTransitions = transitions;
 
@@ -237,7 +232,7 @@ public abstract class ATNState {
 
   public void addOptimizedTransition(Transition e) {
     if (!isOptimized()) {
-      optimizedTransitions = new ArrayList<Transition>();
+      optimizedTransitions = new ArrayList<>();
     }
 
     optimizedTransitions.add(e);

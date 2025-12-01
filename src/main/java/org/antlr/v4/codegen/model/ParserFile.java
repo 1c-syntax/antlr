@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -30,6 +30,7 @@ public class ParserFile extends OutputFile {
   public Map<String, Action> namedActions;
   @ModelElement
   public ActionChunk contextSuperClass;
+  public boolean incremental;
   public String grammarName;
 
   public ParserFile(OutputModelFactory factory, String fileName) {
@@ -42,6 +43,7 @@ public class ParserFile extends OutputFile {
     genListener = g.tool.gen_listener;
     genVisitor = g.tool.gen_visitor;
     grammarName = g.name;
+    incremental = Boolean.parseBoolean(g.getOptionString("incremental"));
 
     if (g.getOptionString("contextSuperClass") != null) {
       contextSuperClass = new ActionText(null, g.getOptionString("contextSuperClass"));

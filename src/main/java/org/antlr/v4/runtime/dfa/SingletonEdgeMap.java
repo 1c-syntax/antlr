@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -73,9 +73,9 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
     }
 
     if (key == this.key || this.value == null) {
-      return new SingletonEdgeMap<T>(minIndex, maxIndex, key, value);
+      return new SingletonEdgeMap<>(minIndex, maxIndex, key, value);
     } else if (value != null) {
-      AbstractEdgeMap<T> result = new HashEdgeMap<T>(minIndex, maxIndex);
+      AbstractEdgeMap<T> result = new HashEdgeMap<>(minIndex, maxIndex);
       result = result.put(this.key, this.value);
       result = result.put(key, value);
       return result;
@@ -87,7 +87,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
   @Override
   public AbstractEdgeMap<T> remove(int key) {
     if (key == this.key && this.value != null) {
-      return new EmptyEdgeMap<T>(minIndex, maxIndex);
+      return new EmptyEdgeMap<>(minIndex, maxIndex);
     }
 
     return this;
@@ -96,7 +96,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
   @Override
   public AbstractEdgeMap<T> clear() {
     if (this.value != null) {
-      return new EmptyEdgeMap<T>(minIndex, maxIndex);
+      return new EmptyEdgeMap<>(minIndex, maxIndex);
     }
 
     return this;
@@ -138,7 +138,7 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
       }
 
       current++;
-      return new Map.Entry<Integer, T>() {
+      return new Map.Entry<>() {
         private final int key = SingletonEdgeMap.this.key;
         private final T value = SingletonEdgeMap.this.value;
 

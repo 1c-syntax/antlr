@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -105,28 +105,23 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     if (readChunkSize <= 0) {
       readChunkSize = READ_BUFFER_SIZE;
     }
-    // System.out.println("load "+size+" in chunks of "+readChunkSize);
-    try {
+
+    try (r) {
       // alloc initial buffer size.
       data = new char[size];
       // read all the data in chunks of readChunkSize
-      int numRead = 0;
+      int numRead;
       int p = 0;
       do {
         if (p + readChunkSize > data.length) { // overflow?
-          // System.out.println("### overflow p="+p+", data.length="+data.length);
           data = Arrays.copyOf(data, data.length * 2);
         }
         numRead = r.read(data, p, readChunkSize);
-        // System.out.println("read "+numRead+" chars; p was "+p+" is now "+(p+numRead));
         p += numRead;
       } while (numRead != -1); // while not EOF
       // set the actual size of the data available;
       // EOF subtracted one above in p+=numRead; add one back
       n = p + 1;
-      //System.out.println("n="+n);
-    } finally {
-      r.close();
     }
   }
 
@@ -146,11 +141,7 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
       throw new IllegalStateException("cannot consume EOF");
     }
 
-    //System.out.println("prev p="+p+", c="+(char)data[p]);
-    if (p < n) {
-      p++;
-      //System.out.println("p moves to "+p+" (c='"+(char)data[p]+"')");
-    }
+    p++;
   }
 
   @Override
@@ -166,11 +157,8 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     }
 
     if ((p + i - 1) >= n) {
-      //System.out.println("char LA("+i+")=EOF; p="+p);
       return IntStream.EOF;
     }
-    //System.out.println("char LA("+i+")="+(char)data[p+i-1]+"; p="+p);
-    //System.out.println("LA("+i+"); p="+p+" n="+n+" data.length="+data.length);
     return data[p + i - 1];
   }
 
@@ -229,9 +217,6 @@ public class ANTLRInputStream implements UnicodeCharStream, CharStream {
     if (stop >= n) stop = n - 1;
     int count = stop - start + 1;
     if (start >= n) return "";
-//		System.err.println("data: "+Arrays.toString(data)+", n="+n+
-//						   ", start="+start+
-//						   ", stop="+stop);
     return new String(data, start, count);
   }
 

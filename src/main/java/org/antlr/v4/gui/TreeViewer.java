@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -77,8 +77,7 @@ public class TreeViewer extends JComponent {
     public double getWidth(Tree tree) {
       FontMetrics fontMetrics = viewer.getFontMetrics(viewer.font);
       String s = viewer.getText(tree);
-      int w = fontMetrics.stringWidth(s) + viewer.nodeWidthPadding * 2;
-      return w;
+      return fontMetrics.stringWidth(s) + viewer.nodeWidthPadding * 2;
     }
 
     @Override
@@ -229,15 +228,7 @@ public class TreeViewer extends JComponent {
       RenderingHints.VALUE_ANTIALIAS_ON);
 
     // Anti-alias the text
-    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
-      RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-//		AffineTransform at = g2.getTransform();
-//        g2.scale(
-//            (double) this.getWidth() / 400,
-//            (double) this.getHeight() / 400);
-//
-//		g2.setTransform(at);
+    g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
     paintEdges(g, getTree().getRoot());
 
@@ -610,7 +601,7 @@ public class TreeViewer extends JComponent {
   public Future<JDialog> open() {
     final TreeViewer viewer = this;
     viewer.setScale(1.5);
-    Callable<JDialog> callable = new Callable<JDialog>() {
+    Callable<JDialog> callable = new Callable<>() {
       JDialog result;
 
       @Override
@@ -677,7 +668,7 @@ public class TreeViewer extends JComponent {
    * Slow for big lists of highlighted nodes
    */
   public void addHighlightedNodes(Collection<Tree> nodes) {
-    highlightedNodes = new ArrayList<Tree>();
+    highlightedNodes = new ArrayList<>();
     highlightedNodes.addAll(nodes);
   }
 
@@ -762,9 +753,9 @@ public class TreeViewer extends JComponent {
     if (root != null) {
       boolean useIdentity = true; // compare node identity
       this.treeLayout =
-        new TreeLayout<Tree>(getTreeLayoutAdaptor(root),
+        new TreeLayout<>(getTreeLayoutAdaptor(root),
           new TreeViewer.VariableExtentProvide(this),
-          new DefaultConfiguration<Tree>(gapBetweenLevels,
+          new DefaultConfiguration<>(gapBetweenLevels,
             gapBetweenNodes),
           useIdentity);
       // Let the UI display this new AST.

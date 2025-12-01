@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -41,7 +41,7 @@ public class DFA {
    * fields.</p>
    */
   @NotNull
-  public final ConcurrentMap<DFAState, DFAState> states = new ConcurrentHashMap<DFAState, DFAState>();
+  public final ConcurrentMap<DFAState, DFAState> states = new ConcurrentHashMap<>();
 
   /**
    * This is the start state for SLL prediction.
@@ -52,7 +52,7 @@ public class DFA {
    * current precedence level in the parser.</p>
    */
   @NotNull
-  public final AtomicReference<DFAState> s0 = new AtomicReference<DFAState>();
+  public final AtomicReference<DFAState> s0 = new AtomicReference<>();
 
   /**
    * This is the start state for full context prediction.
@@ -60,7 +60,7 @@ public class DFA {
    * @see #s0
    */
   @NotNull
-  public final AtomicReference<DFAState> s0full = new AtomicReference<DFAState>();
+  public final AtomicReference<DFAState> s0full = new AtomicReference<>();
 
   public final int decision;
 
@@ -96,8 +96,7 @@ public class DFA {
    * state will not be dropped.</p>
    */
   @NotNull
-  private static final EmptyEdgeMap<DFAState> EMPTY_PRECEDENCE_EDGES =
-    new EmptyEdgeMap<DFAState>(0, 200);
+  private static final EmptyEdgeMap<DFAState> EMPTY_PRECEDENCE_EDGES = new EmptyEdgeMap<>(0, 200);
 
   /**
    * This is the backing field for {@link #getEmptyEdgeMap()}.
@@ -149,8 +148,8 @@ public class DFA {
       maxDfaEdge = atnStartState.atn.maxTokenType;
     }
 
-    this.emptyEdgeMap = new EmptyEdgeMap<DFAState>(minDfaEdge, maxDfaEdge);
-    this.emptyContextEdgeMap = new EmptyEdgeMap<DFAState>(-1, atnStartState.atn.states.size() - 1);
+    this.emptyEdgeMap = new EmptyEdgeMap<>(minDfaEdge, maxDfaEdge);
+    this.emptyContextEdgeMap = new EmptyEdgeMap<>(-1, atnStartState.atn.states.size() - 1);
 
     // Precedence DFAs are associated with the special precedence decision
     // created for left-recursive rules which evaluate their alternatives

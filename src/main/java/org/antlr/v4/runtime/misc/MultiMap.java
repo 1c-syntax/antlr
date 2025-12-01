@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -9,24 +9,26 @@
  */
 package org.antlr.v4.runtime.misc;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 public class MultiMap<K, V> extends LinkedHashMap<K, List<V>> {
+  @Serial
   private static final long serialVersionUID = -4956746660057462312L;
 
   public void map(K key, V value) {
     List<V> elementsForKey = get(key);
     if (elementsForKey == null) {
-      elementsForKey = new ArrayList<V>();
+      elementsForKey = new ArrayList<>();
       super.put(key, elementsForKey);
     }
     elementsForKey.add(value);
   }
 
-  public List<Tuple2<K, V>> getPairs() {
-    List<Tuple2<K, V>> pairs = new ArrayList<Tuple2<K, V>>();
+  public List<Pair<K, V>> getPairs() {
+    List<Pair<K, V>> pairs = new ArrayList<>();
     for (K key : keySet()) {
       for (V value : get(key)) {
         pairs.add(Tuple.create(key, value));

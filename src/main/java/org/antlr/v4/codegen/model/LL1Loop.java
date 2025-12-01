@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -39,7 +39,9 @@ public abstract class LL1Loop extends Choice {
   }
 
   public void addIterationOp(SrcOp op) {
-    if (iteration == null) iteration = new ArrayList<SrcOp>();
+    if (iteration == null) {
+      iteration = new ArrayList<>();
+    }
     iteration.add(op);
   }
 

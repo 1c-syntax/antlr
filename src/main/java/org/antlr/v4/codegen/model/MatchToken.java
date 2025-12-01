@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -24,7 +24,7 @@ import java.util.List;
 public class MatchToken extends RuleElement implements LabeledOp {
   public String name;
   public int ttype;
-  public List<Decl> labels = new ArrayList<Decl>();
+  public List<Decl> labels = new ArrayList<>();
 
   public MatchToken(OutputModelFactory factory, TerminalAST ast) {
     super(factory, ast);

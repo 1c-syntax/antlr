@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -79,7 +79,7 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getAllChildrenWithType(int type) {
-    List<GrammarAST> nodes = new ArrayList<GrammarAST>();
+    List<GrammarAST> nodes = new ArrayList<>();
     for (int i = 0; children != null && i < children.size(); i++) {
       Tree t = (Tree) children.get(i);
       if (t.getType() == type) {
@@ -90,8 +90,8 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getNodesWithType(IntervalSet types) {
-    List<GrammarAST> nodes = new ArrayList<GrammarAST>();
-    List<GrammarAST> work = new LinkedList<GrammarAST>();
+    List<GrammarAST> nodes = new ArrayList<>();
+    List<GrammarAST> work = new LinkedList<>();
     work.add(this);
     GrammarAST t;
     while (!work.isEmpty()) {
@@ -105,7 +105,7 @@ public class GrammarAST extends CommonTree {
   }
 
   public List<GrammarAST> getNodesWithTypePreorderDFS(IntervalSet types) {
-    ArrayList<GrammarAST> nodes = new ArrayList<GrammarAST>();
+    ArrayList<GrammarAST> nodes = new ArrayList<>();
     getNodesWithTypePreorderDFS_(nodes, types);
     return nodes;
   }
@@ -204,25 +204,10 @@ public class GrammarAST extends CommonTree {
   public void setType(int type) {
     token.setType(type);
   }
-//
-//	@Override
-//	public String getText() {
-//		if ( textOverride!=null ) return textOverride;
-//        if ( token!=null ) {
-//            return token.getText();
-//        }
-//        return "";
-//	}
 
   public void setText(String text) {
-//		textOverride = text; // don't alt tokens as others might see
     token.setText(text); // we delete surrounding tree, so ok to alter
   }
-
-//	@Override
-//	public boolean equals(Object obj) {
-//		return super.equals(obj);
-//	}
 
   @Override
   public GrammarAST dupNode() {

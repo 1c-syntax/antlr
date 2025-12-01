@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -13,6 +13,8 @@ import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 
+import java.io.Serial;
+
 /**
  * Indicates that the parser could not decide which of two or more paths
  * to take based upon the remaining input. It tracks the starting token
@@ -20,6 +22,7 @@ import org.antlr.v4.runtime.misc.Nullable;
  * in the various paths when the error. Reported by reportNoViableAlternative()
  */
 public class NoViableAltException extends RecognitionException {
+  @Serial
   private static final long serialVersionUID = 5096000008992867052L;
 
   /**

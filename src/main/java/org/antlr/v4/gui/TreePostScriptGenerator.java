@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -64,9 +64,9 @@ public class TreePostScriptGenerator {
     doc = new PostScriptDocument(fontName, fontSize);
     boolean compareNodeIdentities = true;
     this.treeLayout =
-      new TreeLayout<Tree>(getTreeLayoutAdaptor(root),
+      new TreeLayout<>(getTreeLayoutAdaptor(root),
         new VariableExtentProvide(),
-        new DefaultConfiguration<Tree>(gapBetweenLevels,
+        new DefaultConfiguration<>(gapBetweenLevels,
           gapBetweenNodes,
           Configuration.Location.Bottom),
         compareNodeIdentities);

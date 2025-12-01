@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -52,7 +52,7 @@ package org.antlr.v4.gui;
  * Units are 1000th of an 'em'.
  */
 public abstract class BasicFontMetrics {
-  public static final int MAX_CHAR = '\u00FF';
+  public static final int MAX_CHAR = 'ÿ';
   protected int maxCharHeight;
   protected int[] widths = new int[MAX_CHAR + 1];
 

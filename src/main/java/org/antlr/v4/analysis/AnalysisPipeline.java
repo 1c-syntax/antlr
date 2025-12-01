@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -60,7 +60,7 @@ public class AnalysisPipeline {
   }
 
   protected void processParser() {
-    g.decisionLOOK = new ArrayList<IntervalSet[]>(g.atn.getNumberOfDecisions() + 1);
+    g.decisionLOOK = new ArrayList<>(g.atn.getNumberOfDecisions() + 1);
     for (DecisionState s : g.atn.decisionToState) {
       g.tool.log("LL1", "\nDECISION " + s.decision + " in rule " + g.getRule(s.ruleIndex).name);
       IntervalSet[] look;

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GrammarRootAST extends GrammarASTWithOptions {
-  public static final Map<String, String> defaultOptions = new HashMap<String, String>();
+  public static final Map<String, String> defaultOptions = new HashMap<>();
 
   static {
     defaultOptions.put("language", "Java");

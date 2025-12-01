@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -33,7 +33,7 @@ public class ATN {
   public static final int INVALID_ALT_NUMBER = 0;
 
   @NotNull
-  public final List<ATNState> states = new ArrayList<ATNState>();
+  public final List<ATNState> states = new ArrayList<>();
 
   /**
    * Each subrule/rule is a decision point and we must track them so we
@@ -41,7 +41,7 @@ public class ATN {
    * all the rules, subrules, optional blocks, ()+, ()* etc...
    */
   @NotNull
-  public final List<DecisionState> decisionToState = new ArrayList<DecisionState>();
+  public final List<DecisionState> decisionToState = new ArrayList<>();
 
   /**
    * Maps from rule index to starting state number.
@@ -54,8 +54,7 @@ public class ATN {
   public RuleStopState[] ruleToStopState;
 
   @NotNull
-  public final Map<String, TokensStartState> modeNameToStartState =
-    new LinkedHashMap<String, TokensStartState>();
+  public final Map<String, TokensStartState> modeNameToStartState = new LinkedHashMap<>();
 
   /**
    * The type of the ATN.
@@ -85,17 +84,17 @@ public class ATN {
   public LexerAction[] lexerActions;
 
   @NotNull
-  public final List<TokensStartState> modeToStartState = new ArrayList<TokensStartState>();
+  public final List<TokensStartState> modeToStartState = new ArrayList<>();
 
   private final ConcurrentMap<PredictionContext, PredictionContext> contextCache =
-    new ConcurrentHashMap<PredictionContext, PredictionContext>();
+    new ConcurrentHashMap<>();
 
   @NotNull
   public DFA[] decisionToDFA = new DFA[0];
   @NotNull
   public DFA[] modeToDFA = new DFA[0];
 
-  protected final ConcurrentMap<Integer, Integer> LL1Table = new ConcurrentHashMap<Integer, Integer>();
+  protected final ConcurrentMap<Integer, Integer> LL1Table = new ConcurrentHashMap<>();
 
   /**
    * Used for runtime deserialization of ATNs from strings
@@ -143,8 +142,7 @@ public class ATN {
   public IntervalSet nextTokens(ATNState s, @NotNull PredictionContext ctx) {
     Args.notNull("ctx", ctx);
     LL1Analyzer anal = new LL1Analyzer(this);
-    IntervalSet next = anal.LOOK(s, ctx);
-    return next;
+    return anal.LOOK(s, ctx);
   }
 
   /**

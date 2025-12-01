@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -19,16 +19,11 @@ import java.util.NoSuchElementException;
  * Adaptor ANTLR trees to {@link TreeForTreeLayout}.
  */
 public class TreeLayoutAdaptor implements TreeForTreeLayout<Tree> {
-  private static class AntlrTreeChildrenIterable implements Iterable<Tree> {
-    private final Tree tree;
-
-    public AntlrTreeChildrenIterable(Tree tree) {
-      this.tree = tree;
-    }
+  private record AntlrTreeChildrenIterable(Tree tree) implements Iterable<Tree> {
 
     @Override
     public Iterator<Tree> iterator() {
-      return new Iterator<Tree>() {
+      return new Iterator<>() {
         private int i = 0;
 
         @Override
@@ -52,17 +47,11 @@ public class TreeLayoutAdaptor implements TreeForTreeLayout<Tree> {
     }
   }
 
-  private static class AntlrTreeChildrenReverseIterable implements
-    Iterable<Tree> {
-    private final Tree tree;
-
-    public AntlrTreeChildrenReverseIterable(Tree tree) {
-      this.tree = tree;
-    }
+  private record AntlrTreeChildrenReverseIterable(Tree tree) implements Iterable<Tree> {
 
     @Override
     public Iterator<Tree> iterator() {
-      return new Iterator<Tree>() {
+      return new Iterator<>() {
         private int i = tree.getChildCount();
 
         @Override

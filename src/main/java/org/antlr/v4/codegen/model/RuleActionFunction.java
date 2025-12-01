@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -23,8 +23,7 @@ public class RuleActionFunction extends OutputModelObject {
    * Map actionIndex to Action
    */
   @ModelElement
-  public LinkedHashMap<Integer, Action> actions =
-    new LinkedHashMap<Integer, Action>();
+  public LinkedHashMap<Integer, Action> actions = new LinkedHashMap<>();
 
   public RuleActionFunction(OutputModelFactory factory, Rule r, String ctxType) {
     super(factory);

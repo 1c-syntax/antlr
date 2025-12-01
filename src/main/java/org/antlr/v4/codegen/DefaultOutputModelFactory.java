@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -72,7 +72,7 @@ public abstract class DefaultOutputModelFactory extends BlankOutputModelFactory 
       STGroup codegenTemplates = gen.getTemplates();
       ST setStopTokenAST = codegenTemplates.getInstanceOf("recRuleSetStopToken");
       Action setStopTokenAction = new Action(this, function.getEffectiveRuleContext(controller), setStopTokenAST);
-      List<SrcOp> ops = new ArrayList<SrcOp>(1);
+      List<SrcOp> ops = new ArrayList<>(1);
       ops.add(setStopTokenAction);
       return ops;
     }
@@ -138,12 +138,12 @@ public abstract class DefaultOutputModelFactory extends BlankOutputModelFactory 
 
   @NotNull
   public static List<SrcOp> list(SrcOp... values) {
-    return new ArrayList<SrcOp>(Arrays.asList(values));
+    return new ArrayList<>(Arrays.asList(values));
   }
 
   @NotNull
   public static List<SrcOp> list(Collection<? extends SrcOp> values) {
-    return new ArrayList<SrcOp>(values);
+    return new ArrayList<>(values);
   }
 
   @Nullable

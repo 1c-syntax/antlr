@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -20,12 +20,10 @@ public class BlockAST extends GrammarASTWithOptions implements RuleElementAST {
    * What are the default options for a subrule?
    */
   @SuppressWarnings("serial")
-  public static final Map<String, String> defaultBlockOptions =
-    new HashMap<String, String>();
+  public static final Map<String, String> defaultBlockOptions = new HashMap<>();
 
   @SuppressWarnings("serial")
-  public static final Map<String, String> defaultLexerBlockOptions =
-    new HashMap<String, String>();
+  public static final Map<String, String> defaultLexerBlockOptions = new HashMap<>();
 
   public BlockAST(BlockAST node) {
     super(node);

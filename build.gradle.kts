@@ -5,10 +5,10 @@ plugins {
     `java-library`
     `maven-publish`
     jacoco
-    id("org.cadixdev.licenser") version "0.6.1"
+    id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "6.4.4"
-    id("org.jreleaser") version "1.19.0"
-    id("org.sonarqube") version "6.2.0.5505"
+    id("org.jreleaser") version "1.21.0"
+    id("org.sonarqube") version "7.1.0.6387"
 }
 
 repositories {
@@ -43,13 +43,20 @@ gitVersioning.apply {
 dependencies {
     api("org.antlr", "antlr-runtime", "3.5.3")
     api("org.antlr", "ST4", "4.3.4")
-    compileOnly("com.ibm.icu", "icu4j", "58.3")
+
+    compileOnly("com.ibm.icu", "icu4j", "77.1")
+
+    implementation("commons-io", "commons-io", "2.15.1")
     implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
+
+    implementation("io.github.1c-syntax", "utils", "0.6.3")
 
     testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")
     testImplementation("org.assertj", "assertj-core", "3.27.0")
+
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.1")
 }
 
 java {
@@ -100,8 +107,9 @@ if ("2025" != curYear) {
     curYear = "2025-$curYear"
 }
 license {
-    header(rootProject.file("license/HEADER.txt"))
-    newLine(false)
+    header = rootProject.file("license/HEADER.txt")
+    strictCheck = true
+    mapping("java", "SLASHSTAR_STYLE")
     ext["year"] = curYear
     ext["name"] = "Valery Maximov <maximovvalery@gmail.com>"
     ext["project"] = "ANTLR"

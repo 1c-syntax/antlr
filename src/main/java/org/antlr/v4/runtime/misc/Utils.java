@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -73,7 +73,7 @@ public class Utils {
   public static String escapeWhitespace(String s, boolean escapeSpaces) {
     StringBuilder buf = new StringBuilder();
     for (char c : s.toCharArray()) {
-      if (c == ' ' && escapeSpaces) buf.append('\u00B7');
+      if (c == ' ' && escapeSpaces) buf.append('·');
       else if (c == '\t') buf.append("\\t");
       else if (c == '\n') buf.append("\\n");
       else if (c == '\r') buf.append("\\r");
@@ -125,7 +125,7 @@ public class Utils {
     } else {
       isr = new InputStreamReader(fis);
     }
-    char[] data = null;
+    char[] data;
     try {
       data = new char[size];
       int n = isr.read(data);
@@ -175,7 +175,7 @@ public class Utils {
    * converting rulenames to name&rarr;ruleindex map.
    */
   public static Map<String, Integer> toMap(String[] keys) {
-    Map<String, Integer> m = new HashMap<String, Integer>();
+    Map<String, Integer> m = new HashMap<>();
     for (int i = 0; i < keys.length; i++) {
       m.put(keys[i], i);
     }

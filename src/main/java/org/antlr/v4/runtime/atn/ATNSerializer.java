@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -84,7 +84,7 @@ public class ATNSerializer {
     // Note that we use a LinkedHashMap as a set to
     // maintain insertion order while deduplicating
     // entries with the same key.
-    Map<IntervalSet, Boolean> sets = new LinkedHashMap<IntervalSet, Boolean>();
+    Map<IntervalSet, Boolean> sets = new LinkedHashMap<>();
 
     // dump states, count edges and collect sets while doing so
     IntegerList nonGreedyStates = new IntegerList();
@@ -182,8 +182,8 @@ public class ATNSerializer {
         data.add(modeStartState.stateNumber);
       }
     }
-    List<IntervalSet> bmpSets = new ArrayList<IntervalSet>();
-    List<IntervalSet> smpSets = new ArrayList<IntervalSet>();
+    List<IntervalSet> bmpSets = new ArrayList<>();
+    List<IntervalSet> smpSets = new ArrayList<>();
     for (IntervalSet set : sets.keySet()) {
       if (!set.isNil() && set.getMaxElement() <= Character.MAX_VALUE) {
         bmpSets.add(set);
@@ -199,7 +199,7 @@ public class ATNSerializer {
       data,
       smpSets,
       this::serializeInt);
-    Map<IntervalSet, Integer> setIndices = new HashMap<IntervalSet, Integer>();
+    Map<IntervalSet, Integer> setIndices = new HashMap<>();
     int setIndex = 0;
     for (IntervalSet bmpSet : bmpSets) {
       setIndices.put(bmpSet, setIndex++);
@@ -276,10 +276,7 @@ public class ATNSerializer {
 
             arg3 = at.isCtxDependent ? 1 : 0;
             break;
-          case Transition.SET:
-            arg1 = setIndices.get(((SetTransition) t).set);
-            break;
-          case Transition.NOT_SET:
+          case Transition.SET, Transition.NOT_SET:
             arg1 = setIndices.get(((SetTransition) t).set);
             break;
           case Transition.WILDCARD:
@@ -308,6 +305,7 @@ public class ATNSerializer {
       data.add(atn.lexerActions.length);
       for (LexerAction action : atn.lexerActions) {
         data.add(action.getActionType().ordinal());
+        int mode;
         switch (action.getActionType()) {
           case CHANNEL:
             int channel = ((LexerChannelAction) action).getChannel();
@@ -323,17 +321,12 @@ public class ATNSerializer {
             break;
 
           case MODE:
-            int mode = ((LexerModeAction) action).getMode();
+            mode = ((LexerModeAction) action).getMode();
             data.add(mode != -1 ? mode : 0xFFFF);
             data.add(0);
             break;
 
-          case MORE:
-            data.add(0);
-            data.add(0);
-            break;
-
-          case POP_MODE:
+          case MORE, POP_MODE, SKIP:
             data.add(0);
             data.add(0);
             break;
@@ -344,11 +337,6 @@ public class ATNSerializer {
             data.add(0);
             break;
 
-          case SKIP:
-            data.add(0);
-            data.add(0);
-            break;
-
           case TYPE:
             int type = ((LexerTypeAction) action).getType();
             data.add(type != -1 ? type : 0xFFFF);
@@ -356,7 +344,10 @@ public class ATNSerializer {
             break;
 
           default:
-            String message = String.format(Locale.getDefault(), "The specified lexer action type %s is not valid.", action.getActionType());
+            var message = String.format(
+              Locale.getDefault(),
+              "The specified lexer action type %s is not valid.",
+              action.getActionType());
             throw new IllegalArgumentException(message);
         }
       }
@@ -591,8 +582,7 @@ public class ATNSerializer {
           // turn on the bit above max "\uFFFF" value so that we pad with zeros
           // then only take last 4 digits
           String hex = Integer.toHexString(t | 0x10000).toUpperCase().substring(1, 5);
-          String unicodeStr = "'\\u" + hex + "'";
-          return unicodeStr;
+          return "'\\u" + hex + "'";
       }
     }
 

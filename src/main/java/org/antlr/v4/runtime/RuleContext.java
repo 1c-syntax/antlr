@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -162,6 +162,11 @@ public class RuleContext implements RuleNode {
 
   public int getRuleIndex() {
     return -1;
+  }
+
+  @Override
+  public int getIndex() {
+    return getRuleIndex();
   }
 
   /**

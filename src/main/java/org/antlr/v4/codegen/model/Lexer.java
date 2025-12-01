@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -25,14 +25,14 @@ public class Lexer extends Recognizer {
 
   @ModelElement
   public LinkedHashMap<Rule, RuleActionFunction> actionFuncs =
-    new LinkedHashMap<Rule, RuleActionFunction>();
+    new LinkedHashMap<>();
 
   public Lexer(OutputModelFactory factory, LexerFile file) {
     super(factory);
     this.file = file; // who contains us?
 
     Grammar g = factory.getGrammar();
-    channels = new LinkedHashMap<String, Integer>(g.channelNameToValueMap);
+    channels = new LinkedHashMap<>(g.channelNameToValueMap);
     modes = ((LexerGrammar) g).modes.keySet();
   }
 }

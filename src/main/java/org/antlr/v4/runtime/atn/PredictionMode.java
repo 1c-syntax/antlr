@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -245,9 +245,7 @@ public enum PredictionMode {
     // pure SLL or combined SLL+LL mode parsing
 
     Collection<BitSet> altsets = getConflictingAltSubsets(configs);
-    boolean heuristic =
-      hasConflictingAltSet(altsets) && !hasStateAssociatedWithOneAlt(configs);
-    return heuristic;
+    return hasConflictingAltSet(altsets) && !hasStateAssociatedWithOneAlt(configs);
   }
 
   /**
@@ -576,7 +574,7 @@ public enum PredictionMode {
    */
   @NotNull
   public static Map<ATNState, BitSet> getStateToAltMap(@NotNull ATNConfigSet configs) {
-    Map<ATNState, BitSet> m = new HashMap<ATNState, BitSet>();
+    Map<ATNState, BitSet> m = new HashMap<>();
     for (ATNConfig c : configs) {
       BitSet alts = m.computeIfAbsent(c.getState(), k -> new BitSet());
       alts.set(c.getAlt());

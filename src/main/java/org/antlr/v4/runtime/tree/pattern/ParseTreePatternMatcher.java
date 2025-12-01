@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -163,7 +163,7 @@ public class ParseTreePatternMatcher {
    * compiled pattern instead of a string representation of a tree pattern.
    */
   public boolean matches(ParseTree tree, ParseTreePattern pattern) {
-    MultiMap<String, ParseTree> labels = new MultiMap<String, ParseTree>();
+    MultiMap<String, ParseTree> labels = new MultiMap<>();
     ParseTree mismatchedNode = matchImpl(tree, pattern.getPatternTree(), labels);
     return mismatchedNode == null;
   }
@@ -186,7 +186,7 @@ public class ParseTreePatternMatcher {
    */
   @NotNull
   public ParseTreeMatch match(@NotNull ParseTree tree, @NotNull ParseTreePattern pattern) {
-    MultiMap<String, ParseTree> labels = new MultiMap<String, ParseTree>();
+    MultiMap<String, ParseTree> labels = new MultiMap<>();
     ParseTree mismatchedNode = matchImpl(tree, pattern.getPatternTree(), labels);
     return new ParseTreeMatch(tree, pattern, labels, mismatchedNode);
   }
@@ -206,11 +206,10 @@ public class ParseTreePatternMatcher {
       parser.getATNWithBypassAlts(),
       tokens);
 
-    ParseTree tree = null;
+    ParseTree tree;
     try {
       parserInterp.setErrorHandler(new BailErrorStrategy());
       tree = parserInterp.parse(patternRuleIndex);
-//			System.out.println("pattern tree = "+tree.toStringTree(parserInterp));
     } catch (ParseCancellationException e) {
       throw (RecognitionException) e.getCause();
     } catch (RecognitionException re) {
@@ -361,7 +360,7 @@ public class ParseTreePatternMatcher {
     List<Chunk> chunks = split(pattern);
 
     // create token stream from text and tags
-    List<Token> tokens = new ArrayList<Token>();
+    List<Token> tokens = new ArrayList<>();
     for (Chunk chunk : chunks) {
       if (chunk instanceof TagChunk tagChunk) {
         // add special rule token or conjure up new token from name
@@ -393,7 +392,6 @@ public class ParseTreePatternMatcher {
       }
     }
 
-//		System.out.println("tokens="+tokens);
     return tokens;
   }
 
@@ -403,11 +401,11 @@ public class ParseTreePatternMatcher {
   public List<Chunk> split(String pattern) {
     int p = 0;
     int n = pattern.length();
-    List<Chunk> chunks = new ArrayList<Chunk>();
+    List<Chunk> chunks = new ArrayList<>();
     StringBuilder buf = new StringBuilder();
     // find all start and stop indexes first, then collect
-    List<Integer> starts = new ArrayList<Integer>();
-    List<Integer> stops = new ArrayList<Integer>();
+    List<Integer> starts = new ArrayList<>();
+    List<Integer> stops = new ArrayList<>();
     while (p < n) {
       if (p == pattern.indexOf(escape + start, p)) {
         p += escape.length() + start.length();
@@ -424,9 +422,6 @@ public class ParseTreePatternMatcher {
       }
     }
 
-//		System.out.println("");
-//		System.out.println(starts);
-//		System.out.println(stops);
     if (starts.size() > stops.size()) {
       throw new IllegalArgumentException("unterminated tag in pattern: " + pattern);
     }

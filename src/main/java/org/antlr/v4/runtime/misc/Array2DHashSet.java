@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -119,8 +119,8 @@ public class Array2DHashSet<T> implements Set<T> {
 
   protected final int getBucket(T o) {
     int hash = comparator.hashCode(o);
-    int b = hash & (buckets.length - 1); // assumes len is power of 2
-    return b;
+    // assumes len is power of 2
+    return hash & (buckets.length - 1);
   }
 
   @Override
@@ -143,8 +143,7 @@ public class Array2DHashSet<T> implements Set<T> {
     if (o == this) return true;
     if (!(o instanceof Array2DHashSet<?> other)) return false;
     if (other.size() != size()) return false;
-    boolean same = this.containsAll(other);
-    return same;
+    return this.containsAll(other);
   }
 
   protected void expand() {

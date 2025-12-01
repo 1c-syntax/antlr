@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -36,9 +36,8 @@ public class Action extends RuleElement {
     if (ast != null) {
       chunks = ActionTranslator.translateAction(factory, rf, ast.token, ast);
     } else {
-      chunks = new ArrayList<ActionChunk>();
+      chunks = new ArrayList<>();
     }
-    //System.out.println("actions="+chunks);
   }
 
   public Action(OutputModelFactory factory, StructDecl ctx, String action) {
@@ -49,15 +48,14 @@ public class Action extends RuleElement {
       ast.resolver = rf.rule;
       chunks = ActionTranslator.translateActionChunk(factory, rf, action, ast);
     } else {
-      chunks = new ArrayList<ActionChunk>();
+      chunks = new ArrayList<>();
       chunks.add(new ActionText(ctx, action));
     }
   }
 
   public Action(OutputModelFactory factory, StructDecl ctx, ST actionST) {
     super(factory, null);
-    chunks = new ArrayList<ActionChunk>();
+    chunks = new ArrayList<>();
     chunks.add(new ActionTemplate(ctx, actionST));
   }
-
 }

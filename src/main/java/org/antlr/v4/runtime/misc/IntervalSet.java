@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -64,9 +64,9 @@ public class IntervalSet implements IntSet {
 
   public IntervalSet(int... els) {
     if (els == null || els.length == 0) {
-      intervals = new ArrayList<Interval>(2); // most sets are 1 or 2 elements
+      intervals = new ArrayList<>(2); // most sets are 1 or 2 elements
     } else {
-      intervals = new ArrayList<Interval>(els.length);
+      intervals = new ArrayList<>(els.length);
       for (int e : els) add(e);
     }
   }
@@ -286,23 +286,19 @@ public class IntervalSet implements IntSet {
           result.intervals.add(resultI + 1, afterCurrent);
           resultI++;
           rightI++;
-          continue;
         } else {
           // replace the current interval
           result.intervals.set(resultI, beforeCurrent);
           resultI++;
-          continue;
         }
       } else {
         if (afterCurrent != null) {
           // replace the current interval
           result.intervals.set(resultI, afterCurrent);
           rightI++;
-          continue;
         } else {
           // remove the current interval (thus no need to increment resultI)
           result.intervals.remove(resultI);
-          continue;
         }
       }
     }
@@ -491,7 +487,7 @@ public class IntervalSet implements IntSet {
    */
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(obj instanceof IntervalSet other)) {
+    if (!(obj instanceof IntervalSet other)) {
       return false;
     }
     return this.intervals.equals(other.intervals);
@@ -619,7 +615,7 @@ public class IntervalSet implements IntSet {
 
   @Override
   public List<Integer> toList() {
-    List<Integer> values = new ArrayList<Integer>(size());
+    List<Integer> values = new ArrayList<>(size());
     for (Interval interval : intervals) {
       int a = interval.a;
       int b = interval.b;
@@ -631,7 +627,7 @@ public class IntervalSet implements IntSet {
   }
 
   public Set<Integer> toSet() {
-    Set<Integer> s = new HashSet<Integer>(size());
+    Set<Integer> s = new HashSet<>(size());
     for (Interval I : intervals) {
       int a = I.a;
       int b = I.b;
@@ -672,7 +668,7 @@ public class IntervalSet implements IntSet {
         break;
       }
       // if in middle a..x..b, split interval
-      if (el > a && el < b) { // found in this interval
+      if (el < b) { // found in this interval
         int oldb = interval.b;
         intervals.set(i, Interval.of(interval.a, el - 1)); // [a..x-1]
         add(el + 1, oldb); // add [x+1..b]

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -249,7 +249,7 @@ public class DFAState {
           map.put(PredictionContext.EMPTY_FULL_STATE_KEY, map.remove(-1));
         } catch (UnsupportedOperationException ex) {
           // handles read only, non-singleton maps
-          map = new LinkedHashMap<Integer, DFAState>(map);
+          map = new LinkedHashMap<>(map);
           map.put(PredictionContext.EMPTY_FULL_STATE_KEY, map.remove(-1));
         }
       }
@@ -288,9 +288,7 @@ public class DFAState {
       return false;
     }
 
-    boolean sameSet = this.configs.equals(other.configs);
-//		System.out.println("DFAState.equals: "+configs+(sameSet?"==":"!=")+other.configs);
-    return sameSet;
+    return this.configs.equals(other.configs);
   }
 
   @Override

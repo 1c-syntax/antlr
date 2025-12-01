@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -46,4 +46,9 @@ public interface ParseTree extends SyntaxTree {
    * based upon the parser.
    */
   String toStringTree(Parser parser);
+
+  /**
+   * Индекс правила либо тип токена
+   */
+  int getIndex();
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -22,7 +22,7 @@ public class XPathWildcardAnywhereElement extends XPathElement {
 
   @Override
   public Collection<ParseTree> evaluate(ParseTree t) {
-    if (invert) return new ArrayList<ParseTree>(); // !* is weird but valid (empty)
+    if (invert) return new ArrayList<>(); // !* is weird but valid (empty)
     return Trees.getDescendants(t);
   }
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -15,8 +15,8 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
 import org.antlr.v4.runtime.misc.Tuple3;
 
 import java.io.InvalidClassException;
@@ -80,7 +80,7 @@ public class ATNDeserializer {
     ADDED_LEXER_ACTIONS = UUID.fromString("AB35191A-1603-487E-B75A-479B831EAF6D");
     ADDED_UNICODE_SMP = UUID.fromString("C23FEA89-0605-4f51-AFB8-058BCAB8C91B");
 
-    SUPPORTED_UUIDS = new ArrayList<UUID>();
+    SUPPORTED_UUIDS = new ArrayList<>();
     SUPPORTED_UUIDS.add(BASE_SERIALIZED_UUID);
     SUPPORTED_UUIDS.add(ADDED_LEXER_ACTIONS);
     SUPPORTED_UUIDS.add(ADDED_UNICODE_SMP);
@@ -213,8 +213,8 @@ public class ATNDeserializer {
     //
     // STATES
     //
-    List<Tuple2<LoopEndState, Integer>> loopBackStateNumbers = new ArrayList<Tuple2<LoopEndState, Integer>>();
-    List<Tuple2<BlockStartState, Integer>> endStateNumbers = new ArrayList<Tuple2<BlockStartState, Integer>>();
+    List<Pair<LoopEndState, Integer>> loopBackStateNumbers = new ArrayList<>();
+    List<Pair<BlockStartState, Integer>> endStateNumbers = new ArrayList<>();
     int nstates = toInt(data[p++]);
     for (int i = 0; i < nstates; i++) {
       int stype = toInt(data[p++]);
@@ -241,11 +241,11 @@ public class ATNDeserializer {
     }
 
     // delay the assignment of loop back and end states until we know all the state instances have been initialized
-    for (Tuple2<LoopEndState, Integer> pair : loopBackStateNumbers) {
+    for (Pair<LoopEndState, Integer> pair : loopBackStateNumbers) {
       pair.getItem1().loopBackState = atn.states.get(pair.getItem2());
     }
 
-    for (Tuple2<BlockStartState, Integer> pair : endStateNumbers) {
+    for (Pair<BlockStartState, Integer> pair : endStateNumbers) {
       pair.getItem1().endState = (BlockEndState) atn.states.get(pair.getItem2());
     }
 
@@ -327,7 +327,7 @@ public class ATNDeserializer {
     //
     // SETS
     //
-    List<IntervalSet> sets = new ArrayList<IntervalSet>();
+    List<IntervalSet> sets = new ArrayList<>();
 
     // First, read all sets with 16-bit Unicode code points <= U+FFFF.
     p = deserializeSets(data, p, sets, getUnicodeDeserializer(UnicodeDeserializingMode.UNICODE_BMP));
@@ -352,10 +352,6 @@ public class ATNDeserializer {
       int arg2 = toInt(data[p + 4]);
       int arg3 = toInt(data[p + 5]);
       Transition trans = edgeFactory(atn, ttype, src, trg, arg1, arg2, arg3, sets);
-//			System.out.println("EDGE "+trans.getClass().getSimpleName()+" "+
-//							   src+"->"+trg+
-//					   " "+Transition.serializationNames[ttype]+
-//					   " "+arg1+","+arg2+","+arg3);
       ATNState srcState = atn.states.get(src);
       srcState.addTransition(trans);
       p += 6;
@@ -363,7 +359,7 @@ public class ATNDeserializer {
 
     // edges for rule stop states can be derived, so they aren't serialized
     // Map rule stop state -> return state -> outermost precedence return
-    Set<Tuple3<Integer, Integer, Integer>> returnTransitions = new LinkedHashSet<Tuple3<Integer, Integer, Integer>>();
+    Set<Tuple3<Integer, Integer, Integer>> returnTransitions = new LinkedHashSet<>();
     for (ATNState state : atn.states) {
       boolean returningToLeftFactored = state.ruleIndex >= 0 && atn.ruleToStartState[state.ruleIndex].leftFactored;
       for (int i = 0; i < state.getNumberOfTransitions(); i++) {
@@ -463,7 +459,7 @@ public class ATNDeserializer {
         // for compatibility with older serialized ATNs, convert the old
         // serialized action index for action transitions to the new
         // form, which is the index of a LexerCustomAction
-        List<LexerAction> legacyLexerActions = new ArrayList<LexerAction>();
+        List<LexerAction> legacyLexerActions = new ArrayList<>();
         for (ATNState state : atn.states) {
           for (int i = 0; i < state.getNumberOfTransitions(); i++) {
             Transition transition = state.transition(i);
@@ -639,7 +635,7 @@ public class ATNDeserializer {
    */
   protected void markPrecedenceDecisions(@NotNull ATN atn) {
     // Map rule index -> precedence decision for that rule
-    Map<Integer, StarLoopEntryState> rulePrecedenceDecisions = new HashMap<Integer, StarLoopEntryState>();
+    Map<Integer, StarLoopEntryState> rulePrecedenceDecisions = new HashMap<>();
 
     for (ATNState state : atn.states) {
       if (!(state instanceof StarLoopEntryState)) {
@@ -752,8 +748,7 @@ public class ATNDeserializer {
 
     Transition[] ruleToInlineTransition = new Transition[atn.ruleToStartState.length];
     for (int i = 0; i < atn.ruleToStartState.length; i++) {
-      RuleStartState startState = atn.ruleToStartState[i];
-      ATNState middleState = startState;
+      ATNState middleState = atn.ruleToStartState[i];
       while (middleState.onlyHasEpsilonTransitions()
         && middleState.getNumberOfOptimizedTransitions() == 1
         && middleState.getOptimizedTransition(0).getSerializationType() == Transition.EPSILON) {
@@ -786,7 +781,7 @@ public class ATNDeserializer {
           continue;
 
         default:
-          continue;
+          // no-op
       }
     }
 
@@ -817,7 +812,7 @@ public class ATNDeserializer {
         }
 
         if (optimizedTransitions == null) {
-          optimizedTransitions = new ArrayList<Transition>();
+          optimizedTransitions = new ArrayList<>();
           for (int j = 0; j < i; j++) {
             optimizedTransitions.add(state.getOptimizedTransition(i));
           }
@@ -905,7 +900,7 @@ public class ATNDeserializer {
 
         removedEdges++;
         if (optimizedTransitions == null) {
-          optimizedTransitions = new ArrayList<Transition>();
+          optimizedTransitions = new ArrayList<>();
           for (int j = 0; j < i; j++) {
             optimizedTransitions.add(state.getOptimizedTransition(j));
           }
@@ -978,7 +973,7 @@ public class ATNDeserializer {
         continue;
       }
 
-      List<Transition> optimizedTransitions = new ArrayList<Transition>();
+      List<Transition> optimizedTransitions = new ArrayList<>();
       for (int i = 0; i < decision.getNumberOfOptimizedTransitions(); i++) {
         if (!setTransitions.contains(i)) {
           optimizedTransitions.add(decision.getOptimizedTransition(i));
@@ -1073,7 +1068,7 @@ public class ATNDeserializer {
     }
 
     BitSet reachable = new BitSet(atn.states.size());
-    Deque<ATNState> worklist = new ArrayDeque<ATNState>();
+    Deque<ATNState> worklist = new ArrayDeque<>();
     worklist.add(transition.followState);
     while (!worklist.isEmpty()) {
       ATNState state = worklist.pop();
@@ -1137,11 +1132,9 @@ public class ATNDeserializer {
           return new RangeTransition(target, arg1, arg2);
         }
       case Transition.RULE:
-        RuleTransition rt = new RuleTransition((RuleStartState) atn.states.get(arg1), arg2, arg3, target);
-        return rt;
+        return new RuleTransition((RuleStartState) atn.states.get(arg1), arg2, arg3, target);
       case Transition.PREDICATE:
-        PredicateTransition pt = new PredicateTransition(target, arg1, arg2, arg3 != 0);
-        return pt;
+        return new PredicateTransition(target, arg1, arg2, arg3 != 0);
       case Transition.PRECEDENCE:
         return new PrecedencePredicateTransition(target, arg1);
       case Transition.ATOM:
@@ -1151,8 +1144,7 @@ public class ATNDeserializer {
           return new AtomTransition(target, arg1);
         }
       case Transition.ACTION:
-        ActionTransition a = new ActionTransition(target, arg1, arg2, arg3 != 0);
-        return a;
+        return new ActionTransition(target, arg1, arg2, arg3 != 0);
       case Transition.SET:
         return new SetTransition(target, sets.get(arg1));
       case Transition.NOT_SET:
@@ -1215,34 +1207,15 @@ public class ATNDeserializer {
   }
 
   protected LexerAction lexerActionFactory(LexerActionType type, int data1, int data2) {
-    switch (type) {
-      case CHANNEL:
-        return new LexerChannelAction(data1);
-
-      case CUSTOM:
-        return new LexerCustomAction(data1, data2);
-
-      case MODE:
-        return new LexerModeAction(data1);
-
-      case MORE:
-        return LexerMoreAction.INSTANCE;
-
-      case POP_MODE:
-        return LexerPopModeAction.INSTANCE;
-
-      case PUSH_MODE:
-        return new LexerPushModeAction(data1);
-
-      case SKIP:
-        return LexerSkipAction.INSTANCE;
-
-      case TYPE:
-        return new LexerTypeAction(data1);
-
-      default:
-        String message = String.format(Locale.getDefault(), "The specified lexer action type %d is not valid.", type);
-        throw new IllegalArgumentException(message);
-    }
+    return switch (type) {
+      case CHANNEL -> new LexerChannelAction(data1);
+      case CUSTOM -> new LexerCustomAction(data1, data2);
+      case MODE -> new LexerModeAction(data1);
+      case MORE -> LexerMoreAction.INSTANCE;
+      case POP_MODE -> LexerPopModeAction.INSTANCE;
+      case PUSH_MODE -> new LexerPushModeAction(data1);
+      case SKIP -> LexerSkipAction.INSTANCE;
+      case TYPE -> new LexerTypeAction(data1);
+    };
   }
 }

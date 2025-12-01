@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -11,8 +11,8 @@ package org.antlr.v4.tool;
 
 import org.antlr.v4.analysis.LeftRecursiveRuleAltInfo;
 import org.antlr.v4.misc.OrderedHashMap;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.RuleAST;
@@ -30,8 +30,7 @@ public class LeftRecursiveRule extends Rule {
   /**
    * Did we delete any labels on direct left-recur refs? Points at ID of ^(= ID el)
    */
-  public List<Tuple2<GrammarAST, String>> leftRecursiveRuleRefLabels =
-    new ArrayList<Tuple2<GrammarAST, String>>();
+  public List<Pair<GrammarAST, String>> leftRecursiveRuleRefLabels = new ArrayList<>();
 
   public LeftRecursiveRule(Grammar g, String name, RuleAST ast) {
     super(g, name, ast, 1);
@@ -59,7 +58,7 @@ public class LeftRecursiveRule extends Rule {
 
   @Override
   public List<AltAST> getUnlabeledAltASTs() {
-    List<AltAST> alts = new ArrayList<AltAST>();
+    List<AltAST> alts = new ArrayList<>();
     for (LeftRecursiveRuleAltInfo altInfo : recPrimaryAlts) {
       if (altInfo.altLabel == null) alts.add(altInfo.originalAltAST);
     }
@@ -86,7 +85,9 @@ public class LeftRecursiveRule extends Rule {
    * @since 4.5.1
    */
   public int[] getPrimaryAlts() {
-    if (recPrimaryAlts.size() == 0) return null;
+    if (recPrimaryAlts.isEmpty()) {
+      return null;
+    }
     int[] alts = new int[recPrimaryAlts.size() + 1];
     for (int i = 0; i < recPrimaryAlts.size(); i++) { // recPrimaryAlts is a List not Map like recOpAlts
       LeftRecursiveRuleAltInfo altInfo = recPrimaryAlts.get(i);
@@ -110,7 +111,9 @@ public class LeftRecursiveRule extends Rule {
    * @since 4.5.1
    */
   public int[] getRecursiveOpAlts() {
-    if (recOpAlts.size() == 0) return null;
+    if (recOpAlts.isEmpty()) {
+      return null;
+    }
     int[] alts = new int[recOpAlts.size() + 1];
     int alt = 1;
     for (LeftRecursiveRuleAltInfo altInfo : recOpAlts.values()) {
@@ -124,14 +127,14 @@ public class LeftRecursiveRule extends Rule {
    * Get -&gt; labels from those alts we deleted for left-recursive rules.
    */
   @Override
-  public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
-    Map<String, List<Tuple2<Integer, AltAST>>> labels = new HashMap<String, List<Tuple2<Integer, AltAST>>>();
-    Map<String, List<Tuple2<Integer, AltAST>>> normalAltLabels = super.getAltLabels();
+  public Map<String, List<Pair<Integer, AltAST>>> getAltLabels() {
+    Map<String, List<Pair<Integer, AltAST>>> labels = new HashMap<>();
+    Map<String, List<Pair<Integer, AltAST>>> normalAltLabels = super.getAltLabels();
     if (normalAltLabels != null) labels.putAll(normalAltLabels);
     if (recPrimaryAlts != null) {
       for (LeftRecursiveRuleAltInfo altInfo : recPrimaryAlts) {
         if (altInfo.altLabel != null) {
-          List<Tuple2<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Tuple2<Integer, AltAST>>());
+          List<Pair<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<>());
 
           pairs.add(Tuple.create(altInfo.altNum, altInfo.originalAltAST));
         }
@@ -141,7 +144,7 @@ public class LeftRecursiveRule extends Rule {
       for (int i = 0; i < recOpAlts.size(); i++) {
         LeftRecursiveRuleAltInfo altInfo = recOpAlts.getElement(i);
         if (altInfo.altLabel != null) {
-          List<Tuple2<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<Tuple2<Integer, AltAST>>());
+          List<Pair<Integer, AltAST>> pairs = labels.computeIfAbsent(altInfo.altLabel, k -> new ArrayList<>());
 
           pairs.add(Tuple.create(altInfo.altNum, altInfo.originalAltAST));
         }

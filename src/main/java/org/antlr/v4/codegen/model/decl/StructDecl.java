@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -31,9 +31,9 @@ public class StructDecl extends Decl {
   public String derivedFromName; // rule name or label name
   public boolean provideCopyFrom;
   @ModelElement
-  public OrderedHashSet<Decl> attrs = new OrderedHashSet<Decl>();
+  public OrderedHashSet<Decl> attrs = new OrderedHashSet<>();
   @ModelElement
-  public OrderedHashSet<Decl> getters = new OrderedHashSet<Decl>();
+  public OrderedHashSet<Decl> getters = new OrderedHashSet<>();
   @ModelElement
   public Collection<AttributeDecl> ctorAttrs;
   @ModelElement
@@ -46,12 +46,12 @@ public class StructDecl extends Decl {
   // Track these separately; Go target needs to generate getters/setters
   // Do not make them templates; we only need the Decl object not the ST
   // built from it. Avoids adding args to StructDecl template
-  public OrderedHashSet<Decl> tokenDecls = new OrderedHashSet<Decl>();
-  public OrderedHashSet<Decl> tokenTypeDecls = new OrderedHashSet<Decl>();
-  public OrderedHashSet<Decl> tokenListDecls = new OrderedHashSet<Decl>();
-  public OrderedHashSet<Decl> ruleContextDecls = new OrderedHashSet<Decl>();
-  public OrderedHashSet<Decl> ruleContextListDecls = new OrderedHashSet<Decl>();
-  public OrderedHashSet<Decl> attributeDecls = new OrderedHashSet<Decl>();
+  public OrderedHashSet<Decl> tokenDecls = new OrderedHashSet<>();
+  public OrderedHashSet<Decl> tokenTypeDecls = new OrderedHashSet<>();
+  public OrderedHashSet<Decl> tokenListDecls = new OrderedHashSet<>();
+  public OrderedHashSet<Decl> ruleContextDecls = new OrderedHashSet<>();
+  public OrderedHashSet<Decl> ruleContextListDecls = new OrderedHashSet<>();
+  public OrderedHashSet<Decl> attributeDecls = new OrderedHashSet<>();
 
   public StructDecl(OutputModelFactory factory, Rule r) {
     super(factory, factory.getTarget().getRuleFunctionContextStructName(r));
@@ -61,7 +61,7 @@ public class StructDecl extends Decl {
   }
 
   public void addDispatchMethods(Rule r) {
-    dispatchMethods = new ArrayList<DispatchMethod>();
+    dispatchMethods = new ArrayList<>();
     if (!r.hasAltSpecificContexts()) {
       // no enter/exit for this ruleContext if rule has labels
       if (factory.getGrammar().tool.gen_listener) {
@@ -106,7 +106,7 @@ public class StructDecl extends Decl {
 
   public void implementInterface(OutputModelObject value) {
     if (interfaces == null) {
-      interfaces = new ArrayList<OutputModelObject>();
+      interfaces = new ArrayList<>();
     }
 
     interfaces.add(value);
@@ -114,7 +114,7 @@ public class StructDecl extends Decl {
 
   public void addExtensionMember(OutputModelObject member) {
     if (extensionMembers == null) {
-      extensionMembers = new ArrayList<OutputModelObject>();
+      extensionMembers = new ArrayList<>();
     }
 
     extensionMembers.add(member);

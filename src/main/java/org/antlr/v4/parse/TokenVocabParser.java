@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -41,15 +41,15 @@ public class TokenVocabParser {
    * Load a vocab file {@code <vocabName>.tokens} and return mapping.
    */
   public Map<String, Integer> load() {
-    Map<String, Integer> tokens = new LinkedHashMap<String, Integer>();
+    Map<String, Integer> tokens = new LinkedHashMap<>();
     int maxTokenType = -1;
     File fullFile = getImportedVocabFile();
-    FileInputStream fis = null;
+    FileInputStream fis;
     BufferedReader br = null;
     Tool tool = g.tool;
     String vocabName = g.getOptionString("tokenVocab");
     try {
-      Pattern tokenDefPattern = Pattern.compile("([^\n]+?)[ \\t]*?=[ \\t]*?([0-9]+)");
+      var tokenDefPattern = Pattern.compile("([^\n]+?)[ \\t]*?=[ \\t]*?([0-9]+)");
       fis = new FileInputStream(fullFile);
       InputStreamReader isr;
       if (tool.grammarEncoding != null) {
@@ -81,7 +81,7 @@ public class TokenVocabParser {
           maxTokenType = Math.max(maxTokenType, tokenType);
           lineNum++;
         } else {
-          if (tokenDef.length() > 0) { // ignore blank lines
+          if (!tokenDef.isEmpty()) { // ignore blank lines
             tool.errMgr.toolError(ErrorType.TOKENS_FILE_SYNTAX_ERROR,
               vocabName + CodeGenerator.VOCAB_FILE_EXTENSION,
               " bad token def: " + tokenDef,

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -24,10 +24,6 @@ public abstract class ATNSimulator {
   @Deprecated
   public static final int SERIALIZED_VERSION;
 
-  static {
-    SERIALIZED_VERSION = ATNDeserializer.SERIALIZED_VERSION;
-  }
-
   /**
    * This is the current serialized UUID.
    *
@@ -37,6 +33,7 @@ public abstract class ATNSimulator {
   public static final UUID SERIALIZED_UUID;
 
   static {
+    SERIALIZED_VERSION = ATNDeserializer.SERIALIZED_VERSION;
     SERIALIZED_UUID = ATNDeserializer.SERIALIZED_UUID;
   }
 
@@ -53,7 +50,7 @@ public abstract class ATNSimulator {
   public final ATN atn;
 
   static {
-    ERROR = new DFAState(new EmptyEdgeMap<DFAState>(0, -1), new EmptyEdgeMap<DFAState>(0, -1), new ATNConfigSet());
+    ERROR = new DFAState(new EmptyEdgeMap<>(0, -1), new EmptyEdgeMap<>(0, -1), new ATNConfigSet());
     ERROR.stateNumber = Integer.MAX_VALUE;
   }
 
@@ -152,16 +149,4 @@ public abstract class ATNSimulator {
   public static ATNState stateFactory(int type, int ruleIndex) {
     return new ATNDeserializer().stateFactory(type, ruleIndex);
   }
-
-/*
-	public static void dump(DFA dfa, Grammar g) {
-		DOTGenerator dot = new DOTGenerator(g);
-		String output = dot.getDOT(dfa, false);
-		System.out.println(output);
-	}
-
-	public static void dump(DFA dfa) {
-		dump(dfa, null);
-	}
-	 */
 }

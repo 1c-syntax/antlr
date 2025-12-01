@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -35,14 +35,14 @@ import java.util.logging.Logger;
 public class RuleDependencyChecker {
   private static final Logger LOGGER = Logger.getLogger(RuleDependencyChecker.class.getName());
 
-  private static final Set<Class<?>> checkedTypes = new HashSet<Class<?>>();
+  private static final Set<Class<?>> checkedTypes = new HashSet<>();
 
   public static void checkDependencies(Class<?> dependentClass) {
     if (isChecked(dependentClass)) {
       return;
     }
 
-    List<Class<?>> typesToCheck = new ArrayList<Class<?>>();
+    List<Class<?>> typesToCheck = new ArrayList<>();
     typesToCheck.add(dependentClass);
     Collections.addAll(typesToCheck, dependentClass.getDeclaredClasses());
     for (final Class<?> clazz : typesToCheck) {
@@ -50,7 +50,7 @@ public class RuleDependencyChecker {
         continue;
       }
 
-      List<Tuple2<RuleDependency, AnnotatedElement>> dependencies = getDependencies(clazz);
+      List<Pair<RuleDependency, AnnotatedElement>> dependencies = getDependencies(clazz);
       if (dependencies.isEmpty()) {
         continue;
       }
@@ -71,12 +71,13 @@ public class RuleDependencyChecker {
     }
   }
 
-  private static void checkDependencies(List<Tuple2<RuleDependency, AnnotatedElement>> dependencies, Class<? extends Recognizer<?, ?>> recognizerClass) {
+  private static void checkDependencies(List<Pair<RuleDependency, AnnotatedElement>> dependencies,
+                                        Class<? extends Recognizer<?, ?>> recognizerClass) {
     String[] ruleNames = getRuleNames(recognizerClass);
     int[] ruleVersions = getRuleVersions(recognizerClass, ruleNames);
 
     StringBuilder incompatible = new StringBuilder();
-    for (Tuple2<RuleDependency, AnnotatedElement> dependency : dependencies) {
+    for (Pair<RuleDependency, AnnotatedElement> dependency : dependencies) {
       if (!recognizerClass.isAssignableFrom(dependency.getItem1().recognizer())) {
         continue;
       }
@@ -97,7 +98,7 @@ public class RuleDependencyChecker {
       }
     }
 
-    if (incompatible.length() != 0) {
+    if (!incompatible.isEmpty()) {
       throw new IllegalStateException(incompatible.toString());
     }
 
@@ -166,17 +167,12 @@ public class RuleDependencyChecker {
     return new String[0];
   }
 
-  public static List<Tuple2<RuleDependency, AnnotatedElement>> getDependencies(Class<?> clazz) {
-    List<Tuple2<RuleDependency, AnnotatedElement>> result = new ArrayList<Tuple2<RuleDependency, AnnotatedElement>>();
+  public static List<Pair<RuleDependency, AnnotatedElement>> getDependencies(Class<?> clazz) {
+    List<Pair<RuleDependency, AnnotatedElement>> result = new ArrayList<>();
     ElementType[] supportedTarget = RuleDependency.class.getAnnotation(Target.class).value();
     for (ElementType target : supportedTarget) {
       switch (target) {
-        case TYPE:
-          if (!clazz.isAnnotation()) {
-            getElementDependencies(clazz, result);
-          }
-          break;
-        case ANNOTATION_TYPE:
+        case TYPE, ANNOTATION_TYPE:
           if (!clazz.isAnnotation()) {
             getElementDependencies(clazz, result);
           }
@@ -211,7 +207,7 @@ public class RuleDependencyChecker {
     return result;
   }
 
-  private static void getElementDependencies(AnnotatedElement annotatedElement, List<Tuple2<RuleDependency, AnnotatedElement>> result) {
+  private static void getElementDependencies(AnnotatedElement annotatedElement, List<Pair<RuleDependency, AnnotatedElement>> result) {
     RuleDependency dependency = annotatedElement.getAnnotation(RuleDependency.class);
     if (dependency != null) {
       result.add(Tuple.create(dependency, annotatedElement));

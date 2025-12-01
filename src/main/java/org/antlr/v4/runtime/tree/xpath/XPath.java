@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -77,8 +77,7 @@ public class XPath {
   public XPath(Parser parser, String path) {
     this.parser = parser;
     this.path = path;
-    elements = split(path);
-//		System.out.println(Arrays.toString(elements));
+    this.elements = split(path);
   }
 
   // TODO: check for invalid token/rule names, bad syntax
@@ -102,14 +101,13 @@ public class XPath {
     }
 
     List<Token> tokens = tokenStream.getTokens();
-//		System.out.println("path="+path+"=>"+tokens);
-    List<XPathElement> elements = new ArrayList<XPathElement>();
+    List<XPathElement> pathElements = new ArrayList<>();
     int n = tokens.size();
     int i = 0;
     loop:
     while (i < n) {
       Token el = tokens.get(i);
-      Token next = null;
+      Token next;
       switch (el.getType()) {
         case XPathLexer.ROOT:
         case XPathLexer.ANYWHERE:
@@ -123,14 +121,14 @@ public class XPath {
           }
           XPathElement pathElement = getXPathElement(next, anywhere);
           pathElement.invert = invert;
-          elements.add(pathElement);
+          pathElements.add(pathElement);
           i++;
           break;
 
         case XPathLexer.TOKEN_REF:
         case XPathLexer.RULE_REF:
         case XPathLexer.WILDCARD:
-          elements.add(getXPathElement(el, false));
+          pathElements.add(getXPathElement(el, false));
           i++;
           break;
 
@@ -141,7 +139,7 @@ public class XPath {
           throw new IllegalArgumentException("Unknowth path element " + el);
       }
     }
-    return elements.toArray(new XPathElement[0]);
+    return pathElements.toArray(new XPathElement[0]);
   }
 
   /**
@@ -156,33 +154,33 @@ public class XPath {
     String word = wordToken.getText();
     int ttype = parser.getTokenType(word);
     int ruleIndex = parser.getRuleIndex(word);
-    switch (wordToken.getType()) {
-      case XPathLexer.WILDCARD:
-        return anywhere ?
-          new XPathWildcardAnywhereElement() :
-          new XPathWildcardElement();
-      case XPathLexer.TOKEN_REF:
-      case XPathLexer.STRING:
+    return switch (wordToken.getType()) {
+      case XPathLexer.WILDCARD -> anywhere ?
+        new XPathWildcardAnywhereElement() :
+        new XPathWildcardElement();
+      case XPathLexer.TOKEN_REF, XPathLexer.STRING -> {
         if (ttype == Token.INVALID_TYPE) {
           throw new IllegalArgumentException(word +
             " at index " +
             wordToken.getStartIndex() +
             " isn't a valid token name");
         }
-        return anywhere ?
+        yield anywhere ?
           new XPathTokenAnywhereElement(word, ttype) :
           new XPathTokenElement(word, ttype);
-      default:
+      }
+      default -> {
         if (ruleIndex == -1) {
           throw new IllegalArgumentException(word +
             " at index " +
             wordToken.getStartIndex() +
             " isn't a valid rule name");
         }
-        return anywhere ?
+        yield anywhere ?
           new XPathRuleAnywhereElement(word, ruleIndex) :
           new XPathRuleElement(word, ruleIndex);
-    }
+      }
+    };
   }
 
 
@@ -204,7 +202,7 @@ public class XPath {
 
     int i = 0;
     while (i < elements.length) {
-      Collection<ParseTree> next = new LinkedHashSet<ParseTree>();
+      Collection<ParseTree> next = new LinkedHashSet<>();
       for (ParseTree node : work) {
         if (node.getChildCount() > 0) {
           // only try to match next element if it has children

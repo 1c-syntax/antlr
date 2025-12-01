@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -174,12 +174,12 @@ public class ArrayPredictionContext extends PredictionContext {
     }
 
     ArrayPredictionContext other = (ArrayPredictionContext) o;
-    return equals(other, new HashSet<IdentityCommutativePredictionContextOperands>());
+    return equals(other, new HashSet<>());
   }
 
   private boolean equals(ArrayPredictionContext other, Set<IdentityCommutativePredictionContextOperands> visited) {
-    Deque<PredictionContext> selfWorkList = new ArrayDeque<PredictionContext>();
-    Deque<PredictionContext> otherWorkList = new ArrayDeque<PredictionContext>();
+    Deque<PredictionContext> selfWorkList = new ArrayDeque<>();
+    Deque<PredictionContext> otherWorkList = new ArrayDeque<>();
     selfWorkList.push(this);
     otherWorkList.push(other);
     while (!selfWorkList.isEmpty()) {

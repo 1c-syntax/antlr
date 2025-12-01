@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -28,15 +28,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
   public static final int EOF = -1;
 
-  private static final Map<Vocabulary, Map<String, Integer>> tokenTypeMapCache =
-    new WeakHashMap<Vocabulary, Map<String, Integer>>();
-  private static final Map<String[], Map<String, Integer>> ruleIndexMapCache =
-    new WeakHashMap<String[], Map<String, Integer>>();
+  private static final Map<Vocabulary, Map<String, Integer>> tokenTypeMapCache = new WeakHashMap<>();
+  private static final Map<String[], Map<String, Integer>> ruleIndexMapCache = new WeakHashMap<>();
 
   @SuppressWarnings("serial")
   @NotNull
   private final List<ANTLRErrorListener<? super Symbol>> _listeners =
-    new CopyOnWriteArrayList<ANTLRErrorListener<? super Symbol>>() {{
+    new CopyOnWriteArrayList<>() {{
       add(ConsoleErrorListener.INSTANCE);
     }};
 
@@ -79,7 +77,7 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
     synchronized (tokenTypeMapCache) {
       Map<String, Integer> result = tokenTypeMapCache.get(vocabulary);
       if (result == null) {
-        result = new HashMap<String, Integer>();
+        result = new HashMap<>();
         for (int i = 0; i <= getATN().maxTokenType; i++) {
           String literalName = vocabulary.getLiteralName(i);
           if (literalName != null) {
@@ -247,11 +245,11 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
 
   @NotNull
   public List<? extends ANTLRErrorListener<? super Symbol>> getErrorListeners() {
-    return new ArrayList<ANTLRErrorListener<? super Symbol>>(_listeners);
+    return new ArrayList<>(_listeners);
   }
 
   public ANTLRErrorListener<? super Symbol> getErrorListenerDispatch() {
-    return new ProxyErrorListener<Symbol>(getErrorListeners());
+    return new ProxyErrorListener<>(getErrorListeners());
   }
 
   // subclass needs to override these if there are sempreds or actions

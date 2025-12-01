@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -11,7 +11,7 @@ package org.antlr.v4.codegen.model;
 
 import org.antlr.runtime.RecognitionException;
 import org.antlr.v4.codegen.OutputModelFactory;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.Rule;
 import org.antlr.v4.tool.ast.ActionAST;
@@ -33,13 +33,13 @@ public class VisitorFile extends OutputFile {
   /**
    * The names of all rule contexts which may need to be visited.
    */
-  public Set<String> visitorNames = new LinkedHashSet<String>();
+  public Set<String> visitorNames = new LinkedHashSet<>();
   /**
    * For rule contexts created for a labeled outer alternative, maps from
    * a listener context name to the name of the rule which defines the
    * context.
    */
-  public Map<String, String> visitorLabelRuleNames = new LinkedHashMap<String, String>();
+  public Map<String, String> visitorLabelRuleNames = new LinkedHashMap<>();
 
   @ModelElement
   public Action header;
@@ -56,7 +56,7 @@ public class VisitorFile extends OutputFile {
     for (Map.Entry<String, List<RuleAST>> entry : g.contextASTs.entrySet()) {
       for (RuleAST ruleAST : entry.getValue()) {
         try {
-          Map<String, List<Tuple2<Integer, AltAST>>> labeledAlternatives = g.getLabeledAlternatives(ruleAST);
+          Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives = g.getLabeledAlternatives(ruleAST);
           visitorNames.addAll(labeledAlternatives.keySet());
         } catch (RecognitionException ex) {
         }
@@ -68,9 +68,9 @@ public class VisitorFile extends OutputFile {
     }
 
     for (Rule r : g.rules.values()) {
-      Map<String, List<Tuple2<Integer, AltAST>>> labels = r.getAltLabels();
+      Map<String, List<Pair<Integer, AltAST>>> labels = r.getAltLabels();
       if (labels != null) {
-        for (Map.Entry<String, List<Tuple2<Integer, AltAST>>> pair : labels.entrySet()) {
+        for (Map.Entry<String, List<Pair<Integer, AltAST>>> pair : labels.entrySet()) {
           visitorLabelRuleNames.put(pair.getKey(), r.name);
         }
       }

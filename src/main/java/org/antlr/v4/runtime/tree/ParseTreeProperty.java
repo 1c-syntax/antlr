@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -29,7 +29,7 @@ import java.util.Map;
  * in your event methods.
  */
 public class ParseTreeProperty<V> {
-  protected Map<ParseTree, V> annotations = new IdentityHashMap<ParseTree, V>();
+  protected Map<ParseTree, V> annotations = new IdentityHashMap<>();
 
   public V get(ParseTree node) {
     return annotations.get(node);

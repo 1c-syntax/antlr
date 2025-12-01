@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,7 +12,6 @@ package org.antlr.v4.unicode;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.IntervalSet;
 
-import javax.annotation.processing.Generated;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -26,8 +25,8 @@ import java.util.Map;
 public enum UnicodeData {
   ;
 
-  private static final Map<String, IntervalSet> propertyCodePointRanges = new HashMap<String, IntervalSet>(1020);
-  private static final Map<String, String> propertyAliases = new HashMap<String, String>(2237);
+  private static final Map<String, IntervalSet> propertyCodePointRanges = new HashMap<>(1020);
+  private static final Map<String, String> propertyAliases = new HashMap<>(2237);
 
   // Work around Java 64k bytecode method limit by splitting up static
   // initialization into one method per Unicode property
@@ -55757,7 +55756,7 @@ public enum UnicodeData {
     propertyAliases.put("InTangut_Components".toLowerCase(Locale.US), "blk=Tangut_Components".toLowerCase(Locale.US));
     addPropertyAliases_p2();
   }
-  
+
   static private void addPropertyAliases_p2() {
     propertyAliases.put("Bidi_Class=L".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));
     propertyAliases.put("Bidi_Class=Left_To_Right".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));

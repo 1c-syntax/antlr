@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -69,7 +69,7 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
    */
   @SuppressWarnings("serial")
   public static MultiMap<Integer, Integer> validImportTypes =
-    new MultiMap<Integer, Integer>() {
+    new MultiMap<>() {
       {
         map(ANTLRParser.LEXER, ANTLRParser.LEXER);
         map(ANTLRParser.LEXER, ANTLRParser.COMBINED);
@@ -267,14 +267,6 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
     String v = null;
     @SuppressWarnings("unused")
     boolean ok = checkElementOptions(elem, ID, valueAST);
-//		if ( ok ) {
-//			if ( v!=null ) {
-//				t.setOption(ID.getText(), v);
-//			}
-//			else {
-//				t.setOption(TerminalAST.defaultTokenOption, v);
-//			}
-//		}
   }
 
   /**
@@ -290,7 +282,7 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
    */
   @Override
   public void finishGrammar(GrammarRootAST root, GrammarAST ID) {
-    MultiMap<String, Rule> baseContexts = new MultiMap<String, Rule>();
+    MultiMap<String, Rule> baseContexts = new MultiMap<>();
     for (Rule r : ruleCollector.rules.values()) {
       GrammarAST optionAST = r.ast.getOptionAST("baseContext");
 
@@ -447,7 +439,7 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
   void checkNumPrequels(List<GrammarAST> options,
                         List<GrammarAST> imports,
                         List<GrammarAST> tokens) {
-    List<Token> secondOptionTokens = new ArrayList<Token>();
+    List<Token> secondOptionTokens = new ArrayList<>();
     if (options != null && options.size() > 1) {
       secondOptionTokens.add(options.get(1).token);
     }
@@ -700,13 +692,10 @@ public class BasicSemanticChecks extends GrammarTreeVisitor {
   }
 
   boolean legalGrammarOption(String key) {
-    switch (g.getType()) {
-      case ANTLRParser.LEXER:
-        return Grammar.lexerOptions.contains(key);
-      case ANTLRParser.PARSER:
-        return Grammar.parserOptions.contains(key);
-      default:
-        return Grammar.parserOptions.contains(key);
+    if (g.getType() == ANTLRParser.LEXER) {
+      return Grammar.lexerOptions.contains(key);
+    } else {
+      return Grammar.parserOptions.contains(key);
     }
   }
 

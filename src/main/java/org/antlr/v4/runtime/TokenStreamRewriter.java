@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -217,10 +217,9 @@ public class TokenStreamRewriter {
 
   public TokenStreamRewriter(TokenStream tokens) {
     this.tokens = tokens;
-    programs = new HashMap<String, List<RewriteOperation>>();
-    programs.put(DEFAULT_PROGRAM_NAME,
-      new ArrayList<RewriteOperation>(PROGRAM_INIT_SIZE));
-    lastRewriteTokenIndexes = new HashMap<String, Integer>();
+    programs = new HashMap<>();
+    programs.put(DEFAULT_PROGRAM_NAME,      new ArrayList<>(PROGRAM_INIT_SIZE));
+    lastRewriteTokenIndexes = new HashMap<>();
   }
 
   public final TokenStream getTokenStream() {
@@ -375,7 +374,7 @@ public class TokenStreamRewriter {
   }
 
   private List<RewriteOperation> initializeProgram(String name) {
-    List<RewriteOperation> is = new ArrayList<RewriteOperation>(PROGRAM_INIT_SIZE);
+    List<RewriteOperation> is = new ArrayList<>(PROGRAM_INIT_SIZE);
     programs.put(name, is);
     return is;
   }
@@ -590,7 +589,7 @@ public class TokenStreamRewriter {
       }
     }
     // System.out.println("rewrites after="+rewrites);
-    Map<Integer, RewriteOperation> m = new HashMap<Integer, RewriteOperation>();
+    Map<Integer, RewriteOperation> m = new HashMap<>();
     for (RewriteOperation op : rewrites) {
       if (op == null) continue; // ignore deleted ops
       if (m.get(op.index) != null) {
@@ -614,7 +613,7 @@ public class TokenStreamRewriter {
    * Get all operations before an index of a particular kind
    */
   protected <T extends RewriteOperation> List<? extends T> getKindOfOps(List<? extends RewriteOperation> rewrites, Class<T> kind, int before) {
-    List<T> ops = new ArrayList<T>();
+    List<T> ops = new ArrayList<>();
     for (int i = 0; i < before && i < rewrites.size(); i++) {
       RewriteOperation op = rewrites.get(i);
       if (op == null) continue; // ignore deleted

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,8 +12,9 @@ package org.antlr.v4.gui;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonToken;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.DiagnosticErrorListener;
+import org.antlr.v4.runtime.IncrementalParser;
+import org.antlr.v4.runtime.IncrementalTokenStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -48,7 +49,7 @@ public class TestRig {
 
   protected String grammarName;
   protected String startRuleName;
-  protected final List<String> inputFiles = new ArrayList<String>();
+  protected final List<String> inputFiles = new ArrayList<>();
   protected boolean printTree = false;
   protected boolean gui = false;
   protected String psFile = null;
@@ -58,12 +59,13 @@ public class TestRig {
   protected String encoding = null;
   protected boolean SLL = false;
 
-  public TestRig(String[] args) throws Exception {
+  public TestRig(String[] args) {
     if (args.length < 2) {
-      System.err.println("java org.antlr.v4.gui.TestRig GrammarName startRuleName\n" +
-        "  [-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]\n" +
-        "  [-trace] [-diagnostics] [-SLL]\n" +
-        "  [input-filename(s)]");
+      System.err.println("""
+        java org.antlr.v4.gui.TestRig GrammarName startRuleName
+          [-tokens] [-tree] [-gui] [-ps file.ps] [-encoding encodingname]
+          [-trace] [-diagnostics] [-SLL]
+          [input-filename(s)]""");
       System.err.println("Use startRuleName='tokens' if GrammarName is a lexer grammar.");
       System.err.println("Omitting input-filename makes rig read from stdin.");
       return;
@@ -120,10 +122,9 @@ public class TestRig {
   }
 
   public void process() throws Exception {
-//		System.out.println("exec "+grammarName+"."+startRuleName);
     String lexerName = grammarName + "Lexer";
     ClassLoader cl = Thread.currentThread().getContextClassLoader();
-    Class<? extends Lexer> lexerClass = null;
+    Class<? extends Lexer> lexerClass;
     try {
       lexerClass = cl.loadClass(lexerName).asSubclass(Lexer.class);
     } catch (java.lang.ClassNotFoundException cnfe) {
@@ -143,10 +144,15 @@ public class TestRig {
     Class<? extends Parser> parserClass = null;
     Parser parser = null;
     if (!startRuleName.equals(LEXER_START_RULE_NAME)) {
-      String parserName = grammarName + "Parser";
+      var parserName = grammarName + "Parser";
       parserClass = cl.loadClass(parserName).asSubclass(Parser.class);
-      Constructor<? extends Parser> parserCtor = parserClass.getConstructor(TokenStream.class);
-      parser = parserCtor.newInstance((TokenStream) null);
+      if (IncrementalParser.class.isAssignableFrom(parserClass)) {
+        parser = parserClass.getConstructor(IncrementalTokenStream.class)
+          .newInstance((IncrementalTokenStream) null);
+      } else {
+        parser = parserClass.getConstructor(TokenStream.class)
+          .newInstance((TokenStream) null);
+      }
     }
 
     Charset charset = (encoding == null ? Charset.defaultCharset() : Charset.forName(encoding));
@@ -166,7 +172,7 @@ public class TestRig {
 
   protected void process(Lexer lexer, Class<? extends Parser> parserClass, Parser parser, CharStream input) throws IOException, IllegalAccessException, InvocationTargetException, PrintException {
     lexer.setInputStream(input);
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
+    IncrementalTokenStream tokens = new IncrementalTokenStream(lexer);
 
     tokens.fill();
 

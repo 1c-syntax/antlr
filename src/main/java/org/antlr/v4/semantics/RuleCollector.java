@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -37,9 +37,9 @@ public class RuleCollector extends GrammarTreeVisitor {
   public ErrorManager errMgr;
 
   // stuff to collect. this is the output
-  public OrderedHashMap<String, Rule> rules = new OrderedHashMap<String, Rule>();
-  public MultiMap<String, GrammarAST> ruleToAltLabels = new MultiMap<String, GrammarAST>();
-  public Map<String, String> altLabelToRuleName = new HashMap<String, String>();
+  public OrderedHashMap<String, Rule> rules = new OrderedHashMap<>();
+  public MultiMap<String, GrammarAST> ruleToAltLabels = new MultiMap<>();
+  public Map<String, String> altLabelToRuleName = new HashMap<>();
 
   public RuleCollector(Grammar g) {
     this.g = g;

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -62,8 +62,7 @@ import java.util.Map;
  *
  */
 public class ActionTranslator implements ActionSplitterListener {
-  public static final Map<String, Class<? extends RulePropertyRef>> thisRulePropToModelMap =
-    new HashMap<String, Class<? extends RulePropertyRef>>();
+  public static final Map<String, Class<? extends RulePropertyRef>> thisRulePropToModelMap = new HashMap<>();
 
   static {
     thisRulePropToModelMap.put("start", ThisRulePropertyRef_start.class);
@@ -73,8 +72,7 @@ public class ActionTranslator implements ActionSplitterListener {
     thisRulePropToModelMap.put("parser", ThisRulePropertyRef_parser.class);
   }
 
-  public static final Map<String, Class<? extends RulePropertyRef>> rulePropToModelMap =
-    new HashMap<String, Class<? extends RulePropertyRef>>();
+  public static final Map<String, Class<? extends RulePropertyRef>> rulePropToModelMap = new HashMap<>();
 
   static {
     rulePropToModelMap.put("start", RulePropertyRef_start.class);
@@ -84,8 +82,7 @@ public class ActionTranslator implements ActionSplitterListener {
     rulePropToModelMap.put("parser", RulePropertyRef_parser.class);
   }
 
-  public static final Map<String, Class<? extends TokenPropertyRef>> tokenPropToModelMap =
-    new HashMap<String, Class<? extends TokenPropertyRef>>();
+  public static final Map<String, Class<? extends TokenPropertyRef>> tokenPropToModelMap = new HashMap<>();
 
   static {
     tokenPropToModelMap.put("text", TokenPropertyRef_text.class);
@@ -100,7 +97,7 @@ public class ActionTranslator implements ActionSplitterListener {
   CodeGenerator gen;
   ActionAST node;
   RuleFunction rf;
-  List<ActionChunk> chunks = new ArrayList<ActionChunk>();
+  List<ActionChunk> chunks = new ArrayList<>();
   OutputModelFactory factory;
   StructDecl nodeContext;
 
@@ -120,8 +117,8 @@ public class ActionTranslator implements ActionSplitterListener {
                                                   RuleFunction rf,
                                                   Token tokenWithinAction,
                                                   ActionAST node) {
-    String action = tokenWithinAction.getText();
-    if (action != null && action.length() > 0 && action.charAt(0) == '{') {
+    var action = tokenWithinAction.getText();
+    if (action != null && !action.isEmpty() && action.charAt(0) == '{') {
       int firstCurly = action.indexOf('{');
       int lastCurly = action.lastIndexOf('}');
       if (firstCurly >= 0 && lastCurly >= 0) {
@@ -259,9 +256,7 @@ public class ActionTranslator implements ActionSplitterListener {
     try {
       Class<? extends TokenPropertyRef> c = tokenPropToModelMap.get(y.getText());
       Constructor<? extends TokenPropertyRef> ctor = c.getConstructor(StructDecl.class, String.class);
-      TokenPropertyRef ref =
-        ctor.newInstance(nodeContext, getTokenLabel(x.getText()));
-      return ref;
+      return ctor.newInstance(nodeContext, getTokenLabel(x.getText()));
     } catch (Exception e) {
       factory.getGrammar().tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, e);
     }
@@ -273,9 +268,7 @@ public class ActionTranslator implements ActionSplitterListener {
     try {
       Class<? extends RulePropertyRef> c = thisRulePropToModelMap.get(prop.getText());
       Constructor<? extends RulePropertyRef> ctor = c.getConstructor(StructDecl.class, String.class);
-      RulePropertyRef ref =
-        ctor.newInstance(nodeContext, getRuleLabel(prop.getText()));
-      return ref;
+      return ctor.newInstance(nodeContext, getRuleLabel(prop.getText()));
     } catch (Exception e) {
       factory.getGrammar().tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, e);
     }
@@ -287,9 +280,7 @@ public class ActionTranslator implements ActionSplitterListener {
     try {
       Class<? extends RulePropertyRef> c = rulePropToModelMap.get(prop.getText());
       Constructor<? extends RulePropertyRef> ctor = c.getConstructor(StructDecl.class, String.class);
-      RulePropertyRef ref =
-        ctor.newInstance(nodeContext, getRuleLabel(x.getText()));
-      return ref;
+      return ctor.newInstance(nodeContext, getRuleLabel(x.getText()));
     } catch (Exception e) {
       g.tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, e, prop.getText());
     }

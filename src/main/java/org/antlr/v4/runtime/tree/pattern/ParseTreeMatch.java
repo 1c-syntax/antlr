@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -92,7 +92,7 @@ public class ParseTreeMatch {
   @Nullable
   public ParseTree get(String label) {
     List<ParseTree> parseTrees = labels.get(label);
-    if (parseTrees == null || parseTrees.size() == 0) {
+    if (parseTrees == null || parseTrees.isEmpty()) {
       return null;
     }
 

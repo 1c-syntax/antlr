@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -22,7 +22,7 @@ import org.antlr.v4.parse.LeftRecursiveRuleWalker;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -48,16 +48,16 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
 
   public Tool tool;
   public String ruleName;
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> binaryAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> ternaryAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> suffixAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
-  public List<LeftRecursiveRuleAltInfo> prefixAndOtherAlts = new ArrayList<LeftRecursiveRuleAltInfo>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> binaryAlts = new LinkedHashMap<>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> ternaryAlts = new LinkedHashMap<>();
+  public LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> suffixAlts = new LinkedHashMap<>();
+  public List<LeftRecursiveRuleAltInfo> prefixAndOtherAlts = new ArrayList<>();
 
   /**
    * Pointer to ID node of ^(= ID element)
    */
-  public List<Tuple2<GrammarAST, String>> leftRecursiveRuleRefLabels =
-    new ArrayList<Tuple2<GrammarAST, String>>();
+  public List<Pair<GrammarAST, String>> leftRecursiveRuleRefLabels =
+    new ArrayList<>();
 
   /**
    * Tokens from which rule AST comes from
@@ -72,7 +72,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
   public STGroup codegenTemplates;
   public String language;
 
-  public Map<Integer, ASSOC> altAssociativity = new HashMap<Integer, ASSOC>();
+  public Map<Integer, ASSOC> altAssociativity = new HashMap<>();
 
   public LeftRecursiveRuleAnalyzer(GrammarAST ruleAST,
                                    Tool tool, String ruleName, String language) {
@@ -231,7 +231,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
     ruleST.add("setResultAction", setResultST);
     ruleST.add("userRetvals", retvals);
 
-    LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> opPrecRuleAlts = new LinkedHashMap<Integer, LeftRecursiveRuleAltInfo>();
+    LinkedHashMap<Integer, LeftRecursiveRuleAltInfo> opPrecRuleAlts = new LinkedHashMap<>();
     opPrecRuleAlts.putAll(binaryAlts);
     opPrecRuleAlts.putAll(ternaryAlts);
     opPrecRuleAlts.putAll(suffixAlts);
@@ -386,7 +386,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
 
         if (node instanceof GrammarASTWithOptions o) {
           for (Map.Entry<String, GrammarAST> entry : o.getOptions().entrySet()) {
-            if (elementOptions.length() > 0) {
+            if (!elementOptions.isEmpty()) {
               elementOptions.append(',');
             }
 
@@ -407,7 +407,7 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
       }
 
       // now that we have the actual element, we can add the options.
-      if (elementOptions.length() > 0) {
+      if (!elementOptions.isEmpty()) {
         buf.append('<').append(elementOptions).append('>');
       }
     }

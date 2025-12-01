@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -13,6 +13,8 @@ import org.antlr.v4.runtime.atn.DecisionState;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.Nullable;
 
+import java.io.Serial;
+
 /**
  * The root of the ANTLR exception hierarchy. In general, ANTLR tracks just
  * 3 kinds of errors: prediction errors, failed predicate errors, and
@@ -21,6 +23,7 @@ import org.antlr.v4.runtime.misc.Nullable;
  * and what kind of problem occurred.
  */
 public class RecognitionException extends RuntimeException {
+  @Serial
   private static final long serialVersionUID = -3861826954750022374L;
 
   /**

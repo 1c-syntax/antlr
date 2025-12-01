@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -18,7 +18,7 @@ public class Parser extends Recognizer {
   public ParserFile file;
 
   @ModelElement
-  public List<RuleFunction> funcs = new ArrayList<RuleFunction>();
+  public List<RuleFunction> funcs = new ArrayList<>();
 
   public Parser(OutputModelFactory factory, ParserFile file) {
     super(factory);

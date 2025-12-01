@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -9,10 +9,13 @@
  */
 package org.antlr.v4.parse;
 
+import java.io.Serial;
+
 /**
  * Used to throw us out of deeply nested element back to end of a rule's
  * alt list. Note it's not under RecognitionException.
  */
 public class ResyncToEndOfRuleBlock extends RuntimeException {
+  @Serial
   private static final long serialVersionUID = 6104510295480069276L;
 }

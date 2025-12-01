@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -29,7 +29,7 @@ public class XPathRuleElement extends XPathElement {
   @Override
   public Collection<ParseTree> evaluate(ParseTree t) {
     // return all children of t that match nodeName
-    List<ParseTree> nodes = new ArrayList<ParseTree>();
+    List<ParseTree> nodes = new ArrayList<>();
     for (Tree c : Trees.getChildren(t)) {
       if (c instanceof ParserRuleContext ctx) {
         if ((ctx.getRuleIndex() == ruleIndex && !invert) ||

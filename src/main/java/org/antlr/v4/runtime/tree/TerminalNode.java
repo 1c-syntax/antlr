@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -16,4 +16,9 @@ public interface TerminalNode extends ParseTree {
 
   @Override
   RuleNode getParent();
+
+  @Override
+  default int getIndex() {
+    return getSymbol().getType();
+  }
 }

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -31,13 +31,13 @@ public class LeftRecursionDetector {
   /**
    * Holds a list of cycles (sets of rule names).
    */
-  public List<Set<Rule>> listOfRecursiveCycles = new ArrayList<Set<Rule>>();
+  public List<Set<Rule>> listOfRecursiveCycles = new ArrayList<>();
 
   /**
    * Which rule start states have we visited while looking for a single
    * left-recursion check?
    */
-  Set<RuleStartState> rulesVisitedPerRuleCheck = new HashSet<RuleStartState>();
+  Set<RuleStartState> rulesVisitedPerRuleCheck = new HashSet<>();
 
   public LeftRecursionDetector(Grammar g, ATN atn) {
     this.g = g;
@@ -46,15 +46,11 @@ public class LeftRecursionDetector {
 
   public void check() {
     for (RuleStartState start : atn.ruleToStartState) {
-      //System.out.print("check "+start.rule.name);
       rulesVisitedPerRuleCheck.clear();
       rulesVisitedPerRuleCheck.add(start);
-      //FASerializer ser = new FASerializer(atn.g, start);
-      //System.out.print(":\n"+ser+"\n");
 
-      check(g.getRule(start.ruleIndex), start, new HashSet<ATNState>());
+      check(g.getRule(start.ruleIndex), start, new HashSet<>());
     }
-    //System.out.println("cycles="+listOfRecursiveCycles);
     if (!listOfRecursiveCycles.isEmpty()) {
       g.tool.errMgr.leftRecursionCycles(g.fileName, listOfRecursiveCycles);
     }
@@ -90,7 +86,7 @@ public class LeftRecursionDetector {
           // must visit if not already visited; mark target, pop when done
           rulesVisitedPerRuleCheck.add((RuleStartState) t.target);
           // send new visitedStates set per rule invocation
-          boolean nullable = check(r, t.target, new HashSet<ATNState>());
+          boolean nullable = check(r, t.target, new HashSet<>());
           // we're back from visiting that rule
           rulesVisitedPerRuleCheck.remove((RuleStartState) t.target);
           if (nullable) {
@@ -126,7 +122,7 @@ public class LeftRecursionDetector {
       }
     }
     if (!foundCycle) {
-      Set<Rule> cycle = new OrderedHashSet<Rule>();
+      Set<Rule> cycle = new OrderedHashSet<>();
       cycle.add(targetRule);
       cycle.add(enclosingRule);
       listOfRecursiveCycles.add(cycle);

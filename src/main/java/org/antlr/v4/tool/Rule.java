@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -11,8 +11,8 @@ package org.antlr.v4.tool;
 
 import org.antlr.v4.runtime.atn.ATNSimulator;
 import org.antlr.v4.runtime.misc.MultiMap;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
 import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
@@ -45,7 +45,7 @@ public class Rule implements AttributeResolver {
     predefinedRulePropertiesDict.add(new Attribute("ctx"));
   }
 
-  public static final Set<String> validLexerCommands = new HashSet<String>();
+  public static final Set<String> validLexerCommands = new HashSet<>();
 
   static {
     // CALLS
@@ -85,14 +85,13 @@ public class Rule implements AttributeResolver {
    * I track the AST node for the action in case I need the line number
    * for errors.
    */
-  public Map<String, ActionAST> namedActions =
-    new HashMap<String, ActionAST>();
+  public Map<String, ActionAST> namedActions = new HashMap<>();
 
   /**
    * Track exception handlers; points at "catch" node of (catch exception action)
    * don't track finally action
    */
-  public List<GrammarAST> exceptions = new ArrayList<GrammarAST>();
+  public List<GrammarAST> exceptions = new ArrayList<>();
 
   /**
    * Track all executable actions other than named actions like @init
@@ -102,7 +101,7 @@ public class Rule implements AttributeResolver {
    * <p>
    * This tracks per rule; Alternative objs also track per alt.
    */
-  public List<ActionAST> actions = new ArrayList<ActionAST>();
+  public List<ActionAST> actions = new ArrayList<>();
 
   public ActionAST finallyAction;
 
@@ -185,7 +184,7 @@ public class Rule implements AttributeResolver {
   }
 
   public Set<String> getTokenRefs() {
-    Set<String> refs = new HashSet<String>();
+    Set<String> refs = new HashSet<>();
     for (int i = 1; i <= numberOfAlts; i++) {
       refs.addAll(alt[i].tokenRefs.keySet());
     }
@@ -193,7 +192,7 @@ public class Rule implements AttributeResolver {
   }
 
   public Set<String> getElementLabelNames() {
-    Set<String> refs = new HashSet<String>();
+    Set<String> refs = new HashSet<>();
     for (int i = 1; i <= numberOfAlts; i++) {
       refs.addAll(alt[i].labelDefs.keySet());
     }
@@ -202,8 +201,7 @@ public class Rule implements AttributeResolver {
   }
 
   public MultiMap<String, LabelElementPair> getElementLabelDefs() {
-    MultiMap<String, LabelElementPair> defs =
-      new MultiMap<String, LabelElementPair>();
+    MultiMap<String, LabelElementPair> defs = new MultiMap<>();
     for (int i = 1; i <= numberOfAlts; i++) {
       for (List<LabelElementPair> pairs : alt[i].labelDefs.values()) {
         for (LabelElementPair p : pairs) {
@@ -231,12 +229,12 @@ public class Rule implements AttributeResolver {
    * (alternative number and {@link AltAST}) identifying the alternatives with
    * this label. Unlabeled alternatives are not included in the result.
    */
-  public Map<String, List<Tuple2<Integer, AltAST>>> getAltLabels() {
-    Map<String, List<Tuple2<Integer, AltAST>>> labels = new LinkedHashMap<String, List<Tuple2<Integer, AltAST>>>();
+  public Map<String, List<Pair<Integer, AltAST>>> getAltLabels() {
+    Map<String, List<Pair<Integer, AltAST>>> labels = new LinkedHashMap<>();
     for (int i = 1; i <= numberOfAlts; i++) {
       GrammarAST altLabel = alt[i].ast.altLabel;
       if (altLabel != null) {
-        List<Tuple2<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<Tuple2<Integer, AltAST>>());
+        List<Pair<Integer, AltAST>> list = labels.computeIfAbsent(altLabel.getText(), k -> new ArrayList<>());
 
         list.add(Tuple.create(i, alt[i].ast));
       }
@@ -246,7 +244,7 @@ public class Rule implements AttributeResolver {
   }
 
   public List<AltAST> getUnlabeledAltASTs() {
-    List<AltAST> alts = new ArrayList<AltAST>();
+    List<AltAST> alts = new ArrayList<>();
     for (int i = 1; i <= numberOfAlts; i++) {
       GrammarAST altLabel = alt[i].ast.altLabel;
       if (altLabel == null) alts.add(alt[i].ast);

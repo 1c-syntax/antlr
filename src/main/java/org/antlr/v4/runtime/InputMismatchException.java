@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -11,11 +11,14 @@ package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.io.Serial;
+
 /**
  * This signifies any kind of mismatched input exceptions such as
  * when the current input does not match the expected token.
  */
 public class InputMismatchException extends RecognitionException {
+  @Serial
   private static final long serialVersionUID = 1532568338707443067L;
 
   public InputMismatchException(@NotNull Parser recognizer) {

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -87,9 +87,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
   private int cachedHashCode = -1;
 
   public ATNConfigSet() {
-    this.mergedConfigs = new HashMap<Long, ATNConfig>();
-    this.unmerged = new ArrayList<ATNConfig>();
-    this.configs = new ArrayList<ATNConfig>();
+    this.mergedConfigs = new HashMap<>();
+    this.unmerged = new ArrayList<>();
+    this.configs = new ArrayList<>();
 
     this.uniqueAlt = ATN.INVALID_ALT_NUMBER;
   }
@@ -103,8 +103,8 @@ public class ATNConfigSet implements Set<ATNConfig> {
       this.mergedConfigs = (HashMap<Long, ATNConfig>) set.mergedConfigs.clone();
       this.unmerged = (ArrayList<ATNConfig>) set.unmerged.clone();
     } else {
-      this.mergedConfigs = new HashMap<Long, ATNConfig>(set.configs.size());
-      this.unmerged = new ArrayList<ATNConfig>();
+      this.mergedConfigs = new HashMap<>(set.configs.size());
+      this.unmerged = new ArrayList<>();
     }
 
     this.configs = (ArrayList<ATNConfig>) set.configs.clone();
@@ -157,7 +157,7 @@ public class ATNConfigSet implements Set<ATNConfig> {
   }
 
   public Set<ATNState> getStates() {
-    Set<ATNState> states = new HashSet<ATNState>();
+    Set<ATNState> states = new HashSet<>();
     for (ATNConfig c : this.configs) {
       states.add(c.getState());
     }
@@ -243,47 +243,23 @@ public class ATNConfigSet implements Set<ATNConfig> {
       contextCache = PredictionContextCache.UNCACHED;
     }
 
-    boolean addKey;
-    long key = getKey(e);
+    final long key = getKey(e);
     ATNConfig mergedConfig = mergedConfigs.get(key);
-    addKey = (mergedConfig == null);
+    boolean addKey = (mergedConfig == null);
     if (mergedConfig != null && canMerge(e, key, mergedConfig)) {
-      mergedConfig.setOuterContextDepth(Math.max(mergedConfig.getOuterContextDepth(), e.getOuterContextDepth()));
-      if (e.isPrecedenceFilterSuppressed()) {
-        mergedConfig.setPrecedenceFilterSuppressed(true);
-      }
-
-      PredictionContext joined = PredictionContext.join(mergedConfig.getContext(), e.getContext(), contextCache);
-      updatePropertiesForMergedConfig(e);
-      if (mergedConfig.getContext() == joined) {
-        return false;
-      }
-
-      mergedConfig.setContext(joined);
-      return true;
+      return !mergeConfigContext(e, contextCache, mergedConfig);
     }
 
     for (int i = 0, n = unmerged.size(); i < n; i++) {
       ATNConfig unmergedConfig = unmerged.get(i);
       if (canMerge(e, key, unmergedConfig)) {
-        unmergedConfig.setOuterContextDepth(Math.max(unmergedConfig.getOuterContextDepth(), e.getOuterContextDepth()));
-        if (e.isPrecedenceFilterSuppressed()) {
-          unmergedConfig.setPrecedenceFilterSuppressed(true);
-        }
-
-        PredictionContext joined = PredictionContext.join(unmergedConfig.getContext(), e.getContext(), contextCache);
-        updatePropertiesForMergedConfig(e);
-        if (unmergedConfig.getContext() == joined) {
+        if (mergeConfigContext(e, contextCache, unmergedConfig)) {
           return false;
         }
-
-        unmergedConfig.setContext(joined);
-
         if (addKey) {
           mergedConfigs.put(key, unmergedConfig);
           unmerged.remove(i);
         }
-
         return true;
       }
     }
@@ -297,6 +273,22 @@ public class ATNConfigSet implements Set<ATNConfig> {
 
     updatePropertiesForAddedConfig(e);
     return true;
+  }
+
+  private boolean mergeConfigContext(ATNConfig e, @Nullable PredictionContextCache contextCache, ATNConfig unmergedConfig) {
+    unmergedConfig.setOuterContextDepth(Math.max(unmergedConfig.getOuterContextDepth(), e.getOuterContextDepth()));
+    if (e.isPrecedenceFilterSuppressed()) {
+      unmergedConfig.setPrecedenceFilterSuppressed(true);
+    }
+
+    PredictionContext joined = PredictionContext.join(unmergedConfig.getContext(), e.getContext(), contextCache);
+    updatePropertiesForMergedConfig(e);
+    if (unmergedConfig.getContext() == joined) {
+      return true;
+    }
+
+    unmergedConfig.setContext(joined);
+    return false;
   }
 
   private void updatePropertiesForMergedConfig(ATNConfig config) {
@@ -438,7 +430,7 @@ public class ATNConfigSet implements Set<ATNConfig> {
 
   public String toString(boolean showContext) {
     StringBuilder buf = new StringBuilder();
-    List<ATNConfig> sortedConfigs = new ArrayList<ATNConfig>(configs);
+    List<ATNConfig> sortedConfigs = new ArrayList<>(configs);
     sortedConfigs.sort((o1, o2) -> {
       if (o1.getAlt() != o2.getAlt()) {
         return o1.getAlt() - o2.getAlt();

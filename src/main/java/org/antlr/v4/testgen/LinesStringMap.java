@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -26,7 +26,7 @@ public class LinesStringMap extends AbstractMap<String, Object> {
         return Collections.singletonList(str);
       }
 
-      ArrayList<String> result = new ArrayList<String>();
+      ArrayList<String> result = new ArrayList<>();
       int startIndex = 0;
       while (startIndex < str.length()) {
         int endIndex = str.indexOf('\n', startIndex);

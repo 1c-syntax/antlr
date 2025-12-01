@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -12,6 +12,7 @@ package org.antlr.v4.runtime.misc;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.RecognitionException;
 
+import java.io.Serial;
 import java.util.concurrent.CancellationException;
 
 /**
@@ -23,6 +24,7 @@ import java.util.concurrent.CancellationException;
  * @author Sam Harwell
  */
 public class ParseCancellationException extends CancellationException {
+  @Serial
   private static final long serialVersionUID = -3529552099366979683L;
 
   public ParseCancellationException() {

@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -242,14 +242,12 @@ public class ATNConfig {
 
   public ATNConfig appendContext(int context, PredictionContextCache contextCache) {
     PredictionContext appendedContext = getContext().appendContext(context, contextCache);
-    ATNConfig result = transform(getState(), appendedContext, false);
-    return result;
+    return transform(getState(), appendedContext, false);
   }
 
   public ATNConfig appendContext(PredictionContext context, PredictionContextCache contextCache) {
     PredictionContext appendedContext = getContext().appendContext(context, contextCache);
-    ATNConfig result = transform(getState(), appendedContext, false);
-    return result;
+    return transform(getState(), appendedContext, false);
   }
 
   /**
@@ -298,8 +296,8 @@ public class ATNConfig {
       return false;
     }
 
-    Deque<PredictionContext> leftWorkList = new ArrayDeque<PredictionContext>();
-    Deque<PredictionContext> rightWorkList = new ArrayDeque<PredictionContext>();
+    Deque<PredictionContext> leftWorkList = new ArrayDeque<>();
+    Deque<PredictionContext> rightWorkList = new ArrayDeque<>();
     leftWorkList.add(getContext());
     rightWorkList.add(subconfig.getContext());
     while (!leftWorkList.isEmpty()) {
@@ -403,8 +401,8 @@ public class ATNConfig {
     builder.append("digraph G {\n");
     builder.append("rankdir=LR;\n");
 
-    Map<PredictionContext, PredictionContext> visited = new IdentityHashMap<PredictionContext, PredictionContext>();
-    Deque<PredictionContext> workList = new ArrayDeque<PredictionContext>();
+    Map<PredictionContext, PredictionContext> visited = new IdentityHashMap<>();
+    Deque<PredictionContext> workList = new ArrayDeque<>();
     workList.add(getContext());
     visited.put(getContext(), getContext());
     while (!workList.isEmpty()) {
@@ -435,10 +433,6 @@ public class ATNConfig {
 
   public String toString(@Nullable Recognizer<?, ?> recog, boolean showAlt, boolean showContext) {
     StringBuilder buf = new StringBuilder();
-//		if ( state.ruleIndex>=0 ) {
-//			if ( recog!=null ) buf.append(recog.getRuleNames()[state.ruleIndex]+":");
-//			else buf.append(state.ruleIndex+":");
-//		}
     String[] contexts;
     if (showContext) {
       contexts = getContext().toStrings(recog, this.getState().stateNumber);

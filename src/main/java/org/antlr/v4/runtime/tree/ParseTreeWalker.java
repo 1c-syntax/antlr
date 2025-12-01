@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -29,7 +29,7 @@ public class ParseTreeWalker {
    * @param t        The parse tree to be walked on
    */
   public void walk(ParseTreeListener listener, ParseTree t) {
-    final Deque<ParseTree> nodeStack = new ArrayDeque<ParseTree>();
+    final Deque<ParseTree> nodeStack = new ArrayDeque<>();
     final IntegerStack indexStack = new IntegerStack();
 
     ParseTree currentNode = t;

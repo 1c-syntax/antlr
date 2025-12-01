@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -58,11 +58,6 @@ public class OutputModelWalker {
     // CREATE TEMPLATE FOR THIS OUTPUT OBJECT
     Class<? extends OutputModelObject> cl = omo.getClass();
     String templateName = cl.getSimpleName();
-    if (templateName == null) {
-      tool.errMgr.toolError(ErrorType.NO_MODEL_TO_TEMPLATE_MAPPING, cl.getSimpleName());
-      return new ST("[" + templateName + " invalid]");
-    }
-
     if (header) templateName += "Header";
 
     ST st = templates.getInstanceOf(templateName);
@@ -84,7 +79,7 @@ public class OutputModelWalker {
     st.add(modelArgName, omo);
 
     // COMPUTE STs FOR EACH NESTED MODEL OBJECT MARKED WITH @ModelElement AND MAKE ST ATTRIBUTE
-    Set<String> usedFieldNames = new HashSet<String>();
+    Set<String> usedFieldNames = new HashSet<>();
     Field[] fields = cl.getFields();
     for (Field fi : fields) {
       ModelElement annotation = fi.getAnnotation(ModelElement.class);
@@ -117,14 +112,12 @@ public class OutputModelWalker {
           for (Object nestedOmo : nestedOmos) {
             if (nestedOmo == null) continue;
             ST nestedST = walk((OutputModelObject) nestedOmo, header);
-//						System.out.println("set ModelElement "+fieldName+"="+nestedST+" in "+templateName);
             st.add(fieldName, nestedST);
           }
         } else if (o instanceof Map<?, ?> nestedOmoMap) {
-          Map<Object, ST> m = new LinkedHashMap<Object, ST>();
+          Map<Object, ST> m = new LinkedHashMap<>();
           for (Map.Entry<?, ?> entry : nestedOmoMap.entrySet()) {
             ST nestedST = walk((OutputModelObject) entry.getValue(), header);
-//						System.out.println("set ModelElement "+fieldName+"="+nestedST+" in "+templateName);
             m.put(entry.getKey(), nestedST);
           }
           st.add(fieldName, m);

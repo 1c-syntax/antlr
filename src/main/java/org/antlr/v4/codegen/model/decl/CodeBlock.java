@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -42,28 +42,28 @@ public class CodeBlock extends SrcOp {
    * Add local var decl
    */
   public void addLocalDecl(Decl d) {
-    if (locals == null) locals = new OrderedHashSet<Decl>();
+    if (locals == null) locals = new OrderedHashSet<>();
     locals.add(d);
     d.isLocal = true;
   }
 
   public void addPreambleOp(SrcOp op) {
-    if (preamble == null) preamble = new ArrayList<SrcOp>();
+    if (preamble == null) preamble = new ArrayList<>();
     preamble.add(op);
   }
 
   public void addOp(SrcOp op) {
-    if (ops == null) ops = new ArrayList<SrcOp>();
+    if (ops == null) ops = new ArrayList<>();
     ops.add(op);
   }
 
   public void insertOp(int i, SrcOp op) {
-    if (ops == null) ops = new ArrayList<SrcOp>();
+    if (ops == null) ops = new ArrayList<>();
     ops.add(i, op);
   }
 
   public void addOps(List<SrcOp> ops) {
-    if (this.ops == null) this.ops = new ArrayList<SrcOp>();
+    if (this.ops == null) this.ops = new ArrayList<>();
     this.ops.addAll(ops);
   }
 }

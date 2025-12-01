@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -112,16 +112,21 @@ public class Trees {
    * @since 4.5.1
    */
   public static String toStringTree(@Nullable Tree t, @NotNull TreeTextProvider nodeTextProvider) {
-    if (t == null) return "null";
-    String s = Utils.escapeWhitespace(nodeTextProvider.getText(t), false);
-    if (t.getChildCount() == 0) return s;
-    StringBuilder buf = new StringBuilder();
-    buf.append("(");
-    s = Utils.escapeWhitespace(nodeTextProvider.getText(t), false);
-    buf.append(s);
-    buf.append(' ');
+    if (t == null) {
+      return "null";
+    }
+    var s = Utils.escapeWhitespace(nodeTextProvider.getText(t), false);
+    if (t.getChildCount() == 0) {
+      return s;
+    }
+    var buf = new StringBuilder();
+    buf.append("(")
+      .append(s)
+      .append(' ');
     for (int i = 0; i < t.getChildCount(); i++) {
-      if (i > 0) buf.append(' ');
+      if (i > 0) {
+        buf.append(' ');
+      }
       buf.append(toStringTree(t.getChild(i), nodeTextProvider));
     }
     buf.append(")");

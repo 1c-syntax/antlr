@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -15,7 +15,7 @@ import org.antlr.v4.automata.LexerATNFactory;
 import org.antlr.v4.parse.ANTLRParser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Tuple2;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.LexerGrammar;
@@ -68,8 +68,7 @@ public class SemanticPipeline {
 
     // CLONE RULE ASTs FOR CONTEXT REFERENCE
     for (Rule rule : ruleCollector.rules.values()) {
-      List<RuleAST> list = g.contextASTs.computeIfAbsent(rule.getBaseContext(), k -> new ArrayList<RuleAST>());
-
+      List<RuleAST> list = g.contextASTs.computeIfAbsent(rule.getBaseContext(), k -> new ArrayList<>());
       list.add((RuleAST) rule.ast.dupTree());
     }
 
@@ -173,10 +172,10 @@ public class SemanticPipeline {
     }
 
     // FOR ALL X : 'xxx'; RULES, DEFINE 'xxx' AS TYPE X
-    List<Tuple2<GrammarAST, GrammarAST>> litAliases = Grammar.getStringLiteralAliasesFromLexerRules(g.ast);
-    Set<String> conflictingLiterals = new HashSet<String>();
+    List<Pair<GrammarAST, GrammarAST>> litAliases = Grammar.getStringLiteralAliasesFromLexerRules(g.ast);
+    Set<String> conflictingLiterals = new HashSet<>();
     if (litAliases != null) {
-      for (Tuple2<GrammarAST, GrammarAST> pair : litAliases) {
+      for (Pair<GrammarAST, GrammarAST> pair : litAliases) {
         GrammarAST nameAST = pair.getItem1();
         GrammarAST litAST = pair.getItem2();
         if (!G.stringLiteralToTypeMap.containsKey(litAST.getText())) {

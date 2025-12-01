@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -52,7 +52,7 @@ public class LL1Analyzer {
     IntervalSet[] look = new IntervalSet[s.getNumberOfTransitions()];
     for (int alt = 0; alt < s.getNumberOfTransitions(); alt++) {
       look[alt] = new IntervalSet();
-      Set<ATNConfig> lookBusy = new HashSet<ATNConfig>();
+      Set<ATNConfig> lookBusy = new HashSet<>();
       boolean seeThruPreds = false; // fail to get lookahead upon pred
       _LOOK(s.transition(alt).target, null, PredictionContext.EMPTY_LOCAL,
         look[alt], lookBusy, new BitSet(), seeThruPreds, false);
@@ -107,7 +107,7 @@ public class LL1Analyzer {
     IntervalSet r = new IntervalSet();
     final boolean seeThruPreds = true; // ignore preds; get all lookahead
     final boolean addEOF = true;
-    _LOOK(s, stopState, ctx, r, new HashSet<ATNConfig>(), new BitSet(), seeThruPreds, addEOF);
+    _LOOK(s, stopState, ctx, r, new HashSet<>(), new BitSet(), seeThruPreds, addEOF);
     return r;
   }
 

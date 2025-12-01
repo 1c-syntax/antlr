@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -87,8 +87,8 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
 
   protected int getBucket(K key) {
     int hash = comparator.hashCode(key);
-    int b = hash & (buckets.length - 1); // assumes len is power of 2
-    return b;
+    // assumes len is power of 2
+    return hash & (buckets.length - 1);
   }
 
   @Override
@@ -114,7 +114,7 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
     int b = getBucket(key);
     LinkedList<Entry<K, V>> bucket = buckets[b];
     if (bucket == null) {
-      bucket = buckets[b] = new LinkedList<Entry<K, V>>();
+      bucket = buckets[b] = new LinkedList<>();
     }
     for (Entry<K, V> e : bucket) {
       if (comparator.equals(e.key, key)) {
@@ -125,7 +125,7 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
       }
     }
     // not there
-    bucket.add(new Entry<K, V>(key, value));
+    bucket.add(new Entry<>(key, value));
     n++;
     return null;
   }
@@ -147,7 +147,7 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
 
   @Override
   public Collection<V> values() {
-    List<V> a = new ArrayList<V>(size());
+    List<V> a = new ArrayList<>(size());
     for (LinkedList<Entry<K, V>> bucket : buckets) {
       if (bucket == null) continue;
       for (Entry<K, V> e : bucket) {
@@ -196,11 +196,8 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
     LinkedList<Entry<K, V>>[] old = buckets;
     currentPrime += 4;
     int newCapacity = buckets.length * 2;
-    LinkedList<Entry<K, V>>[] newTable = createEntryListArray(newCapacity);
-    buckets = newTable;
+    buckets = createEntryListArray(newCapacity);
     threshold = (int) (newCapacity * LOAD_FACTOR);
-//		System.out.println("new size="+newCapacity+", thres="+threshold);
-    // rehash all existing entries
     int oldSize = size();
     for (LinkedList<Entry<K, V>> bucket : old) {
       if (bucket == null) continue;

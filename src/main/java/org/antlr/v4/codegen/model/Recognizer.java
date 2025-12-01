@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -49,8 +49,7 @@ public abstract class Recognizer extends OutputModelObject {
   @ModelElement
   public SerializedATN atn;
   @ModelElement
-  public LinkedHashMap<Rule, RuleSempredFunction> sempredFuncs =
-    new LinkedHashMap<Rule, RuleSempredFunction>();
+  public LinkedHashMap<Rule, RuleSempredFunction> sempredFuncs = new LinkedHashMap<>();
 
   public Recognizer(OutputModelFactory factory) {
     super(factory);
@@ -60,7 +59,7 @@ public abstract class Recognizer extends OutputModelObject {
     grammarName = g.name;
     name = g.getRecognizerName();
     accessLevel = g.getOptionString("accessLevel");
-    tokens = new LinkedHashMap<String, Integer>();
+    tokens = new LinkedHashMap<>();
     for (Map.Entry<String, Integer> entry : g.tokenNameToTypeMap.entrySet()) {
       Integer ttype = entry.getValue();
       if (ttype > 0) {

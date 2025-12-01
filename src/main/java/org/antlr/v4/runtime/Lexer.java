@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -14,8 +14,8 @@ import org.antlr.v4.runtime.atn.LexerATNSimulator;
 import org.antlr.v4.runtime.misc.IntegerStack;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.Nullable;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -39,7 +39,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   public static final int MAX_CHAR_VALUE = 0x10FFFF;
 
   public CharStream _input;
-  protected Tuple2<? extends TokenSource, CharStream> _tokenFactorySourcePair;
+  protected Pair<? extends TokenSource, CharStream> _tokenFactorySourcePair;
 
   /**
    * How to create token objects
@@ -153,9 +153,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
         _text = null;
         do {
           _type = Token.INVALID_TYPE;
-//				System.out.println("nextToken line "+tokenStartLine+" at "+((char)input.LA(1))+
-//								   " in mode "+mode+
-//								   " at index "+input.index());
           int ttype;
           try {
             ttype = getInterpreter().match(_input, _mode);
@@ -238,14 +235,8 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   protected void validateInputStream(ATN atn, CharStream input) {
-    if (atn != null && !atn.hasUnicodeSMPTransitions()) {
-      // This grammar should work with inputs that stream UTF-16 or Unicode code points.
-      return;
-    }
-
-    if (!(input instanceof UnicodeCharStream) || !((UnicodeCharStream) input).supportsUnicodeCodePoints()) {
-      throw new UnsupportedOperationException("The input stream does not support code points required for this grammar.");
-    }
+    // метод оставлен для совместимости
+    // todo стоит удалить в будущем
   }
 
   @Override
@@ -265,7 +256,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * rather than a single variable as this implementation does).
    */
   public void emit(Token token) {
-    //System.err.println("emit "+token);
     this._token = token;
   }
 
@@ -389,7 +379,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * Forces load of all tokens. Does not include EOF token.
    */
   public List<? extends Token> getAllTokens() {
-    List<Token> tokens = new ArrayList<Token>();
+    List<Token> tokens = new ArrayList<>();
     Token t = nextToken();
     while (t.getType() != Token.EOF) {
       tokens.add(t);
@@ -422,22 +412,13 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   public String getErrorDisplay(int c) {
-    String s = String.valueOf((char) c);
-    switch (c) {
-      case Token.EOF:
-        s = "<EOF>";
-        break;
-      case '\n':
-        s = "\\n";
-        break;
-      case '\t':
-        s = "\\t";
-        break;
-      case '\r':
-        s = "\\r";
-        break;
-    }
-    return s;
+    return switch (c) {
+      case Token.EOF -> "<EOF>";
+      case '\n' -> "\\n";
+      case '\t' -> "\\t";
+      case '\r' -> "\\r";
+      default -> String.valueOf((char) c);
+    };
   }
 
   public String getCharErrorDisplay(int c) {

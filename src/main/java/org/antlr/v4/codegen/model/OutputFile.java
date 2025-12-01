@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -40,7 +40,7 @@ public abstract class OutputFile extends OutputModelObject {
   }
 
   public Map<String, Action> buildNamedActions(Grammar g, Predicate<ActionAST> filter) {
-    Map<String, Action> namedActions = new HashMap<String, Action>();
+    Map<String, Action> namedActions = new HashMap<>();
     for (String name : g.namedActions.keySet()) {
       ActionAST ast = g.namedActions.get(name);
       if (filter == null || filter.test(ast))

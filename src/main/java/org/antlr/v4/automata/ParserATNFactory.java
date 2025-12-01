@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -92,11 +92,11 @@ public class ParserATNFactory implements ATNFactory {
 
   @NotNull
   protected final List<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>> preventEpsilonClosureBlocks =
-    new ArrayList<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>>();
+    new ArrayList<>();
 
   @NotNull
   protected final List<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>> preventEpsilonOptionalBlocks =
-    new ArrayList<Tuple3<? extends Rule, ? extends ATNState, ? extends ATNState>>();
+    new ArrayList<>();
 
   public ParserATNFactory(@NotNull Grammar g) {
     if (g == null) {
@@ -194,8 +194,6 @@ public class ParserATNFactory implements ATNFactory {
     RuleStopState stop = atn.ruleToStopState[r.index];
     epsilon(blk.right, stop);
     Handle h = new Handle(start, stop);
-//		ATNPrinter ser = new ATNPrinter(g, h.left);
-//		System.out.println(ruleAST.toStringTree()+":\n"+ser.asString());
     ruleAST.atnState = start;
     return h;
   }
@@ -294,8 +292,7 @@ public class ParserATNFactory implements ATNFactory {
   @NotNull
   @Override
   public Handle ruleRef(@NotNull GrammarAST node) {
-    Handle h = _ruleRef(node);
-    return h;
+    return _ruleRef(node);
   }
 
   @NotNull
@@ -425,11 +422,13 @@ public class ParserATNFactory implements ATNFactory {
       if (alts.size() > 1) atn.defineDecisionState(start);
       return makeBlock(start, blkAST, alts);
     }
+
+    Handle h;
     switch (ebnfRoot.getType()) {
       case ANTLRParser.OPTIONAL:
         BlockStartState start = newState(BasicBlockStartState.class, blkAST);
         atn.defineDecisionState(start);
-        Handle h = makeBlock(start, blkAST, alts);
+        h = makeBlock(start, blkAST, alts);
         return optional(ebnfRoot, h);
       case ANTLRParser.CLOSURE:
         BlockStartState star = newState(StarBlockStartState.class, ebnfRoot);
@@ -461,8 +460,6 @@ public class ParserATNFactory implements ATNFactory {
       opt.visit(alt.left);
     }
     Handle h = new Handle(start, end);
-//		FASerializer ser = new FASerializer(g, h.left);
-//		System.out.println(blkAST.toStringTree()+":\n"+ser);
     blkAST.atnState = start;
 
     return h;
@@ -658,10 +655,8 @@ public class ParserATNFactory implements ATNFactory {
       }
     }
 
-    if (a != null) {
-      int index = prepend ? 0 : a.getNumberOfTransitions();
-      a.addTransition(index, new EpsilonTransition(b));
-    }
+    int index = prepend ? 0 : a.getNumberOfTransitions();
+    a.addTransition(index, new EpsilonTransition(b));
   }
 
   /**

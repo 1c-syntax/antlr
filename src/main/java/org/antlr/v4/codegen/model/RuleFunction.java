@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -31,8 +31,8 @@ import org.antlr.v4.runtime.atn.ATNSimulator;
 import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.OrderedHashSet;
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Tuple2;
 import org.antlr.v4.tool.Attribute;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.Grammar;
@@ -97,7 +97,7 @@ public class RuleFunction extends OutputModelObject {
     this.name = r.name;
     this.rule = r;
     if (r.modifiers != null && !r.modifiers.isEmpty()) {
-      this.modifiers = new ArrayList<String>();
+      this.modifiers = new ArrayList<>();
       for (GrammarAST t : r.modifiers) modifiers.add(t.getText());
     }
     modifiers = Utils.nodesToStrings(r.modifiers);
@@ -114,8 +114,8 @@ public class RuleFunction extends OutputModelObject {
 
       if (r.args != null) {
         Collection<Attribute> decls = r.args.attributes.values();
-        if (decls.size() > 0) {
-          args = new ArrayList<AttributeDecl>();
+        if (!decls.isEmpty()) {
+          args = new ArrayList<>();
           ruleCtx.addDecls(decls);
           for (Attribute a : decls) {
             args.add(new AttributeDecl(factory, a));
@@ -138,7 +138,7 @@ public class RuleFunction extends OutputModelObject {
     ruleLabels = r.getElementLabelNames();
     tokenLabels = r.getTokenRefs();
     if (r.exceptions != null) {
-      exceptions = new ArrayList<ExceptionClause>();
+      exceptions = new ArrayList<>();
       for (GrammarAST e : r.exceptions) {
         ActionAST catchArg = (ActionAST) e.getChild(0);
         ActionAST catchAction = (ActionAST) e.getChild(1);
@@ -178,16 +178,16 @@ public class RuleFunction extends OutputModelObject {
   }
 
   public void addContextGetters(OutputModelFactory factory, Collection<RuleAST> contextASTs) {
-    List<AltAST> unlabeledAlternatives = new ArrayList<AltAST>();
-    Map<String, List<AltAST>> labeledAlternatives = new LinkedHashMap<String, List<AltAST>>();
+    List<AltAST> unlabeledAlternatives = new ArrayList<>();
+    Map<String, List<AltAST>> labeledAlternatives = new LinkedHashMap<>();
 
     for (RuleAST ast : contextASTs) {
       try {
         unlabeledAlternatives.addAll(rule.g.getUnlabeledAlternatives(ast));
-        for (Map.Entry<String, List<Tuple2<Integer, AltAST>>> entry : rule.g.getLabeledAlternatives(ast).entrySet()) {
-          List<AltAST> list = labeledAlternatives.computeIfAbsent(entry.getKey(), k -> new ArrayList<AltAST>());
+        for (Map.Entry<String, List<Pair<Integer, AltAST>>> entry : rule.g.getLabeledAlternatives(ast).entrySet()) {
+          List<AltAST> list = labeledAlternatives.computeIfAbsent(entry.getKey(), k -> new ArrayList<>());
 
-          for (Tuple2<Integer, AltAST> tuple : entry.getValue()) {
+          for (Pair<Integer, AltAST> tuple : entry.getValue()) {
             list.add(tuple.getItem2());
           }
         }
@@ -206,7 +206,7 @@ public class RuleFunction extends OutputModelObject {
     }
 
     // make structs for '#' labeled alts, define ctx labels for elements
-    altLabelCtxs = new LinkedHashMap<String, AltLabelStructDecl>();
+    altLabelCtxs = new LinkedHashMap<>();
     if (!labeledAlternatives.isEmpty()) {
       for (Map.Entry<String, List<AltAST>> entry : labeledAlternatives.entrySet()) {
         AltLabelStructDecl labelDecl = new AltLabelStructDecl(factory, rule, entry.getKey());
@@ -224,7 +224,7 @@ public class RuleFunction extends OutputModelObject {
       finallyAction = new Action(factory, r.finallyAction);
     }
 
-    namedActions = new HashMap<String, Action>();
+    namedActions = new HashMap<>();
     for (String name : r.namedActions.keySet()) {
       ActionAST ast = r.namedActions.get(name);
       namedActions.put(name, new Action(factory, ast));
@@ -237,16 +237,16 @@ public class RuleFunction extends OutputModelObject {
    * define as list.
    */
   public Set<Decl> getDeclsForAllElements(List<AltAST> altASTs) {
-    Set<String> needsList = new HashSet<String>();
-    Set<String> nonOptional = new HashSet<String>();
-    Set<String> suppress = new HashSet<String>();
-    List<GrammarAST> allRefs = new ArrayList<GrammarAST>();
+    Set<String> needsList = new HashSet<>();
+    Set<String> nonOptional = new HashSet<>();
+    Set<String> suppress = new HashSet<>();
+    List<GrammarAST> allRefs = new ArrayList<>();
     boolean firstAlt = true;
     IntervalSet reftypes = new IntervalSet(RULE_REF, TOKEN_REF, STRING_LITERAL);
     for (AltAST ast : altASTs) {
       List<GrammarAST> refs = getRuleTokens(ast.getNodesWithType(reftypes));
       allRefs.addAll(refs);
-      Tuple2<FrequencySet<String>, FrequencySet<String>> minAndAltFreq = getElementFrequenciesForAlt(ast);
+      Pair<FrequencySet<String>, FrequencySet<String>> minAndAltFreq = getElementFrequenciesForAlt(ast);
       FrequencySet<String> minFreq = minAndAltFreq.getItem1();
       FrequencySet<String> altFreq = minAndAltFreq.getItem2();
       for (GrammarAST t : refs) {
@@ -270,7 +270,7 @@ public class RuleFunction extends OutputModelObject {
 
       firstAlt = false;
     }
-    Set<Decl> decls = new LinkedHashSet<Decl>();
+    Set<Decl> decls = new LinkedHashSet<>();
     for (GrammarAST t : allRefs) {
       String refLabelName = getLabelName(rule.g, t);
       if (refLabelName == null || suppress.contains(refLabelName)) {
@@ -287,7 +287,7 @@ public class RuleFunction extends OutputModelObject {
   }
 
   private List<GrammarAST> getRuleTokens(List<GrammarAST> refs) {
-    List<GrammarAST> result = new ArrayList<GrammarAST>(refs.size());
+    List<GrammarAST> result = new ArrayList<>(refs.size());
     for (GrammarAST ref : refs) {
       CommonTree r = ref;
 
@@ -329,19 +329,19 @@ public class RuleFunction extends OutputModelObject {
   /**
    * Given list of X and r refs in alt, compute how many of each there are
    */
-  protected Tuple2<FrequencySet<String>, FrequencySet<String>> getElementFrequenciesForAlt(AltAST ast) {
+  protected Pair<FrequencySet<String>, FrequencySet<String>> getElementFrequenciesForAlt(AltAST ast) {
     try {
       ElementFrequenciesVisitor visitor = new ElementFrequenciesVisitor(rule.g, new CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
       visitor.outerAlternative();
       if (visitor.frequencies.size() != 1) {
         factory.getGrammar().tool.errMgr.toolError(ErrorType.INTERNAL_ERROR);
-        return Tuple.create(new FrequencySet<String>(), new FrequencySet<String>());
+        return Tuple.create(new FrequencySet<>(), new FrequencySet<>());
       }
 
       return Tuple.create(visitor.getMinFrequencies(), visitor.frequencies.peek());
     } catch (RecognitionException ex) {
       factory.getGrammar().tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, ex);
-      return Tuple.create(new FrequencySet<String>(), new FrequencySet<String>());
+      return Tuple.create(new FrequencySet<>(), new FrequencySet<>());
     }
   }
 
@@ -351,7 +351,7 @@ public class RuleFunction extends OutputModelObject {
       refLabelName = refLabelName.substring(0, lfIndex);
     }
 
-    List<Decl> decls = new ArrayList<Decl>();
+    List<Decl> decls = new ArrayList<>();
     if (t.getType() == RULE_REF) {
       Rule rref = factory.getGrammar().getRule(t.getText());
       String ctxName = factory.getTarget()
@@ -379,7 +379,7 @@ public class RuleFunction extends OutputModelObject {
    * Add local var decl
    */
   public void addLocalDecl(Decl d) {
-    if (locals == null) locals = new OrderedHashSet<Decl>();
+    if (locals == null) locals = new OrderedHashSet<>();
     locals.add(d);
     d.isLocal = true;
   }
@@ -391,10 +391,8 @@ public class RuleFunction extends OutputModelObject {
     CodeBlockForOuterMostAlt alt = d.getOuterMostAltCodeBlock();
     // if we found code blk and might be alt label, try to add to that label ctx
     if (alt != null) {
-//			System.out.println(d.name+" lives in alt "+alt.alt.altNum);
       AltLabelStructDecl altCtx = getEffectiveAltLabelContexts(factory.getController()).get(altLabel);
       if (altCtx != null) { // we have an alt ctx
-//				System.out.println("ctx is "+ altCtx.name);
         altCtx.addDecl(d);
         return;
       }

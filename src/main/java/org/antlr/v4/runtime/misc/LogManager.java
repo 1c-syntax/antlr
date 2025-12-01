@@ -1,4 +1,4 @@
-/*
+/**
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
@@ -37,9 +37,8 @@ public class LogManager {
 
     @Override
     public String toString() {
-      String result = DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZONE)) +
+      return DATE_TIME_FORMATTER.format(LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZONE)) +
         " " + component + " " + location.getFileName() + ":" + location.getLineNumber() + " " + msg;
-      return result;
     }
   }
 
@@ -50,7 +49,7 @@ public class LogManager {
     r.component = component;
     r.msg = msg;
     if (records == null) {
-      records = new ArrayList<Record>();
+      records = new ArrayList<>();
     }
     records.add(r);
   }
