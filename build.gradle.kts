@@ -8,7 +8,7 @@ plugins {
     id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.21.0"
-    id("org.sonarqube") version "7.1.0.6387"
+    id("org.sonarqube") version "7.2.0.6526"
 }
 
 repositories {
