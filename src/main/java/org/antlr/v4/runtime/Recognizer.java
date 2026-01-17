@@ -42,16 +42,6 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
 
   private int _stateNumber = -1;
 
-  /**
-   * Used to print out token names like ID during debugging and
-   * error reporting.  The generated parsers implement a method
-   * that overrides this to point to their String[] tokenNames.
-   *
-   * @deprecated Use {@link #getVocabulary()} instead.
-   */
-  @Deprecated
-  public abstract String[] getTokenNames();
-
   public abstract String[] getRuleNames();
 
   /**
@@ -61,10 +51,7 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
    * vocabulary used by the grammar.
    */
   @NotNull
-  @SuppressWarnings("deprecation")
-  public Vocabulary getVocabulary() {
-    return VocabularyImpl.fromTokenNames(getTokenNames());
-  }
+  public abstract Vocabulary getVocabulary();
 
   /**
    * Get a map from token names to token types.
@@ -194,37 +181,6 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
     int line = e.getOffendingToken().getLine();
     int charPositionInLine = e.getOffendingToken().getCharPositionInLine();
     return "line " + line + ":" + charPositionInLine;
-  }
-
-  /**
-   * How should a token be displayed in an error message? The default
-   * is to display just the text, but during development you might
-   * want to have a lot of information spit out.  Override in that case
-   * to use t.toString() (which, for CommonToken, dumps everything about
-   * the token). This is better than forcing you to override a method in
-   * your token objects because you don't have to go modify your lexer
-   * so that it creates a new Java type.
-   *
-   * @deprecated This method is not called by the ANTLR 4 Runtime. Specific
-   * implementations of {@link ANTLRErrorStrategy} may provide a similar
-   * feature when necessary. For example, see
-   * {@link DefaultErrorStrategy#getTokenErrorDisplay}.
-   */
-  @Deprecated
-  public String getTokenErrorDisplay(Token t) {
-    if (t == null) return "<no token>";
-    String s = t.getText();
-    if (s == null) {
-      if (t.getType() == Token.EOF) {
-        s = "<EOF>";
-      } else {
-        s = "<" + t.getType() + ">";
-      }
-    }
-    s = s.replace("\n", "\\n");
-    s = s.replace("\r", "\\r");
-    s = s.replace("\t", "\\t");
-    return "'" + s + "'";
   }
 
   /**

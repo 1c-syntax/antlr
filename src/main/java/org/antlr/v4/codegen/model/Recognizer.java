@@ -30,14 +30,6 @@ public abstract class Recognizer extends OutputModelObject {
   public String accessLevel;
   public Map<String, Integer> tokens;
 
-  /**
-   * @deprecated This field is provided only for compatibility with code
-   * generation targets which have not yet been updated to use
-   * {@link #literalNames} and {@link #symbolicNames}.
-   */
-  @Deprecated
-  public List<String> tokenNames;
-
   public List<String> literalNames;
   public List<String> symbolicNames;
   public Set<String> ruleNames;
@@ -76,7 +68,6 @@ public abstract class Recognizer extends OutputModelObject {
       superClass = null;
     }
 
-    tokenNames = translateTokenStringsToTarget(g.getTokenDisplayNames(), factory);
     literalNames = translateTokenStringsToTarget(g.getTokenLiteralNames(), factory);
     symbolicNames = translateTokenStringsToTarget(g.getTokenSymbolicNames(), factory);
     abstractRecognizer = g.isAbstract();

@@ -198,7 +198,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * The {@link ParserATNSimulator} locks on the {@link ATN#decisionToDFA} field when
  * it adds a new DFA object to that array. {@link #addDFAEdge}
  * locks on the DFA for the current decision when setting the
- * {@link DFAState#edges} field. {@link #addDFAState} locks on
+ * {DFAState#edges} field. {@link #addDFAState} locks on
  * the DFA for the current decision when looking up a DFA state to see if it
  * already exists. We must make sure that all requests to add DFA states that
  * are equivalent result in the same shared DFA object. This is because lots of
@@ -210,8 +210,8 @@ import java.util.concurrent.atomic.AtomicReference;
  * safe as long as we can guarantee that all threads referencing
  * {@code s.edge[t]} get the same physical target {@link DFAState}, or
  * {@code null}. Once into the DFA, the DFA simulation does not reference the
- * {@link DFA#states} map. It follows the {@link DFAState#edges} field to new
- * targets. The DFA simulator will either find {@link DFAState#edges} to be
+ * {@link DFA#states} map. It follows the { DFAState#edges} field to new
+ * targets. The DFA simulator will either find {DFAState#edges} to be
  * {@code null}, to be non-{@code null} and {@code dfa.edges[t]} null, or
  * {@code dfa.edges[t]} to be non-null. The
  * {@link #addDFAEdge} method could be racing to set the field
@@ -296,11 +296,6 @@ public class ParserATNSimulator extends ATNSimulator {
   public boolean enable_global_context_dfa = false;
   public boolean optimize_unique_closure = true;
   public boolean optimize_ll1 = true;
-  /**
-   * @deprecated This flag is not currently used by the ATN simulator.
-   */
-  @Deprecated
-  public boolean optimize_hidden_conflicted_configs = false;
   public boolean optimize_tail_calls = true;
   public boolean tail_call_preserves_sll = true;
   public boolean treat_sllk1_conflict_as_ambiguity = false;

@@ -501,7 +501,6 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
     ATNState next = currentState.transition(0).target;
     ATN atn = recognizer.getInterpreter().atn;
     IntervalSet expectingAtLL2 = atn.nextTokens(next, PredictionContext.fromRuleContext(atn, recognizer._ctx));
-//		System.out.println("LT(2) set="+expectingAtLL2.toString(recognizer.getTokenNames()));
     if (expectingAtLL2.contains(currentSymbolType)) {
       reportMissingToken(recognizer);
       return true;
@@ -742,7 +741,6 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
       ctx = ctx.parent;
     }
     recoverSet.remove(Token.EPSILON);
-//		System.out.println("recover set "+recoverSet.toString(recognizer.getTokenNames()));
     return recoverSet;
   }
 

@@ -39,14 +39,6 @@ public class DFASerializer {
   @Nullable
   final ATN atn;
 
-  /**
-   * @deprecated Use {@link #DFASerializer(DFA, Vocabulary)} instead.
-   */
-  @Deprecated
-  public DFASerializer(@NotNull DFA dfa, @Nullable String[] tokenNames) {
-    this(dfa, VocabularyImpl.fromTokenNames(tokenNames), null, null);
-  }
-
   public DFASerializer(@NotNull DFA dfa, @NotNull Vocabulary vocabulary) {
     this(dfa, vocabulary, null, null);
   }
@@ -56,14 +48,6 @@ public class DFASerializer {
       parser != null ? parser.getVocabulary() : VocabularyImpl.EMPTY_VOCABULARY,
       parser != null ? parser.getRuleNames() : null,
       parser != null ? parser.getATN() : null);
-  }
-
-  /**
-   * @deprecated Use {@link #DFASerializer(DFA, Vocabulary, String[], ATN)} instead.
-   */
-  @Deprecated
-  public DFASerializer(@NotNull DFA dfa, @Nullable String[] tokenNames, @Nullable String[] ruleNames, @Nullable ATN atn) {
-    this(dfa, VocabularyImpl.fromTokenNames(tokenNames), ruleNames, atn);
   }
 
   public DFASerializer(@NotNull DFA dfa, @NotNull Vocabulary vocabulary, @Nullable String[] ruleNames, @Nullable ATN atn) {

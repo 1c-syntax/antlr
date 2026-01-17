@@ -529,14 +529,6 @@ public class IntervalSet implements IntSet {
     return buf.toString();
   }
 
-  /**
-   * @deprecated Use {@link #toString(Vocabulary)} instead.
-   */
-  @Deprecated
-  public String toString(String[] tokenNames) {
-    return toString(VocabularyImpl.fromTokenNames(tokenNames));
-  }
-
   public String toString(@NotNull Vocabulary vocabulary) {
     StringBuilder buf = new StringBuilder();
     if (this.intervals == null || this.intervals.isEmpty()) {
@@ -566,14 +558,6 @@ public class IntervalSet implements IntSet {
       buf.append("}");
     }
     return buf.toString();
-  }
-
-  /**
-   * @deprecated Use {@link #elementName(Vocabulary, int)} instead.
-   */
-  @Deprecated
-  protected String elementName(String[] tokenNames, int a) {
-    return elementName(VocabularyImpl.fromTokenNames(tokenNames), a);
   }
 
   @NotNull

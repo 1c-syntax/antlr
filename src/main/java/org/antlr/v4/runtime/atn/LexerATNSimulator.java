@@ -93,12 +93,6 @@ public class LexerATNSimulator extends ATNSimulator {
   @NotNull
   protected final SimState prevAccept = new SimState();
 
-  /**
-   * @deprecated This field is no longer used.
-   */
-  @Deprecated
-  public static int match_calls = 0;
-
   public LexerATNSimulator(@NotNull ATN atn) {
     this(null, atn);
   }

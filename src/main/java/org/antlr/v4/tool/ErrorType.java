@@ -397,17 +397,6 @@ public enum ErrorType {
    */
   CANNOT_FIND_TOKENS_FILE_REFD_IN_GRAMMAR(114, "cannot find tokens file '<arg>'", ErrorSeverity.ERROR),
   /**
-   * Compiler Warning 118.
-   *
-   * <p>
-   * all operators of alt '<em>alt</em>' of left-recursive rule must have same
-   * associativity</p>
-   *
-   * @deprecated This warning is no longer applicable with the current syntax for specifying associativity.
-   */
-  @Deprecated
-  ALL_OPS_NEED_SAME_ASSOC(118, "all operators of alt '<arg>' of left-recursive rule must have same associativity", ErrorSeverity.WARNING),
-  /**
    * Compiler Error 119.
    *
    * <p>
@@ -487,17 +476,6 @@ public enum ErrorType {
    * </ul>
    */
   EXPECTED_NON_GREEDY_WILDCARD_BLOCK(131, "greedy block ()<arg> contains wildcard; the non-greedy syntax ()<arg>? may be preferred", ErrorSeverity.WARNING),
-  /**
-   * Compiler Error 132.
-   *
-   * <p>
-   * action in lexer rule '<em>rule</em>' must be last element of single
-   * outermost alt</p>
-   *
-   * @deprecated This error is no longer issued by ANTLR 4.2.
-   */
-  @Deprecated
-  LEXER_ACTION_PLACEMENT_ISSUE(132, "action in lexer rule '<arg>' must be last element of single outermost alt", ErrorSeverity.ERROR),
   /**
    * Compiler Error 133.
    *

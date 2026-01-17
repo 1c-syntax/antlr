@@ -27,9 +27,7 @@ import java.nio.file.Files;
 /**
  * This class represents the primary interface for creating {@link CharStream}s
  * from a variety of sources as of 4.7.  The motivation was to support
- * Unicode code points > U+FFFF.  {@link ANTLRInputStream} and
- * {@link ANTLRFileStream} are now deprecated in favor of the streams created
- * by this interface.
+ * Unicode code points > U+FFFF.
  * <p>
  * DEPRECATED: {@code new ANTLRFileStream("myinputfile")}
  * NEW:        {@code CharStreams.fromFileName("myinputfile")}
@@ -55,8 +53,7 @@ import java.nio.file.Files;
  * useful for processing infinite streams *during the parse.*
  * <p>
  * The new streams also use 8-bit buffers when possible so this new
- * interface supports character streams that use half as much memory
- * as the old {@link ANTLRFileStream}, which assumed 16-bit characters.
+ * interface supports character streams that use half as much memory.
  * <p>
  * A big shout out to Ben Hamilton (github bhamiltoncx) for his superhuman
  * efforts across all targets to get true Unicode 3.1 support for U+10FFFF.

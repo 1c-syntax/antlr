@@ -364,17 +364,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   /**
-   * Used to print out token names like ID during debugging and
-   * error reporting.  The generated parsers implement a method
-   * that overrides this to point to their String[] tokenNames.
-   */
-  @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return null;
-  }
-
-  /**
    * Return a list of all Token objects in input char stream.
    * Forces load of all tokens. Does not include EOF token.
    */

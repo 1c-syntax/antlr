@@ -14,10 +14,6 @@ import org.antlr.v4.runtime.misc.Interval;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Alternative to {@link ANTLRInputStream} which treats the input
- * as a series of Unicode code points, instead of a series of UTF-16
- * code units.
- * <p>
  * Use this if you need to parse input which potentially contains
  * Unicode values > U+FFFF.
  */
