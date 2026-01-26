@@ -130,7 +130,10 @@ public enum CharStreams {
     return fromStream(is, charset, IntStream.UNKNOWN_SOURCE_NAME, -1);
   }
 
-  public static CharStream fromStream(InputStream is, Charset charset, String sourceName, long inputSize) throws IOException {
+  public static CharStream fromStream(InputStream is,
+                                      Charset charset,
+                                      String sourceName,
+                                      long inputSize) throws IOException {
     return fromChannel(
       Channels.newChannel(is),
       charset,

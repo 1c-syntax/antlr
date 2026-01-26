@@ -44,7 +44,9 @@ public enum ErrorType {
    *
    * <p>cannot find tokens file '<em>filename</em>' given for '<em>arg2</em>'</p>
    */
-  CANNOT_FIND_TOKENS_FILE_GIVEN_ON_CMDLINE(3, "cannot find tokens file '<arg>' given for '<arg2>'", ErrorSeverity.ERROR),
+  CANNOT_FIND_TOKENS_FILE_GIVEN_ON_CMDLINE(3,
+    "cannot find tokens file '<arg>' given for '<arg2>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 4.
    *
@@ -68,7 +70,9 @@ public enum ErrorType {
    *
    * <p>cannot find or open file: <em>filename</em></p>
    */
-  CANNOT_OPEN_FILE(7, "cannot find or open file: <arg><if(exception&&verbose)>; reason: <exception><endif>", ErrorSeverity.ERROR),
+  CANNOT_OPEN_FILE(7,
+    "cannot find or open file: <arg><if(exception&&verbose)>; reason: <exception><endif>", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 8.
    *
@@ -93,7 +97,8 @@ public enum ErrorType {
    *
    * <p>error reading imported grammar '<em>arg</em>' referenced in '<em>arg2</em>'</p>
    */
-  ERROR_READING_IMPORTED_GRAMMAR(11, "error reading imported grammar '<arg>' referenced in '<arg2>'", ErrorSeverity.ERROR),
+  ERROR_READING_IMPORTED_GRAMMAR(11,
+    "error reading imported grammar '<arg>' referenced in '<arg2>'", ErrorSeverity.ERROR),
 
   /**
    * Compiler Error 20.
@@ -133,7 +138,9 @@ public enum ErrorType {
    * ANTLR cannot generate '<em>language</em>' code as of version
    * <em>version</em></p>
    */
-  CANNOT_CREATE_TARGET_GENERATOR(31, "ANTLR cannot generate '<arg>' code as of version " + Tool.VERSION, ErrorSeverity.ERROR),
+  CANNOT_CREATE_TARGET_GENERATOR(31,
+    "ANTLR cannot generate '<arg>' code as of version " + Tool.VERSION, ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 32.
    *
@@ -141,7 +148,10 @@ public enum ErrorType {
    * code generation template '<em>template</em>' has missing, misnamed, or
    * incomplete arg list; missing '<em>field</em>'</p>
    */
-  CODE_TEMPLATE_ARG_ISSUE(32, "code generation template '<arg>' has missing, misnamed, or incomplete arg list; missing '<arg2>'", ErrorSeverity.ERROR),
+  CODE_TEMPLATE_ARG_ISSUE(32,
+    "code generation template '<arg>' has missing, misnamed, or incomplete arg list; missing '<arg2>'",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 33.
    *
@@ -207,7 +217,9 @@ public enum ErrorType {
    * reference to undefined rule '<em>rule</em>' in non-local ref
    * '<em>reference</em>'</p>
    */
-  UNDEFINED_RULE_IN_NONLOCAL_REF(57, "reference to undefined rule '<arg>' in non-local ref '<arg3>'", ErrorSeverity.ERROR),
+  UNDEFINED_RULE_IN_NONLOCAL_REF(57,
+    "reference to undefined rule '<arg>' in non-local ref '<arg3>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 60.
    *
@@ -229,7 +241,9 @@ public enum ErrorType {
    * parameter '<em>parameter</em>' of rule '<em>rule</em>' is not accessible
    * in this scope: <em>expression</em></p>
    */
-  INVALID_RULE_PARAMETER_REF(64, "parameter '<arg>' of rule '<arg2>' is not accessible in this scope: <arg3>", ErrorSeverity.ERROR),
+  INVALID_RULE_PARAMETER_REF(64,
+    "parameter '<arg>' of rule '<arg2>' is not accessible in this scope: <arg3>", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 65.
    *
@@ -339,7 +353,9 @@ public enum ErrorType {
    * <li>implicitly generated grammar '<em>grammar</em>' has no rules</li>
    * </ul>
    */
-  NO_RULES(99, "<if(arg2.implicitLexerOwner)>implicitly generated <endif>grammar '<arg>' has no rules", ErrorSeverity.ERROR),
+  NO_RULES(99,
+    "<if(arg2.implicitLexerOwner)>implicitly generated <endif>grammar '<arg>' has no rules", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 105.
    *
@@ -380,7 +396,10 @@ public enum ErrorType {
    * <em>grammartype</em> grammar '<em>grammar1</em>' cannot import
    * <em>grammartype</em> grammar '<em>grammar2</em>'</p>
    */
-  INVALID_IMPORT(111, "<arg.typeString> grammar '<arg.name>' cannot import <arg2.typeString> grammar '<arg2.name>'", ErrorSeverity.ERROR),
+  INVALID_IMPORT(111,
+    "<arg.typeString> grammar '<arg.name>' cannot import <arg2.typeString> grammar '<arg2.name>'",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 113.
    *
@@ -389,7 +408,10 @@ public enum ErrorType {
    * <em>grammartype</em> grammar '<em>grammar2</em>' both generate
    * '<em>recognizer</em>'</p>
    */
-  IMPORT_NAME_CLASH(113, "<arg.typeString> grammar '<arg.name>' and imported <arg2.typeString> grammar '<arg2.name>' both generate '<arg2.recognizerName>'", ErrorSeverity.ERROR),
+  IMPORT_NAME_CLASH(113,
+    "<arg.typeString> grammar '<arg.name>' and imported <arg2.typeString> grammar '<arg2.name>' " +
+      "both generate '<arg2.recognizerName>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 114.
    *
@@ -403,7 +425,10 @@ public enum ErrorType {
    * The following sets of rules are mutually left-recursive
    * <em>[rules]</em></p>
    */
-  LEFT_RECURSION_CYCLES(119, "The following sets of rules are mutually left-recursive <arg:{c| [<c:{r|<r.name>}; separator=\", \">]}; separator=\" and \">", ErrorSeverity.ERROR),
+  LEFT_RECURSION_CYCLES(119,
+    "The following sets of rules are mutually left-recursive <arg:{c| [<c:{r|<r.name>}; " +
+      "separator=\", \">]}; separator=\" and \">", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 120.
    *
@@ -415,7 +440,9 @@ public enum ErrorType {
    *
    * <p>cannot find an attribute name in attribute declaration</p>
    */
-  CANNOT_FIND_ATTRIBUTE_NAME_IN_DECL(121, "cannot find an attribute name in attribute declaration", ErrorSeverity.ERROR),
+  CANNOT_FIND_ATTRIBUTE_NAME_IN_DECL(121,
+    "cannot find an attribute name in attribute declaration", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 122.
    *
@@ -429,7 +456,9 @@ public enum ErrorType {
    * rule alt label '<em>label</em>' redefined in rule '<em>rule1</em>',
    * originally in rule '<em>rule2</em>'</p>
    */
-  ALT_LABEL_REDEF(123, "rule alt label '<arg>' redefined in rule '<arg2>', originally in rule '<arg3>'", ErrorSeverity.ERROR),
+  ALT_LABEL_REDEF(123,
+    "rule alt label '<arg>' redefined in rule '<arg2>', originally in rule '<arg3>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 124.
    *
@@ -450,7 +479,9 @@ public enum ErrorType {
    * cannot create implicit token for string literal in non-combined grammar:
    * <em>literal</em></p>
    */
-  IMPLICIT_STRING_DEFINITION(126, "cannot create implicit token for string literal in non-combined grammar: <arg>", ErrorSeverity.ERROR),
+  IMPLICIT_STRING_DEFINITION(126,
+    "cannot create implicit token for string literal in non-combined grammar: <arg>", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 128.
    *
@@ -475,7 +506,10 @@ public enum ErrorType {
    * <li>greedy block {@code ()+} contains wildcard; the non-greedy syntax {@code ()+?} may be preferred</li>
    * </ul>
    */
-  EXPECTED_NON_GREEDY_WILDCARD_BLOCK(131, "greedy block ()<arg> contains wildcard; the non-greedy syntax ()<arg>? may be preferred", ErrorSeverity.WARNING),
+  EXPECTED_NON_GREEDY_WILDCARD_BLOCK(131,
+    "greedy block ()<arg> contains wildcard; the non-greedy syntax ()<arg>? may be preferred",
+    ErrorSeverity.WARNING),
+
   /**
    * Compiler Error 133.
    *
@@ -483,7 +517,9 @@ public enum ErrorType {
    * {@code ->command} in lexer rule '<em>rule</em>' must be last element of
    * single outermost alt</p>
    */
-  LEXER_COMMAND_PLACEMENT_ISSUE(133, "->command in lexer rule '<arg>' must be last element of single outermost alt", ErrorSeverity.ERROR),
+  LEXER_COMMAND_PLACEMENT_ISSUE(133,
+    "->command in lexer rule '<arg>' must be last element of single outermost alt", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 134.
    *
@@ -495,7 +531,9 @@ public enum ErrorType {
    * Note: This error has the same number as the unrelated error
    * {@link #UNSUPPORTED_REFERENCE_IN_LEXER_SET}.</p>
    */
-  USE_OF_BAD_WORD(134, "symbol '<arg>' conflicts with generated code in target language or runtime", ErrorSeverity.ERROR),
+  USE_OF_BAD_WORD(134,
+    "symbol '<arg>' conflicts with generated code in target language or runtime", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 183.
    *
@@ -505,7 +543,9 @@ public enum ErrorType {
    * Note: This error has the same number as the unrelated error
    * {@link #USE_OF_BAD_WORD}.</p>
    */
-  UNSUPPORTED_REFERENCE_IN_LEXER_SET(183, "rule reference '<arg>' is not currently supported in a set", ErrorSeverity.ERROR),
+  UNSUPPORTED_REFERENCE_IN_LEXER_SET(183,
+    "rule reference '<arg>' is not currently supported in a set", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 135.
    *
@@ -567,7 +607,9 @@ public enum ErrorType {
    * multi-character literals are not allowed in lexer sets:
    * <em>literal</em></p>
    */
-  INVALID_LITERAL_IN_LEXER_SET(144, "multi-character literals are not allowed in lexer sets: <arg>", ErrorSeverity.ERROR),
+  INVALID_LITERAL_IN_LEXER_SET(144,
+    "multi-character literals are not allowed in lexer sets: <arg>", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 145.
    *
@@ -618,7 +660,10 @@ public enum ErrorType {
    *   ;
    * </pre>
    */
-  NO_NON_LR_ALTS(147, "left recursive rule '<arg>' must contain an alternative which is not left recursive", ErrorSeverity.ERROR),
+  NO_NON_LR_ALTS(147,
+    "left recursive rule '<arg>' must contain an alternative which is not left recursive",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 148.
    *
@@ -638,7 +683,10 @@ public enum ErrorType {
    *   ;
    * </pre>
    */
-  EPSILON_LR_FOLLOW(148, "left recursive rule '<arg>' contains a left recursive alternative which can be followed by the empty string", ErrorSeverity.ERROR),
+  EPSILON_LR_FOLLOW(148,
+    "left recursive rule '<arg>' contains a left recursive alternative which can be followed by the empty string",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 149.
    *
@@ -659,7 +707,9 @@ public enum ErrorType {
    *
    * @since 4.1
    */
-  INVALID_LEXER_COMMAND(149, "lexer command '<arg>' does not exist or is not supported by the current target", ErrorSeverity.ERROR),
+  INVALID_LEXER_COMMAND(149,
+    "lexer command '<arg>' does not exist or is not supported by the current target", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 150.
    *
@@ -733,7 +783,10 @@ public enum ErrorType {
    *
    * @since 4.1
    */
-  EPSILON_CLOSURE(153, "rule '<arg>' contains a closure with at least one alternative that can match an empty string", ErrorSeverity.ERROR),
+  EPSILON_CLOSURE(153,
+    "rule '<arg>' contains a closure with at least one alternative that can match an empty string",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Warning 154.
    *
@@ -755,7 +808,10 @@ public enum ErrorType {
    *
    * @since 4.1
    */
-  EPSILON_OPTIONAL(154, "rule '<arg>' contains an optional block with at least one alternative that can match an empty string", ErrorSeverity.WARNING),
+  EPSILON_OPTIONAL(154,
+    "rule '<arg>' contains an optional block with at least one alternative that can match an empty string",
+    ErrorSeverity.WARNING),
+
   /**
    * Compiler Warning 155.
    *
@@ -782,7 +838,10 @@ public enum ErrorType {
    *
    * @since 4.2
    */
-  UNKNOWN_LEXER_CONSTANT(155, "rule '<arg>' contains a lexer command with an unrecognized constant value; lexer interpreters may produce incorrect output", ErrorSeverity.WARNING),
+  UNKNOWN_LEXER_CONSTANT(155,
+    "rule '<arg>' contains a lexer command with an unrecognized constant value; " +
+      "lexer interpreters may produce incorrect output", ErrorSeverity.WARNING),
+
   /**
    * Compiler Error 156.
    *
@@ -825,7 +884,9 @@ public enum ErrorType {
    *
    * @since 4.2.1
    */
-  UNRECOGNIZED_ASSOC_OPTION(157, "rule '<arg>' contains an 'assoc' terminal option in an unrecognized location", ErrorSeverity.WARNING),
+  UNRECOGNIZED_ASSOC_OPTION(157,
+    "rule '<arg>' contains an 'assoc' terminal option in an unrecognized location", ErrorSeverity.WARNING),
+
   /**
    * Compiler Warning 158.
    *
@@ -856,7 +917,9 @@ public enum ErrorType {
    *
    * @since 4.2.1
    */
-  FRAGMENT_ACTION_IGNORED(158, "fragment rule '<arg>' contains an action or command which can never be executed", ErrorSeverity.WARNING),
+  FRAGMENT_ACTION_IGNORED(158,
+    "fragment rule '<arg>' contains an action or command which can never be executed", ErrorSeverity.WARNING),
+
   /**
    * Compiler Error 159.
    *
@@ -905,31 +968,40 @@ public enum ErrorType {
    *
    * <p>custom channels are not supported in combined grammars</p>
    */
-  CHANNELS_BLOCK_IN_COMBINED_GRAMMAR(164, "custom channels are not supported in combined grammars", ErrorSeverity.ERROR),
+  CHANNELS_BLOCK_IN_COMBINED_GRAMMAR(164,
+    "custom channels are not supported in combined grammars", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 165.
    *
    * <p>rule '<em>rule</em>': must label all alternatives in rules with the same base context, or none</p>
    */
-  RULE_WITH_TOO_FEW_ALT_LABELS_GROUP(165, "rule '<arg>': must label all alternatives in rules with the same base context, or none", ErrorSeverity.ERROR),
+  RULE_WITH_TOO_FEW_ALT_LABELS_GROUP(165,
+    "rule '<arg>': must label all alternatives in rules with the same base context, or none", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 166.
    *
    * <p>rule '<em>rule</em>': baseContext option value must reference a rule</p>
    */
-  BASE_CONTEXT_MUST_BE_RULE_NAME(166, "rule '<arg>': baseContext option value must reference a rule", ErrorSeverity.ERROR),
+  BASE_CONTEXT_MUST_BE_RULE_NAME(166,
+    "rule '<arg>': baseContext option value must reference a rule", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 167.
    *
    * <p>rule '<em>rule</em>': base context must reference a rule that does not specify a base context</p>
    */
-  BASE_CONTEXT_CANNOT_BE_TRANSITIVE(167, "rule '<arg>': base context must reference a rule that does not specify a base context", ErrorSeverity.ERROR),
+  BASE_CONTEXT_CANNOT_BE_TRANSITIVE(167,
+    "rule '<arg>': base context must reference a rule that does not specify a base context", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 168.
    *
    * <p>rule '<em>rule</em>': lexer rules cannot specify a base context</p>
    */
-  LEXER_RULE_CANNOT_HAVE_BASE_CONTEXT(168, "rule '<arg>': lexer rules cannot specify a base context", ErrorSeverity.ERROR),
+  LEXER_RULE_CANNOT_HAVE_BASE_CONTEXT(168,
+    "rule '<arg>': lexer rules cannot specify a base context", ErrorSeverity.ERROR),
 
   /**
    * Compiler Error 169.
@@ -938,7 +1010,9 @@ public enum ErrorType {
    *
    * @since 4.5
    */
-  NONCONFORMING_LR_RULE(169, "rule '<arg>' is left recursive but doesn't conform to a pattern ANTLR can handle", ErrorSeverity.ERROR),
+  NONCONFORMING_LR_RULE(169,
+    "rule '<arg>' is left recursive but doesn't conform to a pattern ANTLR can handle", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 170.
    *
@@ -962,7 +1036,9 @@ public enum ErrorType {
    *
    * <p>Can be used but cannot be declared: EOF</p>
    */
-  TOKEN_CONFLICTS_WITH_COMMON_CONSTANTS(171, "cannot use or declare token with reserved name '<arg>'", ErrorSeverity.ERROR),
+  TOKEN_CONFLICTS_WITH_COMMON_CONSTANTS(171,
+    "cannot use or declare token with reserved name '<arg>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 172.
    *
@@ -972,7 +1048,9 @@ public enum ErrorType {
    *
    * <p>Can be used but cannot be declared: HIDDEN, DEFAULT_TOKEN_CHANNEL</p>
    */
-  CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS(172, "cannot use or declare channel with reserved name '<arg>'", ErrorSeverity.ERROR),
+  CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS(172,
+    "cannot use or declare channel with reserved name '<arg>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 173.
    *
@@ -982,7 +1060,9 @@ public enum ErrorType {
    *
    * <p>Can be used and cannot declared: DEFAULT_MODE</p>
    */
-  MODE_CONFLICTS_WITH_COMMON_CONSTANTS(173, "cannot use or declare mode with reserved name '<arg>'", ErrorSeverity.ERROR),
+  MODE_CONFLICTS_WITH_COMMON_CONSTANTS(173,
+    "cannot use or declare mode with reserved name '<arg>'", ErrorSeverity.ERROR),
+
   /**
    * Compiler Error 174.
    *
@@ -1020,8 +1100,10 @@ public enum ErrorType {
    *
    * <pre>TOKEN: 'a' -> channel(TOKEN1); // warning 177</pre>
    */
-  CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME(177, "'<arg>' is not a recognized channel name", ErrorSeverity.WARNING),
-  /*
+  CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME(177,
+    "'<arg>' is not a recognized channel name", ErrorSeverity.WARNING),
+
+  /**
    * Compiler Warning 178.
    *
    * <p>duplicated command '<em>command</em>'</p>
@@ -1082,7 +1164,8 @@ public enum ErrorType {
   /**
    * Compiler Warning 184.
    *
-   * <p>One of the token '<em>token</em>' values unreachable. '<em>literal</em>' is always overlapped by token '<em>token</em>'</p>
+   * <p>One of the token '<em>token</em>' values unreachable. '<em>literal</em>' is always overlapped by token
+   * '<em>token</em>'</p>
    *
    * <pre>
    * TOKEN1: 'value';
@@ -1109,7 +1192,8 @@ public enum ErrorType {
    */
   RANGE_PROBABLY_CONTAINS_NOT_IMPLIED_CHARACTERS(
     185,
-    "Range <arg>..<arg2> probably contains not implied characters <arg3>. Both bounds should be defined in lower or UPPER case",
+    "Range <arg>..<arg2> probably contains not implied characters <arg3>. Both bounds should be defined in " +
+      "lower or UPPER case",
     ErrorSeverity.WARNING
   ),
 
@@ -1177,7 +1261,10 @@ public enum ErrorType {
    * value declared in the {@code tokens{}} block should be converted to
    * standard lexer rules.</p>
    */
-  V3_ASSIGN_IN_TOKENS(203, "assignments in tokens{} are not supported in ANTLR 4; use lexical rule '<arg> : <arg2>;' instead", ErrorSeverity.ERROR),
+  V3_ASSIGN_IN_TOKENS(203,
+    "assignments in tokens{} are not supported in ANTLR 4; use lexical rule '<arg> : <arg2>;' instead",
+    ErrorSeverity.ERROR),
+
   /**
    * Compiler Warning 204.
    *
@@ -1192,7 +1279,10 @@ public enum ErrorType {
    * safely converted to the standard semantic predicated syntax, which is the
    * only form used by ANTLR 4.</p>
    */
-  V3_GATED_SEMPRED(204, "{...}?=> explicitly gated semantic predicates are deprecated in ANTLR 4; use {...}? instead", ErrorSeverity.WARNING),
+  V3_GATED_SEMPRED(204,
+    "{...}?=> explicitly gated semantic predicates are deprecated in ANTLR 4; use {...}? instead",
+    ErrorSeverity.WARNING),
+
   /**
    * Compiler Error 205.
    *
@@ -1204,13 +1294,7 @@ public enum ErrorType {
    * syntactic predicates should be removed when migrating a grammar from
    * ANTLR 3 to ANTLR 4.</p>
    */
-  V3_SYNPRED(205, "(...)=> syntactic predicates are not supported in ANTLR 4", ErrorSeverity.ERROR),
-
-  // Dependency sorting errors
-
-  /** t1.g4 -> t2.g4 -> t3.g4 ->t1.g4 */
-  //CIRCULAR_DEPENDENCY(200, "your grammars contain a circular dependency and cannot be sorted into a valid build order", ErrorSeverity.ERROR),
-  ;
+  V3_SYNPRED(205, "(...)=> syntactic predicates are not supported in ANTLR 4", ErrorSeverity.ERROR);
 
   /**
    * The error or warning message, in StringTemplate 4 format using {@code <}

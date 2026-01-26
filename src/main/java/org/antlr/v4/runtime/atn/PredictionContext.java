@@ -105,7 +105,9 @@ public abstract class PredictionContext {
     return fromRuleContext(atn, outerContext, true);
   }
 
-  public static PredictionContext fromRuleContext(@NotNull ATN atn, @NotNull RuleContext outerContext, boolean fullContext) {
+  public static PredictionContext fromRuleContext(@NotNull ATN atn,
+                                                  @NotNull RuleContext outerContext,
+                                                  boolean fullContext) {
     if (outerContext.isEmpty()) {
       return fullContext ? EMPTY_FULL : EMPTY_LOCAL;
     }
@@ -135,7 +137,9 @@ public abstract class PredictionContext {
   }
 
   /*package*/
-  static PredictionContext join(@NotNull final PredictionContext context0, @NotNull final PredictionContext context1, @NotNull PredictionContextCache contextCache) {
+  static PredictionContext join(@NotNull final PredictionContext context0,
+                                @NotNull final PredictionContext context1,
+                                @NotNull PredictionContextCache contextCache) {
     if (context0 == context1) {
       return context0;
     }

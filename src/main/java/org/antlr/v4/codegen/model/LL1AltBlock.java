@@ -24,7 +24,7 @@ public class LL1AltBlock extends LL1Choice {
     super(factory, blkAST, alts);
     this.decision = ((DecisionState) blkAST.atnState).decision;
 
-    /** Lookahead for each alt 1..n */
+    /* Lookahead for each alt 1..n */
     IntervalSet[] altLookSets = factory.getGrammar().decisionLOOK.get(decision);
     altLook = getAltLookaheadAsStringLists(altLookSets);
 

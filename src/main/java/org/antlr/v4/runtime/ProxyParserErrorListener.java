@@ -25,7 +25,13 @@ public class ProxyParserErrorListener extends ProxyErrorListener<Token> implemen
   }
 
   @Override
-  public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
+  public void reportAmbiguity(Parser recognizer,
+                              DFA dfa,
+                              int startIndex,
+                              int stopIndex,
+                              boolean exact,
+                              BitSet ambigAlts,
+                              ATNConfigSet configs) {
     for (ANTLRErrorListener<? super Token> listener : getDelegates()) {
       if (!(listener instanceof ParserErrorListener parserErrorListener)) {
         continue;
@@ -36,18 +42,33 @@ public class ProxyParserErrorListener extends ProxyErrorListener<Token> implemen
   }
 
   @Override
-  public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, SimulatorState conflictState) {
+  public void reportAttemptingFullContext(Parser recognizer,
+                                          DFA dfa,
+                                          int startIndex,
+                                          int stopIndex,
+                                          BitSet conflictingAlts,
+                                          SimulatorState conflictState) {
     for (ANTLRErrorListener<? super Token> listener : getDelegates()) {
       if (!(listener instanceof ParserErrorListener parserErrorListener)) {
         continue;
       }
 
-      parserErrorListener.reportAttemptingFullContext(recognizer, dfa, startIndex, stopIndex, conflictingAlts, conflictState);
+      parserErrorListener.reportAttemptingFullContext(recognizer,
+        dfa,
+        startIndex,
+        stopIndex,
+        conflictingAlts,
+        conflictState);
     }
   }
 
   @Override
-  public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, SimulatorState acceptState) {
+  public void reportContextSensitivity(Parser recognizer,
+                                       DFA dfa,
+                                       int startIndex,
+                                       int stopIndex,
+                                       int prediction,
+                                       SimulatorState acceptState) {
     for (ANTLRErrorListener<? super Token> listener : getDelegates()) {
       if (!(listener instanceof ParserErrorListener parserErrorListener)) {
         continue;

@@ -50,7 +50,7 @@ public class ATNDeserializer {
    */
   private static final UUID BASE_SERIALIZED_UUID;
   /**
-   * This UUID indicates an extension of {@link #ADDED_PRECEDENCE_TRANSITIONS}
+   * This UUID indicates an extension of ADDED_PRECEDENCE_TRANSITIONS
    * for the addition of lexer actions encoded as a sequence of
    * {@link LexerAction} instances.
    */
@@ -193,14 +193,16 @@ public class ATNDeserializer {
     int p = 0;
     int version = toInt(data[p++]);
     if (version != SERIALIZED_VERSION) {
-      String reason = String.format(Locale.getDefault(), "Could not deserialize ATN with version %d (expected %d).", version, SERIALIZED_VERSION);
+      var reason = String.format(Locale.getDefault(),
+        "Could not deserialize ATN with version %d (expected %d).", version, SERIALIZED_VERSION);
       throw new UnsupportedOperationException(new InvalidClassException(ATN.class.getName(), reason));
     }
 
     UUID uuid = toUUID(data, p);
     p += 8;
     if (!SUPPORTED_UUIDS.contains(uuid)) {
-      String reason = String.format(Locale.getDefault(), "Could not deserialize ATN with UUID %s (expected %s or a legacy UUID).", uuid, SERIALIZED_UUID);
+      var reason = String.format(Locale.getDefault(),
+        "Could not deserialize ATN with UUID %s (expected %s or a legacy UUID).", uuid, SERIALIZED_UUID);
       throw new UnsupportedOperationException(new InvalidClassException(ATN.class.getName(), reason));
     }
 
@@ -380,13 +382,15 @@ public class ATNDeserializer {
           }
         }
 
-        returnTransitions.add(Tuple.create(ruleTransition.target.ruleIndex, ruleTransition.followState.stateNumber, outermostPrecedenceReturn));
+        returnTransitions.add(Tuple.create(ruleTransition.target.ruleIndex,
+          ruleTransition.followState.stateNumber,
+          outermostPrecedenceReturn));
       }
     }
 
     // Add all elements from returnTransitions to the ATN
     for (Tuple3<Integer, Integer, Integer> returnTransition : returnTransitions) {
-      EpsilonTransition transition = new EpsilonTransition(atn.states.get(returnTransition.getItem2()), returnTransition.getItem3());
+      var transition = new EpsilonTransition(atn.states.get(returnTransition.getItem2()), returnTransition.getItem3());
       atn.ruleToStopState[returnTransition.getItem1()].addTransition(transition);
     }
 
@@ -470,7 +474,8 @@ public class ATNDeserializer {
             int ruleIndex = ((ActionTransition) transition).ruleIndex;
             int actionIndex = ((ActionTransition) transition).actionIndex;
             LexerCustomAction lexerAction = new LexerCustomAction(ruleIndex, actionIndex);
-            state.setTransition(i, new ActionTransition(transition.target, ruleIndex, legacyLexerActions.size(), false));
+            state.setTransition(i,
+              new ActionTransition(transition.target, ruleIndex, legacyLexerActions.size(), false));
             legacyLexerActions.add(lexerAction);
           }
         }
@@ -529,14 +534,16 @@ public class ATNDeserializer {
               continue;
             }
 
-            if (maybeLoopEndState.epsilonOnlyTransitions && maybeLoopEndState.transition(0).target instanceof RuleStopState) {
+            if (maybeLoopEndState.epsilonOnlyTransitions
+              && maybeLoopEndState.transition(0).target instanceof RuleStopState) {
               endState = state;
               break;
             }
           }
 
           if (endState == null) {
-            throw new UnsupportedOperationException("Couldn't identify final state of the precedence rule prefix section.");
+            throw new UnsupportedOperationException(
+              "Couldn't identify final state of the precedence rule prefix section.");
           }
 
           excludeTransition = ((StarLoopEntryState) endState).loopBackState.transition(0);
@@ -559,7 +566,8 @@ public class ATNDeserializer {
 
         // all transitions leaving the rule start state need to leave blockStart instead
         while (atn.ruleToStartState[i].getNumberOfTransitions() > 0) {
-          Transition transition = atn.ruleToStartState[i].removeTransition(atn.ruleToStartState[i].getNumberOfTransitions() - 1);
+          Transition transition = atn.ruleToStartState[i]
+            .removeTransition(atn.ruleToStartState[i].getNumberOfTransitions() - 1);
           bypassStart.addTransition(transition);
         }
 
@@ -649,7 +657,8 @@ public class ATNDeserializer {
       if (atn.ruleToStartState[state.ruleIndex].isPrecedenceRule) {
         ATNState maybeLoopEndState = state.transition(state.getNumberOfTransitions() - 1).target;
         if (maybeLoopEndState instanceof LoopEndState) {
-          if (maybeLoopEndState.epsilonOnlyTransitions && maybeLoopEndState.transition(0).target instanceof RuleStopState) {
+          if (maybeLoopEndState.epsilonOnlyTransitions
+            && maybeLoopEndState.transition(0).target instanceof RuleStopState) {
             rulePrecedenceDecisions.put(state.ruleIndex, (StarLoopEntryState) state);
             ((StarLoopEntryState) state).precedenceRuleDecision = true;
             ((StarLoopEntryState) state).precedenceLoopbackStates = new BitSet(atn.states.size());
@@ -831,7 +840,10 @@ public class ATNDeserializer {
             break;
 
           case Transition.RANGE:
-            intermediateState.addTransition(new RangeTransition(target, ((RangeTransition) effective).from, ((RangeTransition) effective).to));
+            intermediateState.addTransition(new RangeTransition(target,
+              ((RangeTransition) effective).from,
+              ((RangeTransition) effective).to)
+            );
             break;
 
           case Transition.SET:
@@ -926,7 +938,8 @@ public class ATNDeserializer {
     }
 
     if (ParserATNSimulator.debug) {
-      System.out.println("ATN runtime optimizer removed " + removedEdges + " transitions by combining chained epsilon transitions.");
+      System.out.println("ATN runtime optimizer removed " + removedEdges
+        + " transitions by combining chained epsilon transitions.");
     }
 
     return removedEdges;
@@ -980,7 +993,8 @@ public class ATNDeserializer {
         }
       }
 
-      ATNState blockEndState = decision.getOptimizedTransition(setTransitions.getMinElement()).target.getOptimizedTransition(0).target;
+      var blockEndState = decision.getOptimizedTransition(setTransitions.getMinElement())
+        .target.getOptimizedTransition(0).target;
       IntervalSet matchSet = new IntervalSet();
       for (int i = 0; i < setTransitions.getIntervals().size(); i++) {
         Interval interval = setTransitions.getIntervals().get(i);

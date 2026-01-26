@@ -96,7 +96,11 @@ public class CommonToken implements WritableToken, Serializable {
     this.source = EMPTY_SOURCE;
   }
 
-  public CommonToken(@NotNull Pair<? extends TokenSource, CharStream> source, int type, int channel, int start, int stop) {
+  public CommonToken(@NotNull Pair<? extends TokenSource, CharStream> source,
+                     int type,
+                     int channel,
+                     int start,
+                     int stop) {
     this.source = source;
     this.type = type;
     this.channel = channel;
@@ -285,6 +289,8 @@ public class CommonToken implements WritableToken, Serializable {
       typeString = r.getVocabulary().getDisplayName(type);
     }
 
-    return "[@" + getTokenIndex() + "," + start + ":" + stop + "='" + txt + "',<" + typeString + ">" + channelStr + "," + line + ":" + getCharPositionInLine() + "]";
+    return "[@" + getTokenIndex() + "," + start + ":" + stop + "='" + txt
+      + "',<" + typeString + ">" + channelStr + "," + line + ":" + getCharPositionInLine()
+      + "]";
   }
 }

@@ -143,7 +143,8 @@ public class RecognitionException extends RuntimeException {
     return offendingToken;
   }
 
-  protected final <Symbol extends Token> void setOffendingToken(Recognizer<Symbol, ?> recognizer, @Nullable Symbol offendingToken) {
+  protected final <Symbol extends Token> void setOffendingToken(Recognizer<Symbol, ?> recognizer,
+                                                                @Nullable Symbol offendingToken) {
     if (recognizer == this.recognizer) {
       this.offendingToken = offendingToken;
     }

@@ -50,7 +50,10 @@ public class DFASerializer {
       parser != null ? parser.getATN() : null);
   }
 
-  public DFASerializer(@NotNull DFA dfa, @NotNull Vocabulary vocabulary, @Nullable String[] ruleNames, @Nullable ATN atn) {
+  public DFASerializer(@NotNull DFA dfa,
+                       @NotNull Vocabulary vocabulary,
+                       @Nullable String[] ruleNames,
+                       @Nullable ATN atn) {
     this.dfa = dfa;
     this.vocabulary = vocabulary;
     this.ruleNames = ruleNames;
@@ -70,7 +73,8 @@ public class DFASerializer {
         Map<Integer, DFAState> edges = s.getEdgeMap();
         Map<Integer, DFAState> contextEdges = s.getContextEdgeMap();
         for (Map.Entry<Integer, DFAState> entry : edges.entrySet()) {
-          if ((entry.getValue() == null || entry.getValue() == ATNSimulator.ERROR) && !s.isContextSymbol(entry.getKey())) {
+          if ((entry.getValue() == null || entry.getValue() == ATNSimulator.ERROR)
+            && !s.isContextSymbol(entry.getKey())) {
             continue;
           }
 

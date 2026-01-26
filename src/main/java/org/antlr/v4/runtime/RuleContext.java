@@ -271,7 +271,8 @@ public class RuleContext implements RuleNode {
         }
       } else {
         int ruleIndex = p.getRuleIndex();
-        String ruleName = ruleIndex >= 0 && ruleIndex < ruleNames.size() ? ruleNames.get(ruleIndex) : Integer.toString(ruleIndex);
+        String ruleName = ruleIndex >= 0 && ruleIndex < ruleNames.size() ? ruleNames.get(ruleIndex)
+          : Integer.toString(ruleIndex);
         buf.append(ruleName);
       }
 

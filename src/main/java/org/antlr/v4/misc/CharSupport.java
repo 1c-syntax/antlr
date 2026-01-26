@@ -104,7 +104,9 @@ public class CharSupport {
               if (charAt == '}') {
                 break;
               }
-              if (!Character.isDigit(charAt) && !(charAt >= 'a' && charAt <= 'f') && !(charAt >= 'A' && charAt <= 'F')) {
+              if (!Character.isDigit(charAt)
+                && !(charAt >= 'a' && charAt <= 'f')
+                && !(charAt >= 'A' && charAt <= 'F')) {
                 return null; // invalid escape sequence.
               }
             }
@@ -112,7 +114,9 @@ public class CharSupport {
             for (end = i + 2; end < i + 6; end++) {
               if (end > n) return null; // invalid escape sequence.
               char charAt = literal.charAt(end);
-              if (!Character.isDigit(charAt) && !(charAt >= 'a' && charAt <= 'f') && !(charAt >= 'A' && charAt <= 'F')) {
+              if (!Character.isDigit(charAt)
+                && !(charAt >= 'a' && charAt <= 'f')
+                && !(charAt >= 'A' && charAt <= 'F')) {
                 return null; // invalid escape sequence.
               }
             }

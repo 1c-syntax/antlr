@@ -341,7 +341,7 @@ public class CodePointBuffer {
     private void byteToCharBuffer(int toAppend) {
       byteBuffer.flip();
       // CharBuffers hold twice as much per unit as ByteBuffers, so start with half the capacity.
-      CharBuffer newBuffer = CharBuffer.allocate(Math.max(byteBuffer.remaining() + toAppend, byteBuffer.capacity() / 2));
+      var newBuffer = CharBuffer.allocate(Math.max(byteBuffer.remaining() + toAppend, byteBuffer.capacity() / 2));
       while (byteBuffer.hasRemaining()) {
         newBuffer.put((char) (byteBuffer.get() & 0xFF));
       }

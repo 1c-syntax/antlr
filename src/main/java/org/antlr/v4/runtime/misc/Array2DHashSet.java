@@ -50,7 +50,9 @@ public class Array2DHashSet<T> implements Set<T> {
     this(comparator, INITAL_CAPACITY, INITAL_BUCKET_CAPACITY);
   }
 
-  public Array2DHashSet(@Nullable AbstractEqualityComparator<? super T> comparator, int initialCapacity, int initialBucketCapacity) {
+  public Array2DHashSet(@Nullable AbstractEqualityComparator<? super T> comparator,
+                        int initialCapacity,
+                        int initialBucketCapacity) {
     if (comparator == null) {
       comparator = ObjectEqualityComparator.INSTANCE;
     }

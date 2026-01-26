@@ -393,10 +393,12 @@ public class GrammarParserInterpreter extends ParserInterpreter {
         Constructor<? extends ParserInterpreter> ctor = c.getConstructor(Grammar.class, ATN.class, TokenStream.class);
         parser = ctor.newInstance(g, originalParser.getATN(), originalParser.getInputStream());
       } catch (Exception e) {
-        throw new IllegalArgumentException("can't create parser to match incoming " + originalParser.getClass().getSimpleName(), e);
+        throw new IllegalArgumentException("can't create parser to match incoming "
+          + originalParser.getClass().getSimpleName(), e);
       }
     } else { // must've been a generated parser
-      char[] serializedAtn = ATNSerializer.getSerializedAsChars(originalParser.getATN(), Arrays.asList(originalParser.getRuleNames()));
+      char[] serializedAtn = ATNSerializer.getSerializedAsChars(originalParser.getATN(),
+        Arrays.asList(originalParser.getRuleNames()));
       ATN deserialized = new ATNDeserializer().deserialize(serializedAtn);
       parser = new ParserInterpreter(originalParser.getGrammarFileName(),
         originalParser.getVocabulary(),

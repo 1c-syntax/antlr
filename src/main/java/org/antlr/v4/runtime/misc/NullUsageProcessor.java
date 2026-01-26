@@ -41,20 +41,27 @@ import java.util.Set;
  *
  * <ul>
  * <li><strong>Error</strong>: an element is annotated with both {@link NotNull} and {@link Nullable}.</li>
- * <li><strong>Error</strong>: an method which returns {@code void} is annotated with {@link NotNull} or {@link Nullable}.</li>
+ * <li><strong>Error</strong>: an method which returns {@code void} is annotated with {@link NotNull}
+ * or {@link Nullable}.</li>
  * <li><strong>Error</strong>: an element with a primitive type is annotated with {@link Nullable}.</li>
- * <li><strong>Error</strong>: a parameter is annotated with {@link NotNull}, but the method overrides or implements a method where the parameter is annotated {@link Nullable}.</li>
- * <li><strong>Error</strong>: a method is annotated with {@link Nullable}, but the method overrides or implements a method that is annotated with {@link NotNull}.</li>
+ * <li><strong>Error</strong>: a parameter is annotated with {@link NotNull}, but the method overrides or implements
+ * a method where the parameter is annotated {@link Nullable}.</li>
+ * <li><strong>Error</strong>: a method is annotated with {@link Nullable}, but the method overrides or implements
+ * a method that is annotated with {@link NotNull}.</li>
  * <li><strong>Warning</strong>: an element with a primitive type is annotated with {@link NotNull}.</li>
- * <li><strong>Warning</strong>: a parameter is annotated with {@link NotNull}, but the method overrides or implements a method where the parameter is not annotated.</li>
- * <li><strong>Warning</strong>: a method is annotated with {@link Nullable}, but the method overrides or implements a method that is not annotated.</li>
+ * <li><strong>Warning</strong>: a parameter is annotated with {@link NotNull}, but the method overrides or implements
+ * a method where the parameter is not annotated.</li>
+ * <li><strong>Warning</strong>: a method is annotated with {@link Nullable}, but the method overrides or implements
+ * a method that is not annotated.</li>
  * </ul>
  *
  * <p>In the future, the validation process may be updated to check the following additional items.</p>
  *
  * <ul>
- * <li><strong>Warning</strong>: a parameter is not annotated, but the method overrides or implements a method where the parameter is annotated with {@link NotNull} or {@link Nullable}.</li>
- * <li><strong>Warning</strong>: a method is not annotated, but the method overrides or implements a method that is annotated with with {@link NotNull} or {@link Nullable}.</li>
+ * <li><strong>Warning</strong>: a parameter is not annotated, but the method overrides or implements a method where
+ * the parameter is annotated with {@link NotNull} or {@link Nullable}.</li>
+ * <li><strong>Warning</strong>: a method is not annotated, but the method overrides or implements a method that is
+ * annotated with {@link NotNull} or {@link Nullable}.</li>
  * </ul>
  *
  * @author Sam Harwell
@@ -98,7 +105,9 @@ public class NullUsageProcessor extends AbstractProcessor {
     Set<Element> intersection = new HashSet<>(notNullElements);
     intersection.retainAll(nullableElements);
     for (Element element : intersection) {
-      String error = String.format("%s cannot be annotated with both %s and %s", element.getKind().toString().replace('_', ' ').toLowerCase(), notNullType.getSimpleName(), nullableType.getSimpleName());
+      String error = String.format("%s cannot be annotated with both %s and %s",
+        element.getKind().toString().replace('_', ' ').toLowerCase(),
+        notNullType.getSimpleName(), nullableType.getSimpleName());
       processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, error, element);
     }
 
@@ -138,7 +147,10 @@ public class NullUsageProcessor extends AbstractProcessor {
     }
 
     if (!className.equals(clazz.getCanonicalName())) {
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, String.format("Unable to process null usage annotations due to class name mismatch: %s != %s", className, clazz.getCanonicalName()));
+      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+        String.format("Unable to process null usage annotations due to class name mismatch: %s != %s",
+          className,
+          clazz.getCanonicalName()));
       return false;
     }
 
@@ -155,12 +167,15 @@ public class NullUsageProcessor extends AbstractProcessor {
       TypeMirror returnType = executableElement.getReturnType();
       if (returnType instanceof NoType && returnType.getKind() == TypeKind.VOID) {
         String error = String.format("void method cannot be annotated with %s", annotationType.getSimpleName());
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, error, element, getAnnotationMirror(element, annotationType));
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, error, element, getAnnotationMirror(element,
+          annotationType));
       }
     }
   }
 
-  private void checkPrimitiveTypeAnnotations(Set<? extends Element> elements, Diagnostic.Kind kind, TypeElement annotationType) {
+  private void checkPrimitiveTypeAnnotations(Set<? extends Element> elements,
+                                             Diagnostic.Kind kind,
+                                             TypeElement annotationType) {
     for (Element element : elements) {
       TypeMirror typeToCheck;
       switch (element.getKind()) {
@@ -183,13 +198,16 @@ public class NullUsageProcessor extends AbstractProcessor {
       }
 
       if (typeToCheck instanceof PrimitiveType && typeToCheck.getKind().isPrimitive()) {
-        String error = String.format("%s with a primitive type %s be annotated with %s", element.getKind().toString().replace('_', ' ').toLowerCase(), kind == Diagnostic.Kind.ERROR ? "cannot" : "should not", annotationType.getSimpleName());
+        var error = String.format("%s with a primitive type %s be annotated with %s",
+          element.getKind().toString().replace('_', ' ').toLowerCase(),
+          kind == Diagnostic.Kind.ERROR ? "cannot" : "should not", annotationType.getSimpleName());
         processingEnv.getMessager().printMessage(kind, error, element, getAnnotationMirror(element, annotationType));
       }
     }
   }
 
-  private void addElementsToNamedMethodMap(Set<? extends Element> elements, Map<String, Map<ExecutableElement, List<Element>>> namedMethodMap) {
+  private void addElementsToNamedMethodMap(Set<? extends Element> elements,
+                                           Map<String, Map<ExecutableElement, List<Element>>> namedMethodMap) {
     for (Element element : elements) {
       ExecutableElement method;
       switch (element.getKind()) {
@@ -206,8 +224,10 @@ public class NullUsageProcessor extends AbstractProcessor {
           continue;
       }
 
-      var annotatedMethodWithName = namedMethodMap.computeIfAbsent(method.getSimpleName().toString(), k -> new HashMap<>());
-      var annotatedElementsOfMethod = annotatedMethodWithName.computeIfAbsent(method, k -> new ArrayList<>());
+      var annotatedMethodWithName = namedMethodMap.computeIfAbsent(method.getSimpleName().toString(),
+        k -> new HashMap<>());
+      var annotatedElementsOfMethod = annotatedMethodWithName.computeIfAbsent(method,
+        k -> new ArrayList<>());
       annotatedElementsOfMethod.add(element);
     }
   }
@@ -243,25 +263,58 @@ public class NullUsageProcessor extends AbstractProcessor {
     return new ArrayList<>(supertypes);
   }
 
-  private void checkOverriddenMethod(ExecutableElement overrider, ExecutableElement overridden, Set<Element> errorElements, Set<Element> warnedElements) {
+  private void checkOverriddenMethod(ExecutableElement overrider,
+                                     ExecutableElement overridden,
+                                     Set<Element> errorElements,
+                                     Set<Element> warnedElements) {
     // check method annotation
     if (isNullable(overrider) && isNotNull(overridden) && errorElements.add(overrider)) {
-      String error = String.format("method annotated with %s cannot override or implement a method annotated with %s", nullableType.getSimpleName(), notNullType.getSimpleName());
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, error, overrider, getNullableAnnotationMirror(overrider));
-    } else if (isNullable(overrider) && !(isNullable(overridden) || isNotNull(overridden)) && !errorElements.contains(overrider) && warnedElements.add(overrider)) {
-      String error = String.format("method annotated with %s overrides a method that is not annotated", nullableType.getSimpleName());
-      processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, error, overrider, getNullableAnnotationMirror(overrider));
+      String error = String.format(
+        "method annotated with %s cannot override or implement a method annotated with %s",
+        nullableType.getSimpleName(),
+        notNullType.getSimpleName());
+      processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+        error,
+        overrider,
+        getNullableAnnotationMirror(overrider));
+    } else if (isNullable(overrider)
+      && !(isNullable(overridden) || isNotNull(overridden))
+      && !errorElements.contains(overrider)
+      && warnedElements.add(overrider)) {
+
+      String error = String.format("method annotated with %s overrides a method that is not annotated",
+        nullableType.getSimpleName());
+      processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING,
+        error,
+        overrider,
+        getNullableAnnotationMirror(overrider));
     }
 
     List<? extends VariableElement> overriderParameters = overrider.getParameters();
     List<? extends VariableElement> overriddenParameters = overridden.getParameters();
     for (int i = 0; i < overriderParameters.size(); i++) {
-      if (isNotNull(overriderParameters.get(i)) && isNullable(overriddenParameters.get(i)) && errorElements.add(overriderParameters.get(i))) {
-        String error = String.format("parameter %s annotated with %s cannot override or implement a parameter annotated with %s", overriderParameters.get(i).getSimpleName(), notNullType.getSimpleName(), nullableType.getSimpleName());
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, error, overriderParameters.get(i), getNotNullAnnotationMirror(overriderParameters.get(i)));
-      } else if (isNotNull(overriderParameters.get(i)) && !(isNullable(overriddenParameters.get(i)) || isNotNull(overriddenParameters.get(i))) && !errorElements.contains(overriderParameters.get(i)) && warnedElements.add(overriderParameters.get(i))) {
-        String error = String.format("parameter %s annotated with %s overrides a parameter that is not annotated", overriderParameters.get(i).getSimpleName(), notNullType.getSimpleName());
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING, error, overriderParameters.get(i), getNotNullAnnotationMirror(overriderParameters.get(i)));
+      if (isNotNull(overriderParameters.get(i))
+        && isNullable(overriddenParameters.get(i))
+        && errorElements.add(overriderParameters.get(i))) {
+
+        var error = String.format(
+          "parameter %s annotated with %s cannot override or implement a parameter annotated with %s",
+          overriderParameters.get(i).getSimpleName(),
+          notNullType.getSimpleName(),
+          nullableType.getSimpleName());
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR,
+          error,
+          overriderParameters.get(i),
+          getNotNullAnnotationMirror(overriderParameters.get(i)));
+      } else if (isNotNull(overriderParameters.get(i))
+        && !(isNullable(overriddenParameters.get(i)) || isNotNull(overriddenParameters.get(i)))
+        && !errorElements.contains(overriderParameters.get(i)) && warnedElements.add(overriderParameters.get(i))) {
+        var error = String.format("parameter %s annotated with %s overrides a parameter that is not annotated",
+          overriderParameters.get(i).getSimpleName(), notNullType.getSimpleName());
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.WARNING,
+          error,
+          overriderParameters.get(i),
+          getNotNullAnnotationMirror(overriderParameters.get(i)));
       }
     }
   }

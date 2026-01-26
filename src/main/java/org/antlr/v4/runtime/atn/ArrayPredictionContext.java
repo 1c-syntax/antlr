@@ -28,7 +28,8 @@ public class ArrayPredictionContext extends PredictionContext {
   /*package*/ ArrayPredictionContext(@NotNull PredictionContext[] parents, int[] returnStates) {
     super(calculateHashCode(parents, returnStates));
     assert parents.length == returnStates.length;
-    assert returnStates.length > 1 || returnStates[0] != EMPTY_FULL_STATE_KEY : "Should be using PredictionContext.EMPTY instead.";
+    assert returnStates.length > 1 || returnStates[0] != EMPTY_FULL_STATE_KEY
+      : "Should be using PredictionContext.EMPTY instead.";
 
     this.parents = parents;
     this.returnStates = returnStates;
@@ -37,7 +38,8 @@ public class ArrayPredictionContext extends PredictionContext {
   /*package*/ ArrayPredictionContext(@NotNull PredictionContext[] parents, int[] returnStates, int hashCode) {
     super(hashCode);
     assert parents.length == returnStates.length;
-    assert returnStates.length > 1 || returnStates[0] != EMPTY_FULL_STATE_KEY : "Should be using PredictionContext.EMPTY instead.";
+    assert returnStates.length > 1 || returnStates[0] != EMPTY_FULL_STATE_KEY
+      : "Should be using PredictionContext.EMPTY instead.";
 
     this.parents = parents;
     this.returnStates = returnStates;
@@ -106,7 +108,9 @@ public class ArrayPredictionContext extends PredictionContext {
     return appendContext(this, suffix, new PredictionContext.IdentityHashMap());
   }
 
-  private static PredictionContext appendContext(PredictionContext context, PredictionContext suffix, PredictionContext.IdentityHashMap visited) {
+  private static PredictionContext appendContext(PredictionContext context,
+                                                 PredictionContext suffix,
+                                                 PredictionContext.IdentityHashMap visited) {
     if (suffix.isEmpty()) {
       if (isEmptyLocal(suffix)) {
         if (context.hasEmpty()) {
@@ -183,7 +187,7 @@ public class ArrayPredictionContext extends PredictionContext {
     selfWorkList.push(this);
     otherWorkList.push(other);
     while (!selfWorkList.isEmpty()) {
-      IdentityCommutativePredictionContextOperands operands = new IdentityCommutativePredictionContextOperands(selfWorkList.pop(), otherWorkList.pop());
+      var operands = new IdentityCommutativePredictionContextOperands(selfWorkList.pop(), otherWorkList.pop());
       if (!visited.add(operands)) {
         continue;
       }

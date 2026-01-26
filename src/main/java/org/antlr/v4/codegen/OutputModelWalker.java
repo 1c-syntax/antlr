@@ -90,7 +90,8 @@ public class OutputModelWalker {
       String fieldName = fi.getName();
 
       if (!usedFieldNames.add(fieldName)) {
-        tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, "Model object " + omo.getClass().getSimpleName() + " has multiple fields named '" + fieldName + "'");
+        tool.errMgr.toolError(ErrorType.INTERNAL_ERROR,
+          "Model object " + omo.getClass().getSimpleName() + " has multiple fields named '" + fieldName + "'");
         continue;
       }
 

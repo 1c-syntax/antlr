@@ -78,7 +78,8 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
 
       int SLL_k = _sllStopIndex - _startIndex + 1;
       decisions[decision].SLL_TotalLook += SLL_k;
-      decisions[decision].SLL_MinLook = decisions[decision].SLL_MinLook == 0 ? SLL_k : Math.min(decisions[decision].SLL_MinLook, SLL_k);
+      decisions[decision].SLL_MinLook = decisions[decision].SLL_MinLook == 0 ? SLL_k
+        : Math.min(decisions[decision].SLL_MinLook, SLL_k);
       if (SLL_k > decisions[decision].SLL_MaxLook) {
         decisions[decision].SLL_MaxLook = SLL_k;
         decisions[decision].SLL_MaxLookEvent =
@@ -88,7 +89,8 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
       if (_llStopIndex >= 0) {
         int LL_k = _llStopIndex - _startIndex + 1;
         decisions[decision].LL_TotalLook += LL_k;
-        decisions[decision].LL_MinLook = decisions[decision].LL_MinLook == 0 ? LL_k : Math.min(decisions[decision].LL_MinLook, LL_k);
+        decisions[decision].LL_MinLook = decisions[decision].LL_MinLook == 0 ? LL_k
+          : Math.min(decisions[decision].LL_MinLook, LL_k);
         if (LL_k > decisions[decision].LL_MaxLook) {
           decisions[decision].LL_MaxLook = LL_k;
           decisions[decision].LL_MaxLookEvent =
@@ -104,7 +106,10 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected SimulatorState getStartState(DFA dfa, TokenStream input, ParserRuleContext outerContext, boolean useContext) {
+  protected SimulatorState getStartState(DFA dfa,
+                                         TokenStream input,
+                                         ParserRuleContext outerContext,
+                                         boolean useContext) {
     SimulatorState state = super.getStartState(dfa, input, outerContext, useContext);
     currentState = state;
     return state;
@@ -118,7 +123,10 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected SimulatorState computeReachSet(DFA dfa, SimulatorState previous, int t, PredictionContextCache contextCache) {
+  protected SimulatorState computeReachSet(DFA dfa,
+                                           SimulatorState previous,
+                                           int t,
+                                           PredictionContextCache contextCache) {
     SimulatorState reachState = super.computeReachSet(dfa, previous, t, contextCache);
     if (reachState == null) {
       // no reach on current lookahead symbol. ERROR.
@@ -144,7 +152,10 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
     if (existingTargetState != null) {
       // this method is directly called by execDFA; must construct a SimulatorState
       // to represent the current state for this case
-      currentState = new SimulatorState(currentState.outerContext, existingTargetState, currentState.useContext, currentState.remainingOuterContext);
+      currentState = new SimulatorState(currentState.outerContext,
+        existingTargetState,
+        currentState.useContext,
+        currentState.remainingOuterContext);
 
       if (currentState.useContext) {
         decisions[currentDecision].LL_DFATransitions++;
@@ -153,7 +164,10 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
       }
 
       if (existingTargetState == ERROR) {
-        SimulatorState state = new SimulatorState(currentState.outerContext, previousD, currentState.useContext, currentState.remainingOuterContext);
+        SimulatorState state = new SimulatorState(currentState.outerContext,
+          previousD,
+          currentState.useContext,
+          currentState.remainingOuterContext);
         decisions[currentDecision].errors.add(
           new ErrorInfo(currentDecision, state, _input, _startIndex, _input.index())
         );
@@ -170,7 +184,7 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
                                                                  int t,
                                                                  boolean useContext,
                                                                  PredictionContextCache contextCache) {
-    Pair<DFAState, ParserRuleContext> targetState = super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
+    var targetState = super.computeTargetState(dfa, s, remainingGlobalContext, t, useContext, contextCache);
 
     if (useContext) {
       decisions[currentDecision].LL_ATNTransitions++;
@@ -196,7 +210,11 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected void reportContextSensitivity(DFA dfa, int prediction, SimulatorState acceptState, int startIndex, int stopIndex) {
+  protected void reportContextSensitivity(DFA dfa,
+                                          int prediction,
+                                          SimulatorState acceptState,
+                                          int startIndex,
+                                          int stopIndex) {
     if (prediction != conflictingAltResolvedBySLL) {
       decisions[currentDecision].contextSensitivities.add(
         new ContextSensitivityInfo(currentDecision, acceptState, _input, startIndex, stopIndex)
@@ -206,7 +224,11 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected void reportAttemptingFullContext(DFA dfa, BitSet conflictingAlts, SimulatorState conflictState, int startIndex, int stopIndex) {
+  protected void reportAttemptingFullContext(DFA dfa,
+                                             BitSet conflictingAlts,
+                                             SimulatorState conflictState,
+                                             int startIndex,
+                                             int stopIndex) {
     if (conflictingAlts != null) {
       conflictingAltResolvedBySLL = conflictingAlts.nextSetBit(0);
     } else {
@@ -217,7 +239,13 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   }
 
   @Override
-  protected void reportAmbiguity(@NotNull DFA dfa, DFAState D, int startIndex, int stopIndex, boolean exact, @NotNull BitSet ambigAlts, @NotNull ATNConfigSet configs) {
+  protected void reportAmbiguity(@NotNull DFA dfa,
+                                 DFAState D,
+                                 int startIndex,
+                                 int stopIndex,
+                                 boolean exact,
+                                 @NotNull BitSet ambigAlts,
+                                 @NotNull ATNConfigSet configs) {
     int prediction;
     if (ambigAlts != null) {
       prediction = ambigAlts.nextSetBit(0);

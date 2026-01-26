@@ -132,7 +132,14 @@ public class ListTokenSource implements TokenSource {
         }
 
         int stop = Math.max(-1, start - 1);
-        eofToken = _factory.create(Tuple.create(this, getInputStream()), Token.EOF, "EOF", Token.DEFAULT_CHANNEL, start, stop, getLine(), getCharPositionInLine());
+        eofToken = _factory.create(Tuple.create(this, getInputStream()),
+          Token.EOF,
+          "EOF",
+          Token.DEFAULT_CHANNEL,
+          start,
+          stop,
+          getLine(),
+          getCharPositionInLine());
       }
 
       return eofToken;

@@ -67,7 +67,9 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
     this(comparator, INITAL_CAPACITY, INITAL_BUCKET_CAPACITY);
   }
 
-  public FlexibleHashMap(@Nullable AbstractEqualityComparator<? super K> comparator, int initialCapacity, int initialBucketCapacity) {
+  public FlexibleHashMap(@Nullable AbstractEqualityComparator<? super K> comparator,
+                         int initialCapacity,
+                         int initialBucketCapacity) {
     if (comparator == null) {
       comparator = ObjectEqualityComparator.INSTANCE;
     }

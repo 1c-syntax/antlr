@@ -12,7 +12,6 @@ package org.antlr.v4.runtime.dfa;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -113,7 +112,8 @@ public final class ArrayEdgeMap<T> extends AbstractEdgeMap<T> {
       assert !other.isEmpty();
       return put(other.getKey(), other.getValue());
     } else {
-      throw new UnsupportedOperationException(String.format("EdgeMap of type %s is supported yet.", m.getClass().getName()));
+      throw new UnsupportedOperationException(String.format("EdgeMap of type %s is supported yet.",
+        m.getClass().getName()));
     }
   }
 
