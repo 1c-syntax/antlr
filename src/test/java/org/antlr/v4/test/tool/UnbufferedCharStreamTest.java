@@ -25,7 +25,7 @@ import java.io.StringReader;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class UnbufferedCharStreamTest extends AbstractBaseTest {
+class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void testNoChar() {
     CharStream input = createStream("");

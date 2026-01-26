@@ -45,7 +45,7 @@ public class ActionSplitterTest extends AbstractBaseTest {
       String input = exprs[i];
       String expect = exprs[i + 1];
       List<String> chunks = getActionChunks(input);
-      assertThat(chunks.toString()).as("input: " + input).isEqualTo(expect);
+      assertThat(chunks).as("input: " + input).hasToString(expect);
     }
   }
 

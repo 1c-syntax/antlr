@@ -27,7 +27,7 @@ import static org.antlr.v4.tool.ErrorType.RETVAL_CONFLICTS_WITH_ARG;
 import static org.antlr.v4.tool.ErrorType.RETVAL_CONFLICTS_WITH_RULE;
 import static org.antlr.v4.tool.ErrorType.TOKEN_NAMES_MUST_START_UPPER;
 
-public class BasicSemanticErrorsTest extends AbstractBaseTest {
+class BasicSemanticErrorsTest extends AbstractBaseTest {
   static String[] U = {
     // INPUT
     """

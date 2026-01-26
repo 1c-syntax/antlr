@@ -25,7 +25,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class UnicodeGrammarTest extends AbstractBaseTest {
+class UnicodeGrammarTest extends AbstractBaseTest {
   @Test
   void unicodeBMPLiteralInGrammar() throws Exception {
     String grammarText =

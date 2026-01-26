@@ -18,10 +18,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ATNSerializationTest extends AbstractBaseTest {
+class ATNSerializationTest extends AbstractBaseTest {
   @Test
   void testSimpleNoBlock() throws Exception {
     Grammar g = new Grammar(
@@ -44,7 +44,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -69,7 +69,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -94,7 +94,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -122,7 +122,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
     DOTGenerator gen = new DOTGenerator(g);
     System.out.println(gen.getDOT(atn.ruleToStartState[0]));
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -147,7 +147,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -178,7 +178,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -216,7 +216,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -251,7 +251,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -285,7 +285,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, false);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -323,7 +323,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -350,7 +350,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -377,7 +377,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -416,7 +416,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -443,7 +443,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -471,7 +471,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -501,7 +501,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -535,7 +535,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -571,7 +571,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -623,7 +623,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -652,7 +652,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -681,7 +681,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -710,7 +710,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -718,7 +718,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u4E9C'|'\u4E9D')
+        ID : ~('亜'|'亝')
          ;""");
     String expecting =
       """
@@ -739,7 +739,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -747,7 +747,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ('\u4E9C'|'\u4E9D'|'\u6C5F'|'\u305F'..'\u307B')
+        ID : ('亜'|'亝'|'江'|'た'..'ほ')
          ;""");
     String expecting =
       """
@@ -768,7 +768,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -776,7 +776,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u4E9C'|'\u4E9D'|'\u6C5F'|'\u305F'..'\u307B')
+        ID : ~('亜'|'亝'|'江'|'た'..'ほ')
          ;""");
     String expecting =
       """
@@ -797,7 +797,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -826,7 +826,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -855,7 +855,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -884,7 +884,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -913,7 +913,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -942,7 +942,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -971,7 +971,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -1039,7 +1039,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -1071,7 +1071,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -1134,7 +1134,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -1191,7 +1191,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
 }

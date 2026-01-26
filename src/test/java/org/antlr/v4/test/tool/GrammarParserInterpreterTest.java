@@ -20,13 +20,13 @@ import org.antlr.v4.tool.GrammarParserInterpreter;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests to ensure GrammarParserInterpreter subclass of ParserInterpreter
  * hasn't messed anything up.
  */
-public class GrammarParserInterpreterTest {
+class GrammarParserInterpreterTest {
   public static final String lexerText = """
     lexer grammar L;
     PLUS : '+' ;
@@ -128,7 +128,7 @@ public class GrammarParserInterpreterTest {
     InterpreterTreeTextProvider nodeTextProvider = new InterpreterTreeTextProvider(g.getRuleNames());
     String treeStr = Trees.toStringTree(t, nodeTextProvider);
     System.out.println("parse tree: " + treeStr);
-    assertEquals(expectedParseTree, treeStr);
+    assertThat(treeStr).isEqualTo(expectedParseTree);
     return (InterpreterRuleContext) t;
   }
 }

@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * test runtime parse errors
  */
 @SuppressWarnings("unused")
-public class ParseErrorsTest extends AbstractBaseTest {
+class ParseErrorsTest extends AbstractBaseTest {
   @Test
   void testTokenMismatch() {
     String grammar =

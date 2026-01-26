@@ -17,7 +17,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 /**
  * Test the set stuff in lexer and parser
  */
-public class SetsTest extends AbstractBaseTest {
+class SetsTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test

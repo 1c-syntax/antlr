@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class TokenPositionOptionsTest extends AbstractBaseTest {
+class TokenPositionOptionsTest extends AbstractBaseTest {
   @Test
   void testLeftRecursionRewrite() throws Exception {
     Grammar g = new Grammar(

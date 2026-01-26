@@ -19,7 +19,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 /**
  * Test topo sort in GraphNode.
  */
-public class TopologicalSortTest extends AbstractBaseTest {
+class TopologicalSortTest extends AbstractBaseTest {
   @Test
   void testFairlyLargeGraph() {
     Graph<String> g = new Graph<>();

@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Интеграционные тесты для сложных сценариев работы с деревом
  */
-public class TreesIntegrationTest {
+class TreesIntegrationTest {
 
   @Test
   void testComplexTreeStructure() {
@@ -78,13 +78,11 @@ public class TreesIntegrationTest {
 
     // Предыдущий токен с пропуском скрытых
     var prevToken = Trees.getPreviousTokenFromDefaultChannel(tokens, 2);
-    assertThat(prevToken).isPresent();
-    assertThat(prevToken.get()).isEqualTo(t1);
+    assertThat(prevToken).contains(t1);
 
     // Предыдущий токен определенного типа
     var prevTokenType = Trees.getPreviousTokenFromDefaultChannel(tokens, 3, 3);
-    assertThat(prevTokenType).isPresent();
-    assertThat(prevTokenType.get()).isEqualTo(t3);
+    assertThat(prevTokenType).contains(t3);
   }
 
   @Test
@@ -138,9 +136,10 @@ public class TreesIntegrationTest {
     Collection<ParserRuleContext> topLevel = Trees.findAllTopLevelDescendantNodes(root, List.of(2));
 
     // Должны найти child2 и grandChild1, но НЕ greatGrandChild
-    assertThat(topLevel).hasSize(2);
-    assertThat(topLevel).contains(child2, grandChild1);
-    assertThat(topLevel).doesNotContain(greatGrandChild);
+    assertThat(topLevel)
+      .hasSize(2)
+      .contains(child2, grandChild1)
+      .doesNotContain(greatGrandChild);
   }
 
   @Test

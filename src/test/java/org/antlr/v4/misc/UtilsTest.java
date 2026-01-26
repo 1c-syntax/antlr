@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UtilsTest {
+class UtilsTest {
 
   @Test
   void testStripFileExtension() {
@@ -102,8 +102,8 @@ public class UtilsTest {
         return true;
       }
     };
-    assertThat(Utils.indexOf(strings, filter)).isEqualTo(0);
-    assertThat(Utils.indexOf(new ArrayList<>(), null)).isEqualTo(-1);
+    assertThat(Utils.indexOf(strings, filter)).isZero();
+    assertThat(Utils.indexOf(new ArrayList<>(), null)).isNegative();
   }
 
   @Test
@@ -118,7 +118,7 @@ public class UtilsTest {
       }
     };
     assertThat(Utils.lastIndexOf(strings, filter)).isEqualTo(1);
-    assertThat(Utils.lastIndexOf(new ArrayList<>(), null)).isEqualTo(-1);
+    assertThat(Utils.lastIndexOf(new ArrayList<>(), null)).isNegative();
   }
 
   @Test
@@ -127,12 +127,12 @@ public class UtilsTest {
     strings.add("foo");
     strings.add("bar");
     strings.add("baz");
-    assertThat(strings.size()).isEqualTo(3);
+    assertThat(strings).hasSize(3);
 
     Utils.setSize(strings, 2);
-    assertThat(strings.size()).isEqualTo(2);
+    assertThat(strings).hasSize(2);
 
     Utils.setSize(strings, 4);
-    assertThat(strings.size()).isEqualTo(4);
+    assertThat(strings).hasSize(4);
   }
 }

@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class UnbufferedTokenStreamTest extends AbstractBaseTest {
+class UnbufferedTokenStreamTest extends AbstractBaseTest {
   @Test
   void testLookahead() throws Exception {
     LexerGrammar g = new LexerGrammar(

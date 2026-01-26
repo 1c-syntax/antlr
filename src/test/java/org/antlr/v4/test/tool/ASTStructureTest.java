@@ -23,11 +23,9 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-//  NO LONGER using gunit!!!
-
-public class ASTStructureTest {
+class ASTStructureTest {
   String lexerClassName = "org.antlr.v4.parse.ANTLRLexer";
   String parserClassName = "org.antlr.v4.parse.ANTLRParser";
   String adaptorClassName = "org.antlr.v4.parse.GrammarASTAdaptor";
@@ -69,7 +67,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("grammarSpec", "parser grammar P; a : A;", 15);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(PARSER_GRAMMAR P (RULES (RULE a (BLOCK (ALT A)))))";
-    assertEquals("testing rule grammarSpec", expecting, actual);
+    assertThat(actual).as("testing rule grammarSpec").isEqualTo(expecting);
   }
 
   @Test
@@ -78,7 +76,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("grammarSpec", "\n    parser grammar P;\n    tokens { A, B }\n    @header {foo}\n    a : A;\n    ", 18);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(PARSER_GRAMMAR P (tokens { A B) (@ header {foo}) (RULES (RULE a (BLOCK (ALT A)))))";
-    assertEquals("testing rule grammarSpec", expecting, actual);
+    assertThat(actual).as("testing rule grammarSpec").isEqualTo(expecting);
   }
 
   @Test
@@ -87,7 +85,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("grammarSpec", "\n    parser grammar P;\n    @header {foo}\n    tokens { A,B }\n    a : A;\n    ", 30);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(PARSER_GRAMMAR P (@ header {foo}) (tokens { A B) (RULES (RULE a (BLOCK (ALT A)))))";
-    assertEquals("testing rule grammarSpec", expecting, actual);
+    assertThat(actual).as("testing rule grammarSpec").isEqualTo(expecting);
   }
 
   @Test
@@ -96,7 +94,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("grammarSpec", "\n    parser grammar P;\n    import A=B, C;\n    a : A;\n    ", 42);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(PARSER_GRAMMAR P (import (= A B) C) (RULES (RULE a (BLOCK (ALT A)))))";
-    assertEquals("testing rule grammarSpec", expecting, actual);
+    assertThat(actual).as("testing rule grammarSpec").isEqualTo(expecting);
   }
 
   @Test
@@ -105,7 +103,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("delegateGrammars", "import A;", 53);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(import A)";
-    assertEquals("testing rule delegateGrammars", expecting, actual);
+    assertThat(actual).as("testing rule delegateGrammars").isEqualTo(expecting);
   }
 
   @Test
@@ -114,7 +112,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "a : A<X,Y=a.b.c>;", 56);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a (BLOCK (ALT (A (ELEMENT_OPTIONS X (= Y a.b.c))))))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -123,7 +121,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "A : B+;", 58);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE A (BLOCK (ALT (+ (BLOCK (ALT B))))))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -132,7 +130,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n    a[int i] returns [int y]\n    @init {blort}\n      : ID ;\n    ", 60);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a int i (returns int y) (@ init {blort}) (BLOCK (ALT ID)))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -141,7 +139,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n    a[int i] returns [int y]\n    @init {blort}\n    options {backtrack=true;}\n      : ID;\n    ", 75);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a int i (returns int y) (@ init {blort}) (OPTIONS (= backtrack true)) (BLOCK (ALT ID)))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -150,7 +148,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n    a : ID ;\n      catch[A b] {foo}\n      finally {bar}\n    ", 88);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a (BLOCK (ALT ID)) (catch A b {foo}) (finally {bar}))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -159,7 +157,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n    a : ID ;\n      catch[A a] {foo}\n      catch[B b] {fu}\n      finally {bar}\n    ", 97);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a (BLOCK (ALT ID)) (catch A a {foo}) (catch B b {fu}) (finally {bar}))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -168,7 +166,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n\ta[int i]\n\tlocals [int a, float b]\n\t\t:\tA\n\t\t;\n\t", 107);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a int i (locals int a, float b) (BLOCK (ALT A)))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -177,7 +175,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("rule", "\n\ta[int i] throws a.b.c\n\t\t:\tA\n\t\t;\n\t", 115);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(RULE a int i (throws a.b.c) (BLOCK (ALT A)))";
-    assertEquals("testing rule rule", expecting, actual);
+    assertThat(actual).as("testing rule rule").isEqualTo(expecting);
   }
 
   @Test
@@ -186,7 +184,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("ebnf", "(A|B)", 123);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(BLOCK (ALT A) (ALT B))";
-    assertEquals("testing rule ebnf", expecting, actual);
+    assertThat(actual).as("testing rule ebnf").isEqualTo(expecting);
   }
 
   @Test
@@ -195,7 +193,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("ebnf", "(A|B)?", 124);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(? (BLOCK (ALT A) (ALT B)))";
-    assertEquals("testing rule ebnf", expecting, actual);
+    assertThat(actual).as("testing rule ebnf").isEqualTo(expecting);
   }
 
   @Test
@@ -204,7 +202,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("ebnf", "(A|B)*", 125);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT A) (ALT B)))";
-    assertEquals("testing rule ebnf", expecting, actual);
+    assertThat(actual).as("testing rule ebnf").isEqualTo(expecting);
   }
 
   @Test
@@ -213,7 +211,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("ebnf", "(A|B)+", 126);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT A) (ALT B)))";
-    assertEquals("testing rule ebnf", expecting, actual);
+    assertThat(actual).as("testing rule ebnf").isEqualTo(expecting);
   }
 
   @Test
@@ -222,7 +220,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "~A", 129);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(~ (SET A))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -231,7 +229,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "b+", 130);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -240,7 +238,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "(b)+", 131);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -249,7 +247,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "b?", 132);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(? (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -258,7 +256,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "(b)?", 133);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(? (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -267,7 +265,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "(b)*", 134);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -276,7 +274,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "b*", 135);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT b)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -285,7 +283,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "'while'*", 136);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT 'while')))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -294,7 +292,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "'a'+", 137);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT 'a')))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -303,7 +301,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "a[3]", 138);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(a 3)";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -312,7 +310,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "'a'..'z'+", 139);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT (.. 'a' 'z'))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -321,7 +319,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=ID", 140);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(= x ID)";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -330,7 +328,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=ID?", 141);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(? (BLOCK (ALT (= x ID))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -339,7 +337,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=ID*", 142);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT (= x ID))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -348,7 +346,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=b", 143);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(= x b)";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -357,7 +355,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=(A|B)", 144);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(= x (BLOCK (ALT A) (ALT B)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -366,7 +364,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=~(A|B)", 145);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(= x (~ (SET A B)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -375,7 +373,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x+=~(A|B)", 146);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+= x (~ (SET A B)))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -384,7 +382,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x+=~(A|B)+", 147);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT (+= x (~ (SET A B))))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -393,7 +391,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x=b+", 148);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT (= x b))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -402,7 +400,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x+=ID*", 149);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT (+= x ID))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -411,7 +409,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x+='int'*", 150);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT (+= x 'int'))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -420,7 +418,7 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "x+=b+", 151);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(+ (BLOCK (ALT (+= x b))))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 
   @Test
@@ -429,6 +427,6 @@ public class ASTStructureTest {
     RuleReturnScope rstruct = (RuleReturnScope) execParser("element", "({blort} 'x')*", 152);
     Object actual = ((Tree) rstruct.getTree()).toStringTree();
     Object expecting = "(* (BLOCK (ALT {blort} 'x')))";
-    assertEquals("testing rule element", expecting, actual);
+    assertThat(actual).as("testing rule element").isEqualTo(expecting);
   }
 }

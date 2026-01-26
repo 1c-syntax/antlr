@@ -32,7 +32,7 @@ import java.util.Map;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ATNConstructionTest extends AbstractBaseTest {
+class ATNConstructionTest extends AbstractBaseTest {
 
   @Test
   void testA() throws Exception {
@@ -509,10 +509,12 @@ public class ATNConstructionTest extends AbstractBaseTest {
 
   @Test
   void testAplusSingleAltHasPlusASTPointingAtLoopBackState() throws Exception {
+    // (RULE a (BLOCK (ALT (+ (BLOCK (ALT A))))))
     Grammar g = new Grammar(
-      "parser grammar P;\n" +
-        "s : a B ;\n" +      // (RULE a (BLOCK (ALT (+ (BLOCK (ALT A))))))
-        "a : A+;");
+      """
+        parser grammar P;
+        s : a B ;
+        a : A+;""");
     String expecting =
       """
         RuleStart_a_2->PlusBlockStart_8

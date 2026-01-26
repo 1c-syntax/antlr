@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ListenersTest extends AbstractBaseTest {
+class ListenersTest extends AbstractBaseTest {
   @Test
   void testBasic() {
     String grammar =

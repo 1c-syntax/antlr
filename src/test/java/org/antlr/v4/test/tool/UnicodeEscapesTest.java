@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class UnicodeEscapesTest {
+class UnicodeEscapesTest {
   @Test
   void latinJavaEscape() {
     StringBuilder sb = new StringBuilder();

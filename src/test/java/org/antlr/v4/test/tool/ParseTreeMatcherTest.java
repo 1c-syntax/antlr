@@ -30,7 +30,7 @@ import java.util.List;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseTreeMatcherTest extends AbstractBaseTest {
+class ParseTreeMatcherTest extends AbstractBaseTest {
 
   @Test
   void testChunking() {

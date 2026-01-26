@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToolSyntaxErrorsTest extends AbstractBaseTest {
+class ToolSyntaxErrorsTest extends AbstractBaseTest {
   static String[] A = {
     // INPUT
     "grammar A;\n",

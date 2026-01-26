@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenStreamRewriterTest extends AbstractBaseTest {
+class TokenStreamRewriterTest extends AbstractBaseTest {
 
   @Test
   void testInsertBeforeIndex0() throws Exception {

@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  */
-public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
+class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test

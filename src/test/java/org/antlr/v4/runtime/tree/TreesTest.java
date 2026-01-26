@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Тесты для новых методов класса Trees и ParserRuleContext
  */
-public class TreesTest {
+class TreesTest {
 
   private ParserRuleContext root;
   private ParserRuleContext child1;
@@ -35,10 +35,9 @@ public class TreesTest {
   private TerminalNode terminal2;
   private Token token1;
   private Token token2;
-  private Token token3;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     // Создаем простую структуру дерева для тестов
     // root
     //   ├─ child1 (rule index = 1)
@@ -49,7 +48,6 @@ public class TreesTest {
 
     token1 = new CommonToken(1, "token1");
     token2 = new CommonToken(2, "token2");
-    token3 = new CommonToken(3, "token3");
 
     terminal1 = new TerminalNodeImpl(token1);
     terminal2 = new TerminalNodeImpl(token2);
@@ -72,15 +70,17 @@ public class TreesTest {
   void testGetChildren() {
     // Тест получения детей по индексу правила
     List<ParserRuleContext> children = Trees.getChildren(root, 1);
-    assertThat(children).hasSize(2);
-    assertThat(children).containsExactly(child1, child2);
+    assertThat(children)
+      .hasSize(2)
+      .containsExactly(child1, child2);
   }
 
   @Test
   void testGetChildrenMultipleIndexes() {
     List<ParserRuleContext> children = Trees.getChildren(root, 1, 2);
-    assertThat(children).hasSize(2);
-    assertThat(children).containsExactly(child1, child2);
+    assertThat(children)
+      .hasSize(2)
+      .containsExactly(child1, child2);
   }
 
   @Test
@@ -92,8 +92,9 @@ public class TreesTest {
   @Test
   void testGetFirstChild() {
     Optional<ParserRuleContext> firstChild = Trees.getFirstChild(root, 1);
-    assertThat(firstChild).isPresent();
-    assertThat(firstChild.get()).isEqualTo(child1);
+    assertThat(firstChild)
+      .isPresent()
+      .contains(child1);
   }
 
   @Test
@@ -105,8 +106,9 @@ public class TreesTest {
   @Test
   void testGetFirstChildMultipleIndexes() {
     Optional<ParserRuleContext> firstChild = Trees.getFirstChild(root, 99, 1);
-    assertThat(firstChild).isPresent();
-    assertThat(firstChild.get()).isEqualTo(child1);
+    assertThat(firstChild)
+      .isPresent()
+      .contains(child1);
   }
 
   @Test
@@ -142,22 +144,25 @@ public class TreesTest {
   @Test
   void testGetTokensFromParserRuleContext() {
     List<Token> tokens = Trees.getTokens(child1);
-    assertThat(tokens).hasSize(1);
-    assertThat(tokens.get(0)).isEqualTo(token1);
+    assertThat(tokens)
+      .hasSize(1)
+      .element(0).isEqualTo(token1);
   }
 
   @Test
   void testGetTokensFromTerminalNode() {
     List<Token> tokens = Trees.getTokens(terminal1);
-    assertThat(tokens).hasSize(1);
-    assertThat(tokens.get(0)).isEqualTo(token1);
+    assertThat(tokens)
+      .hasSize(1)
+      .element(0).isEqualTo(token1);
   }
 
   @Test
   void testGetTokensFromParseTree() {
     List<Token> tokens = Trees.getTokensFromParseTree(root);
-    assertThat(tokens).hasSize(2);
-    assertThat(tokens).containsExactly(token1, token2);
+    assertThat(tokens)
+      .hasSize(2)
+      .containsExactly(token1, token2);
   }
 
   @Test
@@ -201,8 +206,11 @@ public class TreesTest {
     );
 
     Optional<Token> prevToken = Trees.getPreviousTokenFromDefaultChannel(tokens, 3);
-    assertThat(prevToken).isPresent();
-    assertThat(prevToken.get().getText()).isEqualTo("token2");
+    assertThat(prevToken)
+      .isPresent()
+      .get()
+      .extracting(Token::getText)
+      .isEqualTo("token2");
   }
 
   @Test
@@ -213,8 +221,9 @@ public class TreesTest {
     );
 
     Optional<Token> prevToken = Trees.getPreviousTokenFromDefaultChannel(tokens, 1, 1);
-    assertThat(prevToken).isPresent();
-    assertThat(prevToken.get()).isEqualTo(tokens.get(0));
+    assertThat(prevToken)
+      .isPresent()
+      .contains(tokens.get(0));
   }
 
   @Test
@@ -254,42 +263,49 @@ public class TreesTest {
   @Test
   void testFindAllNodesGeneric() {
     List<ParserRuleContext> nodes = Trees.findAllNodes(root, 1, false);
-    assertThat(nodes).hasSize(2);
-    assertThat(nodes).containsExactly(child1, child2);
+    assertThat(nodes)
+      .hasSize(2)
+      .containsExactly(child1, child2);
   }
 
   @Test
   void testFindAllNodesTokens() {
     List<TerminalNode> terminals = Trees.findAllNodes(root, 1, true);
-    assertThat(terminals).hasSize(1);
-    assertThat(terminals.get(0)).isEqualTo(terminal1);
+    assertThat(terminals)
+      .hasSize(1)
+      .element(0).isEqualTo(terminal1);
   }
 
   @Test
   void testFindAllNodesByClass() {
     List<TerminalNode> terminals = Trees.findAllNodes(root, TerminalNode.class);
-    assertThat(terminals).hasSize(2);
-    assertThat(terminals).containsExactly(terminal1, terminal2);
+    assertThat(terminals)
+      .hasSize(2)
+      .containsExactly(terminal1, terminal2);
   }
 
   @Test
   void testFindAllRuleNodesMultipleIndexes() {
     Collection<ParserRuleContext> nodes = Trees.findAllRuleNodes(root, 1, 2);
-    assertThat(nodes).hasSize(3);
-    assertThat(nodes).contains(child1, child2, grandChild);
+    assertThat(nodes)
+      .hasSize(3)
+      .contains(child1, child2, grandChild);
   }
 
   @Test
   void testFindAllRuleNodesCollection() {
     Collection<ParserRuleContext> nodes = Trees.findAllRuleNodes(root, Arrays.asList(1, 2));
-    assertThat(nodes).hasSize(3);
+    assertThat(nodes)
+      .hasSize(3)
+      .contains(child1, child2, grandChild);
   }
 
   @Test
   void testFindAllTopLevelDescendantNodes() {
     Collection<ParserRuleContext> nodes = Trees.findAllTopLevelDescendantNodes(root, List.of(2));
-    assertThat(nodes).hasSize(1);
-    assertThat(nodes).contains(grandChild);
+    assertThat(nodes)
+      .hasSize(1)
+      .contains(grandChild);
   }
 
   @Test
@@ -302,8 +318,9 @@ public class TreesTest {
   void testParserRuleContextGetTokens() {
     // Тест нового метода getTokens() в ParserRuleContext
     List<Token> tokens = child1.getTokens();
-    assertThat(tokens).hasSize(1);
-    assertThat(tokens.get(0)).isEqualTo(token1);
+    assertThat(tokens)
+      .hasSize(1)
+      .element(0).isEqualTo(token1);
   }
 
   @Test

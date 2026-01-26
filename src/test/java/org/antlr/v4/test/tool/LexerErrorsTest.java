@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LexerErrorsTest extends AbstractBaseTest {
+class LexerErrorsTest extends AbstractBaseTest {
   // TEST DETECTION
   @Test
   void testInvalidCharAtStart() {

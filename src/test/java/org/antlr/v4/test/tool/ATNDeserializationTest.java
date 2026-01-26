@@ -22,7 +22,7 @@ import java.util.Arrays;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ATNDeserializationTest extends AbstractBaseTest {
+class ATNDeserializationTest extends AbstractBaseTest {
   @Test
   void testSimpleNoBlock() throws Exception {
     Grammar g = new Grammar(

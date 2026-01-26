@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DollarParserTest extends AbstractBaseTest {
+class DollarParserTest extends AbstractBaseTest {
 
   @Test
   void testSimpleCall() {
@@ -24,7 +24,7 @@ public class DollarParserTest extends AbstractBaseTest {
       ID : 'a'..'z'+ ;
       """;
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "x", true);
-    assertThat(found.contains(this.getClass().getSimpleName())).isTrue();
+    assertThat(found).contains(this.getClass().getSimpleName());
     assertThat(this.stderrDuringParse).isNull();
   }
 

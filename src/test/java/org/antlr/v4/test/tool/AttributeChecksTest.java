@@ -19,7 +19,7 @@ import static org.antlr.v4.tool.ErrorType.UNDEFINED_RULE_IN_NONLOCAL_REF;
 import static org.antlr.v4.tool.ErrorType.UNKNOWN_RULE_ATTRIBUTE;
 import static org.antlr.v4.tool.ErrorType.UNKNOWN_SIMPLE_ATTRIBUTE;
 
-public class AttributeChecksTest extends AbstractBaseTest {
+class AttributeChecksTest extends AbstractBaseTest {
   private static final String attributeTemplate =
     """
       parser grammar A;

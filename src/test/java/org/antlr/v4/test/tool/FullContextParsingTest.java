@@ -23,7 +23,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 	    conflict + preds
 
  */
-public class FullContextParsingTest extends AbstractBaseTest {
+class FullContextParsingTest extends AbstractBaseTest {
   @Test
   void testAmbigYieldsCtxSensitiveDFA() {
     String grammar =

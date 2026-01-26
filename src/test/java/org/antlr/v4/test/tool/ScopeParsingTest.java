@@ -24,7 +24,7 @@ import java.util.List;
 import static org.antlr.v4.TestUtils.assertEquals;
 
 @Disabled("Requires further investigation and fixes")
-public class ScopeParsingTest extends AbstractBaseTest {
+class ScopeParsingTest extends AbstractBaseTest {
   @ValueSource(strings = {
     "int i|i:int",
     "int[] i, int j[]|i:int[], j:int []",

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class LexerActionsTest extends AbstractBaseTest {
+class LexerActionsTest extends AbstractBaseTest {
   // ----- ACTIONS --------------------------------------------------------
 
   @Test

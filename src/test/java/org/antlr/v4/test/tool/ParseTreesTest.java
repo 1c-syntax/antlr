@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ParseTreesTest extends AbstractBaseTest {
+class ParseTreesTest extends AbstractBaseTest {
   @Test
   void testTokenAndRuleContextString() {
     String grammar =

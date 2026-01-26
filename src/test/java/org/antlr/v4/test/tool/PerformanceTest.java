@@ -94,7 +94,7 @@ import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PerformanceTest extends AbstractBaseTest {
+class PerformanceTest extends AbstractBaseTest {
   /**
    * Parse all java files under this package within the JDK_SOURCE_ROOT
    * (environment variable or property defined on the Java command line).

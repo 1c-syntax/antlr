@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class SymbolIssuesTest extends AbstractBaseTest {
+class SymbolIssuesTest extends AbstractBaseTest {
   static String[] A = {
     // INPUT
     """

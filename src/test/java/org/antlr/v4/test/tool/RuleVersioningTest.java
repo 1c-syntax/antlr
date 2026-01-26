@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Sam Harwell
  */
-public class RuleVersioningTest extends AbstractBaseTest {
+class RuleVersioningTest extends AbstractBaseTest {
 
   private Properties _properties;
 

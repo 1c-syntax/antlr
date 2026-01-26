@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Lexer rules are little quirky when it comes to wildcards. Problem
@@ -35,7 +35,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
  * want, but occasionally there are some quirks as you'll see from
  * the tests below.
  */
-public class ATNLexerInterpreterTest extends AbstractBaseTest {
+class ATNLexerInterpreterTest extends AbstractBaseTest {
 
   @Test
   void testLexerTwoRules() throws Exception {
@@ -151,10 +151,10 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ('\u611B'|'\u611C')
+        ID : ('愛'|'愜')
          ;""");
     String expecting = "ID, EOF";
-    checkLexerMatches(lg, "\u611B", expecting);
+    checkLexerMatches(lg, "愛", expecting);
   }
 
   @Test
@@ -162,10 +162,10 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u611B'|'\u611C')
+        ID : ~('愛'|'愜')
          ;""");
     String expecting = "ID, EOF";
-    checkLexerMatches(lg, "\u611D", expecting);
+    checkLexerMatches(lg, "愝", expecting);
   }
 
   @Test
@@ -173,7 +173,7 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u611B'|'\u611C')
+        ID : ~('愛'|'愜')
          ;""");
     String expecting = "ID, EOF";
     checkLexerMatches(lg, new StringBuilder().appendCodePoint(0x1F4A9).toString(), expecting);
@@ -209,7 +209,7 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
         ID : ~('a'|'b')
          ;""");
     String expecting = "ID, EOF";
-    checkLexerMatches(lg, "\u611B", expecting);
+    checkLexerMatches(lg, "愛", expecting);
   }
 
   @Test
@@ -231,7 +231,7 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
         ID : ~('\\u{1F4A9}'|'\\u{1F4AA}')
          ;""");
     String expecting = "ID, EOF";
-    checkLexerMatches(lg, "\u611B", expecting);
+    checkLexerMatches(lg, "愛", expecting);
   }
 
   @Test
@@ -500,7 +500,7 @@ public class ATNLexerInterpreterTest extends AbstractBaseTest {
 
     String result = Utils.join(tokenTypes.iterator(), ", ");
     System.out.println(tokenTypes);
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
 }

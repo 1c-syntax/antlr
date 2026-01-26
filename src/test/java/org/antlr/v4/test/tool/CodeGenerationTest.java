@@ -34,7 +34,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodeGenerationTest extends AbstractBaseTest {
+class CodeGenerationTest extends AbstractBaseTest {
 
   @Test
   void testArgDecl() throws Exception { // should use template not string
@@ -58,7 +58,7 @@ public class CodeGenerationTest extends AbstractBaseTest {
         root: 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getToken(");
-    assertThat(evals.size()).isNotEqualTo(0);
+    assertThat(evals.size()).isNotZero();
   }
 
   @Test
@@ -69,7 +69,7 @@ public class CodeGenerationTest extends AbstractBaseTest {
         root: 't1' 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getTokens(");
-    assertThat(evals.size()).isNotEqualTo(0);
+    assertThat(evals.size()).isNotZero();
   }
 
   /**

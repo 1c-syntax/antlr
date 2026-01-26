@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SemPredEvalParserTest extends AbstractBaseTest {
+class SemPredEvalParserTest extends AbstractBaseTest {
   // TEST VALIDATING PREDS
 
   @Test

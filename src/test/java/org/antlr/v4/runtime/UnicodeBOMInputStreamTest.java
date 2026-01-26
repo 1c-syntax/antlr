@@ -21,14 +21,15 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 /**
  * Тесты для UnicodeBOMInputStream
  */
-public class UnicodeBOMInputStreamTest {
+class UnicodeBOMInputStreamTest {
 
   @Test
   void testDetectUTF8BOM() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_8);
-      assertThat(ubis.getBOM().toString()).isEqualTo("UTF-8");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.UTF_8)
+        .hasToString("UTF-8");
     }
   }
 
@@ -36,8 +37,9 @@ public class UnicodeBOMInputStreamTest {
   void testDetectUTF16LEBOM() throws IOException {
     byte[] content = {(byte) 0xFF, (byte) 0xFE, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_LE);
-      assertThat(ubis.getBOM().toString()).isEqualTo("UTF-16 little-endian");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_LE)
+        .hasToString("UTF-16 little-endian");
     }
   }
 
@@ -45,8 +47,9 @@ public class UnicodeBOMInputStreamTest {
   void testDetectUTF16BEBOM() throws IOException {
     byte[] content = {(byte) 0xFE, (byte) 0xFF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_BE);
-      assertThat(ubis.getBOM().toString()).isEqualTo("UTF-16 big-endian");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_BE)
+        .hasToString("UTF-16 big-endian");
     }
   }
 
@@ -54,8 +57,9 @@ public class UnicodeBOMInputStreamTest {
   void testDetectUTF32LEBOM() throws IOException {
     byte[] content = {(byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x00, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_LE);
-      assertThat(ubis.getBOM().toString()).isEqualTo("UTF-32 little-endian");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_LE)
+        .hasToString("UTF-32 little-endian");
     }
   }
 
@@ -63,8 +67,9 @@ public class UnicodeBOMInputStreamTest {
   void testDetectUTF32BEBOM() throws IOException {
     byte[] content = {(byte) 0x00, (byte) 0x00, (byte) 0xFE, (byte) 0xFF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_BE);
-      assertThat(ubis.getBOM().toString()).isEqualTo("UTF-32 big-endian");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_BE)
+        .hasToString("UTF-32 big-endian");
     }
   }
 
@@ -72,8 +77,9 @@ public class UnicodeBOMInputStreamTest {
   void testNoBOM() throws IOException {
     byte[] content = "test".getBytes(StandardCharsets.UTF_8);
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
-      assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.NONE);
-      assertThat(ubis.getBOM().toString()).isEqualTo("NONE");
+      assertThat(ubis.getBOM())
+        .isEqualTo(UnicodeBOMInputStream.BOM.NONE)
+        .hasToString("NONE");
     }
   }
 

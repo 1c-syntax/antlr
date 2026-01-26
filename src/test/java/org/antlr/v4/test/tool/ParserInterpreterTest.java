@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ParserInterpreterTest extends AbstractBaseTest {
+class ParserInterpreterTest extends AbstractBaseTest {
 
   @Test
   void testEmptyStartRule() throws Exception {

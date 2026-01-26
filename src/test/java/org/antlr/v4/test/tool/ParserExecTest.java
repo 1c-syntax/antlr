@@ -52,7 +52,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Nongreedy loops match as much input as possible while still allowing
  * the remaining input to match.
  */
-public class ParserExecTest extends AbstractBaseTest {
+class ParserExecTest extends AbstractBaseTest {
   @Test
   void testLabels() {
     String grammar =

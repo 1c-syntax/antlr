@@ -19,11 +19,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CompositeGrammarsTest extends AbstractBaseTest {
+class CompositeGrammarsTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
@@ -48,7 +48,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   // Test for https://github.com/antlr/antlr4/issues/1317
@@ -63,7 +63,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", tmpdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
@@ -83,11 +83,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", tmpdir);
     ANTLRMessage msg = equeue.errors.get(0);
-    assertEquals(ErrorType.UNDEFINED_RULE_REF, msg.getErrorType());
-    assertEquals("c", msg.getArgs()[0]);
-    assertEquals(2, msg.line);
-    assertEquals(10, msg.charPosition);
-    assertEquals("S.g4", new File(msg.fileName).getName());
+    assertThat(msg.getErrorType()).isEqualTo(ErrorType.UNDEFINED_RULE_REF);
+    assertThat(msg.getArgs()[0]).isEqualTo("c");
+    assertThat(msg.line).isEqualTo(2);
+    assertThat(msg.charPosition).isEqualTo(10);
+    assertThat(new File(msg.fileName)).hasName("S.g4");
   }
 
   @Test
@@ -112,7 +112,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-o", outdir);
-    assertEquals(ErrorType.CANNOT_FIND_IMPORTED_GRAMMAR, equeue.errors.get(0).getErrorType());
+    assertThat(equeue.errors.get(0).getErrorType()).isEqualTo(ErrorType.CANNOT_FIND_IMPORTED_GRAMMAR);
   }
 
   @Test
@@ -139,7 +139,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String outdir = tmpdir + "/out";
     mkdir(outdir);
     ErrorQueue equeue = antlr("M.g4", false, "-o", outdir, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
@@ -172,9 +172,9 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String outdir = tmpdir + "/out";
     mkdir(outdir);
     ErrorQueue equeue = antlr("MLexer.g4", false, "-o", outdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
     equeue = antlr("MParser.g4", false, "-o", outdir, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
@@ -197,7 +197,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
@@ -218,7 +218,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "=a", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
@@ -244,7 +244,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a1000\n", found);
+    assertThat(found).isEqualTo("S.a1000\n");
   }
 
   @Test
@@ -270,7 +270,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.ab\n", found);
+    assertThat(found).isEqualTo("S.ab\n");
   }
 
   @Test
@@ -296,7 +296,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("foo\n", found);
+    assertThat(found).isEqualTo("foo\n");
   }
 
   @Test
@@ -325,7 +325,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
@@ -373,10 +373,10 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "aa", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       S.x
       T.y
-      """, found);
+      """);
   }
 
   @Test
@@ -420,18 +420,18 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{'a'=2, 'b'=1, 'c'=3}";
     String expectedTypeToTokenList = "[B, A, C, WS]";
 
-    assertEquals(expectedTokenIDToTypeMap, g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, sort(g.stringLiteralToTypeMap).toString());
-    assertEquals(expectedTypeToTokenList, realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(sort(g.stringLiteralToTypeMap)).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "aa", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       S.x
       T.y
-      """, found);
+      """);
   }
 
   @Test
@@ -459,11 +459,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     @SuppressWarnings("unused")
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "x 34 9", debug);
-    assertEquals("S.x\n", found);
+    assertThat(found).isEqualTo("S.x\n");
   }
 
   @Test
@@ -495,8 +495,8 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
       new GrammarSemanticsMessage(expectedMsgID, g.fileName, null, expectedArg);
     checkGrammarSemanticsWarning(equeue, expectedMessage);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
-    assertEquals("unexpected warnings: " + equeue, 1, equeue.warnings.size());
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).hasSize(1);
   }
 
   @Test
@@ -521,7 +521,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     @SuppressWarnings("unused")
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals(ErrorType.SYNTAX_ERROR, equeue.errors.get(0).getErrorType());
+    assertThat(equeue.errors.get(0).getErrorType()).isEqualTo(ErrorType.SYNTAX_ERROR);
   }
 
   @Test
@@ -543,7 +543,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "c", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
@@ -573,7 +573,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     // for float to work in decl, type must be overridden
     String found = execParser("Java.g4", master, "JavaParser", "JavaLexer",
       "prog", "float x = 3;", debug);
-    assertEquals("JavaDecl: floatx=3;\n", found);
+    assertThat(found).isEqualTo("JavaDecl: floatx=3;\n");
   }
 
   @Test
@@ -604,10 +604,10 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "c", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.b
       S.a
-      """, found);
+      """);
   }
   // LEXER INHERITANCE
 
@@ -637,7 +637,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         [@3,3:2='<EOF>',<-1>,1:3]
         """;
     String found = execLexer("M.g4", master, "M", "abc", debug);
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -658,11 +658,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String found = execLexer("M.g4", master, "M", "ab", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.A
       [@0,0:1='ab',<1>,1:0]
       [@1,2:1='<EOF>',<-1>,1:2]
-      """, found);
+      """);
   }
 
   @Test
@@ -689,13 +689,13 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "abc", debug);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
-    assertEquals("unexpected warnings: " + equeue, 0, equeue.warnings.size());
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).isEmpty();
 
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.A
       M.a: [@0,0:2='abc',<1>,1:0]
-      """, found);
+      """);
   }
 
   // Make sure that M can import S that imports T.
@@ -731,18 +731,16 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
     boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isEqualTo(expecting);
   }
 
   @Test
@@ -802,22 +800,20 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     writeFile(tmpdir, "M.g4", master);
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals("[]", equeue.errors.toString());
-    assertEquals("[]", equeue.warnings.toString());
+    assertThat(equeue.errors).hasToString("[]");
+    assertThat(equeue.warnings).hasToString("[]");
     String expectedTokenIDToTypeMap = "{EOF=-1, M=1, S=2, T=3, A=4, B=5, C=6}";
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M, S, T, A, B, C]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
     boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isEqualTo(expecting);
   }
 
   @Test
@@ -853,13 +849,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M, T]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
   }
 
   @Test
@@ -909,18 +903,16 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[T4, T3]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     boolean ok =
       rawGenerateAndBuildRecognizer("G3.g4", G3str, "G3Parser", null);
     boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isEqualTo(expecting);
   }
 
   @Test
@@ -944,7 +936,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     ErrorQueue equeue = antlr("M.g4", master, false);
     int expecting = 0; // should be ok
-    assertEquals(expecting, equeue.errors.size());
+    assertThat(equeue.errors).hasSize(expecting);
   }
 
   @Test
@@ -967,7 +959,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
   }
 
   @Test
@@ -990,7 +982,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
   }
 
   /**
@@ -1023,7 +1015,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     mkdir(tmpdir);
     writeFile(tmpdir, "Unicode.g4", slave);
     String found = execParser("Test.g4", master, "TestParser", "TestLexer", "program", "test test", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -1038,7 +1030,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     int size = 65000;
     String slave;
     try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(fullFileName);
-         InputStreamReader isr = fis != null ? new InputStreamReader(fis, "UTF-8") : null) {
+         InputStreamReader isr = fis != null ? new InputStreamReader(fis, StandardCharsets.UTF_8) : null) {
       if (fis == null) {
         throw new IOException("Could not find resource: " + fullFileName);
       }
@@ -1057,7 +1049,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     mkdir(tmpdir);
     writeFile(tmpdir, "Java.g4", slave);
     String found = execParser("NewJava.g4", master, "NewJavaParser", "NewJavaLexer", "compilationUnit", "package Foo;", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -1088,7 +1080,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     mkdir(tmpdir);
     writeFile(tmpdir, "Java.g4", slave);
     String found = execParser("T.g4", master, "TParser", "TLexer", "s", "a=b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 }

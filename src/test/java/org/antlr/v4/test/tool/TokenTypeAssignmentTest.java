@@ -22,7 +22,7 @@ import java.util.StringTokenizer;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenTypeAssignmentTest extends AbstractBaseTest {
+class TokenTypeAssignmentTest extends AbstractBaseTest {
 
   @Test
   void testParserSimpleTokens() throws Exception {

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ExpectedTokensTest extends AbstractBaseTest {
+class ExpectedTokensTest extends AbstractBaseTest {
   @Test
   void testEpsilonAltSubrule() throws Exception {
     String gtext =

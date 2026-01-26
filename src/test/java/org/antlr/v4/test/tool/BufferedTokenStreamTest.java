@@ -19,10 +19,10 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class BufferedTokenStreamTest extends AbstractBaseTest {
+class BufferedTokenStreamTest extends AbstractBaseTest {
 
   protected TokenStream createTokenStream(TokenSource src) {
     return new BufferedTokenStream(src);
@@ -49,8 +49,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     TokenStream tokens = createTokenStream(lexEngine);
 
     String result = tokens.LT(1).getText();
-    String expecting = "x";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x");
   }
 
   @Test
@@ -73,8 +72,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     TokenStream tokens = createTokenStream(lexEngine);
 
     String result = tokens.LT(2).getText();
-    String expecting = " ";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(" ");
   }
 
   @Test
@@ -106,8 +104,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     tokens.LT(i);
 
     String result = tokens.getText();
-    String expecting = "x = 3 * 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x = 3 * 0 + 2 * 0;");
   }
 
   @Test
@@ -136,8 +133,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     }
 
     String result = tokens.getText();
-    String expecting = "x = 3 * 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x = 3 * 0 + 2 * 0;");
   }
 
   @Test
@@ -161,16 +157,16 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
 
     tokens.consume(); // get x into buffer
     Token t = tokens.LT(-1);
-    assertEquals("x", t.getText());
+    assertThat(t.getText()).isEqualTo("x");
 
     tokens.consume();
     tokens.consume(); // consume '='
     t = tokens.LT(-3);
-    assertEquals("x", t.getText());
+    assertThat(t.getText()).isEqualTo("x");
     t = tokens.LT(-2);
-    assertEquals(" ", t.getText());
+    assertThat(t.getText()).isEqualTo(" ");
     t = tokens.LT(-1);
-    assertEquals("=", t.getText());
+    assertThat(t.getText()).isEqualTo("=");
   }
 
 }

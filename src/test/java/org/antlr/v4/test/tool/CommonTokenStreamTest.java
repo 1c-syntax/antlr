@@ -22,9 +22,9 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.WritableToken;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommonTokenStreamTest extends BufferedTokenStreamTest {
+class CommonTokenStreamTest extends BufferedTokenStreamTest {
 
   @Override
   protected TokenStream createTokenStream(TokenSource src) {
@@ -97,26 +97,26 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
 
     CommonTokenStream tokens = new CommonTokenStream(lexer);
 
-    assertEquals("x", tokens.LT(1).getText()); // must skip first off channel token
+    assertThat(tokens.LT(1).getText()).isEqualTo("x"); // must skip first off channel token
     tokens.consume();
-    assertEquals("=", tokens.LT(1).getText());
-    assertEquals("x", tokens.LT(-1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("=");
+    assertThat(tokens.LT(-1).getText()).isEqualTo("x");
 
     tokens.consume();
-    assertEquals("34", tokens.LT(1).getText());
-    assertEquals("=", tokens.LT(-1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("34");
+    assertThat(tokens.LT(-1).getText()).isEqualTo("=");
 
     tokens.consume();
-    assertEquals(";", tokens.LT(1).getText());
-    assertEquals("34", tokens.LT(-1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo(";");
+    assertThat(tokens.LT(-1).getText()).isEqualTo("34");
 
     tokens.consume();
-    assertEquals(Token.EOF, tokens.LA(1));
-    assertEquals(";", tokens.LT(-1).getText());
+    assertThat(tokens.LA(1)).isEqualTo(Token.EOF);
+    assertThat(tokens.LT(-1).getText()).isEqualTo(";");
 
-    assertEquals("34", tokens.LT(-2).getText());
-    assertEquals("=", tokens.LT(-3).getText());
-    assertEquals("x", tokens.LT(-4).getText());
+    assertThat(tokens.LT(-2).getText()).isEqualTo("34");
+    assertThat(tokens.LT(-3).getText()).isEqualTo("=");
+    assertThat(tokens.LT(-4).getText()).isEqualTo("x");
   }
 
   @Test
@@ -188,45 +188,35 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
 
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     tokens.fill();
-    assertEquals(null, tokens.getHiddenTokensToLeft(0));
-    assertEquals(null, tokens.getHiddenTokensToRight(0));
+    assertThat(tokens.getHiddenTokensToLeft(0)).isNull();
+    assertThat(tokens.getHiddenTokensToRight(0)).isNull();
 
-    assertEquals("[[@0,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToLeft(1).toString());
-    assertEquals("[[@2,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToRight(1).toString());
+    assertThat(tokens.getHiddenTokensToLeft(1)).hasToString("[[@0,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(1)).hasToString("[[@2,0:0=' ',<1>,channel=1,0:-1]]");
 
-    assertEquals(null, tokens.getHiddenTokensToLeft(2));
-    assertEquals(null, tokens.getHiddenTokensToRight(2));
+    assertThat(tokens.getHiddenTokensToLeft(2)).isNull();
+    assertThat(tokens.getHiddenTokensToRight(2)).isNull();
 
-    assertEquals("[[@2,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToLeft(3).toString());
-    assertEquals(null, tokens.getHiddenTokensToRight(3));
+    assertThat(tokens.getHiddenTokensToLeft(3)).hasToString("[[@2,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(3)).isNull();
 
-    assertEquals(null, tokens.getHiddenTokensToLeft(4));
-    assertEquals("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToRight(4).toString());
+    assertThat(tokens.getHiddenTokensToLeft(4)).isNull();
+    assertThat(tokens.getHiddenTokensToRight(4)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
 
-    assertEquals(null, tokens.getHiddenTokensToLeft(5));
-    assertEquals("[[@6,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToRight(5).toString());
+    assertThat(tokens.getHiddenTokensToLeft(5)).isNull();
+    assertThat(tokens.getHiddenTokensToRight(5)).hasToString("[[@6,0:0=' ',<1>,channel=1,0:-1]]");
 
-    assertEquals("[[@5,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToLeft(6).toString());
-    assertEquals(null, tokens.getHiddenTokensToRight(6));
+    assertThat(tokens.getHiddenTokensToLeft(6)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(6)).isNull();
 
-    assertEquals("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToLeft(7).toString());
-    assertEquals("[[@8,0:0=' ',<1>,channel=1,0:-1], [@9,0:0='\\n',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToRight(7).toString());
+    assertThat(tokens.getHiddenTokensToLeft(7)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(7)).hasToString("[[@8,0:0=' ',<1>,channel=1,0:-1], [@9,0:0='\\n',<1>,channel=1,0:-1]]");
 
-    assertEquals(null, tokens.getHiddenTokensToLeft(8));
-    assertEquals("[[@9,0:0='\\n',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToRight(8).toString());
+    assertThat(tokens.getHiddenTokensToLeft(8)).isNull();
+    assertThat(tokens.getHiddenTokensToRight(8)).hasToString("[[@9,0:0='\\n',<1>,channel=1,0:-1]]");
 
-    assertEquals("[[@8,0:0=' ',<1>,channel=1,0:-1]]",
-      tokens.getHiddenTokensToLeft(9).toString());
-    assertEquals(null, tokens.getHiddenTokensToRight(9));
+    assertThat(tokens.getHiddenTokensToLeft(9)).hasToString("[[@8,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(9)).isNull();
   }
 
   @Test
@@ -272,8 +262,8 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     tokens.fill();
 
-    assertEquals(Token.EOF, tokens.LA(1));
-    assertEquals(0, tokens.index());
-    assertEquals(1, tokens.size());
+    assertThat(tokens.LA(1)).isEqualTo(Token.EOF);
+    assertThat(tokens.index()).isZero();
+    assertThat(tokens.size()).isEqualTo(1);
   }
 }

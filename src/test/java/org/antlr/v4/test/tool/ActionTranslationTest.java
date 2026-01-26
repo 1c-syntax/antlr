@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ActionTranslationTest extends AbstractBaseTest {
+class ActionTranslationTest extends AbstractBaseTest {
   String attributeTemplate =
     """
       attributeTemplate(members,init,inline,finally,inline2) ::= <<

@@ -19,13 +19,13 @@ import java.util.Deque;
 import java.util.IdentityHashMap;
 import java.util.Map;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class GraphNodesTest {
+class GraphNodesTest {
   PredictionContextCache contextCache;
 
   @BeforeEach
-  public void setUp() {
+  void setUp() {
     contextCache = new PredictionContextCache();
   }
 
@@ -41,7 +41,7 @@ public class GraphNodesTest {
           s0[label="*"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -56,7 +56,7 @@ public class GraphNodesTest {
           s0[label="$"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -70,7 +70,7 @@ public class GraphNodesTest {
           s0[label="*"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -86,7 +86,7 @@ public class GraphNodesTest {
           s0:p0->s1[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -100,7 +100,7 @@ public class GraphNodesTest {
           s0[label="*"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -116,7 +116,7 @@ public class GraphNodesTest {
           s0:p0->s1[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -132,7 +132,7 @@ public class GraphNodesTest {
           s0->s1[label="1"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -151,7 +151,7 @@ public class GraphNodesTest {
           s0->s1[label="1"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -172,7 +172,7 @@ public class GraphNodesTest {
           s1:p0->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -191,7 +191,7 @@ public class GraphNodesTest {
           s0->s1[label="1"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -214,7 +214,7 @@ public class GraphNodesTest {
           s1:p0->s2[label="8"];
         }
         """;
-    assertEquals(expecting, actual);
+    assertThat(actual).isEqualTo(expecting);
   }
 
   @Test
@@ -235,7 +235,7 @@ public class GraphNodesTest {
           s1:p0->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -252,7 +252,7 @@ public class GraphNodesTest {
           s0:p1->s1[label="2"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -273,7 +273,7 @@ public class GraphNodesTest {
           s1->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -295,7 +295,7 @@ public class GraphNodesTest {
           s1->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -321,7 +321,7 @@ public class GraphNodesTest {
           s2->s3[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -348,7 +348,7 @@ public class GraphNodesTest {
           s2->s3[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -370,7 +370,7 @@ public class GraphNodesTest {
           s1->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -393,7 +393,7 @@ public class GraphNodesTest {
           s1->s2[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -416,7 +416,7 @@ public class GraphNodesTest {
           s1->s3[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -438,7 +438,7 @@ public class GraphNodesTest {
           s2->s1[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -460,7 +460,7 @@ public class GraphNodesTest {
           s2->s1[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -489,7 +489,7 @@ public class GraphNodesTest {
           s1->s3[label="5"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   // Array merges
@@ -507,7 +507,7 @@ public class GraphNodesTest {
           s0[label="$"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -530,7 +530,7 @@ public class GraphNodesTest {
           s0:p2->s1[label="3"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -550,7 +550,7 @@ public class GraphNodesTest {
           s0->s1[label="1"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -573,7 +573,7 @@ public class GraphNodesTest {
           s0:p2->s1[label="3"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -596,7 +596,7 @@ public class GraphNodesTest {
           s0:p2->s1[label="3"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -615,7 +615,7 @@ public class GraphNodesTest {
           s0:p1->s1[label="2"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -634,7 +634,7 @@ public class GraphNodesTest {
           s0:p1->s1[label="2"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -659,7 +659,7 @@ public class GraphNodesTest {
           s1->s3[label="9"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -682,7 +682,7 @@ public class GraphNodesTest {
           s1:p1->s2[label="10"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -707,7 +707,7 @@ public class GraphNodesTest {
           s1:p1->s2[label="10"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -740,7 +740,7 @@ public class GraphNodesTest {
           s1->s5[label="6"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -770,7 +770,7 @@ public class GraphNodesTest {
           s1->s4[label="6"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -801,7 +801,7 @@ public class GraphNodesTest {
           s1->s4[label="6"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -829,7 +829,7 @@ public class GraphNodesTest {
           s1->s3[label="6"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
   @Test
@@ -856,7 +856,7 @@ public class GraphNodesTest {
           s1->s2[label="6"];
         }
         """;
-    assertEquals(expecting, toDOTString(r));
+    assertThat(toDOTString(r)).isEqualTo(expecting);
   }
 
 

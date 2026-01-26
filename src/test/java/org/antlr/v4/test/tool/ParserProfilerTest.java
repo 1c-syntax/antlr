@@ -25,11 +25,11 @@ import java.util.Arrays;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-public class ParserProfilerTest extends AbstractBaseTest {
+class ParserProfilerTest extends AbstractBaseTest {
   LexerGrammar lg;
 
   @Override
-  void setUp() throws Exception {
+  public void setUp() throws Exception {
     super.setUp();
     lg = new LexerGrammar(
       """

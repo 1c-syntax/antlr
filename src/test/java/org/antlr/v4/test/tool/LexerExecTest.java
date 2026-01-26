@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LexerExecTest extends AbstractBaseTest {
+class LexerExecTest extends AbstractBaseTest {
   @Test
   void testQuoteTranslation() {
     String grammar =

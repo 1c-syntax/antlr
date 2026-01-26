@@ -28,12 +28,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // NOTICE: TOKENS IN LEXER, PARSER MUST BE SAME OR TOKEN TYPE MISMATCH
 
-public class ATNParserPredictionTest extends AbstractBaseTest {
+class ATNParserPredictionTest extends AbstractBaseTest {
   @Test
   void testAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
@@ -535,10 +534,10 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 2, 4]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 1, 3]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 2, 4]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 1, 3]");
   }
 
   @Test
@@ -554,10 +553,10 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 1, 3]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 2]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 1, 3]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 2]");
   }
 
   @Test
@@ -576,10 +575,10 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 1, 5]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 2, 3, 4]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 1, 5]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 2, 3, 4]");
   }
 
   /**
@@ -623,16 +622,16 @@ s8-')'->s1
 
     System.out.println(dot.getDOT(dfa, false));
 
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
 
     // Check adaptive prediction
     input.seek(0);
     alt = interp.adaptivePredict(input, decision, null);
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
     // run 2x; first time creates DFA in atn
     input.seek(0);
     alt = interp.adaptivePredict(input, decision, null);
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
   }
 
   public void checkDFAConstruction(LexerGrammar lg, Grammar g, int decision,
@@ -656,7 +655,7 @@ s8-')'->s1
         nvae.printStackTrace(System.err);
       }
       DFA dfa = interp.getATNSimulator().atn.decisionToDFA[decision];
-      assertEquals(dfaString[i], dfa.toString(g.getVocabulary(), g.rules.keySet().toArray(new String[0])));
+      assertThat(dfa.toString(g.getVocabulary(), g.rules.keySet().toArray(new String[0]))).isEqualTo(dfaString[i]);
     }
   }
 }

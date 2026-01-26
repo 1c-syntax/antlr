@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntegerListTest {
+class IntegerListTest {
   @Test
   void emptyListToEmptyCharArray() {
     IntegerList l = new IntegerList();

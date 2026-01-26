@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnicodeDataTest {
+class UnicodeDataTest {
   @Test
   void testUnicodeGeneralCategoriesLatin() {
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('X')).isTrue();

@@ -21,11 +21,11 @@ import org.antlr.v4.tool.LexerGrammar;
 import org.antlr.v4.tool.Rule;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 // NOTICE: TOKENS IN LEXER, PARSER MUST BE SAME OR TOKEN TYPE MISMATCH
 
-public class ATNInterpreterTest extends AbstractBaseTest {
+class ATNInterpreterTest extends AbstractBaseTest {
   @Test
   void testSimpleNoBlock() throws Exception {
     LexerGrammar lg = new LexerGrammar(
@@ -320,6 +320,6 @@ public class ATNInterpreterTest extends AbstractBaseTest {
     if (r != null) System.out.println(dot.getDOT(atn.ruleToStartState[r.index]));
 
     int result = interp.matchATN(input, startState);
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 }

@@ -22,7 +22,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 /**
  * This class contains tests for specific API functionality in {@link TokenStream} and derived types.
  */
-public class TokenStreamTest {
+class TokenStreamTest {
 
   /**
    * This is a targeted regression test for antlr/antlr4#1584 ({@link BufferedTokenStream} cannot be reused after EOF).

@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Sam Harwell
  */
-public class VocabularyTest extends AbstractBaseTest {
+class VocabularyTest extends AbstractBaseTest {
 
   @Test
   void testEmptyVocabulary() {
