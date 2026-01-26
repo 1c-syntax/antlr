@@ -29,7 +29,7 @@ public class ParserProfilerTest extends AbstractBaseTest {
   LexerGrammar lg;
 
   @Override
-  public void setUp() throws Exception {
+  void setUp() throws Exception {
     super.setUp();
     lg = new LexerGrammar(
       """
@@ -46,7 +46,7 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled("Requires further investigation and fixes")
-  public void testLL1() throws Exception {
+  void testLL1() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -66,12 +66,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testLL2() throws Exception {
+  void testLL2() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ID ';'{}
-          | ID '.'
+        s : ID SEMI {}
+          | ID DOT
           ;
         """,
       lg);
@@ -86,12 +86,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testRepeatedLL2() throws Exception {
+  void testRepeatedLL2() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ID ';'{}
-          | ID '.'
+        s : ID SEMI {}
+          | ID DOT
           ;
         """,
       lg);
@@ -106,12 +106,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void test3xLL2() throws Exception {
+  void test3xLL2() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ID ';'{}
-          | ID '.'
+        s : ID SEMI {}
+          | ID DOT
           ;
         """,
       lg);
@@ -127,12 +127,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testOptional() throws Exception {
+  void testOptional() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ID ('.' ID)? ';'
-          | ID INT\s
+        s : ID (DOT ID)? SEMI
+          | ID INT WS
           ;
         """,
       lg);
@@ -149,12 +149,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void test2xOptional() throws Exception {
+  void test2xOptional() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ID ('.' ID)? ';'
-          | ID INT\s
+        s : ID (DOT ID)? SEMI
+          | ID INT WS
           ;
         """,
       lg);
@@ -171,12 +171,12 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testContextSensitivity() throws Exception {
+  void testContextSensitivity() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        a : '.' e ID\s
-          | ';' e INT ID ;
+        a : DOT e ID WS
+          | SEMI e INT ID ;
         e : INT | ;
         """,
       lg);
@@ -189,15 +189,15 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testDeepLookahead() throws Exception {
+  void testDeepLookahead() throws Exception {
     // d=1 entry, d=2 bypass
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : e ';'
-          | e '.'\s
+        s : e SEMI
+          | e DOT WS
           ;
-        e : (ID|INT) ({true}? '+' e)*
+        e : (ID|INT) ({true}? PLUS e)*
           ;
         """,
       lg);
@@ -219,7 +219,7 @@ public class ParserProfilerTest extends AbstractBaseTest {
 
   @Test
   @Disabled
-  public void testProfilerGeneratedCode() {
+  void testProfilerGeneratedCode() {
     String grammar =
       """
         grammar T;
