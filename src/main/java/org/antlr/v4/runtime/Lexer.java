@@ -428,8 +428,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * to do sophisticated error recovery if you are in a fragment rule.
    */
   public void recover(RecognitionException re) {
-    //System.out.println("consuming char "+(char)input.LA(1)+" during recovery");
-    //re.printStackTrace();
     // TODO: Do we lose character or line position information?
     _input.consume();
   }

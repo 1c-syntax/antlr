@@ -90,7 +90,6 @@ public class RuleContext implements RuleNode {
 
   public RuleContext(RuleContext parent, int invokingState) {
     this.parent = parent;
-    //if ( parent!=null ) System.out.println("invoke "+stateNumber+" from "+parent);
     this.invokingState = invokingState;
   }
 

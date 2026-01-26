@@ -32,7 +32,7 @@ public class Action extends RuleElement {
 
   public Action(OutputModelFactory factory, ActionAST ast) {
     super(factory, ast);
-    RuleFunction rf = factory.getCurrentRuleFunction();
+    var rf = factory.getCurrentRuleFunction();
     if (ast != null) {
       chunks = ActionTranslator.translateAction(factory, rf, ast.token, ast);
     } else {
@@ -42,8 +42,8 @@ public class Action extends RuleElement {
 
   public Action(OutputModelFactory factory, StructDecl ctx, String action) {
     super(factory, null);
-    ActionAST ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
-    RuleFunction rf = factory.getCurrentRuleFunction();
+    var ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
+    var rf = factory.getCurrentRuleFunction();
     if (rf != null) { // we can translate
       ast.resolver = rf.rule;
       chunks = ActionTranslator.translateActionChunk(factory, rf, action, ast);

@@ -99,13 +99,7 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
     }
 
     synchronized (ruleIndexMapCache) {
-      Map<String, Integer> result = ruleIndexMapCache.get(ruleNames);
-      if (result == null) {
-        result = Collections.unmodifiableMap(Utils.toMap(ruleNames));
-        ruleIndexMapCache.put(ruleNames, result);
-      }
-
-      return result;
+      return ruleIndexMapCache.computeIfAbsent(ruleNames, key -> Collections.unmodifiableMap(Utils.toMap(key)));
     }
   }
 
@@ -234,9 +228,7 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
    * configuration information.
    */
   public final void setState(int atnState) {
-//		System.err.println("setState "+atnState);
     _stateNumber = atnState;
-//		if ( traceATNStates ) _ctx.trace(atnState);
   }
 
   public abstract IntStream getInputStream();

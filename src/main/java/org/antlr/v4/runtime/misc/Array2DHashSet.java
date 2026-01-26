@@ -156,7 +156,6 @@ public class Array2DHashSet<T> implements Set<T> {
     int[] newBucketLengths = new int[newTable.length];
     buckets = newTable;
     threshold = (int) (newCapacity * LOAD_FACTOR);
-//		System.out.println("new size="+newCapacity+", thres="+threshold);
     // rehash all existing entries
     int oldSize = size();
     for (T[] bucket : old) {

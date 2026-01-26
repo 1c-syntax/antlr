@@ -167,24 +167,26 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     @Override
     public int LA(int i) {
       int offset;
-      switch (Integer.signum(i)) {
-        case -1:
+      return switch (Integer.signum(i)) {
+        case -1 -> {
           offset = position + i;
           if (offset < 0) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return byteArray[offset] & 0xFF;
-        case 0:
+          yield byteArray[offset] & 0xFF;
+        }
+        case 0 ->
           // Undefined
-          return 0;
-        case 1:
+          0;
+        case 1 -> {
           offset = position + i - 1;
           if (offset >= size) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return byteArray[offset] & 0xFF;
-      }
-      throw new UnsupportedOperationException("Not reached");
+          yield byteArray[offset] & 0xFF;
+        }
+        default -> throw new UnsupportedOperationException("Not reached");
+      };
     }
 
     @Override
@@ -224,24 +226,26 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     @Override
     public int LA(int i) {
       int offset;
-      switch (Integer.signum(i)) {
-        case -1:
+      return switch (Integer.signum(i)) {
+        case -1 -> {
           offset = position + i;
           if (offset < 0) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return charArray[offset] & 0xFFFF;
-        case 0:
+          yield charArray[offset] & 0xFFFF;
+        }
+        case 0 ->
           // Undefined
-          return 0;
-        case 1:
+          0;
+        case 1 -> {
           offset = position + i - 1;
           if (offset >= size) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return charArray[offset] & 0xFFFF;
-      }
-      throw new UnsupportedOperationException("Not reached");
+          yield charArray[offset] & 0xFFFF;
+        }
+        default -> throw new UnsupportedOperationException("Not reached");
+      };
     }
 
     @Override
@@ -277,24 +281,26 @@ public abstract class CodePointCharStream implements UnicodeCharStream, CharStre
     @Override
     public int LA(int i) {
       int offset;
-      switch (Integer.signum(i)) {
-        case -1:
+      return switch (Integer.signum(i)) {
+        case -1 -> {
           offset = position + i;
           if (offset < 0) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return intArray[offset];
-        case 0:
+          yield intArray[offset];
+        }
+        case 0 ->
           // Undefined
-          return 0;
-        case 1:
+          0;
+        case 1 -> {
           offset = position + i - 1;
           if (offset >= size) {
-            return IntStream.EOF;
+            yield IntStream.EOF;
           }
-          return intArray[offset];
-      }
-      throw new UnsupportedOperationException("Not reached");
+          yield intArray[offset];
+        }
+        default -> throw new UnsupportedOperationException("Not reached");
+      };
     }
 
     @Override

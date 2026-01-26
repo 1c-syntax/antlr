@@ -109,8 +109,7 @@ public class XPath {
       Token el = tokens.get(i);
       Token next;
       switch (el.getType()) {
-        case XPathLexer.ROOT:
-        case XPathLexer.ANYWHERE:
+        case XPathLexer.ROOT, XPathLexer.ANYWHERE:
           boolean anywhere = el.getType() == XPathLexer.ANYWHERE;
           i++;
           next = tokens.get(i);
@@ -125,9 +124,7 @@ public class XPath {
           i++;
           break;
 
-        case XPathLexer.TOKEN_REF:
-        case XPathLexer.RULE_REF:
-        case XPathLexer.WILDCARD:
+        case XPathLexer.TOKEN_REF, XPathLexer.RULE_REF, XPathLexer.WILDCARD:
           pathElements.add(getXPathElement(el, false));
           i++;
           break;

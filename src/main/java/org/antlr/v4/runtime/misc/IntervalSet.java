@@ -208,8 +208,8 @@ public class IntervalSet implements IntSet {
     }
 
     IntervalSet vocabularyIS;
-    if (vocabulary instanceof IntervalSet) {
-      vocabularyIS = (IntervalSet) vocabulary;
+    if (vocabulary instanceof IntervalSet intervalSet) {
+      vocabularyIS = intervalSet;
     } else {
       vocabularyIS = new IntervalSet();
       vocabularyIS.addAll(vocabulary);
@@ -224,8 +224,8 @@ public class IntervalSet implements IntSet {
       return new IntervalSet(this);
     }
 
-    if (a instanceof IntervalSet) {
-      return subtract(this, (IntervalSet) a);
+    if (a instanceof IntervalSet intervalSet) {
+      return subtract(this, intervalSet);
     }
 
     IntervalSet other = new IntervalSet();
@@ -336,7 +336,7 @@ public class IntervalSet implements IntSet {
     while (i < mySize && j < theirSize) {
       Interval mine = myIntervals.get(i);
       Interval theirs = theirIntervals.get(j);
-      //System.out.println("mine="+mine+" and theirs="+theirs);
+
       if (mine.startsBeforeDisjoint(theirs)) {
         // move this iterator looking for interval that might overlap
         i++;

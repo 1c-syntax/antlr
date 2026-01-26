@@ -118,8 +118,8 @@ public class ParserRuleContext extends RuleContext {
       this.children = new ArrayList<>();
       // reset parent pointer for any error nodes
       for (ParseTree child : ctx.children) {
-        if (child instanceof ErrorNodeImpl) {
-          ((ErrorNodeImpl) child).setParent(this);
+        if (child instanceof ErrorNodeImpl errorNode) {
+          errorNode.setParent(this);
         }
 
         addAnyChild(child);

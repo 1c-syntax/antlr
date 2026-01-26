@@ -144,7 +144,6 @@ public class BufferedTokenStream implements TokenStream {
   protected boolean sync(int i) {
     assert i >= 0;
     int n = i - tokens.size() + 1; // how many more elements we need?
-    //System.out.println("sync("+i+") needs "+n);
     if (n > 0) {
       int fetched = fetch(n);
       return fetched >= n;
@@ -165,8 +164,8 @@ public class BufferedTokenStream implements TokenStream {
 
     for (int i = 0; i < n; i++) {
       Token t = tokenSource.nextToken();
-      if (t instanceof WritableToken) {
-        ((WritableToken) t).setTokenIndex(tokens.size());
+      if (t instanceof WritableToken writableToken) {
+        writableToken.setTokenIndex(tokens.size());
       }
       tokens.add(t);
       if (t.getType() == Token.EOF) {
@@ -225,7 +224,6 @@ public class BufferedTokenStream implements TokenStream {
       // EOF must be last token
       return tokens.get(tokens.size() - 1);
     }
-//		if ( i>range ) range = i;
     return tokens.get(i);
   }
 
@@ -290,7 +288,6 @@ public class BufferedTokenStream implements TokenStream {
 
     if (start > stop) return null;
 
-    // list = tokens[start:stop]:{T t, t.getType() in types}
     List<Token> filteredTokens = new ArrayList<>();
     for (int i = start; i <= stop; i++) {
       Token t = tokens.get(i);
@@ -485,8 +482,8 @@ public class BufferedTokenStream implements TokenStream {
   @NotNull
   @Override
   public String getText(Object start, Object stop) {
-    if (start instanceof Token && stop instanceof Token) {
-      return getText(Interval.of(((Token) start).getTokenIndex(), ((Token) stop).getTokenIndex()));
+    if (start instanceof Token tokenStart && stop instanceof Token tokenStop) {
+      return getText(Interval.of(tokenStart.getTokenIndex(), tokenStop.getTokenIndex()));
     }
 
     return "";

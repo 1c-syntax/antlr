@@ -31,11 +31,9 @@ public class XPathRuleElement extends XPathElement {
     // return all children of t that match nodeName
     List<ParseTree> nodes = new ArrayList<>();
     for (Tree c : Trees.getChildren(t)) {
-      if (c instanceof ParserRuleContext ctx) {
-        if ((ctx.getRuleIndex() == ruleIndex && !invert) ||
-          (ctx.getRuleIndex() != ruleIndex && invert)) {
-          nodes.add(ctx);
-        }
+      if (c instanceof ParserRuleContext ctx && ((ctx.getRuleIndex() == ruleIndex && !invert) ||
+        (ctx.getRuleIndex() != ruleIndex && invert))) {
+        nodes.add(ctx);
       }
     }
     return nodes;

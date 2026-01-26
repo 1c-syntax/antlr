@@ -179,9 +179,7 @@ public class NullUsageProcessor extends AbstractProcessor {
     for (Element element : elements) {
       TypeMirror typeToCheck;
       switch (element.getKind()) {
-        case FIELD:
-        case PARAMETER:
-        case LOCAL_VARIABLE:
+        case FIELD, PARAMETER, LOCAL_VARIABLE:
           // checking variable type
           VariableElement variableElement = (VariableElement) element;
           typeToCheck = variableElement.asType();
@@ -239,11 +237,11 @@ public class NullUsageProcessor extends AbstractProcessor {
     typeLoop:
     for (TypeMirror supertypeMirror : getAllSupertypes(processingEnv.getTypeUtils().getDeclaredType(declaringType))) {
       for (Element element : processingEnv.getTypeUtils().asElement(supertypeMirror).getEnclosedElements()) {
-        if (element instanceof ExecutableElement) {
-          if (processingEnv.getElementUtils().overrides(method, (ExecutableElement) element, declaringType)) {
-            checkOverriddenMethod(method, (ExecutableElement) element, errorElements, warnedElements);
-            continue typeLoop;
-          }
+        if (element instanceof ExecutableElement executableElement
+          && processingEnv.getElementUtils().overrides(method, executableElement, declaringType)) {
+
+          checkOverriddenMethod(method, executableElement, errorElements, warnedElements);
+          continue typeLoop;
         }
       }
     }

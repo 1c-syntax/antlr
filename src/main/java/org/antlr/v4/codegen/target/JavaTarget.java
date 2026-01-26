@@ -105,12 +105,7 @@ public class JavaTarget extends Target {
         switch (escapedCodePoint) {
           // Pass through any escapes that Java also needs
           //
-          case 'n':
-          case 'r':
-          case 't':
-          case 'b':
-          case 'f':
-          case '\\':
+          case 'n', 'r', 't', 'b', 'f', '\\':
             // Pass the escape through
             sb.append('\\');
             sb.appendCodePoint(escapedCodePoint);

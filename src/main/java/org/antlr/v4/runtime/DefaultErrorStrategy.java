@@ -134,16 +134,15 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
     // if we've already reported an error and have not matched a token
     // yet successfully, don't report any errors.
     if (inErrorRecoveryMode(recognizer)) {
-//			System.err.print("[SPURIOUS] ");
       return; // don't report spurious errors
     }
     beginErrorCondition(recognizer);
-    if (e instanceof NoViableAltException) {
-      reportNoViableAlternative(recognizer, (NoViableAltException) e);
-    } else if (e instanceof InputMismatchException) {
-      reportInputMismatch(recognizer, (InputMismatchException) e);
-    } else if (e instanceof FailedPredicateException) {
-      reportFailedPredicate(recognizer, (FailedPredicateException) e);
+    if (e instanceof NoViableAltException noViableAltException) {
+      reportNoViableAlternative(recognizer, noViableAltException);
+    } else if (e instanceof InputMismatchException inputMismatchException) {
+      reportInputMismatch(recognizer, inputMismatchException);
+    } else if (e instanceof FailedPredicateException failedPredicateException) {
+      reportFailedPredicate(recognizer, failedPredicateException);
     } else {
       System.err.println("unknown recognition error type: " + e.getClass().getName());
       notifyErrorListeners(recognizer, e.getMessage(), e);
@@ -224,7 +223,6 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
   @Override
   public void sync(Parser recognizer) throws RecognitionException {
     ATNState s = recognizer.getInterpreter().atn.states.get(recognizer.getState());
-//		System.err.println("sync @ "+s.stateNumber+"="+s.getClass().getSimpleName());
     // If already recovering, don't try to sync
     if (inErrorRecoveryMode(recognizer)) {
       return;
@@ -253,10 +251,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
     }
 
     switch (s.getStateType()) {
-      case ATNState.BLOCK_START:
-      case ATNState.STAR_BLOCK_START:
-      case ATNState.PLUS_BLOCK_START:
-      case ATNState.STAR_LOOP_ENTRY:
+      case ATNState.BLOCK_START, ATNState.STAR_BLOCK_START, ATNState.PLUS_BLOCK_START, ATNState.STAR_LOOP_ENTRY:
         // report error and recover if possible
         if (singleTokenDeletion(recognizer) != null) {
           return;
@@ -264,9 +259,7 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
 
         throw new InputMismatchException(recognizer);
 
-      case ATNState.PLUS_LOOP_BACK:
-      case ATNState.STAR_LOOP_BACK:
-//			System.err.println("at loop back: "+s.getClass().getSimpleName());
+      case ATNState.PLUS_LOOP_BACK, ATNState.STAR_LOOP_BACK:
         reportUnwantedToken(recognizer);
         IntervalSet expecting = recognizer.getExpectedTokens();
         IntervalSet whatFollowsLoopIterationOrRule =
@@ -628,7 +621,6 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
 
   @NotNull
   protected String escapeWSAndQuote(@NotNull String s) {
-//		if ( s==null ) return s;
     s = s.replace("\n", "\\n");
     s = s.replace("\r", "\\r");
     s = s.replace("\t", "\\t");

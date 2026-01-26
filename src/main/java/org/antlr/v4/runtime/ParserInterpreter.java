@@ -232,9 +232,7 @@ public class ParserInterpreter extends Parser {
         match(((AtomTransition) transition).label);
         break;
 
-      case Transition.RANGE:
-      case Transition.SET:
-      case Transition.NOT_SET:
+      case Transition.RANGE, Transition.SET, Transition.NOT_SET:
         if (!transition.matches(_input.LA(1), Token.MIN_USER_TOKEN_TYPE, 65535)) {
           recoverInline();
         }

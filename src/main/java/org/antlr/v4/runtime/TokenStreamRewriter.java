@@ -507,7 +507,6 @@ public class TokenStreamRewriter {
    * Return a map from token index to operation.
    */
   protected Map<Integer, RewriteOperation> reduceToSingleOperationPerIndex(List<RewriteOperation> rewrites) {
-//		System.out.println("rewrites="+rewrites);
 
     // WALK REPLACES
     for (int i = 0; i < rewrites.size(); i++) {
@@ -542,7 +541,6 @@ public class TokenStreamRewriter {
         // Delete special case of replace (text==null):
         // D.i-j.u D.x-y.v	| boundaries overlap	combine to max(min)..max(right)
         if (prevRop.text == null && rop.text == null && !disjoint) {
-          //System.out.println("overlapping deletes: "+prevRop+", "+rop);
           rewrites.set(prevRop.instructionIndex, null); // kill first delete
           rop.index = Math.min(prevRop.index, rop.index);
           rop.lastIndex = Math.max(prevRop.lastIndex, rop.lastIndex);
@@ -588,7 +586,7 @@ public class TokenStreamRewriter {
         }
       }
     }
-    // System.out.println("rewrites after="+rewrites);
+
     Map<Integer, RewriteOperation> m = new HashMap<>();
     for (RewriteOperation op : rewrites) {
       if (op == null) continue; // ignore deleted ops
@@ -597,7 +595,6 @@ public class TokenStreamRewriter {
       }
       m.put(op.index, op);
     }
-    //System.out.println("index to op: "+m);
     return m;
   }
 

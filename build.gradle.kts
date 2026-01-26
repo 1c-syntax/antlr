@@ -49,6 +49,9 @@ dependencies {
 
     compileOnly("com.ibm.icu", "icu4j", "77.1")
 
+    // nullability annotations
+    compileOnly("org.jspecify", "jspecify", "1.0.0")
+
     testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")

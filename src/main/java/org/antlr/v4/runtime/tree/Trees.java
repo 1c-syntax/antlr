@@ -406,10 +406,8 @@ public class Trees {
       if (tnode.getSymbol().getType() == index) {
         nodes.add(t);
       }
-    } else if (!findTokens && t instanceof ParserRuleContext ctx) {
-      if (ctx.getIndex() == index) {
-        nodes.add(t);
-      }
+    } else if (!findTokens && t instanceof ParserRuleContext ctx && ctx.getIndex() == index) {
+      nodes.add(t);
     }
     // check children
     for (int i = 0; i < t.getChildCount(); i++) {
@@ -476,11 +474,12 @@ public class Trees {
     for (var i = 0; i < ctx.getChildCount(); i++) {
       var child = ctx.getChild(i);
       var range = child.getSourceInterval();
-      if (child instanceof ParserRuleContext parserRuleContext && (range.b < startIndex || range.a > stopIndex)) {
-        if (isAncestorOf(parserRuleContext, root)) { // replace only if subtree doesn't have displayed root
-          var abbrev = new CommonToken(Token.INVALID_TYPE, "...");
-          ctx.children.set(i, new TerminalNodeImpl(abbrev));
-        }
+      if (child instanceof ParserRuleContext parserRuleContext
+        && (range.b < startIndex || range.a > stopIndex)
+        && isAncestorOf(parserRuleContext, root)) { // replace only if subtree doesn't have displayed root
+
+        var abbrev = new CommonToken(Token.INVALID_TYPE, "...");
+        ctx.children.set(i, new TerminalNodeImpl(abbrev));
       }
     }
   }
@@ -636,7 +635,7 @@ public class Trees {
     if (tokenIndex < 0 || tokenIndex >= tokens.size()) {
       throw new IllegalArgumentException("tokenIndex out of range: " + tokenIndex);
     }
-    
+
     while (true) {
       if (tokenIndex == 0) {
         return Optional.empty();
