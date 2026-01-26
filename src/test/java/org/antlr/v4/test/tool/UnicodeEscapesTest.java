@@ -12,27 +12,27 @@ package org.antlr.v4.test.tool;
 import org.antlr.v4.codegen.UnicodeEscapes;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UnicodeEscapesTest {
   @Test
   void latinJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0x0061, sb);
-    assertEquals("\\u0061", sb.toString());
+    assertThat(sb).hasToString("\\u0061");
   }
 
   @Test
   void bmpJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0xABCD, sb);
-    assertEquals("\\uABCD", sb.toString());
+    assertThat(sb).hasToString("\\uABCD");
   }
 
   @Test
   void smpJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0x1F4A9, sb);
-    assertEquals("\\uD83D\\uDCA9", sb.toString());
+    assertThat(sb).hasToString("\\uD83D\\uDCA9");
   }
 }

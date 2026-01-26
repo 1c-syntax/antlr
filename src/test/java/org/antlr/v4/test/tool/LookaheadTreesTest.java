@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LookaheadTreesTest {
   public static final String lexerText =
@@ -132,10 +132,10 @@ public class LookaheadTreesTest {
       GrammarParserInterpreter.getLookaheadParseTrees(g, parser, tokens, startRuleIndex, lookaheadEventInfo.decision,
         lookaheadEventInfo.startIndex, lookaheadEventInfo.stopIndex);
 
-    assertEquals(expectedTrees.length, lookaheadParseTrees.size());
+    assertThat(lookaheadParseTrees).hasSize(expectedTrees.length);
     for (int i = 0; i < lookaheadParseTrees.size(); i++) {
       ParserRuleContext lt = lookaheadParseTrees.get(i);
-      assertEquals(expectedTrees[i], Trees.toStringTree(lt, nodeTextProvider));
+      assertThat(Trees.toStringTree(lt, nodeTextProvider)).isEqualTo(expectedTrees[i]);
     }
   }
 }

@@ -29,16 +29,16 @@ class UnicodeDataTest {
 
   @Test
   void testUnicodeGeneralCategoriesBMP() {
-    assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('\u1E3A')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('\u1E3B')).isFalse();
-    assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('\u1E3B')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('\u1E3A')).isFalse();
-    assertThat(UnicodeData.getPropertyCodePoints("L").contains('\u1E3A')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("L").contains('\u1E3B')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("N").contains('\u1BB0')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("N").contains('\u1E3A')).isFalse();
+    assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('Ḻ')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('ḻ')).isFalse();
+    assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('ḻ')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('Ḻ')).isFalse();
+    assertThat(UnicodeData.getPropertyCodePoints("L").contains('Ḻ')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("L").contains('ḻ')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("N").contains('᮰')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("N").contains('Ḻ')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Z").contains('\u2028')).isTrue();
-    assertThat(UnicodeData.getPropertyCodePoints("Z").contains('\u1E3A')).isFalse();
+    assertThat(UnicodeData.getPropertyCodePoints("Z").contains('Ḻ')).isFalse();
   }
 
   @Test
@@ -76,9 +76,9 @@ class UnicodeDataTest {
 
   @Test
   void testUnicodeBinaryPropertyAliases() {
-    assertThat(UnicodeData.getPropertyCodePoints("Ideo").contains('\u611B')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("Ideo").contains('愛')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Ideo").contains('X')).isFalse();
-    assertThat(UnicodeData.getPropertyCodePoints("Soft_Dotted").contains('\u0456')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("Soft_Dotted").contains('і')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Soft_Dotted").contains('X')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Noncharacter_Code_Point").contains('\uFFFF')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Noncharacter_Code_Point").contains('X')).isFalse();
@@ -206,6 +206,6 @@ class UnicodeDataTest {
 
   @Test
   void testPropertyDashSameAsUnderscore() {
-    assertThat(UnicodeData.getPropertyCodePoints("InLatin-1").contains('\u00F0')).isTrue();
+    assertThat(UnicodeData.getPropertyCodePoints("InLatin-1").contains('ð')).isTrue();
   }
 }

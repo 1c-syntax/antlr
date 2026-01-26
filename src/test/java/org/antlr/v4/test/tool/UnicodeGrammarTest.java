@@ -23,7 +23,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UnicodeGrammarTest extends AbstractBaseTest {
   @Test
@@ -36,12 +36,12 @@ class UnicodeGrammarTest extends AbstractBaseTest {
         WS : [ \\t\\r\\n]+ -> skip;
         """;
     String inputText = "hello \u4E16\u754C";
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
@@ -56,12 +56,12 @@ class UnicodeGrammarTest extends AbstractBaseTest {
     String inputText = new StringBuilder("hello ")
       .appendCodePoint(0x1F30E)
       .toString();
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
@@ -76,12 +76,12 @@ class UnicodeGrammarTest extends AbstractBaseTest {
     String inputText = new StringBuilder("hello ")
       .appendCodePoint(0x1F30E)
       .toString();
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
@@ -94,12 +94,12 @@ class UnicodeGrammarTest extends AbstractBaseTest {
         WS : [ \\t\\r\\n]+ -> skip;
         """;
     String inputText = "hello \uD83C";
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
@@ -135,9 +135,8 @@ class UnicodeGrammarTest extends AbstractBaseTest {
       new InterpreterTreeTextProvider(grammar.getRuleNames());
     String result = Trees.toStringTree(parseTree, nodeTextProvider);
 
-    assertEquals(
-      "(r:1 \u0002\u0000\u0001\u0007 \u00D0\u00D2\u00D2\u00D3\u00D3\u00D3 \u00D0\u00D3\u00D3\u00D1 \u00FF)",
-      result);
+    assertThat(result)
+      .isEqualTo("(r:1 \u0002\u0000\u0001\u0007 \u00D0\u00D2\u00D2\u00D3\u00D3\u00D3 \u00D0\u00D3\u00D3\u00D1 \u00FF)");
   }
 
   private static String parseTreeForGrammarWithInput(

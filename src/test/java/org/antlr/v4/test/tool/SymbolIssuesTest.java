@@ -15,7 +15,7 @@ import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class SymbolIssuesTest extends AbstractBaseTest {
   static String[] A = {
@@ -151,9 +151,9 @@ M1: 'b';
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[A, B, C]";
 
-    assertEquals(expectedTokenIDToTypeMap, g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList, realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap.toString()).isEqualTo(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap.toString()).isEqualTo(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList).toString()).isEqualTo(expectedTypeToTokenList);
   }
 
   @Test

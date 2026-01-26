@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test topo sort in GraphNode.
@@ -38,7 +38,7 @@ class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[H, F, G, E, D, A, B, C]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -52,7 +52,7 @@ class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[D, C, B, A]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -66,7 +66,7 @@ class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[D, C, B, A]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -80,7 +80,7 @@ class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[MyJava.tokens, Java.g4, Java.tokens, Def.g4, Ref.g4]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -94,6 +94,6 @@ class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[JavaLexer.g4, JavaLexer.tokens, JavaParser.g4, Def.g4, Ref.g4]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

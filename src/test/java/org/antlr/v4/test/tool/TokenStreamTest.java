@@ -17,7 +17,7 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.xpath.XPathLexer;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * This class contains tests for specific API functionality in {@link TokenStream} and derived types.
@@ -32,17 +32,17 @@ class TokenStreamTest {
     CharStream firstInput = CharStreams.fromString("A");
     BufferedTokenStream tokenStream = new BufferedTokenStream(new XPathLexer(firstInput));
     tokenStream.fill();
-    assertEquals(2, tokenStream.size());
-    assertEquals(XPathLexer.TOKEN_REF, tokenStream.get(0).getType());
-    assertEquals(Token.EOF, tokenStream.get(1).getType());
+    assertThat(tokenStream.size()).isEqualTo(2);
+    assertThat(tokenStream.get(0).getType()).isEqualTo(XPathLexer.TOKEN_REF);
+    assertThat(tokenStream.get(1).getType()).isEqualTo(Token.EOF);
 
     CharStream secondInput = CharStreams.fromString("A/");
     tokenStream.setTokenSource(new XPathLexer(secondInput));
     tokenStream.fill();
-    assertEquals(3, tokenStream.size());
-    assertEquals(XPathLexer.TOKEN_REF, tokenStream.get(0).getType());
-    assertEquals(XPathLexer.ROOT, tokenStream.get(1).getType());
-    assertEquals(Token.EOF, tokenStream.get(2).getType());
+    assertThat(tokenStream.size()).isEqualTo(3);
+    assertThat(tokenStream.get(0).getType()).isEqualTo(XPathLexer.TOKEN_REF);
+    assertThat(tokenStream.get(1).getType()).isEqualTo(XPathLexer.ROOT);
+    assertThat(tokenStream.get(2).getType()).isEqualTo(Token.EOF);
   }
 
 }

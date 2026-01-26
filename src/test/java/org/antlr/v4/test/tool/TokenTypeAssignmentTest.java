@@ -19,7 +19,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TokenTypeAssignmentTest extends AbstractBaseTest {
@@ -97,15 +96,15 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
 
     String literals = "['x']";
     String foundLiterals = g.stringLiteralToTypeMap.keySet().toString();
-    assertEquals(literals, foundLiterals);
+    assertThat(foundLiterals).isEqualTo(literals);
 
     foundLiterals = g.implicitLexer.stringLiteralToTypeMap.keySet().toString();
-    assertEquals("['x']", foundLiterals); // pushed in lexer from parser
+    assertThat(foundLiterals).isEqualTo("['x']"); // pushed in lexer from parser
 
     String[] typeToTokenName = g.getTokenDisplayNames();
     Set<String> tokens = new LinkedHashSet<>();
     for (String t : typeToTokenName) if (t != null) tokens.add(t);
-    assertEquals("[<INVALID>, 'x', E]", tokens.toString());
+    assertThat(tokens.toString()).isEqualTo("[<INVALID>, 'x', E]");
   }
 
   @Test
@@ -118,12 +117,12 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         X: 'x' {true}?;
         """); // must match as alias even with pred
 
-    assertEquals("{'x'=1}", g.stringLiteralToTypeMap.toString());
-    assertEquals("{EOF=-1, X=1}", g.tokenNameToTypeMap.toString());
+    assertThat(g.stringLiteralToTypeMap.toString()).isEqualTo("{'x'=1}");
+    assertThat(g.tokenNameToTypeMap.toString()).isEqualTo("{EOF=-1, X=1}");
 
     // pushed in lexer from parser
-    assertEquals("{'x'=1}", g.implicitLexer.stringLiteralToTypeMap.toString());
-    assertEquals("{EOF=-1, X=1}", g.implicitLexer.tokenNameToTypeMap.toString());
+    assertThat(g.implicitLexer.stringLiteralToTypeMap.toString()).isEqualTo("{'x'=1}");
+    assertThat(g.implicitLexer.tokenNameToTypeMap.toString()).isEqualTo("{EOF=-1, X=1}");
   }
 
   @Test
@@ -164,7 +163,7 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\n'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\n'");
   }
 
   @Test
@@ -176,7 +175,7 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\uABCD'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\uABCD'");
   }
 
   @Test
@@ -188,7 +187,7 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\u{1ABCD}'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\u{1ABCD}'");
   }
 
   protected void checkSymbols(Grammar g, String rulesStr, String allValidTokensStr) {
@@ -232,8 +231,7 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
       n++;
     }
     // make sure there are no extra rules
-    assertEquals("number of rules mismatch; expecting " + n + "; found " + g.rules.size(),
-      n, g.rules.size());
+    assertThat(g.rules.size()).as("number of rules mismatch; expecting " + n + "; found " + g.rules.size()).isEqualTo(n);
 
   }
 
