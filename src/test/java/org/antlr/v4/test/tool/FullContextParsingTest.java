@@ -10,7 +10,6 @@
 package org.antlr.v4.test.tool;
 
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -26,8 +25,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
  */
 public class FullContextParsingTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAmbigYieldsCtxSensitiveDFA() {
+  void testAmbigYieldsCtxSensitiveDFA() {
     String grammar =
       """
         grammar T;
@@ -67,8 +65,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveWithoutDFA1() {
+  void testCtxSensitiveWithoutDFA1() {
     String result = testCtxSensitiveWithoutDFA("$ 34 abc");
     String expecting =
       """
@@ -85,8 +82,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveWithoutDFA2() {
+  void testCtxSensitiveWithoutDFA2() {
     String result = testCtxSensitiveWithoutDFA("@ 34 abc");
     String expecting =
       """
@@ -120,8 +116,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveWithDFA1() {
+  void testCtxSensitiveWithDFA1() {
     String result = testCtxSensitiveWithDFA("$ 34 abc");
     String expecting =
       """
@@ -140,8 +135,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveWithDFA2() {
+  void testCtxSensitiveWithDFA2() {
     String result = testCtxSensitiveWithDFA("@ 34 abc");
     String expecting =
       """
@@ -161,8 +155,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveDFATwoDiffInputWithoutDFA() {
+  void testCtxSensitiveDFATwoDiffInputWithoutDFA() {
     String grammar =
       """
         grammar T;
@@ -194,8 +187,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCtxSensitiveDFATwoDiffInputWithDFA() {
+  void testCtxSensitiveDFATwoDiffInputWithDFA() {
     String grammar =
       """
         grammar T;
@@ -232,8 +224,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSLLSeesEOFInLLGrammarWithoutDFA() {
+  void testSLLSeesEOFInLLGrammarWithoutDFA() {
     String grammar =
       """
         grammar T;
@@ -263,8 +254,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSLLSeesEOFInLLGrammarWithDFA() {
+  void testSLLSeesEOFInLLGrammarWithDFA() {
     String grammar =
       """
         grammar T;
@@ -296,8 +286,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testFullContextIF_THEN_ELSEParseWithoutDFA() {
+  void testFullContextIF_THEN_ELSEParseWithoutDFA() {
     String grammar =
       """
         grammar T;
@@ -425,8 +414,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testFullContextIF_THEN_ELSEParseWithDFA() {
+  void testFullContextIF_THEN_ELSEParseWithDFA() {
     String grammar =
       """
         grammar T;
@@ -586,8 +574,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
    * <a href="http://www.antlr.org/wiki/display/~admin/2011/12/29/Flaw+in+ANTLR+v3+LL">...</a>(*)+analysis+algorithm
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLoopsSimulateTailRecursion() {
+  void testLoopsSimulateTailRecursion() {
     String grammar =
       """
         grammar T;
@@ -619,8 +606,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAmbiguityNoLoop() {
+  void testAmbiguityNoLoop() {
     // simpler version of testLoopsSimulateTailRecursion, no loops
     String grammar =
       """
@@ -652,8 +638,7 @@ public class FullContextParsingTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testExprAmbiguity() {
+  void testExprAmbiguity() {
     // translated left-recursive expr rule to test ambig detection
     String grammar =
       """

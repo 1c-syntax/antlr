@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TreesIntegrationTest {
 
   @Test
-  public void testComplexTreeStructure() {
+  void testComplexTreeStructure() {
     // Создаем более сложную структуру дерева
     //        root (0)
     //       /    \
@@ -67,7 +67,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testTokenNavigation() {
+  void testTokenNavigation() {
     Token t1 = createToken(Token.DEFAULT_CHANNEL, 1, "token1");
     Token t2 = createToken(Token.HIDDEN_CHANNEL, 2, "hidden");
     Token t3 = createToken(Token.DEFAULT_CHANNEL, 3, "token3");
@@ -88,7 +88,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testAncestorNavigation() {
+  void testAncestorNavigation() {
     // Создаем цепочку узлов разной глубины
     ParserRuleContext level0 = createContext(null, 0);
     ParserRuleContext level1 = createContext(level0, 1);
@@ -113,7 +113,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testTopLevelDescendants() {
+  void testTopLevelDescendants() {
     // root
     //  ├─ child1 (type 1)
     //  │   └─ grandChild1 (type 2)
@@ -144,7 +144,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testNodeContainsWithExclusion() {
+  void testNodeContainsWithExclusion() {
     ParserRuleContext root = createContext(null, 0);
     ParserRuleContext child1 = createContext(root, 1);
     ParserRuleContext child2 = createContext(root, 1);
@@ -163,7 +163,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testNodeNavigation() {
+  void testNodeNavigation() {
     ParserRuleContext root = createContext(null, 0);
     ParserRuleContext node1 = createContext(root, 1);
     ParserRuleContext node2 = createContext(root, 1);
@@ -191,7 +191,7 @@ public class TreesIntegrationTest {
   }
 
   @Test
-  public void testLazyInitializationInParserRuleContext() {
+  void testLazyInitializationInParserRuleContext() {
     ParserRuleContext ctx = createContext(null, 0);
     Token token = new CommonToken(1, "test");
     ctx.addChild(new TerminalNodeImpl(token));

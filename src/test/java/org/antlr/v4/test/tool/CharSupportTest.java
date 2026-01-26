@@ -19,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CharSupportTest {
 
   @Test
-  public void testGetANTLRCharLiteralForChar() {
+  void testGetANTLRCharLiteralForChar() {
     assertEquals("'<INVALID>'", CharSupport.getANTLRCharLiteralForChar(-1));
     assertEquals("'\\n'", CharSupport.getANTLRCharLiteralForChar('\n'));
     assertEquals("'\\\\'", CharSupport.getANTLRCharLiteralForChar('\\'));
@@ -30,7 +30,7 @@ public class CharSupportTest {
   }
 
   @Test
-  public void testGetCharValueFromGrammarCharLiteral() {
+  void testGetCharValueFromGrammarCharLiteral() {
     assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral(null));
     assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral(""));
     assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral("b"));
@@ -38,7 +38,7 @@ public class CharSupportTest {
   }
 
   @Test
-  public void testGetStringFromGrammarStringLiteral() {
+  void testGetStringFromGrammarStringLiteral() {
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u{bbb")).isNull();
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u{[]bb")).isNull();
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u[]bb")).isNull();
@@ -48,7 +48,7 @@ public class CharSupportTest {
   }
 
   @Test
-  public void testGetCharValueFromCharInGrammarLiteral() {
+  void testGetCharValueFromCharInGrammarLiteral() {
     assertEquals(102, CharSupport.getCharValueFromCharInGrammarLiteral("f"));
 
     assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("' "));
@@ -65,7 +65,7 @@ public class CharSupportTest {
   }
 
   @Test
-  public void testParseHexValue() {
+  void testParseHexValue() {
     assertEquals(-1, CharSupport.parseHexValue("foobar", -1, 3));
     assertEquals(-1, CharSupport.parseHexValue("foobar", 1, -1));
     assertEquals(-1, CharSupport.parseHexValue("foobar", 1, 3));
@@ -73,19 +73,19 @@ public class CharSupportTest {
   }
 
   @Test
-  public void testCapitalize() {
+  void testCapitalize() {
     assertEquals("Foo", CharSupport.capitalize("foo"));
   }
 
   @Test
-  public void testGetIntervalSetEscapedString() {
+  void testGetIntervalSetEscapedString() {
     assertEquals("", CharSupport.getIntervalSetEscapedString(new IntervalSet()));
     assertEquals("'\\u0000'", CharSupport.getIntervalSetEscapedString(new IntervalSet(0)));
     assertEquals("'\\u0001'..'\\u0003'", CharSupport.getIntervalSetEscapedString(new IntervalSet(3, 1, 2)));
   }
 
   @Test
-  public void testGetRangeEscapedString() {
+  void testGetRangeEscapedString() {
     assertEquals("'\\u0002'..'\\u0004'", CharSupport.getRangeEscapedString(2, 4));
     assertEquals("'\\u0002'", CharSupport.getRangeEscapedString(2, 2));
   }

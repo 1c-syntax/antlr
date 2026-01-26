@@ -36,8 +36,8 @@ import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.semantics.SemanticPipeline;
@@ -330,16 +330,16 @@ public abstract class AbstractBaseTest {
     return ok;
   }
 
-  // todo переделать, см ANTLR runtime/Generator
   public List<String> getCompileOptions() {
     List<String> compileOptions = new ArrayList<>();
     compileOptions.add("-g");
     compileOptions.add("-source");
-    compileOptions.add("1.6");
+    compileOptions.add("17");
     compileOptions.add("-target");
-    compileOptions.add("1.6");
+    compileOptions.add("17");
     compileOptions.add("-implicit:class");
     compileOptions.add("-Xlint:-options");
+    compileOptions.add("-proc:none"); // Disable annotation processing to avoid old runtime references
 
     String bootclasspath = getBootClassPath();
     if (bootclasspath != null) {

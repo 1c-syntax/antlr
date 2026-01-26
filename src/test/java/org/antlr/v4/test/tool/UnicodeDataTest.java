@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UnicodeDataTest {
   @Test
-  public void testUnicodeGeneralCategoriesLatin() {
+  void testUnicodeGeneralCategoriesLatin() {
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('X')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('x')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('x')).isTrue();
@@ -28,7 +28,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeGeneralCategoriesBMP() {
+  void testUnicodeGeneralCategoriesBMP() {
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('\u1E3A')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains('\u1E3B')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Ll").contains('\u1E3B')).isTrue();
@@ -42,7 +42,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeGeneralCategoriesSMP() {
+  void testUnicodeGeneralCategoriesSMP() {
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains(0x1D5D4)).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Lu").contains(0x1D770)).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Ll").contains(0x1D770)).isTrue();
@@ -54,7 +54,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeCategoryAliases() {
+  void testUnicodeCategoryAliases() {
     assertThat(UnicodeData.getPropertyCodePoints("Lowercase_Letter").contains('x')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Lowercase_Letter").contains('X')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Letter").contains('x')).isTrue();
@@ -64,7 +64,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeBinaryProperties() {
+  void testUnicodeBinaryProperties() {
     assertThat(UnicodeData.getPropertyCodePoints("Emoji").contains(0x1F4A9)).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Emoji").contains('X')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("alnum").contains('9')).isTrue();
@@ -75,7 +75,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeBinaryPropertyAliases() {
+  void testUnicodeBinaryPropertyAliases() {
     assertThat(UnicodeData.getPropertyCodePoints("Ideo").contains('\u611B')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Ideo").contains('X')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("Soft_Dotted").contains('\u0456')).isTrue();
@@ -85,7 +85,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeScripts() {
+  void testUnicodeScripts() {
     assertThat(UnicodeData.getPropertyCodePoints("Zyyy").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Latn").contains('X')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Hani").contains(0x4E04)).isTrue();
@@ -93,7 +93,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeScriptEquals() {
+  void testUnicodeScriptEquals() {
     assertThat(UnicodeData.getPropertyCodePoints("Script=Zyyy").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Script=Latn").contains('X')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Script=Hani").contains(0x4E04)).isTrue();
@@ -101,7 +101,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeScriptAliases() {
+  void testUnicodeScriptAliases() {
     assertThat(UnicodeData.getPropertyCodePoints("Common").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Latin").contains('X')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Han").contains(0x4E04)).isTrue();
@@ -109,7 +109,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeBlocks() {
+  void testUnicodeBlocks() {
     assertThat(UnicodeData.getPropertyCodePoints("InASCII").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("InCJK").contains(0x4E04)).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("InCyrillic").contains(0x0404)).isTrue();
@@ -117,7 +117,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeBlockEquals() {
+  void testUnicodeBlockEquals() {
     assertThat(UnicodeData.getPropertyCodePoints("Block=ASCII").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Block=CJK").contains(0x4E04)).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("Block=Cyrillic").contains(0x0404)).isTrue();
@@ -125,14 +125,14 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testUnicodeBlockAliases() {
+  void testUnicodeBlockAliases() {
     assertThat(UnicodeData.getPropertyCodePoints("InBasic_Latin").contains('0')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("InMiscellaneous_Mathematical_Symbols_B")
       .contains(0x29BE)).isTrue();
   }
 
   @Test
-  public void testEnumeratedPropertyEquals() {
+  void testEnumeratedPropertyEquals() {
     assertThat(UnicodeData.getPropertyCodePoints("Grapheme_Cluster_Break=E_Base").contains(0x1F481))
       .as("U+1F481 INFORMATION DESK PERSON is an emoji modifier base")
       .isTrue();
@@ -159,7 +159,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void extendedPictographic() {
+  void extendedPictographic() {
     assertThat(UnicodeData.getPropertyCodePoints("Extended_Pictographic").contains(0x1F588))
       .as("U+1F588 BLACK PUSHPIN is in Extended Pictographic")
       .isTrue();
@@ -170,7 +170,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void emojiPresentation() {
+  void emojiPresentation() {
     assertThat(UnicodeData.getPropertyCodePoints("EmojiPresentation=EmojiDefault").contains(0x1F4A9))
       .as("U+1F4A9 PILE OF POO is in EmojiPresentation=EmojiDefault")
       .isTrue();
@@ -197,7 +197,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testPropertyCaseInsensitivity() {
+  void testPropertyCaseInsensitivity() {
     assertThat(UnicodeData.getPropertyCodePoints("l").contains('x')).isTrue();
     assertThat(UnicodeData.getPropertyCodePoints("l").contains('0')).isFalse();
     assertThat(UnicodeData.getPropertyCodePoints("common").contains('0')).isTrue();
@@ -205,7 +205,7 @@ public class UnicodeDataTest {
   }
 
   @Test
-  public void testPropertyDashSameAsUnderscore() {
+  void testPropertyDashSameAsUnderscore() {
     assertThat(UnicodeData.getPropertyCodePoints("InLatin-1").contains('\u00F0')).isTrue();
   }
 }

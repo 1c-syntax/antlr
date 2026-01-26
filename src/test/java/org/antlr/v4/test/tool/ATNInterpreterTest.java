@@ -27,7 +27,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class ATNInterpreterTest extends AbstractBaseTest {
   @Test
-  public void testSimpleNoBlock() throws Exception {
+  void testSimpleNoBlock() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -42,7 +42,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSet() throws Exception {
+  void testSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -59,7 +59,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -76,7 +76,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMustTrackPreviousGoodAlt() throws Exception {
+  void testMustTrackPreviousGoodAlt() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -96,7 +96,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMustTrackPreviousGoodAlt2() throws Exception {
+  void testMustTrackPreviousGoodAlt2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -119,7 +119,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMustTrackPreviousGoodAlt3() throws Exception {
+  void testMustTrackPreviousGoodAlt3() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -142,7 +142,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAmbigAltChooseFirst() throws Exception {
+  void testAmbigAltChooseFirst() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -159,7 +159,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAmbigAltChooseFirstWithFollowingToken() throws Exception {
+  void testAmbigAltChooseFirstWithFollowingToken() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -176,7 +176,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAmbigAltChooseFirstWithFollowingToken2() throws Exception {
+  void testAmbigAltChooseFirstWithFollowingToken2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -194,7 +194,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAmbigAltChooseFirst2() throws Exception {
+  void testAmbigAltChooseFirst2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -215,7 +215,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleLoop() throws Exception {
+  void testSimpleLoop() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -234,7 +234,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCommonLeftPrefix() throws Exception {
+  void testCommonLeftPrefix() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -250,7 +250,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testArbitraryLeftPrefix() throws Exception {
+  void testArbitraryLeftPrefix() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -265,7 +265,7 @@ public class ATNInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRecursiveLeftPrefix() throws Exception {
+  void testRecursiveLeftPrefix() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;

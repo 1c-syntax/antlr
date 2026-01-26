@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 public class UnicodeBOMInputStreamTest {
 
   @Test
-  public void testDetectUTF8BOM() throws IOException {
+  void testDetectUTF8BOM() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_8);
@@ -33,7 +33,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testDetectUTF16LEBOM() throws IOException {
+  void testDetectUTF16LEBOM() throws IOException {
     byte[] content = {(byte) 0xFF, (byte) 0xFE, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_LE);
@@ -42,7 +42,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testDetectUTF16BEBOM() throws IOException {
+  void testDetectUTF16BEBOM() throws IOException {
     byte[] content = {(byte) 0xFE, (byte) 0xFF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_16_BE);
@@ -51,7 +51,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testDetectUTF32LEBOM() throws IOException {
+  void testDetectUTF32LEBOM() throws IOException {
     byte[] content = {(byte) 0xFF, (byte) 0xFE, (byte) 0x00, (byte) 0x00, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_LE);
@@ -60,7 +60,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testDetectUTF32BEBOM() throws IOException {
+  void testDetectUTF32BEBOM() throws IOException {
     byte[] content = {(byte) 0x00, (byte) 0x00, (byte) 0xFE, (byte) 0xFF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.UTF_32_BE);
@@ -69,7 +69,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testNoBOM() throws IOException {
+  void testNoBOM() throws IOException {
     byte[] content = "test".getBytes(StandardCharsets.UTF_8);
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.NONE);
@@ -78,7 +78,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testSkipBOM() throws IOException {
+  void testSkipBOM() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -92,7 +92,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testSkipBOMTwice() throws IOException {
+  void testSkipBOMTwice() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -107,7 +107,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testReadWithoutSkippingBOM() throws IOException {
+  void testReadWithoutSkippingBOM() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       byte[] buffer = new byte[7];
@@ -122,7 +122,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testReadSingleByte() throws IOException {
+  void testReadSingleByte() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -133,7 +133,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testReadWithOffsetAndLength() throws IOException {
+  void testReadWithOffsetAndLength() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -147,7 +147,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testSkip() throws IOException {
+  void testSkip() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 'a', 'b', 'c', 'd'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -161,7 +161,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testAvailable() throws IOException {
+  void testAvailable() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.available()).isEqualTo(7);
@@ -172,7 +172,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testMarkAndReset() throws IOException {
+  void testMarkAndReset() throws IOException {
     byte[] content = {(byte) 0xEF, (byte) 0xBB, (byte) 0xBF, 't', 'e', 's', 't'};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       ubis.skipBOM();
@@ -190,13 +190,13 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testNullInputStream() {
+  void testNullInputStream() {
     assertThatThrownBy(() -> new UnicodeBOMInputStream(null))
       .isInstanceOf(NullPointerException.class);
   }
 
   @Test
-  public void testEmptyStream() throws IOException {
+  void testEmptyStream() throws IOException {
     byte[] content = {};
     try (UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(new ByteArrayInputStream(content))) {
       assertThat(ubis.getBOM()).isEqualTo(UnicodeBOMInputStream.BOM.NONE);
@@ -204,7 +204,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testBOMGetBytes() {
+  void testBOMGetBytes() {
     byte[] utf8Bytes = UnicodeBOMInputStream.BOM.UTF_8.getBytes();
     assertThat(utf8Bytes).hasSize(3);
     assertThat(utf8Bytes[0]).isEqualTo((byte) 0xEF);
@@ -216,7 +216,7 @@ public class UnicodeBOMInputStreamTest {
   }
 
   @Test
-  public void testBOMGetBytesDefensiveCopy() {
+  void testBOMGetBytesDefensiveCopy() {
     byte[] bytes1 = UnicodeBOMInputStream.BOM.UTF_8.getBytes();
     byte[] bytes2 = UnicodeBOMInputStream.BOM.UTF_8.getBytes();
 

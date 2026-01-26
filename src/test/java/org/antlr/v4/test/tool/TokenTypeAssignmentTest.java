@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TokenTypeAssignmentTest extends AbstractBaseTest {
 
   @Test
-  public void testParserSimpleTokens() throws Exception {
+  void testParserSimpleTokens() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar t;
@@ -37,7 +37,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserTokensSection() throws Exception {
+  void testParserTokensSection() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar t;
@@ -53,7 +53,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerTokensSection() throws Exception {
+  void testLexerTokensSection() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -69,7 +69,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCombinedGrammarLiterals() throws Exception {
+  void testCombinedGrammarLiterals() throws Exception {
     // "foo" is not a token name
     Grammar g = new Grammar(
       """
@@ -86,7 +86,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLiteralInParserAndLexer() throws Exception {
+  void testLiteralInParserAndLexer() throws Exception {
     // 'x' is token and char in lexer rule
     Grammar g = new Grammar(
       """
@@ -109,7 +109,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPredDoesNotHideNameToLiteralMapInLexer() throws Exception {
+  void testPredDoesNotHideNameToLiteralMapInLexer() throws Exception {
     // 'x' is token and char in lexer rule
     Grammar g = new Grammar(
       """
@@ -127,7 +127,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCombinedGrammarWithRefToLiteralButNoTokenIDRef() throws Exception {
+  void testCombinedGrammarWithRefToLiteralButNoTokenIDRef() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -140,7 +140,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSetDoesNotMissTokenAliases() throws Exception {
+  void testSetDoesNotMissTokenAliases() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -156,7 +156,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   // T E S T  L I T E R A L  E S C A P E S
 
   @Test
-  public void testParserCharLiteralWithEscape() throws Exception {
+  void testParserCharLiteralWithEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -168,7 +168,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserCharLiteralWithBasicUnicodeEscape() throws Exception {
+  void testParserCharLiteralWithBasicUnicodeEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -180,7 +180,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserCharLiteralWithExtendedUnicodeEscape() throws Exception {
+  void testParserCharLiteralWithExtendedUnicodeEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;

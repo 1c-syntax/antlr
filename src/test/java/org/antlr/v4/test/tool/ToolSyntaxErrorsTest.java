@@ -54,7 +54,7 @@ a  ( A | B ) D ;
 b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:3: syntax error: '(' came as a complete surprise to me while matching rule preamble\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:11: syntax error: mismatched input ')' expecting SEMI while matching a rule\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:15: syntax error: mismatched input ';' expecting COLON while matching a lexer rule\n",};
 
   @Test
-  public void AllErrorCodesDistinct() {
+  void AllErrorCodesDistinct() {
     ErrorType[] errorTypes = ErrorType.class.getEnumConstants();
     for (int i = 0; i < errorTypes.length; i++) {
       for (int j = i + 1; j < errorTypes.length; j++) {
@@ -65,13 +65,13 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:3: syntax error:
 
 
   @Test
-  public void testA() {
+  void testA() {
     super.testErrors(A, true);
   }
 
 
   @Test
-  public void testExtraColon() {
+  void testExtraColon() {
     String[] pair = new String[]{"""
 grammar A;
 a : : A ;
@@ -81,7 +81,7 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error:
 
 
   @Test
-  public void testMissingRuleSemi() {
+  void testMissingRuleSemi() {
     String[] pair = new String[]{"""
 grammar A;
 a : A\s
@@ -91,7 +91,7 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax error:
 
 
   @Test
-  public void testMissingRuleSemi2() {
+  void testMissingRuleSemi2() {
     String[] pair = new String[]{"""
 lexer grammar A;
 A : 'a'\s
@@ -101,7 +101,7 @@ B : 'b' ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax erro
 
 
   @Test
-  public void testMissingRuleSemi3() {
+  void testMissingRuleSemi3() {
     String[] pair = new String[]{"""
 grammar A;
 a : A\s
@@ -111,7 +111,7 @@ b[int i] returns [int y] : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): 
 
 
   @Test
-  public void testMissingRuleSemi4() {
+  void testMissingRuleSemi4() {
     String[] pair = new String[]{"""
 grammar A;
 a : b\s
@@ -125,7 +125,7 @@ b : B ;
 
 
   @Test
-  public void testMissingRuleSemi5() {
+  void testMissingRuleSemi5() {
     String[] pair = new String[]{"""
 grammar A;
 a : A\s
@@ -138,7 +138,7 @@ a : A\s
 
 
   @Test
-  public void testBadRulePrequelStart() {
+  void testBadRulePrequelStart() {
     String[] pair = new String[]{"""
 grammar A;
 a @ options {k=1;} : A ;
@@ -150,7 +150,7 @@ b : B ;""",
 
 
   @Test
-  public void testBadRulePrequelStart2() {
+  void testBadRulePrequelStart2() {
     String[] pair = new String[]{"""
 grammar A;
 a } : A ;
@@ -162,7 +162,7 @@ b : B ;""",
 
 
   @Test
-  public void testModeInParser() {
+  void testModeInParser() {
     String[] pair = new String[]{"""
 grammar A;
 a : A ;
@@ -180,7 +180,7 @@ b : B ;""",
    */
 
   @Test
-  public void testUnterminatedStringLiteral() {
+  void testUnterminatedStringLiteral() {
     String[] pair = new String[]{"""
 grammar A;
 a : 'x
@@ -198,7 +198,7 @@ a : 'x
    */
 
   @Test
-  public void testParserRuleNameStartingWithUnderscore() {
+  void testParserRuleNameStartingWithUnderscore() {
     String[] pair = new String[]{"""
 grammar A;
 _a : 'x' ;
@@ -215,7 +215,7 @@ _a : 'x' ;
    */
 
   @Test
-  public void testEmptyGrammarOptions() {
+  void testEmptyGrammarOptions() {
     String[] pair = new String[]{"""
 grammar A;
 options {}
@@ -233,7 +233,7 @@ a : 'x' ;
    */
 
   @Test
-  public void testEmptyRuleOptions() {
+  void testEmptyRuleOptions() {
     String[] pair = new String[]{"""
 grammar A;
 a options{} : 'x' ;
@@ -250,7 +250,7 @@ a options{} : 'x' ;
    */
 
   @Test
-  public void testEmptyBlockOptions() {
+  void testEmptyBlockOptions() {
     String[] pair = new String[]{"""
 grammar A;
 a : (options{} : 'x') ;
@@ -262,7 +262,7 @@ a : (options{} : 'x') ;
 
 
   @Test
-  public void testEmptyTokensBlock() {
+  void testEmptyTokensBlock() {
     String[] pair = new String[]{"""
 grammar A;
 tokens {}
@@ -280,7 +280,7 @@ a : 'x' ;
    */
 
   @Test
-  public void testInvalidLexerCommand() {
+  void testInvalidLexerCommand() {
     // "meant" to use -> popMode
     String[] pair = new String[]{"""
 grammar A;
@@ -295,7 +295,7 @@ Y : 'foo2' -> token(Foo);""", // "meant" to use -> type(Foo)
 
 
   @Test
-  public void testLexerCommandArgumentValidation() {
+  void testLexerCommandArgumentValidation() {
     // "meant" to use -> popMode
     String[] pair = new String[]{"""
 grammar A;
@@ -310,7 +310,7 @@ Y : 'foo2' -> type;""", // "meant" to use -> type(Foo)
 
 
   @Test
-  public void testRuleRedefinition() {
+  void testRuleRedefinition() {
     String[] pair = new String[]{"""
 grammar Oops;
 
@@ -327,7 +327,7 @@ B : 'b' ;
 
 
   @Test
-  public void testEpsilonClosureAnalysis() {
+  void testEpsilonClosureAnalysis() {
     String grammar = """
       grammar A;
       x : ;
@@ -346,7 +346,7 @@ B : 'b' ;
   // Test for https://github.com/antlr/antlr4/issues/1203
 
   @Test
-  public void testEpsilonNestedClosureAnalysis() {
+  void testEpsilonNestedClosureAnalysis() {
     String grammar = """
       grammar T;
       s : (a a)* ;
@@ -362,7 +362,7 @@ B : 'b' ;
   // Test for https://github.com/antlr/antlr4/issues/1203
 
   @Test
-  public void testEpsilonOptionalAndClosureAnalysis() {
+  void testEpsilonOptionalAndClosureAnalysis() {
     String grammar = """
       grammar T;
       s : (a a)? ;
@@ -377,7 +377,7 @@ B : 'b' ;
 
 
   @Test
-  public void testEpsilonOptionalAnalysis() {
+  void testEpsilonOptionalAnalysis() {
     String grammar = """
       grammar A;
       x : ;
@@ -399,7 +399,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testActionAtEndOfOneLexerAlternative() {
+  void testActionAtEndOfOneLexerAlternative() {
     String grammar = """
       grammar A;
       stat : 'start' CharacterLiteral 'end' EOF;
@@ -430,7 +430,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testDoubleQuotedStringLiteral() {
+  void testDoubleQuotedStringLiteral() {
     String grammar = """
       lexer grammar A;
       WHITESPACE : (" " | "\\t" | "\\n" | "\\r" | "\\f");
@@ -448,7 +448,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testDoubleQuoteInTwoStringLiterals() {
+  void testDoubleQuoteInTwoStringLiterals() {
     String grammar = """
       lexer grammar A;
       STRING : '\\"' '\\"' 'x' ;""";
@@ -465,7 +465,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testValidEscapeSequences() {
+  void testValidEscapeSequences() {
     String grammar = """
       lexer grammar A;
       NORMAL_ESCAPE : '\\b \\t \\n \\f \\r \\' \\\\';
@@ -485,7 +485,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testInvalidEscapeSequences() {
+  void testInvalidEscapeSequences() {
     String grammar = """
       lexer grammar A;
       RULE : 'Foo \\uAABG \\x \\u';
@@ -503,7 +503,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testNotAllowedEmptyStrings() {
+  void testNotAllowedEmptyStrings() {
     String grammar = """
       lexer grammar T;
       Error0: '''test''';
@@ -520,7 +520,7 @@ B : 'b' ;
 
 
   @Test
-  public void testInvalidCharSetsAndStringLiterals() {
+  void testInvalidCharSetsAndStringLiterals() {
     //https://github.com/antlr/antlr4/issues/1077
     String grammar = """
       lexer grammar Test;
@@ -544,7 +544,7 @@ B : 'b' ;
 
 
   @Test
-  public void testInvalidUnicodeEscapesInCharSet() {
+  void testInvalidUnicodeEscapesInCharSet() {
     String grammar = """
       lexer grammar Test;
       INVALID_EXTENDED_UNICODE_EMPTY: [\\u{}];
@@ -574,7 +574,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testUnrecognizedAssocOption() {
+  void testUnrecognizedAssocOption() {
     String grammar = """
       grammar A;
       x : 'x'
@@ -595,7 +595,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testFragmentActionIgnored() {
+  void testFragmentActionIgnored() {
     String grammar = """
       lexer grammar A;
       X1 : 'x' -> more    // ok
@@ -623,7 +623,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testTokenNamedEOF() {
+  void testTokenNamedEOF() {
     String grammar = """
       lexer grammar A;
       WS : ' ';
@@ -643,7 +643,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testInvalidLanguageInGrammar() {
+  void testInvalidLanguageInGrammar() {
     String grammar = """
       grammar T;
       options { language=Foo; }
@@ -663,7 +663,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testInvalidLanguageInGrammarWithLexerCommand() {
+  void testInvalidLanguageInGrammarWithLexerCommand() {
     String grammar = """
       grammar T;
       options { language=Foo; }
@@ -678,7 +678,7 @@ B : 'b' ;
 
 
   @Test
-  public void testChannelDefinitionInLexer() {
+  void testChannelDefinitionInLexer() {
     String grammar = """
       lexer grammar T;
       
@@ -699,7 +699,7 @@ B : 'b' ;
 
 
   @Test
-  public void testChannelDefinitionInParser() {
+  void testChannelDefinitionInParser() {
     String grammar = """
       parser grammar T;
       
@@ -719,7 +719,7 @@ B : 'b' ;
 
 
   @Test
-  public void testChannelDefinitionInCombined() {
+  void testChannelDefinitionInCombined() {
     String grammar = """
       grammar T;
       
@@ -748,7 +748,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testChannelDefinitions() {
+  void testChannelDefinitions() {
     String grammar = """
       lexer grammar T;
       
@@ -779,7 +779,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testRuleWithTooFewAltLabelsGroup() {
+  void testRuleWithTooFewAltLabelsGroup() {
     String grammar = """
       grammar T;
       tokens { Foo1, Foo2 }
@@ -809,7 +809,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testRuleWithTooFewAltLabelsGroupSuppressed() {
+  void testRuleWithTooFewAltLabelsGroupSuppressed() {
     String grammar = """
       grammar T;
       tokens { Foo1, Foo2 }
@@ -833,7 +833,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testBaseContextMustBeRuleName() {
+  void testBaseContextMustBeRuleName() {
     String grammar = """
       grammar T;
       tokens { Foo1, Foo2 }
@@ -853,7 +853,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testBaseContextCannotBeTransitive() {
+  void testBaseContextCannotBeTransitive() {
     String grammar = """
       grammar T;
       tokens { Foo1, Foo2 }
@@ -884,7 +884,7 @@ B : 'b' ;
    */
 
   @Test
-  public void testBaseContextCannotBeTransitive_Self() {
+  void testBaseContextCannotBeTransitive_Self() {
     String grammar = """
       grammar T;
       tokens { Foo1 }
@@ -902,7 +902,7 @@ B : 'b' ;
   // Test for https://github.com/antlr/antlr4/issues/1556
 
   @Test
-  public void testRangeInParserGrammar() {
+  void testRangeInParserGrammar() {
     String grammar = """
       grammar T;
       a:  'A'..'Z' ;

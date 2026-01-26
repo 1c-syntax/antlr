@@ -9,15 +9,13 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
 public class ParseTreesTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenAndRuleContextString() {
+  void testTokenAndRuleContextString() {
     String grammar =
       """
         grammar T;
@@ -33,8 +31,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testToken2() {
+  void testToken2() {
     String grammar =
       """
         grammar T;
@@ -51,8 +48,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test2Alts() {
+  void test2Alts() {
     String grammar =
       """
         grammar T;
@@ -69,8 +65,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test2AltLoop() {
+  void test2AltLoop() {
     String grammar =
       """
         grammar T;
@@ -87,8 +82,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRuleRef() {
+  void testRuleRef() {
     String grammar =
       """
         grammar T;
@@ -108,8 +102,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   // ERRORS
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testExtraToken() {
+  void testExtraToken() {
     String grammar =
       """
         grammar T;
@@ -127,8 +120,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNoViableAlt() {
+  void testNoViableAlt() {
     String grammar =
       """
         grammar T;
@@ -146,8 +138,7 @@ public class ParseTreesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSync() {
+  void testSync() {
     String grammar =
       """
         grammar T;

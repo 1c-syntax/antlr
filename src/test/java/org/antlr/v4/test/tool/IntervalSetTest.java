@@ -26,21 +26,21 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSingleElement() throws Exception {
+  void testSingleElement() throws Exception {
     IntervalSet s = IntervalSet.of(99);
     String expecting = "99";
     assertEquals(s.toString(), expecting);
   }
 
   @Test
-  public void testMin() throws Exception {
+  void testMin() throws Exception {
     assertEquals(0, IntervalSet.COMPLETE_CHAR_SET.getMinElement());
     assertEquals(Token.EPSILON, IntervalSet.COMPLETE_CHAR_SET.or(IntervalSet.of(Token.EPSILON)).getMinElement());
     assertEquals(Token.EOF, IntervalSet.COMPLETE_CHAR_SET.or(IntervalSet.of(Token.EOF)).getMinElement());
   }
 
   @Test
-  public void testIsolatedElements() throws Exception {
+  void testIsolatedElements() throws Exception {
     IntervalSet s = new IntervalSet();
     s.add(1);
     s.add('z');
@@ -50,7 +50,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMixedRangesAndElements() throws Exception {
+  void testMixedRangesAndElements() throws Exception {
     IntervalSet s = new IntervalSet();
     s.add(1);
     s.add('a', 'z');
@@ -60,7 +60,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleAnd() throws Exception {
+  void testSimpleAnd() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(13, 15);
     String expecting = "{13..15}";
@@ -69,7 +69,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRangeAndIsolatedElement() throws Exception {
+  void testRangeAndIsolatedElement() throws Exception {
     IntervalSet s = IntervalSet.of('a', 'z');
     IntervalSet s2 = IntervalSet.of('d');
     String expecting = "100";
@@ -78,7 +78,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyIntersection() throws Exception {
+  void testEmptyIntersection() throws Exception {
     IntervalSet s = IntervalSet.of('a', 'z');
     IntervalSet s2 = IntervalSet.of('0', '9');
     String expecting = "{}";
@@ -87,7 +87,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyIntersectionSingleElements() throws Exception {
+  void testEmptyIntersectionSingleElements() throws Exception {
     IntervalSet s = IntervalSet.of('a');
     IntervalSet s2 = IntervalSet.of('d');
     String expecting = "{}";
@@ -96,7 +96,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotSingleElement() throws Exception {
+  void testNotSingleElement() throws Exception {
     IntervalSet vocabulary = IntervalSet.of(1, 1000);
     vocabulary.add(2000, 3000);
     IntervalSet s = IntervalSet.of(50, 50);
@@ -106,7 +106,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotSet() throws Exception {
+  void testNotSet() throws Exception {
     IntervalSet vocabulary = IntervalSet.of(1, 1000);
     IntervalSet s = IntervalSet.of(50, 60);
     s.add(5);
@@ -117,7 +117,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotEqualSet() throws Exception {
+  void testNotEqualSet() throws Exception {
     IntervalSet vocabulary = IntervalSet.of(1, 1000);
     IntervalSet s = IntervalSet.of(1, 1000);
     String expecting = "{}";
@@ -126,7 +126,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotSetEdgeElement() throws Exception {
+  void testNotSetEdgeElement() throws Exception {
     IntervalSet vocabulary = IntervalSet.of(1, 2);
     IntervalSet s = IntervalSet.of(1);
     String expecting = "2";
@@ -135,7 +135,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotSetFragmentedVocabulary() throws Exception {
+  void testNotSetFragmentedVocabulary() throws Exception {
     IntervalSet vocabulary = IntervalSet.of(1, 255);
     vocabulary.add(1000, 2000);
     vocabulary.add(9999);
@@ -149,7 +149,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractOfCompletelyContainedRange() throws Exception {
+  void testSubtractOfCompletelyContainedRange() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(12, 15);
     String expecting = "{10..11, 16..20}";
@@ -158,7 +158,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractFromSetWithEOF() throws Exception {
+  void testSubtractFromSetWithEOF() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     s.add(Token.EOF);
     IntervalSet s2 = IntervalSet.of(12, 15);
@@ -168,7 +168,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractOfOverlappingRangeFromLeft() throws Exception {
+  void testSubtractOfOverlappingRangeFromLeft() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(5, 11);
     String expecting = "{12..20}";
@@ -182,7 +182,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractOfOverlappingRangeFromRight() throws Exception {
+  void testSubtractOfOverlappingRangeFromRight() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(15, 25);
     String expecting = "{10..14}";
@@ -196,7 +196,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractOfCompletelyCoveredRange() throws Exception {
+  void testSubtractOfCompletelyCoveredRange() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(1, 25);
     String expecting = "{}";
@@ -205,7 +205,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSubtractOfRangeSpanningMultipleRanges() throws Exception {
+  void testSubtractOfRangeSpanningMultipleRanges() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     s.add(30, 40);
     s.add(50, 60); // s has 3 ranges now: 10..20, 30..40, 50..60
@@ -225,7 +225,7 @@ public class IntervalSetTest extends AbstractBaseTest {
    * {0..113, 115..65534}-{0..115, 117..65534}=116..65534
    */
   @Test
-  public void testSubtractOfWackyRange() throws Exception {
+  void testSubtractOfWackyRange() throws Exception {
     IntervalSet s = IntervalSet.of(0, 113);
     s.add(115, 200);
     IntervalSet s2 = IntervalSet.of(0, 115);
@@ -236,7 +236,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleEquals() throws Exception {
+  void testSimpleEquals() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(10, 20);
     assertEquals(s, s2);
@@ -246,7 +246,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEquals() throws Exception {
+  void testEquals() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     s.add(2);
     s.add(499, 501);
@@ -261,7 +261,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSingleElementMinusDisjointSet() throws Exception {
+  void testSingleElementMinusDisjointSet() throws Exception {
     IntervalSet s = IntervalSet.of(15, 15);
     IntervalSet s2 = IntervalSet.of(1, 5);
     s2.add(10, 20);
@@ -271,7 +271,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMembership() throws Exception {
+  void testMembership() throws Exception {
     IntervalSet s = IntervalSet.of(15, 15);
     s.add(50, 60);
     assertThat(!s.contains(0)).isTrue();
@@ -285,7 +285,7 @@ public class IntervalSetTest extends AbstractBaseTest {
 
   // {2,15,18} & 10..20
   @Test
-  public void testIntersectionWithTwoContainedElements() throws Exception {
+  void testIntersectionWithTwoContainedElements() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(2, 2);
     s2.add(15);
@@ -296,7 +296,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testIntersectionWithTwoContainedElementsReversed() throws Exception {
+  void testIntersectionWithTwoContainedElementsReversed() throws Exception {
     IntervalSet s = IntervalSet.of(10, 20);
     IntervalSet s2 = IntervalSet.of(2, 2);
     s2.add(15);
@@ -307,7 +307,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplement() throws Exception {
+  void testComplement() throws Exception {
     IntervalSet s = IntervalSet.of(100, 100);
     s.add(101, 101);
     IntervalSet s2 = IntervalSet.of(100, 102);
@@ -317,7 +317,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplement2() throws Exception {
+  void testComplement2() throws Exception {
     IntervalSet s = IntervalSet.of(100, 101);
     IntervalSet s2 = IntervalSet.of(100, 102);
     String expecting = "102";
@@ -326,7 +326,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplement3() throws Exception {
+  void testComplement3() throws Exception {
     IntervalSet s = IntervalSet.of(1, 96);
     s.add(99, Lexer.MAX_CHAR_VALUE);
     String expecting = "{97..98}";
@@ -335,7 +335,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMergeOfRangesAndSingleValues() throws Exception {
+  void testMergeOfRangesAndSingleValues() throws Exception {
     // {0..41, 42, 43..65534}
     IntervalSet s = IntervalSet.of(0, 41);
     s.add(42);
@@ -346,7 +346,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMergeOfRangesAndSingleValuesReverse() throws Exception {
+  void testMergeOfRangesAndSingleValuesReverse() throws Exception {
     IntervalSet s = IntervalSet.of(43, 65534);
     s.add(42);
     s.add(0, 41);
@@ -356,7 +356,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMergeWhereAdditionMergesTwoExistingIntervals() throws Exception {
+  void testMergeWhereAdditionMergesTwoExistingIntervals() throws Exception {
     // 42, 10, {0..9, 11..41, 43..65534}
     IntervalSet s = IntervalSet.of(42);
     s.add(10);
@@ -373,7 +373,7 @@ public class IntervalSetTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/153">...</a>
    */
   @Test
-  public void testMergeWhereAdditionMergesThreeExistingIntervals() throws Exception {
+  void testMergeWhereAdditionMergesThreeExistingIntervals() throws Exception {
     IntervalSet s = new IntervalSet();
     s.add(0);
     s.add(3);
@@ -385,7 +385,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMergeWithDoubleOverlap() throws Exception {
+  void testMergeWithDoubleOverlap() throws Exception {
     IntervalSet s = IntervalSet.of(1, 10);
     s.add(20, 30);
     s.add(5, 25); // overlaps two!
@@ -395,7 +395,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSize() throws Exception {
+  void testSize() throws Exception {
     IntervalSet s = IntervalSet.of(20, 30);
     s.add(50, 55);
     s.add(5, 19);
@@ -405,7 +405,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testToList() throws Exception {
+  void testToList() throws Exception {
     IntervalSet s = IntervalSet.of(20, 25);
     s.add(50, 55);
     s.add(5, 5);
@@ -422,7 +422,7 @@ public class IntervalSetTest extends AbstractBaseTest {
    * 'u' is 117
    */
   @Test
-  public void testNotRIntersectionNotT() throws Exception {
+  void testNotRIntersectionNotT() throws Exception {
     IntervalSet s = IntervalSet.of(0, 's');
     s.add('u', 200);
     IntervalSet s2 = IntervalSet.of(0, 'q');
@@ -433,7 +433,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRmSingleElement() throws Exception {
+  void testRmSingleElement() throws Exception {
     IntervalSet s = IntervalSet.of(1, 10);
     s.add(-3, -3);
     s.remove(-3);
@@ -443,7 +443,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRmLeftSide() throws Exception {
+  void testRmLeftSide() throws Exception {
     IntervalSet s = IntervalSet.of(1, 10);
     s.add(-3, -3);
     s.remove(1);
@@ -453,7 +453,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRmRightSide() throws Exception {
+  void testRmRightSide() throws Exception {
     IntervalSet s = IntervalSet.of(1, 10);
     s.add(-3, -3);
     s.remove(10);
@@ -463,7 +463,7 @@ public class IntervalSetTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRmMiddleRange() throws Exception {
+  void testRmMiddleRange() throws Exception {
     IntervalSet s = IntervalSet.of(1, 10);
     s.add(-3, -3);
     s.remove(5);

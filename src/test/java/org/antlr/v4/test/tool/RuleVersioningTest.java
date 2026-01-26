@@ -9,11 +9,10 @@
  */
 package org.antlr.v4.test.tool;
 
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Predicate;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Utils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -38,13 +37,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * @author Sam Harwell
  */
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class RuleVersioningTest extends AbstractBaseTest {
 
   private Properties _properties;
 
   @Test
-  public void testPropertyEvaluation() throws Exception {
+  void testPropertyEvaluation() throws Exception {
     Properties properties = getProperties();
     assertThat(properties).isNotNull();
 
@@ -75,27 +73,27 @@ public class RuleVersioningTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSingleDependency() throws Exception {
+  void testSingleDependency() throws Exception {
     testBasicGrammar("SingleDependency", "class TParser$Dependent", true);
   }
 
   @Test
-  public void testSingleDependencyFailed() throws Exception {
+  void testSingleDependencyFailed() throws Exception {
     testBasicGrammar("SingleDependencyFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammar() throws Exception {
+  void testMultipleDependencySingleGrammar() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammar", "", true);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammarFailed() throws Exception {
+  void testMultipleDependencySingleGrammarFailed() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammarFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammarFailed2() throws Exception {
+  void testMultipleDependencySingleGrammarFailed2() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammarFailed2", "class TParser$Dependent", false);
     String secondLine = stderrDuringParse.split("\\n", 3)[1];
     String expected = "Element class TParser$Dependent dependent on rule b@0 (found @1) in TParser";
@@ -103,44 +101,44 @@ public class RuleVersioningTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMultipleDependencyMultipleGrammar() throws Exception {
+  void testMultipleDependencyMultipleGrammar() throws Exception {
     // This is intended to test a class with multiple dependencies on different grammars,
     // but is not yet implemented.
     testGrammar("MultipleDependencyMultipleGrammar");
   }
 
   @Test
-  public void testClassDependency() throws Exception {
+  void testClassDependency() throws Exception {
     testBasicGrammar("ClassDependency", "class TParser$Dependent", true);
   }
 
   @Test
-  public void testClassDependencyFailed() throws Exception {
+  void testClassDependencyFailed() throws Exception {
     testBasicGrammar("ClassDependencyFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMethodDependency() throws Exception {
+  void testMethodDependency() throws Exception {
     testBasicGrammar("MethodDependency", "public void TParser$Dependent.foo()", true);
   }
 
   @Test
-  public void testMethodDependencyFailed() throws Exception {
+  void testMethodDependencyFailed() throws Exception {
     testBasicGrammar("MethodDependencyFailed", "public void TParser$Dependent.foo()", false);
   }
 
   @Test
-  public void testConstructorDependency() throws Exception {
+  void testConstructorDependency() throws Exception {
     testBasicGrammar("ConstructorDependency", "public TParser$Dependent()", true);
   }
 
   @Test
-  public void testConstructorDependencyFailed() throws Exception {
+  void testConstructorDependencyFailed() throws Exception {
     testBasicGrammar("ConstructorDependencyFailed", "public TParser$Dependent()", false);
   }
 
   @Test
-  public void testDependencyOnInvalidRule() throws Exception {
+  void testDependencyOnInvalidRule() throws Exception {
     testGrammar("DependencyOnInvalidRule");
     assertNotNullOrEmpty(stderrDuringParse);
     String firstLine = stderrDuringParse.split("\\n", 2)[0];

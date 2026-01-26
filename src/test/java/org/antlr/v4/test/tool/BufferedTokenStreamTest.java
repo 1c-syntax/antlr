@@ -30,7 +30,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
 
 
   @Test
-  public void testFirstToken() throws Exception {
+  void testFirstToken() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -54,7 +54,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2ndToken() throws Exception {
+  void test2ndToken() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -78,7 +78,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCompleteBuffer() throws Exception {
+  void testCompleteBuffer() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -111,7 +111,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCompleteBufferAfterConsuming() throws Exception {
+  void testCompleteBufferAfterConsuming() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -141,7 +141,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLookback() throws Exception {
+  void testLookback() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;

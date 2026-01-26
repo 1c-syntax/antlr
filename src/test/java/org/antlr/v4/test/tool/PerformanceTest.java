@@ -44,8 +44,8 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.MurmurHash;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -429,7 +429,7 @@ public class PerformanceTest extends AbstractBaseTest {
   private final AtomicIntegerArray tokenCount = new AtomicIntegerArray(PASSES);
 
   @Test
-  @Disabled
+  @Disabled("Requires JDK_SOURCE_ROOT environment variable to be set")
   public void compileJdk() throws IOException, InterruptedException, ExecutionException {
     String jdkSourceRoot = getSourceRoot("JDK");
     assertThat(jdkSourceRoot != null && !jdkSourceRoot.isEmpty())
@@ -2061,7 +2061,7 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testExponentialInclude() {
+  void testExponentialInclude() {
     String grammarFormat =
       "parser grammar Level_%d_%d;\n" +
         "\n" +

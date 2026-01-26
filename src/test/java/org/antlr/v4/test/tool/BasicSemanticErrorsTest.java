@@ -63,7 +63,7 @@ c : ID<blue> ID<x=y> ;""",
 
 
   @Test
-  public void testU() {
+  void testU() {
     super.testErrors(U, false);
   }
 
@@ -72,7 +72,7 @@ c : ID<blue> ID<x=y> ;""",
    * <a href="https://github.com/antlr/antlr4/issues/25">...</a>
    */
   @Test
-  public void testIllegalNonSetLabel() {
+  void testIllegalNonSetLabel() {
     String grammar =
       """
         grammar T;
@@ -87,7 +87,7 @@ c : ID<blue> ID<x=y> ;""",
   }
 
   @Test
-  public void testArgumentRetvalLocalConflicts() {
+  void testArgumentRetvalLocalConflicts() {
     String grammarTemplate =
       """
         grammar T;

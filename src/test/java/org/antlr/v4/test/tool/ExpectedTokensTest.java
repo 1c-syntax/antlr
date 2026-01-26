@@ -19,7 +19,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class ExpectedTokensTest extends AbstractBaseTest {
   @Test
-  public void testEpsilonAltSubrule() throws Exception {
+  void testEpsilonAltSubrule() throws Exception {
     String gtext =
       """
         parser grammar T;
@@ -48,7 +48,7 @@ public class ExpectedTokensTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalSubrule() throws Exception {
+  void testOptionalSubrule() throws Exception {
     String gtext =
       """
         parser grammar T;
@@ -76,7 +76,7 @@ public class ExpectedTokensTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testFollowIncluded() throws Exception {
+  void testFollowIncluded() throws Exception {
     String gtext =
       """
         parser grammar T;
@@ -119,7 +119,7 @@ public class ExpectedTokensTest extends AbstractBaseTest {
   // Test for https://github.com/antlr/antlr4/issues/1480
   // can't reproduce
   @Test
-  public void testFollowIncludedInLeftRecursiveRule() throws Exception {
+  void testFollowIncludedInLeftRecursiveRule() throws Exception {
     String gtext =
       """
         grammar T;

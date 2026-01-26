@@ -45,13 +45,13 @@ public class ParserProfilerTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled
+  @Disabled("Requires further investigation and fixes")
   public void testLL1() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
-        s : ';'{}
-          | '.'
+        s : SEMI {}
+          | DOT
           ;
         """,
       lg);

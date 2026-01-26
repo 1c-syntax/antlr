@@ -13,10 +13,12 @@ import org.antlr.v4.tool.ANTLRMessage;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.GrammarSemanticsMessage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +27,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
-  public void testImportFileLocationInSubdir() {
+  void testImportFileLocationInSubdir() {
     String slave =
       """
         parser grammar S;
@@ -51,7 +53,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
 
   // Test for https://github.com/antlr/antlr4/issues/1317
   @Test
-  public void testImportSelfLoop() {
+  void testImportSelfLoop() {
     mkdir(tmpdir);
     String master =
       """
@@ -65,7 +67,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testErrorInImportedGetsRightFilename() {
+  void testErrorInImportedGetsRightFilename() {
     String slave =
       """
         parser grammar S;
@@ -89,7 +91,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testImportFileNotSearchedForInOutputDir() {
+  void testImportFileNotSearchedForInOutputDir() {
     String slave =
       """
         parser grammar S;
@@ -114,7 +116,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOutputDirShouldNotEffectImports() {
+  void testOutputDirShouldNotEffectImports() {
     String slave =
       """
         parser grammar S;
@@ -141,7 +143,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testTokensFileInOutputDirAndImportFileInSubdir() {
+  void testTokensFileInOutputDirAndImportFileInSubdir() {
     String slave =
       """
         parser grammar S;
@@ -176,8 +178,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRule() {
+  void testDelegatorInvokesDelegateRule() {
     String slave =
       """
         parser grammar S;
@@ -200,8 +201,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBringInLiteralsFromDelegate() {
+  void testBringInLiteralsFromDelegate() {
     String slave =
       """
         parser grammar S;
@@ -222,8 +222,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRuleWithArgs() {
+  void testDelegatorInvokesDelegateRuleWithArgs() {
     // must generate something like:
     // public int a(int x) throws RecognitionException { return gS.a(x); }
     // in M.
@@ -249,8 +248,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRuleWithReturnStruct() {
+  void testDelegatorInvokesDelegateRuleWithReturnStruct() {
     // must generate something like:
     // public int a(int x) throws RecognitionException { return gS.a(x); }
     // in M.
@@ -276,8 +274,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorAccessesDelegateMembers() {
+  void testDelegatorAccessesDelegateMembers() {
     String slave =
       """
         parser grammar S;
@@ -303,8 +300,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesFirstVersionOfDelegateRule() {
+  void testDelegatorInvokesFirstVersionOfDelegateRule() {
     String slave =
       """
         parser grammar S;
@@ -333,8 +329,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatesSeeSameTokenType() {
+  void testDelegatesSeeSameTokenType() {
     // A, B, C token type order
     String slave =
       """
@@ -385,8 +380,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatesSeeSameTokenType2() throws Exception {
+  void testDelegatesSeeSameTokenType2() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     // A, B, C token type order
     String slave =
@@ -441,8 +435,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCombinedImportsCombined() throws Exception {
+  void testCombinedImportsCombined() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     // A, B, C token type order
     String slave =
@@ -474,7 +467,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testImportedTokenVocabIgnoredWithWarning() throws Exception {
+  void testImportedTokenVocabIgnoredWithWarning() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -507,7 +500,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSyntaxErrorsInImportsNotThrownOut() throws Exception {
+  void testSyntaxErrorsInImportsNotThrownOut() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -532,8 +525,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesDelegate() {
+  void testDelegatorRuleOverridesDelegate() {
     String slave =
       """
         parser grammar S;
@@ -555,8 +547,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesLookaheadInDelegate() {
+  void testDelegatorRuleOverridesLookaheadInDelegate() {
     String slave =
       """
         parser grammar JavaDecl;
@@ -586,8 +577,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesDelegates() {
+  void testDelegatorRuleOverridesDelegates() {
     String slave =
       """
         parser grammar S;
@@ -622,8 +612,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   // LEXER INHERITANCE
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerDelegatorInvokesDelegateRule() {
+  void testLexerDelegatorInvokesDelegateRule() {
     String slave =
       """
         lexer grammar S;
@@ -652,8 +641,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerDelegatorRuleOverridesDelegate() {
+  void testLexerDelegatorRuleOverridesDelegate() {
     String slave =
       """
         lexer grammar S;
@@ -678,8 +666,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testKeywordVSIDOrder() {
+  void testKeywordVSIDOrder() {
     // rules in lexer are imported at END so rules in master override
     // *and* get priority over imported rules. So importing ID doesn't
     // mess up keywords in master grammar
@@ -713,8 +700,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
 
   // Make sure that M can import S that imports T.
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test3LevelImport() throws Exception {
+  void test3LevelImport() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -760,8 +746,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBigTreeOfImports() throws Exception {
+  void testBigTreeOfImports() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -836,7 +821,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRulesVisibleThroughMultilevelImport() throws Exception {
+  void testRulesVisibleThroughMultilevelImport() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -878,8 +863,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNestedComposite() throws Exception {
+  void testNestedComposite() throws Exception {
     // Wasn't compiling. http://www.antlr.org/jira/browse/ANTLR-438
     ErrorQueue equeue = new ErrorQueue();
     String gstr =
@@ -940,7 +924,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testHeadersPropogatedCorrectlyToImportedGrammars() {
+  void testHeadersPropogatedCorrectlyToImportedGrammars() {
     String slave =
       """
         parser grammar S;
@@ -964,8 +948,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportedRuleWithAction() {
+  void testImportedRuleWithAction() {
     // wasn't terminating. @after was injected into M as if it were @members
     String slave =
       """
@@ -988,8 +971,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportedGrammarWithEmptyOptions() {
+  void testImportedGrammarWithEmptyOptions() {
     String slave =
       """
         parser grammar S;
@@ -1017,8 +999,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/248">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLexerWithOnlyFragmentRules() {
+  void testImportLexerWithOnlyFragmentRules() {
     String slave =
       """
         lexer grammar Unicode;
@@ -1052,9 +1033,20 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/670">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLargeGrammar() throws Exception {
-    String slave = load("Java.g4", "UTF-8");
+  void testImportLargeGrammar() throws Exception {
+    String fullFileName = "Java.g4";
+    int size = 65000;
+    String slave;
+    try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(fullFileName);
+         InputStreamReader isr = fis != null ? new InputStreamReader(fis, "UTF-8") : null) {
+      if (fis == null) {
+        throw new IOException("Could not find resource: " + fullFileName);
+      }
+      char[] data = new char[size];
+      int n = isr.read(data);
+      slave = new String(data, 0, n);
+    }
+
     String master =
       """
         grammar NewJava;
@@ -1075,8 +1067,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/670">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLeftRecursiveGrammar() {
+  void testImportLeftRecursiveGrammar() {
     String slave =
       """
         grammar Java;

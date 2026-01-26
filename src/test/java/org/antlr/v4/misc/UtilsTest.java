@@ -22,25 +22,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class UtilsTest {
 
   @Test
-  public void testStripFileExtension() {
+  void testStripFileExtension() {
     assertThat(Utils.stripFileExtension(null)).isNull();
     assertThat(Utils.stripFileExtension("foo")).isEqualTo("foo");
     assertThat(Utils.stripFileExtension("foo.txt")).isEqualTo("foo");
   }
 
   @Test
-  public void testJoin() {
+  void testJoin() {
     assertThat(Utils.join(new String[]{"foo", "bar"}, "b")).isEqualTo("foobbar");
     assertThat(Utils.join(new String[]{"foo", "bar"}, ",")).isEqualTo("foo,bar");
   }
 
   @Test
-  public void testSortLinesInString() {
+  void testSortLinesInString() {
     assertThat(Utils.sortLinesInString("foo\nbar\nbaz")).isEqualTo("bar\nbaz\nfoo\n");
   }
 
   @Test
-  public void testNodesToStrings() {
+  void testNodesToStrings() {
     ArrayList<GrammarAST> values = new ArrayList<>();
     values.add(new GrammarAST(Token.EOR_TOKEN_TYPE));
     values.add(new GrammarAST(Token.DOWN));
@@ -51,17 +51,17 @@ public class UtilsTest {
   }
 
   @Test
-  public void testCapitalize() {
+  void testCapitalize() {
     assertThat(Utils.capitalize("foo")).isEqualTo("Foo");
   }
 
   @Test
-  public void testDecapitalize() {
+  void testDecapitalize() {
     assertThat(Utils.decapitalize("FOO")).isEqualTo("fOO");
   }
 
   @Test
-  public void testSelect() {
+  void testSelect() {
     ArrayList<String> strings = new ArrayList<>();
     strings.add("foo");
     strings.add("bar");
@@ -82,7 +82,7 @@ public class UtilsTest {
   }
 
   @Test
-  public void testFind() {
+  void testFind() {
     ArrayList<String> strings = new ArrayList<>();
     strings.add("foo");
     strings.add("bar");
@@ -92,7 +92,7 @@ public class UtilsTest {
   }
 
   @Test
-  public void testIndexOf() {
+  void testIndexOf() {
     ArrayList<String> strings = new ArrayList<>();
     strings.add("foo");
     strings.add("bar");
@@ -107,7 +107,7 @@ public class UtilsTest {
   }
 
   @Test
-  public void testLastIndexOf() {
+  void testLastIndexOf() {
     ArrayList<String> strings = new ArrayList<>();
     strings.add("foo");
     strings.add("bar");
@@ -122,7 +122,7 @@ public class UtilsTest {
   }
 
   @Test
-  public void testSetSize() {
+  void testSetSize() {
     ArrayList<String> strings = new ArrayList<>();
     strings.add("foo");
     strings.add("bar");

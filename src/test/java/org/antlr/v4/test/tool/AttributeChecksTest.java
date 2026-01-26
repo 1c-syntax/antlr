@@ -12,7 +12,12 @@ package org.antlr.v4.test.tool;
 import org.junit.jupiter.api.Test;
 import org.stringtemplate.v4.ST;
 
-import static org.antlr.v4.tool.ErrorType.*;
+import static org.antlr.v4.tool.ErrorType.ASSIGNMENT_TO_LIST_LABEL;
+import static org.antlr.v4.tool.ErrorType.INVALID_RULE_PARAMETER_REF;
+import static org.antlr.v4.tool.ErrorType.ISOLATED_RULE_REF;
+import static org.antlr.v4.tool.ErrorType.UNDEFINED_RULE_IN_NONLOCAL_REF;
+import static org.antlr.v4.tool.ErrorType.UNKNOWN_RULE_ATTRIBUTE;
+import static org.antlr.v4.tool.ErrorType.UNKNOWN_SIMPLE_ATTRIBUTE;
 
 public class AttributeChecksTest extends AbstractBaseTest {
   private static final String attributeTemplate =
@@ -196,52 +201,52 @@ public class AttributeChecksTest extends AbstractBaseTest {
 
 
   @Test
-  public void testMembersActions() {
+  void testMembersActions() {
     testActions("members", membersChecks, attributeTemplate);
   }
 
   @Test
-  public void testDynamicMembersActions() {
+  void testDynamicMembersActions() {
     testActions("members", dynMembersChecks, attributeTemplate);
   }
 
   @Test
-  public void testInitActions() {
+  void testInitActions() {
     testActions("init", initChecks, attributeTemplate);
   }
 
   @Test
-  public void testDynamicInitActions() {
+  void testDynamicInitActions() {
     testActions("init", dynInitChecks, attributeTemplate);
   }
 
   @Test
-  public void testInlineActions() {
+  void testInlineActions() {
     testActions("inline", inlineChecks, attributeTemplate);
   }
 
   @Test
-  public void testDynamicInlineActions() {
+  void testDynamicInlineActions() {
     testActions("inline", dynInlineChecks, attributeTemplate);
   }
 
   @Test
-  public void testBadInlineActions() {
+  void testBadInlineActions() {
     testActions("inline", bad_inlineChecks, attributeTemplate);
   }
 
   @Test
-  public void testFinallyActions() {
+  void testFinallyActions() {
     testActions("finally", finallyChecks, attributeTemplate);
   }
 
   @Test
-  public void testDynamicFinallyActions() {
+  void testDynamicFinallyActions() {
     testActions("finally", dynFinallyChecks, attributeTemplate);
   }
 
   @Test
-  public void testTokenRef() {
+  void testTokenRef() {
     String grammar =
       """
         parser grammar S;

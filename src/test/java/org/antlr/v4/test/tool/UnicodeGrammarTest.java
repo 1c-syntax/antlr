@@ -27,7 +27,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class UnicodeGrammarTest extends AbstractBaseTest {
   @Test
-  public void unicodeBMPLiteralInGrammar() throws Exception {
+  void unicodeBMPLiteralInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -45,7 +45,7 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
   }
 
   @Test
-  public void unicodeSMPLiteralInGrammar() throws Exception {
+  void unicodeSMPLiteralInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -65,7 +65,7 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
   }
 
   @Test
-  public void unicodeSMPRangeInGrammar() throws Exception {
+  void unicodeSMPRangeInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -85,7 +85,7 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
   }
 
   @Test
-  public void matchingDanglingSurrogateInInput() throws Exception {
+  void matchingDanglingSurrogateInInput() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -103,7 +103,7 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
   }
 
   @Test
-  public void binaryGrammar() throws Exception {
+  void binaryGrammar() throws Exception {
     String grammarText =
       """
         grammar Binary;

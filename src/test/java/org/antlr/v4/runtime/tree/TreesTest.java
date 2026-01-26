@@ -69,7 +69,7 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetChildren() {
+  void testGetChildren() {
     // Тест получения детей по индексу правила
     List<ParserRuleContext> children = Trees.getChildren(root, 1);
     assertThat(children).hasSize(2);
@@ -77,122 +77,122 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetChildrenMultipleIndexes() {
+  void testGetChildrenMultipleIndexes() {
     List<ParserRuleContext> children = Trees.getChildren(root, 1, 2);
     assertThat(children).hasSize(2);
     assertThat(children).containsExactly(child1, child2);
   }
 
   @Test
-  public void testGetChildrenNoMatch() {
+  void testGetChildrenNoMatch() {
     List<ParserRuleContext> children = Trees.getChildren(root, 99);
     assertThat(children).isEmpty();
   }
 
   @Test
-  public void testGetFirstChild() {
+  void testGetFirstChild() {
     Optional<ParserRuleContext> firstChild = Trees.getFirstChild(root, 1);
     assertThat(firstChild).isPresent();
     assertThat(firstChild.get()).isEqualTo(child1);
   }
 
   @Test
-  public void testGetFirstChildNoMatch() {
+  void testGetFirstChildNoMatch() {
     Optional<ParserRuleContext> firstChild = Trees.getFirstChild(root, 99);
     assertThat(firstChild).isEmpty();
   }
 
   @Test
-  public void testGetFirstChildMultipleIndexes() {
+  void testGetFirstChildMultipleIndexes() {
     Optional<ParserRuleContext> firstChild = Trees.getFirstChild(root, 99, 1);
     assertThat(firstChild).isPresent();
     assertThat(firstChild.get()).isEqualTo(child1);
   }
 
   @Test
-  public void testGetAncestorByType() {
+  void testGetAncestorByType() {
     ParserRuleContext ancestor = Trees.getAncestor(grandChild, 1);
     assertThat(ancestor).isEqualTo(child1);
   }
 
   @Test
-  public void testGetAncestorByTypeNotFound() {
+  void testGetAncestorByTypeNotFound() {
     ParserRuleContext ancestor = Trees.getAncestor(grandChild, 99);
     assertThat(ancestor).isNull();
   }
 
   @Test
-  public void testGetAncestorByTypeCollection() {
+  void testGetAncestorByTypeCollection() {
     ParserRuleContext ancestor = Trees.getAncestor(grandChild, Arrays.asList(0, 1));
     assertThat(ancestor).isEqualTo(child1);
   }
 
   @Test
-  public void testGetAncestorTopMost() {
+  void testGetAncestorTopMost() {
     ParserRuleContext topAncestor = Trees.getAncestor(grandChild);
     assertThat(topAncestor).isEqualTo(root);
   }
 
   @Test
-  public void testGetAncestorTopMostForRoot() {
+  void testGetAncestorTopMostForRoot() {
     ParserRuleContext topAncestor = Trees.getAncestor(root);
     assertThat(topAncestor).isEqualTo(root);
   }
 
   @Test
-  public void testGetTokensFromParserRuleContext() {
+  void testGetTokensFromParserRuleContext() {
     List<Token> tokens = Trees.getTokens(child1);
     assertThat(tokens).hasSize(1);
     assertThat(tokens.get(0)).isEqualTo(token1);
   }
 
   @Test
-  public void testGetTokensFromTerminalNode() {
+  void testGetTokensFromTerminalNode() {
     List<Token> tokens = Trees.getTokens(terminal1);
     assertThat(tokens).hasSize(1);
     assertThat(tokens.get(0)).isEqualTo(token1);
   }
 
   @Test
-  public void testGetTokensFromParseTree() {
+  void testGetTokensFromParseTree() {
     List<Token> tokens = Trees.getTokensFromParseTree(root);
     assertThat(tokens).hasSize(2);
     assertThat(tokens).containsExactly(token1, token2);
   }
 
   @Test
-  public void testGetTokensFromParseTreeEmpty() {
+  void testGetTokensFromParseTreeEmpty() {
     ParserRuleContext emptyContext = new TestParserRuleContext(null, 0, 0);
     List<Token> tokens = Trees.getTokensFromParseTree(emptyContext);
     assertThat(tokens).isEmpty();
   }
 
   @Test
-  public void testNodeContains() {
+  void testNodeContains() {
     boolean contains = Trees.nodeContains(root, 1);
     assertThat(contains).isTrue();
   }
 
   @Test
-  public void testNodeContainsNotFound() {
+  void testNodeContainsNotFound() {
     boolean contains = Trees.nodeContains(root, 99);
     assertThat(contains).isFalse();
   }
 
   @Test
-  public void testNodeContainsMultipleTypes() {
+  void testNodeContainsMultipleTypes() {
     boolean contains = Trees.nodeContains(root, 1, 2);
     assertThat(contains).isTrue();
   }
 
   @Test
-  public void testNodeContainsWithExclude() {
+  void testNodeContainsWithExclude() {
     boolean contains = Trees.nodeContains(root, child1, 1);
     assertThat(contains).isTrue(); // child2 все еще имеет индекс 1
   }
 
   @Test
-  public void testGetPreviousTokenFromDefaultChannel() {
+  void testGetPreviousTokenFromDefaultChannel() {
     List<Token> tokens = Arrays.asList(
       createToken(1, Token.DEFAULT_CHANNEL, "token1"),
       createToken(2, Token.DEFAULT_CHANNEL, "token2"),
@@ -206,7 +206,7 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetPreviousTokenFromDefaultChannelWithType() {
+  void testGetPreviousTokenFromDefaultChannelWithType() {
     List<Token> tokens = List.of(
       createToken(1, Token.DEFAULT_CHANNEL, "token1"),
       createToken(2, Token.DEFAULT_CHANNEL, "token2")
@@ -218,7 +218,7 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetPreviousTokenFromDefaultChannelNotFound() {
+  void testGetPreviousTokenFromDefaultChannelNotFound() {
     List<Token> tokens = List.of(
       createToken(1, Token.DEFAULT_CHANNEL, "token1")
     );
@@ -228,78 +228,78 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetNextNode() {
+  void testGetNextNode() {
     ParseTree nextNode = Trees.getNextNode(root, child1, 1);
     assertThat(nextNode).isEqualTo(child2);
   }
 
   @Test
-  public void testGetNextNodeNotFound() {
+  void testGetNextNodeNotFound() {
     ParseTree nextNode = Trees.getNextNode(root, child2, 1);
     assertThat(nextNode).isEqualTo(child2); // Возвращает текущий узел
   }
 
   @Test
-  public void testGetPreviousNode() {
+  void testGetPreviousNode() {
     ParseTree prevNode = Trees.getPreviousNode(root, child2, 1);
     assertThat(prevNode).isEqualTo(child1);
   }
 
   @Test
-  public void testGetPreviousNodeNotFound() {
+  void testGetPreviousNodeNotFound() {
     ParseTree prevNode = Trees.getPreviousNode(root, child1, 1);
     assertThat(prevNode).isEqualTo(child1); // Возвращает текущий узел
   }
 
   @Test
-  public void testFindAllNodesGeneric() {
+  void testFindAllNodesGeneric() {
     List<ParserRuleContext> nodes = Trees.findAllNodes(root, 1, false);
     assertThat(nodes).hasSize(2);
     assertThat(nodes).containsExactly(child1, child2);
   }
 
   @Test
-  public void testFindAllNodesTokens() {
+  void testFindAllNodesTokens() {
     List<TerminalNode> terminals = Trees.findAllNodes(root, 1, true);
     assertThat(terminals).hasSize(1);
     assertThat(terminals.get(0)).isEqualTo(terminal1);
   }
 
   @Test
-  public void testFindAllNodesByClass() {
+  void testFindAllNodesByClass() {
     List<TerminalNode> terminals = Trees.findAllNodes(root, TerminalNode.class);
     assertThat(terminals).hasSize(2);
     assertThat(terminals).containsExactly(terminal1, terminal2);
   }
 
   @Test
-  public void testFindAllRuleNodesMultipleIndexes() {
+  void testFindAllRuleNodesMultipleIndexes() {
     Collection<ParserRuleContext> nodes = Trees.findAllRuleNodes(root, 1, 2);
     assertThat(nodes).hasSize(3);
     assertThat(nodes).contains(child1, child2, grandChild);
   }
 
   @Test
-  public void testFindAllRuleNodesCollection() {
+  void testFindAllRuleNodesCollection() {
     Collection<ParserRuleContext> nodes = Trees.findAllRuleNodes(root, Arrays.asList(1, 2));
     assertThat(nodes).hasSize(3);
   }
 
   @Test
-  public void testFindAllTopLevelDescendantNodes() {
+  void testFindAllTopLevelDescendantNodes() {
     Collection<ParserRuleContext> nodes = Trees.findAllTopLevelDescendantNodes(root, List.of(2));
     assertThat(nodes).hasSize(1);
     assertThat(nodes).contains(grandChild);
   }
 
   @Test
-  public void testFindAllTopLevelDescendantNodesEmpty() {
+  void testFindAllTopLevelDescendantNodesEmpty() {
     Collection<ParserRuleContext> nodes = Trees.findAllTopLevelDescendantNodes(grandChild, List.of(1));
     assertThat(nodes).isEmpty();
   }
 
   @Test
-  public void testParserRuleContextGetTokens() {
+  void testParserRuleContextGetTokens() {
     // Тест нового метода getTokens() в ParserRuleContext
     List<Token> tokens = child1.getTokens();
     assertThat(tokens).hasSize(1);
@@ -307,7 +307,7 @@ public class TreesTest {
   }
 
   @Test
-  public void testParserRuleContextGetText() {
+  void testParserRuleContextGetText() {
     // Тест переопределенного метода getText() с lazy инициализацией
     String text = child1.getText();
     assertThat(text).isNotNull();
@@ -318,14 +318,14 @@ public class TreesTest {
   }
 
   @Test
-  public void testGetIndex() {
+  void testGetIndex() {
     // Тест нового метода getIndex() в ParserRuleContext
     assertThat(child1.getIndex()).isEqualTo(1);
     assertThat(grandChild.getIndex()).isEqualTo(2);
   }
 
   @Test
-  public void testTerminalNodeGetIndex() {
+  void testTerminalNodeGetIndex() {
     // Тест метода getIndex() в TerminalNode
     assertThat(terminal1.getIndex()).isEqualTo(1);
     assertThat(terminal2.getIndex()).isEqualTo(2);

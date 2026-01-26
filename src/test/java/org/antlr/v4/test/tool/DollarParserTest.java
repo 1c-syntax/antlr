@@ -9,7 +9,6 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,8 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DollarParserTest extends AbstractBaseTest {
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSimpleCall() {
+  void testSimpleCall() {
     String grammar = """
       grammar T;
       a : ID  { System.out.println( $parser.getSourceName() ); }

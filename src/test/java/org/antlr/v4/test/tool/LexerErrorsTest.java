@@ -10,7 +10,6 @@
 package org.antlr.v4.test.tool;
 
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -19,8 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LexerErrorsTest extends AbstractBaseTest {
   // TEST DETECTION
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidCharAtStart() {
+  void testInvalidCharAtStart() {
     String grammar =
       """
         lexer grammar L;
@@ -36,8 +34,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testStringsEmbeddedInActions() {
+  void testStringsEmbeddedInActions() {
     String grammar =
       """
         lexer grammar Actions;
@@ -62,8 +59,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEnforcedGreedyNestedBrances() {
+  void testEnforcedGreedyNestedBrances() {
     String grammar =
       """
         lexer grammar R;
@@ -87,8 +83,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidCharAtStartAfterDFACache() {
+  void testInvalidCharAtStartAfterDFACache() {
     String grammar =
       """
         lexer grammar L;
@@ -107,8 +102,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidCharInToken() {
+  void testInvalidCharInToken() {
     String grammar =
       """
         lexer grammar L;
@@ -124,8 +118,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidCharInTokenAfterDFACache() {
+  void testInvalidCharInTokenAfterDFACache() {
     String grammar =
       """
         lexer grammar L;
@@ -144,8 +137,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDFAToATNThatFailsBackToDFA() {
+  void testDFAToATNThatFailsBackToDFA() {
     String grammar =
       """
         lexer grammar L;
@@ -169,8 +161,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDFAToATNThatMatchesThenFailsInATN() {
+  void testDFAToATNThatMatchesThenFailsInATN() {
     String grammar =
       """
         lexer grammar L;
@@ -196,8 +187,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testErrorInMiddle() {
+  void testErrorInMiddle() {
     String grammar =
       """
         lexer grammar L;
@@ -219,8 +209,7 @@ public class LexerErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/46">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerExecDFA() {
+  void testLexerExecDFA() {
     String grammar =
       """
         grammar T;

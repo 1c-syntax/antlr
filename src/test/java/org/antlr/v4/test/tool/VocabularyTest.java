@@ -23,14 +23,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VocabularyTest extends AbstractBaseTest {
 
   @Test
-  public void testEmptyVocabulary() {
+  void testEmptyVocabulary() {
     assertThat(VocabularyImpl.EMPTY_VOCABULARY).isNotNull();
     assertEquals("EOF", VocabularyImpl.EMPTY_VOCABULARY.getSymbolicName(Token.EOF));
     assertEquals("0", VocabularyImpl.EMPTY_VOCABULARY.getDisplayName(Token.INVALID_TYPE));
   }
 
   @Test
-  public void testVocabularyFromTokenNames() {
+  void testVocabularyFromTokenNames() {
     String[] tokenNames = {
       "<INVALID>",
       "TOKEN_REF", "RULE_REF", "'//'", "'/'", "'*'", "'!'", "ID", "STRING"

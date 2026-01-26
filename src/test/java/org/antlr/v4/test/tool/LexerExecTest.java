@@ -9,18 +9,19 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LexerExecTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testQuoteTranslation() {
+  void testQuoteTranslation() {
     String grammar =
       """
         lexer grammar L;
@@ -36,8 +37,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRefToRuleDoesNotSetTokenNorEmitAnother() {
+  void testRefToRuleDoesNotSetTokenNorEmitAnother() {
     String grammar =
       """
         lexer grammar L;
@@ -56,8 +56,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSlashes() {
+  void testSlashes() {
     String grammar =
       """
         lexer grammar L;
@@ -84,8 +83,7 @@ public class LexerExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/224">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testParentheses() {
+  void testParentheses() {
     String grammar =
       """
         lexer grammar Demo;
@@ -110,8 +108,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyTermination() {
+  void testNonGreedyTermination() {
     String grammar =
       """
         lexer grammar L;
@@ -128,8 +125,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyTermination2() {
+  void testNonGreedyTermination2() {
     String grammar =
       """
         lexer grammar L;
@@ -145,8 +141,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testGreedyOptional() {
+  void testGreedyOptional() {
     String grammar =
       """
         lexer grammar L;
@@ -163,8 +158,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyOptional() {
+  void testNonGreedyOptional() {
     String grammar =
       """
         lexer grammar L;
@@ -182,8 +176,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testGreedyClosure() {
+  void testGreedyClosure() {
     String grammar =
       """
         lexer grammar L;
@@ -200,8 +193,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyClosure() {
+  void testNonGreedyClosure() {
     String grammar =
       """
         lexer grammar L;
@@ -219,8 +211,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testGreedyPositiveClosure() {
+  void testGreedyPositiveClosure() {
     String grammar =
       """
         lexer grammar L;
@@ -237,8 +228,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyPositiveClosure() {
+  void testNonGreedyPositiveClosure() {
     String grammar =
       """
         lexer grammar L;
@@ -256,8 +246,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRecursiveLexerRuleRefWithWildcardStar1() {
+  void testRecursiveLexerRuleRefWithWildcardStar1() {
     String grammar =
       """
         lexer grammar L;
@@ -287,8 +276,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRecursiveLexerRuleRefWithWildcardStar2() {
+  void testRecursiveLexerRuleRefWithWildcardStar2() {
     String grammar =
       """
         lexer grammar L;
@@ -321,8 +309,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRecursiveLexerRuleRefWithWildcardPlus1() {
+  void testRecursiveLexerRuleRefWithWildcardPlus1() {
     String grammar =
       """
         lexer grammar L;
@@ -352,8 +339,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRecursiveLexerRuleRefWithWildcardPlus2() {
+  void testRecursiveLexerRuleRefWithWildcardPlus2() {
     String grammar =
       """
         lexer grammar L;
@@ -386,8 +372,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionPlacement() {
+  void testActionPlacement() {
     String grammar =
       """
         lexer grammar L;
@@ -409,8 +394,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testGreedyConfigs() {
+  void testGreedyConfigs() {
     String grammar =
       """
         lexer grammar L;
@@ -429,8 +413,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNonGreedyConfigs() {
+  void testNonGreedyConfigs() {
     String grammar =
       """
         lexer grammar L;
@@ -451,8 +434,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testKeywordID() {
+  void testKeywordID() {
     // has priority
     String grammar =
       """
@@ -476,8 +458,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testHexVsID() {
+  void testHexVsID() {
     String grammar =
       """
         lexer grammar L;
@@ -511,8 +492,7 @@ public class LexerExecTest extends AbstractBaseTest {
 
   // must get DONE EOF
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEOFByItself() {
+  void testEOFByItself() {
     String grammar =
       """
         lexer grammar L;
@@ -529,8 +509,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEOFSuffixInFirstRule() {
+  void testEOFSuffixInFirstRule() {
     String grammar =
       """
         lexer grammar L;
@@ -553,8 +532,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSet() {
+  void testCharSet() {
     String grammar =
       """
         lexer grammar L;
@@ -573,8 +551,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetPlus() {
+  void testCharSetPlus() {
     String grammar =
       """
         lexer grammar L;
@@ -593,8 +570,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetNot() {
+  void testCharSetNot() {
     String grammar =
       """
         lexer grammar L;
@@ -611,8 +587,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetInSet() {
+  void testCharSetInSet() {
     String grammar =
       """
         lexer grammar L;
@@ -631,8 +606,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetRange() {
+  void testCharSetRange() {
     String grammar =
       """
         lexer grammar L;
@@ -647,17 +621,16 @@ public class LexerExecTest extends AbstractBaseTest {
         ID
         ID
         [@0,0:1='34',<1>,1:0]
-        [@1,4:5='34',<1>,1:4]
-        [@2,7:8='a2',<2>,1:7]
-        [@3,10:12='abc',<2>,1:10]
-        [@4,18:17='<EOF>',<-1>,2:3]
+        [@1,4:5='34',<1>,2:1]
+        [@2,7:8='a2',<2>,2:4]
+        [@3,10:12='abc',<2>,2:7]
+        [@4,18:17='<EOF>',<-1>,3:3]
         """;
     assertEquals(expecting, found);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetWithMissingEndRange() {
+  void testCharSetWithMissingEndRange() {
     String grammar =
       """
         lexer grammar L;
@@ -674,8 +647,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetWithMissingEscapeChar() {
+  void testCharSetWithMissingEscapeChar() {
     String grammar =
       """
         lexer grammar L;
@@ -692,8 +664,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetWithEscapedChar() {
+  void testCharSetWithEscapedChar() {
     String grammar =
       """
         lexer grammar L;
@@ -712,8 +683,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetWithQuote() {
+  void testCharSetWithQuote() {
     String grammar =
       """
         lexer grammar L;
@@ -730,8 +700,7 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCharSetWithQuote2() {
+  void testCharSetWithQuote2() {
     String grammar =
       """
         lexer grammar L;
@@ -748,9 +717,18 @@ public class LexerExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPositionAdjustingLexer() throws IOException {
-    String grammar = load("PositionAdjustingLexer.g4", null);
+  void testPositionAdjustingLexer() throws IOException {
+    String fullFileName = "PositionAdjustingLexer.g4";
+    String grammar;
+    try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(fullFileName);
+         InputStreamReader isr = fis != null ? new InputStreamReader(fis, StandardCharsets.UTF_8) : null) {
+      if (fis == null) {
+        throw new IOException("Could not find resource: " + fullFileName);
+      }
+      char[] data = new char[65000];
+      int n = isr.read(data);
+      grammar = new String(data, 0, n);
+    }
     String input =
       """
         tokens
@@ -786,8 +764,7 @@ public class LexerExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/76">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLargeLexer() {
+  void testLargeLexer() {
     StringBuilder grammar = new StringBuilder();
     grammar.append("lexer grammar L;\n");
     grammar.append("WS : [ \\t\\r\\n]+ -> skip;\n");
@@ -813,8 +790,7 @@ public class LexerExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/688">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testZeroLengthToken() {
+  void testZeroLengthToken() {
     String grammar =
       """
         lexer grammar L;

@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CodeGenerationTest extends AbstractBaseTest {
 
   @Test
-  public void testArgDecl() throws Exception { // should use template not string
+  void testArgDecl() throws Exception { // should use template not string
     String g =
       """
         grammar T;
@@ -51,7 +51,7 @@ public class CodeGenerationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void AssignTokenNamesToStringLiteralsInGeneratedParserRuleContexts() throws Exception {
+  void AssignTokenNamesToStringLiteralsInGeneratedParserRuleContexts() throws Exception {
     String g =
       """
         grammar T;
@@ -62,7 +62,7 @@ public class CodeGenerationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void AssignTokenNamesToStringLiteralArraysInGeneratedParserRuleContexts() throws Exception {
+  void AssignTokenNamesToStringLiteralArraysInGeneratedParserRuleContexts() throws Exception {
     String g =
       """
         grammar T;

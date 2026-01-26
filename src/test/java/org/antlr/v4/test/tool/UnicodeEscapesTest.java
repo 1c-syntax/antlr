@@ -16,21 +16,21 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class UnicodeEscapesTest {
   @Test
-  public void latinJavaEscape() {
+  void latinJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0x0061, sb);
     assertEquals("\\u0061", sb.toString());
   }
 
   @Test
-  public void bmpJavaEscape() {
+  void bmpJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0xABCD, sb);
     assertEquals("\\uABCD", sb.toString());
   }
 
   @Test
-  public void smpJavaEscape() {
+  void smpJavaEscape() {
     StringBuilder sb = new StringBuilder();
     UnicodeEscapes.appendJavaStyleEscapedCodePoint(0x1F4A9, sb);
     assertEquals("\\uD83D\\uDCA9", sb.toString());

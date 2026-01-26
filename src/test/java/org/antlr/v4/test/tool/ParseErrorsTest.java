@@ -10,7 +10,6 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.runtime.atn.ATNSerializer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -22,8 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SuppressWarnings("unused")
 public class ParseErrorsTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenMismatch() {
+  void testTokenMismatch() {
     String grammar =
       """
         grammar T;
@@ -35,8 +33,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletion() {
+  void testSingleTokenDeletion() {
     String grammar =
       """
         grammar T;
@@ -48,8 +45,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionExpectingSet() {
+  void testSingleTokenDeletionExpectingSet() {
     String grammar =
       """
         grammar T;
@@ -61,8 +57,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenInsertion() {
+  void testSingleTokenInsertion() {
     String grammar =
       """
         grammar T;
@@ -74,8 +69,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConjuringUpToken() {
+  void testConjuringUpToken() {
     String grammar =
       """
         grammar T;
@@ -86,8 +80,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleSetInsertion() {
+  void testSingleSetInsertion() {
     String grammar =
       """
         grammar T;
@@ -99,8 +92,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConjuringUpTokenFromSet() {
+  void testConjuringUpTokenFromSet() {
     String grammar =
       """
         grammar T;
@@ -111,8 +103,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL2() {
+  void testLL2() {
     String grammar =
       """
         grammar T;
@@ -128,8 +119,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL3() {
+  void testLL3() {
     String grammar =
       """
         grammar T;
@@ -146,8 +136,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLLStar() {
+  void testLLStar() {
     String grammar =
       """
         grammar T;
@@ -163,8 +152,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionBeforeLoop() {
+  void testSingleTokenDeletionBeforeLoop() {
     String grammar =
       """
         grammar T;
@@ -179,8 +167,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionBeforeLoop() {
+  void testMultiTokenDeletionBeforeLoop() {
     // can only delete 1 before loop
     String grammar =
       """
@@ -194,8 +181,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionDuringLoop() {
+  void testSingleTokenDeletionDuringLoop() {
     String grammar =
       """
         grammar T;
@@ -207,8 +193,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionDuringLoop() {
+  void testMultiTokenDeletionDuringLoop() {
     String grammar =
       """
         grammar T;
@@ -226,8 +211,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   // ------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionBeforeLoop2() {
+  void testSingleTokenDeletionBeforeLoop2() {
     String grammar =
       """
         grammar T;
@@ -242,8 +226,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionBeforeLoop2() {
+  void testMultiTokenDeletionBeforeLoop2() {
     // can only delete 1 before loop
     String grammar =
       """
@@ -257,8 +240,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionDuringLoop2() {
+  void testSingleTokenDeletionDuringLoop2() {
     String grammar =
       """
         grammar T;
@@ -270,8 +252,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionDuringLoop2() {
+  void testMultiTokenDeletionDuringLoop2() {
     String grammar =
       """
         grammar T;
@@ -287,8 +268,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL1ErrorInfo() {
+  void testLL1ErrorInfo() {
     String grammar =
       """
         grammar T;
@@ -303,11 +283,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
         WS : ' ' -> skip ;\
         acClass
         @init
-        { System.out.println(getExpectedTokens().toString(tokenNames)); }
+        { System.out.println(getExpectedTokens().toString()); }
           : ;
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", "dog and software", false);
-    String expecting = "{'hardware', 'software'}\n";
+    String expecting = "{4..5}\n";
     assertEquals(expecting, result);
   }
 
@@ -316,8 +296,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/6">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidEmptyInput() {
+  void testInvalidEmptyInput() {
     String grammar =
       """
         grammar T;
@@ -336,8 +315,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/19">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testContextListGetters() {
+  void testContextListGetters() {
     String grammar =
       """
         grammar T;
@@ -379,26 +357,22 @@ public class ParseErrorsTest extends AbstractBaseTest {
 
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall1() {
+  void testDuplicatedLeftRecursiveCall1() {
     testDuplicatedLeftRecursiveCall("x");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall2() {
+  void testDuplicatedLeftRecursiveCall2() {
     testDuplicatedLeftRecursiveCall("xx");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall3() {
+  void testDuplicatedLeftRecursiveCall3() {
     testDuplicatedLeftRecursiveCall("xxx");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall4() {
+  void testDuplicatedLeftRecursiveCall4() {
     testDuplicatedLeftRecursiveCall("xxxx");
   }
 
@@ -407,8 +381,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/44">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConflictingAltAnalysis() {
+  void testConflictingAltAnalysis() {
     String grammar =
       """
         grammar T;
@@ -436,8 +409,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * serialized transitions point to states which were not removed.
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidATNStateRemoval() {
+  void testInvalidATNStateRemoval() {
     String grammar =
       """
         grammar T;
@@ -454,8 +426,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNoViableAltAvoidance() {
+  void testNoViableAltAvoidance() {
     // "a." matches 'a' to rule e but then realizes '.' won't match.
     // previously would cause noviablealt. now prediction pretends to
     // have "a' predict 2nd alt of e. Will get syntax error later so
@@ -478,8 +449,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionConsumption() {
+  void testSingleTokenDeletionConsumption() {
     String grammar =
       """
         grammar T;
@@ -491,8 +461,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleSetInsertionConsumption() {
+  void testSingleSetInsertionConsumption() {
     String grammar =
       """
         grammar T;

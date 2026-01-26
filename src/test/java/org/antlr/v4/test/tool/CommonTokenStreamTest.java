@@ -32,7 +32,7 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
   }
 
   @Test
-  public void testOffChannel() throws Exception {
+  void testOffChannel() throws Exception {
     TokenSource lexer = // simulate input " x =34  ;\n"
       new TokenSource() {
         int i = 0;
@@ -120,7 +120,7 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
   }
 
   @Test
-  public void testFetchOffChannel() throws Exception {
+  void testFetchOffChannel() throws Exception {
     TokenSource lexer = // simulate input " x =34  ; \n"
       // token indexes   01234 56789
       new TokenSource() {
@@ -230,7 +230,7 @@ public class CommonTokenStreamTest extends BufferedTokenStreamTest {
   }
 
   @Test
-  public void testSingleEOF() throws Exception {
+  void testSingleEOF() throws Exception {
     TokenSource lexer = new TokenSource() {
 
       @Override

@@ -109,32 +109,32 @@ M1: 'b';
   };
 
   @Test
-  public void testA() {
+  void testA() {
     super.testErrors(A, false);
   }
 
   @Test
-  public void testB() {
+  void testB() {
     super.testErrors(B, false);
   }
 
   @Test
-  public void testD() {
+  void testD() {
     super.testErrors(D, false);
   }
 
   @Test
-  public void testE() {
+  void testE() {
     super.testErrors(E, false);
   }
 
   @Test
-  public void testF() {
+  void testF() {
     super.testErrors(F, false);
   }
 
   @Test
-  public void testStringLiteralRedefs() throws RecognitionException {
+  void testStringLiteralRedefs() throws RecognitionException {
     String grammar =
       """
         lexer grammar L;
@@ -157,7 +157,7 @@ M1: 'b';
   }
 
   @Test
-  public void testEmptyLexerModeDetection() {
+  void testEmptyLexerModeDetection() {
     String[] test = {
       """
 lexer grammar L;
@@ -172,7 +172,7 @@ fragment B : 'b';""",
   }
 
   @Test
-  public void testEmptyLexerRuleDetection() {
+  void testEmptyLexerRuleDetection() {
     String[] test = {
       """
 lexer grammar L;
@@ -190,7 +190,7 @@ mode X;
   }
 
   @Test
-  public void testTokensModesChannelsDeclarationConflictsWithReserved() {
+  void testTokensModesChannelsDeclarationConflictsWithReserved() {
     String[] test = {
       """
 lexer grammar L;
@@ -213,7 +213,7 @@ C: 'c';""",
   }
 
   @Test
-  public void testTokensModesChannelsUsingConflictsWithReserved() {
+  void testTokensModesChannelsUsingConflictsWithReserved() {
     String[] test = {
       """
 lexer grammar L;
@@ -234,7 +234,7 @@ F: 'f' -> pushMode(DEFAULT_MODE);""",
 
   // https://github.com/antlr/antlr4/issues/1411
   @Test
-  public void testWrongIdForTypeChannelModeCommand() {
+  void testWrongIdForTypeChannelModeCommand() {
     String[] test = {
       """
 lexer grammar L;
@@ -254,7 +254,7 @@ MODE1_TOKEN: 'qwer';""",
 
   // https://github.com/antlr/antlr4/issues/1388
   @Test
-  public void testDuplicatedCommands() {
+  void testDuplicatedCommands() {
     String[] test = {
       """
 lexer grammar Lexer;
@@ -282,7 +282,7 @@ MODE2_TOKEN2: 'h' -> channel(CHANNEL1), channel(CHANNEL2), channel(DEFAULT_TOKEN
 
   // https://github.com/antlr/antlr4/issues/1388
   @Test
-  public void testIncompatibleCommands() {
+  void testIncompatibleCommands() {
     String[] test = {
       """
 lexer grammar L;
@@ -320,7 +320,7 @@ T11: 'a11' -> channel(CHANNEL1), type(TYPE1);""",
 
   // https://github.com/antlr/antlr4/issues/1409
   @Test
-  public void testLabelsForTokensWithMixedTypes() {
+  void testLabelsForTokensWithMixedTypes() {
     String[] test = {
       """
 grammar L;
@@ -377,7 +377,7 @@ C: 'c';
 
   // https://github.com/antlr/antlr4/issues/1543
   @Test
-  public void testLabelsForTokensWithMixedTypesLRWithLabels() {
+  void testLabelsForTokensWithMixedTypesLRWithLabels() {
     String[] test = {
       """
 grammar L;
@@ -400,7 +400,7 @@ C: 'c';
 
   // https://github.com/antlr/antlr4/issues/1543
   @Test
-  public void testLabelsForTokensWithMixedTypesLRWithoutLabels() {
+  void testLabelsForTokensWithMixedTypesLRWithoutLabels() {
     String[] test = {
       """
 grammar L;
@@ -423,8 +423,7 @@ C: 'c';
   }
 
   @Test
-  @Disabled("надо разбираться")
-  public void testCharsCollision() {
+  void testCharsCollision() {
     String[] test = {
       """
 lexer grammar L;
@@ -435,9 +434,9 @@ TOKEN_RANGE_4:    'g'..'l' | [g-l];
 TOKEN_RANGE_WITHOUT_COLLISION: '_' | [a-zA-Z];
 TOKEN_RANGE_WITH_ESCAPED_CHARS: [\\n-\\r] | '\\n'..'\\r';""",
 
-      "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:2:18: chars ''a'..'f'' used multiple times in set: [aa-f]\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:3:18: chars ''D'..'J'' used multiple times in set: [A-FD-J]\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:4:13: chars ''O'..'V'' used multiple times in set: 'Z' | 'K'..'R' | 'O'..'V'\n" +
+      "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:2:18: chars 'a-f' used multiple times in set: [aa-f]\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:3:18: chars 'D-J' used multiple times in set: [A-FD-J]\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:4:13: chars 'O-V' used multiple times in set: 'Z' | 'K'..'R' | 'O'..'V'\n" +
         "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4::: chars ''g'' used multiple times in set: 'g'..'l'\n" +
         "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4::: chars ''\\n'' used multiple times in set: '\\n'..'\\r'\n"
     };
@@ -446,7 +445,7 @@ TOKEN_RANGE_WITH_ESCAPED_CHARS: [\\n-\\r] | '\\n'..'\\r';""",
   }
 
   @Test
-  public void testUnreachableTokens() {
+  void testUnreachableTokens() {
     String[] test = {
       """
 lexer grammar Test;

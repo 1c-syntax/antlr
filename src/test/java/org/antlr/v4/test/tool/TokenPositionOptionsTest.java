@@ -24,7 +24,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class TokenPositionOptionsTest extends AbstractBaseTest {
   @Test
-  public void testLeftRecursionRewrite() throws Exception {
+  void testLeftRecursionRewrite() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -72,7 +72,7 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLeftRecursionWithLabels() throws Exception {
+  void testLeftRecursionWithLabels() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -120,7 +120,7 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLeftRecursionWithSet() throws Exception {
+  void testLeftRecursionWithSet() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;

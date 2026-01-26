@@ -16,7 +16,6 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.runtime.tree.xpath.XPath;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -25,7 +24,6 @@ import java.util.List;
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class XPathTest extends AbstractBaseTest {
   public static final String grammar = """
     grammar Expr;
@@ -64,7 +62,7 @@ public class XPathTest extends AbstractBaseTest {
     """;
 
   @Test
-  public void testValidPaths() throws Exception {
+  void testValidPaths() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -100,7 +98,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testWeirdChar() throws Exception {
+  void testWeirdChar() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -111,7 +109,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testWeirdChar2() throws Exception {
+  void testWeirdChar2() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -122,7 +120,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadSyntax() throws Exception {
+  void testBadSyntax() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -133,7 +131,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMissingWordAtEnd() throws Exception {
+  void testMissingWordAtEnd() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -144,7 +142,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadTokenName() throws Exception {
+  void testBadTokenName() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -155,7 +153,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadRuleName() throws Exception {
+  void testBadRuleName() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 

@@ -10,10 +10,12 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,8 +54,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ParserExecTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabels() {
+  void testLabels() {
     String grammar =
       """
         grammar T;
@@ -76,8 +77,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/270">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testListLabelOnSet() {
+  void testListLabelOnSet() {
     String grammar =
       """
         grammar T;
@@ -96,8 +96,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBasic() {
+  void testBasic() {
     String grammar =
       """
         grammar T;
@@ -113,8 +112,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAorB() {
+  void testAorB() {
     String grammar =
       """
         grammar T;
@@ -132,8 +130,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAPlus() {
+  void testAPlus() {
     String grammar =
       """
         grammar T;
@@ -149,8 +146,7 @@ public class ParserExecTest extends AbstractBaseTest {
 
   // force complex decision
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAorAPlus() {
+  void testAorAPlus() {
     String grammar =
       """
         grammar T;
@@ -175,8 +171,7 @@ public class ParserExecTest extends AbstractBaseTest {
       """;
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIfIfElseGreedyBinding1() {
+  void testIfIfElseGreedyBinding1() {
     final String input = "if y if y x else x";
     final String expectedInnerBound = "if y x else x\nif y if y x else x\n";
 
@@ -187,8 +182,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIfIfElseGreedyBinding2() {
+  void testIfIfElseGreedyBinding2() {
     final String input = "if y if y x else x";
     final String expectedInnerBound = "if y x else x\nif y if y x else x\n";
 
@@ -198,8 +192,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIfIfElseNonGreedyBinding() {
+  void testIfIfElseNonGreedyBinding() {
     final String input = "if y if y x else x";
     final String expectedOuterBound = "if y x\nif y if y x else x\n";
 
@@ -213,8 +206,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAStar() {
+  void testAStar() {
     String grammar =
       """
         grammar T;
@@ -232,8 +224,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL1OptionalBlock() {
+  void testLL1OptionalBlock() {
     String grammar =
       """
         grammar T;
@@ -253,8 +244,7 @@ public class ParserExecTest extends AbstractBaseTest {
 
   // force complex decision
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAorAStar() {
+  void testAorAStar() {
     String grammar =
       """
         grammar T;
@@ -272,8 +262,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAorBPlus() {
+  void testAorBPlus() {
     String grammar =
       """
         grammar T;
@@ -289,8 +278,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAorBStar() {
+  void testAorBStar() {
     String grammar =
       """
         grammar T;
@@ -314,8 +302,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/41">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testOptional1() {
+  void testOptional1() {
     String grammar =
       """
         grammar T;
@@ -329,8 +316,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testOptional2() {
+  void testOptional2() {
     String grammar =
       """
         grammar T;
@@ -344,8 +330,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testOptional3() {
+  void testOptional3() {
     String grammar =
       """
         grammar T;
@@ -359,8 +344,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testOptional4() {
+  void testOptional4() {
     String grammar =
       """
         grammar T;
@@ -378,8 +362,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/42">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPredicatedIfIfElse() {
+  void testPredicatedIfIfElse() {
     String grammar =
       """
         grammar T;
@@ -403,8 +386,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/195">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabelAliasingAcrossLabeledAlternatives() {
+  void testLabelAliasingAcrossLabeledAlternatives() {
     String grammar =
       """
         grammar T;
@@ -428,8 +410,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/334">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPredictionIssue334() {
+  void testPredictionIssue334() {
     String grammar =
       """
         grammar T;
@@ -461,8 +442,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/299">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testListLabelForClosureContext() {
+  void testListLabelForClosureContext() {
     String grammar =
       """
         grammar T;
@@ -496,8 +476,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * {@code EOF} inside of parser rules.
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleEOFHandling() {
+  void testMultipleEOFHandling() {
     String grammar =
       """
         grammar T;
@@ -515,8 +494,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * inside a closure.
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEOFInClosure() {
+  void testEOFInClosure() {
     String grammar =
       """
         grammar T;
@@ -535,8 +513,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/561">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReferenceToATN() {
+  void testReferenceToATN() {
     String grammar =
       """
         grammar T;
@@ -560,9 +537,18 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/588">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testFailedPredicateExceptionState() throws IOException {
-    String grammar = load("Psl.g4", "UTF-8");
+  void testFailedPredicateExceptionState() throws IOException {
+    String fullFileName = "Psl.g4";
+    String grammar;
+    try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(fullFileName);
+         InputStreamReader isr = fis != null ? new InputStreamReader(fis, StandardCharsets.UTF_8) : null) {
+      if (fis == null) {
+        throw new IOException("Could not find resource: " + fullFileName);
+      }
+      char[] data = new char[65000];
+      int n = isr.read(data);
+      grammar = new String(data, 0, n);
+    }
     String found = execParser("Psl.g4", grammar, "PslParser", "PslLexer", "floating_constant", " . 234", false);
     assertEquals("", found);
     assertEquals("line 1:6 rule floating_constant DEC:A floating-point constant cannot have internal white space\n", stderrDuringParse);
@@ -574,8 +560,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/563">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAlternateQuotes() {
+  void testAlternateQuotes() {
     String lexerGrammar =
       """
         lexer grammar ModeTagsLexer;
@@ -618,8 +603,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/tunnelvisionlabs/antlr4cs/issues/71">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCSharpIssue71() {
+  void testCSharpIssue71() {
     String grammar =
       """
         grammar Expr;
@@ -676,8 +660,7 @@ public class ParserExecTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/672">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAttributeValueInitialization() {
+  void testAttributeValueInitialization() {
     String grammar =
       """
         grammar Data;\s
@@ -702,8 +685,7 @@ public class ParserExecTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testParserProperty() {
+  void testParserProperty() {
     String grammar =
       """
         grammar T;

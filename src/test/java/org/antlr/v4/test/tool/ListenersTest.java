@@ -9,15 +9,13 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
 public class ListenersTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBasic() {
+  void testBasic() {
     String grammar =
       """
         grammar T;
@@ -54,8 +52,7 @@ public class ListenersTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenGetters() {
+  void testTokenGetters() {
     String grammar =
       """
         grammar T;
@@ -99,8 +96,7 @@ public class ListenersTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRuleGetters() {
+  void testRuleGetters() {
     // forces list
     // a list still
     String grammar =
@@ -149,8 +145,7 @@ public class ListenersTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLR() {
+  void testLR() {
     String grammar =
       """
         grammar T;
@@ -196,8 +191,7 @@ public class ListenersTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLRWithLabels() {
+  void testLRWithLabels() {
     String grammar =
       """
         grammar T;

@@ -9,16 +9,14 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class SemPredEvalLexerTest extends AbstractBaseTest {
 
   @Test
-  public void testDisableRule() {
+  void testDisableRule() {
     // winner not E1 or ID
     String grammar =
       """
@@ -45,7 +43,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testIDvsEnum() {
+  void testIDvsEnum() {
     String grammar =
       """
         lexer grammar L;
@@ -71,7 +69,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testIDnotEnum() {
+  void testIDnotEnum() {
     String grammar =
       """
         lexer grammar L;
@@ -91,7 +89,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEnumNotID() {
+  void testEnumNotID() {
     String grammar =
       """
         lexer grammar L;
@@ -111,7 +109,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testIndent() {
+  void testIndent() {
     String grammar =
       """
         lexer grammar L;
@@ -150,7 +148,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerInputPositionSensitivePredicates() {
+  void testLexerInputPositionSensitivePredicates() {
     String grammar =
       """
         lexer grammar L;
@@ -177,7 +175,7 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPredicatedKeywords() {
+  void testPredicatedKeywords() {
     String grammar =
       """
         lexer grammar A;

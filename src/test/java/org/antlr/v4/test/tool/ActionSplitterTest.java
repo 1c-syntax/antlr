@@ -40,7 +40,7 @@ public class ActionSplitterTest extends AbstractBaseTest {
 
 
   @Test
-  public void testExprs() {
+  void testExprs() {
     for (int i = 0; i < exprs.length; i += 2) {
       String input = exprs[i];
       String expect = exprs[i + 1];

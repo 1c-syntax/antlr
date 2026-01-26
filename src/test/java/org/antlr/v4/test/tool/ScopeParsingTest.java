@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-@Disabled("Частично работает")
+@Disabled("Requires further investigation and fixes")
 public class ScopeParsingTest extends AbstractBaseTest {
   @ValueSource(strings = {
     "int i|i:int",

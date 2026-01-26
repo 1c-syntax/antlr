@@ -36,7 +36,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class AmbigParseTreesTest {
   @Test
-  public void testParseDecisionWithinAmbiguousStartRule() throws Exception {
+  void testParseDecisionWithinAmbiguousStartRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -59,7 +59,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltsAtRoot() throws Exception {
+  void testAmbigAltsAtRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -91,7 +91,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltsNotAtRoot() throws Exception {
+  void testAmbigAltsNotAtRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -125,7 +125,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltDipsIntoOuterContextToRoot() throws Exception {
+  void testAmbigAltDipsIntoOuterContextToRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -156,7 +156,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltDipsIntoOuterContextBelowRoot() throws Exception {
+  void testAmbigAltDipsIntoOuterContextBelowRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;

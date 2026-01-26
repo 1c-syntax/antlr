@@ -10,7 +10,6 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.tool.ErrorType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -23,8 +22,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSimple() {
+  void testSimple() {
     String grammar =
       """
         grammar T;
@@ -57,8 +55,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/161">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDirectCallToLeftRecursiveRule() {
+  void testDirectCallToLeftRecursiveRule() {
     String grammar =
       """
         grammar T;
@@ -85,8 +82,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSemPred() {
+  void testSemPred() {
     String grammar =
       """
         grammar T;
@@ -104,8 +100,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSemPredFailOption() {
+  void testSemPredFailOption() {
     String grammar =
       """
         grammar T;
@@ -124,8 +119,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTernaryExpr() {
+  void testTernaryExpr() {
     // must indicate EOF can follow or 'a<EOF>' won't match
     String grammar =
       """
@@ -160,8 +154,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/542">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTernaryExprExplicitAssociativity() {
+  void testTernaryExprExplicitAssociativity() {
     // must indicate EOF can follow or 'a<EOF>' won't match
     String grammar =
       """
@@ -191,8 +184,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testExpressions() {
+  void testExpressions() {
     // must indicate EOF can follow
     String grammar =
       """
@@ -223,8 +215,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testJavaExpressions() {
+  void testJavaExpressions() {
     // Generates about 7k in bytecodes for generated e_ rule;
     // Well within the 64k method limit. e_primary compiles
     // to about 2k in bytecodes.
@@ -307,8 +298,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDeclarations() {
+  void testDeclarations() {
     // must indicate EOF can follow
     // binds less tight than suffixes
     String grammar =
@@ -344,8 +334,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActions() {
+  void testReturnValueAndActions() {
     String grammar =
       """
         grammar T;
@@ -377,8 +366,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * operator (similar to a ternary operator).</p>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsList1() {
+  void testReturnValueAndActionsList1() {
     String grammar =
       """
         grammar T;
@@ -412,8 +400,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <p>This test treats the {@code ,} and {@code >>} operators separately.</p>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsList2() {
+  void testReturnValueAndActionsList2() {
     String grammar =
       """
         grammar T;
@@ -441,8 +428,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabelsOnOpSubrule() {
+  void testLabelsOnOpSubrule() {
     String grammar =
       """
         grammar T;
@@ -463,8 +449,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsAndLabels() {
+  void testReturnValueAndActionsAndLabels() {
     String grammar =
       """
         grammar T;
@@ -500,8 +485,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/433">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleAlternativesWithCommonLabel() {
+  void testMultipleAlternativesWithCommonLabel() {
     String grammar =
       """
         grammar T;
@@ -533,8 +517,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPrefixOpWithActionAndLabel() {
+  void testPrefixOpWithActionAndLabel() {
     String grammar =
       """
         grammar T;
@@ -558,8 +541,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAmbigLR() {
+  void testAmbigLR() {
     String grammar =
       """
         grammar Expr;
@@ -601,7 +583,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCheckForNonLeftRecursiveRule() {
+  void testCheckForNonLeftRecursiveRule() {
     String grammar =
       """
         grammar T;
@@ -617,7 +599,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCheckForLeftRecursiveEmptyFollow() {
+  void testCheckForLeftRecursiveEmptyFollow() {
     String grammar =
       """
         grammar T;
@@ -639,8 +621,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/239">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testWhitespaceInfluence() {
+  void testWhitespaceInfluence() {
     String grammar =
       """
         grammar Expr;
@@ -713,8 +694,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/509">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPrecedenceFilterConsidersContext() {
+  void testPrecedenceFilterConsidersContext() {
     String grammar =
       """
         grammar T;
@@ -736,8 +716,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/625">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleActions() {
+  void testMultipleActions() {
     String grammar =
       """
         grammar T;
@@ -763,8 +742,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/625">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleActionsPredicatesOptions() {
+  void testMultipleActionsPredicatesOptions() {
     String grammar =
       """
         grammar T;

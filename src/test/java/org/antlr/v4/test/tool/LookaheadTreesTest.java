@@ -43,7 +43,7 @@ public class LookaheadTreesTest {
       """;
 
   @Test
-  public void testAlts() throws Exception {
+  void testAlts() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -63,7 +63,7 @@ public class LookaheadTreesTest {
   }
 
   @Test
-  public void testIncludeEOF() throws Exception {
+  void testIncludeEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -81,7 +81,7 @@ public class LookaheadTreesTest {
   }
 
   @Test
-  public void testCallLeftRecursiveRule() throws Exception {
+  void testCallLeftRecursiveRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """

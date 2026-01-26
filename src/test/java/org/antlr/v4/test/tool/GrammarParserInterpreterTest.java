@@ -37,7 +37,7 @@ public class GrammarParserInterpreterTest {
     """;
 
   @Test
-  public void testAlts() throws Exception {
+  void testAlts() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -52,7 +52,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testAltsAsSet() throws Exception {
+  void testAltsAsSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -67,7 +67,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testAltsWithLabels() throws Exception {
+  void testAltsWithLabels() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -83,7 +83,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testOneAlt() throws Exception {
+  void testOneAlt() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -97,7 +97,7 @@ public class GrammarParserInterpreterTest {
 
 
   @Test
-  public void testLeftRecursionWithMultiplePrimaryAndRecursiveOps() throws Exception {
+  void testLeftRecursionWithMultiplePrimaryAndRecursiveOps() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """

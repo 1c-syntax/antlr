@@ -30,7 +30,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_$_$() {
+  void test_$_$() {
     PredictionContext r = contextCache.join(PredictionContext.EMPTY_LOCAL,
       PredictionContext.EMPTY_LOCAL);
     System.out.println(toDOTString(r));
@@ -45,7 +45,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_$_$_fullctx() {
+  void test_$_$_fullctx() {
     PredictionContext r = contextCache.join(PredictionContext.EMPTY_FULL,
       PredictionContext.EMPTY_FULL);
     System.out.println(toDOTString(r));
@@ -60,7 +60,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_x_$() {
+  void test_x_$() {
     PredictionContext r = contextCache.join(x(false), PredictionContext.EMPTY_LOCAL);
     System.out.println(toDOTString(r));
     String expecting =
@@ -74,7 +74,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_x_$_fullctx() {
+  void test_x_$_fullctx() {
     PredictionContext r = contextCache.join(x(true), PredictionContext.EMPTY_FULL);
     System.out.println(toDOTString(r));
     String expecting =
@@ -90,7 +90,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_$_x() {
+  void test_$_x() {
     PredictionContext r = contextCache.join(PredictionContext.EMPTY_LOCAL, x(false));
     System.out.println(toDOTString(r));
     String expecting =
@@ -104,7 +104,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_$_x_fullctx() {
+  void test_$_x_fullctx() {
     PredictionContext r = contextCache.join(PredictionContext.EMPTY_FULL, x(true));
     System.out.println(toDOTString(r));
     String expecting =
@@ -120,7 +120,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a_a() {
+  void test_a_a() {
     PredictionContext r = contextCache.join(a(false), a(false));
     System.out.println(toDOTString(r));
     String expecting =
@@ -136,7 +136,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a$_ax() {
+  void test_a$_ax() {
     PredictionContext a1 = a(false);
     PredictionContext x = x(false);
     PredictionContext a2 = createSingleton(x, 1);
@@ -155,7 +155,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a$_ax_fullctx() {
+  void test_a$_ax_fullctx() {
     PredictionContext a1 = a(true);
     PredictionContext x = x(true);
     PredictionContext a2 = createSingleton(x, 1);
@@ -176,7 +176,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax$_a$() {
+  void test_ax$_a$() {
     PredictionContext x = x(false);
     PredictionContext a1 = createSingleton(x, 1);
     PredictionContext a2 = a(false);
@@ -195,7 +195,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_aa$_a$_$_fullCtx() {
+  void test_aa$_a$_$_fullCtx() {
     PredictionContext empty = PredictionContext.EMPTY_FULL;
     PredictionContext child1 = createSingleton(empty, 8);
     PredictionContext right = contextCache.join(empty, child1);
@@ -218,7 +218,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax$_a$_fullctx() {
+  void test_ax$_a$_fullctx() {
     PredictionContext x = x(true);
     PredictionContext a1 = createSingleton(x, 1);
     PredictionContext a2 = a(true);
@@ -239,7 +239,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a_b() {
+  void test_a_b() {
     PredictionContext r = contextCache.join(a(false), b(false));
     System.out.println(toDOTString(r));
     String expecting =
@@ -256,7 +256,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax_ax_same() {
+  void test_ax_ax_same() {
     PredictionContext x = x(false);
     PredictionContext a1 = createSingleton(x, 1);
     PredictionContext a2 = createSingleton(x, 1);
@@ -277,7 +277,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax_ax() {
+  void test_ax_ax() {
     PredictionContext x1 = x(false);
     PredictionContext x2 = x(false);
     PredictionContext a1 = createSingleton(x1, 1);
@@ -299,7 +299,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_abx_abx() {
+  void test_abx_abx() {
     PredictionContext x1 = x(false);
     PredictionContext x2 = x(false);
     PredictionContext b1 = createSingleton(x1, 2);
@@ -325,7 +325,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_abx_acx() {
+  void test_abx_acx() {
     PredictionContext x1 = x(false);
     PredictionContext x2 = x(false);
     PredictionContext b = createSingleton(x1, 2);
@@ -352,7 +352,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax_bx_same() {
+  void test_ax_bx_same() {
     PredictionContext x = x(false);
     PredictionContext a = createSingleton(x, 1);
     PredictionContext b = createSingleton(x, 2);
@@ -374,7 +374,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax_bx() {
+  void test_ax_bx() {
     PredictionContext x1 = x(false);
     PredictionContext x2 = x(false);
     PredictionContext a = createSingleton(x1, 1);
@@ -397,7 +397,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_ax_by() {
+  void test_ax_by() {
     PredictionContext a = createSingleton(x(false), 1);
     PredictionContext b = createSingleton(y(false), 2);
     PredictionContext r = contextCache.join(a, b);
@@ -420,7 +420,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a$_bx() {
+  void test_a$_bx() {
     PredictionContext x2 = x(false);
     PredictionContext a = a(false);
     PredictionContext b = createSingleton(x2, 2);
@@ -442,7 +442,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_a$_bx_fullctx() {
+  void test_a$_bx_fullctx() {
     PredictionContext x2 = x(true);
     PredictionContext a = a(true);
     PredictionContext b = createSingleton(x2, 2);
@@ -464,7 +464,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_aex_bfx() {
+  void test_aex_bfx() {
     PredictionContext x1 = x(false);
     PredictionContext x2 = x(false);
     PredictionContext e = createSingleton(x1, 5);
@@ -495,7 +495,7 @@ public class GraphNodesTest {
   // Array merges
 
   @Test
-  public void test_A$_A$_fullctx() {
+  void test_A$_A$_fullctx() {
     PredictionContext A1 = array(PredictionContext.EMPTY_FULL);
     PredictionContext A2 = array(PredictionContext.EMPTY_FULL);
     PredictionContext r = contextCache.join(A1, A2);
@@ -511,7 +511,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aab_Ac() { // a,b + c
+  void test_Aab_Ac() { // a,b + c
     PredictionContext a = a(false);
     PredictionContext b = b(false);
     PredictionContext c = c(false);
@@ -534,7 +534,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aa_Aa() {
+  void test_Aa_Aa() {
     PredictionContext a1 = a(false);
     PredictionContext a2 = a(false);
     PredictionContext A1 = array(a1);
@@ -554,7 +554,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aa_Abc() { // a + b,c
+  void test_Aa_Abc() { // a + b,c
     PredictionContext a = a(false);
     PredictionContext b = b(false);
     PredictionContext c = c(false);
@@ -577,7 +577,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aac_Ab() { // a,c + b
+  void test_Aac_Ab() { // a,c + b
     PredictionContext a = a(false);
     PredictionContext b = b(false);
     PredictionContext c = c(false);
@@ -600,7 +600,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aab_Aa() { // a,b + a
+  void test_Aab_Aa() { // a,b + a
     PredictionContext A1 = array(a(false), b(false));
     PredictionContext A2 = array(a(false));
     PredictionContext r = contextCache.join(A1, A2);
@@ -619,7 +619,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aab_Ab() { // a,b + b
+  void test_Aab_Ab() { // a,b + b
     PredictionContext A1 = array(a(false), b(false));
     PredictionContext A2 = array(b(false));
     PredictionContext r = contextCache.join(A1, A2);
@@ -638,7 +638,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aax_Aby() { // ax + by but in arrays
+  void test_Aax_Aby() { // ax + by but in arrays
     PredictionContext a = createSingleton(x(false), 1);
     PredictionContext b = createSingleton(y(false), 2);
     PredictionContext A1 = array(a);
@@ -663,7 +663,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aax_Aay() { // ax + ay -> merged singleton a, array parent
+  void test_Aax_Aay() { // ax + ay -> merged singleton a, array parent
     PredictionContext a1 = createSingleton(x(false), 1);
     PredictionContext a2 = createSingleton(y(false), 1);
     PredictionContext A1 = array(a1);
@@ -686,7 +686,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaxc_Aayd() { // ax,c + ay,d -> merged a, array parent
+  void test_Aaxc_Aayd() { // ax,c + ay,d -> merged a, array parent
     PredictionContext a1 = createSingleton(x(false), 1);
     PredictionContext a2 = createSingleton(y(false), 1);
     PredictionContext A1 = array(a1, c(false));
@@ -711,7 +711,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaubv_Acwdx() { // au,bv + cw,dx -> [a,b,c,d]->[u,v,w,x]
+  void test_Aaubv_Acwdx() { // au,bv + cw,dx -> [a,b,c,d]->[u,v,w,x]
     PredictionContext a = createSingleton(u(false), 1);
     PredictionContext b = createSingleton(v(false), 2);
     PredictionContext c = createSingleton(w(false), 3);
@@ -744,7 +744,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaubv_Abvdx() { // au,bv + bv,dx -> [a,b,d]->[u,v,x]
+  void test_Aaubv_Abvdx() { // au,bv + bv,dx -> [a,b,d]->[u,v,x]
     PredictionContext a = createSingleton(u(false), 1);
     PredictionContext b1 = createSingleton(v(false), 2);
     PredictionContext b2 = createSingleton(v(false), 2);
@@ -774,7 +774,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaubv_Abwdx() { // au,bv + bw,dx -> [a,b,d]->[u,[v,w],x]
+  void test_Aaubv_Abwdx() { // au,bv + bw,dx -> [a,b,d]->[u,[v,w],x]
     PredictionContext a = createSingleton(u(false), 1);
     PredictionContext b1 = createSingleton(v(false), 2);
     PredictionContext b2 = createSingleton(w(false), 2);
@@ -805,7 +805,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaubv_Abvdu() { // au,bv + bv,du -> [a,b,d]->[u,v,u]; u,v shared
+  void test_Aaubv_Abvdu() { // au,bv + bv,du -> [a,b,d]->[u,v,u]; u,v shared
     PredictionContext a = createSingleton(u(false), 1);
     PredictionContext b1 = createSingleton(v(false), 2);
     PredictionContext b2 = createSingleton(v(false), 2);
@@ -833,7 +833,7 @@ public class GraphNodesTest {
   }
 
   @Test
-  public void test_Aaubu_Acudu() { // au,bu + cu,du -> [a,b,c,d]->[u,u,u,u]
+  void test_Aaubu_Acudu() { // au,bu + cu,du -> [a,b,c,d]->[u,u,u,u]
     PredictionContext a = createSingleton(u(false), 1);
     PredictionContext b = createSingleton(u(false), 2);
     PredictionContext c = createSingleton(u(false), 3);

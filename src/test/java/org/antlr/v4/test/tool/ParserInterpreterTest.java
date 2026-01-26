@@ -23,7 +23,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 public class ParserInterpreterTest extends AbstractBaseTest {
 
   @Test
-  public void testEmptyStartRule() throws Exception {
+  void testEmptyStartRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -38,7 +38,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testA() throws Exception {
+  void testA() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -55,7 +55,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOF() throws Exception {
+  void testEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -72,7 +72,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOFInChild() throws Exception {
+  void testEOFInChild() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -91,7 +91,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyRuleAfterEOFInChild() throws Exception {
+  void testEmptyRuleAfterEOFInChild() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -111,7 +111,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyRuleAfterJustEOFInChild() throws Exception {
+  void testEmptyRuleAfterJustEOFInChild() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -132,7 +132,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyInput() throws Exception {
+  void testEmptyInput() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -152,7 +152,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyInputWithCallsAfter() throws Exception {
+  void testEmptyInputWithCallsAfter() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -173,7 +173,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyFirstRule() throws Exception {
+  void testEmptyFirstRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -194,7 +194,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorB() throws Exception {
+  void testAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -212,7 +212,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCall() throws Exception {
+  void testCall() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -233,7 +233,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCall2() throws Exception {
+  void testCall2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -255,7 +255,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalA() throws Exception {
+  void testOptionalA() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -275,7 +275,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalAorB() throws Exception {
+  void testOptionalAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -296,7 +296,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testStarA() throws Exception {
+  void testStarA() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -317,7 +317,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testStarAorB() throws Exception {
+  void testStarAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -340,7 +340,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLeftRecursion() throws Exception {
+  void testLeftRecursion() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -374,7 +374,7 @@ public class ParserInterpreterTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/461">...</a>
    */
   @Test
-  public void testLeftRecursiveStartRule() throws Exception {
+  void testLeftRecursiveStartRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;

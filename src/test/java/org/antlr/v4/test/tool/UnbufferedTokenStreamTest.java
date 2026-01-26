@@ -27,7 +27,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class UnbufferedTokenStreamTest extends AbstractBaseTest {
   @Test
-  public void testLookahead() throws Exception {
+  void testLookahead() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -54,7 +54,7 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNoBuffering() throws Exception {
+  void testNoBuffering() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -92,7 +92,7 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMarkStart() throws Exception {
+  void testMarkStart() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -129,7 +129,7 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMarkThenRelease() throws Exception {
+  void testMarkThenRelease() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;

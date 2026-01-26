@@ -9,7 +9,6 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -18,8 +17,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   // ----- ACTIONS --------------------------------------------------------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionExecutedInDFA() {
+  void testActionExecutedInDFA() {
     String grammar =
       """
         lexer grammar L;
@@ -38,8 +36,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionEvalsAtCorrectIndex() {
+  void testActionEvalsAtCorrectIndex() {
     String grammar =
       """
         lexer grammar L;
@@ -63,8 +60,7 @@ public class LexerActionsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/469">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEvalMultipleActions() {
+  void testEvalMultipleActions() {
     String grammar =
       """
         lexer grammar L;
@@ -110,8 +106,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test2ActionsIn1Rule() {
+  void test2ActionsIn1Rule() {
     String grammar =
       """
         lexer grammar L;
@@ -132,8 +127,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAltActionsIn1Rule() {
+  void testAltActionsIn1Rule() {
     String grammar =
       """
         lexer grammar L;
@@ -156,8 +150,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionPlusCommand() {
+  void testActionPlusCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -176,8 +169,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   // ----- COMMANDS --------------------------------------------------------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSkipCommand() {
+  void testSkipCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -196,8 +188,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMoreCommand() {
+  void testMoreCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -216,8 +207,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTypeCommand() {
+  void testTypeCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -235,8 +225,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCombinedCommand() {
+  void testCombinedCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -255,8 +244,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerMode() {
+  void testLexerMode() {
     String grammar =
       """
         lexer grammar L;
@@ -277,8 +265,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerPushPopModeAction() {
+  void testLexerPushPopModeAction() {
     // token type 2
     String grammar =
       """
@@ -300,8 +287,7 @@ public class LexerActionsTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerModeAction() {
+  void testLexerModeAction() {
     // ttype 2 since '"' ambiguity
     String grammar =
       """
@@ -330,8 +316,7 @@ public class LexerActionsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/398">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testFailingPredicateEvalIsNotCached() {
+  void testFailingPredicateEvalIsNotCached() {
     String grammar =
       """
         lexer grammar TestLexer;

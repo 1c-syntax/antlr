@@ -18,7 +18,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class FastQueueTest {
   @Test
-  public void testQueueNoRemove() {
+  void testQueueNoRemove() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -31,7 +31,7 @@ public class FastQueueTest {
   }
 
   @Test
-  public void testQueueThenRemoveAll() {
+  void testQueueThenRemoveAll() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -51,7 +51,7 @@ public class FastQueueTest {
   }
 
   @Test
-  public void testQueueThenRemoveOneByOne() {
+  void testQueueThenRemoveOneByOne() {
     StringBuilder buf = new StringBuilder();
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
@@ -73,7 +73,7 @@ public class FastQueueTest {
   // E r r o r s
 
   @Test
-  public void testGetFromEmptyQueue() {
+  void testGetFromEmptyQueue() {
     FastQueue<String> q = new FastQueue<>();
     String msg = null;
     try {
@@ -87,7 +87,7 @@ public class FastQueueTest {
   }
 
   @Test
-  public void testGetFromEmptyQueueAfterSomeAdds() {
+  void testGetFromEmptyQueueAfterSomeAdds() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -105,7 +105,7 @@ public class FastQueueTest {
   }
 
   @Test
-  public void testGetFromEmptyQueueAfterClear() {
+  void testGetFromEmptyQueueAfterClear() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");

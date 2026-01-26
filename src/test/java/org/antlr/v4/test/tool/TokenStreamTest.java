@@ -28,7 +28,7 @@ public class TokenStreamTest {
    * This is a targeted regression test for antlr/antlr4#1584 ({@link BufferedTokenStream} cannot be reused after EOF).
    */
   @Test
-  public void testBufferedTokenStreamReuseAfterFill() {
+  void testBufferedTokenStreamReuseAfterFill() {
     CharStream firstInput = CharStreams.fromString("A");
     BufferedTokenStream tokenStream = new BufferedTokenStream(new XPathLexer(firstInput));
     tokenStream.fill();

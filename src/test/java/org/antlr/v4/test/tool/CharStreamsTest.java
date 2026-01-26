@@ -43,7 +43,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromBMPStringHasExpectedSize() {
+  void fromBMPStringHasExpectedSize() {
     CharStream s = CharStreams.fromString("hello");
     assertEquals(5, s.size());
     assertEquals(0, s.index());
@@ -51,7 +51,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPStringHasExpectedSize() {
+  void fromSMPStringHasExpectedSize() {
     CharStream s = CharStreams.fromString(
       "hello \uD83C\uDF0E");
     assertEquals(7, s.size());
@@ -60,7 +60,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromBMPUTF8PathHasExpectedSize() throws Exception {
+  void fromBMPUTF8PathHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFile(p);
@@ -71,7 +71,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF8PathHasExpectedSize() throws Exception {
+  void fromSMPUTF8PathHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFile(p);
@@ -82,7 +82,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromBMPUTF8InputStreamHasExpectedSize() throws Exception {
+  void fromBMPUTF8InputStreamHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     try (InputStream is = new FileInputStream(p)) {
@@ -94,7 +94,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF8InputStreamHasExpectedSize() throws Exception {
+  void fromSMPUTF8InputStreamHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (InputStream is = new FileInputStream(p)) {
@@ -106,7 +106,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromBMPUTF8ChannelHasExpectedSize() throws Exception {
+  void fromBMPUTF8ChannelHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
@@ -120,7 +120,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF8ChannelHasExpectedSize() throws Exception {
+  void fromSMPUTF8ChannelHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
@@ -134,7 +134,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromInvalidUTF8BytesChannelReplacesWithSubstCharInReplaceMode()
+  void fromInvalidUTF8BytesChannelReplacesWithSubstCharInReplaceMode()
     throws Exception {
     File p = tempFile.toFile();
     byte[] toWrite = new byte[]{(byte) 0xCA, (byte) 0xFE, (byte) 0xFE, (byte) 0xED};
@@ -149,7 +149,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF8SequenceStraddlingBufferBoundary() throws Exception {
+  void fromSMPUTF8SequenceStraddlingBufferBoundary() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
@@ -167,7 +167,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromFileName() throws Exception {
+  void fromFileName() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFileName(p.toString());
@@ -179,7 +179,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromFileNameWithLatin1() throws Exception {
+  void fromFileNameWithLatin1() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \u00CA\u00FE".getBytes(StandardCharsets.ISO_8859_1));
     CharStream s = CharStreams.fromFileName(p.toString(), StandardCharsets.ISO_8859_1);
@@ -191,7 +191,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromReader() throws Exception {
+  void fromReader() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (Reader r = new InputStreamReader(new FileInputStream(p), StandardCharsets.UTF_8)) {
@@ -203,7 +203,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF16LEPathSMPHasExpectedSize() throws Exception {
+  void fromSMPUTF16LEPathSMPHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_16LE));
     CharStream s = CharStreams.fromFile(p, StandardCharsets.UTF_16LE);
@@ -214,7 +214,7 @@ public class CharStreamsTest {
   }
 
   @Test
-  public void fromSMPUTF32LEPathSMPHasExpectedSize() throws Exception {
+  void fromSMPUTF32LEPathSMPHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(Charset.forName("UTF-32LE")));
     CharStream s = CharStreams.fromFile(p, Charset.forName("UTF-32LE"));

@@ -23,7 +23,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
 
 public class ATNSerializationTest extends AbstractBaseTest {
   @Test
-  public void testSimpleNoBlock() throws Exception {
+  void testSimpleNoBlock() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A B ;");
@@ -48,7 +48,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOF() throws Exception {
+  void testEOF() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A EOF ;");
@@ -73,7 +73,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOFInSet() throws Exception {
+  void testEOFInSet() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -98,7 +98,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNot() throws Exception {
+  void testNot() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -126,7 +126,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testWildcard() throws Exception {
+  void testWildcard() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -151,7 +151,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B ;");
@@ -182,7 +182,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test3Alts() throws Exception {
+  void test3Alts() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B | A B C ;");
@@ -220,7 +220,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleLoop() throws Exception {
+  void testSimpleLoop() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A+ B ;");
@@ -255,7 +255,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRuleRef() throws Exception {
+  void testRuleRef() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -289,7 +289,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerTwoRules() throws Exception {
+  void testLexerTwoRules() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -327,7 +327,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeSMPLiteralSerializedToSet() throws Exception {
+  void testLexerUnicodeSMPLiteralSerializedToSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : '\\u{1F4A9}' ;");
@@ -354,7 +354,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeSMPRangeSerializedToSet() throws Exception {
+  void testLexerUnicodeSMPRangeSerializedToSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : ('a'..'\\u{1F4A9}') ;");
@@ -381,7 +381,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeSMPSetSerializedAfterBMPSet() throws Exception {
+  void testLexerUnicodeSMPSetSerializedAfterBMPSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -420,7 +420,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotLiteral() throws Exception {
+  void testLexerNotLiteral() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : ~'a' ;");
@@ -447,7 +447,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerRange() throws Exception {
+  void testLexerRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -475,7 +475,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerEOF() throws Exception {
+  void testLexerEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -505,7 +505,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerEOFInSet() throws Exception {
+  void testLexerEOFInSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -539,7 +539,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerLoops() throws Exception {
+  void testLexerLoops() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -575,7 +575,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerAction() throws Exception {
+  void testLexerAction() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -627,7 +627,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSet() throws Exception {
+  void testLexerNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -656,7 +656,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerSetWithRange() throws Exception {
+  void testLexerSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -685,7 +685,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSetWithRange() throws Exception {
+  void testLexerNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -714,7 +714,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPNotSet() throws Exception {
+  void testLexerUnicodeUnescapedBMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -743,7 +743,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPSetWithRange() throws Exception {
+  void testLexerUnicodeUnescapedBMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -772,7 +772,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeUnescapedBMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -801,7 +801,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPNotSet() throws Exception {
+  void testLexerUnicodeEscapedBMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -830,7 +830,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedBMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -859,7 +859,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedBMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -888,7 +888,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPNotSet() throws Exception {
+  void testLexerUnicodeEscapedSMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -917,7 +917,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedSMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -946,7 +946,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedSMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -975,7 +975,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerWildcardWithMode() throws Exception {
+  void testLexerWildcardWithMode() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1043,7 +1043,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSetWithRange2() throws Exception {
+  void testLexerNotSetWithRange2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1075,7 +1075,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testModeInLexer() throws Exception {
+  void testModeInLexer() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1138,7 +1138,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2ModesInLexer() throws Exception {
+  void test2ModesInLexer() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;

@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ATNParserPredictionTest extends AbstractBaseTest {
   @Test
-  public void testAorB() throws Exception {
+  void testAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -73,7 +73,7 @@ s0-'b'->:s2=>2
   }
 
   @Test
-  public void testEmptyInput() throws Exception {
+  void testEmptyInput() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -105,7 +105,7 @@ s0-'a'->:s1=>1
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -147,7 +147,7 @@ s1-'b'->:s3=>2
   }
 
   @Test
-  public void testRuleRefxory() throws Exception {
+  void testRuleRefxory() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -189,7 +189,7 @@ s0-'b'->:s2=>2
   }
 
   @Test
-  public void testOptionalRuleChasesGlobalFollow() throws Exception {
+  void testOptionalRuleChasesGlobalFollow() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -241,7 +241,7 @@ s0-'c'->:s3=>2
   }
 
   @Test
-  public void testLL1Ambig() throws Exception {
+  void testLL1Ambig() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -284,7 +284,7 @@ s1-'b'->:s3=>3
   }
 
   @Test
-  public void testLL2Ambig() throws Exception {
+  void testLL2Ambig() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -330,7 +330,7 @@ s2-'c'->:s4=>3
   }
 
   @Test
-  public void testRecursiveLeftPrefix() throws Exception {
+  void testRecursiveLeftPrefix() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -401,7 +401,7 @@ s7-')'->s1
   }
 
   @Test
-  public void testRecursiveLeftPrefixWithAorABIssue() throws Exception {
+  void testRecursiveLeftPrefixWithAorABIssue() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -476,7 +476,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testContinuePrediction() throws Exception {
+  void testContinuePrediction() throws Exception {
     // Sam found prev def of ambiguity was too restrictive.
     // E.g., (13, 1, []), (13, 2, []), (12, 2, []) should not
     // be declared ambig since (12, 2, []) can take us to
@@ -500,7 +500,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testContinuePrediction2() throws Exception {
+  void testContinuePrediction2() throws Exception {
     // ID is ambig for first two alts, but ID SEMI lets us move forward with alt 3
     LexerGrammar lg = new LexerGrammar(
       """
@@ -522,7 +522,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testAltsForLRRuleComputation() throws Exception {
+  void testAltsForLRRuleComputation() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -542,7 +542,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testAltsForLRRuleComputation2() throws Exception {
+  void testAltsForLRRuleComputation2() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -561,7 +561,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testAltsForLRRuleComputation3() throws Exception {
+  void testAltsForLRRuleComputation3() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;

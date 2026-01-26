@@ -21,7 +21,7 @@ import static org.antlr.v4.TestUtils.assertEquals;
  */
 public class TopologicalSortTest extends AbstractBaseTest {
   @Test
-  public void testFairlyLargeGraph() {
+  void testFairlyLargeGraph() {
     Graph<String> g = new Graph<>();
     g.addEdge("C", "F");
     g.addEdge("C", "G");
@@ -42,7 +42,7 @@ public class TopologicalSortTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCyclicGraph() {
+  void testCyclicGraph() {
     Graph<String> g = new Graph<>();
     g.addEdge("A", "B");
     g.addEdge("B", "C");
@@ -56,7 +56,7 @@ public class TopologicalSortTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRepeatedEdges() {
+  void testRepeatedEdges() {
     Graph<String> g = new Graph<>();
     g.addEdge("A", "B");
     g.addEdge("B", "C");
@@ -70,7 +70,7 @@ public class TopologicalSortTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleTokenDependence() {
+  void testSimpleTokenDependence() {
     Graph<String> g = new Graph<>();
     g.addEdge("Java.g4", "MyJava.tokens"); // Java feeds off manual token file
     g.addEdge("Java.tokens", "Java.g4");
@@ -84,7 +84,7 @@ public class TopologicalSortTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserLexerCombo() {
+  void testParserLexerCombo() {
     Graph<String> g = new Graph<>();
     g.addEdge("JavaLexer.tokens", "JavaLexer.g4");
     g.addEdge("JavaParser.g4", "JavaLexer.tokens");

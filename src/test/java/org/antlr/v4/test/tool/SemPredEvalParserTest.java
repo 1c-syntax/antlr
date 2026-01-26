@@ -9,18 +9,16 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class SemPredEvalParserTest extends AbstractBaseTest {
   // TEST VALIDATING PREDS
 
   @Test
-  public void testSimpleValidate() {
+  void testSimpleValidate() {
     String grammar =
       """
         grammar T;
@@ -42,7 +40,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleValidate2() {
+  void testSimpleValidate2() {
     String grammar =
       "grammar T;\n" +
         "s : a a a;\n" +
@@ -70,7 +68,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * https://github.com/antlr/antlr4/issues/196
    */
   @Test
-  public void testAtomWithClosureInTranslatedLRRule() {
+  void testAtomWithClosureInTranslatedLRRule() {
     String grammar =
       "grammar T;\n" +
         "start : e[0] EOF;\n" +
@@ -90,7 +88,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testValidateInDFA() {
+  void testValidateInDFA() {
     String grammar =
       "grammar T;\n" +
         "s : a ';' a;\n" +
@@ -118,7 +116,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   // TEST DISAMBIG PREDS
 
   @Test
-  public void testSimple() {
+  void testSimple() {
     String grammar =
       "grammar T;\n" +
         "s : a a a;\n" + // do 3x: once in ATN, next in DFA then INT in ATN
@@ -140,7 +138,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOrder() {
+  void testOrder() {
     // Under new predicate ordering rules (see antlr/antlr4#29), the first
     // alt with an acceptable config (unpredicated, or predicated and evaluates
     // to true) is chosen.
@@ -165,7 +163,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2UnpredicatedAlts() {
+  void test2UnpredicatedAlts() {
     // We have n-2 predicates for n alternatives. pick first alt
     String grammar =
       "grammar T;\n" +
@@ -196,7 +194,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2UnpredicatedAltsAndOneOrthogonalAlt() {
+  void test2UnpredicatedAltsAndOneOrthogonalAlt() {
     String grammar =
       "grammar T;\n" +
         "@header {" +
@@ -228,7 +226,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRewindBeforePredEval() {
+  void testRewindBeforePredEval() {
     // The parser consumes ID and moves to the 2nd token INT.
     // To properly evaluate the predicates after matching ID INT,
     // we must correctly see come back to starting index so LT(1) works
@@ -251,7 +249,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNoTruePredsThrowsNoViableAlt() {
+  void testNoTruePredsThrowsNoViableAlt() {
     // checks that we throw exception if all alts
     // are covered with a predicate and none succeeds
     String grammar =
@@ -272,7 +270,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testToLeft() {
+  void testToLeft() {
     String grammar =
       "grammar T;\n" +
         "s : a+ ;\n" +
@@ -293,7 +291,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testUnpredicatedPathsInAlt() {
+  void testUnpredicatedPathsInAlt() {
     String grammar =
       "grammar T;\n" +
         "s : a {System.out.println(\"alt 1\");}\n" +
@@ -319,7 +317,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testActionHidesPreds() {
+  void testActionHidesPreds() {
     // can't see preds, resolves to first alt found (1 in this case)
     String grammar =
       "grammar T;\n" +
@@ -348,7 +346,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * The i++ action is done outside of the prediction and so it is executed.
    */
   @Test
-  public void testToLeftWithVaryingPredicate() {
+  void testToLeftWithVaryingPredicate() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {int i=0;}\n" +
@@ -379,7 +377,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * is empty and we have not dipped into the outer context to make a decision.
    */
   @Test
-  public void testPredicateDependentOnArg() {
+  void testPredicateDependentOnArg() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {int i=0;}\n" +
@@ -412,7 +410,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * encounters preds during FOLLOW.
    */
   @Test
-  public void testPredicateDependentOnArg2() {
+  void testPredicateDependentOnArg2() {
     String grammar =
       "grammar T;\n" +
         "s : a[2] a[1];\n" +
@@ -432,7 +430,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testDependentPredNotInOuterCtxShouldBeIgnored() {
+  void testDependentPredNotInOuterCtxShouldBeIgnored() {
     // uses ID ';' or ID '.' lookahead to solve s. preds not tested.
     String grammar =
       "grammar T;\n" +
@@ -454,7 +452,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testIndependentPredNotPassedOuterCtxToAvoidCastException() {
+  void testIndependentPredNotPassedOuterCtxToAvoidCastException() {
     String grammar =
       "grammar T;\n" +
         "s : b ';' |  b '.' ;\n" +
@@ -479,7 +477,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * predicates as long as they are not dependent on local context
    */
   @Test
-  public void testPredsInGlobalFOLLOW() {
+  void testPredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -507,7 +505,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * we are doing a global follow. They appear as if they were not there at all.
    */
   @Test
-  public void testDepedentPredsInGlobalFOLLOW() {
+  void testDepedentPredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -537,7 +535,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * during global follow operations.
    */
   @Test
-  public void testActionsHidePredsInGlobalFOLLOW() {
+  void testActionsHidePredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -560,7 +558,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPredTestedEvenWhenUnAmbig() {
+  void testPredTestedEvenWhenUnAmbig() {
     String grammar =
       "grammar T;\n" +
         "\n" +
@@ -589,7 +587,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * https://github.com/antlr/antlr4/issues/218
    */
   @Test
-  public void testDisabledAlternative() {
+  void testDisabledAlternative() {
     String grammar =
       "grammar AnnotProcessor;\n" +
         "\n" +
@@ -615,7 +613,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * https://github.com/antlr/antlr4/issues/529
    */
   @Test
-  public void testPredFromAltTestedInLoopBack() {
+  void testPredFromAltTestedInLoopBack() {
     String grammar =
       "grammar T2;\n" +
         "\n" +

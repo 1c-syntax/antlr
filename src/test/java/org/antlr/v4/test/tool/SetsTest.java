@@ -10,7 +10,6 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.tool.ErrorType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.antlr.v4.TestUtils.assertEquals;
@@ -18,12 +17,11 @@ import static org.antlr.v4.TestUtils.assertEquals;
 /**
  * Test the set stuff in lexer and parser
  */
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class SetsTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
-  public void testSeqDoesNotBecomeSet() {
+  void testSeqDoesNotBecomeSet() {
     // this must return A not I to the parser; calling a nonfragment rule
     // from a nonfragment rule does not set the overall token.
     String grammar =
@@ -38,7 +36,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserSet() {
+  void testParserSet() {
     String grammar =
       "grammar T;\n" +
         "a : t=('x'|'y') {System.out.println($t.text);} ;\n";
@@ -48,7 +46,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserNotSet() {
+  void testParserNotSet() {
     String grammar =
       "grammar T;\n" +
         "a : t=~('x'|'y') 'z' {System.out.println($t.text);} ;\n";
@@ -58,7 +56,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserNotToken() {
+  void testParserNotToken() {
     String grammar =
       "grammar T;\n" +
         "a : ~'x' 'z' {System.out.println(_input.getText());} ;\n";
@@ -68,7 +66,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserNotTokenWithLabel() {
+  void testParserNotTokenWithLabel() {
     String grammar =
       "grammar T;\n" +
         "a : t=~'x' 'z' {System.out.println($t.text);} ;\n";
@@ -78,7 +76,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRuleAsSet() {
+  void testRuleAsSet() {
     String grammar =
       "grammar T;\n" +
         "a @after {System.out.println(_input.getText());} : 'a' | 'b' |'c' ;\n";
@@ -88,7 +86,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotChar() {
+  void testNotChar() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println($A.text);} ;\n" +
@@ -99,7 +97,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalSingleElement() {
+  void testOptionalSingleElement() {
     String grammar =
       "grammar T;\n" +
         "a : A? 'c' {System.out.println(_input.getText());} ;\n" +
@@ -110,7 +108,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalLexerSingleElement() {
+  void testOptionalLexerSingleElement() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -121,7 +119,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testStarLexerSingleElement() {
+  void testStarLexerSingleElement() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -135,7 +133,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPlusLexerSingleElement() {
+  void testPlusLexerSingleElement() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -146,7 +144,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testOptionalSet() {
+  void testOptionalSet() {
     String grammar =
       "grammar T;\n" +
         "a : ('a'|'b')? 'c' {System.out.println(_input.getText());} ;\n";
@@ -156,7 +154,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testStarSet() {
+  void testStarSet() {
     String grammar =
       "grammar T;\n" +
         "a : ('a'|'b')* 'c' {System.out.println(_input.getText());} ;\n";
@@ -166,7 +164,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPlusSet() {
+  void testPlusSet() {
     String grammar =
       "grammar T;\n" +
         "a : ('a'|'b')+ 'c' {System.out.println(_input.getText());} ;\n";
@@ -176,7 +174,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerOptionalSet() {
+  void testLexerOptionalSet() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -187,7 +185,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerStarSet() {
+  void testLexerStarSet() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -198,7 +196,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerPlusSet() {
+  void testLexerPlusSet() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println(_input.getText());} ;\n" +
@@ -209,7 +207,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotCharSet() {
+  void testNotCharSet() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println($A.text);} ;\n" +
@@ -220,7 +218,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotCharSetWithLabel() {
+  void testNotCharSetWithLabel() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println($A.text);} ;\n" +
@@ -231,7 +229,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotCharSetWithRuleRef() {
+  void testNotCharSetWithRuleRef() {
     // might be a useful feature to add someday
     String[] pair = new String[]{
       "grammar T;\n" +
@@ -244,7 +242,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotCharSetWithString() {
+  void testNotCharSetWithString() {
     // might be a useful feature to add someday
     String[] pair = new String[]{
       "grammar T;\n" +
@@ -257,7 +255,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNotCharSetWithRuleRef3() {
+  void testNotCharSetWithRuleRef3() {
     String grammar =
       "grammar T;\n" +
         "a : A {System.out.println($A.text);} ;\n" +
@@ -270,7 +268,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetLiteral() {
+  void testCharSetLiteral() {
     String grammar =
       "grammar T;\n" +
         "a : (A {System.out.println($A.text);})+ ;\n" +
@@ -285,7 +283,7 @@ public class SetsTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplementSet() {
+  void testComplementSet() {
     String grammar =
       "grammar T;\n" +
         "parse : ~NEW_LINE;\n" +

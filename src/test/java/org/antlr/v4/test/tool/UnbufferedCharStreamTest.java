@@ -26,17 +26,17 @@ import java.io.StringReader;
 
 import static org.antlr.v4.TestUtils.assertEquals;
 
-@Disabled("Частично работает")
+@Disabled("Requires further investigation and fixes")
 public class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
-  public void testNoChar() {
+  void testNoChar() {
     CharStream input = createStream("");
     assertEquals(IntStream.EOF, input.LA(1));
     assertEquals(IntStream.EOF, input.LA(2));
   }
 
   @Test
-  public void testSeekPastEOF() {
+  void testSeekPastEOF() {
     CharStream input = createStream("");
     assertEquals(0, input.index());
     input.seek(1);
@@ -44,7 +44,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testGetTextInMarkedRange() {
+  void testGetTextInMarkedRange() {
     CharStream input = createStream("xyz");
     input.consume();
     int m1 = input.mark();
@@ -55,7 +55,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLastChar() {
+  void testLastChar() {
     CharStream input = createStream("abcdef");
 
     input.consume();
@@ -81,7 +81,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test1Char() {
+  void test1Char() {
     TestingUnbufferedCharStream input = createStream("x");
     assertEquals('x', input.LA(1));
     input.consume();
@@ -92,7 +92,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2Char() {
+  void test2Char() {
     TestingUnbufferedCharStream input = createStream("xy");
     assertEquals('x', input.LA(1));
     input.consume();
@@ -105,7 +105,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2CharAhead() {
+  void test2CharAhead() {
     CharStream input = createStream("xy");
     assertEquals('x', input.LA(1));
     assertEquals('y', input.LA(2));
@@ -113,7 +113,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBufferExpand() {
+  void testBufferExpand() {
     TestingUnbufferedCharStream input = createStream("01234", 2);
     assertEquals('0', input.LA(1));
     assertEquals('1', input.LA(2));
@@ -125,7 +125,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBufferWrapSize1() {
+  void testBufferWrapSize1() {
     CharStream input = createStream("01234", 1);
     assertEquals('0', input.LA(1));
     input.consume();
@@ -141,7 +141,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBufferWrapSize2() {
+  void testBufferWrapSize2() {
     CharStream input = createStream("01234", 2);
     assertEquals('0', input.LA(1));
     input.consume();
@@ -157,7 +157,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test1Mark() {
+  void test1Mark() {
     TestingUnbufferedCharStream input = createStream("xyz");
     int m = input.mark();
     assertEquals('x', input.LA(1));
@@ -169,7 +169,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test1MarkWithConsumesInSequence() {
+  void test1MarkWithConsumesInSequence() {
     TestingUnbufferedCharStream input = createStream("xyz");
     int m = input.mark();
     input.consume(); // x, moves to y
@@ -182,7 +182,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2Mark() {
+  void test2Mark() {
     TestingUnbufferedCharStream input = createStream("xyz", 100);
     assertEquals('x', input.LA(1));
     input.consume(); // reset buffer index (p) to 0
@@ -199,7 +199,7 @@ public class UnbufferedCharStreamTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAFewTokens() throws RecognitionException {
+  void testAFewTokens() throws RecognitionException {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar t;\n" +
         "ID : 'a'..'z'+;\n" +

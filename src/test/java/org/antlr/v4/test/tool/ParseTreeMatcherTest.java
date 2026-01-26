@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ParseTreeMatcherTest extends AbstractBaseTest {
 
   @Test
-  public void testChunking() {
+  void testChunking() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     assertEquals("[ID, ' = ', expr, ' ;']", m.split("<ID> = <expr> ;").toString());
     assertEquals("[' ', ID, ' = ', expr]", m.split(" <ID> = <expr>").toString());
@@ -44,7 +44,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testDelimiters() {
+  void testDelimiters() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     m.setDelimiters("<<", ">>", "$");
     String result = m.split("<<ID>> = <<expr>> ;$<< ick $>>").toString();
@@ -52,7 +52,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testInvertedTags() {
+  void testInvertedTags() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -65,7 +65,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testUnclosedTag() {
+  void testUnclosedTag() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -78,7 +78,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testExtraClose() {
+  void testExtraClose() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -91,8 +91,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenizingPattern() throws Exception {
+  void testTokenizingPattern() throws Exception {
     String grammar =
       """
         grammar X1;
@@ -115,8 +114,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingPattern() throws Exception {
+  void testCompilingPattern() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -139,8 +137,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingPatternConsumesAllTokens() throws Exception {
+  void testCompilingPatternConsumesAllTokens() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -166,8 +163,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPatternMatchesStartRule() throws Exception {
+  void testPatternMatchesStartRule() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -193,8 +189,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPatternMatchesStartRule2() throws Exception {
+  void testPatternMatchesStartRule2() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -220,8 +215,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testHiddenTokensNotSeenByTreePatternParser() throws Exception {
+  void testHiddenTokensNotSeenByTreePatternParser() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -244,8 +238,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingMultipleTokens() throws Exception {
+  void testCompilingMultipleTokens() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -266,8 +259,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeMatches() throws Exception {
+  void testIDNodeMatches() throws Exception {
     String grammar =
       """
         grammar X3;
@@ -282,8 +274,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeWithLabelMatches() throws Exception {
+  void testIDNodeWithLabelMatches() throws Exception {
     String grammar =
       """
         grammar X8;
@@ -308,8 +299,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabelGetsLastIDNode() throws Exception {
+  void testLabelGetsLastIDNode() throws Exception {
     String grammar =
       """
         grammar X9;
@@ -334,8 +324,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeWithMultipleLabelMatches() throws Exception {
+  void testIDNodeWithMultipleLabelMatches() throws Exception {
     String grammar =
       """
         grammar X7;
@@ -365,8 +354,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenAndRuleMatch() throws Exception {
+  void testTokenAndRuleMatch() throws Exception {
     String grammar =
       """
         grammar X4;
@@ -383,8 +371,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenTextMatch() throws Exception {
+  void testTokenTextMatch() throws Exception {
     String grammar =
       """
         grammar X4;
@@ -417,8 +404,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAssign() throws Exception {
+  void testAssign() throws Exception {
     String grammar =
       "grammar X5;\n" +
         "s   : expr ';'\n" +
@@ -440,8 +426,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLRecursiveExpr() throws Exception {
+  void testLRecursiveExpr() throws Exception {
     String grammar =
       """
         grammar X6;
