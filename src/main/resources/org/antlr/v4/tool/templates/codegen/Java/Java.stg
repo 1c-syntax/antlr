@@ -1,8 +1,20 @@
 /*
  * Copyright (c) 2012 The ANTLR Project. All rights reserved.
+ * Copyright (c) 2025-now Valery Maximov and contributors
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
+
+/*
+ * Java Target Template Definitions for ANTLR v4
+ *
+ * This file contains StringTemplate definitions for generating Java code from ANTLR grammars.
+ * It defines templates for parsers, lexers, listeners, visitors, and supporting structures.
+ */
+
+// ============================================================================
+// Type Initialization Mapping
+// ============================================================================
 
 javaTypeInitMap ::= [
 	"int":"0",
@@ -16,8 +28,11 @@ javaTypeInitMap ::= [
 	default:"null" // anything other than a primitive type is an object
 ]
 
-// args must be <object-model-object>, <fields-resulting-in-STs>
+// ============================================================================
+// File Generation Templates
+// ============================================================================
 
+// Parser file template
 ParserFile(file, parser, namedActions, contextSuperClass) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -36,6 +51,7 @@ import java.util.ArrayList;
 <parser>
 >>
 
+// Listener interface template
 ListenerFile(file, header, namedActions) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -75,6 +91,7 @@ void exit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">C
 }
 >>
 
+// Base listener implementation template
 BaseListenerFile(file, header, namedActions) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -135,6 +152,7 @@ public class <file.grammarName>BaseListener implements <file.grammarName>Listene
 }
 >>
 
+// Visitor interface template
 VisitorFile(file, header, namedActions) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -168,6 +186,7 @@ Result visit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap
 }
 >>
 
+// Base visitor implementation template
 BaseVisitorFile(file, header, namedActions) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -198,14 +217,23 @@ public class <file.grammarName>BaseVisitor\<Result> extends AbstractParseTreeVis
 }
 >>
 
+// File header template
 fileHeader(grammarFileName, ANTLRVersion) ::= <<
-// Generated from <grammarFileName; format="java-escape"> by ANTLR <ANTLRVersion>
+// ============================================================================
+// Generated from <grammarFileName; format="java-escape"> by ANTLR 1c-syntax fork <ANTLRVersion>
+// ============================================================================
 >>
 
+// ============================================================================
+// Parser Class Templates
+// ============================================================================
+
+// Main parser template
 Parser(parser, funcs, atn, sempredFuncs, superClass) ::= <<
 <Parser_(ctor="parser_ctor", ...)>
 >>
 
+// Parser implementation template
 Parser_(parser, funcs, atn, sempredFuncs, ctor, superClass) ::= <<
 <if(parser.file.incremental)>
 public <if(parser.abstractRecognizer)>abstract <endif>class <parser.name> extends <superClass; null="IncrementalParser"> {
@@ -216,16 +244,19 @@ public <if(parser.abstractRecognizer)>abstract <endif>class <parser.name> extend
 	public static final int
 		<parser.tokens:{k | <k>=<parser.tokens.(k)>}; separator=", ", wrap, anchor>;
 	<endif>
+
 	public static final int
 		<parser.rules:{r | RULE_<r.name> = <r.index>}; separator=", ", wrap, anchor>;
+
+	public static final String[] ruleNames = makeRuleNames();
+
+	<vocabulary(parser.literalNames, parser.symbolicNames)>
+
 	private static String[] makeRuleNames() {
 		return new String[] {
 			<parser.ruleNames:{r | "<r>"}; separator=", ", wrap, anchor>
 		};
 	}
-	public static final String[] ruleNames = makeRuleNames();
-
-	<vocabulary(parser.literalNames, parser.symbolicNames)>
 
 	@Override
 	public String getGrammarFileName() { return "<parser.grammarFileName; format="java-escape">"; }
@@ -271,44 +302,20 @@ case <f.ruleIndex>:
 }
 >>
 
+// Vocabulary template
 vocabulary(literalNames, symbolicNames) ::= <<
+private static final Vocabulary VOCABULARY = new VocabularyImpl(makeLiteralNames(), makeSymbolicNames());
+
 private static String[] makeLiteralNames() {
 	return new String[] {
 		<literalNames:{t | <t>}; null="null", separator=", ", wrap, anchor>
 	};
 }
-private static final String[] _LITERAL_NAMES = makeLiteralNames();
+
 private static String[] makeSymbolicNames() {
 	return new String[] {
 		<symbolicNames:{t | <t>}; null="null", separator=", ", wrap, anchor>
 	};
-}
-private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
-public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
-
-/**
- * @deprecated Use {@link #VOCABULARY} instead.
- */
-@Deprecated
-public static final String[] tokenNames;
-static {
-	tokenNames = new String[_SYMBOLIC_NAMES.length];
-	for (int i = 0; i \< tokenNames.length; i++) {
-		tokenNames[i] = VOCABULARY.getLiteralName(i);
-		if (tokenNames[i] == null) {
-			tokenNames[i] = VOCABULARY.getSymbolicName(i);
-		}
-
-		if (tokenNames[i] == null) {
-			tokenNames[i] = "\<INVALID>";
-		}
-	}
-}
-
-@Override
-@Deprecated
-public String[] getTokenNames() {
-	return tokenNames;
 }
 
 @Override
@@ -316,8 +323,13 @@ public String[] getTokenNames() {
 public Vocabulary getVocabulary() {
 	return VOCABULARY;
 }
+
+public static final Vocabulary VOCABULARY() {
+	return VOCABULARY;
+}
 >>
 
+// Action and predicate handling template
 dumpActions(recog, argFuncs, actionFuncs, sempredFuncs) ::= <<
 <if(actionFuncs)>
 @Override
@@ -345,25 +357,29 @@ case <f.ruleIndex>:
 <endif>
 >>
 
+// Parser constructor template
 parser_ctor(p) ::= <<
 <if(p.file.incremental)>
 public <p.name>(IncrementalTokenStream input) {
 	this(input, null);
-	_interp = new ParserATNSimulator(this,_ATN);
 }
 
 public <p.name>(IncrementalTokenStream input, IncrementalParserData data)
 {
 	super(input, data);
-	_interp = new ParserATNSimulator(this,_ATN);
+	_interp = new ParserATNSimulator(this, _ATN);
 }
 <else>
 public <p.name>(TokenStream input) {
 	super(input);
-	_interp = new ParserATNSimulator(this,_ATN);
+	_interp = new ParserATNSimulator(this, _ATN);
 }
 <endif>
 >>
+
+// ============================================================================
+// Rule Function Templates
+// ============================================================================
 
 /* This generates a private method since the actionIndex is generated, making an
  * overriding implementation impossible to maintain.
@@ -393,6 +409,7 @@ case <index>:
 }
 >>
 
+// Standard rule function template
 RuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,namedActions,finallyAction,postamble,exceptions) ::= <<
 
 <if(ruleCtx)>
@@ -440,6 +457,7 @@ RuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,namedActions,fina
 }
 >>
 
+// Left-factored rule function template
 LeftFactoredRuleFunction(currentRule,args,code,locals,namedActions,finallyAction,postamble) ::=
 <<
 
@@ -469,6 +487,7 @@ LeftFactoredRuleFunction(currentRule,args,code,locals,namedActions,finallyAction
 }
 >>
 
+// Left-unfactored rule function template
 // This behaves similar to RuleFunction (enterRule is called, and no adjustments
 // are made to the parse tree), but since it's still a variant no context class
 // needs to be generated.
@@ -501,6 +520,7 @@ LeftUnfactoredRuleFunction(currentRule,args,code,locals,namedActions,finallyActi
 }
 >>
 
+// Left-recursive rule function template
 LeftRecursiveRuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,
 	namedActions,finallyAction,postamble) ::=
 <<
@@ -552,12 +572,18 @@ private <currentRule.ctxType> <currentRule.name>(int _p<args:{a | , <a>}>) throw
 }
 >>
 
+// ============================================================================
+// Code Block Templates
+// ============================================================================
+
+// Outermost alternative code block template
 CodeBlockForOuterMostAlt(currentOuterMostAltCodeBlock, locals, preamble, ops) ::= <<
 <if(currentOuterMostAltCodeBlock.altLabel)>_localctx = new <currentOuterMostAltCodeBlock.altLabel; format="cap">Context(_localctx);<endif>
 enterOuterAlt(_localctx, <currentOuterMostAltCodeBlock.alt.altNum>);
 <CodeBlockForAlt(currentAltCodeBlock=currentOuterMostAltCodeBlock, ...)>
 >>
 
+// Alternative code block template
 CodeBlockForAlt(currentAltCodeBlock, locals, preamble, ops) ::= <<
 {
 <locals; separator="\n">
@@ -566,6 +592,11 @@ CodeBlockForAlt(currentAltCodeBlock, locals, preamble, ops) ::= <<
 }
 >>
 
+// ============================================================================
+// Decision and Control Flow Templates
+// ============================================================================
+
+// LL(1) alternative block template
 LL1AltBlock(choice, preamble, alts, error) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -580,6 +611,7 @@ default:
 }
 >>
 
+// LL(1) optional block template
 LL1OptionalBlock(choice, alts, error) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -592,6 +624,7 @@ default:
 }
 >>
 
+// LL(1) optional block single alternative template
 LL1OptionalBlockSingleAlt(choice, expr, alts, preamble, error, followExpr) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -602,6 +635,7 @@ if (<expr>) {
 <!else if ( !(<followExpr>) ) <error>!>
 >>
 
+// LL(1) star block single alternative template
 LL1StarBlockSingleAlt(choice, loopExpr, alts, preamble, iteration) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -614,6 +648,7 @@ while (<loopExpr>) {
 }
 >>
 
+// LL(1) plus block single alternative template
 LL1PlusBlockSingleAlt(choice, loopExpr, alts, preamble, iteration) ::= <<
 setState(<choice.blockStartStateNumber>); <! alt block decision !>
 _errHandler.sync(this);
@@ -626,8 +661,7 @@ do {
 } while ( <loopExpr> );
 >>
 
-// LL(*) stuff
-
+// LL(*) alternative block template
 AltBlock(choice, preamble, alts, error) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -641,6 +675,7 @@ case <i>:
 }
 >>
 
+// LL(*) optional block template
 OptionalBlock(choice, alts, error) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -652,6 +687,7 @@ case <i><if(!choice.ast.greedy)>+1<endif>:
 }
 >>
 
+// LL(*) star block template
 StarBlock(choice, alts, sync, iteration) ::= <<
 setState(<choice.stateNumber>);
 _errHandler.sync(this);
@@ -667,6 +703,7 @@ while ( _alt!=<choice.exitAlt> && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT
 }
 >>
 
+// LL(*) plus block template
 PlusBlock(choice, alts, error) ::= <<
 setState(<choice.blockStartStateNumber>); <! alt block decision !>
 _errHandler.sync(this);
@@ -686,10 +723,17 @@ case <i><if(!choice.ast.greedy)>+1<endif>:
 } while ( _alt!=<choice.exitAlt> && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER );
 >>
 
+// ============================================================================
+// Helper Templates
+// ============================================================================
+
+// Sync helper template
 Sync(s) ::= "sync(<s.expecting.name>);"
 
+// Throw no viable alternative exception template
 ThrowNoViableAlt(t) ::= "throw new NoViableAltException(this);"
 
+// Test set inline template
 TestSetInline(s) ::= <<
 <s.bitsets:{bits | <if(rest(rest(bits.ttypes)))><bitsetBitfieldComparison(s, bits)><else><bitsetInlineComparison(s, bits)><endif>}; separator=" || ">
 >>
@@ -704,11 +748,13 @@ bitsetBitfieldComparison(s, bits) ::= <%
 (<testShiftInRange({<offsetShift(s.varName, bits.shift)>})> && ((1L \<\< <offsetShift(s.varName, bits.shift)>) & (<bits.ttypes:{ttype | (1L \<\< <offsetShift(ttype, bits.shift)>)}; separator=" | ">)) != 0)
 %>
 
+// Zero check mapping
 isZero ::= [
 "0":true,
 default:false
 ]
 
+// Offset shift calculation
 offsetShift(shiftAmount, offset) ::= <%
 <if(!isZero.(offset))>(<shiftAmount> - <offset>)<else><shiftAmount><endif>
 %>
@@ -718,24 +764,34 @@ bitsetInlineComparison(s, bits) ::= <%
 <bits.ttypes:{ttype | <s.varName>==<ttype>}; separator=" || ">
 %>
 
+// Case statements template
 cases(ttypes) ::= <<
 <ttypes:{t | case <t>:}; separator="\n">
 >>
 
+// ============================================================================
+// Matching and Invocation Templates
+// ============================================================================
+
+// Invoke rule template
 InvokeRule(r, argExprsChunks) ::= <<
 setState(<r.stateNumber>);
 <if(r.labels)><r.labels:{l | <labelref(l)> = }><endif><r.name>(<if(r.ast.options.p)><r.ast.options.p><if(argExprsChunks)>,<endif><endif><argExprsChunks>);
 >>
 
+// Match token template
 MatchToken(m) ::= <<
 setState(<m.stateNumber>);
 <if(m.labels)><m.labels:{l | <labelref(l)> = }><endif>match(<m.name>);
 >>
 
+// Match set template
 MatchSet(m, expr, capture) ::= "<CommonSetStuff(m, expr, capture, false)>"
 
+// Match not set template
 MatchNotSet(m, expr, capture) ::= "<CommonSetStuff(m, expr, capture, true)>"
 
+// Common set matching template
 CommonSetStuff(m, expr, capture, invert) ::= <<
 setState(<m.stateNumber>);
 <if(m.labels)><m.labels:{l | <labelref(l)> = }>_input.LT(1);<endif>
@@ -752,29 +808,40 @@ if ( <if(invert)><m.varName> \<= 0 || <else>!<endif>(<expr>) ) {
 }
 >>
 
+// Wildcard matching template
 Wildcard(w) ::= <<
 setState(<w.stateNumber>);
 <if(w.labels)><w.labels:{l | <labelref(l)> = }><endif>matchWildcard();
 >>
 
-// ACTION STUFF
+// ============================================================================
+// Action and Predicate Templates
+// ============================================================================
 
+// Action template
 Action(a, foo, chunks) ::= "<chunks>"
 
+// Argument action template
 ArgAction(a, chunks) ::= "<chunks>"
 
+// Semantic predicate template
 SemPred(p, chunks, failChunks) ::= <<
 setState(<p.stateNumber>);
 if (!(<chunks>)) throw createFailedPredicateException(<p.predicate><if(failChunks)>, <failChunks><elseif(p.msg)>, <p.msg><endif>);
 >>
 
+// Exception clause template
 ExceptionClause(e, catchArg, catchAction) ::= <<
 catch (<catchArg>) {
 	<catchAction>
 }
 >>
 
-// lexer actions are not associated with model objects
+// ============================================================================
+// Lexer Command Templates
+// ============================================================================
+
+// Lexer actions are not associated with model objects
 
 LexerSkipCommand()  ::= "skip();"
 LexerMoreCommand()  ::= "more();"
@@ -785,12 +852,28 @@ LexerChannelCommand(arg, grammar)   ::= "_channel = <arg>;"
 LexerModeCommand(arg, grammar)      ::= "_mode = <arg>;"
 LexerPushModeCommand(arg, grammar)  ::= "pushMode(<arg>);"
 
+// ============================================================================
+// Reference and Property Templates
+// ============================================================================
+
+// Action text template
 ActionText(t) ::= "<t.text>"
+
+// Action template template
 ActionTemplate(t) ::= "<t.st>"
+
+// Argument reference template
 ArgRef(a) ::= "_localctx.<a.name>"
+
+// Local reference template
 LocalRef(a) ::= "_localctx.<a.name>"
+
+// Return value reference template
 RetValueRef(a) ::= "_localctx.<a.name>"
+
+// Qualified return value reference template
 QRetValueRef(a) ::= "<ctx(a)>.<a.dict>.<a.name>"
+
 /** How to translate $tokenLabel */
 TokenRef(t) ::= "<ctx(t)>.<t.name>"
 LabelRef(t) ::= "<ctx(t)>.<t.name>"
@@ -812,6 +895,7 @@ RulePropertyRef_start(r) ::= "(<ctx(r)>.<r.label>!=null?(<ctx(r)>.<r.label>.star
 RulePropertyRef_stop(r)	 ::= "(<ctx(r)>.<r.label>!=null?(<ctx(r)>.<r.label>.stop):null)"
 RulePropertyRef_text(r)	 ::= "(<ctx(r)>.<r.label>!=null?_input.getText(<ctx(r)>.<r.label>.start,<ctx(r)>.<r.label>.stop):null)"
 RulePropertyRef_ctx(r)	 ::= "<ctx(r)>.<r.label>"
+
 RulePropertyRef_parser(r)	 ::= "this"
 
 ThisRulePropertyRef_start(r) ::= "_localctx.start"
@@ -825,6 +909,10 @@ SetNonLocalAttr(s, rhsChunks)	  ::=
 	"((<s.ruleName; format=\"cap\">Context)getInvokingContext(<s.ruleIndex>)).<s.name> = <rhsChunks>;"
 
 AddToLabelList(a) ::= "<ctx(a.label)>.<a.listName>.add(<labelref(a.label)>);"
+
+// ============================================================================
+// Declaration Templates
+// ============================================================================
 
 TokenDecl(t) ::= "<TokenLabelType()> <t.name>"
 TokenTypeDecl(t) ::= "int <t.name>;"
@@ -869,36 +957,31 @@ ImplicitRuleLabel(ruleName)	  ::= "<ruleName>"
 ImplicitSetLabel(id)		  ::= "_tset<id>"
 ListLabelName(label)		  ::= "<label>"
 
+// ============================================================================
+// Capture Templates
+// ============================================================================
+
 CaptureNextToken(d) ::= "<d.varName> = _input.LT(1);"
 CaptureNextTokenType(d) ::= "<d.varName> = _input.LA(1);"
 
+// ============================================================================
+// Structure Declaration Templates
+// ============================================================================
+
 StructDecl(struct,ctorAttrs,attrs,getters,dispatchMethods,interfaces,extensionMembers)
 	::= <<
-<if(parser.file.incremental)>
-public static class <struct.name> extends <if(contextSuperClass)><contextSuperClass><else>IncrementalParserRuleContext<endif><if(interfaces)> implements <interfaces; separator=", "><endif> {
-<else>
-public static class <struct.name> extends <if(contextSuperClass)><contextSuperClass><else>ParserRuleContext<endif><if(interfaces)> implements <interfaces; separator=", "><endif> {
-<endif>
+public static class <struct.name> extends <if(contextSuperClass)><contextSuperClass><elseif(parser.file.incremental)>IncrementalParserRuleContext<else>ParserRuleContext<endif><if(interfaces)> implements <interfaces; separator=", "><endif> {
 	<attrs:{a | public <a>;}; separator="\n">
 	<getters:{g | <g>}; separator="\n">
 <if(ctorAttrs)>
-	<if(parser.file.incremental)>
-	public <struct.name>(ParserRuleContext parent, int invokingState) { super((IncrementalParserRuleContext) parent, invokingState); }
-	<else>
-	public <struct.name>(ParserRuleContext parent, int invokingState) { super(parent, invokingState); }
-	<endif>
-	<endif>
-<if(parser.file.incremental)>
-	public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
-	super((IncrementalParserRuleContext)parent, invokingState);
-		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
-	}
-<else>
-	public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
-	super(parent, invokingState);
-		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
-	}
+	public <struct.name>(ParserRuleContext parent, int invokingState) { super(<if(parser.file.incremental)>(IncrementalParserRuleContext)<endif>parent, invokingState); }
 <endif>
+
+	public <struct.name>(ParserRuleContext parent, int invokingState<ctorAttrs:{a | , <a>}>) {
+		super(<if(parser.file.incremental)>(IncrementalParserRuleContext) <endif>parent, invokingState);
+		<struct.ctorAttrs:{a | this.<a.name> = <a.name>;}; separator="\n">
+	}
+
 	@Override public int getRuleIndex() { return RULE_<struct.derivedFromName>; }
 <if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
 	public <struct.name>() { }
@@ -907,6 +990,7 @@ public static class <struct.name> extends <if(contextSuperClass)><contextSuperCl
 		<struct.attrs:{a | this.<a.name> = ctx.<a.name>;}; separator="\n">
 	}
 <endif>
+
 	<dispatchMethods; separator="\n">
 	<extensionMembers; separator="\n">
 }
@@ -938,6 +1022,10 @@ public \<Result> Result accept(ParseTreeVisitor\<? extends Result> visitor) {
 
 AttributeDecl(d) ::= "<d.type> <d.name><if(d.initValue)> = <d.initValue><endif>"
 
+// ============================================================================
+// Context and Label Templates
+// ============================================================================
+
 /** If we don't know location of label def x, use this template */
 labelref(x) ::= "<if(!x.isLocal)><typedContext(x.ctx)>.<endif><x.name>"
 
@@ -946,6 +1034,10 @@ ctx(actionChunk) ::= "<typedContext(actionChunk.ctx)>"
 
 // only casts _localctx to the type when the cast isn't redundant (i.e. to a sub-context for a labeled alt)
 typedContext(ctx) ::= "<if(ctx.provideCopyFrom)>((<ctx.name>)_localctx)<else>_localctx<endif>"
+
+// ============================================================================
+// Left-Recursive Rule Templates
+// ============================================================================
 
 // used for left-recursive rules
 recRuleAltPredicate(ruleName,opPrec)  ::= "precpred(_ctx, <opPrec>)"
@@ -987,7 +1079,11 @@ if ( _parseListeners!=null ) triggerExitRuleEvent();
 _prevctx = _localctx;
 >>
 
+// ============================================================================
+// Lexer Templates
+// ============================================================================
 
+// Lexer file template
 LexerFile(file, lexer, namedActions) ::= <<
 <fileHeader(file.grammarFileName, file.ANTLRVersion)>
 <if(file.genPackage)>
@@ -1006,20 +1102,24 @@ import org.antlr.v4.runtime.misc.*;
 <lexer>
 >>
 
+// Lexer implementation template
 Lexer(lexer, atn, actionFuncs, sempredFuncs, superClass) ::= <<
 public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends <superClass; null="Lexer"> {
 	<if(lexer.tokens)>
 	public static final int
 		<lexer.tokens:{k | <k>=<lexer.tokens.(k)>}; separator=", ", wrap, anchor>;
 	<endif>
+
 	<if(lexer.channels)>
 	public static final int
 		<lexer.channels:{c | <c>=<lexer.channels.(c)>}; separator=", ", wrap, anchor>;
 	<endif>
+
 	<if(rest(lexer.modes))>
 	public static final int
 		<rest(lexer.modes):{m | <m>=<i>}; separator=", ", wrap, anchor>;
 	<endif>
+
 	public static String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"<if (lexer.channels)>, <lexer.channels:{c| "<c>"}; separator=", ", wrap, anchor><endif>
 	};
@@ -1028,14 +1128,15 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 		<lexer.modes:{m| "<m>"}; separator=", ", wrap, anchor>
 	};
 
+	public static final String[] ruleNames = makeRuleNames();
+
+	<vocabulary(lexer.literalNames, lexer.symbolicNames)>
+
 	private static String[] makeRuleNames() {
 		return new String[] {
 			<lexer.ruleNames:{r | "<r>"}; separator=", ", wrap, anchor>
 		};
 	}
-	public static final String[] ruleNames = makeRuleNames();
-
-	<vocabulary(lexer.literalNames, lexer.symbolicNames)>
 
 	<namedActions.members>
 
@@ -1067,12 +1168,17 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 }
 >>
 
+// ============================================================================
+// ATN Serialization Templates
+// ============================================================================
+
 SerializedATN(model) ::= <<
 <if(rest(model.segments))>
 <! requires segmented representation !>
 <model.segments:{segment|private static final String _serializedATNSegment<i0> =
-	"<segment; wrap={"+<\n><\t>"}>";}; separator="\n">
-public static final String _serializedATN = Utils.join(
+	"<segment; wrap={"+<\n><\t>"}>";}; separator="\n\n">
+
+private static final String _serializedATN = Utils.join(
 	new String[] {
 		<model.segments:{segment | _serializedATNSegment<i0>}; separator=",\n">
 	},
@@ -1080,17 +1186,17 @@ public static final String _serializedATN = Utils.join(
 );
 <else>
 <! only one segment, can be inlined !>
-public static final String _serializedATN =
+private static final String _serializedATN =
 	"<model.serialized; wrap={"+<\n><\t>"}>";
 <endif>
-public static final ATN _ATN =
+
+private static final ATN _ATN =
 	new ATNDeserializer().deserialize(_serializedATN.toCharArray());
-static {
-<!	org.antlr.v4.tool.DOTGenerator dot = new org.antlr.v4.tool.DOTGenerator(null);!>
-<!	System.out.println(dot.getDOT(_ATN.decisionToState.get(0), ruleNames, false));!>
-<!	System.out.println(dot.getDOT(_ATN.ruleToStartState[2], ruleNames, false));!>
-}
 >>
+
+// ============================================================================
+// Utility Templates
+// ============================================================================
 
 /** Using a type to init value map, try to init a type; if not in table
  *	must be an object, default value is "null".

@@ -123,17 +123,17 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
         } else if (a.equals(ASSOC.left.toString())) {
           assoc = ASSOC.left;
         } else {
-          tool.errMgr.grammarError(ErrorType.ILLEGAL_OPTION_VALUE, t.g.fileName, t.getOptionAST("assoc").getToken(), "assoc", assoc);
+          tool.errMgr.grammarError(ErrorType.ILLEGAL_OPTION_VALUE, t.g.fileName,
+            t.getOptionAST("assoc").getToken(), "assoc", assoc);
         }
       }
     }
 
     if (altAssociativity.get(alt) != null && altAssociativity.get(alt) != assoc) {
-      tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, "all operators of alt " + alt + " of left-recursive rule must have same associativity");
+      tool.errMgr.toolError(ErrorType.INTERNAL_ERROR,
+        "all operators of alt " + alt + " of left-recursive rule must have same associativity");
     }
     altAssociativity.put(alt, assoc);
-
-//		System.out.println("setAltAssoc: op " + alt + ": " + t.getText()+", assoc="+assoc);
   }
 
   @Override

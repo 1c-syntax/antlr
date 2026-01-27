@@ -31,11 +31,11 @@ public class XPathTokenElement extends XPathElement {
     // return all children of t that match nodeName
     List<ParseTree> nodes = new ArrayList<>();
     for (Tree c : Trees.getChildren(t)) {
-      if (c instanceof TerminalNode tnode) {
-        if ((tnode.getSymbol().getType() == tokenType && !invert) ||
-          (tnode.getSymbol().getType() != tokenType && invert)) {
-          nodes.add(tnode);
-        }
+      if (c instanceof TerminalNode tnode
+        && ((tnode.getSymbol().getType() == tokenType && !invert)
+        || (tnode.getSymbol().getType() != tokenType && invert))) {
+
+        nodes.add(tnode);
       }
     }
     return nodes;

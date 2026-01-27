@@ -44,10 +44,6 @@ public class InterpreterRuleContext extends ParserRuleContext {
     this.ruleIndex = ruleIndex;
   }
 
-  private InterpreterRuleContext(int ruleIndex) {
-    this.ruleIndex = ruleIndex;
-  }
-
   @Override
   public int getRuleIndex() {
     return ruleIndex;

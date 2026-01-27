@@ -713,15 +713,6 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     return _precedenceStack.peek();
   }
 
-  /**
-   * @deprecated Use
-   * {@link #enterRecursionRule(ParserRuleContext, int, int, int)} instead.
-   */
-  @Deprecated
-  public void enterRecursionRule(ParserRuleContext localctx, int ruleIndex) {
-    enterRecursionRule(localctx, getATN().ruleToStartState[ruleIndex].stateNumber, ruleIndex, 0);
-  }
-
   public void enterRecursionRule(ParserRuleContext localctx, int state, int ruleIndex, int precedence) {
     setState(state);
     _precedenceStack.push(precedence);
@@ -824,7 +815,6 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
    * the ATN, otherwise {@code false}.
    */
   public boolean isExpectedToken(int symbol) {
-//   		return getInterpreter().atn.nextTokens(_ctx);
     ATN atn = getInterpreter().atn;
     ParserRuleContext ctx = _ctx;
     ATNState s = atn.states.get(getState());
@@ -832,7 +822,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     if (following.contains(symbol)) {
       return true;
     }
-//        System.out.println("following "+s+"="+following);
+
     if (!following.contains(Token.EPSILON)) return false;
 
     while (ctx != null && ctx.invokingState >= 0 && following.contains(Token.EPSILON)) {
@@ -944,9 +934,9 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
 
   @Override
   public ParseInfo getParseInfo() {
-    ParserATNSimulator interp = getInterpreter();
-    if (interp instanceof ProfilingATNSimulator) {
-      return new ParseInfo((ProfilingATNSimulator) interp);
+    var interp = getInterpreter();
+    if (interp instanceof ProfilingATNSimulator parseInfo) {
+      return new ParseInfo(parseInfo);
     }
     return null;
   }

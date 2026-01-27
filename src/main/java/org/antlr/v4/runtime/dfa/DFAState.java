@@ -139,7 +139,9 @@ public class DFAState {
    * @param emptyContextEdges The empty context edge map.
    * @param configs           The set of ATN configurations defining this state.
    */
-  public DFAState(@NotNull EmptyEdgeMap<DFAState> emptyEdges, @NotNull EmptyEdgeMap<DFAState> emptyContextEdges, @NotNull ATNConfigSet configs) {
+  public DFAState(@NotNull EmptyEdgeMap<DFAState> emptyEdges,
+                  @NotNull EmptyEdgeMap<DFAState> emptyContextEdges,
+                  @NotNull ATNConfigSet configs) {
     this.configs = configs;
     this.edges = emptyEdges;
     this.contextEdges = emptyContextEdges;

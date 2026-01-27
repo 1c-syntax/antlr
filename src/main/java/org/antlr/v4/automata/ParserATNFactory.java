@@ -125,8 +125,12 @@ public class ParserATNFactory implements ATNFactory {
       ATNState blkStop = pair.getItem3();
       IntervalSet lookahead = analyzer.LOOK(blkStart, blkStop, PredictionContext.EMPTY_LOCAL);
       if (lookahead.contains(org.antlr.v4.runtime.Token.EPSILON)) {
-        ErrorType errorType = pair.getItem1() instanceof LeftRecursiveRule ? ErrorType.EPSILON_LR_FOLLOW : ErrorType.EPSILON_CLOSURE;
-        g.tool.errMgr.grammarError(errorType, g.fileName, ((GrammarAST) pair.getItem1().ast.getChild(0)).getToken(), pair.getItem1().name);
+        var errorType = pair.getItem1() instanceof LeftRecursiveRule ? ErrorType.EPSILON_LR_FOLLOW
+          : ErrorType.EPSILON_CLOSURE;
+        g.tool.errMgr.grammarError(errorType,
+          g.fileName,
+          ((GrammarAST) pair.getItem1().ast.getChild(0)).getToken(),
+          pair.getItem1().name);
       }
     }
 
@@ -141,8 +145,13 @@ public class ParserATNFactory implements ATNFactory {
         }
 
         LL1Analyzer analyzer = new LL1Analyzer(atn);
-        if (analyzer.LOOK(startState, pair.getItem3(), PredictionContext.EMPTY_LOCAL).contains(org.antlr.v4.runtime.Token.EPSILON)) {
-          g.tool.errMgr.grammarError(ErrorType.EPSILON_OPTIONAL, g.fileName, ((GrammarAST) pair.getItem1().ast.getChild(0)).getToken(), pair.getItem1().name);
+        if (analyzer.LOOK(startState, pair.getItem3(), PredictionContext.EMPTY_LOCAL)
+          .contains(org.antlr.v4.runtime.Token.EPSILON)) {
+
+          g.tool.errMgr.grammarError(ErrorType.EPSILON_OPTIONAL,
+            g.fileName,
+            ((GrammarAST) pair.getItem1().ast.getChild(0)).getToken(),
+            pair.getItem1().name);
           continue optionalCheck;
         }
       }
@@ -299,7 +308,10 @@ public class ParserATNFactory implements ATNFactory {
   public Handle _ruleRef(@NotNull GrammarAST node) {
     Rule r = g.getRule(node.getText());
     if (r == null) {
-      g.tool.errMgr.grammarError(ErrorType.INTERNAL_ERROR, g.fileName, node.getToken(), "Rule " + node.getText() + " undefined");
+      g.tool.errMgr.grammarError(ErrorType.INTERNAL_ERROR,
+        g.fileName,
+        node.getToken(),
+        "Rule " + node.getText() + " undefined");
       return null;
     }
     RuleStartState start = atn.ruleToStartState[r.index];
@@ -307,7 +319,8 @@ public class ParserATNFactory implements ATNFactory {
     ATNState right = newState(node);
     int precedence = 0;
     if (((GrammarASTWithOptions) node).getOptionString(LeftRecursiveRuleTransformer.PRECEDENCE_OPTION_NAME) != null) {
-      precedence = Integer.parseInt(((GrammarASTWithOptions) node).getOptionString(LeftRecursiveRuleTransformer.PRECEDENCE_OPTION_NAME));
+      precedence = Integer.parseInt(((GrammarASTWithOptions) node)
+        .getOptionString(LeftRecursiveRuleTransformer.PRECEDENCE_OPTION_NAME));
     }
     RuleTransition call = new RuleTransition(start, r.index, precedence, right);
     left.addTransition(call);
@@ -561,7 +574,10 @@ public class ParserATNFactory implements ATNFactory {
     BlockAST blkAST = (BlockAST) plusAST.getChild(0);
     if (((QuantifierAST) plusAST).isGreedy()) {
       if (expectNonGreedy(blkAST)) {
-        g.tool.errMgr.grammarError(ErrorType.EXPECTED_NON_GREEDY_WILDCARD_BLOCK, g.fileName, plusAST.getToken(), plusAST.getToken().getText());
+        g.tool.errMgr.grammarError(ErrorType.EXPECTED_NON_GREEDY_WILDCARD_BLOCK,
+          g.fileName,
+          plusAST.getToken(),
+          plusAST.getToken().getText());
       }
 
       epsilon(loop, blkStart);  // loop back to start
@@ -609,7 +625,10 @@ public class ParserATNFactory implements ATNFactory {
     BlockAST blkAST = (BlockAST) starAST.getChild(0);
     if (((QuantifierAST) starAST).isGreedy()) {
       if (expectNonGreedy(blkAST)) {
-        g.tool.errMgr.grammarError(ErrorType.EXPECTED_NON_GREEDY_WILDCARD_BLOCK, g.fileName, starAST.getToken(), starAST.getToken().getText());
+        g.tool.errMgr.grammarError(ErrorType.EXPECTED_NON_GREEDY_WILDCARD_BLOCK,
+          g.fileName,
+          starAST.getToken(),
+          starAST.getToken().getText());
       }
 
       epsilon(entry, blkStart);  // loop enter edge (alt 1)
@@ -769,7 +788,8 @@ public class ParserATNFactory implements ATNFactory {
   public static boolean blockHasWildcardAlt(@NotNull GrammarAST block) {
     for (Object alt : block.getChildren()) {
       if (!(alt instanceof AltAST altAST)) continue;
-      if (altAST.getChildCount() == 1 || (altAST.getChildCount() == 2 && altAST.getChild(0).getType() == ANTLRParser.ELEMENT_OPTIONS)) {
+      if (altAST.getChildCount() == 1
+        || (altAST.getChildCount() == 2 && altAST.getChild(0).getType() == ANTLRParser.ELEMENT_OPTIONS)) {
         Tree e = altAST.getChild(altAST.getChildCount() - 1);
         if (e.getType() == ANTLRParser.WILDCARD) {
           return true;

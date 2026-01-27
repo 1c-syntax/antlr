@@ -50,7 +50,9 @@ public class Array2DHashSet<T> implements Set<T> {
     this(comparator, INITAL_CAPACITY, INITAL_BUCKET_CAPACITY);
   }
 
-  public Array2DHashSet(@Nullable AbstractEqualityComparator<? super T> comparator, int initialCapacity, int initialBucketCapacity) {
+  public Array2DHashSet(@Nullable AbstractEqualityComparator<? super T> comparator,
+                        int initialCapacity,
+                        int initialBucketCapacity) {
     if (comparator == null) {
       comparator = ObjectEqualityComparator.INSTANCE;
     }
@@ -154,7 +156,6 @@ public class Array2DHashSet<T> implements Set<T> {
     int[] newBucketLengths = new int[newTable.length];
     buckets = newTable;
     threshold = (int) (newCapacity * LOAD_FACTOR);
-//		System.out.println("new size="+newCapacity+", thres="+threshold);
     // rehash all existing entries
     int oldSize = size();
     for (T[] bucket : old) {

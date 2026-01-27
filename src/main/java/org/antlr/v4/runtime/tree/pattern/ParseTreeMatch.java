@@ -55,7 +55,10 @@ public class ParseTreeMatch {
    * @throws IllegalArgumentException if {@code pattern} is {@code null}
    * @throws IllegalArgumentException if {@code labels} is {@code null}
    */
-  public ParseTreeMatch(@NotNull ParseTree tree, @NotNull ParseTreePattern pattern, @NotNull MultiMap<String, ParseTree> labels, @Nullable ParseTree mismatchedNode) {
+  public ParseTreeMatch(@NotNull ParseTree tree,
+                        @NotNull ParseTreePattern pattern,
+                        @NotNull MultiMap<String, ParseTree> labels,
+                        @Nullable ParseTree mismatchedNode) {
     if (tree == null) {
       throw new IllegalArgumentException("tree cannot be null");
     }

@@ -37,10 +37,10 @@ public class ParseTreeWalker {
 
     while (currentNode != null) {
       // pre-order visit
-      if (currentNode instanceof ErrorNode) {
-        listener.visitErrorNode((ErrorNode) currentNode);
-      } else if (currentNode instanceof TerminalNode) {
-        listener.visitTerminal((TerminalNode) currentNode);
+      if (currentNode instanceof ErrorNode errorNode) {
+        listener.visitErrorNode(errorNode);
+      } else if (currentNode instanceof TerminalNode terminalNode) {
+        listener.visitTerminal(terminalNode);
       } else {
         final RuleNode r = (RuleNode) currentNode;
         enterRule(listener, r);
@@ -59,8 +59,8 @@ public class ParseTreeWalker {
       do {
 
         // post-order visit
-        if (currentNode instanceof RuleNode) {
-          exitRule(listener, (RuleNode) currentNode);
+        if (currentNode instanceof RuleNode ruleNode) {
+          exitRule(listener, ruleNode);
         }
 
         // No parent, so no siblings

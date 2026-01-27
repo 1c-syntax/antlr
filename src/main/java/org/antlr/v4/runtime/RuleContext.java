@@ -90,7 +90,6 @@ public class RuleContext implements RuleNode {
 
   public RuleContext(RuleContext parent, int invokingState) {
     this.parent = parent;
-    //if ( parent!=null ) System.out.println("invoke "+stateNumber+" from "+parent);
     this.invokingState = invokingState;
   }
 
@@ -271,7 +270,8 @@ public class RuleContext implements RuleNode {
         }
       } else {
         int ruleIndex = p.getRuleIndex();
-        String ruleName = ruleIndex >= 0 && ruleIndex < ruleNames.size() ? ruleNames.get(ruleIndex) : Integer.toString(ruleIndex);
+        String ruleName = ruleIndex >= 0 && ruleIndex < ruleNames.size() ? ruleNames.get(ruleIndex)
+          : Integer.toString(ruleIndex);
         buf.append(ruleName);
       }
 

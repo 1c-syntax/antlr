@@ -12,7 +12,6 @@ package org.antlr.v4.runtime.misc;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.Vocabulary;
-import org.antlr.v4.runtime.VocabularyImpl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -209,8 +208,8 @@ public class IntervalSet implements IntSet {
     }
 
     IntervalSet vocabularyIS;
-    if (vocabulary instanceof IntervalSet) {
-      vocabularyIS = (IntervalSet) vocabulary;
+    if (vocabulary instanceof IntervalSet intervalSet) {
+      vocabularyIS = intervalSet;
     } else {
       vocabularyIS = new IntervalSet();
       vocabularyIS.addAll(vocabulary);
@@ -225,8 +224,8 @@ public class IntervalSet implements IntSet {
       return new IntervalSet(this);
     }
 
-    if (a instanceof IntervalSet) {
-      return subtract(this, (IntervalSet) a);
+    if (a instanceof IntervalSet intervalSet) {
+      return subtract(this, intervalSet);
     }
 
     IntervalSet other = new IntervalSet();
@@ -337,7 +336,7 @@ public class IntervalSet implements IntSet {
     while (i < mySize && j < theirSize) {
       Interval mine = myIntervals.get(i);
       Interval theirs = theirIntervals.get(j);
-      //System.out.println("mine="+mine+" and theirs="+theirs);
+
       if (mine.startsBeforeDisjoint(theirs)) {
         // move this iterator looking for interval that might overlap
         i++;
@@ -529,14 +528,6 @@ public class IntervalSet implements IntSet {
     return buf.toString();
   }
 
-  /**
-   * @deprecated Use {@link #toString(Vocabulary)} instead.
-   */
-  @Deprecated
-  public String toString(String[] tokenNames) {
-    return toString(VocabularyImpl.fromTokenNames(tokenNames));
-  }
-
   public String toString(@NotNull Vocabulary vocabulary) {
     StringBuilder buf = new StringBuilder();
     if (this.intervals == null || this.intervals.isEmpty()) {
@@ -566,14 +557,6 @@ public class IntervalSet implements IntSet {
       buf.append("}");
     }
     return buf.toString();
-  }
-
-  /**
-   * @deprecated Use {@link #elementName(Vocabulary, int)} instead.
-   */
-  @Deprecated
-  protected String elementName(String[] tokenNames, int a) {
-    return elementName(VocabularyImpl.fromTokenNames(tokenNames), a);
   }
 
   @NotNull

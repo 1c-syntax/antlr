@@ -344,13 +344,10 @@ public class ParseTreePatternMatcher {
    * Is {@code t} {@code (expr <expr>)} subtree?
    */
   protected RuleTagToken getRuleTagToken(ParseTree t) {
-    if (t instanceof RuleNode r) {
-      if (r.getChildCount() == 1 && r.getChild(0) instanceof TerminalNode c) {
-        if (c.getSymbol() instanceof RuleTagToken) {
-//					System.out.println("rule tag subtree "+t.toStringTree(parser));
-          return (RuleTagToken) c.getSymbol();
-        }
-      }
+    if (t instanceof RuleNode r && r.getChildCount() == 1
+      && r.getChild(0) instanceof TerminalNode terminalNode
+      && terminalNode.getSymbol() instanceof RuleTagToken ruleTagToken) {
+      return ruleTagToken;
     }
     return null;
   }

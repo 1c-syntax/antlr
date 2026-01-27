@@ -1,6 +1,6 @@
 [The "BSD-3-Clause license"]
 Copyright (c) 2012 The ANTLR Project. All rights reserved.
-Copyright (c) 2025 Valery Maximov and contributors
+Copyright (c) 2025-present Valery Maximov and contributors
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions

@@ -54,7 +54,10 @@ public class AnalysisPipeline {
       LL1Analyzer analyzer = new LL1Analyzer(g.atn);
       IntervalSet look = analyzer.LOOK(g.atn.ruleToStartState[rule.index], PredictionContext.EMPTY_LOCAL);
       if (look.contains(Token.EPSILON)) {
-        g.tool.errMgr.grammarError(ErrorType.EPSILON_TOKEN, g.fileName, ((GrammarAST) rule.ast.getChild(0)).getToken(), rule.name);
+        g.tool.errMgr.grammarError(ErrorType.EPSILON_TOKEN,
+          g.fileName,
+          ((GrammarAST) rule.ast.getChild(0)).getToken(),
+          rule.name);
       }
     }
   }

@@ -12,8 +12,8 @@ package org.antlr.v4.runtime;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -96,7 +96,11 @@ public class CommonToken implements WritableToken, Serializable {
     this.source = EMPTY_SOURCE;
   }
 
-  public CommonToken(@NotNull Pair<? extends TokenSource, CharStream> source, int type, int channel, int start, int stop) {
+  public CommonToken(@NotNull Pair<? extends TokenSource, CharStream> source,
+                     int type,
+                     int channel,
+                     int start,
+                     int stop) {
     this.source = source;
     this.type = type;
     this.channel = channel;
@@ -144,9 +148,9 @@ public class CommonToken implements WritableToken, Serializable {
     start = oldToken.getStartIndex();
     stop = oldToken.getStopIndex();
 
-    if (oldToken instanceof CommonToken) {
-      text = ((CommonToken) oldToken).text;
-      source = ((CommonToken) oldToken).source;
+    if (oldToken instanceof CommonToken commonToken) {
+      text = commonToken.text;
+      source = commonToken.source;
     } else {
       text = oldToken.getText();
       source = Tuple.create(oldToken.getTokenSource(), oldToken.getInputStream());
@@ -285,6 +289,8 @@ public class CommonToken implements WritableToken, Serializable {
       typeString = r.getVocabulary().getDisplayName(type);
     }
 
-    return "[@" + getTokenIndex() + "," + start + ":" + stop + "='" + txt + "',<" + typeString + ">" + channelStr + "," + line + ":" + getCharPositionInLine() + "]";
+    return "[@" + getTokenIndex() + "," + start + ":" + stop + "='" + txt
+      + "',<" + typeString + ">" + channelStr + "," + line + ":" + getCharPositionInLine()
+      + "]";
   }
 }

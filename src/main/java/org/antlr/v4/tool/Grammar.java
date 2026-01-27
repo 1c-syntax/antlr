@@ -577,13 +577,15 @@ public class Grammar implements AttributeResolver {
   }
 
   public List<AltAST> getUnlabeledAlternatives(RuleAST ast) throws org.antlr.runtime.RecognitionException {
-    AltLabelVisitor visitor = new AltLabelVisitor(new org.antlr.runtime.tree.CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
+    var visitor = new AltLabelVisitor(new org.antlr.runtime.tree.CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
     visitor.rule();
     return visitor.getUnlabeledAlternatives();
   }
 
-  public Map<String, List<Pair<Integer, AltAST>>> getLabeledAlternatives(RuleAST ast) throws org.antlr.runtime.RecognitionException {
-    AltLabelVisitor visitor = new AltLabelVisitor(new org.antlr.runtime.tree.CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
+  public Map<String, List<Pair<Integer, AltAST>>> getLabeledAlternatives(RuleAST ast)
+    throws org.antlr.runtime.RecognitionException {
+
+    var visitor = new AltLabelVisitor(new org.antlr.runtime.tree.CommonTreeNodeStream(new GrammarASTAdaptor(), ast));
     visitor.rule();
     return visitor.getLabeledAlternatives();
   }
@@ -1407,7 +1409,13 @@ public class Grammar implements AttributeResolver {
     allChannels.add("DEFAULT_TOKEN_CHANNEL");
     allChannels.add("HIDDEN");
     allChannels.addAll(channelValueToNameList);
-    return new LexerInterpreter(fileName, getVocabulary(), Arrays.asList(getRuleNames()), allChannels, ((LexerGrammar) this).modes.keySet(), deserialized, input);
+    return new LexerInterpreter(fileName,
+      getVocabulary(),
+      Arrays.asList(getRuleNames()),
+      allChannels,
+      ((LexerGrammar) this).modes.keySet(),
+      deserialized,
+      input);
   }
 
   /**

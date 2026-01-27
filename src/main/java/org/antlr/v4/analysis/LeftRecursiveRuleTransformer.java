@@ -92,7 +92,8 @@ public class LeftRecursiveRuleTransformer {
         continue; // already has arg; must be in rewritten rule
       if (leftRecursiveRuleNames.contains(r.getText())) {
         // found ref to recursive rule not already rewritten with arg
-        ((GrammarASTWithOptions) r).setOption(PRECEDENCE_OPTION_NAME, new GrammarASTAdaptor().create(ANTLRParser.INT, "0"));
+        ((GrammarASTWithOptions) r).setOption(PRECEDENCE_OPTION_NAME,
+          new GrammarASTAdaptor().create(ANTLRParser.INT, "0"));
       }
     }
   }
@@ -152,7 +153,10 @@ public class LeftRecursiveRuleTransformer {
     r.recPrimaryAlts = new ArrayList<>();
     r.recPrimaryAlts.addAll(leftRecursiveRuleWalker.prefixAndOtherAlts);
     if (r.recPrimaryAlts.isEmpty()) {
-      tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS, g.fileName, ((GrammarAST) r.ast.getChild(0)).getToken(), r.name);
+      tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS,
+        g.fileName,
+        ((GrammarAST) r.ast.getChild(0)).getToken(),
+        r.name);
     }
 
     r.recOpAlts = new OrderedHashMap<>();

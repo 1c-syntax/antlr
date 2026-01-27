@@ -70,12 +70,14 @@ public class LexerActionExecutor {
    * of {@code lexerActionExecutor} and {@code lexerAction}.
    */
   @NotNull
-  public static LexerActionExecutor append(@Nullable LexerActionExecutor lexerActionExecutor, @NotNull LexerAction lexerAction) {
+  public static LexerActionExecutor append(@Nullable LexerActionExecutor lexerActionExecutor,
+                                           @NotNull LexerAction lexerAction) {
     if (lexerActionExecutor == null) {
       return new LexerActionExecutor(new LexerAction[]{lexerAction});
     }
 
-    LexerAction[] lexerActions = Arrays.copyOf(lexerActionExecutor.lexerActions, lexerActionExecutor.lexerActions.length + 1);
+    LexerAction[] lexerActions = Arrays.copyOf(lexerActionExecutor.lexerActions,
+      lexerActionExecutor.lexerActions.length + 1);
     lexerActions[lexerActions.length - 1] = lexerAction;
     return new LexerActionExecutor(lexerActions);
   }

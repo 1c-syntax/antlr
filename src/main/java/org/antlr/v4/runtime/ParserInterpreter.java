@@ -54,8 +54,6 @@ public class ParserInterpreter extends Parser {
    */
   protected final BitSet pushRecursionContextStates;
 
-  @Deprecated
-  protected final String[] tokenNames;
   protected final String[] ruleNames;
   @NotNull
   private final Vocabulary vocabulary;
@@ -107,19 +105,9 @@ public class ParserInterpreter extends Parser {
     this.grammarFileName = old.grammarFileName;
     this.atn = old.atn;
     this.pushRecursionContextStates = old.pushRecursionContextStates;
-    this.tokenNames = old.tokenNames;
     this.ruleNames = old.ruleNames;
     this.vocabulary = old.vocabulary;
     setInterpreter(new ParserATNSimulator(this, atn));
-  }
-
-  /**
-   * @deprecated Use {@link #ParserInterpreter(String, Vocabulary, Collection, ATN, TokenStream)} instead.
-   */
-  @Deprecated
-  public ParserInterpreter(String grammarFileName, Collection<String> tokenNames,
-                           Collection<String> ruleNames, ATN atn, TokenStream input) {
-    this(grammarFileName, VocabularyImpl.fromTokenNames(tokenNames.toArray(new String[0])), ruleNames, atn, input);
   }
 
   public ParserInterpreter(String grammarFileName, @NotNull Vocabulary vocabulary,
@@ -127,10 +115,6 @@ public class ParserInterpreter extends Parser {
     super(input);
     this.grammarFileName = grammarFileName;
     this.atn = atn;
-    this.tokenNames = new String[atn.maxTokenType];
-    for (int i = 0; i < tokenNames.length; i++) {
-      tokenNames[i] = vocabulary.getDisplayName(i);
-    }
 
     this.ruleNames = ruleNames.toArray(new String[0]);
     this.vocabulary = vocabulary;
@@ -161,12 +145,6 @@ public class ParserInterpreter extends Parser {
   @Override
   public ATN getATN() {
     return atn;
-  }
-
-  @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return tokenNames;
   }
 
   @Override
@@ -254,9 +232,7 @@ public class ParserInterpreter extends Parser {
         match(((AtomTransition) transition).label);
         break;
 
-      case Transition.RANGE:
-      case Transition.SET:
-      case Transition.NOT_SET:
+      case Transition.RANGE, Transition.SET, Transition.NOT_SET:
         if (!transition.matches(_input.LA(1), Token.MIN_USER_TOKEN_TYPE, 65535)) {
           recoverInline();
         }
@@ -286,7 +262,8 @@ public class ParserInterpreter extends Parser {
 
       case Transition.PRECEDENCE:
         if (!precpred(_ctx, ((PrecedencePredicateTransition) transition).precedence)) {
-          throw new FailedPredicateException(this, String.format("precpred(_ctx, %d)", ((PrecedencePredicateTransition) transition).precedence));
+          throw new FailedPredicateException(this,
+            String.format("precpred(_ctx, %d)", ((PrecedencePredicateTransition) transition).precedence));
         }
         break;
 

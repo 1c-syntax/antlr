@@ -48,9 +48,6 @@ public class Alternative implements AttributeResolver {
    */
   public MultiMap<String, LabelElementPair> labelDefs = new MultiMap<>();
 
-  // track all token, rule, label refs in rewrite (right of ->)
-  //public List<GrammarAST> rewriteElements = new ArrayList<GrammarAST>();
-
   /**
    * Track all executable actions other than named actions like @init
    * and catch/finally (not in an alt). Also tracks predicates, rewrite actions.

@@ -20,7 +20,11 @@ public class RangeBorderCharactersData {
   public int upperTo;
   public boolean mixOfLowerAndUpperCharCase;
 
-  public RangeBorderCharactersData(int lowerFrom, int upperFrom, int lowerTo, int upperTo, boolean mixOfLowerAndUpperCharCase) {
+  public RangeBorderCharactersData(int lowerFrom,
+                                   int upperFrom,
+                                   int lowerTo,
+                                   int upperTo,
+                                   boolean mixOfLowerAndUpperCharCase) {
     this.lowerFrom = lowerFrom;
     this.upperFrom = upperFrom;
     this.lowerTo = lowerTo;
@@ -28,7 +32,10 @@ public class RangeBorderCharactersData {
     this.mixOfLowerAndUpperCharCase = mixOfLowerAndUpperCharCase;
   }
 
-  public static RangeBorderCharactersData getAndCheckCharactersData(int from, int to, Grammar grammar, CommonTree tree) {
+  public static RangeBorderCharactersData getAndCheckCharactersData(int from,
+                                                                    int to,
+                                                                    Grammar grammar,
+                                                                    CommonTree tree) {
     int lowerFrom = Character.toLowerCase(from);
     int upperFrom = Character.toUpperCase(from);
     int lowerTo = Character.toLowerCase(to);

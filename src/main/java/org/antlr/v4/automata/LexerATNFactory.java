@@ -773,7 +773,10 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(modeName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }
@@ -800,7 +803,10 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(tokenName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }
@@ -830,7 +836,10 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(channelName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }

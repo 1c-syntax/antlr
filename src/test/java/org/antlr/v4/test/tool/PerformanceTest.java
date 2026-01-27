@@ -1182,7 +1182,10 @@ public class PerformanceTest extends AbstractBaseTest {
     updateChecksum(checksum, token.getChannel());
   }
 
-  protected ParserFactory getParserFactory(String lexerName, String parserName, String listenerName, final String entryPoint) {
+  protected ParserFactory getParserFactory(String lexerName,
+                                           String parserName,
+                                           String listenerName,
+                                           final String entryPoint) {
     try {
       ClassLoader loader = new URLClassLoader(new URL[]{new File(tmpdir).toURI().toURL()}, ClassLoader.getSystemClassLoader());
       final Class<? extends Lexer> lexerClass = loader.loadClass(lexerName).asSubclass(Lexer.class);
@@ -1224,7 +1227,7 @@ public class PerformanceTest extends AbstractBaseTest {
           try {
             ParseTreeListener listener = sharedListeners[thread];
             if (listener == null) {
-              listener = listenerClass.newInstance();
+              listener = listenerClass.getDeclaredConstructor().newInstance();
               sharedListeners[thread] = listener;
             }
 

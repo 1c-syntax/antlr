@@ -13,6 +13,8 @@ import org.antlr.v4.Tool;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.Vocabulary;
+import org.antlr.v4.runtime.VocabularyImpl;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.atn.DecisionState;
@@ -24,6 +26,9 @@ import org.antlr.v4.tool.Grammar;
 public class ParserInterpreterForTesting {
   public static class DummyParser extends Parser {
     public final ATN atn;
+    private static final String[] _LITERAL_NAMES = makeLiteralNames();
+    private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+    public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
     public Grammar g;
 
@@ -44,14 +49,25 @@ public class ParserInterpreterForTesting {
     }
 
     @Override
-    @Deprecated
-    public String[] getTokenNames() {
-      return g.getTokenNames();
+    public ATN getATN() {
+      return atn;
     }
 
     @Override
-    public ATN getATN() {
-      return atn;
+    @NotNull
+    public Vocabulary getVocabulary() {
+      return VOCABULARY;
+    }
+
+    private static String[] makeLiteralNames() {
+      return new String[] {
+        null
+      };
+    }
+    private static String[] makeSymbolicNames() {
+      return new String[] {
+        null
+      };
     }
   }
 

@@ -127,7 +127,9 @@ public class ATNOptimizer {
             newTransition = CodePointTransitions.createWithCodePoint(blockEndState, matchSet.getMinElement());
           } else {
             Interval matchInterval = matchSet.getIntervals().get(0);
-            newTransition = CodePointTransitions.createWithCodePointRange(blockEndState, matchInterval.a, matchInterval.b);
+            newTransition = CodePointTransitions.createWithCodePointRange(blockEndState,
+              matchInterval.a,
+              matchInterval.b);
           }
         } else {
           newTransition = new SetTransition(blockEndState, matchSet);

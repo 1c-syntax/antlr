@@ -207,7 +207,8 @@ public class RuleDependencyChecker {
     return result;
   }
 
-  private static void getElementDependencies(AnnotatedElement annotatedElement, List<Pair<RuleDependency, AnnotatedElement>> result) {
+  private static void getElementDependencies(AnnotatedElement annotatedElement,
+                                             List<Pair<RuleDependency, AnnotatedElement>> result) {
     RuleDependency dependency = annotatedElement.getAnnotation(RuleDependency.class);
     if (dependency != null) {
       result.add(Tuple.create(dependency, annotatedElement));

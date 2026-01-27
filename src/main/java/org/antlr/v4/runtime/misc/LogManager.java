@@ -66,7 +66,6 @@ public class LogManager {
   }
 
   public String save() throws IOException {
-    //String dir = System.getProperty("java.io.tmpdir");
     String dir = ".";
     String defaultFilename =
       dir + "/antlr-" +

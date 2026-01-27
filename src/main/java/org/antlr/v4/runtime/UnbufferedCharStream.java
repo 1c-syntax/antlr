@@ -297,10 +297,8 @@ public class UnbufferedCharStream implements UnicodeCharStream, CharStream {
     }
 
     int bufferStartIndex = getBufferStartIndex();
-    if (n > 0 && data[n - 1] == Character.MAX_VALUE) {
-      if (interval.a + interval.length() > bufferStartIndex + n) {
-        throw new IllegalArgumentException("the interval extends past the end of the stream");
-      }
+    if (n > 0 && data[n - 1] == Character.MAX_VALUE && interval.a + interval.length() > bufferStartIndex + n) {
+      throw new IllegalArgumentException("the interval extends past the end of the stream");
     }
 
     if (interval.a < bufferStartIndex || interval.b >= bufferStartIndex + n) {

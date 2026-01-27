@@ -276,8 +276,14 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   public Token emitEOF() {
     int cpos = getCharPositionInLine();
     int line = getLine();
-    Token eof = _factory.create(_tokenFactorySourcePair, Token.EOF, null, Token.DEFAULT_CHANNEL, _input.index(), _input.index() - 1,
-      line, cpos);
+    Token eof = _factory.create(_tokenFactorySourcePair,
+      Token.EOF,
+      null,
+      Token.DEFAULT_CHANNEL,
+      _input.index(),
+      _input.index() - 1,
+      line,
+      cpos);
     emit(eof);
     return eof;
   }
@@ -364,17 +370,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
   }
 
   /**
-   * Used to print out token names like ID during debugging and
-   * error reporting.  The generated parsers implement a method
-   * that overrides this to point to their String[] tokenNames.
-   */
-  @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return null;
-  }
-
-  /**
    * Return a list of all Token objects in input char stream.
    * Forces load of all tokens. Does not include EOF token.
    */
@@ -433,8 +428,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator>
    * to do sophisticated error recovery if you are in a fragment rule.
    */
   public void recover(RecognitionException re) {
-    //System.out.println("consuming char "+(char)input.LA(1)+" during recovery");
-    //re.printStackTrace();
     // TODO: Do we lose character or line position information?
     _input.consume();
   }

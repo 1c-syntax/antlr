@@ -275,7 +275,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
     return true;
   }
 
-  private boolean mergeConfigContext(ATNConfig e, @Nullable PredictionContextCache contextCache, ATNConfig unmergedConfig) {
+  private boolean mergeConfigContext(ATNConfig e,
+                                     @Nullable PredictionContextCache contextCache,
+                                     ATNConfig unmergedConfig) {
     unmergedConfig.setOuterContextDepth(Math.max(unmergedConfig.getOuterContextDepth(), e.getOuterContextDepth()));
     if (e.isPrecedenceFilterSuppressed()) {
       unmergedConfig.setPrecedenceFilterSuppressed(true);
