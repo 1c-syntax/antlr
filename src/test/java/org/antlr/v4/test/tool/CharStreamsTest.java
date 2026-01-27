@@ -30,111 +30,111 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CharStreamsTest {
+class CharStreamsTest {
   @TempDir
   private Path tempDir;
   private Path tempFile;
 
   @BeforeEach
-  public void newFile() throws IOException {
+  void newFile() throws IOException {
     tempFile = Files.createTempFile(tempDir, "tmp", "tmp");
   }
 
   @Test
-  public void fromBMPStringHasExpectedSize() {
+  void fromBMPStringHasExpectedSize() {
     CharStream s = CharStreams.fromString("hello");
-    assertEquals(5, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello", s.toString());
+    assertThat(s.size()).isEqualTo(5);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello");
   }
 
   @Test
-  public void fromSMPStringHasExpectedSize() {
+  void fromSMPStringHasExpectedSize() {
     CharStream s = CharStreams.fromString(
       "hello \uD83C\uDF0E");
-    assertEquals(7, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \uD83C\uDF0E", s.toString());
+    assertThat(s.size()).isEqualTo(7);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello \uD83C\uDF0E");
   }
 
   @Test
-  public void fromBMPUTF8PathHasExpectedSize() throws Exception {
+  void fromBMPUTF8PathHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFile(p);
-    assertEquals(5, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(5);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
   }
 
   @Test
-  public void fromSMPUTF8PathHasExpectedSize() throws Exception {
+  void fromSMPUTF8PathHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFile(p);
-    assertEquals(7, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \uD83C\uDF0E", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(7);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello \uD83C\uDF0E");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
   }
 
   @Test
-  public void fromBMPUTF8InputStreamHasExpectedSize() throws Exception {
+  void fromBMPUTF8InputStreamHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     try (InputStream is = new FileInputStream(p)) {
       CharStream s = CharStreams.fromStream(is);
-      assertEquals(5, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello", s.toString());
+      assertThat(s.size()).isEqualTo(5);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello");
     }
   }
 
   @Test
-  public void fromSMPUTF8InputStreamHasExpectedSize() throws Exception {
+  void fromSMPUTF8InputStreamHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (InputStream is = new FileInputStream(p)) {
       CharStream s = CharStreams.fromStream(is);
-      assertEquals(7, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello \uD83C\uDF0E", s.toString());
+      assertThat(s.size()).isEqualTo(7);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello \uD83C\uDF0E");
     }
   }
 
   @Test
-  public void fromBMPUTF8ChannelHasExpectedSize() throws Exception {
+  void fromBMPUTF8ChannelHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
       CharStream s = CharStreams.fromChannel(
         c, 4096, CodingErrorAction.REPLACE, "foo");
-      assertEquals(5, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello", s.toString());
-      assertEquals("foo", s.getSourceName());
+      assertThat(s.size()).isEqualTo(5);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello");
+      assertThat(s.getSourceName()).isEqualTo("foo");
     }
   }
 
   @Test
-  public void fromSMPUTF8ChannelHasExpectedSize() throws Exception {
+  void fromSMPUTF8ChannelHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
       CharStream s = CharStreams.fromChannel(
         c, 4096, CodingErrorAction.REPLACE, "foo");
-      assertEquals(7, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello \uD83C\uDF0E", s.toString());
-      assertEquals("foo", s.getSourceName());
+      assertThat(s.size()).isEqualTo(7);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello \uD83C\uDF0E");
+      assertThat(s.getSourceName()).isEqualTo("foo");
     }
   }
 
   @Test
-  public void fromInvalidUTF8BytesChannelReplacesWithSubstCharInReplaceMode()
+  void fromInvalidUTF8BytesChannelReplacesWithSubstCharInReplaceMode()
     throws Exception {
     File p = tempFile.toFile();
     byte[] toWrite = new byte[]{(byte) 0xCA, (byte) 0xFE, (byte) 0xFE, (byte) 0xED};
@@ -142,14 +142,14 @@ public class CharStreamsTest {
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
       CharStream s = CharStreams.fromChannel(
         c, 4096, CodingErrorAction.REPLACE, "foo");
-      assertEquals(4, s.size());
-      assertEquals(0, s.index());
-      assertEquals("\uFFFD\uFFFD\uFFFD\uFFFD", s.toString());
+      assertThat(s.size()).isEqualTo(4);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("\uFFFD\uFFFD\uFFFD\uFFFD");
     }
   }
 
   @Test
-  public void fromSMPUTF8SequenceStraddlingBufferBoundary() throws Exception {
+  void fromSMPUTF8SequenceStraddlingBufferBoundary() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (ReadableByteChannel c = Channels.newChannel(new FileInputStream(p))) {
@@ -160,67 +160,67 @@ public class CharStreamsTest {
         8,
         CodingErrorAction.REPLACE,
         "foo");
-      assertEquals(7, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello \uD83C\uDF0E", s.toString());
+      assertThat(s.size()).isEqualTo(7);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello \uD83C\uDF0E");
     }
   }
 
   @Test
-  public void fromFileName() throws Exception {
+  void fromFileName() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     CharStream s = CharStreams.fromFileName(p.toString());
-    assertEquals(7, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \uD83C\uDF0E", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(7);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello \uD83C\uDF0E");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
 
   }
 
   @Test
-  public void fromFileNameWithLatin1() throws Exception {
+  void fromFileNameWithLatin1() throws Exception {
     File p = tempFile.toFile();
-    Utils.writeFile(p, "hello \u00CA\u00FE".getBytes(StandardCharsets.ISO_8859_1));
+    Utils.writeFile(p, "hello Êþ".getBytes(StandardCharsets.ISO_8859_1));
     CharStream s = CharStreams.fromFileName(p.toString(), StandardCharsets.ISO_8859_1);
-    assertEquals(8, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \u00CA\u00FE", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(8);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello Êþ");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
 
   }
 
   @Test
-  public void fromReader() throws Exception {
+  void fromReader() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_8));
     try (Reader r = new InputStreamReader(new FileInputStream(p), StandardCharsets.UTF_8)) {
       CharStream s = CharStreams.fromReader(r);
-      assertEquals(7, s.size());
-      assertEquals(0, s.index());
-      assertEquals("hello \uD83C\uDF0E", s.toString());
+      assertThat(s.size()).isEqualTo(7);
+      assertThat(s.index()).isZero();
+      assertThat(s).hasToString("hello \uD83C\uDF0E");
     }
   }
 
   @Test
-  public void fromSMPUTF16LEPathSMPHasExpectedSize() throws Exception {
+  void fromSMPUTF16LEPathSMPHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(StandardCharsets.UTF_16LE));
     CharStream s = CharStreams.fromFile(p, StandardCharsets.UTF_16LE);
-    assertEquals(7, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \uD83C\uDF0E", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(7);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello \uD83C\uDF0E");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
   }
 
   @Test
-  public void fromSMPUTF32LEPathSMPHasExpectedSize() throws Exception {
+  void fromSMPUTF32LEPathSMPHasExpectedSize() throws Exception {
     File p = tempFile.toFile();
     Utils.writeFile(p, "hello \uD83C\uDF0E".getBytes(Charset.forName("UTF-32LE")));
     CharStream s = CharStreams.fromFile(p, Charset.forName("UTF-32LE"));
-    assertEquals(7, s.size());
-    assertEquals(0, s.index());
-    assertEquals("hello \uD83C\uDF0E", s.toString());
-    assertEquals(p.toString(), s.getSourceName());
+    assertThat(s.size()).isEqualTo(7);
+    assertThat(s.index()).isZero();
+    assertThat(s).hasToString("hello \uD83C\uDF0E");
+    assertThat(s.getSourceName()).isEqualTo(p.toString());
   }
 }

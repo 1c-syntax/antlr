@@ -9,16 +9,14 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class DollarParserTest extends AbstractBaseTest {
+class DollarParserTest extends AbstractBaseTest {
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSimpleCall() {
+  void testSimpleCall() {
     String grammar = """
       grammar T;
       a : ID  { System.out.println( $parser.getSourceName() ); }
@@ -26,7 +24,7 @@ public class DollarParserTest extends AbstractBaseTest {
       ID : 'a'..'z'+ ;
       """;
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "x", true);
-    assertThat(found.contains(this.getClass().getSimpleName())).isTrue();
+    assertThat(found).contains(this.getClass().getSimpleName());
     assertThat(this.stderrDuringParse).isNull();
   }
 

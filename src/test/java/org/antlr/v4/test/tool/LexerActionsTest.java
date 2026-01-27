@@ -9,17 +9,15 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LexerActionsTest extends AbstractBaseTest {
+class LexerActionsTest extends AbstractBaseTest {
   // ----- ACTIONS --------------------------------------------------------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionExecutedInDFA() {
+  void testActionExecutedInDFA() {
     String grammar =
       """
         lexer grammar L;
@@ -34,12 +32,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,3:4='34',<1>,1:3]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionEvalsAtCorrectIndex() {
+  void testActionEvalsAtCorrectIndex() {
     String grammar =
       """
         lexer grammar L;
@@ -54,7 +51,7 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='45',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -63,8 +60,7 @@ public class LexerActionsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/469">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testEvalMultipleActions() {
+  void testEvalMultipleActions() {
     String grammar =
       """
         lexer grammar L;
@@ -106,12 +102,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@0,0:11='hello Steve\\n',<1>,1:0]
         [@1,12:11='<EOF>',<-1>,2:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test2ActionsIn1Rule() {
+  void test2ActionsIn1Rule() {
     String grammar =
       """
         lexer grammar L;
@@ -128,12 +123,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='45',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAltActionsIn1Rule() {
+  void testAltActionsIn1Rule() {
     String grammar =
       """
         lexer grammar L;
@@ -152,12 +146,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='ab',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testActionPlusCommand() {
+  void testActionPlusCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -170,14 +163,13 @@ public class LexerActionsTest extends AbstractBaseTest {
         I
         [@0,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // ----- COMMANDS --------------------------------------------------------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSkipCommand() {
+  void testSkipCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -192,12 +184,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,3:4='34',<1>,1:3]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMoreCommand() {
+  void testMoreCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -212,12 +203,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,2:4='#10',<1>,1:2]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTypeCommand() {
+  void testTypeCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -231,12 +221,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,2:2='#',<2>,1:2]
         [@2,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCombinedCommand() {
+  void testCombinedCommand() {
     String grammar =
       """
         lexer grammar L;
@@ -251,12 +240,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,2:4='#11',<1>,1:2]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerMode() {
+  void testLexerMode() {
     String grammar =
       """
         lexer grammar L;
@@ -273,12 +261,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerPushPopModeAction() {
+  void testLexerPushPopModeAction() {
     // token type 2
     String grammar =
       """
@@ -296,12 +283,11 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerModeAction() {
+  void testLexerModeAction() {
     // ttype 2 since '"' ambiguity
     String grammar =
       """
@@ -319,7 +305,7 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // ----- PREDICATES --------------------------------------------------------
@@ -330,8 +316,7 @@ public class LexerActionsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/398">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testFailingPredicateEvalIsNotCached() {
+  void testFailingPredicateEvalIsNotCached() {
     String grammar =
       """
         lexer grammar TestLexer;
@@ -365,7 +350,7 @@ public class LexerActionsTest extends AbstractBaseTest {
         [@5,46:56='More line.\\n',<1>,4:0]
         [@6,57:56='<EOF>',<-1>,5:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
 }

@@ -17,13 +17,13 @@ import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class TokenStreamRewriterTest extends AbstractBaseTest {
+class TokenStreamRewriterTest extends AbstractBaseTest {
 
   @Test
-  public void testInsertBeforeIndex0() throws Exception {
+  void testInsertBeforeIndex0() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -38,11 +38,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(0, "0");
     String result = tokens.getText();
     String expecting = "0abc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testInsertAfterLastIndex() throws Exception {
+  void testInsertAfterLastIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -58,11 +58,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(2, "x");
     String result = tokens.getText();
     String expecting = "abcx";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test2InsertBeforeAfterMiddleIndex() throws Exception {
+  void test2InsertBeforeAfterMiddleIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -79,11 +79,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(1, "x");
     String result = tokens.getText();
     String expecting = "axbxc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceIndex0() throws Exception {
+  void testReplaceIndex0() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -99,11 +99,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(0, "x");
     String result = tokens.getText();
     String expecting = "xbc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceLastIndex() throws Exception {
+  void testReplaceLastIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -119,11 +119,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, "x");
     String result = tokens.getText();
     String expecting = "abx";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceMiddleIndex() throws Exception {
+  void testReplaceMiddleIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -139,11 +139,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(1, "x");
     String result = tokens.getText();
     String expecting = "axc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testToStringStartStop() throws Exception {
+  void testToStringStartStop() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -167,23 +167,23 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 
     String result = tokens.getTokenStream().getText();
     String expecting = "x = 3 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText();
     expecting = "x = 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(0, 9));
     expecting = "x = 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(4, 8));
     expecting = "0";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testToStringStartStop2() throws Exception {
+  void testToStringStartStop2() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -205,46 +205,46 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 
     String result = tokens.getTokenStream().getText();
     String expecting = "x = 3 * 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     tokens.replace(4, 8, "0");
     stream.fill();
 // replace 3 * 0 with 0
     result = tokens.getText();
     expecting = "x = 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(0, 17));
     expecting = "x = 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(4, 8));
     expecting = "0";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(0, 8));
     expecting = "x = 0";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(12, 16));
     expecting = "2 * 0";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     tokens.insertAfter(17, "// comment");
     result = tokens.getText(Interval.of(12, 18));
     expecting = "2 * 0;// comment";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = tokens.getText(Interval.of(0, 8));
     stream.fill();
 // try again after insert at end
     expecting = "x = 0";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
 
   @Test
-  public void test2ReplaceMiddleIndex() throws Exception {
+  void test2ReplaceMiddleIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -261,11 +261,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(1, "y");
     String result = tokens.getText();
     String expecting = "ayc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test2ReplaceMiddleIndex1InsertBefore() throws Exception {
+  void test2ReplaceMiddleIndex1InsertBefore() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -283,11 +283,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(1, "y");
     String result = tokens.getText();
     String expecting = "_ayc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceThenDeleteMiddleIndex() throws Exception {
+  void testReplaceThenDeleteMiddleIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -304,11 +304,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.delete(1);
     String result = tokens.getText();
     String expecting = "ac";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testInsertInPriorReplace() throws Exception {
+  void testInsertInPriorReplace() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -323,20 +323,16 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     TokenStreamRewriter tokens = new TokenStreamRewriter(stream);
     tokens.replace(0, 2, "x");
     tokens.insertBefore(1, "0");
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "insert op <InsertBeforeOp@[@1,1:1='b',<2>,1:1]:\"0\"> within boundaries of previous " +
       "<ReplaceOp@[@0,0:0='a',<1>,1:0]..[@2,2:2='c',<3>,1:2]:\"x\">";
-    assertThat(exc).isNotNull();
-    assertEquals(expecting, exc.getMessage());
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
-  public void testInsertThenReplaceSameIndex() throws Exception {
+  void testInsertThenReplaceSameIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -355,11 +351,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // supercedes insert at 0
     String result = tokens.getText();
     String expecting = "0xbc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test2InsertMiddleIndex() throws Exception {
+  void test2InsertMiddleIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -376,11 +372,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(1, "y");
     String result = tokens.getText();
     String expecting = "ayxbc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test2InsertThenReplaceIndex0() throws Exception {
+  void test2InsertThenReplaceIndex0() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -398,11 +394,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(0, "z");
     String result = tokens.getText();
     String expecting = "yxzbc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceThenInsertBeforeLastIndex() throws Exception {
+  void testReplaceThenInsertBeforeLastIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -419,11 +415,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(2, "y");
     String result = tokens.getText();
     String expecting = "abyx";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testInsertThenReplaceLastIndex() throws Exception {
+  void testInsertThenReplaceLastIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -440,11 +436,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, "x");
     String result = tokens.getText();
     String expecting = "abyx";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceThenInsertAfterLastIndex() throws Exception {
+  void testReplaceThenInsertAfterLastIndex() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -461,11 +457,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(2, "y");
     String result = tokens.getText();
     String expecting = "abxy";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceRangeThenInsertAtLeftEdge() throws Exception {
+  void testReplaceRangeThenInsertAtLeftEdge() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -482,11 +478,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(2, "y");
     String result = tokens.getText();
     String expecting = "abyxba";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceRangeThenInsertAtRightEdge() throws Exception {
+  void testReplaceRangeThenInsertAtRightEdge() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -502,20 +498,16 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, 4, "x");
     tokens.insertBefore(4, "y");
     stream.fill(); // no effect; within range of a replace
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "insert op <InsertBeforeOp@[@4,4:4='c',<3>,1:4]:\"y\"> within boundaries of previous " +
       "<ReplaceOp@[@2,2:2='c',<3>,1:2]..[@4,4:4='c',<3>,1:4]:\"x\">";
-    assertThat(exc).isNotNull();
-    assertEquals(expecting, exc.getMessage());
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
-  public void testReplaceRangeThenInsertAfterRightEdge() throws Exception {
+  void testReplaceRangeThenInsertAfterRightEdge() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -532,11 +524,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(4, "y");
     String result = tokens.getText();
     String expecting = "abxyba";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceAll() throws Exception {
+  void testReplaceAll() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -552,11 +544,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(0, 6, "x");
     String result = tokens.getText();
     String expecting = "x";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceSubsetThenFetch() throws Exception {
+  void testReplaceSubsetThenFetch() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -572,11 +564,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, 4, "xyz");
     String result = tokens.getText(Interval.of(0, 6));
     String expecting = "abxyzba";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceThenReplaceSuperset() throws Exception {
+  void testReplaceThenReplaceSuperset() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -593,20 +585,16 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(3, 5, "foo");
     stream.fill();
 // overlaps, error
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "replace op boundaries of <ReplaceOp@[@3,3:3='c',<3>,1:3]..[@5,5:5='b',<2>,1:5]:\"foo\"> " +
       "overlap with previous <ReplaceOp@[@2,2:2='c',<3>,1:2]..[@4,4:4='c',<3>,1:4]:\"xyz\">";
-    assertThat(exc).isNotNull();
-    assertEquals(expecting, exc.getMessage());
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
-  public void testReplaceThenReplaceLowerIndexedSuperset() throws Exception {
+  void testReplaceThenReplaceLowerIndexedSuperset() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -632,11 +620,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     String expecting = "replace op boundaries of <ReplaceOp@[@1,1:1='b',<2>,1:1]..[@3,3:3='c',<3>,1:3]:\"foo\"> " +
       "overlap with previous <ReplaceOp@[@2,2:2='c',<3>,1:2]..[@4,4:4='c',<3>,1:4]:\"xyz\">";
     assertThat(exc).isNotNull();
-    assertEquals(expecting, exc.getMessage());
+    assertThat(exc.getMessage()).isEqualTo(expecting);
   }
 
   @Test
-  public void testReplaceSingleMiddleThenOverlappingSuperset() throws Exception {
+  void testReplaceSingleMiddleThenOverlappingSuperset() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -653,11 +641,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(0, 3, "foo");
     String result = tokens.getText();
     String expecting = "fooa";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testCombineInserts() throws Exception {
+  void testCombineInserts() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -674,11 +662,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(0, "y");
     String result = tokens.getText();
     String expecting = "yxabc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testCombine3Inserts() throws Exception {
+  void testCombine3Inserts() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -696,11 +684,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(1, "z");
     String result = tokens.getText();
     String expecting = "yazxbc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testCombineInsertOnLeftWithReplace() throws Exception {
+  void testCombineInsertOnLeftWithReplace() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -719,11 +707,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // combine with left edge of rewrite
     String result = tokens.getText();
     String expecting = "zfoo";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testCombineInsertOnLeftWithDelete() throws Exception {
+  void testCombineInsertOnLeftWithDelete() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -744,11 +732,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     String expecting = "z";
     stream.fill();
 // make sure combo is not znull
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testDisjointInserts() throws Exception {
+  void testDisjointInserts() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -766,11 +754,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(0, "z");
     String result = tokens.getText();
     String expecting = "zaxbyc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testOverlappingReplace() throws Exception {
+  void testOverlappingReplace() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -789,11 +777,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // wipes prior nested replace
     String result = tokens.getText();
     String expecting = "bar";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testOverlappingReplace2() throws Exception {
+  void testOverlappingReplace2() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -810,20 +798,16 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(1, 2, "foo");
     stream.fill();
 // cannot split earlier replace
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "replace op boundaries of <ReplaceOp@[@1,1:1='b',<2>,1:1]..[@2,2:2='c',<3>,1:2]:\"foo\"> " +
       "overlap with previous <ReplaceOp@[@0,0:0='a',<1>,1:0]..[@3,3:3='c',<3>,1:3]:\"bar\">";
-    assertThat(exc).isNotNull();
-    assertEquals(expecting, exc.getMessage());
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
-  public void testOverlappingReplace3() throws Exception {
+  void testOverlappingReplace3() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -842,11 +826,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // wipes prior nested replace
     String result = tokens.getText();
     String expecting = "barc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testOverlappingReplace4() throws Exception {
+  void testOverlappingReplace4() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -865,11 +849,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // wipes prior nested replace
     String result = tokens.getText();
     String expecting = "abar";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testDropIdenticalReplace() throws Exception {
+  void testDropIdenticalReplace() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -888,11 +872,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // drop previous, identical
     String result = tokens.getText();
     String expecting = "afooc";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testDropPrevCoveredInsert() throws Exception {
+  void testDropPrevCoveredInsert() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -911,11 +895,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
 // kill prev insert
     String result = tokens.getText();
     String expecting = "afoofoo";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLeaveAloneDisjointInsert() throws Exception {
+  void testLeaveAloneDisjointInsert() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -932,11 +916,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, 3, "foo");
     String result = tokens.getText();
     String expecting = "axbfoo";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLeaveAloneDisjointInsert2() throws Exception {
+  void testLeaveAloneDisjointInsert2() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -953,11 +937,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(1, "x");
     String result = tokens.getText();
     String expecting = "axbfoo";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testInsertBeforeTokenThenDeleteThatToken() throws Exception {
+  void testInsertBeforeTokenThenDeleteThatToken() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -974,12 +958,12 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.delete(2);
     String result = tokens.getText();
     String expecting = "aby";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   // Test for https://github.com/antlr/antlr4/issues/550
   @Test
-  public void testDistinguishBetweenInsertAfterAndInsertBeforeToPreserverOrder() throws Exception {
+  void testDistinguishBetweenInsertAfterAndInsertBeforeToPreserverOrder() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -998,11 +982,11 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(1, "</b>");
     String result = tokens.getText();
     String expecting = "<b>a</b><b>a</b>"; // fails with <b>a<b></b>a</b>"
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testDistinguishBetweenInsertAfterAndInsertBeforeToPreserverOrder2() throws Exception {
+  void testDistinguishBetweenInsertAfterAndInsertBeforeToPreserverOrder2() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -1023,12 +1007,12 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertAfter(1, "</b>");
     String result = tokens.getText();
     String expecting = "<b><p>a</p></b><b>a</b>";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   // Test for https://github.com/antlr/antlr4/issues/550
   @Test
-  public void testPreservesOrderOfContiguousInserts() throws Exception {
+  void testPreservesOrderOfContiguousInserts() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar T;
@@ -1050,7 +1034,7 @@ public class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.insertBefore(1, "!");
     String result = tokens.getText();
     String expecting = "<div><b><p>a</p></b></div>!b";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
 }

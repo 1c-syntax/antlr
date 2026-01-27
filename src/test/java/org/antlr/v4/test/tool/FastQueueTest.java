@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FastQueueTest {
+class FastQueueTest {
   @Test
-  public void testQueueNoRemove() {
+  void testQueueNoRemove() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -27,11 +27,11 @@ public class FastQueueTest {
     q.add("e");
     String expecting = "a b c d e";
     String found = q.toString();
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testQueueThenRemoveAll() {
+  void testQueueThenRemoveAll() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -44,14 +44,14 @@ public class FastQueueTest {
       buf.append(o);
       if (q.size() > 0) buf.append(" ");
     }
-    assertEquals("queue should be empty", 0, q.size());
+    assertThat(q.size()).withFailMessage("queue should be empty").isZero();
     String expecting = "a b c d e";
     String found = buf.toString();
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testQueueThenRemoveOneByOne() {
+  void testQueueThenRemoveOneByOne() {
     StringBuilder buf = new StringBuilder();
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
@@ -64,16 +64,16 @@ public class FastQueueTest {
     buf.append(q.remove());
     q.add("e");
     buf.append(q.remove());
-    assertEquals("queue should be empty", 0, q.size());
+    assertThat(q.size()).withFailMessage("queue should be empty").isZero();
     String expecting = "abcde";
     String found = buf.toString();
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // E r r o r s
 
   @Test
-  public void testGetFromEmptyQueue() {
+  void testGetFromEmptyQueue() {
     FastQueue<String> q = new FastQueue<>();
     String msg = null;
     try {
@@ -83,11 +83,11 @@ public class FastQueueTest {
     }
     String expecting = "queue index 0 > last index -1";
     String found = msg;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testGetFromEmptyQueueAfterSomeAdds() {
+  void testGetFromEmptyQueueAfterSomeAdds() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -101,11 +101,11 @@ public class FastQueueTest {
     }
     String expecting = "queue index 0 > last index -1";
     String found = msg;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testGetFromEmptyQueueAfterClear() {
+  void testGetFromEmptyQueueAfterClear() {
     FastQueue<String> q = new FastQueue<>();
     q.add("a");
     q.add("b");
@@ -118,6 +118,6 @@ public class FastQueueTest {
     }
     String expecting = "queue index 0 > last index -1";
     String found = msg;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 }

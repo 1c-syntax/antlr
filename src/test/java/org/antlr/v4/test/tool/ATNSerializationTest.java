@@ -18,12 +18,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class ATNSerializationTest extends AbstractBaseTest {
+class ATNSerializationTest extends AbstractBaseTest {
   @Test
-  public void testSimpleNoBlock() throws Exception {
+  void testSimpleNoBlock() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A B ;");
@@ -44,11 +44,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testEOF() throws Exception {
+  void testEOF() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A EOF ;");
@@ -69,11 +69,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testEOFInSet() throws Exception {
+  void testEOFInSet() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -94,11 +94,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testNot() throws Exception {
+  void testNot() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -122,11 +122,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
     DOTGenerator gen = new DOTGenerator(g);
     System.out.println(gen.getDOT(atn.ruleToStartState[0]));
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testWildcard() throws Exception {
+  void testWildcard() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -147,11 +147,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B ;");
@@ -178,11 +178,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test3Alts() throws Exception {
+  void test3Alts() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B | A B C ;");
@@ -216,11 +216,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testSimpleLoop() throws Exception {
+  void testSimpleLoop() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A+ B ;");
@@ -251,11 +251,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testRuleRef() throws Exception {
+  void testRuleRef() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -285,11 +285,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(g, false);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerTwoRules() throws Exception {
+  void testLexerTwoRules() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -323,11 +323,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeSMPLiteralSerializedToSet() throws Exception {
+  void testLexerUnicodeSMPLiteralSerializedToSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : '\\u{1F4A9}' ;");
@@ -350,11 +350,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeSMPRangeSerializedToSet() throws Exception {
+  void testLexerUnicodeSMPRangeSerializedToSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : ('a'..'\\u{1F4A9}') ;");
@@ -377,11 +377,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeSMPSetSerializedAfterBMPSet() throws Exception {
+  void testLexerUnicodeSMPSetSerializedAfterBMPSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -416,11 +416,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerNotLiteral() throws Exception {
+  void testLexerNotLiteral() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       "lexer grammar L;\n" +
         "INT : ~'a' ;");
@@ -443,11 +443,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerRange() throws Exception {
+  void testLexerRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -471,11 +471,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerEOF() throws Exception {
+  void testLexerEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -501,11 +501,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerEOFInSet() throws Exception {
+  void testLexerEOFInSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -535,11 +535,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerLoops() throws Exception {
+  void testLexerLoops() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -571,11 +571,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerAction() throws Exception {
+  void testLexerAction() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -623,11 +623,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerNotSet() throws Exception {
+  void testLexerNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -652,11 +652,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerSetWithRange() throws Exception {
+  void testLexerSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -681,11 +681,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerNotSetWithRange() throws Exception {
+  void testLexerNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -710,15 +710,15 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPNotSet() throws Exception {
+  void testLexerUnicodeUnescapedBMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u4E9C'|'\u4E9D')
+        ID : ~('亜'|'亝')
          ;""");
     String expecting =
       """
@@ -739,15 +739,15 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPSetWithRange() throws Exception {
+  void testLexerUnicodeUnescapedBMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ('\u4E9C'|'\u4E9D'|'\u6C5F'|'\u305F'..'\u307B')
+        ID : ('亜'|'亝'|'江'|'た'..'ほ')
          ;""");
     String expecting =
       """
@@ -768,15 +768,15 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeUnescapedBMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeUnescapedBMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
-        ID : ~('\u4E9C'|'\u4E9D'|'\u6C5F'|'\u305F'..'\u307B')
+        ID : ~('亜'|'亝'|'江'|'た'..'ほ')
          ;""");
     String expecting =
       """
@@ -797,11 +797,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPNotSet() throws Exception {
+  void testLexerUnicodeEscapedBMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -826,11 +826,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedBMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -855,11 +855,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedBMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedBMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -884,11 +884,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPNotSet() throws Exception {
+  void testLexerUnicodeEscapedSMPNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -913,11 +913,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedSMPSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -942,11 +942,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerUnicodeEscapedSMPNotSetWithRange() throws Exception {
+  void testLexerUnicodeEscapedSMPNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -971,11 +971,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerWildcardWithMode() throws Exception {
+  void testLexerWildcardWithMode() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1039,11 +1039,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerNotSetWithRange2() throws Exception {
+  void testLexerNotSetWithRange2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1071,11 +1071,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testModeInLexer() throws Exception {
+  void testModeInLexer() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1134,11 +1134,11 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void test2ModesInLexer() throws Exception {
+  void test2ModesInLexer() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -1191,7 +1191,7 @@ public class ATNSerializationTest extends AbstractBaseTest {
         """;
     ATN atn = createATN(lg, true);
     String result = ATNSerializer.getDecoded(atn, Arrays.asList(lg.getRuleNames()), Arrays.asList(lg.getTokenNames()));
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
 }

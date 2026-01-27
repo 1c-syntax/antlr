@@ -34,10 +34,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CodeGenerationTest extends AbstractBaseTest {
+class CodeGenerationTest extends AbstractBaseTest {
 
   @Test
-  public void testArgDecl() throws Exception { // should use template not string
+  void testArgDecl() throws Exception { // should use template not string
     String g =
       """
         grammar T;
@@ -51,25 +51,25 @@ public class CodeGenerationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void AssignTokenNamesToStringLiteralsInGeneratedParserRuleContexts() throws Exception {
+  void AssignTokenNamesToStringLiteralsInGeneratedParserRuleContexts() throws Exception {
     String g =
       """
         grammar T;
         root: 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getToken(");
-    assertThat(evals.size()).isNotEqualTo(0);
+    assertThat(evals).isNotEmpty();
   }
 
   @Test
-  public void AssignTokenNamesToStringLiteralArraysInGeneratedParserRuleContexts() throws Exception {
+  void AssignTokenNamesToStringLiteralArraysInGeneratedParserRuleContexts() throws Exception {
     String g =
       """
         grammar T;
         root: 't1' 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getTokens(");
-    assertThat(evals.size()).isNotEqualTo(0);
+    assertThat(evals).isNotEmpty();
   }
 
   /**
@@ -115,7 +115,7 @@ public class CodeGenerationTest extends AbstractBaseTest {
     }
   }
 
-  public List<String> getEvalInfoForString(String grammarString, String pattern) throws RecognitionException {
+  private List<String> getEvalInfoForString(String grammarString, String pattern) throws RecognitionException {
     ErrorQueue equeue = new ErrorQueue();
     Grammar g = new Grammar(grammarString);
     List<String> evals = new ArrayList<>();

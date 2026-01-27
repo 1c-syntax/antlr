@@ -23,8 +23,8 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.tool.Grammar;
 
-public class ParserInterpreterForTesting {
-  public static class DummyParser extends Parser {
+class ParserInterpreterForTesting {
+  static class DummyParser extends Parser {
     public final ATN atn;
     private static final String[] _LITERAL_NAMES = makeLiteralNames();
     private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();

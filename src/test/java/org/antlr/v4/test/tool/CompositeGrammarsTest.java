@@ -13,19 +13,21 @@ import org.antlr.v4.tool.ANTLRMessage;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.GrammarSemanticsMessage;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CompositeGrammarsTest extends AbstractBaseTest {
+class CompositeGrammarsTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
-  public void testImportFileLocationInSubdir() {
+  void testImportFileLocationInSubdir() {
     String slave =
       """
         parser grammar S;
@@ -46,12 +48,12 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   // Test for https://github.com/antlr/antlr4/issues/1317
   @Test
-  public void testImportSelfLoop() {
+  void testImportSelfLoop() {
     mkdir(tmpdir);
     String master =
       """
@@ -61,11 +63,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", tmpdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
-  public void testErrorInImportedGetsRightFilename() {
+  void testErrorInImportedGetsRightFilename() {
     String slave =
       """
         parser grammar S;
@@ -81,15 +83,15 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-lib", tmpdir);
     ANTLRMessage msg = equeue.errors.get(0);
-    assertEquals(ErrorType.UNDEFINED_RULE_REF, msg.getErrorType());
-    assertEquals("c", msg.getArgs()[0]);
-    assertEquals(2, msg.line);
-    assertEquals(10, msg.charPosition);
-    assertEquals("S.g4", new File(msg.fileName).getName());
+    assertThat(msg.getErrorType()).isEqualTo(ErrorType.UNDEFINED_RULE_REF);
+    assertThat(msg.getArgs()[0]).isEqualTo("c");
+    assertThat(msg.line).isEqualTo(2);
+    assertThat(msg.charPosition).isEqualTo(10);
+    assertThat(new File(msg.fileName)).hasName("S.g4");
   }
 
   @Test
-  public void testImportFileNotSearchedForInOutputDir() {
+  void testImportFileNotSearchedForInOutputDir() {
     String slave =
       """
         parser grammar S;
@@ -110,11 +112,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     writeFile(tmpdir, "M.g4", master);
     ErrorQueue equeue = antlr("M.g4", false, "-o", outdir);
-    assertEquals(ErrorType.CANNOT_FIND_IMPORTED_GRAMMAR, equeue.errors.get(0).getErrorType());
+    assertThat(equeue.errors.get(0).getErrorType()).isEqualTo(ErrorType.CANNOT_FIND_IMPORTED_GRAMMAR);
   }
 
   @Test
-  public void testOutputDirShouldNotEffectImports() {
+  void testOutputDirShouldNotEffectImports() {
     String slave =
       """
         parser grammar S;
@@ -137,11 +139,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String outdir = tmpdir + "/out";
     mkdir(outdir);
     ErrorQueue equeue = antlr("M.g4", false, "-o", outdir, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
-  public void testTokensFileInOutputDirAndImportFileInSubdir() {
+  void testTokensFileInOutputDirAndImportFileInSubdir() {
     String slave =
       """
         parser grammar S;
@@ -170,14 +172,13 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String outdir = tmpdir + "/out";
     mkdir(outdir);
     ErrorQueue equeue = antlr("MLexer.g4", false, "-o", outdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
     equeue = antlr("MParser.g4", false, "-o", outdir, "-lib", subdir);
-    assertEquals(0, equeue.size());
+    assertThat(equeue.size()).isZero();
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRule() {
+  void testDelegatorInvokesDelegateRule() {
     String slave =
       """
         parser grammar S;
@@ -196,12 +197,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBringInLiteralsFromDelegate() {
+  void testBringInLiteralsFromDelegate() {
     String slave =
       """
         parser grammar S;
@@ -218,12 +218,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "=a", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRuleWithArgs() {
+  void testDelegatorInvokesDelegateRuleWithArgs() {
     // must generate something like:
     // public int a(int x) throws RecognitionException { return gS.a(x); }
     // in M.
@@ -245,12 +244,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a1000\n", found);
+    assertThat(found).isEqualTo("S.a1000\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesDelegateRuleWithReturnStruct() {
+  void testDelegatorInvokesDelegateRuleWithReturnStruct() {
     // must generate something like:
     // public int a(int x) throws RecognitionException { return gS.a(x); }
     // in M.
@@ -272,12 +270,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.ab\n", found);
+    assertThat(found).isEqualTo("S.ab\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorAccessesDelegateMembers() {
+  void testDelegatorAccessesDelegateMembers() {
     String slave =
       """
         parser grammar S;
@@ -299,12 +296,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("foo\n", found);
+    assertThat(found).isEqualTo("foo\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorInvokesFirstVersionOfDelegateRule() {
+  void testDelegatorInvokesFirstVersionOfDelegateRule() {
     String slave =
       """
         parser grammar S;
@@ -329,12 +325,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatesSeeSameTokenType() {
+  void testDelegatesSeeSameTokenType() {
     // A, B, C token type order
     String slave =
       """
@@ -378,15 +373,14 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "aa", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       S.x
       T.y
-      """, found);
+      """);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatesSeeSameTokenType2() throws Exception {
+  void testDelegatesSeeSameTokenType2() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     // A, B, C token type order
     String slave =
@@ -426,23 +420,22 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{'a'=2, 'b'=1, 'c'=3}";
     String expectedTypeToTokenList = "[B, A, C, WS]";
 
-    assertEquals(expectedTokenIDToTypeMap, g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, sort(g.stringLiteralToTypeMap).toString());
-    assertEquals(expectedTypeToTokenList, realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(sort(g.stringLiteralToTypeMap)).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "aa", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       S.x
       T.y
-      """, found);
+      """);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCombinedImportsCombined() throws Exception {
+  void testCombinedImportsCombined() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     // A, B, C token type order
     String slave =
@@ -466,15 +459,15 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     @SuppressWarnings("unused")
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "x 34 9", debug);
-    assertEquals("S.x\n", found);
+    assertThat(found).isEqualTo("S.x\n");
   }
 
   @Test
-  public void testImportedTokenVocabIgnoredWithWarning() throws Exception {
+  void testImportedTokenVocabIgnoredWithWarning() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -502,12 +495,12 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
       new GrammarSemanticsMessage(expectedMsgID, g.fileName, null, expectedArg);
     checkGrammarSemanticsWarning(equeue, expectedMessage);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
-    assertEquals("unexpected warnings: " + equeue, 1, equeue.warnings.size());
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).hasSize(1);
   }
 
   @Test
-  public void testSyntaxErrorsInImportsNotThrownOut() throws Exception {
+  void testSyntaxErrorsInImportsNotThrownOut() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -528,12 +521,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     @SuppressWarnings("unused")
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals(ErrorType.SYNTAX_ERROR, equeue.errors.get(0).getErrorType());
+    assertThat(equeue.errors.get(0).getErrorType()).isEqualTo(ErrorType.SYNTAX_ERROR);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesDelegate() {
+  void testDelegatorRuleOverridesDelegate() {
     String slave =
       """
         parser grammar S;
@@ -551,12 +543,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "c", debug);
-    assertEquals("S.a\n", found);
+    assertThat(found).isEqualTo("S.a\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesLookaheadInDelegate() {
+  void testDelegatorRuleOverridesLookaheadInDelegate() {
     String slave =
       """
         parser grammar JavaDecl;
@@ -582,12 +573,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     // for float to work in decl, type must be overridden
     String found = execParser("Java.g4", master, "JavaParser", "JavaLexer",
       "prog", "float x = 3;", debug);
-    assertEquals("JavaDecl: floatx=3;\n", found);
+    assertThat(found).isEqualTo("JavaDecl: floatx=3;\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDelegatorRuleOverridesDelegates() {
+  void testDelegatorRuleOverridesDelegates() {
     String slave =
       """
         parser grammar S;
@@ -614,16 +604,15 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "c", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.b
       S.a
-      """, found);
+      """);
   }
   // LEXER INHERITANCE
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerDelegatorInvokesDelegateRule() {
+  void testLexerDelegatorInvokesDelegateRule() {
     String slave =
       """
         lexer grammar S;
@@ -648,12 +637,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         [@3,3:2='<EOF>',<-1>,1:3]
         """;
     String found = execLexer("M.g4", master, "M", "abc", debug);
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLexerDelegatorRuleOverridesDelegate() {
+  void testLexerDelegatorRuleOverridesDelegate() {
     String slave =
       """
         lexer grammar S;
@@ -670,16 +658,15 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String found = execLexer("M.g4", master, "M", "ab", debug);
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.A
       [@0,0:1='ab',<1>,1:0]
       [@1,2:1='<EOF>',<-1>,1:2]
-      """, found);
+      """);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testKeywordVSIDOrder() {
+  void testKeywordVSIDOrder() {
     // rules in lexer are imported at END so rules in master override
     // *and* get priority over imported rules. So importing ID doesn't
     // mess up keywords in master grammar
@@ -702,19 +689,18 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "a", "abc", debug);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
-    assertEquals("unexpected warnings: " + equeue, 0, equeue.warnings.size());
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).isEmpty();
 
-    assertEquals("""
+    assertThat(found).isEqualTo("""
       M.A
       M.a: [@0,0:2='abc',<1>,1:0]
-      """, found);
+      """);
   }
 
   // Make sure that M can import S that imports T.
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void test3LevelImport() throws Exception {
+  void test3LevelImport() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -745,23 +731,19 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
-    boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isTrue();
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBigTreeOfImports() throws Exception {
+  void testBigTreeOfImports() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -817,26 +799,23 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     writeFile(tmpdir, "M.g4", master);
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertEquals("[]", equeue.errors.toString());
-    assertEquals("[]", equeue.warnings.toString());
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).isEmpty();
     String expectedTokenIDToTypeMap = "{EOF=-1, M=1, S=2, T=3, A=4, B=5, C=6}";
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M, S, T, A, B, C]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
-    boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isTrue();
   }
 
   @Test
-  public void testRulesVisibleThroughMultilevelImport() throws Exception {
+  void testRulesVisibleThroughMultilevelImport() throws Exception {
     ErrorQueue equeue = new ErrorQueue();
     String slave =
       """
@@ -868,18 +847,15 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M, T]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNestedComposite() throws Exception {
+  void testNestedComposite() throws Exception {
     // Wasn't compiling. http://www.antlr.org/jira/browse/ANTLR-438
     ErrorQueue equeue = new ErrorQueue();
     String gstr =
@@ -925,22 +901,20 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[T4, T3]";
 
-    assertEquals(expectedTokenIDToTypeMap,
-      g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList,
-      realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
 
-    assertEquals("unexpected errors: " + equeue, 0, equeue.errors.size());
+    assertThat(equeue.errors).isEmpty();
 
     boolean ok =
       rawGenerateAndBuildRecognizer("G3.g4", G3str, "G3Parser", null);
     boolean expecting = true; // should be ok
-    assertEquals(expecting, ok);
+    assertThat(ok).isEqualTo(expecting);
   }
 
   @Test
-  public void testHeadersPropogatedCorrectlyToImportedGrammars() {
+  void testHeadersPropogatedCorrectlyToImportedGrammars() {
     String slave =
       """
         parser grammar S;
@@ -960,12 +934,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     ErrorQueue equeue = antlr("M.g4", master, false);
     int expecting = 0; // should be ok
-    assertEquals(expecting, equeue.errors.size());
+    assertThat(equeue.errors).hasSize(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportedRuleWithAction() {
+  void testImportedRuleWithAction() {
     // wasn't terminating. @after was injected into M as if it were @members
     String slave =
       """
@@ -984,12 +957,11 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportedGrammarWithEmptyOptions() {
+  void testImportedGrammarWithEmptyOptions() {
     String slave =
       """
         parser grammar S;
@@ -1008,7 +980,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
         """;
     String found = execParser("M.g4", master, "MParser", "MLexer",
       "s", "b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
   }
 
   /**
@@ -1017,8 +989,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/248">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLexerWithOnlyFragmentRules() {
+  void testImportLexerWithOnlyFragmentRules() {
     String slave =
       """
         lexer grammar Unicode;
@@ -1042,7 +1013,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     mkdir(tmpdir);
     writeFile(tmpdir, "Unicode.g4", slave);
     String found = execParser("Test.g4", master, "TestParser", "TestLexer", "program", "test test", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -1052,9 +1023,20 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/670">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLargeGrammar() throws Exception {
-    String slave = load("Java.g4", "UTF-8");
+  void testImportLargeGrammar() throws Exception {
+    String fullFileName = "Java.g4";
+    int size = 65000;
+    String slave;
+    try (InputStream fis = Thread.currentThread().getContextClassLoader().getResourceAsStream(fullFileName);
+         InputStreamReader isr = fis != null ? new InputStreamReader(fis, StandardCharsets.UTF_8) : null) {
+      if (fis == null) {
+        throw new IOException("Could not find resource: " + fullFileName);
+      }
+      char[] data = new char[size];
+      int n = isr.read(data);
+      slave = new String(data, 0, n);
+    }
+
     String master =
       """
         grammar NewJava;
@@ -1064,8 +1046,14 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     System.out.println("dir " + tmpdir);
     mkdir(tmpdir);
     writeFile(tmpdir, "Java.g4", slave);
-    String found = execParser("NewJava.g4", master, "NewJavaParser", "NewJavaLexer", "compilationUnit", "package Foo;", debug);
-    assertEquals("", found);
+    String found = execParser("NewJava.g4",
+      master,
+      "NewJavaParser",
+      "NewJavaLexer",
+      "compilationUnit",
+      "package Foo;",
+      debug);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -1075,8 +1063,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/670">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testImportLeftRecursiveGrammar() {
+  void testImportLeftRecursiveGrammar() {
     String slave =
       """
         grammar Java;
@@ -1097,7 +1084,7 @@ public class CompositeGrammarsTest extends AbstractBaseTest {
     mkdir(tmpdir);
     writeFile(tmpdir, "Java.g4", slave);
     String found = execParser("T.g4", master, "TParser", "TLexer", "s", "a=b", debug);
-    assertEquals("", found);
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 }

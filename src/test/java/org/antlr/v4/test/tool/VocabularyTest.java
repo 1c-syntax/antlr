@@ -14,23 +14,22 @@ import org.antlr.v4.runtime.Vocabulary;
 import org.antlr.v4.runtime.VocabularyImpl;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Sam Harwell
  */
-public class VocabularyTest extends AbstractBaseTest {
+class VocabularyTest extends AbstractBaseTest {
 
   @Test
-  public void testEmptyVocabulary() {
+  void testEmptyVocabulary() {
     assertThat(VocabularyImpl.EMPTY_VOCABULARY).isNotNull();
-    assertEquals("EOF", VocabularyImpl.EMPTY_VOCABULARY.getSymbolicName(Token.EOF));
-    assertEquals("0", VocabularyImpl.EMPTY_VOCABULARY.getDisplayName(Token.INVALID_TYPE));
+    assertThat(VocabularyImpl.EMPTY_VOCABULARY.getSymbolicName(Token.EOF)).isEqualTo("EOF");
+    assertThat(VocabularyImpl.EMPTY_VOCABULARY.getDisplayName(Token.INVALID_TYPE)).isEqualTo("0");
   }
 
   @Test
-  public void testVocabularyFromTokenNames() {
+  void testVocabularyFromTokenNames() {
     String[] tokenNames = {
       "<INVALID>",
       "TOKEN_REF", "RULE_REF", "'//'", "'/'", "'*'", "'!'", "ID", "STRING"
@@ -38,16 +37,16 @@ public class VocabularyTest extends AbstractBaseTest {
 
     Vocabulary vocabulary = VocabularyImpl.fromTokenNames(tokenNames);
     assertThat(vocabulary).isNotNull();
-    assertEquals("EOF", vocabulary.getSymbolicName(Token.EOF));
+    assertThat(vocabulary.getSymbolicName(Token.EOF)).isEqualTo("EOF");
     for (int i = 0; i < tokenNames.length; i++) {
-      assertEquals(tokenNames[i], vocabulary.getDisplayName(i));
+      assertThat(vocabulary.getDisplayName(i)).isEqualTo(tokenNames[i]);
 
       if (tokenNames[i].startsWith("'")) {
-        assertEquals(tokenNames[i], vocabulary.getLiteralName(i));
+        assertThat(vocabulary.getLiteralName(i)).isEqualTo(tokenNames[i]);
         assertThat(vocabulary.getSymbolicName(i)).isNull();
       } else if (Character.isUpperCase(tokenNames[i].charAt(0))) {
         assertThat(vocabulary.getLiteralName(i)).isNull();
-        assertEquals(tokenNames[i], vocabulary.getSymbolicName(i));
+        assertThat(vocabulary.getSymbolicName(i)).isEqualTo(tokenNames[i]);
       } else {
         assertThat(vocabulary.getLiteralName(i)).isNull();
         assertThat(vocabulary.getSymbolicName(i)).isNull();

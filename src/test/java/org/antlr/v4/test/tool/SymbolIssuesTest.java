@@ -12,12 +12,11 @@ package org.antlr.v4.test.tool;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.LexerGrammar;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class SymbolIssuesTest extends AbstractBaseTest {
+class SymbolIssuesTest extends AbstractBaseTest {
   static String[] A = {
     // INPUT
     """
@@ -51,11 +50,16 @@ b : x=ID x+=ID ;
 
 s : FOO ;""",
     // YIELDS
-    "error(" + ErrorType.LABEL_CONFLICTS_WITH_RULE.code + "): B.g4:4:4: label 's' conflicts with rule with same name\n" +
-      "error(" + ErrorType.LABEL_CONFLICTS_WITH_RULE.code + "): B.g4:4:9: label 'b' conflicts with rule with same name\n" +
-      "error(" + ErrorType.LABEL_CONFLICTS_WITH_TOKEN.code + "): B.g4:4:15: label 'X' conflicts with token with same name\n" +
-      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): B.g4:6:9: label 'x' type mismatch with previous definition: TOKEN_LIST_LABEL!=TOKEN_LABEL\n" +
-      "error(" + ErrorType.IMPLICIT_STRING_DEFINITION.code + "): B.g4:4:20: cannot create implicit token for string literal in non-combined grammar: '.'\n"
+    "error(" + ErrorType.LABEL_CONFLICTS_WITH_RULE.code
+      + "): B.g4:4:4: label 's' conflicts with rule with same name\n" +
+      "error(" + ErrorType.LABEL_CONFLICTS_WITH_RULE.code
+      + "): B.g4:4:9: label 'b' conflicts with rule with same name\n" +
+      "error(" + ErrorType.LABEL_CONFLICTS_WITH_TOKEN.code
+      + "): B.g4:4:15: label 'X' conflicts with token with same name\n" +
+      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+      + "): B.g4:6:9: label 'x' type mismatch with previous definition: TOKEN_LIST_LABEL!=TOKEN_LABEL\n" +
+      "error(" + ErrorType.IMPLICIT_STRING_DEFINITION.code
+      + "): B.g4:4:20: cannot create implicit token for string literal in non-combined grammar: '.'\n"
   };
 
   static String[] D = {
@@ -72,8 +76,10 @@ c[int i] returns [String k]
         :       ID ;""",
 
     // YIELDS
-    "error(" + ErrorType.LABEL_CONFLICTS_WITH_ARG.code + "): D.g4:4:21: label 'j' conflicts with parameter with same name\n" +
-      "error(" + ErrorType.RETVAL_CONFLICTS_WITH_ARG.code + "): D.g4:6:22: return value 'i' conflicts with parameter with same name\n"
+    "error(" + ErrorType.LABEL_CONFLICTS_WITH_ARG.code
+      + "): D.g4:4:21: label 'j' conflicts with parameter with same name\n" +
+      "error(" + ErrorType.RETVAL_CONFLICTS_WITH_ARG.code
+      + "): D.g4:6:22: return value 'i' conflicts with parameter with same name\n"
   };
 
   static String[] E = {
@@ -109,32 +115,32 @@ M1: 'b';
   };
 
   @Test
-  public void testA() {
+  void testA() {
     super.testErrors(A, false);
   }
 
   @Test
-  public void testB() {
+  void testB() {
     super.testErrors(B, false);
   }
 
   @Test
-  public void testD() {
+  void testD() {
     super.testErrors(D, false);
   }
 
   @Test
-  public void testE() {
+  void testE() {
     super.testErrors(E, false);
   }
 
   @Test
-  public void testF() {
+  void testF() {
     super.testErrors(F, false);
   }
 
   @Test
-  public void testStringLiteralRedefs() throws RecognitionException {
+  void testStringLiteralRedefs() throws RecognitionException {
     String grammar =
       """
         lexer grammar L;
@@ -151,13 +157,13 @@ M1: 'b';
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[A, B, C]";
 
-    assertEquals(expectedTokenIDToTypeMap, g.tokenNameToTypeMap.toString());
-    assertEquals(expectedStringLiteralToTypeMap, g.stringLiteralToTypeMap.toString());
-    assertEquals(expectedTypeToTokenList, realElements(g.typeToTokenList).toString());
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
   }
 
   @Test
-  public void testEmptyLexerModeDetection() {
+  void testEmptyLexerModeDetection() {
     String[] test = {
       """
 lexer grammar L;
@@ -165,14 +171,15 @@ A : 'a';
 mode X;
 fragment B : 'b';""",
 
-      "error(" + ErrorType.MODE_WITHOUT_RULES.code + "): L.g4:3:5: lexer mode 'X' must contain at least one non-fragment rule\n"
+      "error(" + ErrorType.MODE_WITHOUT_RULES.code
+        + "): L.g4:3:5: lexer mode 'X' must contain at least one non-fragment rule\n"
     };
 
     testErrors(test, false);
   }
 
   @Test
-  public void testEmptyLexerRuleDetection() {
+  void testEmptyLexerRuleDetection() {
     String[] test = {
       """
 lexer grammar L;
@@ -182,15 +189,17 @@ mode X;
   B : C;
   fragment C : A | (A C)?;""",
 
-      "warning(" + ErrorType.EPSILON_TOKEN.code + "): L.g4:3:0: non-fragment lexer rule 'WS' can match the empty string\n" +
-        "warning(" + ErrorType.EPSILON_TOKEN.code + "): L.g4:5:2: non-fragment lexer rule 'B' can match the empty string\n"
+      "warning(" + ErrorType.EPSILON_TOKEN.code
+        + "): L.g4:3:0: non-fragment lexer rule 'WS' can match the empty string\n" +
+        "warning(" + ErrorType.EPSILON_TOKEN.code
+        + "): L.g4:5:2: non-fragment lexer rule 'B' can match the empty string\n"
     };
 
     testErrors(test, false);
   }
 
   @Test
-  public void testTokensModesChannelsDeclarationConflictsWithReserved() {
+  void testTokensModesChannelsDeclarationConflictsWithReserved() {
     String[] test = {
       """
 lexer grammar L;
@@ -203,17 +212,21 @@ B: 'b';
 mode M;
 C: 'c';""",
 
-      "error(" + ErrorType.RESERVED_RULE_NAME.code + "): L.g4:5:0: cannot declare a rule with reserved name 'MIN_CHAR_VALUE'\n" +
-        "error(" + ErrorType.MODE_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:4:0: cannot use or declare mode with reserved name 'MAX_CHAR_VALUE'\n" +
-        "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:2:11: cannot use or declare channel with reserved name 'SKIP'\n" +
-        "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:2:17: cannot use or declare channel with reserved name 'HIDDEN'\n"
+      "error(" + ErrorType.RESERVED_RULE_NAME.code
+        + "): L.g4:5:0: cannot declare a rule with reserved name 'MIN_CHAR_VALUE'\n" +
+        "error(" + ErrorType.MODE_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:4:0: cannot use or declare mode with reserved name 'MAX_CHAR_VALUE'\n" +
+        "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:2:11: cannot use or declare channel with reserved name 'SKIP'\n" +
+        "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:2:17: cannot use or declare channel with reserved name 'HIDDEN'\n"
     };
 
     testErrors(test, false);
   }
 
   @Test
-  public void testTokensModesChannelsUsingConflictsWithReserved() {
+  void testTokensModesChannelsUsingConflictsWithReserved() {
     String[] test = {
       """
 lexer grammar L;
@@ -224,9 +237,12 @@ D: 'd' -> channel(HIDDEN);
 E: 'e' -> type(EOF);
 F: 'f' -> pushMode(DEFAULT_MODE);""",
 
-      "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:2:18: cannot use or declare channel with reserved name 'SKIP'\n" +
-        "error(" + ErrorType.TOKEN_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:3:15: cannot use or declare token with reserved name 'MORE'\n" +
-        "error(" + ErrorType.MODE_CONFLICTS_WITH_COMMON_CONSTANTS.code + "): L.g4:4:15: cannot use or declare mode with reserved name 'SKIP'\n"
+      "error(" + ErrorType.CHANNEL_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:2:18: cannot use or declare channel with reserved name 'SKIP'\n" +
+        "error(" + ErrorType.TOKEN_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:3:15: cannot use or declare token with reserved name 'MORE'\n" +
+        "error(" + ErrorType.MODE_CONFLICTS_WITH_COMMON_CONSTANTS.code
+        + "): L.g4:4:15: cannot use or declare mode with reserved name 'SKIP'\n"
     };
 
     testErrors(test, false);
@@ -234,7 +250,7 @@ F: 'f' -> pushMode(DEFAULT_MODE);""",
 
   // https://github.com/antlr/antlr4/issues/1411
   @Test
-  public void testWrongIdForTypeChannelModeCommand() {
+  void testWrongIdForTypeChannelModeCommand() {
     String[] test = {
       """
 lexer grammar L;
@@ -244,9 +260,12 @@ TOKEN: 'asdf' -> type(CHANNEL1), channel(MODE1), mode(TOKEN1);
 mode MODE1;
 MODE1_TOKEN: 'qwer';""",
 
-      "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME.code + "): L.g4:4:22: 'CHANNEL1' is not a recognized token name\n" +
-        "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code + "): L.g4:4:41: 'MODE1' is not a recognized channel name\n" +
-        "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME.code + "): L.g4:4:54: 'TOKEN1' is not a recognized mode name\n"
+      "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME.code
+        + "): L.g4:4:22: 'CHANNEL1' is not a recognized token name\n" +
+        "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code
+        + "): L.g4:4:41: 'MODE1' is not a recognized channel name\n" +
+        "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME.code
+        + "): L.g4:4:54: 'TOKEN1' is not a recognized mode name\n"
     };
 
     testErrors(test, false);
@@ -254,7 +273,7 @@ MODE1_TOKEN: 'qwer';""",
 
   // https://github.com/antlr/antlr4/issues/1388
   @Test
-  public void testDuplicatedCommands() {
+  void testDuplicatedCommands() {
     String[] test = {
       """
 lexer grammar Lexer;
@@ -282,7 +301,7 @@ MODE2_TOKEN2: 'h' -> channel(CHANNEL1), channel(CHANNEL2), channel(DEFAULT_TOKEN
 
   // https://github.com/antlr/antlr4/issues/1388
   @Test
-  public void testIncompatibleCommands() {
+  void testIncompatibleCommands() {
     String[] test = {
       """
 lexer grammar L;
@@ -303,16 +322,26 @@ T09: 'a09' -> channel(CHANNEL1), more;
 T10: 'a10' -> type(TYPE1), channel(CHANNEL1);
 T11: 'a11' -> channel(CHANNEL1), type(TYPE1);""",
 
-      "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:5:20: incompatible commands 'skip' and 'more'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:6:20: incompatible commands 'skip' and 'type'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:7:20: incompatible commands 'skip' and 'channel'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:8:20: incompatible commands 'more' and 'type'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:9:20: incompatible commands 'more' and 'channel'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:10:20: incompatible commands 'more' and 'skip'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:11:27: incompatible commands 'type' and 'skip'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:12:27: incompatible commands 'type' and 'more'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:13:33: incompatible commands 'channel' and 'skip'\n" +
-        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code + "): L.g4:14:33: incompatible commands 'channel' and 'more'\n"
+      "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:5:20: incompatible commands 'skip' and 'more'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:6:20: incompatible commands 'skip' and 'type'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:7:20: incompatible commands 'skip' and 'channel'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:8:20: incompatible commands 'more' and 'type'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:9:20: incompatible commands 'more' and 'channel'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:10:20: incompatible commands 'more' and 'skip'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:11:27: incompatible commands 'type' and 'skip'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:12:27: incompatible commands 'type' and 'more'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:13:33: incompatible commands 'channel' and 'skip'\n" +
+        "warning(" + ErrorType.INCOMPATIBLE_COMMANDS.code
+        + "): L.g4:14:33: incompatible commands 'channel' and 'more'\n"
     };
 
     testErrors(test, false);
@@ -320,7 +349,7 @@ T11: 'a11' -> channel(CHANNEL1), type(TYPE1);""",
 
   // https://github.com/antlr/antlr4/issues/1409
   @Test
-  public void testLabelsForTokensWithMixedTypes() {
+  void testLabelsForTokensWithMixedTypes() {
     String[] test = {
       """
 grammar L;
@@ -364,12 +393,17 @@ B: 'b';
 C: 'c';
 """,
 
-      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:8:13: label 't2=b' type mismatch with previous definition: t2=a\n" +
-        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:11:15: label 't3+=c' type mismatch with previous definition: t3+=a\n" +
+      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:8:13: label 't2=b' type mismatch with previous definition: t2=a\n" +
+        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:11:15: label 't3+=c' type mismatch with previous definition: t3+=a\n" +
 
-        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:24:0: label 't7' type mismatch with previous definition: TOKEN_LABEL!=RULE_LABEL\n" +
-        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:24:0: label 't71' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n" +
-        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:24:0: label 't72' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n"
+        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:24:0: label 't7' type mismatch with previous definition: TOKEN_LABEL!=RULE_LABEL\n" +
+        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:24:0: label 't71' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n" +
+        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:24:0: label 't72' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n"
     };
 
     testErrors(test, false);
@@ -377,7 +411,7 @@ C: 'c';
 
   // https://github.com/antlr/antlr4/issues/1543
   @Test
-  public void testLabelsForTokensWithMixedTypesLRWithLabels() {
+  void testLabelsForTokensWithMixedTypesLRWithLabels() {
     String[] test = {
       """
 grammar L;
@@ -400,7 +434,7 @@ C: 'c';
 
   // https://github.com/antlr/antlr4/issues/1543
   @Test
-  public void testLabelsForTokensWithMixedTypesLRWithoutLabels() {
+  void testLabelsForTokensWithMixedTypesLRWithoutLabels() {
     String[] test = {
       """
 grammar L;
@@ -415,16 +449,17 @@ B: 'b';
 C: 'c';
 """,
 
-      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:3:0: label 'left' type mismatch with previous definition: TOKEN_LABEL!=RULE_LABEL\n" +
-        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code + "): L.g4:3:0: label 'right' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n"
+      "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:3:0: label 'left' type mismatch with previous definition: TOKEN_LABEL!=RULE_LABEL\n" +
+        "error(" + ErrorType.LABEL_TYPE_CONFLICT.code
+        + "): L.g4:3:0: label 'right' type mismatch with previous definition: RULE_LABEL!=TOKEN_LABEL\n"
     };
 
     testErrors(test, false);
   }
 
   @Test
-  @Disabled("надо разбираться")
-  public void testCharsCollision() {
+  void testCharsCollision() {
     String[] test = {
       """
 lexer grammar L;
@@ -435,18 +470,23 @@ TOKEN_RANGE_4:    'g'..'l' | [g-l];
 TOKEN_RANGE_WITHOUT_COLLISION: '_' | [a-zA-Z];
 TOKEN_RANGE_WITH_ESCAPED_CHARS: [\\n-\\r] | '\\n'..'\\r';""",
 
-      "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:2:18: chars ''a'..'f'' used multiple times in set: [aa-f]\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:3:18: chars ''D'..'J'' used multiple times in set: [A-FD-J]\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4:4:13: chars ''O'..'V'' used multiple times in set: 'Z' | 'K'..'R' | 'O'..'V'\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4::: chars ''g'' used multiple times in set: 'g'..'l'\n" +
-        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code + "): L.g4::: chars ''\\n'' used multiple times in set: '\\n'..'\\r'\n"
+      "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code
+        + "): L.g4:2:18: chars 'a-f' used multiple times in set: [aa-f]\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code
+        + "): L.g4:3:18: chars 'D-J' used multiple times in set: [A-FD-J]\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code
+        + "): L.g4:4:13: chars 'O-V' used multiple times in set: 'Z' | 'K'..'R' | 'O'..'V'\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code
+        + "): L.g4::: chars ''g'' used multiple times in set: 'g'..'l'\n" +
+        "warning(" + ErrorType.CHARACTERS_COLLISION_IN_SET.code
+        + "): L.g4::: chars ''\\n'' used multiple times in set: '\\n'..'\\r'\n"
     };
 
     testErrors(test, false);
   }
 
   @Test
-  public void testUnreachableTokens() {
+  void testUnreachableTokens() {
     String[] test = {
       """
 lexer grammar Test;
@@ -468,15 +508,25 @@ TOKEN12: 'asdf';
 
 fragment A: 'A';""",
 
-      "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:4:0: One of the token 'TOKEN3' values unreachable. 'asdf' is always overlapped by token 'TOKEN1'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:5:0: One of the token 'TOKEN4' values unreachable. 'qwer' is always overlapped by token 'TOKEN1'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:7:0: One of the token 'TOKEN6' values unreachable. 'asdf' is always overlapped by token 'TOKEN1'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:7:0: One of the token 'TOKEN6' values unreachable. 'asdf' is always overlapped by token 'TOKEN3'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:9:0: One of the token 'TOKEN8' values unreachable. 'ab' is always overlapped by token 'TOKEN8'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:11:0: One of the token 'TOKEN9' values unreachable. 'qwer' is always overlapped by token 'TOKEN9'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:12:0: One of the token 'TOKEN10' values unreachable. '\\r\\n' is always overlapped by token 'TOKEN10'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:13:0: One of the token 'TOKEN11' values unreachable. '\\r\\n' is always overlapped by token 'TOKEN10'\n" +
-        "warning(" + ErrorType.TOKEN_UNREACHABLE.code + "): Test.g4:13:0: One of the token 'TOKEN11' values unreachable. '\\r\\n' is always overlapped by token 'TOKEN10'\n"
+      "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:4:0: One of the token 'TOKEN3' values unreachable. 'asdf' is always overlapped by token " +
+        "'TOKEN1'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:5:0: One of the token 'TOKEN4' values unreachable. 'qwer' is always overlapped by token " +
+        "'TOKEN1'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:7:0: One of the token 'TOKEN6' values unreachable. 'asdf' is always overlapped by token " +
+        "'TOKEN1'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:7:0: One of the token 'TOKEN6' values unreachable. 'asdf' is always overlapped by token " +
+        "'TOKEN3'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:9:0: One of the token 'TOKEN8' values unreachable. 'ab' is always overlapped by token " +
+        "'TOKEN8'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:11:0: One of the token 'TOKEN9' values unreachable. 'qwer' is always overlapped by token " +
+        "'TOKEN9'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:12:0: One of the token 'TOKEN10' values unreachable. '\\r\\n' is always overlapped by token " +
+        "'TOKEN10'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:13:0: One of the token 'TOKEN11' values unreachable. '\\r\\n' is always overlapped by token " +
+        "'TOKEN10'\n" + "warning(" + ErrorType.TOKEN_UNREACHABLE.code
+        + "): Test.g4:13:0: One of the token 'TOKEN11' values unreachable. '\\r\\n' is always overlapped by token " +
+        "'TOKEN10'\n"
     };
 
     testErrors(test, false);

@@ -36,8 +36,8 @@ import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.semantics.SemanticPipeline;
@@ -81,7 +81,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AbstractBaseTest {
@@ -198,7 +197,7 @@ public abstract class AbstractBaseTest {
   protected ATN createATN(Grammar g, boolean useSerializer) {
     if (g.atn == null) {
       semanticProcess(g);
-      assertEquals(0, g.tool.getNumErrors());
+      assertThat(g.tool.getNumErrors()).isEqualTo(0);
 
       ParserATNFactory f;
       if (g.isLexer()) {
@@ -208,7 +207,7 @@ public abstract class AbstractBaseTest {
       }
 
       g.atn = f.createATN();
-      assertEquals(0, g.tool.getNumErrors());
+      assertThat(g.tool.getNumErrors()).isEqualTo(0);
     }
 
     ATN atn = g.atn;
@@ -330,16 +329,16 @@ public abstract class AbstractBaseTest {
     return ok;
   }
 
-  // todo переделать, см ANTLR runtime/Generator
   public List<String> getCompileOptions() {
     List<String> compileOptions = new ArrayList<>();
     compileOptions.add("-g");
     compileOptions.add("-source");
-    compileOptions.add("1.6");
+    compileOptions.add("17");
     compileOptions.add("-target");
-    compileOptions.add("1.6");
+    compileOptions.add("17");
     compileOptions.add("-implicit:class");
     compileOptions.add("-Xlint:-options");
+    compileOptions.add("-proc:none"); // Disable annotation processing to avoid old runtime references
 
     String bootclasspath = getBootClassPath();
     if (bootclasspath != null) {
@@ -754,7 +753,7 @@ public abstract class AbstractBaseTest {
     ATNPrinter serializer = new ATNPrinter(g, startState);
     String result = serializer.asString();
 
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   public void testActions(String templates,
@@ -789,7 +788,7 @@ public abstract class AbstractBaseTest {
       String e = "#end-" + actionName + "#";
       int end = output.indexOf(e);
       String snippet = output.substring(start + b.length(), end);
-      assertEquals(expected, snippet);
+      assertThat(snippet).isEqualTo(expected);
     }
     if (equeue.size() > 0) {
       System.err.println(equeue);
@@ -807,10 +806,10 @@ public abstract class AbstractBaseTest {
     assertThat(foundMsg)
       .as("no error; " + expectedMessage.getErrorType() + " expected")
       .isNotNull();
-    assertThat(foundMsg instanceof GrammarSemanticsMessage)
+    assertThat(foundMsg)
       .as("error is not a GrammarSemanticsMessage")
-      .isTrue();
-    assertEquals(Arrays.toString(expectedMessage.getArgs()), Arrays.toString(foundMsg.getArgs()));
+      .isInstanceOf(GrammarSemanticsMessage.class);
+    assertThat(Arrays.toString(foundMsg.getArgs())).isEqualTo(Arrays.toString(expectedMessage.getArgs()));
     if (equeue.size() != 1) {
       System.err.println(equeue);
     }
@@ -962,7 +961,7 @@ public abstract class AbstractBaseTest {
 
   public void assertNotNullOrEmpty(String text) {
     assertThat(text).isNotNull();
-    assertThat(text.isEmpty()).isFalse();
+    assertThat(text).isNotEmpty();
   }
 
   public static class IntTokenStream implements TokenStream {

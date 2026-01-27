@@ -14,14 +14,14 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test topo sort in GraphNode.
  */
-public class TopologicalSortTest extends AbstractBaseTest {
+class TopologicalSortTest extends AbstractBaseTest {
   @Test
-  public void testFairlyLargeGraph() {
+  void testFairlyLargeGraph() {
     Graph<String> g = new Graph<>();
     g.addEdge("C", "F");
     g.addEdge("C", "G");
@@ -38,11 +38,11 @@ public class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[H, F, G, E, D, A, B, C]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testCyclicGraph() {
+  void testCyclicGraph() {
     Graph<String> g = new Graph<>();
     g.addEdge("A", "B");
     g.addEdge("B", "C");
@@ -52,11 +52,11 @@ public class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[D, C, B, A]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testRepeatedEdges() {
+  void testRepeatedEdges() {
     Graph<String> g = new Graph<>();
     g.addEdge("A", "B");
     g.addEdge("B", "C");
@@ -66,11 +66,11 @@ public class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[D, C, B, A]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testSimpleTokenDependence() {
+  void testSimpleTokenDependence() {
     Graph<String> g = new Graph<>();
     g.addEdge("Java.g4", "MyJava.tokens"); // Java feeds off manual token file
     g.addEdge("Java.tokens", "Java.g4");
@@ -80,11 +80,11 @@ public class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[MyJava.tokens, Java.g4, Java.tokens, Def.g4, Ref.g4]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testParserLexerCombo() {
+  void testParserLexerCombo() {
     Graph<String> g = new Graph<>();
     g.addEdge("JavaLexer.tokens", "JavaLexer.g4");
     g.addEdge("JavaParser.g4", "JavaLexer.tokens");
@@ -94,6 +94,6 @@ public class TopologicalSortTest extends AbstractBaseTest {
     String expecting = "[JavaLexer.g4, JavaLexer.tokens, JavaParser.g4, Def.g4, Ref.g4]";
     List<String> nodes = g.sort();
     String result = nodes.toString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

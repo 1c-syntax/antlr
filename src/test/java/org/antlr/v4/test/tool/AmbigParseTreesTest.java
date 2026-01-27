@@ -31,12 +31,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-
-public class AmbigParseTreesTest {
+class AmbigParseTreesTest {
   @Test
-  public void testParseDecisionWithinAmbiguousStartRule() throws Exception {
+  void testParseDecisionWithinAmbiguousStartRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -59,7 +58,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltsAtRoot() throws Exception {
+  void testAmbigAltsAtRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -91,7 +90,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltsNotAtRoot() throws Exception {
+  void testAmbigAltsNotAtRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -125,7 +124,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltDipsIntoOuterContextToRoot() throws Exception {
+  void testAmbigAltDipsIntoOuterContextToRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -156,7 +155,7 @@ public class AmbigParseTreesTest {
   }
 
   @Test
-  public void testAmbigAltDipsIntoOuterContextBelowRoot() throws Exception {
+  void testAmbigAltDipsIntoOuterContextBelowRoot() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -187,7 +186,7 @@ public class AmbigParseTreesTest {
       expectedOverallTree, expectedParseTrees);
   }
 
-  public void testAmbiguousTrees(LexerGrammar lg, Grammar g,
+  private void testAmbiguousTrees(LexerGrammar lg, Grammar g,
                                  String startRule, String input, int decision,
                                  String expectedAmbigAlts,
                                  String overallTree,
@@ -203,12 +202,12 @@ public class AmbigParseTreesTest {
     // PARSE
     int ruleIndex = g.rules.get(startRule).index;
     ParserRuleContext parseTree = parser.parse(ruleIndex);
-    assertEquals(overallTree, Trees.toStringTree(parseTree, nodeTextProvider));
+    assertThat(Trees.toStringTree(parseTree, nodeTextProvider)).isEqualTo(overallTree);
     System.out.println();
 
     DecisionInfo[] decisionInfo = parser.getParseInfo().getDecisionInfo();
     List<AmbiguityInfo> ambiguities = decisionInfo[decision].ambiguities;
-    assertEquals(1, ambiguities.size());
+    assertThat(ambiguities).hasSize(1);
     AmbiguityInfo ambiguityInfo = ambiguities.get(0);
 
     List<ParserRuleContext> ambiguousParseTrees =
@@ -220,12 +219,12 @@ public class AmbigParseTreesTest {
         ambiguityInfo.startIndex,
         ambiguityInfo.stopIndex,
         ruleIndex);
-    assertEquals(expectedAmbigAlts, ambiguityInfo.getAmbiguousAlternatives().toString());
-    assertEquals(ambiguityInfo.getAmbiguousAlternatives().cardinality(), ambiguousParseTrees.size());
+    assertThat(ambiguityInfo.getAmbiguousAlternatives()).hasToString(expectedAmbigAlts);
+    assertThat(ambiguousParseTrees).hasSize(ambiguityInfo.getAmbiguousAlternatives().cardinality());
 
     for (int i = 0; i < ambiguousParseTrees.size(); i++) {
       ParserRuleContext t = ambiguousParseTrees.get(i);
-      assertEquals(expectedParseTrees[i], Trees.toStringTree(t, nodeTextProvider));
+      assertThat(Trees.toStringTree(t, nodeTextProvider)).isEqualTo(expectedParseTrees[i]);
     }
   }
 
@@ -245,6 +244,6 @@ public class AmbigParseTreesTest {
     parser.addDecisionOverride(((DecisionState) t2).decision, 0, startAlt);
     ParseTree t = parser.parse(g.rules.get(startRule).index);
     InterpreterTreeTextProvider nodeTextProvider = new InterpreterTreeTextProvider(g.getRuleNames());
-    assertEquals(expectedParseTree, Trees.toStringTree(t, nodeTextProvider));
+    assertThat(Trees.toStringTree(t, nodeTextProvider)).isEqualTo(expectedParseTree);
   }
 }

@@ -9,15 +9,13 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ListenersTest extends AbstractBaseTest {
+class ListenersTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testBasic() {
+  void testBasic() {
     String grammar =
       """
         grammar T;
@@ -50,19 +48,21 @@ public class ListenersTest extends AbstractBaseTest {
       1
       2
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenGetters() {
+  void testTokenGetters() {
     String grammar =
       """
         grammar T;
         @parser::members {
         public static class LeafListener extends TBaseListener {
             public void exitA(TParser.AContext ctx) {
-              if (ctx.getChildCount()==2) System.out.printf("%s %s %s",ctx.INT(0).getSymbol().getText(),ctx.INT(1).getSymbol().getText(),ctx.INT());
+              if (ctx.getChildCount()==2) System.out.printf("%s %s %s",
+                ctx.INT(0).getSymbol().getText(),
+                ctx.INT(1).getSymbol().getText(),
+                ctx.INT());
               else System.out.println(ctx.ID().getSymbol());
             }
           }}
@@ -88,19 +88,18 @@ public class ListenersTest extends AbstractBaseTest {
         (a 1 2)
         1 2 [1, 2]
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "abc", false);
     expecting = """
       (a abc)
       [@0,0:2='abc',<4>,1:0]
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testRuleGetters() {
+  void testRuleGetters() {
     // forces list
     // a list still
     String grammar =
@@ -138,19 +137,18 @@ public class ListenersTest extends AbstractBaseTest {
       (a (b 1) (b 2))
       1 2 1
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "abc", false);
     expecting = """
       (a (b abc))
       abc
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLR() {
+  void testLR() {
     String grammar =
       """
         grammar T;
@@ -192,12 +190,11 @@ public class ListenersTest extends AbstractBaseTest {
         2 3 2
         1 2 1
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLRWithLabels() {
+  void testLRWithLabels() {
     String grammar =
       """
         grammar T;
@@ -237,6 +234,6 @@ public class ListenersTest extends AbstractBaseTest {
         3
         1 [13 6]
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

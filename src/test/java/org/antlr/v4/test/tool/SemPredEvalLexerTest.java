@@ -9,16 +9,14 @@
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
-public class SemPredEvalLexerTest extends AbstractBaseTest {
+class SemPredEvalLexerTest extends AbstractBaseTest {
 
   @Test
-  public void testDisableRule() {
+  void testDisableRule() {
     // winner not E1 or ID
     String grammar =
       """
@@ -41,11 +39,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         :s6=>3-'b'->:s6=>3
         :s6=>3-'c'->:s6=>3
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testIDvsEnum() {
+  void testIDvsEnum() {
     String grammar =
       """
         lexer grammar L;
@@ -67,11 +65,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         :s4=>2-'b'->:s4=>2
         :s4=>2-'c'->:s4=>2
         """; // no 'm'-> transition...conflicts with pred
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testIDnotEnum() {
+  void testIDnotEnum() {
     String grammar =
       """
         lexer grammar L;
@@ -87,11 +85,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         [@3,13:12='<EOF>',<-1>,1:13]
         s0-' '->:s2=>3
         """; // no edges in DFA for enum/id. all paths lead to pred.
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testEnumNotID() {
+  void testEnumNotID() {
     String grammar =
       """
         lexer grammar L;
@@ -107,11 +105,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         [@3,13:12='<EOF>',<-1>,1:13]
         s0-' '->:s3=>3
         """; // no edges in DFA for enum/id. all paths lead to pred.
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testIndent() {
+  void testIndent() {
     String grammar =
       """
         lexer grammar L;
@@ -146,11 +144,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         :s1=>1-'e'->:s1=>1
         :s1=>1-'f'->:s1=>1
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testLexerInputPositionSensitivePredicates() {
+  void testLexerInputPositionSensitivePredicates() {
     String grammar =
       """
         lexer grammar L;
@@ -173,11 +171,11 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         [@3,8:10='cde',<2>,2:2]
         [@4,12:11='<EOF>',<-1>,3:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testPredicatedKeywords() {
+  void testPredicatedKeywords() {
     String grammar =
       """
         lexer grammar A;
@@ -195,6 +193,6 @@ public class SemPredEvalLexerTest extends AbstractBaseTest {
         [@2,9:9='a',<2>,1:9]
         [@3,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 }

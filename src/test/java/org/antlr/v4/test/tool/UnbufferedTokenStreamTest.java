@@ -23,11 +23,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnbufferedTokenStreamTest extends AbstractBaseTest {
+class UnbufferedTokenStreamTest extends AbstractBaseTest {
   @Test
-  public void testLookahead() throws Exception {
+  void testLookahead() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -45,16 +45,16 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
     LexerInterpreter lexEngine = g.createLexerInterpreter(input);
     TokenStream tokens = new UnbufferedTokenStream(lexEngine);
 
-    assertEquals("x", tokens.LT(1).getText());
-    assertEquals(" ", tokens.LT(2).getText());
-    assertEquals("=", tokens.LT(3).getText());
-    assertEquals(" ", tokens.LT(4).getText());
-    assertEquals("302", tokens.LT(5).getText());
-    assertEquals(";", tokens.LT(6).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("x");
+    assertThat(tokens.LT(2).getText()).isEqualTo(" ");
+    assertThat(tokens.LT(3).getText()).isEqualTo("=");
+    assertThat(tokens.LT(4).getText()).isEqualTo(" ");
+    assertThat(tokens.LT(5).getText()).isEqualTo("302");
+    assertThat(tokens.LT(6).getText()).isEqualTo(";");
   }
 
   @Test
-  public void testNoBuffering() throws Exception {
+  void testNoBuffering() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -72,27 +72,27 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
     LexerInterpreter lexEngine = g.createLexerInterpreter(input);
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
-    assertEquals("[[@0,0:0='x',<1>,1:0]]", tokens.getBuffer().toString());
-    assertEquals("x", tokens.LT(1).getText());
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
+    assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // move to WS
-    assertEquals(" ", tokens.LT(1).getText());
-    assertEquals("[[@1,1:1=' ',<7>,1:1]]", tokens.getRemainingBuffer().toString());
+    assertThat(tokens.LT(1).getText()).isEqualTo(" ");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@1,1:1=' ',<7>,1:1]]");
     tokens.consume();
-    assertEquals("=", tokens.LT(1).getText());
-    assertEquals("[[@2,2:2='=',<4>,1:2]]", tokens.getRemainingBuffer().toString());
+    assertThat(tokens.LT(1).getText()).isEqualTo("=");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@2,2:2='=',<4>,1:2]]");
     tokens.consume();
-    assertEquals(" ", tokens.LT(1).getText());
-    assertEquals("[[@3,3:3=' ',<7>,1:3]]", tokens.getRemainingBuffer().toString());
+    assertThat(tokens.LT(1).getText()).isEqualTo(" ");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@3,3:3=' ',<7>,1:3]]");
     tokens.consume();
-    assertEquals("302", tokens.LT(1).getText());
-    assertEquals("[[@4,4:6='302',<2>,1:4]]", tokens.getRemainingBuffer().toString());
+    assertThat(tokens.LT(1).getText()).isEqualTo("302");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@4,4:6='302',<2>,1:4]]");
     tokens.consume();
-    assertEquals(";", tokens.LT(1).getText());
-    assertEquals("[[@5,7:7=';',<3>,1:7]]", tokens.getRemainingBuffer().toString());
+    assertThat(tokens.LT(1).getText()).isEqualTo(";");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@5,7:7=';',<3>,1:7]]");
   }
 
   @Test
-  public void testMarkStart() throws Exception {
+  void testMarkStart() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -110,26 +110,25 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
     LexerInterpreter lexEngine = g.createLexerInterpreter(input);
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
-    int m = tokens.mark();
-    assertEquals("[[@0,0:0='x',<1>,1:0]]", tokens.getBuffer().toString());
-    assertEquals("x", tokens.LT(1).getText());
+    tokens.mark();
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
+    assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // consume x
-    assertEquals("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]", tokens.getBuffer().toString());
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
     tokens.consume(); // ' '
     tokens.consume(); // =
     tokens.consume(); // ' '
     tokens.consume(); // 302
     tokens.consume(); // ;
-    assertEquals("""
+    assertThat(tokens.getBuffer()).hasToString("""
         [[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1],\
          [@2,2:2='=',<4>,1:2], [@3,3:3=' ',<7>,1:3],\
          [@4,4:6='302',<2>,1:4], [@5,7:7=';',<3>,1:7],\
-         [@6,8:7='<EOF>',<-1>,1:8]]""",
-      tokens.getBuffer().toString());
+         [@6,8:7='<EOF>',<-1>,1:8]]""");
   }
 
   @Test
-  public void testMarkThenRelease() throws Exception {
+  void testMarkThenRelease() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -148,30 +147,29 @@ public class UnbufferedTokenStreamTest extends AbstractBaseTest {
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
     int m = tokens.mark();
-    assertEquals("[[@0,0:0='x',<1>,1:0]]", tokens.getBuffer().toString());
-    assertEquals("x", tokens.LT(1).getText());
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
+    assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // consume x
-    assertEquals("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]", tokens.getBuffer().toString());
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
     tokens.consume(); // ' '
     tokens.consume(); // =
     tokens.consume(); // ' '
-    assertEquals("302", tokens.LT(1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("302");
     tokens.release(m); // "x = 302" is in buffer. will kill buffer
     tokens.consume(); // 302
     tokens.consume(); // ' '
     m = tokens.mark(); // mark at the +
-    assertEquals("+", tokens.LT(1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("+");
     tokens.consume(); // '+'
     tokens.consume(); // ' '
     tokens.consume(); // 1
     tokens.consume(); // ;
-    assertEquals("<EOF>", tokens.LT(1).getText());
+    assertThat(tokens.LT(1).getText()).isEqualTo("<EOF>");
     // we marked at the +, so that should be the start of the buffer
-    assertEquals("""
+    assertThat(tokens.getBuffer()).hasToString("""
         [[@6,8:8='+',<5>,1:8], [@7,9:9=' ',<7>,1:9],\
          [@8,10:10='1',<2>,1:10], [@9,11:11=';',<3>,1:11],\
-         [@10,12:11='<EOF>',<-1>,1:12]]""",
-      tokens.getBuffer().toString());
+         [@10,12:11='<EOF>',<-1>,1:12]]""");
     tokens.release(m);
   }
 
