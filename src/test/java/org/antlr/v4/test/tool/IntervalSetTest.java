@@ -27,8 +27,9 @@ class IntervalSetTest extends AbstractBaseTest {
 
   @Test
   void testMin() {
-    assertThat(IntervalSet.COMPLETE_CHAR_SET.getMinElement()).isEqualTo(0);
-    assertThat(IntervalSet.COMPLETE_CHAR_SET.or(IntervalSet.of(Token.EPSILON)).getMinElement()).isEqualTo(Token.EPSILON);
+    assertThat(IntervalSet.COMPLETE_CHAR_SET.getMinElement()).isZero();
+    assertThat(IntervalSet.COMPLETE_CHAR_SET.or(IntervalSet.of(Token.EPSILON)).getMinElement())
+        .isEqualTo(Token.EPSILON);
     assertThat(IntervalSet.COMPLETE_CHAR_SET.or(IntervalSet.of(Token.EOF)).getMinElement()).isEqualTo(Token.EOF);
   }
 
@@ -371,7 +372,7 @@ class IntervalSetTest extends AbstractBaseTest {
     s.add(50, 55);
     s.add(5, 5);
     String expecting = "[5, 20, 21, 22, 23, 24, 25, 50, 51, 52, 53, 54, 55]";
-    assertThat(s.toList().toString()).isEqualTo(expecting);
+    assertThat(s.toList()).hasToString(expecting);
   }
 
   /**

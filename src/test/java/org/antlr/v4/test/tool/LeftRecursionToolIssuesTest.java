@@ -291,7 +291,8 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       "(T)t.f()", "(s (e (e ( (type T) ) (e (e t) . f)) ( )) <EOF>)",
       "a.f(x)==T.c", "(s (e (e (e (e a) . f) ( (expressionList (e x)) )) == (e (e T) . c)) <EOF>)",
       "a.f().g(x,1)", "(s (e (e (e (e (e a) . f) ( )) . g) ( (expressionList (e x) , (e 1)) )) <EOF>)",
-      "new T[((n-1) * x) + 1]", "(s (e new (type T) [ (e (e ( (e (e ( (e (e n) - (e 1)) )) * (e x)) )) + (e 1)) ]) <EOF>)",
+      "new T[((n-1) * x) + 1]",
+      "(s (e new (type T) [ (e (e ( (e (e ( (e (e n) - (e 1)) )) * (e x)) )) + (e 1)) ]) <EOF>)",
     };
     runTests(grammar, tests, "s");
   }
@@ -421,7 +422,8 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       "a*b", "(s (expr (expr a) * (expr b)) <EOF>)",
       "a,c>>x", "(s (expr (expr (expr a) , (expr c)) >> (expr x)) <EOF>)",
       "x", "(s (expr x) <EOF>)",
-      "a*b,c,x*y>>r", "(s (expr (expr (expr (expr (expr a) * (expr b)) , (expr c)) , (expr (expr x) * (expr y))) >> (expr r)) <EOF>)",
+      "a*b,c,x*y>>r",
+      "(s (expr (expr (expr (expr (expr a) * (expr b)) , (expr c)) , (expr (expr x) * (expr y))) >> (expr r)) <EOF>)",
     };
     runTests(grammar, tests, "s");
   }
@@ -565,19 +567,23 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         NEWLINE:'\\r'? '\\n' ;     // return newlines to parser (is end-statement signal)
         WS  :   [ \\t]+ -> skip ; // toss out whitespace
         """;
-    String result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "1\n", true);
+    var grammarFileName = "Expr.g4";
+    var exprParser = "ExprParser";
+    var exprLexer = "ExprLexer";
+    var ruleName = "prog";
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "1\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "a = 5\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "a = 5\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "b = 6\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "b = 6\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "a+b*2\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "a+b*2\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "(1+2)*3\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "(1+2)*3\n", true);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -593,7 +599,8 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String expected =
-      "error(" + ErrorType.NO_NON_LR_ALTS.code + "): T.g4:3:0: left recursive rule 'a' must contain an alternative which is not left recursive\n";
+      "error(" + ErrorType.NO_NON_LR_ALTS.code +
+      "): T.g4:3:0: left recursive rule 'a' must contain an alternative which is not left recursive\n";
     testErrors(new String[]{grammar, expected}, false);
   }
 
@@ -610,7 +617,9 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String expected =
-      "error(" + ErrorType.EPSILON_LR_FOLLOW.code + "): T.g4:3:0: left recursive rule 'a' contains a left recursive alternative which can be followed by the empty string\n";
+      "error(" + ErrorType.EPSILON_LR_FOLLOW.code +
+      "): T.g4:3:0: left recursive rule 'a' contains a left recursive alternative which can be followed by the empty " +
+        "string\n";
     testErrors(new String[]{grammar, expected}, false);
   }
 
@@ -667,7 +676,9 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         // Tokens
         ID              : LETTER ALPHANUM*;
         NUMBER          : DIGIT+ ('.' DIGIT+)? (('e'|'E')('+'|'-')? DIGIT+)?;
-        DATE            : '\\'' DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT (' ' DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?)? '\\'';
+        DATE            :
+          '\\'' DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT
+          (' ' DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?)? '\\'';
         SQ_STRING       : '\\'' ('\\'\\'' | ~'\\'')* '\\'';
         DQ_STRING       : '"' ('\\\\"' | ~'"')* '"';
         WS              : [ \\t\\n\\r]+ -> skip ;

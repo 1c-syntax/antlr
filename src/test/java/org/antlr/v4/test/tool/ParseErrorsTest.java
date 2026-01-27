@@ -350,7 +350,7 @@ class ParseErrorsTest extends AbstractBaseTest {
         
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, true);
-    assertThat(result).isEqualTo("");
+    assertThat(result).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 

@@ -1046,7 +1046,13 @@ class CompositeGrammarsTest extends AbstractBaseTest {
     System.out.println("dir " + tmpdir);
     mkdir(tmpdir);
     writeFile(tmpdir, "Java.g4", slave);
-    String found = execParser("NewJava.g4", master, "NewJavaParser", "NewJavaLexer", "compilationUnit", "package Foo;", debug);
+    String found = execParser("NewJava.g4",
+      master,
+      "NewJavaParser",
+      "NewJavaLexer",
+      "compilationUnit",
+      "package Foo;",
+      debug);
     assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }

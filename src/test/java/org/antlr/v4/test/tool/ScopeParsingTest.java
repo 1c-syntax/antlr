@@ -31,7 +31,8 @@ class ScopeParsingTest extends AbstractBaseTest {
     "Map<A,B>[] i, int j[]|i:Map<A,B>[], j:int []",
     "Map<A,List<B>>[] i|i:Map<A,List<B>>[]",
     "int i = 34+a[3], int j[] = new int[34]|i:int=34+a[3], j:int []=new int[34]",
-    "char *[3] foo = {1,2,3}|foo:char *[3]={1,2,3}", // not valid C really, C is "type name" however so this is cool (this was broken in 4.5 anyway)
+    "char *[3] foo = {1,2,3}|foo:char *[3]={1,2,3}", // not valid C really, C is "type name" however so this is cool
+    // (this was broken in 4.5 anyway)
     "String[] headers|headers:String[]",
 
     // C++

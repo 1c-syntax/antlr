@@ -141,7 +141,8 @@ class RuleVersioningTest extends AbstractBaseTest {
     testGrammar("DependencyOnInvalidRule");
     assertNotNullOrEmpty(stderrDuringParse);
     String firstLine = stderrDuringParse.split("\\n", 2)[0];
-    String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element public TParser$Dependent() dependent on unknown rule 8@0 in TParser";
+    String expected = "Exception in thread \"main\" java.lang.IllegalStateException: " +
+      "Element public TParser$Dependent() dependent on unknown rule 8@0 in TParser";
     assertThat(firstLine).isEqualTo(expected);
   }
 
@@ -157,7 +158,8 @@ class RuleVersioningTest extends AbstractBaseTest {
     } else {
       assertNotNullOrEmpty(stderrDuringParse);
       String firstLine = stderrDuringParse.split("\\n", 2)[0];
-      String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element " + elementName + " dependent on rule a@1 (found @0) in TParser";
+      String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element " + elementName
+        + " dependent on rule a@1 (found @0) in TParser";
       assertThat(firstLine).isEqualTo(expected);
     }
   }
@@ -290,7 +292,8 @@ class RuleVersioningTest extends AbstractBaseTest {
         Pair<String, Integer> prefix = prefixes.get(i);
         for (Entry<Object, Object> entry : entries) {
           String key = entry.getKey().toString();
-          if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template") || key.equals(prefix.getItem1() + ".inherit")) {
+          if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template")
+            || key.equals(prefix.getItem1() + ".inherit")) {
             // what to do with these items?
             throw new UnsupportedOperationException();
           } else if (key.startsWith(prefix.getItem1() + '.')) {
@@ -347,7 +350,8 @@ class RuleVersioningTest extends AbstractBaseTest {
         public Iterator<Entry<String, Object>> iterator() {
           return new Iterator<Entry<String, Object>>() {
             final Iterator<Entry<String, Object>> valueIterator = subkeyValues.entrySet().iterator();
-            final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet().iterator();
+            final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet()
+              .iterator();
 
             @Override
             public boolean hasNext() {

@@ -16,7 +16,6 @@ import org.antlr.v4.runtime.LexerInterpreter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.atn.DecisionInfo;
 import org.antlr.v4.runtime.atn.LookaheadEventInfo;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.GrammarParserInterpreter;
 import org.antlr.v4.tool.LexerGrammar;
@@ -123,7 +122,7 @@ public class LookaheadTreesTest {
     CommonTokenStream tokens = new CommonTokenStream(lexEngine);
     GrammarParserInterpreter parser = g.createGrammarParserInterpreter(tokens);
     parser.setProfile(true);
-    ParseTree t = parser.parse(startRuleIndex);
+    parser.parse(startRuleIndex);
 
     DecisionInfo decisionInfo = parser.getParseInfo().getDecisionInfo()[decision];
     LookaheadEventInfo lookaheadEventInfo = decisionInfo.SLL_MaxLookEvent;

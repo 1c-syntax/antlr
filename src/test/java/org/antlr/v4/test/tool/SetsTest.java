@@ -236,7 +236,8 @@ class SetsTest extends AbstractBaseTest {
         "a : A {System.out.println($A.text);} ;\n" +
         "A : ~('a'|B) ;\n" +
         "B : 'b' ;\n",
-      "error(" + ErrorType.UNSUPPORTED_REFERENCE_IN_LEXER_SET.code + "): T.g4:3:10: rule reference 'B' is not currently supported in a set\n"
+      "error(" + ErrorType.UNSUPPORTED_REFERENCE_IN_LEXER_SET.code
+      + "): T.g4:3:10: rule reference 'B' is not currently supported in a set\n"
     };
     super.testErrors(pair, true);
   }
@@ -249,7 +250,8 @@ class SetsTest extends AbstractBaseTest {
         "a : A {System.out.println($A.text);} ;\n" +
         "A : ~('a'|'aa') ;\n" +
         "B : 'b' ;\n",
-      "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code + "): T.g4:3:10: multi-character literals are not allowed in lexer sets: 'aa'\n"
+      "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code
+      + "): T.g4:3:10: multi-character literals are not allowed in lexer sets: 'aa'\n"
     };
     super.testErrors(pair, true);
   }
@@ -290,6 +292,7 @@ class SetsTest extends AbstractBaseTest {
         "NEW_LINE: '\\r'? '\\n';";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "parse", "a", false);
     assertThat(found).isEqualTo("");
-    assertThat(this.stderrDuringParse).isEqualTo("line 1:0 token recognition error at: 'a'\nline 1:1 missing {} at '<EOF>'\n");
+    assertThat(this.stderrDuringParse).isEqualTo(
+      "line 1:0 token recognition error at: 'a'\nline 1:1 missing {} at '<EOF>'\n");
   }
 }

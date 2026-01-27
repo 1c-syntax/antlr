@@ -51,7 +51,7 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s a)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0");
+    assertThat(t.getSourceInterval()).hasToString("0..0");
   }
 
   @Test
@@ -68,7 +68,7 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s a <EOF>)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1");
+    assertThat(t.getSourceInterval()).hasToString("0..1");
   }
 
   @Test
@@ -86,8 +86,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s (x a <EOF>))");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1");
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..1");
+    assertThat(t.getSourceInterval()).hasToString("0..1");
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..1");
   }
 
   @Test
@@ -106,8 +106,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s (x a <EOF>) y)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1"); // s
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..1"); // x
+    assertThat(t.getSourceInterval()).hasToString("0..1"); // s
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..1"); // x
   }
 
   @Test
@@ -126,8 +126,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s (x <EOF>) y)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..0"); // x
+    assertThat(t.getSourceInterval()).hasToString("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..0"); // x
     // this next one is a weird special case where somebody tries to match beyond in the file
   }
 
@@ -147,8 +147,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s x <EOF>)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..-1"); // x
+    assertThat(t.getSourceInterval()).hasToString("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..-1"); // x
   }
 
   @Test
@@ -168,8 +168,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s (x <EOF>) (y z))");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..0"); // x
+    assertThat(t.getSourceInterval()).hasToString("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..0"); // x
   }
 
   @Test
@@ -188,9 +188,9 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s x a)");
-    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
+    assertThat(t.getSourceInterval()).hasToString("0..0"); // s
     // This gets an empty interval because the stop token is null for x
-    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..-1"); // x
+    assertThat(t.getChild(0).getSourceInterval()).hasToString("0..-1"); // x
   }
 
   @Test

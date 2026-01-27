@@ -66,7 +66,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "abc 34;", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -90,7 +90,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "abc 34;", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -310,7 +310,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "x", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -324,7 +324,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if x else x", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -338,7 +338,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if x", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -352,7 +352,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if if x else x", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -465,7 +465,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "a";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "expression", input, false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -483,7 +483,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "x";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", input, false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -502,7 +502,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "x";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", input, false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -549,7 +549,7 @@ class ParserExecTest extends AbstractBaseTest {
       grammar = new String(data, 0, n);
     }
     String found = execParser("Psl.g4", grammar, "PslParser", "PslLexer", "floating_constant", " . 234", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isEqualTo("line 1:6 rule floating_constant DEC:A floating-point constant cannot have internal white space\n");
   }
 
@@ -592,7 +592,7 @@ class ParserExecTest extends AbstractBaseTest {
     assertThat(success).isTrue();
 
     String found = execParser("ModeTagsParser.g4", parserGrammar, "ModeTagsParser", "ModeTagsLexer", "file", "", false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -649,7 +649,7 @@ class ParserExecTest extends AbstractBaseTest {
     String input = "b = (((a > 10)) AND ((a < 15)))";
     String found = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "root",
       input, false);
-    assertThat(found).isEqualTo("");
+    assertThat(found).isEmpty();
     assertThat(stderrDuringParse).isNull();
   }
 

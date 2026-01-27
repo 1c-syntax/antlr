@@ -72,23 +72,23 @@ class UnbufferedTokenStreamTest extends AbstractBaseTest {
     LexerInterpreter lexEngine = g.createLexerInterpreter(input);
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
-    assertThat(tokens.getBuffer().toString()).isEqualTo("[[@0,0:0='x',<1>,1:0]]");
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
     assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // move to WS
     assertThat(tokens.LT(1).getText()).isEqualTo(" ");
-    assertThat(tokens.getRemainingBuffer().toString()).isEqualTo("[[@1,1:1=' ',<7>,1:1]]");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@1,1:1=' ',<7>,1:1]]");
     tokens.consume();
     assertThat(tokens.LT(1).getText()).isEqualTo("=");
-    assertThat(tokens.getRemainingBuffer().toString()).isEqualTo("[[@2,2:2='=',<4>,1:2]]");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@2,2:2='=',<4>,1:2]]");
     tokens.consume();
     assertThat(tokens.LT(1).getText()).isEqualTo(" ");
-    assertThat(tokens.getRemainingBuffer().toString()).isEqualTo("[[@3,3:3=' ',<7>,1:3]]");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@3,3:3=' ',<7>,1:3]]");
     tokens.consume();
     assertThat(tokens.LT(1).getText()).isEqualTo("302");
-    assertThat(tokens.getRemainingBuffer().toString()).isEqualTo("[[@4,4:6='302',<2>,1:4]]");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@4,4:6='302',<2>,1:4]]");
     tokens.consume();
     assertThat(tokens.LT(1).getText()).isEqualTo(";");
-    assertThat(tokens.getRemainingBuffer().toString()).isEqualTo("[[@5,7:7=';',<3>,1:7]]");
+    assertThat(tokens.getRemainingBuffer()).hasToString("[[@5,7:7=';',<3>,1:7]]");
   }
 
   @Test
@@ -110,17 +110,17 @@ class UnbufferedTokenStreamTest extends AbstractBaseTest {
     LexerInterpreter lexEngine = g.createLexerInterpreter(input);
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
-    int m = tokens.mark();
-    assertThat(tokens.getBuffer().toString()).isEqualTo("[[@0,0:0='x',<1>,1:0]]");
+    tokens.mark();
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
     assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // consume x
-    assertThat(tokens.getBuffer().toString()).isEqualTo("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
     tokens.consume(); // ' '
     tokens.consume(); // =
     tokens.consume(); // ' '
     tokens.consume(); // 302
     tokens.consume(); // ;
-    assertThat(tokens.getBuffer().toString()).isEqualTo("""
+    assertThat(tokens.getBuffer()).hasToString("""
         [[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1],\
          [@2,2:2='=',<4>,1:2], [@3,3:3=' ',<7>,1:3],\
          [@4,4:6='302',<2>,1:4], [@5,7:7=';',<3>,1:7],\
@@ -147,10 +147,10 @@ class UnbufferedTokenStreamTest extends AbstractBaseTest {
     TestingUnbufferedTokenStream tokens = new TestingUnbufferedTokenStream(lexEngine);
 
     int m = tokens.mark();
-    assertThat(tokens.getBuffer().toString()).isEqualTo("[[@0,0:0='x',<1>,1:0]]");
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0]]");
     assertThat(tokens.LT(1).getText()).isEqualTo("x");
     tokens.consume(); // consume x
-    assertThat(tokens.getBuffer().toString()).isEqualTo("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
+    assertThat(tokens.getBuffer()).hasToString("[[@0,0:0='x',<1>,1:0], [@1,1:1=' ',<7>,1:1]]");
     tokens.consume(); // ' '
     tokens.consume(); // =
     tokens.consume(); // ' '
@@ -166,7 +166,7 @@ class UnbufferedTokenStreamTest extends AbstractBaseTest {
     tokens.consume(); // ;
     assertThat(tokens.LT(1).getText()).isEqualTo("<EOF>");
     // we marked at the +, so that should be the start of the buffer
-    assertThat(tokens.getBuffer().toString()).isEqualTo("""
+    assertThat(tokens.getBuffer()).hasToString("""
         [[@6,8:8='+',<5>,1:8], [@7,9:9=' ',<7>,1:9],\
          [@8,10:10='1',<2>,1:10], [@9,11:11=';',<3>,1:11],\
          [@10,12:11='<EOF>',<-1>,1:12]]""");

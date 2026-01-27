@@ -13,15 +13,12 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.LexerInterpreter;
 import org.antlr.v4.runtime.ParserInterpreter;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.atn.DecisionInfo;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.LexerGrammar;
 import org.antlr.v4.tool.Rule;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -183,7 +180,8 @@ class ParserProfilerTest extends AbstractBaseTest {
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "a", "; 1 x");
     assertThat(info).hasSize(2);
     String expecting =
-      "{decision=1, contextSensitivities=1, errors=0, ambiguities=0, SLL_lookahead=3, SLL_ATNTransitions=2, SLL_DFATransitions=0, LL_Fallback=1, LL_lookahead=3, LL_ATNTransitions=2}";
+      "{decision=1, contextSensitivities=1, errors=0, ambiguities=0, SLL_lookahead=3, SLL_ATNTransitions=2, " +
+        "SLL_DFATransitions=0, LL_Fallback=1, LL_lookahead=3, LL_ATNTransitions=2}";
     assertThat(info[1]).hasToString(expecting);
   }
 
@@ -264,7 +262,7 @@ class ParserProfilerTest extends AbstractBaseTest {
       if (r == null) {
         return parser.getParseInfo().getDecisionInfo();
       }
-      ParserRuleContext t = parser.parse(r.index);
+      parser.parse(r.index);
     }
     return parser.getParseInfo().getDecisionInfo();
   }

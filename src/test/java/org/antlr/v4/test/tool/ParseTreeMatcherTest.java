@@ -21,7 +21,6 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.pattern.ParseTreeMatch;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePatternMatcher;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
@@ -34,20 +33,19 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
   @Test
   void testChunking() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
-    assertThat(m.split("<ID> = <expr> ;").toString()).isEqualTo("[ID, ' = ', expr, ' ;']");
-    assertThat(m.split(" <ID> = <expr>").toString()).isEqualTo("[' ', ID, ' = ', expr]");
-    assertThat(m.split("<ID> = <expr>").toString()).isEqualTo("[ID, ' = ', expr]");
-    assertThat(m.split("<expr>").toString()).isEqualTo("[expr]");
-    assertThat(m.split("\\<x\\> foo").toString()).isEqualTo("['<x> foo']");
-    assertThat(m.split("foo \\<x\\> bar <tag>").toString()).isEqualTo("['foo <x> bar ', tag]");
+    assertThat(m.split("<ID> = <expr> ;")).hasToString("[ID, ' = ', expr, ' ;']");
+    assertThat(m.split(" <ID> = <expr>")).hasToString("[' ', ID, ' = ', expr]");
+    assertThat(m.split("<ID> = <expr>")).hasToString("[ID, ' = ', expr]");
+    assertThat(m.split("<expr>")).hasToString("[expr]");
+    assertThat(m.split("\\<x\\> foo")).hasToString("['<x> foo']");
+    assertThat(m.split("foo \\<x\\> bar <tag>")).hasToString("['foo <x> bar ', tag]");
   }
 
   @Test
   void testDelimiters() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     m.setDelimiters("<<", ">>", "$");
-    String result = m.split("<<ID>> = <<expr>> ;$<< ick $>>").toString();
-    assertThat(result).isEqualTo("[ID, ' = ', expr, ' ;<< ick >>']");
+    assertThat(m.split("<<ID>> = <<expr>> ;$<< ick $>>")).hasToString("[ID, ' = ', expr, ' ;<< ick >>']");
   }
 
   @Test
@@ -285,16 +283,16 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x ;";
     String pattern = "<id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X8");
-    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x], id=[x]}");
+    assertThat(m.getLabels()).hasToString("{ID=[x], id=[x]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
     assertThat(m.get("id").getText()).isEqualTo("x");
     assertThat(m.get("ID").getText()).isEqualTo("x");
-    assertThat(m.getAll("id").toString()).isEqualTo("[x]");
-    assertThat(m.getAll("ID").toString()).isEqualTo("[x]");
+    assertThat(m.getAll("id")).hasToString("[x]");
+    assertThat(m.getAll("ID")).hasToString("[x]");
 
     assertThat(m.get("undefined")).isNull();
-    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test
@@ -310,16 +308,16 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y;";
     String pattern = "<id:ID> <id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X9");
-    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x, y], id=[x, y]}");
+    assertThat(m.getLabels()).hasToString("{ID=[x, y], id=[x, y]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
     assertThat(m.get("id").getText()).isEqualTo("y");
     assertThat(m.get("ID").getText()).isEqualTo("y");
-    assertThat(m.getAll("id").toString()).isEqualTo("[x, y]");
-    assertThat(m.getAll("ID").toString()).isEqualTo("[x, y]");
+    assertThat(m.getAll("id")).hasToString("[x, y]");
+    assertThat(m.getAll("ID")).hasToString("[x, y]");
 
     assertThat(m.get("undefined")).isNull();
-    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test
@@ -335,21 +333,21 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y z;";
     String pattern = "<a:ID> <b:ID> <a:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X7");
-    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x, y, z], a=[x, z], b=[y]}");
+    assertThat(m.getLabels()).hasToString("{ID=[x, y, z], a=[x, z], b=[y]}");
     assertThat(m.get("a")).isNotNull(); // get first
     assertThat(m.get("b")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
     assertThat(m.get("a").getText()).isEqualTo("z");
     assertThat(m.get("b").getText()).isEqualTo("y");
     assertThat(m.get("ID").getText()).isEqualTo("z"); // get last
-    assertThat(m.getAll("a").toString()).isEqualTo("[x, z]");
-    assertThat(m.getAll("b").toString()).isEqualTo("[y]");
-    assertThat(m.getAll("ID").toString()).isEqualTo("[x, y, z]"); // ordered
+    assertThat(m.getAll("a")).hasToString("[x, z]");
+    assertThat(m.getAll("b")).hasToString("[y]");
+    assertThat(m.getAll("ID")).hasToString("[x, y, z]"); // ordered
 
     assertThat(m.getTree().getText()).isEqualTo("xyz;"); // whitespace stripped by lexer
 
     assertThat(m.get("undefined")).isNull();
-    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test

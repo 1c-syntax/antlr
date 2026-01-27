@@ -26,7 +26,9 @@ class ToolSyntaxErrorsTest extends AbstractBaseTest {
 
     "A;", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:1:0: syntax error: 'A' came as a complete surprise to me\n",
 
-    "grammar ;", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:1:8: syntax error: ';' came as a complete surprise to me while looking for an identifier\n",
+    "grammar ;",
+    "error(" + ErrorType.SYNTAX_ERROR.code
+    + "): A.g4:1:8: syntax error: ';' came as a complete surprise to me while looking for an identifier\n",
 
     """
 grammar A
@@ -36,22 +38,32 @@ a : ID ;
     """
 grammar A;
 a : ID ;;
-b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:8: syntax error: ';' came as a complete surprise to me\n",
+b : B ;""",
+"error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:8: syntax error: ';' came as a complete surprise to me\n",
 
     """
 grammar A;;
 a : ID ;
-""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A;.g4:1:10: syntax error: ';' came as a complete surprise to me\n",
+""",
+"error(" + ErrorType.SYNTAX_ERROR.code + "): A;.g4:1:10: syntax error: ';' came as a complete surprise to me\n",
 
     """
 grammar A;
 a @init : ID ;
-""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:8: syntax error: mismatched input ':' expecting ACTION while matching rule preamble\n",
+""",
+"error(" + ErrorType.SYNTAX_ERROR.code
++ "): A.g4:2:8: syntax error: mismatched input ':' expecting ACTION while matching rule preamble\n",
 
     """
 grammar A;
 a  ( A | B ) D ;
-b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:3: syntax error: '(' came as a complete surprise to me while matching rule preamble\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:11: syntax error: mismatched input ')' expecting SEMI while matching a rule\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:15: syntax error: mismatched input ';' expecting COLON while matching a lexer rule\n",};
+b : B ;""",
+"error(" + ErrorType.SYNTAX_ERROR.code
+  + "): A.g4:2:3: syntax error: '(' came as a complete surprise to me while matching rule preamble\n"
++ "error(" + ErrorType.SYNTAX_ERROR.code
+  + "): A.g4:2:11: syntax error: mismatched input ')' expecting SEMI while matching a rule\n"
++ "error(" + ErrorType.SYNTAX_ERROR.code
+  + "): A.g4:2:15: syntax error: mismatched input ';' expecting COLON while matching a lexer rule\n",};
 
   @Test
   void AllErrorCodesDistinct() {
@@ -75,7 +87,8 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:3: syntax error:
     String[] pair = new String[]{"""
 grammar A;
 a : : A ;
-b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error: ':' came as a complete surprise to me while matching alternative\n",};
+b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code
++ "): A.g4:2:4: syntax error: ':' came as a complete surprise to me while matching alternative\n",};
     super.testErrors(pair, true);
   }
 
@@ -85,7 +98,9 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error:
     String[] pair = new String[]{"""
 grammar A;
 a : A\s
-b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax error: unterminated rule (missing ';') detected at 'b :' while looking for rule element\n",};
+b : B ;""",
+"error(" + ErrorType.SYNTAX_ERROR.code
++ "): A.g4:3:0: syntax error: unterminated rule (missing ';') detected at 'b :' while looking for rule element\n",};
     super.testErrors(pair, true);
   }
 
@@ -95,7 +110,10 @@ b : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax error:
     String[] pair = new String[]{"""
 lexer grammar A;
 A : 'a'\s
-B : 'b' ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax error: unterminated rule (missing ';') detected at 'B :' while looking for lexer rule element\n",};
+B : 'b' ;""",
+"error(" + ErrorType.SYNTAX_ERROR.code
++ "): A.g4:3:0: syntax error: unterminated rule (missing ';') detected at 'B :' while looking for lexer rule element\n",
+    };
     super.testErrors(pair, true);
   }
 
@@ -105,7 +123,10 @@ B : 'b' ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:0: syntax erro
     String[] pair = new String[]{"""
 grammar A;
 a : A\s
-b[int i] returns [int y] : B ;""", "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:3:9: syntax error: unterminated rule (missing ';') detected at 'returns int y' while looking for rule element\n"};
+b[int i] returns [int y] : B ;""",
+"error(" + ErrorType.SYNTAX_ERROR.code
++ "): A.g4:3:9: syntax error: unterminated rule (missing ';') detected at 'returns int y' while looking for rule " +
+  "element\n"};
     super.testErrors(pair, true);
   }
 
@@ -119,7 +140,9 @@ a : b\s
 b : B ;
 """,
 
-      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error: unterminated rule (missing ';') detected at 'b catch' while looking for rule element\n"};
+      "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:2:4: syntax error: unterminated rule (missing ';') detected at 'b catch' while looking for rule " +
+        "element\n"};
     super.testErrors(pair, true);
   }
 
@@ -132,7 +155,9 @@ a : A\s
   catch [Exception e] {...}
 """,
 
-      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error: unterminated rule (missing ';') detected at 'A catch' while looking for rule element\n"};
+      "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:2:4: syntax error: unterminated rule (missing ';') detected at 'A catch' while looking for rule " +
+        "element\n"};
     super.testErrors(pair, true);
   }
 
@@ -144,7 +169,8 @@ grammar A;
 a @ options {k=1;} : A ;
 b : B ;""",
 
-      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:4: syntax error: 'options {' came as a complete surprise to me while looking for an identifier\n"};
+      "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:2:4: syntax error: 'options {' came as a complete surprise to me while looking for an identifier\n"};
     super.testErrors(pair, true);
   }
 
@@ -156,7 +182,8 @@ grammar A;
 a } : A ;
 b : B ;""",
 
-      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:2: syntax error: '}' came as a complete surprise to me while matching rule preamble\n"};
+      "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:2:2: syntax error: '}' came as a complete surprise to me while matching rule preamble\n"};
     super.testErrors(pair, true);
   }
 
@@ -169,7 +196,9 @@ a : A ;
 mode foo;
 b : B ;""",
 
-      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:4:0: syntax error: 'b' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:4:6: syntax error: mismatched input ';' expecting COLON while matching a lexer rule\n"};
+      "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:4:0: syntax error: 'b' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:4:6: syntax error: mismatched input ';' expecting COLON while matching a lexer rule\n"};
     super.testErrors(pair, true);
   }
 
@@ -289,7 +318,10 @@ b : Foo ;
 X : 'foo1' -> popmode;
 Y : 'foo2' -> token(Foo);""", // "meant" to use -> type(Foo)
 
-      "error(" + ErrorType.INVALID_LEXER_COMMAND.code + "): A.g4:4:14: lexer command 'popmode' does not exist or is not supported by the current target\n" + "error(" + ErrorType.INVALID_LEXER_COMMAND.code + "): A.g4:5:14: lexer command 'token' does not exist or is not supported by the current target\n"};
+      "error(" + ErrorType.INVALID_LEXER_COMMAND.code
+        + "): A.g4:4:14: lexer command 'popmode' does not exist or is not supported by the current target\n"
+        + "error(" + ErrorType.INVALID_LEXER_COMMAND.code
+        + "): A.g4:5:14: lexer command 'token' does not exist or is not supported by the current target\n"};
     super.testErrors(pair, true);
   }
 
@@ -304,7 +336,10 @@ b : Foo ;
 X : 'foo1' -> popMode(Foo);
 Y : 'foo2' -> type;""", // "meant" to use -> type(Foo)
 
-      "error(" + ErrorType.UNWANTED_LEXER_COMMAND_ARGUMENT.code + "): A.g4:4:14: lexer command 'popMode' does not take any arguments\n" + "error(" + ErrorType.MISSING_LEXER_COMMAND_ARGUMENT.code + "): A.g4:5:14: missing argument for lexer command 'type'\n"};
+      "error(" + ErrorType.UNWANTED_LEXER_COMMAND_ARGUMENT.code
+      + "): A.g4:4:14: lexer command 'popMode' does not take any arguments\n"
+      + "error(" + ErrorType.MISSING_LEXER_COMMAND_ARGUMENT.code
+      + "): A.g4:5:14: missing argument for lexer command 'type'\n"};
     super.testErrors(pair, true);
   }
 
@@ -336,7 +371,12 @@ B : 'b' ;
       z1 : ('foo' | 'bar'? 'bar2'?)*;
       z2 : ('foo' | 'bar' 'bar2'? | 'bar2')*;
       """;
-    String expected = "error(" + ErrorType.EPSILON_CLOSURE.code + "): A.g4:3:0: rule 'y1' contains a closure with at least one alternative that can match an empty string\n" + "error(" + ErrorType.EPSILON_CLOSURE.code + "): A.g4:4:0: rule 'y2' contains a closure with at least one alternative that can match an empty string\n" + "error(" + ErrorType.EPSILON_CLOSURE.code + "): A.g4:5:0: rule 'z1' contains a closure with at least one alternative that can match an empty string\n";
+    String expected = "error(" + ErrorType.EPSILON_CLOSURE.code
+      + "): A.g4:3:0: rule 'y1' contains a closure with at least one alternative that can match an empty string\n"
+      + "error(" + ErrorType.EPSILON_CLOSURE.code
+      + "): A.g4:4:0: rule 'y2' contains a closure with at least one alternative that can match an empty string\n"
+      + "error(" + ErrorType.EPSILON_CLOSURE.code
+      + "): A.g4:5:0: rule 'z1' contains a closure with at least one alternative that can match an empty string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -352,7 +392,8 @@ B : 'b' ;
       s : (a a)* ;
       a : 'foo'* ;
       """;
-    String expected = "error(" + ErrorType.EPSILON_CLOSURE.code + "): T.g4:2:0: rule 's' contains a closure with at least one alternative that can match an empty string\n";
+    String expected = "error(" + ErrorType.EPSILON_CLOSURE.code
+      + "): T.g4:2:0: rule 's' contains a closure with at least one alternative that can match an empty string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -368,7 +409,9 @@ B : 'b' ;
       s : (a a)? ;
       a : 'foo'* ;
       """;
-    String expected = "warning(" + ErrorType.EPSILON_OPTIONAL.code + "): T.g4:2:0: rule 's' contains an optional block with at least one alternative that can match an empty string\n";
+    String expected = "warning(" + ErrorType.EPSILON_OPTIONAL.code
+      + "): T.g4:2:0: rule 's' contains an optional block with at least one alternative that can match an empty " +
+      "string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -385,7 +428,11 @@ B : 'b' ;
       z1 : ('foo' | 'bar'? 'bar2'?)?;
       z2 : ('foo' | 'bar' 'bar2'? | 'bar2')?;
       """;
-    String expected = "warning(" + ErrorType.EPSILON_OPTIONAL.code + "): A.g4:3:0: rule 'y' contains an optional block with at least one alternative that can match an empty string\n" + "warning(" + ErrorType.EPSILON_OPTIONAL.code + "): A.g4:4:0: rule 'z1' contains an optional block with at least one alternative that can match an empty string\n";
+    String expected = "warning(" + ErrorType.EPSILON_OPTIONAL.code
+      + "): A.g4:3:0: rule 'y' contains an optional block with at least one alternative that can match an empty " +
+      "string\n" + "warning(" + ErrorType.EPSILON_OPTIONAL.code
+      + "): A.g4:4:0: rule 'z1' contains an optional block with at least one alternative that can match an empty " +
+      "string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -435,7 +482,21 @@ B : 'b' ;
       lexer grammar A;
       WHITESPACE : (" " | "\\t" | "\\n" | "\\r" | "\\f");
       """;
-    String expected = "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:14: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:16: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:20: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:21: syntax error: '\\' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:23: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:27: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:28: syntax error: '\\' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:30: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:34: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:35: syntax error: '\\' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:37: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:41: syntax error: '\"' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:42: syntax error: '\\' came as a complete surprise to me\n" + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:44: syntax error: '\"' came as a complete surprise to me\n";
+    String expected = "error(" + ErrorType.SYNTAX_ERROR.code
+      + "): A.g4:2:14: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:16: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:20: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:21: syntax error: '\\' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:23: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:27: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:28: syntax error: '\\' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:30: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:34: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:35: syntax error: '\\' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:37: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:41: syntax error: '\"' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:42: syntax error: '\\' came as a complete surprise to me\n"
+      + "error(" + ErrorType.SYNTAX_ERROR.code + "): A.g4:2:44: syntax error: '\"' came as a complete surprise to me\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -452,7 +513,9 @@ B : 'b' ;
     String grammar = """
       lexer grammar A;
       STRING : '\\"' '\\"' 'x' ;""";
-    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:10: invalid escape sequence '\\\"'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:15: invalid escape sequence '\\\"'\n";
+    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): A.g4:2:10: invalid escape sequence '\\\"'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:15: invalid escape sequence '\\\"'\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -490,7 +553,12 @@ B : 'b' ;
       lexer grammar A;
       RULE : 'Foo \\uAABG \\x \\u';
       """;
-    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:12: invalid escape sequence '\\uAABG'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:19: invalid escape sequence '\\x'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:22: invalid escape sequence '\\u'\n" + "warning(" + ErrorType.EPSILON_TOKEN.code + "): A.g4:2:0: non-fragment lexer rule 'RULE' can match the empty string\n";
+    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): A.g4:2:12: invalid escape sequence '\\uAABG'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:19: invalid escape sequence '\\x'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): A.g4:2:22: invalid escape sequence '\\u'\n"
+      + "warning(" + ErrorType.EPSILON_TOKEN.code
+      + "): A.g4:2:0: non-fragment lexer rule 'RULE' can match the empty string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -511,7 +579,16 @@ B : 'b' ;
       Error2: 'test' '';
       Error3: '';
       NotError: ' ';""";
-    String expected = "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): T.g4:2:8: string literals and sets cannot be empty: ''\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): T.g4:2:16: string literals and sets cannot be empty: ''\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): T.g4:3:8: string literals and sets cannot be empty: ''\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): T.g4:4:15: string literals and sets cannot be empty: ''\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): T.g4:5:8: string literals and sets cannot be empty: ''\n";
+    String expected = "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): T.g4:2:8: string literals and sets cannot be empty: ''\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): T.g4:2:16: string literals and sets cannot be empty: ''\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): T.g4:3:8: string literals and sets cannot be empty: ''\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): T.g4:4:15: string literals and sets cannot be empty: ''\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): T.g4:5:8: string literals and sets cannot be empty: ''\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -535,7 +612,24 @@ B : 'b' ;
       VALID_STRING_LITERALS:        '\\u1234' | '\\t' | '\\'';
       VALID_CHAR_SET:               [`\\-=\\]];""";
 
-    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:31: invalid escape sequence '\\\"'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:38: invalid escape sequence '\\]'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:45: invalid escape sequence '\\u24'\n" + "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code + "): Test.g4:3:30: multi-character literals are not allowed in lexer sets: 'GH'\n" + "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code + "): Test.g4:3:36: multi-character literals are not allowed in lexer sets: 'LM'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:4:30: invalid escape sequence '\\u24\\u'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:4:40: invalid escape sequence '\\{'\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): Test.g4:5:33: string literals and sets cannot be empty: 'F'..'A'\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): Test.g4:6:30: string literals and sets cannot be empty: 'f'..'a'\n" + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code + "): Test.g4:6:36: string literals and sets cannot be empty: []\n" + "warning(" + ErrorType.EPSILON_TOKEN.code + "): Test.g4:2:0: non-fragment lexer rule 'INVALID_STRING_LITERAL' can match the empty string\n";
+    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:2:31: invalid escape sequence '\\\"'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:38: invalid escape sequence '\\]'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:45: invalid escape sequence '\\u24'\n"
+      + "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code
+      + "): Test.g4:3:30: multi-character literals are not allowed in lexer sets: 'GH'\n"
+      + "error(" + ErrorType.INVALID_LITERAL_IN_LEXER_SET.code
+      + "): Test.g4:3:36: multi-character literals are not allowed in lexer sets: 'LM'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:4:30: invalid escape sequence '\\u24\\u'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:4:40: invalid escape sequence '\\{'\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): Test.g4:5:33: string literals and sets cannot be empty: 'F'..'A'\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): Test.g4:6:30: string literals and sets cannot be empty: 'f'..'a'\n"
+      + "error(" + ErrorType.EMPTY_STRINGS_AND_SETS_NOT_ALLOWED.code
+      + "): Test.g4:6:36: string literals and sets cannot be empty: []\n"
+      + "warning(" + ErrorType.EPSILON_TOKEN.code
+      + "): Test.g4:2:0: non-fragment lexer rule 'INVALID_STRING_LITERAL' can match the empty string\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -561,7 +655,30 @@ B : 'b' ;
       INVERTED_UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE: [\\P{Uppercase_Letter}-\\P{Number}];
       """;
 
-    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:2:32: invalid escape sequence '\\u{}'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:3:41: invalid escape sequence '\\u{'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:4:35: invalid escape sequence '\\u{110'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:5:32: invalid escape sequence '\\p{}'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:6:41: invalid escape sequence '\\p{'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:7:41: invalid escape sequence '\\P{}'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:8:34: invalid escape sequence '\\p{NotAProperty}'\n" + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:9:43: invalid escape sequence '\\P{NotAProperty}'\n" + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code + "): Test.g4:10:39: unicode property escapes not allowed in lexer charset range: [\\p{Uppercase_Letter}-\\p{Lowercase_Letter}]\n" + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code + "): Test.g4:11:41: unicode property escapes not allowed in lexer charset range: [\\p{Letter}-Z]\n" + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code + "): Test.g4:12:41: unicode property escapes not allowed in lexer charset range: [A-\\p{Number}]\n" + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code + "): Test.g4:13:48: unicode property escapes not allowed in lexer charset range: [\\P{Uppercase_Letter}-\\P{Number}]\n";
+    String expected = "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:2:32: invalid escape sequence '\\u{}'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:3:41: invalid escape sequence '\\u{'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:4:35: invalid escape sequence '\\u{110'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:5:32: invalid escape sequence '\\p{}'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:6:41: invalid escape sequence '\\p{'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code + "): Test.g4:7:41: invalid escape sequence '\\P{}'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:8:34: invalid escape sequence '\\p{NotAProperty}'\n"
+      + "warning(" + ErrorType.INVALID_ESCAPE_SEQUENCE.code
+      + "): Test.g4:9:43: invalid escape sequence '\\P{NotAProperty}'\n"
+      + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code
+      + "): Test.g4:10:39: unicode property escapes not allowed in lexer charset range: " +
+      "[\\p{Uppercase_Letter}-\\p{Lowercase_Letter}]\n"
+      + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code
+      + "): Test.g4:11:41: unicode property escapes not allowed in lexer charset range: [\\p{Letter}-Z]\n"
+      + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code
+      + "): Test.g4:12:41: unicode property escapes not allowed in lexer charset range: [A-\\p{Number}]\n"
+      + "error(" + ErrorType.UNICODE_PROPERTY_NOT_ALLOWED_IN_RANGE.code
+      + "): Test.g4:13:48: unicode property escapes not allowed in lexer charset range: " +
+      "[\\P{Uppercase_Letter}-\\P{Number}]\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -582,7 +699,8 @@ B : 'b' ;
         |<assoc=right> x '*' x   // ok
         ;
       """;
-    String expected = "warning(" + ErrorType.UNRECOGNIZED_ASSOC_OPTION.code + "): A.g4:3:10: rule 'x' contains an 'assoc' terminal option in an unrecognized location\n";
+    String expected = "warning(" + ErrorType.UNRECOGNIZED_ASSOC_OPTION.code
+      + "): A.g4:3:10: rule 'x' contains an 'assoc' terminal option in an unrecognized location\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -609,7 +727,10 @@ B : 'b' ;
       Y2 : 'x' {more();}  // warning 158
          ;
       """;
-    String expected = "warning(" + ErrorType.FRAGMENT_ACTION_IGNORED.code + "): A.g4:7:12: fragment rule 'X2' contains an action or command which can never be executed\n" + "warning(" + ErrorType.FRAGMENT_ACTION_IGNORED.code + "): A.g4:10:9: fragment rule 'Y2' contains an action or command which can never be executed\n";
+    String expected = "warning(" + ErrorType.FRAGMENT_ACTION_IGNORED.code
+      + "): A.g4:7:12: fragment rule 'X2' contains an action or command which can never be executed\n"
+      + "warning(" + ErrorType.FRAGMENT_ACTION_IGNORED.code
+      + "): A.g4:10:9: fragment rule 'Y2' contains an action or command which can never be executed\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -629,7 +750,8 @@ B : 'b' ;
       WS : ' ';
        EOF : 'a';
       """;
-    String expected = "error(" + ErrorType.RESERVED_RULE_NAME.code + "): A.g4:3:1: cannot declare a rule with reserved name 'EOF'\n";
+    String expected = "error(" + ErrorType.RESERVED_RULE_NAME.code
+      + "): A.g4:3:1: cannot declare a rule with reserved name 'EOF'\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -649,7 +771,8 @@ B : 'b' ;
       options { language=Foo; }
       start : 'T' EOF;
       """;
-    String expected = "error(" + ErrorType.CANNOT_CREATE_TARGET_GENERATOR.code + "):  ANTLR cannot generate 'org.antlr.v4.codegen.target.FooTarget' code as of version " + Tool.VERSION + "\n";
+    String expected = "error(" + ErrorType.CANNOT_CREATE_TARGET_GENERATOR.code
+      + "):  ANTLR cannot generate 'org.antlr.v4.codegen.target.FooTarget' code as of version " + Tool.VERSION + "\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -669,7 +792,10 @@ B : 'b' ;
       options { language=Foo; }
       start : 'T' EOF;
       Something : 'something' -> channel(CUSTOM);""";
-    String expected = "error(" + ErrorType.CANNOT_CREATE_TARGET_GENERATOR.code + "):  ANTLR cannot generate 'org.antlr.v4.codegen.target.FooTarget' code as of version " + Tool.VERSION + "\n" + "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code + "): T.g4:4:35: 'CUSTOM' is not a recognized channel name\n";
+    String expected = "error(" + ErrorType.CANNOT_CREATE_TARGET_GENERATOR.code
+      + "):  ANTLR cannot generate 'org.antlr.v4.codegen.target.FooTarget' code as of version " + Tool.VERSION + "\n"
+      + "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code
+      + "): T.g4:4:35: 'CUSTOM' is not a recognized channel name\n";
 
     String[] pair = new String[]{grammar, expected};
 
@@ -711,7 +837,8 @@ B : 'b' ;
       start : EOF;
       """;
 
-    String expected = "error(" + ErrorType.CHANNELS_BLOCK_IN_PARSER_GRAMMAR.code + "): T.g4:3:0: custom channels are not supported in parser grammars\n";
+    String expected = "error(" + ErrorType.CHANNELS_BLOCK_IN_PARSER_GRAMMAR.code
+      + "): T.g4:3:0: custom channels are not supported in parser grammars\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -734,7 +861,12 @@ B : 'b' ;
       WHITESPACE: [ \\t]+      -> channel(WHITESPACE_CHANNEL);
       """;
 
-    String expected = "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code + "): T.g4:10:35: 'COMMENT_CHANNEL' is not a recognized channel name\n" + "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code + "): T.g4:11:35: 'WHITESPACE_CHANNEL' is not a recognized channel name\n" + "error(" + ErrorType.CHANNELS_BLOCK_IN_COMBINED_GRAMMAR.code + "): T.g4:3:0: custom channels are not supported in combined grammars\n";
+    String expected = "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code
+      + "): T.g4:10:35: 'COMMENT_CHANNEL' is not a recognized channel name\n"
+      + "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code
+      + "): T.g4:11:35: 'WHITESPACE_CHANNEL' is not a recognized channel name\n"
+      + "error(" + ErrorType.CHANNELS_BLOCK_IN_COMBINED_GRAMMAR.code
+      + "): T.g4:3:0: custom channels are not supported in combined grammars\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -762,7 +894,8 @@ B : 'b' ;
       NEWLINE:    '\\r'? '\\n' -> channel(NEWLINE_CHANNEL);""";
 
     // WHITESPACE_CHANNEL and COMMENT_CHANNEL are defined, but NEWLINE_CHANNEL is not
-    String expected = "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code + "): T.g4:10:34: 'NEWLINE_CHANNEL' is not a recognized channel name\n";
+    String expected = "warning(" + ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME.code
+      + "): T.g4:10:34: 'NEWLINE_CHANNEL' is not a recognized channel name\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -792,7 +925,8 @@ B : 'b' ;
         ;
       """;
 
-    String expected = "error(" + ErrorType.RULE_WITH_TOO_FEW_ALT_LABELS_GROUP.code + "): T.g4:3:0: rule 'start': must label all alternatives in rules with the same base context, or none\n";
+    String expected = "error(" + ErrorType.RULE_WITH_TOO_FEW_ALT_LABELS_GROUP.code
+      + "): T.g4:3:0: rule 'start': must label all alternatives in rules with the same base context, or none\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -822,7 +956,8 @@ B : 'b' ;
         ;
       """;
 
-    String expected = "error(" + ErrorType.RULE_WITH_TOO_FEW_ALT_LABELS.code + "): T.g4:6:0: rule 'start2': must label all alternatives or none\n";
+    String expected = "error(" + ErrorType.RULE_WITH_TOO_FEW_ALT_LABELS.code
+      + "): T.g4:6:0: rule 'start2': must label all alternatives or none\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -842,7 +977,8 @@ B : 'b' ;
         ;
       """;
 
-    String expected = "error(" + ErrorType.BASE_CONTEXT_MUST_BE_RULE_NAME.code + "): T.g4:3:30: rule 'start': baseContext option value must reference a rule\n";
+    String expected = "error(" + ErrorType.BASE_CONTEXT_MUST_BE_RULE_NAME.code
+      + "): T.g4:3:30: rule 'start': baseContext option value must reference a rule\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -868,7 +1004,8 @@ B : 'b' ;
         ;
       """;
 
-    String expected = "error(" + ErrorType.BASE_CONTEXT_CANNOT_BE_TRANSITIVE.code + "): T.g4:3:30: rule 'start': base context must reference a rule that does not specify a base context\n";
+    String expected = "error(" + ErrorType.BASE_CONTEXT_CANNOT_BE_TRANSITIVE.code
+      + "): T.g4:3:30: rule 'start': base context must reference a rule that does not specify a base context\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -893,7 +1030,8 @@ B : 'b' ;
         ;
       """;
 
-    String expected = "error(" + ErrorType.BASE_CONTEXT_CANNOT_BE_TRANSITIVE.code + "): T.g4:3:30: rule 'start': base context must reference a rule that does not specify a base context\n";
+    String expected = "error(" + ErrorType.BASE_CONTEXT_CANNOT_BE_TRANSITIVE.code
+      + "): T.g4:3:30: rule 'start': base context must reference a rule that does not specify a base context\n";
 
     String[] pair = {grammar, expected};
     super.testErrors(pair, true);
@@ -907,7 +1045,8 @@ B : 'b' ;
       grammar T;
       a:  'A'..'Z' ;
       """;
-    String expected = "error(" + ErrorType.TOKEN_RANGE_IN_PARSER.code + "): T.g4:2:4: token ranges not allowed in parser: 'A'..'Z'\n";
+    String expected = "error(" + ErrorType.TOKEN_RANGE_IN_PARSER.code
+      + "): T.g4:2:4: token ranges not allowed in parser: 'A'..'Z'\n";
 
     String[] pair = new String[]{grammar, expected};
 

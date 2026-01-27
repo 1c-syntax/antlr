@@ -975,11 +975,10 @@ class GraphNodesTest {
       }
     }
 
-    String builder = "digraph G {\n" +
+    return "digraph G {\n" +
       "rankdir=LR;\n" +
       nodes +
       edges +
       "}\n";
-    return builder;
   }
 }

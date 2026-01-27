@@ -36,16 +36,16 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void testSeekPastEOF() {
     CharStream input = createStream("");
-    assertThat(input.index()).isEqualTo(0);
+    assertThat(input.index()).isZero();
     input.seek(1);
-    assertThat(input.index()).isEqualTo(0);
+    assertThat(input.index()).isZero();
   }
 
   @Test
   void testGetTextInMarkedRange() {
     CharStream input = createStream("xyz");
     input.consume();
-    int m1 = input.mark();
+    input.mark();
     assertThat(input.index()).isEqualTo(1);
     input.consume();
     input.consume();
@@ -57,31 +57,31 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
     CharStream input = createStream("abcdef");
 
     input.consume();
-    assertThat(input.LA(-1)).isEqualTo((int)'a');
+    assertThat(input.LA(-1)).isEqualTo('a');
 
     int m1 = input.mark();
     input.consume();
     input.consume();
     input.consume();
-    assertThat(input.LA(-1)).isEqualTo((int)'d');
+    assertThat(input.LA(-1)).isEqualTo('d');
 
     input.seek(2);
-    assertThat(input.LA(-1)).isEqualTo((int)'b');
+    assertThat(input.LA(-1)).isEqualTo('b');
 
     input.release(m1);
     input.seek(3);
-    assertThat(input.LA(-1)).isEqualTo((int)'c');
+    assertThat(input.LA(-1)).isEqualTo('c');
     // this special case is not required by the IntStream interface, but
     // UnbufferedCharStream allows it so we have to make sure the resulting
     // state is consistent
     input.seek(2);
-    assertThat(input.LA(-1)).isEqualTo((int)'b');
+    assertThat(input.LA(-1)).isEqualTo('b');
   }
 
   @Test
   void test1Char() {
     TestingUnbufferedCharStream input = createStream("x");
-    assertThat(input.LA(1)).isEqualTo((int)'x');  // Явно приводим 'x' к int
+    assertThat(input.LA(1)).isEqualTo('x');  // Явно приводим 'x' к int
     input.consume();
     assertThat(input.LA(1)).isEqualTo(IntStream.EOF);
     String r = input.getRemainingBuffer();
@@ -92,9 +92,9 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void test2Char() {
     TestingUnbufferedCharStream input = createStream("xy");
-    assertThat(input.LA(1)).isEqualTo((int)'x');
+    assertThat(input.LA(1)).isEqualTo('x');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'y');
+    assertThat(input.LA(1)).isEqualTo('y');
     assertThat(input.getRemainingBuffer()).isEqualTo("y"); // shouldn't include x
     assertThat(input.getBuffer()).isEqualTo("y");
     input.consume();
@@ -105,19 +105,19 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void test2CharAhead() {
     CharStream input = createStream("xy");
-    assertThat(input.LA(1)).isEqualTo((int)'x');
-    assertThat(input.LA(2)).isEqualTo((int)'y');
+    assertThat(input.LA(1)).isEqualTo('x');
+    assertThat(input.LA(2)).isEqualTo('y');
     assertThat(input.LA(3)).isEqualTo(IntStream.EOF);
   }
 
   @Test
   void testBufferExpand() {
     TestingUnbufferedCharStream input = createStream("01234", 2);
-    assertThat(input.LA(1)).isEqualTo((int)'0');
-    assertThat(input.LA(2)).isEqualTo((int)'1');
-    assertThat(input.LA(3)).isEqualTo((int)'2');
-    assertThat(input.LA(4)).isEqualTo((int)'3');
-    assertThat(input.LA(5)).isEqualTo((int)'4');
+    assertThat(input.LA(1)).isEqualTo('0');
+    assertThat(input.LA(2)).isEqualTo('1');
+    assertThat(input.LA(3)).isEqualTo('2');
+    assertThat(input.LA(4)).isEqualTo('3');
+    assertThat(input.LA(5)).isEqualTo('4');
     assertThat(input.LA(6)).isEqualTo(IntStream.EOF); // вызываем LA(6), чтобы убедиться, что EOF прочитан
     assertThat(input.getBuffer()).isEqualTo("01234\uFFFF");
   }
@@ -125,15 +125,15 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void testBufferWrapSize1() {
     CharStream input = createStream("01234", 1);
-    assertThat(input.LA(1)).isEqualTo((int)'0');
+    assertThat(input.LA(1)).isEqualTo('0');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'1');
+    assertThat(input.LA(1)).isEqualTo('1');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'2');
+    assertThat(input.LA(1)).isEqualTo('2');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'3');
+    assertThat(input.LA(1)).isEqualTo('3');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'4');
+    assertThat(input.LA(1)).isEqualTo('4');
     input.consume();
     assertThat(input.LA(1)).isEqualTo(IntStream.EOF);
   }
@@ -141,15 +141,15 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void testBufferWrapSize2() {
     CharStream input = createStream("01234", 2);
-    assertThat(input.LA(1)).isEqualTo((int)'0');
+    assertThat(input.LA(1)).isEqualTo('0');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'1');
+    assertThat(input.LA(1)).isEqualTo('1');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'2');
+    assertThat(input.LA(1)).isEqualTo('2');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'3');
+    assertThat(input.LA(1)).isEqualTo('3');
     input.consume();
-    assertThat(input.LA(1)).isEqualTo((int)'4');
+    assertThat(input.LA(1)).isEqualTo('4');
     input.consume();
     assertThat(input.LA(1)).isEqualTo(IntStream.EOF);
   }
@@ -158,9 +158,9 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   void test1Mark() {
     TestingUnbufferedCharStream input = createStream("xyz");
     int m = input.mark();
-    assertThat(input.LA(1)).isEqualTo((int)'x');
-    assertThat(input.LA(2)).isEqualTo((int)'y');
-    assertThat(input.LA(3)).isEqualTo((int)'z');
+    assertThat(input.LA(1)).isEqualTo('x');
+    assertThat(input.LA(2)).isEqualTo('y');
+    assertThat(input.LA(3)).isEqualTo('z');
     input.release(m);
     assertThat(input.LA(4)).isEqualTo(IntStream.EOF);
     assertThat(input.getBuffer()).isEqualTo("xyz\uFFFF");
@@ -182,10 +182,10 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void test2Mark() {
     TestingUnbufferedCharStream input = createStream("xyz", 100);
-    assertThat(input.LA(1)).isEqualTo((int)'x');
+    assertThat(input.LA(1)).isEqualTo('x');
     input.consume(); // reset buffer index (p) to 0
     int m1 = input.mark();
-    assertThat(input.LA(1)).isEqualTo((int)'y');
+    assertThat(input.LA(1)).isEqualTo('y');
     input.consume();
     int m2 = input.mark();
     assertThat(input.getBuffer()).isEqualTo("yz");
@@ -226,7 +226,7 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
         " [@12,15:22='20234234',<2>,1:15], [@13,23:23=' ',<7>,1:23]," +
         " [@14,24:24='*',<6>,1:24], [@15,25:25=' ',<7>,1:25], [@16,26:26='0',<2>,1:26]," +
         " [@17,27:27=';',<3>,1:27], [@18,28:27='',<-1>,1:28]]";
-    assertThat(tokens.getTokens().toString()).isEqualTo(expecting);
+    assertThat(tokens.getTokens()).hasToString(expecting);
   }
 
 

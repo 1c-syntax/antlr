@@ -430,10 +430,12 @@ class PerformanceTest extends AbstractBaseTest {
 
   @Test
   @Disabled("Requires JDK_SOURCE_ROOT environment variable to be set")
-  public void compileJdk() throws IOException, InterruptedException, ExecutionException {
+  void compileJdk() throws IOException, InterruptedException, ExecutionException {
     String jdkSourceRoot = getSourceRoot("JDK");
-    assertThat(jdkSourceRoot).as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.").isNotNull();
-    assertThat(jdkSourceRoot).as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.").isNotEmpty();
+    assertThat(jdkSourceRoot)
+      .as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.")
+      .isNotNull()
+      .isNotEmpty();
 
     compileJavaParser(USE_LR_GRAMMAR);
     final String lexerName = USE_LR_GRAMMAR ? "JavaLRLexer" : "JavaLexer";
@@ -476,7 +478,8 @@ class PerformanceTest extends AbstractBaseTest {
     System.out.format("Located %d source files.%n", sources.size());
     System.out.print(getOptionsDescription(TOP_PACKAGE));
 
-    ExecutorService executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? 1 : NUMBER_OF_THREADS, new NumberedThreadFactory());
+    ExecutorService executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? 1 : NUMBER_OF_THREADS,
+      new NumberedThreadFactory());
     List<Future<?>> passResults = new ArrayList<Future<?>>();
     passResults.add(executorService.submit(new Runnable() {
       @Override
@@ -629,7 +632,14 @@ class PerformanceTest extends AbstractBaseTest {
     System.out.format("File\tAverage\tStd. Dev.\t95%% Low\t95%% High\t66.7%% Low\t66.7%% High%n");
     for (int i = 0; i < stddev.length; i++) {
       final double averageValue = TRANSITION_WEIGHTED_AVERAGE ? weightedAverage[i] : average[i];
-      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n", i + 1, averageValue, stddev[i], averageValue - low95[i], high95[i] - averageValue, averageValue - low67[i], high67[i] - averageValue);
+      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n",
+        i + 1,
+        averageValue,
+        stddev[i],
+        averageValue - low95[i],
+        high95[i] - averageValue,
+        averageValue - low67[i],
+        high67[i] - averageValue);
     }
   }
 
@@ -698,7 +708,14 @@ class PerformanceTest extends AbstractBaseTest {
     System.out.format("File\tAverage\tStd. Dev.\t95%% Low\t95%% High\t66.7%% Low\t66.7%% High%n");
     for (int i = 0; i < stddev.length; i++) {
       final double averageValue = average[i];
-      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n", i + 1, averageValue, stddev[i], averageValue - low95[i], high95[i] - averageValue, averageValue - low67[i], high67[i] - averageValue);
+      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n",
+        i + 1,
+        averageValue,
+        stddev[i],
+        averageValue - low95[i],
+        high95[i] - averageValue,
+        averageValue - low67[i],
+        high67[i] - averageValue);
     }
   }
 
@@ -735,7 +752,8 @@ class PerformanceTest extends AbstractBaseTest {
     builder.append(newline);
 
     builder.append("Op=Lex").append(RUN_PARSER ? "+Parse" : " only");
-    builder.append(", Strategy=").append(BAIL_ON_ERROR ? BailErrorStrategy.class.getSimpleName() : DefaultErrorStrategy.class.getSimpleName());
+    builder.append(", Strategy=")
+      .append(BAIL_ON_ERROR ? BailErrorStrategy.class.getSimpleName() : DefaultErrorStrategy.class.getSimpleName());
     builder.append(", BuildParseTree=").append(BUILD_PARSE_TREES);
     builder.append(", WalkBlankListener=").append(BLANK_LISTENER);
 
@@ -758,7 +776,10 @@ class PerformanceTest extends AbstractBaseTest {
    * This method is separate from {@link #parse2} so the first pass can be distinguished when analyzing
    * profiler results.
    */
-  protected void parse1(int currentPass, ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parse1(int currentPass,
+                        ParserFactory factory,
+                        Collection<InputDescriptor> sources,
+                        boolean shuffleSources) throws InterruptedException {
     if (FILE_GRANULARITY) {
       System.gc();
     }
@@ -770,7 +791,10 @@ class PerformanceTest extends AbstractBaseTest {
    * This method is separate from {@link #parse1} so the first pass can be distinguished when analyzing
    * profiler results.
    */
-  protected void parse2(int currentPass, ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parse2(int currentPass,
+                        ParserFactory factory,
+                        Collection<InputDescriptor> sources,
+                        boolean shuffleSources) throws InterruptedException {
     if (FILE_GRANULARITY) {
       System.gc();
     }
@@ -778,13 +802,20 @@ class PerformanceTest extends AbstractBaseTest {
     parseSources(currentPass, factory, sources, shuffleSources);
   }
 
-  protected List<InputDescriptor> loadSources(File directory, FilenameFilter filesFilter, FilenameFilter directoriesFilter, boolean recursive) {
+  protected List<InputDescriptor> loadSources(File directory,
+                                              FilenameFilter filesFilter,
+                                              FilenameFilter directoriesFilter,
+                                              boolean recursive) {
     List<InputDescriptor> result = new ArrayList<InputDescriptor>();
     loadSources(directory, filesFilter, directoriesFilter, recursive, result);
     return result;
   }
 
-  protected void loadSources(File directory, FilenameFilter filesFilter, FilenameFilter directoriesFilter, boolean recursive, Collection<InputDescriptor> result) {
+  protected void loadSources(File directory,
+                             FilenameFilter filesFilter,
+                             FilenameFilter directoriesFilter,
+                             boolean recursive,
+                             Collection<InputDescriptor> result) {
     assert directory.isDirectory();
 
     File[] sources = directory.listFiles(filesFilter);
@@ -809,7 +840,10 @@ class PerformanceTest extends AbstractBaseTest {
   int configOutputSize = 0;
 
   @SuppressWarnings("unused")
-  protected void parseSources(final int currentPass, final ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parseSources(final int currentPass,
+                              final ParserFactory factory,
+                              Collection<InputDescriptor> sources,
+                              boolean shuffleSources) throws InterruptedException {
     if (shuffleSources) {
       List<InputDescriptor> sourcesList = new ArrayList<InputDescriptor>(sources);
       synchronized (RANDOM) {
@@ -827,9 +861,11 @@ class PerformanceTest extends AbstractBaseTest {
     Collection<Future<FileParseResult>> results = new ArrayList<Future<FileParseResult>>();
     ExecutorService executorService;
     if (FILE_GRANULARITY) {
-      executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? NUMBER_OF_THREADS : 1, new NumberedThreadFactory());
+      executorService = Executors.newFixedThreadPool(
+        FILE_GRANULARITY ? NUMBER_OF_THREADS : 1, new NumberedThreadFactory());
     } else {
-      executorService = Executors.newSingleThreadExecutor(new FixedThreadNumberFactory(((NumberedThread) Thread.currentThread()).getThreadNumber()));
+      executorService = Executors.newSingleThreadExecutor(
+        new FixedThreadNumberFactory(((NumberedThread) Thread.currentThread()).getThreadNumber()));
     }
 
     for (InputDescriptor inputDescriptor : sources) {
@@ -845,7 +881,6 @@ class PerformanceTest extends AbstractBaseTest {
         @Override
         public FileParseResult call() {
           // this incurred a great deal of overhead and was causing significant variations in performance results.
-          //System.out.format("Parsing file %s\n", input.getSourceName());
           try {
             return factory.parseFile(input, currentPass, ((NumberedThread) Thread.currentThread()).getThreadNumber());
           } catch (IllegalStateException ex) {
@@ -878,7 +913,8 @@ class PerformanceTest extends AbstractBaseTest {
             nonSllPerFile[currentPass][currentIndex] = fileResult.nonSll;
             totalTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserTotalTransitions;
             computedTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserComputedTransitions;
-            fullContextTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserFullContextTransitions;
+            fullContextTransitionsPerDecisionPerFile[currentPass][currentIndex] =
+              fileResult.parserFullContextTransitions;
           }
         }
 
@@ -931,7 +967,8 @@ class PerformanceTest extends AbstractBaseTest {
           }
         }
 
-        System.out.format("There are %d lexer DFAState instances, %d configs (%d unique), %d prediction contexts.%n", states, configs, uniqueConfigs.size(), lexerInterpreter.atn.getContextCacheSize());
+        System.out.format("There are %d lexer DFAState instances, %d configs (%d unique), %d prediction contexts.%n",
+          states, configs, uniqueConfigs.size(), lexerInterpreter.atn.getContextCacheSize());
 
         if (DETAILED_DFA_STATE_STATS) {
           System.out.format("\tMode\tStates\tConfigs\tMode%n");
@@ -978,11 +1015,14 @@ class PerformanceTest extends AbstractBaseTest {
           }
         }
 
-        System.out.format("There are %d parser DFAState instances, %d configs (%d unique), %d prediction contexts.%n", states, configs, uniqueConfigs.size(), interpreter.atn.getContextCacheSize());
+        System.out.format("There are %d parser DFAState instances, %d configs (%d unique), %d prediction contexts.%n",
+          states, configs, uniqueConfigs.size(), interpreter.atn.getContextCacheSize());
 
         if (DETAILED_DFA_STATE_STATS) {
           if (COMPUTE_TRANSITION_STATS) {
-            System.out.format("\tDecision\tStates\tConfigs\tPredict (ALL)\tPredict (LL)\tNon-SLL\tTransitions\tTransitions (ATN)\tTransitions (LL)\tLA (SLL)\tLA (LL)\tRule%n");
+            System.out.format(
+              "\tDecision\tStates\tConfigs\tPredict (ALL)\tPredict (LL)\tNon-SLL\tTransitions\tTransitions (ATN)" +
+                "\tTransitions (LL)\tLA (SLL)\tLA (LL)\tRule%n");
           } else {
             System.out.format("\tDecision\tStates\tConfigs\tRule%n");
           }
@@ -1048,7 +1088,19 @@ class PerformanceTest extends AbstractBaseTest {
               formatString = "\t%1$d\t%2$d\t%3$d\t%12$s%n";
             }
 
-            System.out.format(formatString, dfa.decision, dfa.states.size(), decisionConfigs, calls, fullContextCalls, nonSllCalls, transitions, computedTransitions, fullContextTransitions, lookahead, fullContextLookahead, ruleName);
+            System.out.format(formatString,
+              dfa.decision,
+              dfa.states.size(),
+              decisionConfigs,
+              calls,
+              fullContextCalls,
+              nonSllCalls,
+              transitions,
+              computedTransitions,
+              fullContextTransitions,
+              lookahead,
+              fullContextLookahead,
+              ruleName);
           }
         }
       }
@@ -1109,8 +1161,10 @@ class PerformanceTest extends AbstractBaseTest {
       }
 
       if (SHOW_CONFIG_STATS && currentPass == 0) {
-        System.out.format("  DFA accept states: %d total, %d with only local context, %d with a global context%n", localDfaCount + globalDfaCount, localDfaCount, globalDfaCount);
-        System.out.format("  Config stats: %d total, %d local, %d global%n", localConfigCount + globalConfigCount, localConfigCount, globalConfigCount);
+        System.out.format("  DFA accept states: %d total, %d with only local context, %d with a global context%n",
+          localDfaCount + globalDfaCount, localDfaCount, globalDfaCount);
+        System.out.format("  Config stats: %d total, %d local, %d global%n", localConfigCount + globalConfigCount,
+          localConfigCount, globalConfigCount);
         if (SHOW_DFA_STATE_STATS) {
           for (int i = 0; i < contextsInDFAState.length; i++) {
             if (contextsInDFAState[i] != 0) {
@@ -1159,7 +1213,8 @@ class PerformanceTest extends AbstractBaseTest {
     }
     extraOptions.add("-visitor");
     String[] extraOptionsArray = extraOptions.toArray(new String[extraOptions.size()]);
-    boolean success = rawGenerateAndBuildRecognizer(grammarFileName, body, parserName, lexerName, true, extraOptionsArray);
+    boolean success = rawGenerateAndBuildRecognizer(grammarFileName, body, parserName, lexerName, true,
+      extraOptionsArray);
     assertThat(success).isTrue();
   }
 
@@ -1186,10 +1241,11 @@ class PerformanceTest extends AbstractBaseTest {
                                            String listenerName,
                                            final String entryPoint) {
     try {
-      ClassLoader loader = new URLClassLoader(new URL[]{new File(tmpdir).toURI().toURL()}, ClassLoader.getSystemClassLoader());
+      var loader = new URLClassLoader(new URL[]{new File(tmpdir).toURI().toURL()}, ClassLoader.getSystemClassLoader());
       final Class<? extends Lexer> lexerClass = loader.loadClass(lexerName).asSubclass(Lexer.class);
       final Class<? extends Parser> parserClass = loader.loadClass(parserName).asSubclass(Parser.class);
-      final Class<? extends ParseTreeListener> listenerClass = loader.loadClass(listenerName).asSubclass(ParseTreeListener.class);
+      final Class<? extends ParseTreeListener> listenerClass = loader.loadClass(listenerName)
+        .asSubclass(ParseTreeListener.class);
 
       final Constructor<? extends Lexer> lexerCtor = lexerClass.getConstructor(CharStream.class);
       final Constructor<? extends Parser> parserCtor = parserClass.getConstructor(TokenStream.class);
@@ -1268,7 +1324,8 @@ class PerformanceTest extends AbstractBaseTest {
             }
 
             if (!RUN_PARSER) {
-              return new FileParseResult(input.getSourceName(), checksum.getValue(), null, tokens.size(), startTime, lexer, null);
+              return new FileParseResult(input.getSourceName(), checksum.getValue(), null, tokens.size(),
+                startTime, lexer, null);
             }
 
             final long parseStartTime = System.nanoTime();
@@ -1280,7 +1337,8 @@ class PerformanceTest extends AbstractBaseTest {
 
               if (USE_PARSER_INTERPRETER) {
                 Parser referenceParser = parserCtor.newInstance(tokens);
-                parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(), Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
+                parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(),
+                  Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
               } else {
                 parser = parserCtor.newInstance(tokens);
               }
@@ -1337,7 +1395,8 @@ class PerformanceTest extends AbstractBaseTest {
 
               if (USE_PARSER_INTERPRETER) {
                 ParserInterpreter parserInterpreter = (ParserInterpreter) parser;
-                parseResult = parserInterpreter.parse(Collections.lastIndexOfSubList(Arrays.asList(parser.getRuleNames()), Collections.singletonList(entryPoint)));
+                parseResult = parserInterpreter.parse(Collections.lastIndexOfSubList(
+                  Arrays.asList(parser.getRuleNames()), Collections.singletonList(entryPoint)));
               } else {
                 parseResult = parseMethod.invoke(parser);
               }
@@ -1362,7 +1421,8 @@ class PerformanceTest extends AbstractBaseTest {
               } else {
                 if (USE_PARSER_INTERPRETER) {
                   Parser referenceParser = parserCtor.newInstance(tokens);
-                  parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(), Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
+                  parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(),
+                    Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
                 } else {
                   parser = parserCtor.newInstance(tokens);
                 }
@@ -1412,10 +1472,12 @@ class PerformanceTest extends AbstractBaseTest {
               ParseTreeWalker.DEFAULT.walk(listener, (ParserRuleContext) parseResult);
             }
 
-            return new FileParseResult(input.getSourceName(), checksum.getValue(), (ParseTree) parseResult, tokens.size(), TIME_PARSE_ONLY ? parseStartTime : startTime, lexer, parser);
+            return new FileParseResult(input.getSourceName(), checksum.getValue(), (ParseTree) parseResult,
+              tokens.size(), TIME_PARSE_ONLY ? parseStartTime : startTime, lexer, parser);
           } catch (Exception e) {
             if (!REPORT_SYNTAX_ERRORS && e instanceof ParseCancellationException) {
-              return new FileParseResult("unknown", checksum.getValue(), null, 0, startTime, null, null);
+              return new FileParseResult("unknown", checksum.getValue(), null, 0,
+                startTime, null, null);
             }
 
             e.printStackTrace(System.out);
@@ -1453,7 +1515,8 @@ class PerformanceTest extends AbstractBaseTest {
     public final long[] parserComputedTransitions;
     public final long[] parserFullContextTransitions;
 
-    public FileParseResult(String sourceName, int checksum, @Nullable ParseTree parseTree, int tokenCount, long startTime, Lexer lexer, Parser parser) {
+    public FileParseResult(String sourceName, int checksum, @Nullable ParseTree parseTree, int tokenCount,
+                           long startTime, Lexer lexer, Parser parser) {
       this.sourceName = sourceName;
       this.checksum = checksum;
       this.parseTree = parseTree;
@@ -1618,7 +1681,10 @@ class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    protected SimulatorState computeReachSet(DFA dfa, SimulatorState previous, int t, PredictionContextCache contextCache) {
+    protected SimulatorState computeReachSet(DFA dfa,
+                                             SimulatorState previous,
+                                             int t,
+                                             PredictionContextCache contextCache) {
       if (previous.useContext) {
         totalTransitions[decision]++;
         computedTransitions[decision]++;
@@ -1633,7 +1699,8 @@ class PerformanceTest extends AbstractBaseTest {
     public static DescriptiveErrorListener INSTANCE = new DescriptiveErrorListener();
 
     @Override
-    public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
+                                              int charPositionInLine, String msg, RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1652,7 +1719,8 @@ class PerformanceTest extends AbstractBaseTest {
     public static DescriptiveLexerErrorListener INSTANCE = new DescriptiveLexerErrorListener();
 
     @Override
-    public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
+                                                int charPositionInLine, String msg, RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1672,7 +1740,8 @@ class PerformanceTest extends AbstractBaseTest {
     private ATNConfigSet _sllConfigs;
 
     @Override
-    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
+    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact,
+                                BitSet ambigAlts, ATNConfigSet configs) {
       if (COMPUTE_TRANSITION_STATS && DETAILED_DFA_STATE_STATS) {
         BitSet sllPredictions = getConflictingAlts(_sllConflict, _sllConfigs);
         int sllPrediction = sllPredictions.nextSetBit(0);
@@ -1696,7 +1765,8 @@ class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, SimulatorState conflictState) {
+    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
+                                            BitSet conflictingAlts, SimulatorState conflictState) {
       _sllConflict = conflictingAlts;
       _sllConfigs = conflictState.s0.configs;
       if (!REPORT_FULL_CONTEXT) {
@@ -1713,7 +1783,8 @@ class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, SimulatorState acceptState) {
+    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction,
+                                         SimulatorState acceptState) {
       if (COMPUTE_TRANSITION_STATS && DETAILED_DFA_STATE_STATS) {
         BitSet sllPredictions = getConflictingAlts(_sllConflict, _sllConfigs);
         int sllPrediction = sllPredictions.nextSetBit(0);

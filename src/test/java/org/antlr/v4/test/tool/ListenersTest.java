@@ -59,7 +59,10 @@ class ListenersTest extends AbstractBaseTest {
         @parser::members {
         public static class LeafListener extends TBaseListener {
             public void exitA(TParser.AContext ctx) {
-              if (ctx.getChildCount()==2) System.out.printf("%s %s %s",ctx.INT(0).getSymbol().getText(),ctx.INT(1).getSymbol().getText(),ctx.INT());
+              if (ctx.getChildCount()==2) System.out.printf("%s %s %s",
+                ctx.INT(0).getSymbol().getText(),
+                ctx.INT(1).getSymbol().getText(),
+                ctx.INT());
               else System.out.println(ctx.ID().getSymbol());
             }
           }}

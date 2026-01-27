@@ -597,8 +597,8 @@ class SemPredEvalParserTest extends AbstractBaseTest {
         "ANY_CHAR: [_a-zA-Z0-9];\n";
 
     String input = "hello";
-    String found = execParser("AnnotProcessor.g4", grammar, "AnnotProcessorParser", "AnnotProcessorLexer", "cppCompilationUnit",
-      input, false);
+    String found = execParser("AnnotProcessor.g4", grammar, "AnnotProcessorParser", "AnnotProcessorLexer",
+      "cppCompilationUnit", input, false);
     assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }

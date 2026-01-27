@@ -201,7 +201,8 @@ class CommonTokenStreamTest extends BufferedTokenStreamTest {
     assertThat(tokens.getHiddenTokensToRight(3)).isNull();
 
     assertThat(tokens.getHiddenTokensToLeft(4)).isNull();
-    assertThat(tokens.getHiddenTokensToRight(4)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(4))
+      .hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
 
     assertThat(tokens.getHiddenTokensToLeft(5)).isNull();
     assertThat(tokens.getHiddenTokensToRight(5)).hasToString("[[@6,0:0=' ',<1>,channel=1,0:-1]]");
@@ -209,8 +210,10 @@ class CommonTokenStreamTest extends BufferedTokenStreamTest {
     assertThat(tokens.getHiddenTokensToLeft(6)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1]]");
     assertThat(tokens.getHiddenTokensToRight(6)).isNull();
 
-    assertThat(tokens.getHiddenTokensToLeft(7)).hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
-    assertThat(tokens.getHiddenTokensToRight(7)).hasToString("[[@8,0:0=' ',<1>,channel=1,0:-1], [@9,0:0='\\n',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToLeft(7))
+      .hasToString("[[@5,0:0=' ',<1>,channel=1,0:-1], [@6,0:0=' ',<1>,channel=1,0:-1]]");
+    assertThat(tokens.getHiddenTokensToRight(7))
+      .hasToString("[[@8,0:0=' ',<1>,channel=1,0:-1], [@9,0:0='\\n',<1>,channel=1,0:-1]]");
 
     assertThat(tokens.getHiddenTokensToLeft(8)).isNull();
     assertThat(tokens.getHiddenTokensToRight(8)).hasToString("[[@9,0:0='\\n',<1>,channel=1,0:-1]]");

@@ -143,6 +143,7 @@ class UnicodeGrammarTest extends AbstractBaseTest {
     String grammarText,
     String rootRule,
     String inputText) throws Exception {
+
     Grammar grammar = new Grammar(grammarText);
     LexerInterpreter lexEngine = grammar.createLexerInterpreter(
       CharStreams.fromString(inputText));

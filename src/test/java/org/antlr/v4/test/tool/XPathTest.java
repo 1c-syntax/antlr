@@ -87,7 +87,10 @@ public class XPathTest extends AbstractBaseTest {
       "/!*",        // nothing at root
       "//expr//ID",    // any ID under any expression (tests antlr/antlr4#370)
     };
-    String[] expected = {"[func, func]", "[func, func]", "[func, func]", "[prog]", "[prog]", "[prog]", "[prog]", "[f, x, y, x, y, g, x, x]", "[y, x]", "[x, y, x]", "[return]", "[return]", "[3, 4, y, 1, 2, x]", "[stat, stat, stat, stat]", "[def, def]", "[;, ;, ;, ;]", "[3, 4, 1, 2]", "[expr, expr, expr, expr, expr, expr]", "[]", "[]", "[y, x]",};
+    String[] expected = {"[func, func]", "[func, func]", "[func, func]", "[prog]", "[prog]", "[prog]", "[prog]",
+      "[f, x, y, x, y, g, x, x]", "[y, x]", "[x, y, x]", "[return]", "[return]", "[3, 4, y, 1, 2, x]",
+      "[stat, stat, stat, stat]", "[def, def]", "[;, ;, ;, ;]", "[3, 4, 1, 2]", "[expr, expr, expr, expr, expr, expr]",
+      "[]", "[]", "[y, x]",};
 
     for (int i = 0; i < xpath.length; i++) {
       List<String> nodes = getNodeStrings(SAMPLE_PROGRAM, xpath[i], "prog", "ExprParser", "ExprLexer");
@@ -162,7 +165,12 @@ public class XPathTest extends AbstractBaseTest {
     testError(SAMPLE_PROGRAM, path, expected, "prog", "ExprParser", "ExprLexer");
   }
 
-  protected void testError(String input, String path, String expected, String startRuleName, String parserName, String lexerName) throws Exception {
+  protected void testError(String input,
+                           String path,
+                           String expected,
+                           String startRuleName,
+                           String parserName,
+                           String lexerName) throws Exception {
     Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);
@@ -177,7 +185,11 @@ public class XPathTest extends AbstractBaseTest {
     assertThat(e.getMessage()).isEqualTo(expected);
   }
 
-  public List<String> getNodeStrings(String input, String xpath, String startRuleName, String parserName, String lexerName) throws Exception {
+  public List<String> getNodeStrings(String input,
+                                     String xpath,
+                                     String startRuleName,
+                                     String parserName,
+                                     String lexerName) throws Exception {
     Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);

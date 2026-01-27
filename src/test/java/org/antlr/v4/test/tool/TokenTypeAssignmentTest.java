@@ -229,7 +229,9 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
       n++;
     }
     // make sure there are no extra rules
-    assertThat(g.rules.size()).as("number of rules mismatch; expecting " + n + "; found " + g.rules.size()).isEqualTo(n);
+    assertThat(g.rules)
+      .as("number of rules mismatch; expecting " + n + "; found " + g.rules.size())
+      .hasSize(n);
 
   }
 

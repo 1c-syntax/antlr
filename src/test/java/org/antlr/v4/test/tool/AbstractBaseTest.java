@@ -81,7 +81,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public abstract class AbstractBaseTest {
@@ -198,7 +197,7 @@ public abstract class AbstractBaseTest {
   protected ATN createATN(Grammar g, boolean useSerializer) {
     if (g.atn == null) {
       semanticProcess(g);
-      assertEquals(0, g.tool.getNumErrors());
+      assertThat(g.tool.getNumErrors()).isEqualTo(0);
 
       ParserATNFactory f;
       if (g.isLexer()) {
@@ -208,7 +207,7 @@ public abstract class AbstractBaseTest {
       }
 
       g.atn = f.createATN();
-      assertEquals(0, g.tool.getNumErrors());
+      assertThat(g.tool.getNumErrors()).isEqualTo(0);
     }
 
     ATN atn = g.atn;
@@ -754,7 +753,7 @@ public abstract class AbstractBaseTest {
     ATNPrinter serializer = new ATNPrinter(g, startState);
     String result = serializer.asString();
 
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   public void testActions(String templates,
@@ -789,7 +788,7 @@ public abstract class AbstractBaseTest {
       String e = "#end-" + actionName + "#";
       int end = output.indexOf(e);
       String snippet = output.substring(start + b.length(), end);
-      assertEquals(expected, snippet);
+      assertThat(snippet).isEqualTo(expected);
     }
     if (equeue.size() > 0) {
       System.err.println(equeue);
@@ -810,7 +809,7 @@ public abstract class AbstractBaseTest {
     assertThat(foundMsg)
       .as("error is not a GrammarSemanticsMessage")
       .isInstanceOf(GrammarSemanticsMessage.class);
-    assertEquals(Arrays.toString(expectedMessage.getArgs()), Arrays.toString(foundMsg.getArgs()));
+    assertThat(Arrays.toString(foundMsg.getArgs())).isEqualTo(Arrays.toString(expectedMessage.getArgs()));
     if (equeue.size() != 1) {
       System.err.println(equeue);
     }
