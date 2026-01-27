@@ -213,7 +213,7 @@ class AttributeChecksTest extends AbstractBaseTest {
       + "): A.g4:2:11: reference to undefined rule 'S' in non-local ref '$S::j'\n",
     "$S::j = 3;",
     "error(" + UNDEFINED_RULE_IN_NONLOCAL_REF.code
-      + "): A.g4:2:11: reference to undefined rule 'S' in non-local ref '$S::j'\n",
+      + "): A.g4:2:11: reference to undefined rule 'S' in non-local ref '$S::j = 3;'\n",
     "$S::j = $S::k;",
     "error(" + UNDEFINED_RULE_IN_NONLOCAL_REF.code
       + "): A.g4:2:11: reference to undefined rule 'S' in non-local ref '$S::j = $S::k;'\n",
