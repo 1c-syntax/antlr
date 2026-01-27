@@ -12,7 +12,6 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LexerErrorsTest extends AbstractBaseTest {
@@ -27,10 +26,10 @@ class LexerErrorsTest extends AbstractBaseTest {
     String tokens = execLexer("L.g4", grammar, "L", "x");
     String expectingTokens =
       "[@0,1:0='<EOF>',<-1>,1:1]\n";
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:0 token recognition error at: 'x'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -48,14 +47,14 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@0,0:6='["foo"]',<1>,1:0]
         [@1,7:6='<EOF>',<-1>,1:7]
         """;
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     assertThat(stderrDuringParse).isNull();
 
     tokens = execLexer("Actions.g4", grammar, "Actions", "[\"foo]");
     expectingTokens =
       "[@0,6:5='<EOF>',<-1>,1:6]\n";
-    assertEquals(expectingTokens, tokens);
-    assertEquals("line 1:0 token recognition error at: '[\"foo]'\n", stderrDuringParse);
+    assertThat(tokens).isEqualTo(expectingTokens);
+    assertThat(stderrDuringParse).isEqualTo("line 1:0 token recognition error at: '[\"foo]'\n");
   }
 
   @Test
@@ -72,14 +71,14 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@0,0:6='{ { } }',<1>,1:0]
         [@1,7:6='<EOF>',<-1>,1:7]
         """;
-    assertEquals(expectingTokens, tokens);
-    assertEquals(null, stderrDuringParse);
+    assertThat(tokens).isEqualTo(expectingTokens);
+    assertThat(stderrDuringParse).isNull();
 
     tokens = execLexer("R.g4", grammar, "R", "{ { }");
     expectingTokens =
       "[@0,5:4='<EOF>',<-1>,1:5]\n";
-    assertEquals(expectingTokens, tokens);
-    assertEquals("line 1:0 token recognition error at: '{ { }'\n", stderrDuringParse);
+    assertThat(tokens).isEqualTo(expectingTokens);
+    assertThat(stderrDuringParse).isEqualTo("line 1:0 token recognition error at: '{ { }'\n");
   }
 
   @Test
@@ -95,10 +94,10 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@0,0:1='ab',<1>,1:0]
         [@1,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:2 token recognition error at: 'x'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -111,10 +110,10 @@ class LexerErrorsTest extends AbstractBaseTest {
     String tokens = execLexer("L.g4", grammar, "L", "ax");
     String expectingTokens =
       "[@0,2:1='<EOF>',<-1>,1:2]\n";
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:0 token recognition error at: 'ax'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -130,10 +129,10 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@0,0:1='ab',<1>,1:0]
         [@1,4:3='<EOF>',<-1>,1:4]
         """;
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:2 token recognition error at: 'ax'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -154,10 +153,10 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@1,2:3='ab',<1>,1:2]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:4 token recognition error at: 'x'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -180,10 +179,10 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@1,2:4='abc',<2>,1:2]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:5 token recognition error at: 'x'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   @Test
@@ -196,10 +195,10 @@ class LexerErrorsTest extends AbstractBaseTest {
     String tokens = execLexer("L.g4", grammar, "L", "abx");
     String expectingTokens =
       "[@0,3:2='<EOF>',<-1>,1:3]\n";
-    assertEquals(expectingTokens, tokens);
+    assertThat(tokens).isEqualTo(expectingTokens);
     String expectingError = "line 1:0 token recognition error at: 'abx'\n";
     String error = stderrDuringParse;
-    assertEquals(expectingError, error);
+    assertThat(error).isEqualTo(expectingError);
   }
 
   // TEST RECOVERY
@@ -217,7 +216,7 @@ class LexerErrorsTest extends AbstractBaseTest {
         expr : primary expr? {} | expr '->' ID;
         primary : ID;
         ID : [a-z]+;
-        
+
         """;
     String result = execLexer("T.g4", grammar, "TLexer", "x : x", false);
     String expecting =
@@ -227,12 +226,11 @@ class LexerErrorsTest extends AbstractBaseTest {
         [@2,4:4='x',<3>,1:4]
         [@3,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:1 token recognition error at: ' '
         line 1:3 token recognition error at: ' '
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
 }

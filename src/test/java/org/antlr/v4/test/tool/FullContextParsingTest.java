@@ -12,7 +12,7 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
 	 cover these cases:
@@ -43,9 +43,8 @@ class FullContextParsingTest extends AbstractBaseTest {
         Decision 0:
         s0-ID->:s1=>1
         """; // ctx sensitive
-    assertEquals(expecting, result);
-    assertEquals("line 1:0 reportAmbiguity d=0 (s): ambigAlts={1, 2}, input='abc'\n",
-      this.stderrDuringParse);
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:0 reportAmbiguity d=0 (s): ambigAlts={1, 2}, input='abc'\n");
   }
 
   public String testCtxSensitiveWithoutDFA(String input) {
@@ -73,12 +72,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-INT->s1
         s1-ID->:s2=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=1 (e), input='34abc'
         line 1:2 reportContextSensitivity d=1 (e), input='34'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -90,12 +88,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-INT->s1
         s1-ID->:s2=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=1 (e), input='34abc'
         line 1:5 reportContextSensitivity d=1 (e), input='34abc'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   public String testCtxSensitiveWithDFA(String input) {
@@ -126,12 +123,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s3**-ctx:15(a)->s4
         s4-INT->:s5=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=1 (e), input='34abc'
         line 1:2 reportContextSensitivity d=1 (e), input='34'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -146,12 +142,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s4-INT->s5
         s5-ID->:s6=>2
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=1 (e), input='34abc'
         line 1:5 reportContextSensitivity d=1 (e), input='34abc'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -176,14 +171,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-INT->s1
         s1-ID->:s2=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=2 (e), input='34abc'
         line 1:2 reportContextSensitivity d=2 (e), input='34'
         line 1:14 reportAttemptingFullContext d=2 (e), input='34abc'
         line 1:14 reportContextSensitivity d=2 (e), input='34abc'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -213,14 +207,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s6-INT->s7
         s7-ID->:s8=>2
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:5 reportAttemptingFullContext d=2 (e), input='34abc'
         line 1:2 reportContextSensitivity d=2 (e), input='34'
         line 1:14 reportAttemptingFullContext d=2 (e), input='34abc'
         line 1:14 reportContextSensitivity d=2 (e), input='34abc'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -245,12 +238,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-INT->s1
         s1-ID->:s2=>1
         """; // Must point at accept state
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:3 reportAttemptingFullContext d=0 (e), input='34abc'
         line 1:0 reportContextSensitivity d=0 (e), input='34'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -277,12 +269,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s3**-ctx:11(a)->s4
         s4-INT->:s5=>1
         """; // Must point at accept state
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:3 reportAttemptingFullContext d=0 (e), input='34abc'
         line 1:0 reportContextSensitivity d=0 (e), input='34'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -309,8 +300,8 @@ class FullContextParsingTest extends AbstractBaseTest {
         Decision 1:
         s0-'}'->:s1=>2
         """;
-    assertEquals(expecting, result);
-    assertEquals(null, this.stderrDuringParse);
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isNull();
 
     input = "{ if x then return else foo }";
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s",
@@ -320,18 +311,17 @@ class FullContextParsingTest extends AbstractBaseTest {
         Decision 1:
         s0-'else'->:s1=>1
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
     // Technically, this input sequence is not ambiguous because else
     // uniquely predicts going into the optional subrule. else cannot
     // be matched by exiting stat since that would only match '}' or
     // the start of a stat. But, we are using the theory that
     // SLL(1)=LL(1) and so we are avoiding full context parsing
     // by declaring all else clause parsing to be ambiguous.
-    assertEquals("""
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then if y then return else foo }";
@@ -343,12 +333,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-'}'->:s2=>2
         s0-'else'->:s1=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:29 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
 
     // should not be ambiguous because the second 'else bar' clearly
     // indicates that the first else should match to the innermost if.
@@ -363,14 +352,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         Decision 1:
         s0-'else'->:s1=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:29 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportContextSensitivity d=1 (stat), input='elsefooelse'
         line 1:38 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportContextSensitivity d=1 (stat), input='else'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then return else foo\n" +
@@ -383,14 +371,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-'}'->:s2=>2
         s0-'else'->:s1=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
         line 2:27 reportAttemptingFullContext d=1 (stat), input='else'
         line 2:36 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then return else foo\n" +
@@ -403,14 +390,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s0-'}'->:s2=>2
         s0-'else'->:s1=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
         line 2:27 reportAttemptingFullContext d=1 (stat), input='else'
         line 2:36 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   @Test
@@ -437,8 +423,8 @@ class FullContextParsingTest extends AbstractBaseTest {
         Decision 1:
         s0-'}'->:s1=>2
         """;
-    assertEquals(expecting, result);
-    assertEquals(null, this.stderrDuringParse);
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isNull();
 
     input = "{ if x then return else foo }";
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s",
@@ -450,18 +436,17 @@ class FullContextParsingTest extends AbstractBaseTest {
         s2**-ctx:7(s)->s3
         s3-'else'->:s4=>1
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
     // Technically, this input sequence is not ambiguous because else
     // uniquely predicts going into the optional subrule. else cannot
     // be matched by exiting stat since that would only match '}' or
     // the start of a stat. But, we are using the theory that
     // SLL(1)=LL(1) and so we are avoiding full context parsing
     // by declaring all else clause parsing to be ambiguous.
-    assertEquals("""
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then if y then return else foo }";
@@ -478,12 +463,11 @@ class FullContextParsingTest extends AbstractBaseTest {
         s5-ID->:s6=>1
         :s6=>1-'}'->:s7=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:29 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
 
     // should not be ambiguous because the second 'else bar' clearly
     // indicates that the first else should match to the innermost if.
@@ -505,14 +489,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         :s6=>1-'else'->:s7=>1
         s8-'else'->:s7=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:29 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportContextSensitivity d=1 (stat), input='elsefooelse'
         line 1:38 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:38 reportContextSensitivity d=1 (stat), input='else'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then return else foo\n" +
@@ -532,14 +515,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s7-ID->:s8=>1
         :s8=>1-'}'->:s9=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
         line 2:27 reportAttemptingFullContext d=1 (stat), input='else'
         line 2:36 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
 
     input =
       "{ if x then return else foo\n" +
@@ -559,14 +541,13 @@ class FullContextParsingTest extends AbstractBaseTest {
         s7-ID->:s8=>1
         :s8=>1-'}'->:s9=>1
         """;
-    assertEquals(expecting, result);
-    assertEquals("""
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
         line 1:19 reportAttemptingFullContext d=1 (stat), input='else'
         line 1:19 reportContextSensitivity d=1 (stat), input='else'
         line 2:27 reportAttemptingFullContext d=1 (stat), input='else'
         line 2:36 reportAmbiguity d=1 (stat): ambigAlts={1, 2}, input='elsefoo}'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   /**
@@ -595,14 +576,14 @@ class FullContextParsingTest extends AbstractBaseTest {
         """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", "a(i)<-x", true);
-    assertEquals("pass: a(i)<-x\n", found);
+    assertThat(found).isEqualTo("pass: a(i)<-x\n");
 
     String expecting =
       """
         line 1:3 reportAttemptingFullContext d=3 (expr_primary), input='a(i)'
         line 1:7 reportAmbiguity d=3 (expr_primary): ambigAlts={2, 3}, input='a(i)<-x'
         """;
-    assertEquals(expecting, this.stderrDuringParse);
+    assertThat(this.stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
@@ -625,7 +606,7 @@ class FullContextParsingTest extends AbstractBaseTest {
         """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", "a@", true);
-    assertEquals("alt 1\n", found);
+    assertThat(found).isEqualTo("alt 1\n");
 
     String expecting =
       """
@@ -634,7 +615,7 @@ class FullContextParsingTest extends AbstractBaseTest {
         line 1:1 reportAttemptingFullContext d=1 (expr), input='a@'
         line 1:2 reportContextSensitivity d=1 (expr), input='a@'
         """;
-    assertEquals(expecting, this.stderrDuringParse);
+    assertThat(this.stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
@@ -659,17 +640,17 @@ class FullContextParsingTest extends AbstractBaseTest {
         """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s", "a+b", true);
-    assertEquals("(expr a + (expr b))\n", found);
+    assertThat(found).isEqualTo("(expr a + (expr b))\n");
 
     String expecting =
       """
         line 1:1 reportAttemptingFullContext d=1 (expr), input='+'
         line 1:2 reportContextSensitivity d=1 (expr), input='+b'
         """;
-    assertEquals(expecting, this.stderrDuringParse);
+    assertThat(this.stderrDuringParse).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer", "s", "a+b*c", true);
-    assertEquals("(expr a + (expr b * (expr c)))\n", found);
+    assertThat(found).isEqualTo("(expr a + (expr b * (expr c)))\n");
 
     expecting =
       """
@@ -678,7 +659,7 @@ class FullContextParsingTest extends AbstractBaseTest {
         line 1:3 reportAttemptingFullContext d=1 (expr), input='*'
         line 1:5 reportAmbiguity d=1 (expr): ambigAlts={1, 2}, input='*c'
         """;
-    assertEquals(expecting, this.stderrDuringParse);
+    assertThat(this.stderrDuringParse).isEqualTo(expecting);
   }
 
 }

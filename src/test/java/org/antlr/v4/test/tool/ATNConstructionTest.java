@@ -29,7 +29,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ATNConstructionTest extends AbstractBaseTest {
@@ -537,7 +536,7 @@ class ATNConstructionTest extends AbstractBaseTest {
         covered.put(node, node.atnState);
       }
     }
-    assertEquals("{RULE=2, BLOCK=8, +=10, BLOCK=8, A=7}", covered.toString());
+    assertThat(covered).hasToString("{RULE=2, BLOCK=8, +=10, BLOCK=8, A=7}");
   }
 
   @Test
@@ -708,11 +707,11 @@ class ATNConstructionTest extends AbstractBaseTest {
       Tool tool = new Tool();
       tool.removeListeners();
       tool.addListener(errorQueue);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       GrammarRootAST grammarRootAST = tool.parseGrammarFromString(gstr);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       Grammar g = tool.createGrammar(grammarRootAST);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       g.fileName = "<string>";
       tool.process(g, false);
     } catch (Exception e) {
@@ -720,10 +719,10 @@ class ATNConstructionTest extends AbstractBaseTest {
       e.printStackTrace();
     }
     System.out.println(errorQueue);
-    assertEquals(1, errorQueue.errors.size());
-    assertEquals(ErrorType.PARSER_RULE_REF_IN_LEXER_RULE, errorQueue.errors.get(0).getErrorType());
-    assertEquals("[a, A]", Arrays.toString(errorQueue.errors.get(0).getArgs()));
-    assertThat(!threwException).isTrue();
+    assertThat(errorQueue.errors).hasSize(1);
+    assertThat(errorQueue.errors.get(0).getErrorType()).isEqualTo(ErrorType.PARSER_RULE_REF_IN_LEXER_RULE);
+    assertThat(Arrays.toString(errorQueue.errors.get(0).getArgs())).isEqualTo("[a, A]");
+    assertThat(threwException).isFalse();
   }
 
   /**
@@ -848,6 +847,6 @@ class ATNConstructionTest extends AbstractBaseTest {
     ATNState startState = nfa.modeNameToStartState.get(modeName);
     ATNPrinter serializer = new ATNPrinter(g, startState);
     String result = serializer.asString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

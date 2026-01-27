@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class XPathTest extends AbstractBaseTest {
@@ -93,7 +92,7 @@ public class XPathTest extends AbstractBaseTest {
     for (int i = 0; i < xpath.length; i++) {
       List<String> nodes = getNodeStrings(SAMPLE_PROGRAM, xpath[i], "prog", "ExprParser", "ExprLexer");
       String result = nodes.toString();
-      assertEquals("path " + xpath[i] + " failed", expected[i], result);
+      assertThat(result).as("path " + xpath[i] + " failed").isEqualTo(expected[i]);
     }
   }
 
@@ -175,7 +174,7 @@ public class XPathTest extends AbstractBaseTest {
       e = iae;
     }
     assertThat(e).isNotNull();
-    assertEquals(expected, e.getMessage());
+    assertThat(e.getMessage()).isEqualTo(expected);
   }
 
   public List<String> getNodeStrings(String input, String xpath, String startRuleName, String parserName, String lexerName) throws Exception {

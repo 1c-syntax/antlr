@@ -11,7 +11,7 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class LexerActionsTest extends AbstractBaseTest {
   // ----- ACTIONS --------------------------------------------------------
@@ -32,7 +32,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,3:4='34',<1>,1:3]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -51,7 +51,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='45',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -102,7 +102,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@0,0:11='hello Steve\\n',<1>,1:0]
         [@1,12:11='<EOF>',<-1>,2:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -123,7 +123,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='45',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -146,7 +146,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,4:5='ab',<1>,1:4]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -163,7 +163,7 @@ class LexerActionsTest extends AbstractBaseTest {
         I
         [@0,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // ----- COMMANDS --------------------------------------------------------
@@ -184,7 +184,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,3:4='34',<1>,1:3]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -203,7 +203,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,2:4='#10',<1>,1:2]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -221,7 +221,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,2:2='#',<2>,1:2]
         [@2,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -240,7 +240,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,2:4='#11',<1>,1:2]
         [@2,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -261,7 +261,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -283,7 +283,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -305,7 +305,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@1,6:9='"ab"',<2>,1:6]
         [@2,10:9='<EOF>',<-1>,1:10]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // ----- PREDICATES --------------------------------------------------------
@@ -350,7 +350,7 @@ class LexerActionsTest extends AbstractBaseTest {
         [@5,46:56='More line.\\n',<1>,4:0]
         [@6,57:56='<EOF>',<-1>,5:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
 }

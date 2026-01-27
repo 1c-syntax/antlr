@@ -807,9 +807,9 @@ public abstract class AbstractBaseTest {
     assertThat(foundMsg)
       .as("no error; " + expectedMessage.getErrorType() + " expected")
       .isNotNull();
-    assertThat(foundMsg instanceof GrammarSemanticsMessage)
+    assertThat(foundMsg)
       .as("error is not a GrammarSemanticsMessage")
-      .isTrue();
+      .isInstanceOf(GrammarSemanticsMessage.class);
     assertEquals(Arrays.toString(expectedMessage.getArgs()), Arrays.toString(foundMsg.getArgs()));
     if (equeue.size() != 1) {
       System.err.println(equeue);
@@ -962,7 +962,7 @@ public abstract class AbstractBaseTest {
 
   public void assertNotNullOrEmpty(String text) {
     assertThat(text).isNotNull();
-    assertThat(text.isEmpty()).isFalse();
+    assertThat(text).isNotEmpty();
   }
 
   public static class IntTokenStream implements TokenStream {

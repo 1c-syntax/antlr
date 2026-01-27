@@ -151,9 +151,9 @@ M1: 'b';
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[A, B, C]";
 
-    assertThat(g.tokenNameToTypeMap.toString()).isEqualTo(expectedTokenIDToTypeMap);
-    assertThat(g.stringLiteralToTypeMap.toString()).isEqualTo(expectedStringLiteralToTypeMap);
-    assertThat(realElements(g.typeToTokenList).toString()).isEqualTo(expectedTypeToTokenList);
+    assertThat(g.tokenNameToTypeMap).hasToString(expectedTokenIDToTypeMap);
+    assertThat(g.stringLiteralToTypeMap).hasToString(expectedStringLiteralToTypeMap);
+    assertThat(realElements(g.typeToTokenList)).hasToString(expectedTypeToTokenList);
   }
 
   @Test

@@ -35,7 +35,7 @@ class UnicodeGrammarTest extends AbstractBaseTest {
         WORLD : ('world' | '\\u4E16\\u754C' | '\\u1000\\u1019\\u1039\\u1018\\u102C' );
         WS : [ \\t\\r\\n]+ -> skip;
         """;
-    String inputText = "hello \u4E16\u754C";
+    String inputText = "hello 世界";
     assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
@@ -136,7 +136,7 @@ class UnicodeGrammarTest extends AbstractBaseTest {
     String result = Trees.toStringTree(parseTree, nodeTextProvider);
 
     assertThat(result)
-      .isEqualTo("(r:1 \u0002\u0000\u0001\u0007 \u00D0\u00D2\u00D2\u00D3\u00D3\u00D3 \u00D0\u00D3\u00D3\u00D1 \u00FF)");
+      .isEqualTo("(r:1 \u0002\u0000\u0001\u0007 ÐÒÒÓÓÓ ÐÓÓÑ ÿ)");
   }
 
   private static String parseTreeForGrammarWithInput(

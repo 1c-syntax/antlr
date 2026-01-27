@@ -77,21 +77,30 @@ class AttributeChecksTest extends AbstractBaseTest {
   };
 
   private static final String[] bad_inlineChecks = {
-    "$lab", "error(" + ISOLATED_RULE_REF.code + "): A.g4:7:4: missing attribute access on rule reference 'lab' in '$lab'\n",
+    "$lab", "error(" + ISOLATED_RULE_REF.code
+    + "): A.g4:7:4: missing attribute access on rule reference 'lab' in '$lab'\n",
     "$q", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q'\n",
     "$q.y", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q.y'\n",
     "$q = 3", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q'\n",
     "$q = 3;", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q = 3;'\n",
     "$q.y = 3;", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q.y'\n",
-    "$q = $blort;", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'q' in '$q = $blort;'\n" +
+    "$q = $blort;", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code
+    + "): A.g4:7:4: unknown attribute reference 'q' in '$q = $blort;'\n" +
     "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:9: unknown attribute reference 'blort' in '$blort'\n",
-    "$a.ick", "error(" + UNKNOWN_RULE_ATTRIBUTE.code + "): A.g4:7:6: unknown attribute 'ick' for rule 'a' in '$a.ick'\n",
-    "$a.ick = 3;", "error(" + UNKNOWN_RULE_ATTRIBUTE.code + "): A.g4:7:6: unknown attribute 'ick' for rule 'a' in '$a.ick'\n",
-    "$b.d", "error(" + INVALID_RULE_PARAMETER_REF.code + "): A.g4:7:6: parameter 'd' of rule 'b' is not accessible in this scope: $b.d\n",  // can't see rule ref's arg
-    "$d.text", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code + "): A.g4:7:4: unknown attribute reference 'd' in '$d.text'\n", // valid rule, but no ref
-    "$lab.d", "error(" + INVALID_RULE_PARAMETER_REF.code + "): A.g4:7:8: parameter 'd' of rule 'b' is not accessible in this scope: $lab.d\n",
-    "$ids = null;", "error(" + ASSIGNMENT_TO_LIST_LABEL.code + "): A.g4:7:4: cannot assign a value to list label 'ids'\n",
-    "$labs = null;", "error(" + ASSIGNMENT_TO_LIST_LABEL.code + "): A.g4:7:4: cannot assign a value to list label 'labs'\n",
+    "$a.ick", "error(" + UNKNOWN_RULE_ATTRIBUTE.code
+    + "): A.g4:7:6: unknown attribute 'ick' for rule 'a' in '$a.ick'\n",
+    "$a.ick = 3;", "error(" + UNKNOWN_RULE_ATTRIBUTE.code
+    + "): A.g4:7:6: unknown attribute 'ick' for rule 'a' in '$a.ick'\n",
+    "$b.d", "error(" + INVALID_RULE_PARAMETER_REF.code
+    + "): A.g4:7:6: parameter 'd' of rule 'b' is not accessible in this scope: $b.d\n",  // can't see rule ref's arg
+    "$d.text", "error(" + UNKNOWN_SIMPLE_ATTRIBUTE.code
+    + "): A.g4:7:4: unknown attribute reference 'd' in '$d.text'\n", // valid rule, but no ref
+    "$lab.d", "error(" + INVALID_RULE_PARAMETER_REF.code
+    + "): A.g4:7:8: parameter 'd' of rule 'b' is not accessible in this scope: $lab.d\n",
+    "$ids = null;", "error(" + ASSIGNMENT_TO_LIST_LABEL.code
+    + "): A.g4:7:4: cannot assign a value to list label 'ids'\n",
+    "$labs = null;", "error(" + ASSIGNMENT_TO_LIST_LABEL.code
+    + "): A.g4:7:4: cannot assign a value to list label 'labs'\n",
   };
 
   private static final String[] finallyChecks = {

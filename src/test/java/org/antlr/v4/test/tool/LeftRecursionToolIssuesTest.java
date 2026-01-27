@@ -12,7 +12,6 @@ package org.antlr.v4.test.tool;
 import org.antlr.v4.tool.ErrorType;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -36,17 +35,17 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x", debug);
     String expecting = "(s (a x))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y", debug);
     expecting = "(s (a (a x) y))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     expecting = "(s (a (a (a x) y) z))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -68,17 +67,17 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x", debug);
     String expecting = "(a x)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x y", debug);
     expecting = "(a (a x) y)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x y z", debug);
     expecting = "(a (a (a x) y) z)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -96,7 +95,7 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     String expecting = "(s (a (a (a x) y) z))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -114,8 +113,8 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     String expecting = "(s (a (a x) y z))\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:4 rule a custom message\n", stderrDuringParse);
+    assertThat(found).isEqualTo(expecting);
+    assertThat(stderrDuringParse).isEqualTo("line 1:4 rule a custom message\n");
   }
 
   @Test
@@ -678,13 +677,13 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String expected =
       "";
     String result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "Test(1,3)", false);
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
     assertThat(stderrDuringParse).isNull();
 
     expected =
       "";
     result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "Test(1, 3)", false);
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -707,7 +706,7 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog",
       "aa", false);
-    assertEquals("(prog (statement (letterA a)) (statement (letterA a)) <EOF>)\n", found);
+    assertThat(found).isEqualTo("(prog (statement (letterA a)) (statement (letterA a)) <EOF>)\n");
   }
 
   /**
@@ -778,7 +777,7 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       writeFile(tmpdir, "input", test);
       String found = execRecognizer();
       System.out.print(test + " -> " + found);
-      assertEquals(expecting, found);
+      assertThat(found).isEqualTo(expecting);
     }
   }
 }

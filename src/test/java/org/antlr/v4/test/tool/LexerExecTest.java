@@ -16,7 +16,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LexerExecTest extends AbstractBaseTest {
@@ -33,7 +32,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:0='"',<1>,1:0]
         [@1,1:0='<EOF>',<-1>,1:1]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -52,7 +51,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@2,7:7='3',<2>,1:7]
         [@3,8:7='<EOF>',<-1>,1:8]
         """; // EOF has no length so range is 8:7 not 8:8
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -74,7 +73,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@3,7:8='/\\',<4>,1:7]
         [@4,9:8='<EOF>',<-1>,1:9]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -104,7 +103,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,5:5='!',<3>,1:5]
         [@2,6:5='<EOF>',<-1>,1:6]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -115,12 +114,12 @@ class LexerExecTest extends AbstractBaseTest {
         STRING : '"' ('""' | .)*? '"';""";
 
     String found = execLexer("L.g4", grammar, "L", "\"hi\"\"mom\"");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:3='"hi"',<1>,1:0]
         [@1,4:8='"mom"',<1>,1:4]
         [@2,9:8='<EOF>',<-1>,1:9]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -132,11 +131,11 @@ class LexerExecTest extends AbstractBaseTest {
         STRING : '"' ('""' | .)+? '"';""";
 
     String found = execLexer("L.g4", grammar, "L", "\"\"\"mom\"");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:6='""\"mom"',<1>,1:0]
         [@1,7:6='<EOF>',<-1>,1:7]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -149,11 +148,11 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:13='//blah\\n//blah\\n',<1>,1:0]
         [@1,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -166,12 +165,12 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:6='//blah\\n',<1>,1:0]
         [@1,7:13='//blah\\n',<1>,2:0]
         [@2,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -184,11 +183,11 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:13='//blah\\n//blah\\n',<1>,1:0]
         [@1,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -201,12 +200,12 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:6='//blah\\n',<1>,1:0]
         [@1,7:13='//blah\\n',<1>,2:0]
         [@2,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -219,11 +218,11 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:13='//blah\\n//blah\\n',<1>,1:0]
         [@1,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -236,12 +235,12 @@ class LexerExecTest extends AbstractBaseTest {
         WS : (' '|'\\t')+;""";
 
     String found = execLexer("L.g4", grammar, "L", "//blah\n//blah\n");
-    assertEquals(
+    assertThat(found).isEqualTo(
       """
         [@0,0:6='//blah\\n',<1>,1:0]
         [@1,7:13='//blah\\n',<1>,2:0]
         [@2,14:13='<EOF>',<-1>,3:0]
-        """, found);
+        """);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -271,7 +270,7 @@ class LexerExecTest extends AbstractBaseTest {
         /* /* */
         /* /*nested*/ */
         """);
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -300,12 +299,12 @@ class LexerExecTest extends AbstractBaseTest {
         /* /* */x
         /* /*nested*/ */x
         """);
-    assertEquals(expecting, found);
-    assertEquals(
+    assertThat(found).isEqualTo(expecting);
+    assertThat(stderrDuringParse).isEqualTo(
       """
         line 1:9 token recognition error at: 'x'
         line 3:16 token recognition error at: 'x'
-        """, stderrDuringParse);
+        """);
   }
 
   @Test
@@ -334,7 +333,7 @@ class LexerExecTest extends AbstractBaseTest {
         /* /* */
         /* /*nested*/ */
         """);
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -363,12 +362,12 @@ class LexerExecTest extends AbstractBaseTest {
         /* /* */x
         /* /*nested*/ */x
         """);
-    assertEquals(expecting, found);
-    assertEquals(
+    assertThat(found).isEqualTo(expecting);
+    assertThat(stderrDuringParse).isEqualTo(
       """
         line 1:9 token recognition error at: 'x'
         line 3:16 token recognition error at: 'x'
-        """, stderrDuringParse);
+        """);
   }
 
   @Test
@@ -390,7 +389,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:1='ab',<1>,1:0]
         [@1,2:1='<EOF>',<-1>,1:2]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -409,7 +408,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:1='ab',<1>,1:0]
         [@1,2:1='<EOF>',<-1>,1:2]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -430,7 +429,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,1:1='b',<3>,1:1]
         [@2,2:1='<EOF>',<-1>,1:2]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -454,7 +453,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@6,16:16='a',<2>,1:16]
         [@7,17:16='<EOF>',<-1>,1:17]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -487,7 +486,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@12,12:12='l',<5>,1:12]
         [@13,13:12='<EOF>',<-1>,1:13]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   // must get DONE EOF
@@ -505,7 +504,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:-1='<EOF>',<1>,1:0]
         [@1,0:-1='<EOF>',<-1>,1:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -520,7 +519,7 @@ class LexerExecTest extends AbstractBaseTest {
     String found = execLexer("L.g4", grammar, "L", "");
     String expecting =
       "[@0,0:-1='<EOF>',<-1>,1:0]\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execLexer("L.g4", grammar, "L", "a");
     expecting =
@@ -528,7 +527,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:0='a',<1>,1:0]
         [@1,1:0='<EOF>',<-1>,1:1]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -547,7 +546,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,5:6='34',<1>,2:1]
         [@2,7:6='<EOF>',<-1>,2:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -566,7 +565,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,5:6='34',<1>,2:1]
         [@2,7:6='<EOF>',<-1>,2:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -583,7 +582,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:2='xaf',<1>,1:0]
         [@1,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -602,7 +601,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,2:2='x',<1>,1:2]
         [@2,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -626,7 +625,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@3,10:12='abc',<2>,2:7]
         [@4,18:17='<EOF>',<-1>,3:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -643,7 +642,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:1='00',<1>,1:0]
         [@1,4:3='<EOF>',<-1>,2:0]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -660,7 +659,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:1='34',<1>,1:0]
         [@1,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -679,7 +678,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@1,2:2=']',<1>,1:2]
         [@2,4:3='<EOF>',<-1>,1:4]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -696,7 +695,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:2='b"a',<1>,1:0]
         [@1,3:2='<EOF>',<-1>,1:3]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -713,7 +712,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:3='b"\\a',<1>,1:0]
         [@1,4:3='<EOF>',<-1>,1:4]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -755,7 +754,7 @@ class LexerExecTest extends AbstractBaseTest {
         "[@8,44:51='notLabel',<" + IDENTIFIER + ">,6:0]\n" +
         "[@9,53:52='<EOF>',<-1>,7:0]\n";
 
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -779,7 +778,7 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:4='KW400',<402>,1:0]
         [@1,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -814,6 +813,6 @@ class LexerExecTest extends AbstractBaseTest {
         [@0,0:4=''xxx'',<1>,1:0]
         [@1,5:4='<EOF>',<-1>,1:5]
         """;
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 }

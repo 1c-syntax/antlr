@@ -11,7 +11,7 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParseTreesTest extends AbstractBaseTest {
   @Test
@@ -27,7 +27,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "x", false);
     String expecting = "[a, s]\n(a x)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -44,7 +44,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "xy", false);
     String expecting = "(a x y)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -61,7 +61,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "y", false);
     String expecting = "(a y)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -78,7 +78,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "xyyxyxz", false);
     String expecting = "(a x y y x y x z)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -96,7 +96,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "yx", false);
     String expecting = "(a (b y) x)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   // ERRORS
@@ -116,7 +116,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "xzy", false);
     String expecting = "(a x z y)\n"; // ERRORs not shown. z is colored red in tree view
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -134,7 +134,7 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "z", false);
     String expecting = "(a z)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -152,6 +152,6 @@ class ParseTreesTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "xzyy!", false);
     String expecting = "(a x z y y !)\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

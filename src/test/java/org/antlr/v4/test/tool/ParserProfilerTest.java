@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParserProfilerTest extends AbstractBaseTest {
   LexerGrammar lg;
@@ -57,11 +57,11 @@ class ParserProfilerTest extends AbstractBaseTest {
       lg);
 
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", ";");
-    assertEquals(1, info.length);
+    assertThat(info).hasSize(1);
     String expecting =
       "{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=1, " +
         "SLL_ATNTransitions=1, SLL_DFATransitions=0, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}";
-    assertEquals(expecting, info[0].toString());
+    assertThat(info[0]).hasToString(expecting);
   }
 
   @Test
@@ -77,11 +77,11 @@ class ParserProfilerTest extends AbstractBaseTest {
       lg);
 
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "xyz;");
-    assertEquals(1, info.length);
+    assertThat(info).hasSize(1);
     String expecting =
       "{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=2, " +
         "SLL_ATNTransitions=2, SLL_DFATransitions=0, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}";
-    assertEquals(expecting, info[0].toString());
+    assertThat(info[0]).hasToString(expecting);
   }
 
   @Test
@@ -97,11 +97,11 @@ class ParserProfilerTest extends AbstractBaseTest {
       lg);
 
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "xyz;", "abc;");
-    assertEquals(1, info.length);
+    assertThat(info).hasSize(1);
     String expecting =
       "{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=4, " +
         "SLL_ATNTransitions=2, SLL_DFATransitions=2, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}";
-    assertEquals(expecting, info[0].toString());
+    assertThat(info[0]).hasToString(expecting);
   }
 
   @Test
@@ -118,11 +118,11 @@ class ParserProfilerTest extends AbstractBaseTest {
 
     // The '.' vs ';' causes another ATN transition
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "xyz;", "abc;", "z.");
-    assertEquals(1, info.length);
+    assertThat(info).hasSize(1);
     String expecting =
       "{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=6, " +
         "SLL_ATNTransitions=3, SLL_DFATransitions=3, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}";
-    assertEquals(expecting, info[0].toString());
+    assertThat(info[0]).hasToString(expecting);
   }
 
   @Test
@@ -138,13 +138,13 @@ class ParserProfilerTest extends AbstractBaseTest {
       lg);
 
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "a.b;");
-    assertEquals(2, info.length);
+    assertThat(info).hasSize(2);
     String expecting =
       "[{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=1, " +
         "SLL_ATNTransitions=1, SLL_DFATransitions=0, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}, " +
         "{decision=1, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=2, " +
         "SLL_ATNTransitions=2, SLL_DFATransitions=0, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}]";
-    assertEquals(expecting, Arrays.toString(info));
+    assertThat(info).asString().isEqualTo(expecting);
   }
 
   @Test
@@ -160,13 +160,13 @@ class ParserProfilerTest extends AbstractBaseTest {
       lg);
 
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "a.b;", "a.b;");
-    assertEquals(2, info.length);
+    assertThat(info).hasSize(2);
     String expecting =
       "[{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=2, " +
         "SLL_ATNTransitions=1, SLL_DFATransitions=1, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}, " +
         "{decision=1, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=4, " +
         "SLL_ATNTransitions=2, SLL_DFATransitions=2, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}]";
-    assertEquals(expecting, Arrays.toString(info));
+    assertThat(info).asString().isEqualTo(expecting);
   }
 
   @Test
@@ -181,10 +181,10 @@ class ParserProfilerTest extends AbstractBaseTest {
         """,
       lg);
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "a", "; 1 x");
-    assertEquals(2, info.length);
+    assertThat(info).hasSize(2);
     String expecting =
       "{decision=1, contextSensitivities=1, errors=0, ambiguities=0, SLL_lookahead=3, SLL_ATNTransitions=2, SLL_DFATransitions=0, LL_Fallback=1, LL_lookahead=3, LL_ATNTransitions=2}";
-    assertEquals(expecting, info[1].toString());
+    assertThat(info[1]).hasToString(expecting);
   }
 
   @Test
@@ -208,13 +208,13 @@ class ParserProfilerTest extends AbstractBaseTest {
     DecisionInfo[] info = interpAndGetDecisionInfo(lg, g, "s", "a+b+c;");
     // at "+b" it uses k=1 and enters loop then calls e for b...
     // e matches and d=2 uses "+c;" for k=3
-    assertEquals(2, info.length);
+    assertThat(info).hasSize(2);
     String expecting =
       "[{decision=0, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=6, " +
         "SLL_ATNTransitions=6, SLL_DFATransitions=0, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}, " +
         "{decision=1, contextSensitivities=0, errors=0, ambiguities=1, SLL_lookahead=5, " +
         "SLL_ATNTransitions=2, SLL_DFATransitions=3, LL_Fallback=2, LL_lookahead=3, LL_ATNTransitions=3}]";
-    assertEquals(expecting, Arrays.toString(info));
+    assertThat(info).asString().isEqualTo(expecting);
   }
 
   @Test
@@ -243,8 +243,8 @@ class ParserProfilerTest extends AbstractBaseTest {
         "SLL_DFATransitions=2, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}," +
         " {decision=1, contextSensitivities=0, errors=0, ambiguities=0, SLL_lookahead=6, " +
         "SLL_ATNTransitions=3, SLL_DFATransitions=3, LL_Fallback=0, LL_lookahead=0, LL_ATNTransitions=0}]\n";
-    assertEquals(expecting, found);
-    assertEquals(null, stderrDuringParse);
+    assertThat(found).isEqualTo(expecting);
+    assertThat(stderrDuringParse).isNull();
   }
 
   public DecisionInfo[] interpAndGetDecisionInfo(

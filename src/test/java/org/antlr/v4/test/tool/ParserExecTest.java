@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -67,8 +66,8 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "abc 34;", false);
-    assertEquals("", found);
-    assertEquals(null, stderrDuringParse);
+    assertThat(found).isEqualTo("");
+    assertThat(stderrDuringParse).isNull();
   }
 
   /**
@@ -91,8 +90,8 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "abc 34;", false);
-    assertEquals("", found);
-    assertEquals(null, stderrDuringParse);
+    assertThat(found).isEqualTo("");
+    assertThat(stderrDuringParse).isNull();
   }
 
   @Test
@@ -108,7 +107,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "abc 34", false);
-    assertEquals("abc34\n", found);
+    assertThat(found).isEqualTo("abc34\n");
   }
 
   @Test
@@ -126,7 +125,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "34", false);
-    assertEquals("alt 2\n", found);
+    assertThat(found).isEqualTo("alt 2\n");
   }
 
   @Test
@@ -141,7 +140,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a b c", false);
-    assertEquals("abc\n", found);
+    assertThat(found).isEqualTo("abc\n");
   }
 
   // force complex decision
@@ -157,7 +156,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a b c", false);
-    assertEquals("abc\n", found);
+    assertThat(found).isEqualTo("abc\n");
   }
 
   private static final String ifIfElseGrammarFormat =
@@ -177,7 +176,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String grammar = String.format(ifIfElseGrammarFormat, "('else' statement)?");
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, false);
-    assertEquals(expectedInnerBound, found);
+    assertThat(found).isEqualTo(expectedInnerBound);
 
   }
 
@@ -188,7 +187,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String grammar = String.format(ifIfElseGrammarFormat, "('else' statement|)");
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, false);
-    assertEquals(expectedInnerBound, found);
+    assertThat(found).isEqualTo(expectedInnerBound);
   }
 
   @Test
@@ -198,11 +197,11 @@ class ParserExecTest extends AbstractBaseTest {
 
     String grammar = String.format(ifIfElseGrammarFormat, "('else' statement)??");
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, false);
-    assertEquals(expectedOuterBound, found);
+    assertThat(found).isEqualTo(expectedOuterBound);
 
     grammar = String.format(ifIfElseGrammarFormat, "(|'else' statement)");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, false);
-    assertEquals(expectedOuterBound, found);
+    assertThat(found).isEqualTo(expectedOuterBound);
   }
 
   @Test
@@ -217,10 +216,10 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "", false);
-    assertEquals("\n", found);
+    assertThat(found).isEqualTo("\n");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a b c", false);
-    assertEquals("abc\n", found);
+    assertThat(found).isEqualTo("abc\n");
   }
 
   @Test
@@ -236,10 +235,10 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "", false);
-    assertEquals("\n", found);
+    assertThat(found).isEqualTo("\n");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a", false);
-    assertEquals("a\n", found);
+    assertThat(found).isEqualTo("a\n");
   }
 
   // force complex decision
@@ -255,10 +254,10 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "", false);
-    assertEquals("\n", found);
+    assertThat(found).isEqualTo("\n");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a b c", false);
-    assertEquals("abc\n", found);
+    assertThat(found).isEqualTo("abc\n");
   }
 
   @Test
@@ -274,7 +273,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a 34 c", false);
-    assertEquals("a34c\n", found);
+    assertThat(found).isEqualTo("a34c\n");
   }
 
   @Test
@@ -290,10 +289,10 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "", false);
-    assertEquals("\n", found);
+    assertThat(found).isEqualTo("\n");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a 34 c", false);
-    assertEquals("a34c\n", found);
+    assertThat(found).isEqualTo("a34c\n");
   }
 
 
@@ -311,7 +310,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "x", false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -325,7 +324,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if x else x", false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -339,7 +338,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if x", false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -353,7 +352,7 @@ class ParserExecTest extends AbstractBaseTest {
         WS : [ \\n\\t]+ -> skip ;""";
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stat", "if if x else x", false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -376,7 +375,7 @@ class ParserExecTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "stmt",
       "if x if x a else b", true);
     String expecting = "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -401,7 +400,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start",
       "xy", false);
-    assertEquals("x\ny\n", found);
+    assertThat(found).isEqualTo("x\ny\n");
   }
 
   /**
@@ -432,7 +431,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String input = "a";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "file", input, false);
-    assertEquals("(file (item a) <EOF>)\n", found);
+    assertThat(found).isEqualTo("(file (item a) <EOF>)\n");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -466,7 +465,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "a";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "expression", input, false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -484,7 +483,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "x";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", input, false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -503,7 +502,7 @@ class ParserExecTest extends AbstractBaseTest {
         """;
     String input = "x";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog", input, false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -525,10 +524,10 @@ class ParserExecTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "", false);
-    assertEquals("\n", found);
+    assertThat(found).isEqualTo("\n");
     found = execParser("T.g4", grammar, "TParser", "TLexer", "a",
       "a 34 c", false);
-    assertEquals("a34c\n", found);
+    assertThat(found).isEqualTo("a34c\n");
   }
 
   /**
@@ -550,8 +549,8 @@ class ParserExecTest extends AbstractBaseTest {
       grammar = new String(data, 0, n);
     }
     String found = execParser("Psl.g4", grammar, "PslParser", "PslLexer", "floating_constant", " . 234", false);
-    assertEquals("", found);
-    assertEquals("line 1:6 rule floating_constant DEC:A floating-point constant cannot have internal white space\n", stderrDuringParse);
+    assertThat(found).isEqualTo("");
+    assertThat(stderrDuringParse).isEqualTo("line 1:6 rule floating_constant DEC:A floating-point constant cannot have internal white space\n");
   }
 
   /**
@@ -593,7 +592,7 @@ class ParserExecTest extends AbstractBaseTest {
     assertThat(success).isTrue();
 
     String found = execParser("ModeTagsParser.g4", parserGrammar, "ModeTagsParser", "ModeTagsLexer", "file", "", false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -650,7 +649,7 @@ class ParserExecTest extends AbstractBaseTest {
     String input = "b = (((a > 10)) AND ((a < 15)))";
     String found = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "root",
       input, false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -680,7 +679,7 @@ class ParserExecTest extends AbstractBaseTest {
 
     String input = "2 9 10 3 1 2 3";
     String found = execParser("Data.g4", grammar, "DataParser", "DataLexer", "file", input, false);
-    assertEquals("6\n", found);
+    assertThat(found).isEqualTo("6\n");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -699,7 +698,7 @@ class ParserExecTest extends AbstractBaseTest {
         ID : 'a'..'z'+ ;
         WS : (' '|'\\n') -> skip ;""";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "abc", false);
-    assertEquals("valid\n", found);
+    assertThat(found).isEqualTo("valid\n");
     assertThat(this.stderrDuringParse).isNull();
   }
 }

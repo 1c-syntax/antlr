@@ -11,7 +11,6 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SemPredEvalParserTest extends AbstractBaseTest {
@@ -36,7 +35,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "x", false);
 
     String expecting = "line 1:0 no viable alternative at input 'x'\n";
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
@@ -56,10 +55,10 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "alt 2\n" +
         "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     expecting = "line 1:4 no viable alternative at input 'x'\n";
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   /**
@@ -83,7 +82,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start",
       "a+b+a", false);
     String expecting = "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -105,12 +104,12 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x ; y", false);
     String expecting = "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     expecting =
       "line 1:0 no viable alternative at input 'x'\n" +
         "line 1:4 no viable alternative at input 'y'\n";
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   // TEST DISAMBIG PREDS
@@ -134,7 +133,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "alt 2\n" +
         "alt 2\n" +
         "alt 3\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -159,7 +158,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "alt 1\n" +
         "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -185,12 +184,11 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "alt 1\n" +
         "alt 1\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:0 reportAttemptingFullContext d=0 (a), input='x'\n" +
+    assertThat(found).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:0 reportAttemptingFullContext d=0 (a), input='x'\n" +
         "line 1:0 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='x'\n" +
         "line 1:3 reportAttemptingFullContext d=0 (a), input='y'\n" +
-        "line 1:3 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='y'\n",
-      this.stderrDuringParse);
+        "line 1:3 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='y'\n");
   }
 
   @Test
@@ -217,12 +215,11 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "alt 1\n" +
         "alt 2\n" +
         "alt 2\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:4 reportAttemptingFullContext d=0 (a), input='x'\n" +
+    assertThat(found).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:4 reportAttemptingFullContext d=0 (a), input='x'\n" +
         "line 1:4 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='x'\n" +
         "line 1:7 reportAttemptingFullContext d=0 (a), input='y'\n" +
-        "line 1:7 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='y'\n",
-      this.stderrDuringParse);
+        "line 1:7 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='y'\n");
   }
 
   @Test
@@ -245,7 +242,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "alt 2\n" +
         "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -266,7 +263,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "y 3 x 4", false);
     String expecting = "line 1:0 no viable alternative at input 'y'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -287,7 +284,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "alt 2\n" +
         "alt 2\n" +
         "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -310,10 +307,10 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "x 4", false);
     String expecting =
       "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     expecting = null;
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
@@ -336,7 +333,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "alt 1\n" +
         "alt 1\n" +
         "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -367,7 +364,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
         "alt 1\n" +
         "i=3\n" +
         "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -395,7 +392,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "alt 2\n" +
         "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -426,7 +423,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "a b", false);
     String expecting =
       "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -448,7 +445,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "a;", false);
     String expecting =
       "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -469,7 +466,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "a;", false);
     String expecting =
       "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -497,7 +494,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
       "eval=false\n" +
         "eval=true\n" +
         "parse\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -525,7 +522,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "eval=true\n" +
         "parse\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -554,7 +551,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String expecting =
       "eval=true\n" +
         "parse\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
@@ -575,11 +572,11 @@ class SemPredEvalParserTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "primary",
       "abc", false);
-    assertEquals("ID abc\n", found);
+    assertThat(found).isEqualTo("ID abc\n");
 
     execParser("T.g4", grammar, "TParser", "TLexer", "primary",
       "enum", false);
-    assertEquals("line 1:0 no viable alternative at input 'enum'\n", stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo("line 1:0 no viable alternative at input 'enum'\n");
   }
 
   /**
@@ -602,7 +599,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String input = "hello";
     String found = execParser("AnnotProcessor.g4", grammar, "AnnotProcessorParser", "AnnotProcessorLexer", "cppCompilationUnit",
       input, false);
-    assertEquals("", found);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -629,13 +626,13 @@ class SemPredEvalParserTest extends AbstractBaseTest {
     String input = "s\n\n\nx\n";
     String found = execParser("T2.g4", grammar, "T2Parser", "T2Lexer", "file",
       input, true);
-    assertEquals("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x \\n)) <EOF>)\n", found);
-    assertEquals("line 5:0 mismatched input '<EOF>' expecting {'\n', 's', 'x'}\n", stderrDuringParse);
+    assertThat(found).isEqualTo("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x \\n)) <EOF>)\n");
+    assertThat(stderrDuringParse).isEqualTo("line 5:0 mismatched input '<EOF>' expecting {'\n', 's', 'x'}\n");
 
     input = "s\n\n\nx\n\n";
     found = execParser("T2.g4", grammar, "T2Parser", "T2Lexer", "file",
       input, true);
-    assertEquals("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x) \\n \\n) <EOF>)\n", found);
+    assertThat(found).isEqualTo("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x) \\n \\n) <EOF>)\n");
 
     assertThat(stderrDuringParse).isNull();
   }

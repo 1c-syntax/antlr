@@ -432,9 +432,8 @@ class PerformanceTest extends AbstractBaseTest {
   @Disabled("Requires JDK_SOURCE_ROOT environment variable to be set")
   public void compileJdk() throws IOException, InterruptedException, ExecutionException {
     String jdkSourceRoot = getSourceRoot("JDK");
-    assertThat(jdkSourceRoot != null && !jdkSourceRoot.isEmpty())
-      .as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.")
-      .isTrue();
+    assertThat(jdkSourceRoot).as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.").isNotNull();
+    assertThat(jdkSourceRoot).as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.").isNotEmpty();
 
     compileJavaParser(USE_LR_GRAMMAR);
     final String lexerName = USE_LR_GRAMMAR ? "JavaLRLexer" : "JavaLexer";
@@ -448,7 +447,7 @@ class PerformanceTest extends AbstractBaseTest {
     }
 
     File directory = new File(jdkSourceRoot);
-    assertThat(directory.isDirectory()).isTrue();
+    assertThat(directory).matches(File::isDirectory);
 
     FilenameFilter filesFilter = FilenameFilters.extension(".java", false);
     FilenameFilter directoriesFilter = FilenameFilters.ALL_FILES;
@@ -2086,7 +2085,7 @@ class PerformanceTest extends AbstractBaseTest {
     }
 
     ErrorQueue equeue = antlr("Level_0_1.g4", false);
-    assertThat(equeue.errors.isEmpty()).isTrue();
+    assertThat(equeue.errors).isEmpty();
 
     long endTime = System.nanoTime();
     System.out.format("%s milliseconds.%n", (endTime - startTime) / 1000000.0);

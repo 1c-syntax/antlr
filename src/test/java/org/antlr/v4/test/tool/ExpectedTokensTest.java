@@ -15,7 +15,7 @@ import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.tool.Grammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ExpectedTokensTest extends AbstractBaseTest {
   @Test
@@ -44,7 +44,7 @@ class ExpectedTokensTest extends AbstractBaseTest {
     ATN atn = g.getATN();
     int blkStartStateNumber = 5;
     IntervalSet tokens = atn.getExpectedTokens(blkStartStateNumber, null);
-    assertEquals("{B, C}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{B, C}");
   }
 
   @Test
@@ -72,7 +72,7 @@ class ExpectedTokensTest extends AbstractBaseTest {
     ATN atn = g.getATN();
     int blkStartStateNumber = 4;
     IntervalSet tokens = atn.getExpectedTokens(blkStartStateNumber, null);
-    assertEquals("{B, C}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{B, C}");
   }
 
   @Test
@@ -109,11 +109,11 @@ class ExpectedTokensTest extends AbstractBaseTest {
     // From the start of 'b' with empty stack, can only see B and EOF
     int blkStartStateNumber = 9;
     IntervalSet tokens = atn.getExpectedTokens(blkStartStateNumber, ParserRuleContext.emptyContext());
-    assertEquals("{<EOF>, B}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{<EOF>, B}");
 
     // Now call from 'a'
     tokens = atn.getExpectedTokens(blkStartStateNumber, new ParserRuleContext(ParserRuleContext.emptyContext(), 4));
-    assertEquals("{A, B}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{A, B}");
   }
 
   // Test for https://github.com/antlr/antlr4/issues/1480
@@ -164,11 +164,11 @@ class ExpectedTokensTest extends AbstractBaseTest {
     ParserRuleContext callStackFrom_expr = new ParserRuleContext(callStackFrom_s, 9);
     int afterID = 14;
     IntervalSet tokens = atn.getExpectedTokens(afterID, callStackFrom_expr);
-    assertEquals("{R, PLUS}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{R, PLUS}");
 
     // Simulate call stack after input '(x' from within rule expr
     callStackFrom_expr = new ParserRuleContext(null, 9);
     tokens = atn.getExpectedTokens(afterID, callStackFrom_expr);
-    assertEquals("{R, PLUS}", tokens.toString(g.getVocabulary()));
+    assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{R, PLUS}");
   }
 }

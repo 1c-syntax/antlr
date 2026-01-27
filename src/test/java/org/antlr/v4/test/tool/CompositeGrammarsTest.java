@@ -739,8 +739,7 @@ class CompositeGrammarsTest extends AbstractBaseTest {
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
-    boolean expecting = true; // should be ok
-    assertThat(ok).isEqualTo(expecting);
+    assertThat(ok).isTrue();
   }
 
   @Test
@@ -800,8 +799,8 @@ class CompositeGrammarsTest extends AbstractBaseTest {
     writeFile(tmpdir, "M.g4", master);
     Grammar g = new Grammar(tmpdir + "/M.g4", master, equeue);
 
-    assertThat(equeue.errors).hasToString("[]");
-    assertThat(equeue.warnings).hasToString("[]");
+    assertThat(equeue.errors).isEmpty();
+    assertThat(equeue.warnings).isEmpty();
     String expectedTokenIDToTypeMap = "{EOF=-1, M=1, S=2, T=3, A=4, B=5, C=6}";
     String expectedStringLiteralToTypeMap = "{}";
     String expectedTypeToTokenList = "[M, S, T, A, B, C]";
@@ -812,8 +811,7 @@ class CompositeGrammarsTest extends AbstractBaseTest {
 
     boolean ok =
       rawGenerateAndBuildRecognizer("M.g4", master, "MParser", null);
-    boolean expecting = true; // should be ok
-    assertThat(ok).isEqualTo(expecting);
+    assertThat(ok).isTrue();
   }
 
   @Test

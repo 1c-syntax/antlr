@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ParseTreeMatcherTest extends AbstractBaseTest {
@@ -35,12 +34,12 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
   @Test
   void testChunking() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
-    assertEquals("[ID, ' = ', expr, ' ;']", m.split("<ID> = <expr> ;").toString());
-    assertEquals("[' ', ID, ' = ', expr]", m.split(" <ID> = <expr>").toString());
-    assertEquals("[ID, ' = ', expr]", m.split("<ID> = <expr>").toString());
-    assertEquals("[expr]", m.split("<expr>").toString());
-    assertEquals("['<x> foo']", m.split("\\<x\\> foo").toString());
-    assertEquals("['foo <x> bar ', tag]", m.split("foo \\<x\\> bar <tag>").toString());
+    assertThat(m.split("<ID> = <expr> ;").toString()).isEqualTo("[ID, ' = ', expr, ' ;']");
+    assertThat(m.split(" <ID> = <expr>").toString()).isEqualTo("[' ', ID, ' = ', expr]");
+    assertThat(m.split("<ID> = <expr>").toString()).isEqualTo("[ID, ' = ', expr]");
+    assertThat(m.split("<expr>").toString()).isEqualTo("[expr]");
+    assertThat(m.split("\\<x\\> foo").toString()).isEqualTo("['<x> foo']");
+    assertThat(m.split("foo \\<x\\> bar <tag>").toString()).isEqualTo("['foo <x> bar ', tag]");
   }
 
   @Test
@@ -48,7 +47,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     m.setDelimiters("<<", ">>", "$");
     String result = m.split("<<ID>> = <<expr>> ;$<< ick $>>").toString();
-    assertEquals("[ID, ' = ', expr, ' ;<< ick >>']", result);
+    assertThat(result).isEqualTo("[ID, ' = ', expr, ' ;<< ick >>']");
   }
 
   @Test
@@ -61,7 +60,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "tag delimiters out of order in pattern: >expr<";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
@@ -74,7 +73,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "unterminated tag in pattern: <expr hi mom";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
@@ -87,7 +86,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "missing start tag in pattern: <expr> >";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
@@ -110,7 +109,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     List<? extends Token> tokens = m.tokenize("<ID> = <expr> ;");
     String results = tokens.toString();
     String expected = "[ID:3, [@-1,1:1='=',<1>,1:1], expr:7, [@-1,1:1=';',<2>,1:1]]";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
@@ -133,7 +132,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <expr> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = (expr <expr>) ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
@@ -234,7 +233,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <expr> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = (expr <expr>) ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
@@ -255,7 +254,7 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <ID> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = <ID> ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
@@ -286,16 +285,16 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x ;";
     String pattern = "<id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X8");
-    assertEquals("{ID=[x], id=[x]}", m.getLabels().toString());
+    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x], id=[x]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("x", m.get("id").getText());
-    assertEquals("x", m.get("ID").getText());
-    assertEquals("[x]", m.getAll("id").toString());
-    assertEquals("[x]", m.getAll("ID").toString());
+    assertThat(m.get("id").getText()).isEqualTo("x");
+    assertThat(m.get("ID").getText()).isEqualTo("x");
+    assertThat(m.getAll("id").toString()).isEqualTo("[x]");
+    assertThat(m.getAll("ID").toString()).isEqualTo("[x]");
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
   }
 
   @Test
@@ -311,16 +310,16 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y;";
     String pattern = "<id:ID> <id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X9");
-    assertEquals("{ID=[x, y], id=[x, y]}", m.getLabels().toString());
+    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x, y], id=[x, y]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("y", m.get("id").getText());
-    assertEquals("y", m.get("ID").getText());
-    assertEquals("[x, y]", m.getAll("id").toString());
-    assertEquals("[x, y]", m.getAll("ID").toString());
+    assertThat(m.get("id").getText()).isEqualTo("y");
+    assertThat(m.get("ID").getText()).isEqualTo("y");
+    assertThat(m.getAll("id").toString()).isEqualTo("[x, y]");
+    assertThat(m.getAll("ID").toString()).isEqualTo("[x, y]");
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
   }
 
   @Test
@@ -336,21 +335,21 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y z;";
     String pattern = "<a:ID> <b:ID> <a:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X7");
-    assertEquals("{ID=[x, y, z], a=[x, z], b=[y]}", m.getLabels().toString());
+    assertThat(m.getLabels().toString()).isEqualTo("{ID=[x, y, z], a=[x, z], b=[y]}");
     assertThat(m.get("a")).isNotNull(); // get first
     assertThat(m.get("b")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("z", m.get("a").getText());
-    assertEquals("y", m.get("b").getText());
-    assertEquals("z", m.get("ID").getText()); // get last
-    assertEquals("[x, z]", m.getAll("a").toString());
-    assertEquals("[y]", m.getAll("b").toString());
-    assertEquals("[x, y, z]", m.getAll("ID").toString()); // ordered
+    assertThat(m.get("a").getText()).isEqualTo("z");
+    assertThat(m.get("b").getText()).isEqualTo("y");
+    assertThat(m.get("ID").getText()).isEqualTo("z"); // get last
+    assertThat(m.getAll("a").toString()).isEqualTo("[x, z]");
+    assertThat(m.getAll("b").toString()).isEqualTo("[y]");
+    assertThat(m.getAll("ID").toString()).isEqualTo("[x, y, z]"); // ordered
 
-    assertEquals("xyz;", m.getTree().getText()); // whitespace stripped by lexer
+    assertThat(m.getTree().getText()).isEqualTo("xyz;"); // whitespace stripped by lexer
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined").toString()).isEqualTo("[]");
   }
 
   @Test

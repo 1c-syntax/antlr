@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Disabled("Requires further investigation and fixes")
 class ScopeParsingTest extends AbstractBaseTest {
@@ -59,7 +59,7 @@ class ScopeParsingTest extends AbstractBaseTest {
     "map[string]int x|x:map[string]int",
   })
   @ParameterizedTest
-  public void testArgs(String text) throws Exception {
+  void testArgs(String text) throws Exception {
     var pars = text.split("\\|");
     String output = pars[0];
     String input = pars[1];
@@ -72,6 +72,6 @@ class ScopeParsingTest extends AbstractBaseTest {
       out.add(attr.toString());
     }
     String actual = Utils.join(out.toArray(), ", ");
-    assertEquals(output, actual);
+    assertThat(actual).isEqualTo(output);
   }
 }

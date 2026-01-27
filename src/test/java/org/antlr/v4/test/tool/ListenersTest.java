@@ -11,7 +11,7 @@ package org.antlr.v4.test.tool;
 
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ListenersTest extends AbstractBaseTest {
   @Test
@@ -48,7 +48,7 @@ class ListenersTest extends AbstractBaseTest {
       1
       2
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -85,14 +85,14 @@ class ListenersTest extends AbstractBaseTest {
         (a 1 2)
         1 2 [1, 2]
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "abc", false);
     expecting = """
       (a abc)
       [@0,0:2='abc',<4>,1:0]
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -134,14 +134,14 @@ class ListenersTest extends AbstractBaseTest {
       (a (b 1) (b 2))
       1 2 1
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
 
     result = execParser("T.g4", grammar, "TParser", "TLexer", "s", "abc", false);
     expecting = """
       (a (b abc))
       abc
       """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -187,7 +187,7 @@ class ListenersTest extends AbstractBaseTest {
         2 3 2
         1 2 1
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
@@ -231,6 +231,6 @@ class ListenersTest extends AbstractBaseTest {
         3
         1 [13 6]
         """;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

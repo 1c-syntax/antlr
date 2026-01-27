@@ -31,7 +31,6 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -51,25 +50,25 @@ class RuleVersioningTest extends AbstractBaseTest {
 
     Set<String> templateNames = group.getTemplateNames();
     String templateName0 = "/PropertyEval0-sample-template";
-    assertThat(templateNames.contains(templateName0)).isTrue();
+    assertThat(templateNames).contains(templateName0);
     ST st = group.getInstanceOf(templateName0);
     assertThat(st).isNotNull();
     String result = st.render();
-    assertEquals("foo", result);
+    assertThat(result).isEqualTo("foo");
 
     String templateName1 = "/PropertyEval1-sample-template";
-    assertThat(templateNames.contains(templateName1)).isTrue();
+    assertThat(templateNames).contains(templateName1);
     ST st1 = group.getInstanceOf(templateName1);
     assertThat(st1).isNotNull();
     String result1 = st1.render();
-    assertEquals("foo", result1);
+    assertThat(result1).isEqualTo("foo");
 
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval0", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval1", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval2", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval3", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval4", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval5", "sample"));
+    assertThat(resolveProperty(properties, group, "PropertyEval0", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval1", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval2", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval3", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval4", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval5", "sample")).isEqualTo("foo");
   }
 
   @Test
@@ -97,7 +96,7 @@ class RuleVersioningTest extends AbstractBaseTest {
     testBasicGrammar("MultipleDependencySingleGrammarFailed2", "class TParser$Dependent", false);
     String secondLine = stderrDuringParse.split("\\n", 3)[1];
     String expected = "Element class TParser$Dependent dependent on rule b@0 (found @1) in TParser";
-    assertEquals(expected, secondLine);
+    assertThat(secondLine).isEqualTo(expected);
   }
 
   @Test
@@ -143,7 +142,7 @@ class RuleVersioningTest extends AbstractBaseTest {
     assertNotNullOrEmpty(stderrDuringParse);
     String firstLine = stderrDuringParse.split("\\n", 2)[0];
     String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element public TParser$Dependent() dependent on unknown rule 8@0 in TParser";
-    assertEquals(expected, firstLine);
+    assertThat(firstLine).isEqualTo(expected);
   }
 
   @Override
@@ -159,7 +158,7 @@ class RuleVersioningTest extends AbstractBaseTest {
       assertNotNullOrEmpty(stderrDuringParse);
       String firstLine = stderrDuringParse.split("\\n", 2)[0];
       String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element " + elementName + " dependent on rule a@1 (found @0) in TParser";
-      assertEquals(expected, firstLine);
+      assertThat(firstLine).isEqualTo(expected);
     }
   }
 

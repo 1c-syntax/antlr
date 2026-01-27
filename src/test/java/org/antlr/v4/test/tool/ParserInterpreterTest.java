@@ -18,7 +18,7 @@ import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParserInterpreterTest extends AbstractBaseTest {
 
@@ -51,7 +51,7 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s a)");
-    assertEquals("0..0", t.getSourceInterval().toString());
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0");
   }
 
   @Test
@@ -68,7 +68,7 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s a <EOF>)");
-    assertEquals("0..1", t.getSourceInterval().toString());
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1");
   }
 
   @Test
@@ -86,8 +86,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s (x a <EOF>))");
-    assertEquals("0..1", t.getSourceInterval().toString());
-    assertEquals("0..1", t.getChild(0).getSourceInterval().toString());
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1");
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..1");
   }
 
   @Test
@@ -106,8 +106,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s (x a <EOF>) y)");
-    assertEquals("0..1", t.getSourceInterval().toString()); // s
-    assertEquals("0..1", t.getChild(0).getSourceInterval().toString()); // x
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..1"); // s
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..1"); // x
   }
 
   @Test
@@ -126,8 +126,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s (x <EOF>) y)");
-    assertEquals("0..0", t.getSourceInterval().toString()); // s
-    assertEquals("0..0", t.getChild(0).getSourceInterval().toString()); // x
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..0"); // x
     // this next one is a weird special case where somebody tries to match beyond in the file
   }
 
@@ -147,8 +147,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s x <EOF>)");
-    assertEquals("0..0", t.getSourceInterval().toString()); // s
-    assertEquals("0..-1", t.getChild(0).getSourceInterval().toString()); // x
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..-1"); // x
   }
 
   @Test
@@ -168,8 +168,8 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "", "(s (x <EOF>) (y z))");
-    assertEquals("0..0", t.getSourceInterval().toString()); // s
-    assertEquals("0..0", t.getChild(0).getSourceInterval().toString()); // x
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..0"); // x
   }
 
   @Test
@@ -188,9 +188,9 @@ class ParserInterpreterTest extends AbstractBaseTest {
       lg);
 
     ParseTree t = testInterp(lg, g, "s", "a", "(s x a)");
-    assertEquals("0..0", t.getSourceInterval().toString()); // s
+    assertThat(t.getSourceInterval().toString()).isEqualTo("0..0"); // s
     // This gets an empty interval because the stop token is null for x
-    assertEquals("0..-1", t.getChild(0).getSourceInterval().toString()); // x
+    assertThat(t.getChild(0).getSourceInterval().toString()).isEqualTo("0..-1"); // x
   }
 
   @Test
@@ -411,7 +411,7 @@ class ParserInterpreterTest extends AbstractBaseTest {
     ParserInterpreter parser = g.createParserInterpreter(tokens);
     ParseTree t = parser.parse(g.rules.get(startRule).index);
     System.out.println("parse tree: " + t.toStringTree(parser));
-    assertEquals(expectedParseTree, t.toStringTree(parser));
+    assertThat(t.toStringTree(parser)).isEqualTo(expectedParseTree);
     return t;
   }
 }

@@ -95,16 +95,14 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
 
     String literals = "['x']";
-    String foundLiterals = g.stringLiteralToTypeMap.keySet().toString();
-    assertThat(foundLiterals).isEqualTo(literals);
+    assertThat(g.stringLiteralToTypeMap.keySet()).hasToString(literals);
 
-    foundLiterals = g.implicitLexer.stringLiteralToTypeMap.keySet().toString();
-    assertThat(foundLiterals).isEqualTo("['x']"); // pushed in lexer from parser
+    assertThat(g.implicitLexer.stringLiteralToTypeMap.keySet()).hasToString("['x']"); // pushed in lexer from parser
 
     String[] typeToTokenName = g.getTokenDisplayNames();
     Set<String> tokens = new LinkedHashSet<>();
     for (String t : typeToTokenName) if (t != null) tokens.add(t);
-    assertThat(tokens.toString()).isEqualTo("[<INVALID>, 'x', E]");
+    assertThat(tokens).hasToString("[<INVALID>, 'x', E]");
   }
 
   @Test
@@ -117,12 +115,12 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
         X: 'x' {true}?;
         """); // must match as alias even with pred
 
-    assertThat(g.stringLiteralToTypeMap.toString()).isEqualTo("{'x'=1}");
-    assertThat(g.tokenNameToTypeMap.toString()).isEqualTo("{EOF=-1, X=1}");
+    assertThat(g.stringLiteralToTypeMap).hasToString("{'x'=1}");
+    assertThat(g.tokenNameToTypeMap).hasToString("{EOF=-1, X=1}");
 
     // pushed in lexer from parser
-    assertThat(g.implicitLexer.stringLiteralToTypeMap.toString()).isEqualTo("{'x'=1}");
-    assertThat(g.implicitLexer.tokenNameToTypeMap.toString()).isEqualTo("{EOF=-1, X=1}");
+    assertThat(g.implicitLexer.stringLiteralToTypeMap).hasToString("{'x'=1}");
+    assertThat(g.implicitLexer.tokenNameToTypeMap).hasToString("{EOF=-1, X=1}");
   }
 
   @Test
@@ -208,16 +206,16 @@ class TokenTypeAssignmentTest extends AbstractBaseTest {
     StringTokenizer st = new StringTokenizer(allValidTokensStr, ", ");
     while (st.hasMoreTokens()) {
       String tokenName = st.nextToken();
-      assertThat(g.getTokenType(tokenName) != Token.INVALID_TYPE)
+      assertThat(g.getTokenType(tokenName))
         .as("token " + tokenName + " expected, but was undefined")
-        .isTrue();
+        .isNotEqualTo(Token.INVALID_TYPE);
       tokens.remove(tokenName);
     }
     // make sure there are not any others (other than <EOF> etc...)
     for (String tokenName : tokens) {
-      assertThat(g.getTokenType(tokenName) < Token.MIN_USER_TOKEN_TYPE)
+      assertThat(g.getTokenType(tokenName))
         .as("unexpected token name " + tokenName)
-        .isTrue();
+        .isLessThan(Token.MIN_USER_TOKEN_TYPE);
     }
 
     // make sure all expected rules are there

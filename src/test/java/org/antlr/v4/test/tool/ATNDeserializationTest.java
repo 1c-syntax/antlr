@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ATNDeserializationTest extends AbstractBaseTest {
   @Test
@@ -207,6 +207,6 @@ class ATNDeserializationTest extends AbstractBaseTest {
     ATN atn2 = new ATNDeserializer(options).deserialize(data);
     String atn2Data = ATNSerializer.getDecoded(atn2, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
 
-    assertEquals(atnData, atn2Data);
+    assertThat(atn2Data).isEqualTo(atnData);
   }
 }
