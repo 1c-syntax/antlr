@@ -58,7 +58,7 @@ class CodeGenerationTest extends AbstractBaseTest {
         root: 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getToken(");
-    assertThat(evals.size()).isNotZero();
+    assertThat(evals).isNotEmpty();
   }
 
   @Test
@@ -69,7 +69,7 @@ class CodeGenerationTest extends AbstractBaseTest {
         root: 't1' 't1';
         Token: 't1';""";
     List<String> evals = getEvalInfoForString(g, "() { return getTokens(");
-    assertThat(evals.size()).isNotZero();
+    assertThat(evals).isNotEmpty();
   }
 
   /**
@@ -115,7 +115,7 @@ class CodeGenerationTest extends AbstractBaseTest {
     }
   }
 
-  public List<String> getEvalInfoForString(String grammarString, String pattern) throws RecognitionException {
+  private List<String> getEvalInfoForString(String grammarString, String pattern) throws RecognitionException {
     ErrorQueue equeue = new ErrorQueue();
     Grammar g = new Grammar(grammarString);
     List<String> evals = new ArrayList<>();

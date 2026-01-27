@@ -445,13 +445,13 @@ class ParseTreeMatcherTest extends AbstractBaseTest {
     checkPatternMatch(grammar, "expr", input, pattern, "X6");
   }
 
-  public ParseTreeMatch checkPatternMatch(String grammar, String startRule,
+  ParseTreeMatch checkPatternMatch(String grammar, String startRule,
                                           String input, String pattern,
                                           String grammarName) throws Exception {
     return checkPatternMatch(grammar, startRule, input, pattern, grammarName, false);
   }
 
-  public ParseTreeMatch checkPatternMatch(String grammar, String startRule,
+  ParseTreeMatch checkPatternMatch(String grammar, String startRule,
                                           String input, String pattern,
                                           String grammarName, boolean invertMatch) throws Exception {
     String grammarFileName = grammarName + ".g4";

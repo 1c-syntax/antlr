@@ -186,7 +186,7 @@ class AmbigParseTreesTest {
       expectedOverallTree, expectedParseTrees);
   }
 
-  public void testAmbiguousTrees(LexerGrammar lg, Grammar g,
+  private void testAmbiguousTrees(LexerGrammar lg, Grammar g,
                                  String startRule, String input, int decision,
                                  String expectedAmbigAlts,
                                  String overallTree,

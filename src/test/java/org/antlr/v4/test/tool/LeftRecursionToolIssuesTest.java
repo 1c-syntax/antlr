@@ -773,7 +773,7 @@ class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     runTests(grammar, tests, "s");
   }
 
-  public void runTests(String grammar, String[] tests, String startRule) {
+  void runTests(String grammar, String[] tests, String startRule) {
     boolean success = rawGenerateAndBuildRecognizer("T.g4", grammar, "TParser", "TLexer");
     assertThat(success).isTrue();
     writeRecognizerAndCompile("TParser",

@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ActionSplitterTest extends AbstractBaseTest {
+class ActionSplitterTest extends AbstractBaseTest {
   static String[] exprs = {
     "foo", "['foo'<" + ActionSplitter.TEXT + ">]",
     "$x", "['$x'<" + ActionSplitter.ATTR + ">]",

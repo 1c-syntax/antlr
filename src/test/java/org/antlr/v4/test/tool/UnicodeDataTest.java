@@ -142,7 +142,7 @@ class UnicodeDataTest {
       .isFalse();
 
     assertThat(UnicodeData.getPropertyCodePoints("Grapheme_Cluster_Break=E_Base").contains(0x1F481))
-      .as("U+0E33 THAI CHARACTER SARA AM is a spacing mark")
+      .as("U+1F481 INFORMATION DESK PERSON is an emoji modifier base")
       .isTrue();
 
     assertThat(UnicodeData.getPropertyCodePoints("Grapheme_Cluster_Break=E_Base").contains(0x1038))

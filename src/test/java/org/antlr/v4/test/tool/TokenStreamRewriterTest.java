@@ -18,6 +18,7 @@ import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TokenStreamRewriterTest extends AbstractBaseTest {
 
@@ -322,16 +323,12 @@ class TokenStreamRewriterTest extends AbstractBaseTest {
     TokenStreamRewriter tokens = new TokenStreamRewriter(stream);
     tokens.replace(0, 2, "x");
     tokens.insertBefore(1, "0");
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "insert op <InsertBeforeOp@[@1,1:1='b',<2>,1:1]:\"0\"> within boundaries of previous " +
       "<ReplaceOp@[@0,0:0='a',<1>,1:0]..[@2,2:2='c',<3>,1:2]:\"x\">";
-    assertThat(exc).isNotNull();
-    assertThat(exc.getMessage()).isEqualTo(expecting);
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
@@ -501,16 +498,12 @@ class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(2, 4, "x");
     tokens.insertBefore(4, "y");
     stream.fill(); // no effect; within range of a replace
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "insert op <InsertBeforeOp@[@4,4:4='c',<3>,1:4]:\"y\"> within boundaries of previous " +
       "<ReplaceOp@[@2,2:2='c',<3>,1:2]..[@4,4:4='c',<3>,1:4]:\"x\">";
-    assertThat(exc).isNotNull();
-    assertThat(exc.getMessage()).isEqualTo(expecting);
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
@@ -592,16 +585,12 @@ class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(3, 5, "foo");
     stream.fill();
 // overlaps, error
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "replace op boundaries of <ReplaceOp@[@3,3:3='c',<3>,1:3]..[@5,5:5='b',<2>,1:5]:\"foo\"> " +
       "overlap with previous <ReplaceOp@[@2,2:2='c',<3>,1:2]..[@4,4:4='c',<3>,1:4]:\"xyz\">";
-    assertThat(exc).isNotNull();
-    assertThat(exc.getMessage()).isEqualTo(expecting);
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test
@@ -809,16 +798,12 @@ class TokenStreamRewriterTest extends AbstractBaseTest {
     tokens.replace(1, 2, "foo");
     stream.fill();
 // cannot split earlier replace
-    Exception exc = null;
-    try {
-      tokens.getText();
-    } catch (IllegalArgumentException iae) {
-      exc = iae;
-    }
     String expecting = "replace op boundaries of <ReplaceOp@[@1,1:1='b',<2>,1:1]..[@2,2:2='c',<3>,1:2]:\"foo\"> " +
       "overlap with previous <ReplaceOp@[@0,0:0='a',<1>,1:0]..[@3,3:3='c',<3>,1:3]:\"bar\">";
-    assertThat(exc).isNotNull();
-    assertThat(exc.getMessage()).isEqualTo(expecting);
+
+    assertThatThrownBy(() -> tokens.getText())
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expecting);
   }
 
   @Test

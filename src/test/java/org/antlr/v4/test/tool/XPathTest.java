@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class XPathTest extends AbstractBaseTest {
   public static final String grammar = """
@@ -175,14 +176,9 @@ public class XPathTest extends AbstractBaseTest {
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);
 
-    IllegalArgumentException e = null;
-    try {
-      XPath.findAll(tree, path, parser);
-    } catch (IllegalArgumentException iae) {
-      e = iae;
-    }
-    assertThat(e).isNotNull();
-    assertThat(e.getMessage()).isEqualTo(expected);
+    assertThatThrownBy(() -> XPath.findAll(tree, path, parser))
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expected);
   }
 
   public List<String> getNodeStrings(String input,

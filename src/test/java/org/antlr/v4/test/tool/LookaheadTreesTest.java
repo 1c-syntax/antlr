@@ -25,8 +25,8 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LookaheadTreesTest {
-  public static final String lexerText =
+class LookaheadTreesTest {
+  static final String lexerText =
     """
       lexer grammar L;
       DOT  : '.' ;
