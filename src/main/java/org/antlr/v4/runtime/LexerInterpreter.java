@@ -47,7 +47,7 @@ public class LexerInterpreter extends Lexer {
     this.channelNames = channelNames != null ? channelNames.toArray(new String[0]) : null;
     this.modeNames = modeNames.toArray(new String[0]);
     this.vocabulary = vocabulary;
-    this._interp = new LexerATNSimulator(this, atn);
+    this.setInterpreter(new LexerATNSimulator(this, atn));
   }
 
   @Override

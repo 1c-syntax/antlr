@@ -10,6 +10,7 @@
 package org.antlr.v4.tool;
 
 import org.antlr.v4.tool.ast.ActionAST;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Grammars, rules, and alternatives all have symbols visible to
@@ -50,7 +51,7 @@ public interface AttributeResolver {
 
   boolean resolvesToToken(String x, ActionAST node);
 
-  Attribute resolveToAttribute(String x, ActionAST node);
+  @Nullable Attribute resolveToAttribute(String x, ActionAST node);
 
-  Attribute resolveToAttribute(String x, String y, ActionAST node);
+  @Nullable Attribute resolveToAttribute(String x, String y, ActionAST node);
 }

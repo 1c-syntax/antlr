@@ -68,8 +68,7 @@ public class XPathLexer extends Lexer {
 
   public XPathLexer(CharStream input) {
     super(input);
-    _interp = new LexerATNSimulator(this, _ATN);
-    validateInputStream(_ATN, input);
+    setInterpreter(new LexerATNSimulator(this, _ATN));
   }
 
   @Override
@@ -128,14 +127,14 @@ public class XPathLexer extends Lexer {
 
   private boolean NameChar_sempred(RuleContext _localctx, int predIndex) {
     if (predIndex == 0) {
-      return Character.isUnicodeIdentifierPart(_input.LA(-1));
+      return Character.isUnicodeIdentifierPart(getInputStream().LA(-1));
     }
     return true;
   }
 
   private boolean NameStartChar_sempred(RuleContext _localctx, int predIndex) {
     if (predIndex == 1) {
-      return Character.isUnicodeIdentifierStart(_input.LA(-1));
+      return Character.isUnicodeIdentifierStart(getInputStream().LA(-1));
     }
     return true;
   }

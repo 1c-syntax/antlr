@@ -114,7 +114,7 @@ class SemPredEvalLexerTest extends AbstractBaseTest {
       """
         lexer grammar L;
         ID : [a-z]+ ;
-        INDENT : [ \\t]+ {_tokenStartCharPositionInLine==0}?\s
+        INDENT : [ \\t]+ {getTokenStartCharPositionInLine()==0}?\s
                  {System.out.println("INDENT");}  ;\
         NL     : '\\n' ;\
         WS     : [ \\t]+ ;""";

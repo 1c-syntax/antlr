@@ -30,7 +30,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         s\
-        @init {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
         @after {dumpDFA();}
             : ID | ID {;} ;
         ID : 'a'..'z'+ ;
@@ -282,7 +282,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         s\
-        @init {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
         @after {dumpDFA();}
             : '{' stat* '}'\
             ;
@@ -405,7 +405,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         s\
-        @init {getInterpreter().enable_global_context_dfa = true; _interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().enable_global_context_dfa = true; getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
         @after {dumpDFA();}
             : '{' stat* '}'\
             ;
@@ -560,7 +560,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         prog
-        @init {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
             : expr_or_assign*;
         expr_or_assign
             :   expr '++' {System.out.println("fail.");}
@@ -593,7 +593,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         prog
-        @init {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
             : expr expr {System.out.println("alt 1");}
             | expr
             ;
@@ -625,7 +625,7 @@ class FullContextParsingTest extends AbstractBaseTest {
       """
         grammar T;
         s
-        @init {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
+        @init {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}
             :   expr[0] {System.out.println($expr.ctx.toStringTree(this));} ;
         
         expr[int _p]

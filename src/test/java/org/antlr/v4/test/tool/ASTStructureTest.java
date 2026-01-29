@@ -51,7 +51,7 @@ class ASTStructureTest {
     if (adaptorClassName != null) {
       Method m = parserClass.getMethod("setTreeAdaptor", TreeAdaptor.class);
       Class<? extends TreeAdaptor> adaptorClass = Class.forName(adaptorClassName).asSubclass(TreeAdaptor.class);
-      m.invoke(parser, adaptorClass.newInstance());
+      m.invoke(parser, adaptorClass.getDeclaredConstructor().newInstance());
     }
 
     Method ruleMethod = parserClass.getMethod(ruleName);

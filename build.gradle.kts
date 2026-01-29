@@ -9,6 +9,7 @@ plugins {
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.21.0"
     id("org.sonarqube") version "7.2.2.6593"
+    id("io.freefair.lombok") version "9.2.0"
 }
 
 repositories {
@@ -58,6 +59,7 @@ dependencies {
     testImplementation("org.assertj", "assertj-core", "3.27.0")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
+    testCompileOnly("org.jspecify", "jspecify", "1.0.0")
 }
 
 java {
@@ -78,6 +80,12 @@ tasks.withType<Javadoc> {
     isFailOnError = false
     //todo разбор и корректировка javadoc не самая приоритетная задача, в будущем исправлю
     (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
+}
+
+tasks.javadoc {
+    exclude("dot/org/antlr/v4/**")
+    exclude("**/**/*.g")
+    exclude("**/**/*.g4")
 }
 
 tasks.test {

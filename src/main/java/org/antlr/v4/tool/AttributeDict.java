@@ -10,9 +10,9 @@
 package org.antlr.v4.tool;
 
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.tool.ast.GrammarAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -27,13 +27,14 @@ import java.util.Set;
  * Implicitly-defined scopes are named after the rule; rules and scopes then
  * must live in the same name space--no collisions allowed.
  */
+@NullMarked
 public class AttributeDict {
   public String name;
   public GrammarAST ast;
   public DictType type;
 
   /**
-   * All {@link Token} scopes (token labels) share the same fixed scope of
+   * All {@link Token} scopes (token labels) share the same fixed scope
    * of predefined attributes.  I keep this out of the {@link Token}
    * interface to avoid a runtime type leakage.
    */
@@ -57,7 +58,6 @@ public class AttributeDict {
   /**
    * The list of {@link Attribute} objects.
    */
-  @NotNull
   public final LinkedHashMap<String, Attribute> attributes = new LinkedHashMap<>();
 
   public AttributeDict() {
@@ -88,7 +88,6 @@ public class AttributeDict {
    * Return the set of keys that collide from
    * {@code this} and {@code other}.
    */
-  @NotNull
   public Set<String> intersection(@Nullable AttributeDict other) {
     if (other == null || other.size() == 0 || size() == 0) {
       return Collections.emptySet();

@@ -10,21 +10,24 @@
 package org.antlr.v4.tool;
 
 import org.antlr.runtime.Token;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Track the names of attributes defined in arg lists, return values,
  * scope blocks etc...
  */
+@NullMarked
 public class Attribute {
   /**
    * The entire declaration such as "String foo" or "x:int"
    */
-  public String decl;
+  public @Nullable String decl;
 
   /**
    * The type; might be empty such as for Python which has no static typing
    */
-  public String type;
+  public @Nullable String type;
 
   /**
    * The name of the attribute "foo"
@@ -39,7 +42,7 @@ public class Attribute {
   /**
    * The optional attribute initialization expression
    */
-  public String initValue;
+  public @Nullable String initValue;
 
   /**
    * Who contains us?
@@ -53,7 +56,7 @@ public class Attribute {
     this(name, null);
   }
 
-  public Attribute(String name, String decl) {
+  public Attribute(String name, @Nullable String decl) {
     this.name = name;
     this.decl = decl;
   }

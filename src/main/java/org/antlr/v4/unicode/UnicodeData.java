@@ -28,6 +28,10 @@ public enum UnicodeData {
   private static final Map<String, IntervalSet> propertyCodePointRanges = new HashMap<>(1020);
   private static final Map<String, String> propertyAliases = new HashMap<>(2237);
 
+  private static String toLowerCase(String str) {
+    return str.toLowerCase(Locale.US);
+  }
+
   // Work around Java 64k bytecode method limit by splitting up static
   // initialization into one method per Unicode property
 
@@ -39,7 +43,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Cc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Cc"), codePointRanges);
   }
 
   // Unicode code points with property "C"
@@ -690,7 +694,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("C"), codePointRanges);
   }
 
   // Unicode code points with property "Zs"
@@ -706,7 +710,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Zs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Zs"), codePointRanges);
   }
 
   // Unicode code points with property "Z"
@@ -723,7 +727,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Z".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Z"), codePointRanges);
   }
 
   // Unicode code points with property "Po"
@@ -897,7 +901,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Po".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Po"), codePointRanges);
   }
 
   // Unicode code points with property "P"
@@ -1074,7 +1078,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("P".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("P"), codePointRanges);
   }
 
   // Unicode code points with property "Sc"
@@ -1100,7 +1104,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Sc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Sc"), codePointRanges);
   }
 
   // Unicode code points with property "S"
@@ -1327,7 +1331,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("S".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("S"), codePointRanges);
   }
 
   // Unicode code points with property "Ps"
@@ -1411,7 +1415,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Ps".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Ps"), codePointRanges);
   }
 
   // Unicode code points with property "Pe"
@@ -1492,7 +1496,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pe"), codePointRanges);
   }
 
   // Unicode code points with property "Sm"
@@ -1565,7 +1569,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Sm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Sm"), codePointRanges);
   }
 
   // Unicode code points with property "Pd"
@@ -1591,7 +1595,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pd"), codePointRanges);
   }
 
   // Unicode code points with property "Nd"
@@ -1654,7 +1658,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Nd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Nd"), codePointRanges);
   }
 
   // Unicode code points with property "N"
@@ -1778,7 +1782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("N"), codePointRanges);
   }
 
   // Unicode code points with property "Lu"
@@ -2414,7 +2418,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Lu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Lu"), codePointRanges);
   }
 
   // Unicode code points with property "L"
@@ -2994,7 +2998,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("L"), codePointRanges);
   }
 
   // Unicode code points with property "Sk"
@@ -3032,7 +3036,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Sk".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Sk"), codePointRanges);
   }
 
   // Unicode code points with property "Pc"
@@ -3047,7 +3051,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pc"), codePointRanges);
   }
 
   // Unicode code points with property "Ll"
@@ -3689,7 +3693,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Ll".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Ll"), codePointRanges);
   }
 
   // Unicode code points with property "So"
@@ -3872,7 +3876,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("So".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("So"), codePointRanges);
   }
 
   // Unicode code points with property "Lo"
@@ -4326,7 +4330,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Lo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Lo"), codePointRanges);
   }
 
   // Unicode code points with property "Pi"
@@ -4346,7 +4350,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pi"), codePointRanges);
   }
 
   // Unicode code points with property "Cf"
@@ -4373,7 +4377,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Cf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Cf"), codePointRanges);
   }
 
   // Unicode code points with property "No"
@@ -4442,7 +4446,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("No".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("No"), codePointRanges);
   }
 
   // Unicode code points with property "Pf"
@@ -4461,7 +4465,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pf"), codePointRanges);
   }
 
   // Unicode code points with property "Lt"
@@ -4480,7 +4484,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Lt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Lt"), codePointRanges);
   }
 
   // Unicode code points with property "Lm"
@@ -4546,7 +4550,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Lm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Lm"), codePointRanges);
   }
 
   // Unicode code points with property "Mn"
@@ -4840,7 +4844,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Mn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Mn"), codePointRanges);
   }
 
   // Unicode code points with property "M"
@@ -5099,7 +5103,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("M".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("M"), codePointRanges);
   }
 
   // Unicode code points with property "Cn"
@@ -5746,7 +5750,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Cn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Cn"), codePointRanges);
   }
 
   // Unicode code points with property "Me"
@@ -5760,7 +5764,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Me".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Me"), codePointRanges);
   }
 
   // Unicode code points with property "Mc"
@@ -5924,7 +5928,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Mc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Mc"), codePointRanges);
   }
 
   // Unicode code points with property "Nl"
@@ -5945,7 +5949,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Nl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Nl"), codePointRanges);
   }
 
   // Unicode code points with property "Zl"
@@ -5955,7 +5959,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Zl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Zl"), codePointRanges);
   }
 
   // Unicode code points with property "Zp"
@@ -5965,7 +5969,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Zp".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Zp"), codePointRanges);
   }
 
   // Unicode code points with property "Cs"
@@ -5975,7 +5979,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Cs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Cs"), codePointRanges);
   }
 
   // Unicode code points with property "Co"
@@ -5987,7 +5991,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Co".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Co"), codePointRanges);
   }
 
   // Unicode code points with property "Alpha"
@@ -6640,7 +6644,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Alpha".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Alpha"), codePointRanges);
   }
 
   // Unicode code points with property "AHex"
@@ -6652,7 +6656,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("AHex".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("AHex"), codePointRanges);
   }
 
   // Unicode code points with property "Bidi_C"
@@ -6665,7 +6669,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Bidi_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Bidi_C"), codePointRanges);
   }
 
   // Unicode code points with property "Bidi_M"
@@ -6785,7 +6789,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Bidi_M".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Bidi_M"), codePointRanges);
   }
 
   // Unicode code points with property "Dash"
@@ -6815,7 +6819,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Dash".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Dash"), codePointRanges);
   }
 
   // Unicode code points with property "DI"
@@ -6841,7 +6845,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("DI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("DI"), codePointRanges);
   }
 
   // Unicode code points with property "Dep"
@@ -6858,7 +6862,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Dep".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Dep"), codePointRanges);
   }
 
   // Unicode code points with property "Dia"
@@ -7019,7 +7023,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Dia".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Dia"), codePointRanges);
   }
 
   // Unicode code points with property "Ext"
@@ -7056,7 +7060,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Ext"), codePointRanges);
   }
 
   // Unicode code points with property "Comp_Ex"
@@ -7138,7 +7142,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Comp_Ex".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Comp_Ex"), codePointRanges);
   }
 
   // Unicode code points with property "Gr_Base"
@@ -7919,7 +7923,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Gr_Base".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Gr_Base"), codePointRanges);
   }
 
   // Unicode code points with property "Gr_Ext"
@@ -8231,7 +8235,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Gr_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Gr_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "Gr_Link"
@@ -8283,7 +8287,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Gr_Link".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Gr_Link"), codePointRanges);
   }
 
   // Unicode code points with property "Hex"
@@ -8298,7 +8302,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Hex".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Hex"), codePointRanges);
   }
 
   // Unicode code points with property "Hyphen"
@@ -8317,7 +8321,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Hyphen".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Hyphen"), codePointRanges);
   }
 
   // Unicode code points with property "IDC"
@@ -9002,7 +9006,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("IDC".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("IDC"), codePointRanges);
   }
 
   // Unicode code points with property "IDS"
@@ -9582,7 +9586,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("IDS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("IDS"), codePointRanges);
   }
 
   // Unicode code points with property "Ideo"
@@ -9605,7 +9609,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Ideo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Ideo"), codePointRanges);
   }
 
   // Unicode code points with property "IDSB"
@@ -9616,7 +9620,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("IDSB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("IDSB"), codePointRanges);
   }
 
   // Unicode code points with property "IDST"
@@ -9626,7 +9630,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("IDST".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("IDST"), codePointRanges);
   }
 
   // Unicode code points with property "Join_C"
@@ -9636,7 +9640,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Join_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Join_C"), codePointRanges);
   }
 
   // Unicode code points with property "LOE"
@@ -9652,7 +9656,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("LOE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("LOE"), codePointRanges);
   }
 
   // Unicode code points with property "Lower"
@@ -10301,7 +10305,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Lower".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Lower"), codePointRanges);
   }
 
   // Unicode code points with property "Math"
@@ -10448,7 +10452,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Math".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Math"), codePointRanges);
   }
 
   // Unicode code points with property "NChar"
@@ -10475,7 +10479,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NChar".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NChar"), codePointRanges);
   }
 
   // Unicode code points with property "QMark"
@@ -10497,7 +10501,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("QMark".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("QMark"), codePointRanges);
   }
 
   // Unicode code points with property "Radical"
@@ -10509,7 +10513,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Radical".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Radical"), codePointRanges);
   }
 
   // Unicode code points with property "SD"
@@ -10549,7 +10553,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SD".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SD"), codePointRanges);
   }
 
   // Unicode code points with property "Term"
@@ -10652,7 +10656,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Term".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Term"), codePointRanges);
   }
 
   // Unicode code points with property "UIdeo"
@@ -10674,7 +10678,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("UIdeo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("UIdeo"), codePointRanges);
   }
 
   // Unicode code points with property "Upper"
@@ -11315,7 +11319,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Upper".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Upper"), codePointRanges);
   }
 
   // Unicode code points with property "WSpace"
@@ -11334,7 +11338,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WSpace".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WSpace"), codePointRanges);
   }
 
   // Unicode code points with property "XIDC"
@@ -12026,7 +12030,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("XIDC".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("XIDC"), codePointRanges);
   }
 
   // Unicode code points with property "XIDS"
@@ -12613,7 +12617,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("XIDS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("XIDS"), codePointRanges);
   }
 
   // Unicode code points with property "Sensitive"
@@ -12747,7 +12751,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Sensitive".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Sensitive"), codePointRanges);
   }
 
   // Unicode code points with property "STerm"
@@ -12822,7 +12826,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("STerm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("STerm"), codePointRanges);
   }
 
   // Unicode code points with property "VS"
@@ -12834,7 +12838,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("VS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("VS"), codePointRanges);
   }
 
   // Unicode code points with property "nfdinert"
@@ -13220,7 +13224,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nfdinert".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nfdinert"), codePointRanges);
   }
 
   // Unicode code points with property "nfkdinert"
@@ -13760,7 +13764,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nfkdinert".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nfkdinert"), codePointRanges);
   }
 
   // Unicode code points with property "nfcinert"
@@ -14638,7 +14642,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nfcinert".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nfcinert"), codePointRanges);
   }
 
   // Unicode code points with property "nfkcinert"
@@ -15676,7 +15680,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nfkcinert".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nfkcinert"), codePointRanges);
   }
 
   // Unicode code points with property "segstart"
@@ -15872,7 +15876,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("segstart".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("segstart"), codePointRanges);
   }
 
   // Unicode code points with property "Pat_Syn"
@@ -15909,7 +15913,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pat_Syn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pat_Syn"), codePointRanges);
   }
 
   // Unicode code points with property "Pat_WS"
@@ -15923,7 +15927,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Pat_WS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Pat_WS"), codePointRanges);
   }
 
   // Unicode code points with property "alnum"
@@ -16610,7 +16614,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("alnum".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("alnum"), codePointRanges);
   }
 
   // Unicode code points with property "blank"
@@ -16627,7 +16631,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blank".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blank"), codePointRanges);
   }
 
   // Unicode code points with property "graph"
@@ -17279,7 +17283,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("graph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("graph"), codePointRanges);
   }
 
   // Unicode code points with property "print"
@@ -17928,7 +17932,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("print".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("print"), codePointRanges);
   }
 
   // Unicode code points with property "xdigit"
@@ -17995,7 +17999,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("xdigit".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("xdigit"), codePointRanges);
   }
 
   // Unicode code points with property "Cased"
@@ -18139,7 +18143,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Cased".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Cased"), codePointRanges);
   }
 
   // Unicode code points with property "CI"
@@ -18513,7 +18517,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CI"), codePointRanges);
   }
 
   // Unicode code points with property "CWL"
@@ -19112,7 +19116,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWL"), codePointRanges);
   }
 
   // Unicode code points with property "CWU"
@@ -19728,7 +19732,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWU".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWU"), codePointRanges);
   }
 
   // Unicode code points with property "CWT"
@@ -20345,7 +20349,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWT".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWT"), codePointRanges);
   }
 
   // Unicode code points with property "CWCF"
@@ -20957,7 +20961,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWCF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWCF"), codePointRanges);
   }
 
   // Unicode code points with property "CWCM"
@@ -21082,7 +21086,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWCM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWCM"), codePointRanges);
   }
 
   // Unicode code points with property "CWKCF"
@@ -21906,7 +21910,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("CWKCF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("CWKCF"), codePointRanges);
   }
 
   // Unicode code points with property "Emoji"
@@ -22062,7 +22066,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Emoji".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Emoji"), codePointRanges);
   }
 
   // Unicode code points with property "Emoji_Presentation"
@@ -22148,7 +22152,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Emoji_Presentation".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Emoji_Presentation"), codePointRanges);
   }
 
   // Unicode code points with property "Emoji_Modifier"
@@ -22158,7 +22162,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Emoji_Modifier".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Emoji_Modifier"), codePointRanges);
   }
 
   // Unicode code points with property "Emoji_Modifier_Base"
@@ -22196,7 +22200,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Emoji_Modifier_Base".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Emoji_Modifier_Base"), codePointRanges);
   }
 
   // Unicode code points with property "bc=L"
@@ -22619,7 +22623,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=L"), codePointRanges);
   }
 
   // Unicode code points with property "bc=R"
@@ -22660,7 +22664,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=R".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=R"), codePointRanges);
   }
 
   // Unicode code points with property "bc=EN"
@@ -22681,7 +22685,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=EN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=EN"), codePointRanges);
   }
 
   // Unicode code points with property "bc=ES"
@@ -22699,7 +22703,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=ES".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=ES"), codePointRanges);
   }
 
   // Unicode code points with property "bc=ET"
@@ -22730,7 +22734,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=ET".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=ET"), codePointRanges);
   }
 
   // Unicode code points with property "bc=AN"
@@ -22745,7 +22749,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=AN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=AN"), codePointRanges);
   }
 
   // Unicode code points with property "bc=CS"
@@ -22767,7 +22771,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=CS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=CS"), codePointRanges);
   }
 
   // Unicode code points with property "bc=B"
@@ -22781,7 +22785,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=B"), codePointRanges);
   }
 
   // Unicode code points with property "bc=S"
@@ -22793,7 +22797,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=S".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=S"), codePointRanges);
   }
 
   // Unicode code points with property "bc=WS"
@@ -22809,7 +22813,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=WS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=WS"), codePointRanges);
   }
 
   // Unicode code points with property "bc=ON"
@@ -22996,7 +23000,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=ON".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=ON"), codePointRanges);
   }
 
   // Unicode code points with property "bc=LRE"
@@ -23006,7 +23010,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=LRE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=LRE"), codePointRanges);
   }
 
   // Unicode code points with property "bc=LRO"
@@ -23016,7 +23020,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=LRO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=LRO"), codePointRanges);
   }
 
   // Unicode code points with property "bc=AL"
@@ -23045,7 +23049,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=AL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=AL"), codePointRanges);
   }
 
   // Unicode code points with property "bc=RLE"
@@ -23055,7 +23059,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=RLE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=RLE"), codePointRanges);
   }
 
   // Unicode code points with property "bc=RLO"
@@ -23065,7 +23069,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=RLO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=RLO"), codePointRanges);
   }
 
   // Unicode code points with property "bc=PDF"
@@ -23075,7 +23079,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=PDF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=PDF"), codePointRanges);
   }
 
   // Unicode code points with property "bc=NSM"
@@ -23364,7 +23368,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=NSM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=NSM"), codePointRanges);
   }
 
   // Unicode code points with property "bc=BN"
@@ -23405,7 +23409,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=BN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=BN"), codePointRanges);
   }
 
   // Unicode code points with property "bc=FSI"
@@ -23415,7 +23419,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=FSI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=FSI"), codePointRanges);
   }
 
   // Unicode code points with property "bc=LRI"
@@ -23425,7 +23429,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=LRI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=LRI"), codePointRanges);
   }
 
   // Unicode code points with property "bc=RLI"
@@ -23435,7 +23439,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=RLI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=RLI"), codePointRanges);
   }
 
   // Unicode code points with property "bc=PDI"
@@ -23445,7 +23449,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bc=PDI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bc=PDI"), codePointRanges);
   }
 
   // Unicode code points with property "blk=NB"
@@ -23498,7 +23502,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=NB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=NB"), codePointRanges);
   }
 
   // Unicode code points with property "blk=ASCII"
@@ -23508,7 +23512,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=ASCII".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=ASCII"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_1_Sup"
@@ -23518,7 +23522,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_1_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_1_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_A"
@@ -23528,7 +23532,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_B"
@@ -23538,7 +23542,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=IPA_Ext"
@@ -23548,7 +23552,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=IPA_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=IPA_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Modifier_Letters"
@@ -23558,7 +23562,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Modifier_Letters".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Modifier_Letters"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Diacriticals"
@@ -23568,7 +23572,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Diacriticals".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Diacriticals"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Greek"
@@ -23578,7 +23582,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Greek".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Greek"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cyrillic"
@@ -23588,7 +23592,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cyrillic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cyrillic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Armenian"
@@ -23598,7 +23602,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Armenian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Armenian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Hebrew"
@@ -23608,7 +23612,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Hebrew".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Hebrew"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic"
@@ -23618,7 +23622,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Syriac"
@@ -23628,7 +23632,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Syriac".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Syriac"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Thaana"
@@ -23638,7 +23642,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Thaana".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Thaana"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Devanagari"
@@ -23648,7 +23652,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Devanagari".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Devanagari"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bengali"
@@ -23658,7 +23662,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bengali".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bengali"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Gurmukhi"
@@ -23668,7 +23672,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Gurmukhi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Gurmukhi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Gujarati"
@@ -23678,7 +23682,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Gujarati".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Gujarati"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Oriya"
@@ -23688,7 +23692,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Oriya".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Oriya"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tamil"
@@ -23698,7 +23702,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tamil".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tamil"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Telugu"
@@ -23708,7 +23712,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Telugu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Telugu"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kannada"
@@ -23718,7 +23722,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kannada".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kannada"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Malayalam"
@@ -23728,7 +23732,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Malayalam".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Malayalam"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sinhala"
@@ -23738,7 +23742,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sinhala".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sinhala"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Thai"
@@ -23748,7 +23752,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Thai".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Thai"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Lao"
@@ -23758,7 +23762,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Lao".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Lao"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tibetan"
@@ -23768,7 +23772,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tibetan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tibetan"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Myanmar"
@@ -23778,7 +23782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Myanmar".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Myanmar"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Georgian"
@@ -23788,7 +23792,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Georgian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Georgian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Jamo"
@@ -23798,7 +23802,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Jamo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Jamo"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ethiopic"
@@ -23808,7 +23812,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ethiopic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ethiopic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cherokee"
@@ -23818,7 +23822,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cherokee".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cherokee"), codePointRanges);
   }
 
   // Unicode code points with property "blk=UCAS"
@@ -23828,7 +23832,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=UCAS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=UCAS"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ogham"
@@ -23838,7 +23842,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ogham".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ogham"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Runic"
@@ -23848,7 +23852,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Runic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Runic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Khmer"
@@ -23858,7 +23862,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Khmer".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Khmer"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mongolian"
@@ -23868,7 +23872,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mongolian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mongolian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_Additional"
@@ -23878,7 +23882,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_Additional".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_Additional"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Greek_Ext"
@@ -23888,7 +23892,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Greek_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Greek_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Punctuation"
@@ -23898,7 +23902,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Punctuation".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Punctuation"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Super_And_Sub"
@@ -23908,7 +23912,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Super_And_Sub".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Super_And_Sub"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Currency_Symbols"
@@ -23918,7 +23922,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Currency_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Currency_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Diacriticals_For_Symbols"
@@ -23928,7 +23932,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Diacriticals_For_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Diacriticals_For_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Letterlike_Symbols"
@@ -23938,7 +23942,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Letterlike_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Letterlike_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Number_Forms"
@@ -23948,7 +23952,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Number_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Number_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arrows"
@@ -23958,7 +23962,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arrows".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arrows"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Math_Operators"
@@ -23968,7 +23972,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Math_Operators".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Math_Operators"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Technical"
@@ -23978,7 +23982,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Technical".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Technical"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Control_Pictures"
@@ -23988,7 +23992,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Control_Pictures".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Control_Pictures"), codePointRanges);
   }
 
   // Unicode code points with property "blk=OCR"
@@ -23998,7 +24002,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=OCR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=OCR"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Enclosed_Alphanum"
@@ -24008,7 +24012,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Enclosed_Alphanum".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Enclosed_Alphanum"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Box_Drawing"
@@ -24018,7 +24022,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Box_Drawing".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Box_Drawing"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Block_Elements"
@@ -24028,7 +24032,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Block_Elements".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Block_Elements"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Geometric_Shapes"
@@ -24038,7 +24042,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Geometric_Shapes".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Geometric_Shapes"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Symbols"
@@ -24048,7 +24052,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Dingbats"
@@ -24058,7 +24062,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Dingbats".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Dingbats"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Braille"
@@ -24068,7 +24072,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Braille".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Braille"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Radicals_Sup"
@@ -24078,7 +24082,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Radicals_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Radicals_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kangxi"
@@ -24088,7 +24092,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kangxi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kangxi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=IDC"
@@ -24098,7 +24102,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=IDC".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=IDC"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Symbols"
@@ -24108,7 +24112,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Hiragana"
@@ -24118,7 +24122,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Hiragana".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Hiragana"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Katakana"
@@ -24128,7 +24132,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Katakana".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Katakana"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bopomofo"
@@ -24138,7 +24142,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bopomofo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bopomofo"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Compat_Jamo"
@@ -24148,7 +24152,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Compat_Jamo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Compat_Jamo"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kanbun"
@@ -24158,7 +24162,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kanbun".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kanbun"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bopomofo_Ext"
@@ -24168,7 +24172,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bopomofo_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bopomofo_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Enclosed_CJK"
@@ -24178,7 +24182,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Enclosed_CJK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Enclosed_CJK"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Compat"
@@ -24188,7 +24192,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Compat".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Compat"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Ext_A"
@@ -24198,7 +24202,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK"
@@ -24208,7 +24212,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Yi_Syllables"
@@ -24218,7 +24222,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Yi_Syllables".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Yi_Syllables"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Yi_Radicals"
@@ -24228,7 +24232,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Yi_Radicals".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Yi_Radicals"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Hangul"
@@ -24238,7 +24242,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Hangul".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Hangul"), codePointRanges);
   }
 
   // Unicode code points with property "blk=High_Surrogates"
@@ -24248,7 +24252,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=High_Surrogates".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=High_Surrogates"), codePointRanges);
   }
 
   // Unicode code points with property "blk=High_PU_Surrogates"
@@ -24258,7 +24262,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=High_PU_Surrogates".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=High_PU_Surrogates"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Low_Surrogates"
@@ -24268,7 +24272,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Low_Surrogates".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Low_Surrogates"), codePointRanges);
   }
 
   // Unicode code points with property "blk=PUA"
@@ -24278,7 +24282,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=PUA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=PUA"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Compat_Ideographs"
@@ -24288,7 +24292,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Compat_Ideographs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Compat_Ideographs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Alphabetic_PF"
@@ -24298,7 +24302,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Alphabetic_PF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Alphabetic_PF"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic_PF_A"
@@ -24308,7 +24312,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic_PF_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic_PF_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Half_Marks"
@@ -24318,7 +24322,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Half_Marks".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Half_Marks"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Compat_Forms"
@@ -24328,7 +24332,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Compat_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Compat_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Small_Forms"
@@ -24338,7 +24342,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Small_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Small_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic_PF_B"
@@ -24348,7 +24352,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic_PF_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic_PF_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Specials"
@@ -24358,7 +24362,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Specials".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Specials"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Half_And_Full_Forms"
@@ -24368,7 +24372,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Half_And_Full_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Half_And_Full_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_Italic"
@@ -24378,7 +24382,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_Italic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_Italic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Gothic"
@@ -24388,7 +24392,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Gothic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Gothic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Deseret"
@@ -24398,7 +24402,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Deseret".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Deseret"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Byzantine_Music"
@@ -24408,7 +24412,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Byzantine_Music".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Byzantine_Music"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Music"
@@ -24418,7 +24422,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Music".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Music"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Math_Alphanum"
@@ -24428,7 +24432,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Math_Alphanum".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Math_Alphanum"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Ext_B"
@@ -24438,7 +24442,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Ext_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Ext_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Compat_Ideographs_Sup"
@@ -24448,7 +24452,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Compat_Ideographs_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tags"
@@ -24458,7 +24462,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tags".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tags"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cyrillic_Sup"
@@ -24468,7 +24472,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cyrillic_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cyrillic_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tagalog"
@@ -24478,7 +24482,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tagalog".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tagalog"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Hanunoo"
@@ -24488,7 +24492,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Hanunoo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Hanunoo"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Buhid"
@@ -24498,7 +24502,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Buhid".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Buhid"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tagbanwa"
@@ -24508,7 +24512,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tagbanwa".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tagbanwa"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Math_Symbols_A"
@@ -24518,7 +24522,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Math_Symbols_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Math_Symbols_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Arrows_A"
@@ -24528,7 +24532,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Arrows_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Arrows_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Arrows_B"
@@ -24538,7 +24542,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Arrows_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Arrows_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Math_Symbols_B"
@@ -24548,7 +24552,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Math_Symbols_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Math_Symbols_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Math_Operators"
@@ -24558,7 +24562,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Math_Operators".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Math_Operators"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Katakana_Ext"
@@ -24568,7 +24572,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Katakana_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Katakana_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=VS"
@@ -24578,7 +24582,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=VS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=VS"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_PUA_A"
@@ -24588,7 +24592,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_PUA_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_PUA_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_PUA_B"
@@ -24598,7 +24602,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_PUA_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_PUA_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Limbu"
@@ -24608,7 +24612,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Limbu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Limbu"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tai_Le"
@@ -24618,7 +24622,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tai_Le".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tai_Le"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Khmer_Symbols"
@@ -24628,7 +24632,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Khmer_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Khmer_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Phonetic_Ext"
@@ -24638,7 +24642,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Phonetic_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Phonetic_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Arrows"
@@ -24648,7 +24652,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Arrows".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Arrows"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Yijing"
@@ -24658,7 +24662,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Yijing".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Yijing"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Linear_B_Syllabary"
@@ -24668,7 +24672,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Linear_B_Syllabary".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Linear_B_Syllabary"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Linear_B_Ideograms"
@@ -24678,7 +24682,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Linear_B_Ideograms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Linear_B_Ideograms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Aegean_Numbers"
@@ -24688,7 +24692,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Aegean_Numbers".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Aegean_Numbers"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ugaritic"
@@ -24698,7 +24702,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ugaritic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ugaritic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Shavian"
@@ -24708,7 +24712,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Shavian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Shavian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Osmanya"
@@ -24718,7 +24722,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Osmanya".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Osmanya"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cypriot_Syllabary"
@@ -24728,7 +24732,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cypriot_Syllabary".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cypriot_Syllabary"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tai_Xuan_Jing"
@@ -24738,7 +24742,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tai_Xuan_Jing".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tai_Xuan_Jing"), codePointRanges);
   }
 
   // Unicode code points with property "blk=VS_Sup"
@@ -24748,7 +24752,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=VS_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=VS_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ancient_Greek_Music"
@@ -24758,7 +24762,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ancient_Greek_Music".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ancient_Greek_Music"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ancient_Greek_Numbers"
@@ -24768,7 +24772,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ancient_Greek_Numbers".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ancient_Greek_Numbers"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic_Sup"
@@ -24778,7 +24782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Buginese"
@@ -24788,7 +24792,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Buginese".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Buginese"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Strokes"
@@ -24798,7 +24802,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Strokes".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Strokes"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Diacriticals_Sup"
@@ -24808,7 +24812,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Diacriticals_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Diacriticals_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Coptic"
@@ -24818,7 +24822,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Coptic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Coptic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ethiopic_Ext"
@@ -24828,7 +24832,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ethiopic_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ethiopic_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ethiopic_Sup"
@@ -24838,7 +24842,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ethiopic_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ethiopic_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Georgian_Sup"
@@ -24848,7 +24852,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Georgian_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Georgian_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Glagolitic"
@@ -24858,7 +24862,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Glagolitic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Glagolitic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kharoshthi"
@@ -24868,7 +24872,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kharoshthi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kharoshthi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Modifier_Tone_Letters"
@@ -24878,7 +24882,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Modifier_Tone_Letters".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Modifier_Tone_Letters"), codePointRanges);
   }
 
   // Unicode code points with property "blk=New_Tai_Lue"
@@ -24888,7 +24892,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=New_Tai_Lue".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=New_Tai_Lue"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_Persian"
@@ -24898,7 +24902,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_Persian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_Persian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Phonetic_Ext_Sup"
@@ -24908,7 +24912,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Phonetic_Ext_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Phonetic_Ext_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Punctuation"
@@ -24918,7 +24922,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Punctuation".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Punctuation"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Syloti_Nagri"
@@ -24928,7 +24932,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Syloti_Nagri".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Syloti_Nagri"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tifinagh"
@@ -24938,7 +24942,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tifinagh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tifinagh"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Vertical_Forms"
@@ -24948,7 +24952,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Vertical_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Vertical_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=NKo"
@@ -24958,7 +24962,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=NKo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=NKo"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Balinese"
@@ -24968,7 +24972,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Balinese".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Balinese"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_C"
@@ -24978,7 +24982,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_C"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_D"
@@ -24988,7 +24992,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_D".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_D"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Phags_Pa"
@@ -24998,7 +25002,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Phags_Pa".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Phags_Pa"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Phoenician"
@@ -25008,7 +25012,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Phoenician".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Phoenician"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cuneiform"
@@ -25018,7 +25022,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cuneiform".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cuneiform"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cuneiform_Numbers"
@@ -25028,7 +25032,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cuneiform_Numbers".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cuneiform_Numbers"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Counting_Rod"
@@ -25038,7 +25042,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Counting_Rod".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Counting_Rod"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sundanese"
@@ -25048,7 +25052,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sundanese".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sundanese"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Lepcha"
@@ -25058,7 +25062,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Lepcha".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Lepcha"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ol_Chiki"
@@ -25068,7 +25072,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ol_Chiki".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ol_Chiki"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cyrillic_Ext_A"
@@ -25078,7 +25082,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cyrillic_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cyrillic_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Vai"
@@ -25088,7 +25092,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Vai".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Vai"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cyrillic_Ext_B"
@@ -25098,7 +25102,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cyrillic_Ext_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cyrillic_Ext_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Saurashtra"
@@ -25108,7 +25112,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Saurashtra".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Saurashtra"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kayah_Li"
@@ -25118,7 +25122,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kayah_Li".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kayah_Li"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Rejang"
@@ -25128,7 +25132,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Rejang".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Rejang"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cham"
@@ -25138,7 +25142,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cham".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cham"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ancient_Symbols"
@@ -25148,7 +25152,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ancient_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ancient_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Phaistos"
@@ -25158,7 +25162,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Phaistos".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Phaistos"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Lycian"
@@ -25168,7 +25172,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Lycian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Lycian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Carian"
@@ -25178,7 +25182,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Carian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Carian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Lydian"
@@ -25188,7 +25192,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Lydian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Lydian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mahjong"
@@ -25198,7 +25202,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mahjong".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mahjong"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Domino"
@@ -25208,7 +25212,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Domino".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Domino"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Samaritan"
@@ -25218,7 +25222,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Samaritan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Samaritan"), codePointRanges);
   }
 
   // Unicode code points with property "blk=UCAS_Ext"
@@ -25228,7 +25232,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=UCAS_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=UCAS_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tai_Tham"
@@ -25238,7 +25242,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tai_Tham".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tai_Tham"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Vedic_Ext"
@@ -25248,7 +25252,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Vedic_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Vedic_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Lisu"
@@ -25258,7 +25262,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Lisu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Lisu"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bamum"
@@ -25268,7 +25272,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bamum".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bamum"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Indic_Number_Forms"
@@ -25278,7 +25282,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Indic_Number_Forms".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Indic_Number_Forms"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Devanagari_Ext"
@@ -25288,7 +25292,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Devanagari_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Devanagari_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Jamo_Ext_A"
@@ -25298,7 +25302,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Jamo_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Jamo_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Javanese"
@@ -25308,7 +25312,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Javanese".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Javanese"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Myanmar_Ext_A"
@@ -25318,7 +25322,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Myanmar_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Myanmar_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tai_Viet"
@@ -25328,7 +25332,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tai_Viet".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tai_Viet"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Meetei_Mayek"
@@ -25338,7 +25342,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Meetei_Mayek".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Meetei_Mayek"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Jamo_Ext_B"
@@ -25348,7 +25352,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Jamo_Ext_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Jamo_Ext_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Imperial_Aramaic"
@@ -25358,7 +25362,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Imperial_Aramaic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Imperial_Aramaic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_South_Arabian"
@@ -25368,7 +25372,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_South_Arabian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_South_Arabian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Avestan"
@@ -25378,7 +25382,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Avestan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Avestan"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Inscriptional_Parthian"
@@ -25388,7 +25392,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Inscriptional_Parthian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Inscriptional_Parthian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Inscriptional_Pahlavi"
@@ -25398,7 +25402,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Inscriptional_Pahlavi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Inscriptional_Pahlavi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_Turkic"
@@ -25408,7 +25412,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_Turkic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_Turkic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Rumi"
@@ -25418,7 +25422,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Rumi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Rumi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kaithi"
@@ -25428,7 +25432,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kaithi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kaithi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Egyptian_Hieroglyphs"
@@ -25438,7 +25442,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Egyptian_Hieroglyphs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Egyptian_Hieroglyphs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Enclosed_Alphanum_Sup"
@@ -25448,7 +25452,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Enclosed_Alphanum_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Enclosed_Alphanum_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Enclosed_Ideographic_Sup"
@@ -25458,7 +25462,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Enclosed_Ideographic_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Enclosed_Ideographic_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Ext_C"
@@ -25468,7 +25472,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Ext_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Ext_C"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mandaic"
@@ -25478,7 +25482,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mandaic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mandaic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Batak"
@@ -25488,7 +25492,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Batak".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Batak"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ethiopic_Ext_A"
@@ -25498,7 +25502,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ethiopic_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ethiopic_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Brahmi"
@@ -25508,7 +25512,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Brahmi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Brahmi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bamum_Sup"
@@ -25518,7 +25522,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bamum_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bamum_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Kana_Sup"
@@ -25528,7 +25532,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Kana_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Kana_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Playing_Cards"
@@ -25538,7 +25542,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Playing_Cards".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Playing_Cards"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Misc_Pictographs"
@@ -25548,7 +25552,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Misc_Pictographs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Misc_Pictographs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Emoticons"
@@ -25558,7 +25562,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Emoticons".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Emoticons"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Transport_And_Map"
@@ -25568,7 +25572,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Transport_And_Map".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Transport_And_Map"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Alchemical"
@@ -25578,7 +25582,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Alchemical".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Alchemical"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Ext_D"
@@ -25588,7 +25592,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Ext_D".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Ext_D"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic_Ext_A"
@@ -25598,7 +25602,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic_Ext_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic_Ext_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Arabic_Math"
@@ -25608,7 +25612,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Arabic_Math".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Arabic_Math"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Chakma"
@@ -25618,7 +25622,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Chakma".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Chakma"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Meetei_Mayek_Ext"
@@ -25628,7 +25632,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Meetei_Mayek_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Meetei_Mayek_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Meroitic_Cursive"
@@ -25638,7 +25642,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Meroitic_Cursive".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Meroitic_Cursive"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Meroitic_Hieroglyphs"
@@ -25648,7 +25652,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Meroitic_Hieroglyphs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Meroitic_Hieroglyphs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Miao"
@@ -25658,7 +25662,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Miao".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Miao"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sharada"
@@ -25668,7 +25672,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sharada".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sharada"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sora_Sompeng"
@@ -25678,7 +25682,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sora_Sompeng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sora_Sompeng"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sundanese_Sup"
@@ -25688,7 +25692,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sundanese_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sundanese_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Takri"
@@ -25698,7 +25702,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Takri".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Takri"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bassa_Vah"
@@ -25708,7 +25712,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bassa_Vah".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bassa_Vah"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Caucasian_Albanian"
@@ -25718,7 +25722,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Caucasian_Albanian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Caucasian_Albanian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Coptic_Epact_Numbers"
@@ -25728,7 +25732,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Coptic_Epact_Numbers".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Coptic_Epact_Numbers"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Diacriticals_Ext"
@@ -25738,7 +25742,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Diacriticals_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Diacriticals_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Duployan"
@@ -25748,7 +25752,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Duployan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Duployan"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Elbasan"
@@ -25758,7 +25762,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Elbasan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Elbasan"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Geometric_Shapes_Ext"
@@ -25768,7 +25772,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Geometric_Shapes_Ext".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Geometric_Shapes_Ext"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Grantha"
@@ -25778,7 +25782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Grantha".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Grantha"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Khojki"
@@ -25788,7 +25792,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Khojki".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Khojki"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Khudawadi"
@@ -25798,7 +25802,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Khudawadi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Khudawadi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Latin_Ext_E"
@@ -25808,7 +25812,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Latin_Ext_E".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Latin_Ext_E"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Linear_A"
@@ -25818,7 +25822,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Linear_A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Linear_A"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mahajani"
@@ -25828,7 +25832,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mahajani".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mahajani"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Manichaean"
@@ -25838,7 +25842,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Manichaean".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Manichaean"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mende_Kikakui"
@@ -25848,7 +25852,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mende_Kikakui".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mende_Kikakui"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Modi"
@@ -25858,7 +25862,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Modi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Modi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mro"
@@ -25868,7 +25872,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mro".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mro"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Myanmar_Ext_B"
@@ -25878,7 +25882,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Myanmar_Ext_B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Myanmar_Ext_B"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Nabataean"
@@ -25888,7 +25892,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Nabataean".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Nabataean"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_North_Arabian"
@@ -25898,7 +25902,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_North_Arabian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_North_Arabian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_Permic"
@@ -25908,7 +25912,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_Permic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_Permic"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ornamental_Dingbats"
@@ -25918,7 +25922,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ornamental_Dingbats".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ornamental_Dingbats"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Pahawh_Hmong"
@@ -25928,7 +25932,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Pahawh_Hmong".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Pahawh_Hmong"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Palmyrene"
@@ -25938,7 +25942,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Palmyrene".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Palmyrene"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Pau_Cin_Hau"
@@ -25948,7 +25952,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Pau_Cin_Hau".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Pau_Cin_Hau"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Psalter_Pahlavi"
@@ -25958,7 +25962,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Psalter_Pahlavi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Psalter_Pahlavi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Shorthand_Format_Controls"
@@ -25968,7 +25972,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Shorthand_Format_Controls".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Shorthand_Format_Controls"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Siddham"
@@ -25978,7 +25982,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Siddham".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Siddham"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sinhala_Archaic_Numbers"
@@ -25988,7 +25992,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sinhala_Archaic_Numbers".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sinhala_Archaic_Numbers"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Arrows_C"
@@ -25998,7 +26002,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Arrows_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Arrows_C"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tirhuta"
@@ -26008,7 +26012,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tirhuta".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tirhuta"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Warang_Citi"
@@ -26018,7 +26022,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Warang_Citi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Warang_Citi"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ahom"
@@ -26028,7 +26032,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ahom".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ahom"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Anatolian_Hieroglyphs"
@@ -26038,7 +26042,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Anatolian_Hieroglyphs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Anatolian_Hieroglyphs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cherokee_Sup"
@@ -26048,7 +26052,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cherokee_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cherokee_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=CJK_Ext_E"
@@ -26058,7 +26062,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=CJK_Ext_E".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=CJK_Ext_E"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Early_Dynastic_Cuneiform"
@@ -26068,7 +26072,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Early_Dynastic_Cuneiform".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Early_Dynastic_Cuneiform"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Hatran"
@@ -26078,7 +26082,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Hatran".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Hatran"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Multani"
@@ -26088,7 +26092,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Multani".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Multani"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Old_Hungarian"
@@ -26098,7 +26102,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Old_Hungarian".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Old_Hungarian"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sup_Symbols_And_Pictographs"
@@ -26108,7 +26112,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sup_Symbols_And_Pictographs"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Sutton_SignWriting"
@@ -26118,7 +26122,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Sutton_SignWriting".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Sutton_SignWriting"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Adlam"
@@ -26128,7 +26132,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Adlam".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Adlam"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Bhaiksuki"
@@ -26138,7 +26142,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Bhaiksuki".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Bhaiksuki"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Cyrillic_Ext_C"
@@ -26148,7 +26152,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Cyrillic_Ext_C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Cyrillic_Ext_C"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Glagolitic_Sup"
@@ -26158,7 +26162,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Glagolitic_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Glagolitic_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Ideographic_Symbols"
@@ -26168,7 +26172,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Ideographic_Symbols".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Ideographic_Symbols"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Marchen"
@@ -26178,7 +26182,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Marchen".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Marchen"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Mongolian_Sup"
@@ -26188,7 +26192,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Mongolian_Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Mongolian_Sup"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Newa"
@@ -26198,7 +26202,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Newa".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Newa"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Osage"
@@ -26208,7 +26212,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Osage".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Osage"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tangut"
@@ -26218,7 +26222,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tangut".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tangut"), codePointRanges);
   }
 
   // Unicode code points with property "blk=Tangut_Components"
@@ -26228,7 +26232,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("blk=Tangut_Components".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("blk=Tangut_Components"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=NR"
@@ -26400,7 +26404,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=NR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=NR"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=OV"
@@ -26420,7 +26424,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=OV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=OV"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=null"
@@ -26428,7 +26432,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=null".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=null"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=NK"
@@ -26459,7 +26463,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=NK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=NK"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=KV"
@@ -26469,7 +26473,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=KV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=KV"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=VR"
@@ -26521,7 +26525,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=VR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=VR"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC10"
@@ -26531,7 +26535,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC10".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC10"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC11"
@@ -26541,7 +26545,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC11".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC11"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC12"
@@ -26551,7 +26555,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC12".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC12"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC13"
@@ -26561,7 +26565,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC13".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC13"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC14"
@@ -26571,7 +26575,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC14".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC14"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC15"
@@ -26581,7 +26585,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC15".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC15"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC16"
@@ -26591,7 +26595,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC16".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC16"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC17"
@@ -26601,7 +26605,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC17".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC17"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC18"
@@ -26612,7 +26616,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC18".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC18"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC19"
@@ -26622,7 +26626,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC19".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC19"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC20"
@@ -26632,7 +26636,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC20".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC20"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC21"
@@ -26642,7 +26646,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC21".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC21"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC22"
@@ -26652,7 +26656,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC22".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC22"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC23"
@@ -26662,7 +26666,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC23".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC23"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC24"
@@ -26672,7 +26676,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC24".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC24"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC25"
@@ -26682,7 +26686,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC25".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC25"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC26"
@@ -26692,7 +26696,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC26".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC26"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC27"
@@ -26703,7 +26707,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC27".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC27"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC28"
@@ -26714,7 +26718,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC28".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC28"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC29"
@@ -26725,7 +26729,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC29".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC29"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC30"
@@ -26736,7 +26740,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC30".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC30"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC31"
@@ -26747,7 +26751,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC31".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC31"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC32"
@@ -26758,7 +26762,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC32".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC32"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC33"
@@ -26768,7 +26772,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC33".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC33"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC34"
@@ -26778,7 +26782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC34".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC34"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC35"
@@ -26788,7 +26792,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC35".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC35"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC36"
@@ -26798,7 +26802,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC36".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC36"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC84"
@@ -26808,7 +26812,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC84".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC84"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC91"
@@ -26818,7 +26822,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC91".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC91"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC103"
@@ -26828,7 +26832,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC103".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC103"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC107"
@@ -26838,7 +26842,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC107".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC107"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC118"
@@ -26848,7 +26852,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC118".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC118"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC122"
@@ -26858,7 +26862,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC122".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC122"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC129"
@@ -26868,7 +26872,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC129".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC129"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC130"
@@ -26880,7 +26884,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC130".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC130"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC132"
@@ -26890,7 +26894,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC132".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC132"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=CCC133"
@@ -26898,7 +26902,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=CCC133".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=CCC133"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=ATBL"
@@ -26906,7 +26910,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=ATBL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=ATBL"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=ATB"
@@ -26918,7 +26922,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=ATB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=ATB"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=ATA"
@@ -26928,7 +26932,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=ATA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=ATA"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=ATAR"
@@ -26941,7 +26945,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=ATAR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=ATAR"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=BL"
@@ -26951,7 +26955,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=BL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=BL"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=B"
@@ -27031,7 +27035,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=B"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=BR"
@@ -27044,7 +27048,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=BR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=BR"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=L"
@@ -27054,7 +27058,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=L"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=R"
@@ -27064,7 +27068,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=R".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=R"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=AL"
@@ -27076,7 +27080,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=AL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=AL"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=A"
@@ -27195,7 +27199,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=A"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=AR"
@@ -27208,7 +27212,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=AR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=AR"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=DB"
@@ -27221,7 +27225,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=DB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=DB"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=DA"
@@ -27233,7 +27237,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=DA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=DA"), codePointRanges);
   }
 
   // Unicode code points with property "ccc=IS"
@@ -27243,7 +27247,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ccc=IS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ccc=IS"), codePointRanges);
   }
 
   // Unicode code points with property "dt=None"
@@ -27643,7 +27647,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=None".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=None"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Can"
@@ -27883,7 +27887,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Can".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Can"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Com"
@@ -27966,7 +27970,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Com".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Com"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Enc"
@@ -27983,7 +27987,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Enc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Enc"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Fin"
@@ -28105,7 +28109,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Fin".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Fin"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Font"
@@ -28181,7 +28185,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Font".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Font"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Fra"
@@ -28193,7 +28197,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Fra".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Fra"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Init"
@@ -28277,7 +28281,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Init".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Init"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Iso"
@@ -28384,7 +28388,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Iso".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Iso"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Med"
@@ -28447,7 +28451,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Med".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Med"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Nar"
@@ -28462,7 +28466,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Nar".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Nar"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Nb"
@@ -28476,7 +28480,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Nb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Nb"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Sml"
@@ -28488,7 +28492,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Sml".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Sml"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Sqr"
@@ -28506,7 +28510,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Sqr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Sqr"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Sub"
@@ -28519,7 +28523,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Sub".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Sub"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Sup"
@@ -28552,7 +28556,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Sup".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Sup"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Vert"
@@ -28566,7 +28570,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Vert".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Vert"), codePointRanges);
   }
 
   // Unicode code points with property "dt=Wide"
@@ -28578,7 +28582,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("dt=Wide".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("dt=Wide"), codePointRanges);
   }
 
   // Unicode code points with property "ea=N"
@@ -28854,7 +28858,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=N"), codePointRanges);
   }
 
   // Unicode code points with property "ea=A"
@@ -29042,7 +29046,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=A"), codePointRanges);
   }
 
   // Unicode code points with property "ea=H"
@@ -29058,7 +29062,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=H".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=H"), codePointRanges);
   }
 
   // Unicode code points with property "ea=F"
@@ -29070,7 +29074,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=F".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=F"), codePointRanges);
   }
 
   // Unicode code points with property "ea=Na"
@@ -29086,7 +29090,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=Na".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=Na"), codePointRanges);
   }
 
   // Unicode code points with property "ea=W"
@@ -29199,7 +29203,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("ea=W".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("ea=W"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Cn"
@@ -29846,7 +29850,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Cn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Cn"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Lu"
@@ -30482,7 +30486,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Lu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Lu"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Ll"
@@ -31124,7 +31128,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Ll".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Ll"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Lt"
@@ -31143,7 +31147,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Lt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Lt"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Lm"
@@ -31209,7 +31213,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Lm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Lm"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Lo"
@@ -31663,7 +31667,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Lo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Lo"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Mn"
@@ -31957,7 +31961,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Mn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Mn"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Me"
@@ -31971,7 +31975,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Me".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Me"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Mc"
@@ -32135,7 +32139,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Mc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Mc"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Nd"
@@ -32198,7 +32202,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Nd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Nd"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Nl"
@@ -32219,7 +32223,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Nl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Nl"), codePointRanges);
   }
 
   // Unicode code points with property "gc=No"
@@ -32288,7 +32292,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=No".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=No"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Zs"
@@ -32304,7 +32308,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Zs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Zs"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Zl"
@@ -32314,7 +32318,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Zl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Zl"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Zp"
@@ -32324,7 +32328,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Zp".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Zp"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Cc"
@@ -32335,7 +32339,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Cc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Cc"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Cf"
@@ -32362,7 +32366,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Cf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Cf"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Co"
@@ -32374,7 +32378,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Co".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Co"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Cs"
@@ -32384,7 +32388,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Cs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Cs"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Pd"
@@ -32410,7 +32414,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Pd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Pd"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Ps"
@@ -32494,7 +32498,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Ps".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Ps"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Pe"
@@ -32575,7 +32579,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Pe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Pe"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Pc"
@@ -32590,7 +32594,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Pc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Pc"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Po"
@@ -32764,7 +32768,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Po".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Po"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Sm"
@@ -32837,7 +32841,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Sm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Sm"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Sc"
@@ -32863,7 +32867,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Sc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Sc"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Sk"
@@ -32901,7 +32905,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Sk".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Sk"), codePointRanges);
   }
 
   // Unicode code points with property "gc=So"
@@ -33084,7 +33088,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=So".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=So"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Pi"
@@ -33104,7 +33108,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Pi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Pi"), codePointRanges);
   }
 
   // Unicode code points with property "gc=Pf"
@@ -33123,7 +33127,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("gc=Pf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("gc=Pf"), codePointRanges);
   }
 
   // Unicode code points with property "jg=No_Joining_Group"
@@ -33155,7 +33159,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=No_Joining_Group".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=No_Joining_Group"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Ain"
@@ -33169,7 +33173,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Ain".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Ain"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Alaph"
@@ -33179,7 +33183,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Alaph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Alaph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Alef"
@@ -33194,7 +33198,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Alef".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Alef"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Beh"
@@ -33210,7 +33214,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Beh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Beh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Beth"
@@ -33221,7 +33225,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Beth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Beth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Dal"
@@ -33235,7 +33239,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Dal".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Dal"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Dalath_Rish"
@@ -33247,7 +33251,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Dalath_Rish".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Dalath_Rish"), codePointRanges);
   }
 
   // Unicode code points with property "jg=E"
@@ -33257,7 +33261,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=E".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=E"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Feh"
@@ -33270,7 +33274,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Feh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Feh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Final_Semkath"
@@ -33280,7 +33284,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Final_Semkath".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Final_Semkath"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Gaf"
@@ -33295,7 +33299,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Gaf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Gaf"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Gamal"
@@ -33306,7 +33310,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Gamal".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Gamal"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Hah"
@@ -33323,7 +33327,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Hah".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Hah"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Teh_Marbuta_Goal"
@@ -33333,7 +33337,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Teh_Marbuta_Goal".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Teh_Marbuta_Goal"), codePointRanges);
   }
 
   // Unicode code points with property "jg=He"
@@ -33343,7 +33347,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=He".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=He"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Heh"
@@ -33353,7 +33357,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Heh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Heh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Heh_Goal"
@@ -33363,7 +33367,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Heh_Goal".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Heh_Goal"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Heth"
@@ -33373,7 +33377,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Heth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Heth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Kaf"
@@ -33386,7 +33390,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Kaf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Kaf"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Kaph"
@@ -33396,7 +33400,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Kaph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Kaph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Knotted_Heh"
@@ -33407,7 +33411,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Knotted_Heh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Knotted_Heh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Lam"
@@ -33420,7 +33424,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Lam".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Lam"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Lamadh"
@@ -33430,7 +33434,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Lamadh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Lamadh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Meem"
@@ -33442,7 +33446,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Meem".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Meem"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Mim"
@@ -33452,7 +33456,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Mim".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Mim"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Noon"
@@ -33464,7 +33468,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Noon".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Noon"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Nun"
@@ -33474,7 +33478,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Nun".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Nun"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Pe"
@@ -33484,7 +33488,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Pe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Pe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Qaf"
@@ -33497,7 +33501,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Qaf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Qaf"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Qaph"
@@ -33507,7 +33511,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Qaph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Qaph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Reh"
@@ -33525,7 +33529,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Reh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Reh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Reversed_Pe"
@@ -33535,7 +33539,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Reversed_Pe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Reversed_Pe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Sad"
@@ -33548,7 +33552,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Sad".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Sad"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Sadhe"
@@ -33558,7 +33562,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Sadhe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Sadhe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Seen"
@@ -33574,7 +33578,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Seen".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Seen"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Semkath"
@@ -33584,7 +33588,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Semkath".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Semkath"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Shin"
@@ -33594,7 +33598,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Shin".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Shin"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Swash_Kaf"
@@ -33604,7 +33608,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Swash_Kaf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Swash_Kaf"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Syriac_Waw"
@@ -33614,7 +33618,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Syriac_Waw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Syriac_Waw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Tah"
@@ -33626,7 +33630,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Tah".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Tah"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Taw"
@@ -33636,7 +33640,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Taw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Taw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Teh_Marbuta"
@@ -33648,7 +33652,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Teh_Marbuta".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Teh_Marbuta"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Teth"
@@ -33658,7 +33662,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Teth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Teth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Waw"
@@ -33674,7 +33678,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Waw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Waw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Yeh"
@@ -33691,7 +33695,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Yeh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Yeh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Yeh_Barree"
@@ -33701,7 +33705,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Yeh_Barree".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Yeh_Barree"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Yeh_With_Tail"
@@ -33711,7 +33715,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Yeh_With_Tail".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Yeh_With_Tail"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Yudh"
@@ -33721,7 +33725,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Yudh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Yudh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Yudh_He"
@@ -33731,7 +33735,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Yudh_He".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Yudh_He"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Zain"
@@ -33741,7 +33745,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Zain".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Zain"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Fe"
@@ -33751,7 +33755,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Fe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Fe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Khaph"
@@ -33761,7 +33765,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Khaph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Khaph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Zhain"
@@ -33771,7 +33775,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Zhain".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Zhain"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Burushaski_Yeh_Barree"
@@ -33781,7 +33785,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Burushaski_Yeh_Barree".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Burushaski_Yeh_Barree"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Farsi_Yeh"
@@ -33794,7 +33798,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Farsi_Yeh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Farsi_Yeh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Nya"
@@ -33804,7 +33808,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Nya".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Nya"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Rohingya_Yeh"
@@ -33814,7 +33818,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Rohingya_Yeh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Rohingya_Yeh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Aleph"
@@ -33824,7 +33828,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Aleph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Aleph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Ayin"
@@ -33834,7 +33838,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Ayin".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Ayin"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Beth"
@@ -33844,7 +33848,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Beth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Beth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Daleth"
@@ -33854,7 +33858,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Daleth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Daleth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Dhamedh"
@@ -33864,7 +33868,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Dhamedh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Dhamedh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Five"
@@ -33874,7 +33878,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Five".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Five"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Gimel"
@@ -33884,7 +33888,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Gimel".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Gimel"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Heth"
@@ -33894,7 +33898,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Heth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Heth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Hundred"
@@ -33904,7 +33908,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Hundred".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Hundred"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Kaph"
@@ -33914,7 +33918,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Kaph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Kaph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Lamedh"
@@ -33924,7 +33928,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Lamedh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Lamedh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Mem"
@@ -33934,7 +33938,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Mem".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Mem"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Nun"
@@ -33944,7 +33948,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Nun".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Nun"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_One"
@@ -33954,7 +33958,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_One".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_One"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Pe"
@@ -33964,7 +33968,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Pe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Pe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Qoph"
@@ -33974,7 +33978,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Qoph".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Qoph"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Resh"
@@ -33984,7 +33988,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Resh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Resh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Sadhe"
@@ -33994,7 +33998,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Sadhe".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Sadhe"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Samekh"
@@ -34004,7 +34008,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Samekh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Samekh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Taw"
@@ -34014,7 +34018,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Taw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Taw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Ten"
@@ -34024,7 +34028,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Ten".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Ten"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Teth"
@@ -34034,7 +34038,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Teth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Teth"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Thamedh"
@@ -34044,7 +34048,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Thamedh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Thamedh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Twenty"
@@ -34054,7 +34058,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Twenty".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Twenty"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Waw"
@@ -34064,7 +34068,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Waw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Waw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Yodh"
@@ -34074,7 +34078,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Yodh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Yodh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Manichaean_Zayin"
@@ -34084,7 +34088,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Manichaean_Zayin".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Manichaean_Zayin"), codePointRanges);
   }
 
   // Unicode code points with property "jg=Straight_Waw"
@@ -34094,7 +34098,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=Straight_Waw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=Straight_Waw"), codePointRanges);
   }
 
   // Unicode code points with property "jg=African_Feh"
@@ -34104,7 +34108,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=African_Feh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=African_Feh"), codePointRanges);
   }
 
   // Unicode code points with property "jg=African_Noon"
@@ -34114,7 +34118,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=African_Noon".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=African_Noon"), codePointRanges);
   }
 
   // Unicode code points with property "jg=African_Qaf"
@@ -34124,7 +34128,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jg=African_Qaf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jg=African_Qaf"), codePointRanges);
   }
 
   // Unicode code points with property "jt=U"
@@ -34448,7 +34452,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=U".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=U"), codePointRanges);
   }
 
   // Unicode code points with property "jt=C"
@@ -34461,7 +34465,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=C".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=C"), codePointRanges);
   }
 
   // Unicode code points with property "jt=D"
@@ -34526,7 +34530,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=D".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=D"), codePointRanges);
   }
 
   // Unicode code points with property "jt=L"
@@ -34538,7 +34542,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=L"), codePointRanges);
   }
 
   // Unicode code points with property "jt=R"
@@ -34598,7 +34602,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=R".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=R"), codePointRanges);
   }
 
   // Unicode code points with property "jt=T"
@@ -34904,7 +34908,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("jt=T".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("jt=T"), codePointRanges);
   }
 
   // Unicode code points with property "lb=XX"
@@ -35511,7 +35515,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=XX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=XX"), codePointRanges);
   }
 
   // Unicode code points with property "lb=AI"
@@ -35629,7 +35633,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=AI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=AI"), codePointRanges);
   }
 
   // Unicode code points with property "lb=AL"
@@ -36345,7 +36349,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=AL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=AL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=B2"
@@ -36356,7 +36360,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=B2".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=B2"), codePointRanges);
   }
 
   // Unicode code points with property "lb=BA"
@@ -36454,7 +36458,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=BA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=BA"), codePointRanges);
   }
 
   // Unicode code points with property "lb=BB"
@@ -36481,7 +36485,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=BB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=BB"), codePointRanges);
   }
 
   // Unicode code points with property "lb=BK"
@@ -36492,7 +36496,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=BK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=BK"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CB"
@@ -36502,7 +36506,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CB"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CL"
@@ -36593,7 +36597,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CM"
@@ -36840,7 +36844,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CM"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CR"
@@ -36850,7 +36854,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CR"), codePointRanges);
   }
 
   // Unicode code points with property "lb=EX"
@@ -36883,7 +36887,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=EX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=EX"), codePointRanges);
   }
 
   // Unicode code points with property "lb=GL"
@@ -36903,7 +36907,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=GL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=GL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=HY"
@@ -36913,7 +36917,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=HY".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=HY"), codePointRanges);
   }
 
   // Unicode code points with property "lb=ID"
@@ -37077,7 +37081,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=ID".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=ID"), codePointRanges);
   }
 
   // Unicode code points with property "lb=IN"
@@ -37090,7 +37094,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=IN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=IN"), codePointRanges);
   }
 
   // Unicode code points with property "lb=IS"
@@ -37109,7 +37113,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=IS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=IS"), codePointRanges);
   }
 
   // Unicode code points with property "lb=LF"
@@ -37119,7 +37123,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=LF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=LF"), codePointRanges);
   }
 
   // Unicode code points with property "lb=NS"
@@ -37145,7 +37149,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=NS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=NS"), codePointRanges);
   }
 
   // Unicode code points with property "lb=NU"
@@ -37208,7 +37212,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=NU".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=NU"), codePointRanges);
   }
 
   // Unicode code points with property "lb=OP"
@@ -37301,7 +37305,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=OP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=OP"), codePointRanges);
   }
 
   // Unicode code points with property "lb=PO"
@@ -37330,7 +37334,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=PO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=PO"), codePointRanges);
   }
 
   // Unicode code points with property "lb=PR"
@@ -37361,7 +37365,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=PR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=PR"), codePointRanges);
   }
 
   // Unicode code points with property "lb=QU"
@@ -37383,7 +37387,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=QU".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=QU"), codePointRanges);
   }
 
   // Unicode code points with property "lb=SA"
@@ -37434,7 +37438,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=SA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=SA"), codePointRanges);
   }
 
   // Unicode code points with property "lb=SG"
@@ -37444,7 +37448,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=SG".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=SG"), codePointRanges);
   }
 
   // Unicode code points with property "lb=SP"
@@ -37454,7 +37458,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=SP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=SP"), codePointRanges);
   }
 
   // Unicode code points with property "lb=SY"
@@ -37464,7 +37468,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=SY".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=SY"), codePointRanges);
   }
 
   // Unicode code points with property "lb=ZW"
@@ -37474,7 +37478,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=ZW".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=ZW"), codePointRanges);
   }
 
   // Unicode code points with property "lb=NL"
@@ -37484,7 +37488,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=NL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=NL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=WJ"
@@ -37495,7 +37499,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=WJ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=WJ"), codePointRanges);
   }
 
   // Unicode code points with property "lb=H2"
@@ -37903,7 +37907,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=H2".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=H2"), codePointRanges);
   }
 
   // Unicode code points with property "lb=H3"
@@ -38311,7 +38315,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=H3".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=H3"), codePointRanges);
   }
 
   // Unicode code points with property "lb=JL"
@@ -38322,7 +38326,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=JL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=JL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=JT"
@@ -38333,7 +38337,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=JT".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=JT"), codePointRanges);
   }
 
   // Unicode code points with property "lb=JV"
@@ -38344,7 +38348,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=JV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=JV"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CP"
@@ -38355,7 +38359,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CP"), codePointRanges);
   }
 
   // Unicode code points with property "lb=CJ"
@@ -38389,7 +38393,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=CJ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=CJ"), codePointRanges);
   }
 
   // Unicode code points with property "lb=HL"
@@ -38408,7 +38412,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=HL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=HL"), codePointRanges);
   }
 
   // Unicode code points with property "lb=RI"
@@ -38418,7 +38422,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=RI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=RI"), codePointRanges);
   }
 
   // Unicode code points with property "lb=EB"
@@ -38456,7 +38460,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=EB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=EB"), codePointRanges);
   }
 
   // Unicode code points with property "lb=EM"
@@ -38466,7 +38470,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=EM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=EM"), codePointRanges);
   }
 
   // Unicode code points with property "lb=ZWJ"
@@ -38476,7 +38480,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lb=ZWJ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lb=ZWJ"), codePointRanges);
   }
 
   // Unicode code points with property "nt=None"
@@ -38673,7 +38677,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nt=None".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nt=None"), codePointRanges);
   }
 
   // Unicode code points with property "nt=De"
@@ -38736,7 +38740,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nt=De".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nt=De"), codePointRanges);
   }
 
   // Unicode code points with property "nt=Di"
@@ -38765,7 +38769,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nt=Di".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nt=Di"), codePointRanges);
   }
 
   // Unicode code points with property "nt=Nu"
@@ -38914,7 +38918,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("nt=Nu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("nt=Nu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zyyy"
@@ -39088,7 +39092,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zyyy".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zyyy"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zinh"
@@ -39124,7 +39128,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zinh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zinh"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Arab"
@@ -39189,7 +39193,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Arab".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Arab"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Armn"
@@ -39204,7 +39208,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Armn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Armn"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Beng"
@@ -39227,7 +39231,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Beng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Beng"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bopo"
@@ -39239,7 +39243,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bopo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bopo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cher"
@@ -39251,7 +39255,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cher".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cher"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Copt"
@@ -39263,7 +39267,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Copt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Copt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cyrl"
@@ -39280,7 +39284,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cyrl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cyrl"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Dsrt"
@@ -39290,7 +39294,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Dsrt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Dsrt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Deva"
@@ -39303,7 +39307,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Deva".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Deva"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Ethi"
@@ -39344,7 +39348,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Ethi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Ethi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Geor"
@@ -39361,7 +39365,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Geor".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Geor"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Goth"
@@ -39371,7 +39375,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Goth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Goth"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Grek"
@@ -39416,7 +39420,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Grek".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Grek"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Gujr"
@@ -39439,7 +39443,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Gujr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Gujr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Guru"
@@ -39464,7 +39468,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Guru".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Guru"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hani"
@@ -39489,7 +39493,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hani".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hani"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hang"
@@ -39512,7 +39516,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hang".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hang"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hebr"
@@ -39530,7 +39534,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hebr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hebr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hira"
@@ -39543,7 +39547,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hira".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hira"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Knda"
@@ -39566,7 +39570,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Knda".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Knda"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Kana"
@@ -39583,7 +39587,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Kana".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Kana"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Khmr"
@@ -39596,7 +39600,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Khmr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Khmr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Laoo"
@@ -39623,7 +39627,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Laoo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Laoo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Latn"
@@ -39663,7 +39667,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Latn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Latn"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mlym"
@@ -39681,7 +39685,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mlym".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mlym"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mong"
@@ -39697,7 +39701,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mong".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mong"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mymr"
@@ -39709,7 +39713,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mymr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mymr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Ogam"
@@ -39719,7 +39723,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Ogam".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Ogam"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Ital"
@@ -39729,7 +39733,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Ital".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Ital"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Orya"
@@ -39752,7 +39756,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Orya".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Orya"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Runr"
@@ -39763,7 +39767,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Runr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Runr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sinh"
@@ -39785,7 +39789,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sinh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sinh"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Syrc"
@@ -39797,7 +39801,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Syrc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Syrc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Taml"
@@ -39822,7 +39826,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Taml".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Taml"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Telu"
@@ -39844,7 +39848,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Telu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Telu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Thaa"
@@ -39854,7 +39858,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Thaa".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Thaa"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Thai"
@@ -39865,7 +39869,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Thai".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Thai"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tibt"
@@ -39881,7 +39885,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tibt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tibt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cans"
@@ -39892,7 +39896,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cans".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cans"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Yiii"
@@ -39903,7 +39907,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Yiii".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Yiii"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tglg"
@@ -39914,7 +39918,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tglg".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tglg"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hano"
@@ -39924,7 +39928,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hano".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hano"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Buhd"
@@ -39934,7 +39938,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Buhd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Buhd"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tagb"
@@ -39946,7 +39950,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tagb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tagb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Brai"
@@ -39956,7 +39960,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Brai".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Brai"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cprt"
@@ -39971,7 +39975,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cprt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cprt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Limb"
@@ -39985,7 +39989,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Limb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Limb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Linb"
@@ -40001,7 +40005,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Linb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Linb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Osma"
@@ -40012,7 +40016,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Osma".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Osma"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Shaw"
@@ -40022,7 +40026,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Shaw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Shaw"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tale"
@@ -40033,7 +40037,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tale".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tale"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Ugar"
@@ -40044,7 +40048,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Ugar".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Ugar"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hrkt"
@@ -40052,7 +40056,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hrkt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hrkt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bugi"
@@ -40063,7 +40067,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bugi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bugi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Glag"
@@ -40079,7 +40083,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Glag".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Glag"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Khar"
@@ -40096,7 +40100,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Khar".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Khar"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sylo"
@@ -40106,7 +40110,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sylo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sylo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Talu"
@@ -40119,7 +40123,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Talu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Talu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tfng"
@@ -40131,7 +40135,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tfng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tfng"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Xpeo"
@@ -40142,7 +40146,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Xpeo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Xpeo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bali"
@@ -40153,7 +40157,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bali".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bali"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Batk"
@@ -40164,7 +40168,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Batk".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Batk"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Blis"
@@ -40172,7 +40176,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Blis".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Blis"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Brah"
@@ -40184,7 +40188,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Brah".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Brah"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cham"
@@ -40197,7 +40201,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cham".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cham"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cirt"
@@ -40205,7 +40209,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cirt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cirt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cyrs"
@@ -40213,7 +40217,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cyrs".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cyrs"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Egyd"
@@ -40221,7 +40225,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Egyd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Egyd"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Egyh"
@@ -40229,7 +40233,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Egyh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Egyh"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Egyp"
@@ -40239,7 +40243,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Egyp".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Egyp"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Geok"
@@ -40247,7 +40251,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Geok".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Geok"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hans"
@@ -40255,7 +40259,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hans".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hans"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hant"
@@ -40263,7 +40267,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hant".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hant"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hmng"
@@ -40277,7 +40281,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hmng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hmng"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hung"
@@ -40289,7 +40293,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hung".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hung"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Inds"
@@ -40297,7 +40301,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Inds".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Inds"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Java"
@@ -40309,7 +40313,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Java".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Java"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Kali"
@@ -40320,7 +40324,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Kali".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Kali"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Latf"
@@ -40328,7 +40332,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Latf".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Latf"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Latg"
@@ -40336,7 +40340,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Latg".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Latg"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lepc"
@@ -40348,7 +40352,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lepc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lepc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lina"
@@ -40360,7 +40364,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lina".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lina"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mand"
@@ -40371,7 +40375,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mand".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mand"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Maya"
@@ -40379,7 +40383,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Maya".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Maya"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mero"
@@ -40389,7 +40393,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mero".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mero"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Nkoo"
@@ -40399,7 +40403,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Nkoo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Nkoo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Orkh"
@@ -40409,7 +40413,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Orkh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Orkh"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Perm"
@@ -40419,7 +40423,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Perm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Perm"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Phag"
@@ -40429,7 +40433,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Phag".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Phag"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Phnx"
@@ -40440,7 +40444,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Phnx".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Phnx"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Plrd"
@@ -40452,7 +40456,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Plrd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Plrd"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Roro"
@@ -40460,7 +40464,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Roro".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Roro"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sara"
@@ -40468,7 +40472,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sara".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sara"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Syre"
@@ -40476,7 +40480,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Syre".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Syre"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Syrj"
@@ -40484,7 +40488,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Syrj".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Syrj"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Syrn"
@@ -40492,7 +40496,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Syrn".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Syrn"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Teng"
@@ -40500,7 +40504,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Teng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Teng"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Vaii"
@@ -40510,7 +40514,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Vaii".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Vaii"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Visp"
@@ -40518,7 +40522,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Visp".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Visp"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Xsux"
@@ -40531,7 +40535,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Xsux".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Xsux"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zxxx"
@@ -40539,7 +40543,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zxxx".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zxxx"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zzzz"
@@ -41184,7 +41188,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zzzz".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zzzz"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cari"
@@ -41194,7 +41198,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cari".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cari"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Jpan"
@@ -41202,7 +41206,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Jpan".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Jpan"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lana"
@@ -41216,7 +41220,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lana".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lana"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lyci"
@@ -41226,7 +41230,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lyci".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lyci"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lydi"
@@ -41237,7 +41241,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lydi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lydi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Olck"
@@ -41247,7 +41251,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Olck".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Olck"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Rjng"
@@ -41258,7 +41262,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Rjng".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Rjng"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Saur"
@@ -41269,7 +41273,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Saur".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Saur"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sgnw"
@@ -41281,7 +41285,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sgnw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sgnw"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sund"
@@ -41292,7 +41296,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sund".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sund"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Moon"
@@ -41300,7 +41304,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Moon".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Moon"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mtei"
@@ -41312,7 +41316,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mtei".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mtei"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Armi"
@@ -41323,7 +41327,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Armi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Armi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Avst"
@@ -41334,7 +41338,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Avst".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Avst"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Cakm"
@@ -41345,7 +41349,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Cakm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Cakm"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Kore"
@@ -41353,7 +41357,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Kore".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Kore"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Kthi"
@@ -41363,7 +41367,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Kthi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Kthi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mani"
@@ -41374,7 +41378,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mani".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mani"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Phli"
@@ -41385,7 +41389,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Phli".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Phli"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Phlp"
@@ -41397,7 +41401,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Phlp".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Phlp"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Phlv"
@@ -41405,7 +41409,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Phlv".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Phlv"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Prti"
@@ -41416,7 +41420,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Prti".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Prti"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Samr"
@@ -41427,7 +41431,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Samr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Samr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tavt"
@@ -41438,7 +41442,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tavt".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tavt"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zmth"
@@ -41446,7 +41450,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zmth".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zmth"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zsym"
@@ -41454,7 +41458,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zsym".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zsym"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bamu"
@@ -41465,7 +41469,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bamu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bamu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Lisu"
@@ -41475,7 +41479,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Lisu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Lisu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Nkgb"
@@ -41483,7 +41487,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Nkgb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Nkgb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sarb"
@@ -41493,7 +41497,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sarb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sarb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bass"
@@ -41504,7 +41508,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bass".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bass"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Dupl"
@@ -41518,7 +41522,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Dupl".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Dupl"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Elba"
@@ -41528,7 +41532,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Elba".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Elba"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Gran"
@@ -41552,7 +41556,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Gran".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Gran"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Kpel"
@@ -41560,7 +41564,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Kpel".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Kpel"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Loma"
@@ -41568,7 +41572,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Loma".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Loma"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mend"
@@ -41579,7 +41583,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mend".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mend"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Merc"
@@ -41591,7 +41595,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Merc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Merc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Narb"
@@ -41601,7 +41605,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Narb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Narb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Nbat"
@@ -41612,7 +41616,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Nbat".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Nbat"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Palm"
@@ -41622,7 +41626,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Palm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Palm"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sind"
@@ -41633,7 +41637,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sind".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sind"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Wara"
@@ -41644,7 +41648,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Wara".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Wara"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Afak"
@@ -41652,7 +41656,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Afak".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Afak"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Jurc"
@@ -41660,7 +41664,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Jurc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Jurc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mroo"
@@ -41672,7 +41676,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mroo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mroo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Nshu"
@@ -41680,7 +41684,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Nshu".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Nshu"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Shrd"
@@ -41691,7 +41695,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Shrd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Shrd"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sora"
@@ -41702,7 +41706,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sora".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sora"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Takr"
@@ -41713,7 +41717,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Takr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Takr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tang"
@@ -41725,7 +41729,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tang".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tang"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Wole"
@@ -41733,7 +41737,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Wole".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Wole"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hluw"
@@ -41743,7 +41747,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hluw".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hluw"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Khoj"
@@ -41754,7 +41758,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Khoj".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Khoj"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Tirh"
@@ -41765,7 +41769,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Tirh".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Tirh"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Aghb"
@@ -41776,7 +41780,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Aghb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Aghb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mahj"
@@ -41786,7 +41790,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mahj".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mahj"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Ahom"
@@ -41798,7 +41802,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Ahom".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Ahom"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hatr"
@@ -41810,7 +41814,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hatr".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hatr"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Modi"
@@ -41821,7 +41825,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Modi".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Modi"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Mult"
@@ -41835,7 +41839,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Mult".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Mult"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Pauc"
@@ -41845,7 +41849,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Pauc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Pauc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Sidd"
@@ -41856,7 +41860,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Sidd".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Sidd"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Adlm"
@@ -41868,7 +41872,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Adlm".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Adlm"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Bhks"
@@ -41881,7 +41885,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Bhks".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Bhks"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Marc"
@@ -41893,7 +41897,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Marc".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Marc"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Newa"
@@ -41905,7 +41909,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Newa".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Newa"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Osge"
@@ -41916,7 +41920,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Osge".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Osge"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Hanb"
@@ -41924,7 +41928,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Hanb".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Hanb"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Jamo"
@@ -41932,7 +41936,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Jamo".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Jamo"), codePointRanges);
   }
 
   // Unicode code points with property "sc=Zsye"
@@ -41940,7 +41944,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("sc=Zsye".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("sc=Zsye"), codePointRanges);
   }
 
   // Unicode code points with property "hst=NA"
@@ -41955,7 +41959,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=NA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=NA"), codePointRanges);
   }
 
   // Unicode code points with property "hst=L"
@@ -41966,7 +41970,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=L"), codePointRanges);
   }
 
   // Unicode code points with property "hst=V"
@@ -41977,7 +41981,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=V".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=V"), codePointRanges);
   }
 
   // Unicode code points with property "hst=T"
@@ -41988,7 +41992,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=T".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=T"), codePointRanges);
   }
 
   // Unicode code points with property "hst=LV"
@@ -42396,7 +42400,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=LV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=LV"), codePointRanges);
   }
 
   // Unicode code points with property "hst=LVT"
@@ -42804,7 +42808,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("hst=LVT".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("hst=LVT"), codePointRanges);
   }
 
   // Unicode code points with property "NFD_QC=N"
@@ -43044,7 +43048,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFD_QC=N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFD_QC=N"), codePointRanges);
   }
 
   // Unicode code points with property "NFD_QC=Y"
@@ -43285,7 +43289,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFD_QC=Y".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFD_QC=Y"), codePointRanges);
   }
 
   // Unicode code points with property "NFKD_QC=N"
@@ -43684,7 +43688,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFKD_QC=N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFKD_QC=N"), codePointRanges);
   }
 
   // Unicode code points with property "NFKD_QC=Y"
@@ -44084,7 +44088,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFKD_QC=Y".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFKD_QC=Y"), codePointRanges);
   }
 
   // Unicode code points with property "NFC_QC=N"
@@ -44166,7 +44170,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFC_QC=N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFC_QC=N"), codePointRanges);
   }
 
   // Unicode code points with property "NFC_QC=Y"
@@ -44287,7 +44291,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFC_QC=Y".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFC_QC=Y"), codePointRanges);
   }
 
   // Unicode code points with property "NFC_QC=M"
@@ -44337,7 +44341,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFC_QC=M".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFC_QC=M"), codePointRanges);
   }
 
   // Unicode code points with property "NFKC_QC=N"
@@ -44595,7 +44599,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFKC_QC=N".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFKC_QC=N"), codePointRanges);
   }
 
   // Unicode code points with property "NFKC_QC=Y"
@@ -44891,7 +44895,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFKC_QC=Y".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFKC_QC=Y"), codePointRanges);
   }
 
   // Unicode code points with property "NFKC_QC=M"
@@ -44941,7 +44945,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("NFKC_QC=M".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("NFKC_QC=M"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=NR"
@@ -45111,7 +45115,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=NR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=NR"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=OV"
@@ -45131,7 +45135,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=OV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=OV"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=null"
@@ -45139,7 +45143,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=null".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=null"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=NK"
@@ -45170,7 +45174,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=NK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=NK"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=KV"
@@ -45180,7 +45184,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=KV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=KV"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=VR"
@@ -45232,7 +45236,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=VR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=VR"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC10"
@@ -45242,7 +45246,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC10".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC10"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC11"
@@ -45252,7 +45256,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC11".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC11"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC12"
@@ -45262,7 +45266,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC12".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC12"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC13"
@@ -45272,7 +45276,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC13".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC13"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC14"
@@ -45282,7 +45286,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC14".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC14"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC15"
@@ -45292,7 +45296,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC15".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC15"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC16"
@@ -45302,7 +45306,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC16".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC16"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC17"
@@ -45312,7 +45316,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC17".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC17"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC18"
@@ -45323,7 +45327,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC18".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC18"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC19"
@@ -45333,7 +45337,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC19".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC19"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC20"
@@ -45343,7 +45347,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC20".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC20"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC21"
@@ -45353,7 +45357,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC21".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC21"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC22"
@@ -45363,7 +45367,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC22".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC22"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC23"
@@ -45373,7 +45377,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC23".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC23"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC24"
@@ -45383,7 +45387,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC24".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC24"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC25"
@@ -45393,7 +45397,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC25".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC25"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC26"
@@ -45403,7 +45407,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC26".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC26"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC27"
@@ -45414,7 +45418,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC27".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC27"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC28"
@@ -45425,7 +45429,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC28".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC28"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC29"
@@ -45436,7 +45440,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC29".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC29"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC30"
@@ -45447,7 +45451,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC30".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC30"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC31"
@@ -45458,7 +45462,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC31".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC31"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC32"
@@ -45469,7 +45473,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC32".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC32"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC33"
@@ -45479,7 +45483,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC33".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC33"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC34"
@@ -45489,7 +45493,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC34".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC34"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC35"
@@ -45499,7 +45503,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC35".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC35"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC36"
@@ -45509,7 +45513,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC36".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC36"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC84"
@@ -45519,7 +45523,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC84".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC84"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC91"
@@ -45529,7 +45533,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC91".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC91"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC103"
@@ -45539,7 +45543,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC103".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC103"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC107"
@@ -45549,7 +45553,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC107".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC107"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC118"
@@ -45559,7 +45563,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC118".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC118"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC122"
@@ -45569,7 +45573,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC122".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC122"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC129"
@@ -45582,7 +45586,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC129".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC129"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC130"
@@ -45594,7 +45598,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC130".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC130"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC132"
@@ -45604,7 +45608,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC132".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC132"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=CCC133"
@@ -45612,7 +45616,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=CCC133".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=CCC133"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=ATBL"
@@ -45620,7 +45624,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=ATBL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=ATBL"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=ATB"
@@ -45632,7 +45636,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=ATB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=ATB"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=ATA"
@@ -45642,7 +45646,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=ATA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=ATA"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=ATAR"
@@ -45655,7 +45659,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=ATAR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=ATAR"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=BL"
@@ -45665,7 +45669,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=BL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=BL"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=B"
@@ -45745,7 +45749,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=B"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=BR"
@@ -45758,7 +45762,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=BR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=BR"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=L"
@@ -45768,7 +45772,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=L"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=R"
@@ -45778,7 +45782,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=R".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=R"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=AL"
@@ -45790,7 +45794,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=AL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=AL"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=A"
@@ -45909,7 +45913,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=A"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=AR"
@@ -45922,7 +45926,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=AR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=AR"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=DB"
@@ -45935,7 +45939,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=DB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=DB"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=DA"
@@ -45947,7 +45951,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=DA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=DA"), codePointRanges);
   }
 
   // Unicode code points with property "lccc=IS"
@@ -45957,7 +45961,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("lccc=IS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("lccc=IS"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=NR"
@@ -46296,7 +46300,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=NR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=NR"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=OV"
@@ -46340,7 +46344,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=OV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=OV"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=null"
@@ -46348,7 +46352,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=null".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=null"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=NK"
@@ -46393,7 +46397,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=NK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=NK"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=KV"
@@ -46448,7 +46452,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=KV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=KV"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=VR"
@@ -46502,7 +46506,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=VR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=VR"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC10"
@@ -46512,7 +46516,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC10".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC10"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC11"
@@ -46522,7 +46526,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC11".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC11"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC12"
@@ -46532,7 +46536,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC12".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC12"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC13"
@@ -46542,7 +46546,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC13".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC13"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC14"
@@ -46553,7 +46557,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC14".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC14"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC15"
@@ -46563,7 +46567,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC15".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC15"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC16"
@@ -46573,7 +46577,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC16".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC16"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC17"
@@ -46585,7 +46589,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC17".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC17"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC18"
@@ -46597,7 +46601,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC18".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC18"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC19"
@@ -46608,7 +46612,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC19".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC19"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC20"
@@ -46618,7 +46622,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC20".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC20"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC21"
@@ -46634,7 +46638,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC21".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC21"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC22"
@@ -46644,7 +46648,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC22".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC22"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC23"
@@ -46655,7 +46659,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC23".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC23"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC24"
@@ -46667,7 +46671,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC24".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC24"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC25"
@@ -46679,7 +46683,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC25".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC25"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC26"
@@ -46689,7 +46693,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC26".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC26"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC27"
@@ -46700,7 +46704,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC27".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC27"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC28"
@@ -46711,7 +46715,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC28".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC28"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC29"
@@ -46722,7 +46726,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC29".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC29"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC30"
@@ -46733,7 +46737,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC30".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC30"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC31"
@@ -46744,7 +46748,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC31".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC31"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC32"
@@ -46755,7 +46759,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC32".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC32"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC33"
@@ -46765,7 +46769,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC33".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC33"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC34"
@@ -46775,7 +46779,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC34".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC34"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC35"
@@ -46785,7 +46789,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC35".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC35"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC36"
@@ -46795,7 +46799,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC36".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC36"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC84"
@@ -46805,7 +46809,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC84".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC84"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC91"
@@ -46816,7 +46820,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC91".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC91"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC103"
@@ -46826,7 +46830,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC103".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC103"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC107"
@@ -46836,7 +46840,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC107".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC107"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC118"
@@ -46846,7 +46850,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC118".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC118"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC122"
@@ -46856,7 +46860,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC122".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC122"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC129"
@@ -46866,7 +46870,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC129".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC129"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC130"
@@ -46880,7 +46884,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC130".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC130"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC132"
@@ -46890,7 +46894,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC132".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC132"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=CCC133"
@@ -46898,7 +46902,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=CCC133".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=CCC133"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=ATBL"
@@ -46906,7 +46910,7 @@ public enum UnicodeData {
     List<Interval> intervals = List.of();
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=ATBL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=ATBL"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=ATB"
@@ -46935,7 +46939,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=ATB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=ATB"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=ATA"
@@ -46945,7 +46949,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=ATA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=ATA"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=ATAR"
@@ -46961,7 +46965,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=ATAR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=ATAR"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=BL"
@@ -46971,7 +46975,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=BL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=BL"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=B"
@@ -47076,7 +47080,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=B".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=B"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=BR"
@@ -47089,7 +47093,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=BR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=BR"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=L"
@@ -47099,7 +47103,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=L"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=R"
@@ -47109,7 +47113,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=R".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=R"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=AL"
@@ -47121,7 +47125,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=AL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=AL"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=A"
@@ -47351,7 +47355,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=A".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=A"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=AR"
@@ -47364,7 +47368,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=AR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=AR"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=DB"
@@ -47377,7 +47381,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=DB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=DB"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=DA"
@@ -47389,7 +47393,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=DA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=DA"), codePointRanges);
   }
 
   // Unicode code points with property "tccc=IS"
@@ -47409,7 +47413,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("tccc=IS".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("tccc=IS"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=XX"
@@ -47723,7 +47727,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=XX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=XX"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=CN"
@@ -47751,7 +47755,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=CN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=CN"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=CR"
@@ -47761,7 +47765,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=CR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=CR"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=EX"
@@ -48073,7 +48077,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=EX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=EX"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=L"
@@ -48084,7 +48088,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=L".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=L"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=LF"
@@ -48094,7 +48098,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=LF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=LF"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=LV"
@@ -48502,7 +48506,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=LV".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=LV"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=LVT"
@@ -48910,7 +48914,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=LVT".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=LVT"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=T"
@@ -48921,7 +48925,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=T".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=T"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=V"
@@ -48932,7 +48936,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=V".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=V"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=SM"
@@ -49081,7 +49085,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=SM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=SM"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=PP"
@@ -49097,7 +49101,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=PP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=PP"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=RI"
@@ -49107,7 +49111,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=RI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=RI"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=EB"
@@ -49144,7 +49148,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=EB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=EB"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=EBG"
@@ -49154,7 +49158,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=EBG".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=EBG"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=EM"
@@ -49164,7 +49168,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=EM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=EM"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=GAZ"
@@ -49176,7 +49180,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=GAZ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=GAZ"), codePointRanges);
   }
 
   // Unicode code points with property "GCB=ZWJ"
@@ -49186,7 +49190,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("GCB=ZWJ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("GCB=ZWJ"), codePointRanges);
   }
 
   // Unicode code points with property "SB=XX"
@@ -49942,7 +49946,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=XX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=XX"), codePointRanges);
   }
 
   // Unicode code points with property "SB=AT"
@@ -49955,7 +49959,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=AT".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=AT"), codePointRanges);
   }
 
   // Unicode code points with property "SB=CL"
@@ -50008,7 +50012,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=CL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=CL"), codePointRanges);
   }
 
   // Unicode code points with property "SB=FO"
@@ -50035,7 +50039,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=FO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=FO"), codePointRanges);
   }
 
   // Unicode code points with property "SB=LO"
@@ -50683,7 +50687,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=LO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=LO"), codePointRanges);
   }
 
   // Unicode code points with property "SB=NU"
@@ -50746,7 +50750,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=NU".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=NU"), codePointRanges);
   }
 
   // Unicode code points with property "SB=LE"
@@ -51223,7 +51227,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=LE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=LE"), codePointRanges);
   }
 
   // Unicode code points with property "SB=SE"
@@ -51234,7 +51238,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=SE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=SE"), codePointRanges);
   }
 
   // Unicode code points with property "SB=SP"
@@ -51252,7 +51256,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=SP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=SP"), codePointRanges);
   }
 
   // Unicode code points with property "SB=ST"
@@ -51324,7 +51328,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=ST".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=ST"), codePointRanges);
   }
 
   // Unicode code points with property "SB=UP"
@@ -51968,7 +51972,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=UP".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=UP"), codePointRanges);
   }
 
   // Unicode code points with property "SB=CR"
@@ -51978,7 +51982,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=CR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=CR"), codePointRanges);
   }
 
   // Unicode code points with property "SB=EX"
@@ -52240,7 +52244,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=EX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=EX"), codePointRanges);
   }
 
   // Unicode code points with property "SB=LF"
@@ -52250,7 +52254,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=LF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=LF"), codePointRanges);
   }
 
   // Unicode code points with property "SB=SC"
@@ -52278,7 +52282,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("SB=SC".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("SB=SC"), codePointRanges);
   }
 
   // Unicode code points with property "WB=XX"
@@ -53013,7 +53017,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=XX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=XX"), codePointRanges);
   }
 
   // Unicode code points with property "WB=LE"
@@ -53522,7 +53526,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=LE".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=LE"), codePointRanges);
   }
 
   // Unicode code points with property "WB=FO"
@@ -53548,7 +53552,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=FO".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=FO"), codePointRanges);
   }
 
   // Unicode code points with property "WB=KA"
@@ -53566,7 +53570,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=KA".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=KA"), codePointRanges);
   }
 
   // Unicode code points with property "WB=ML"
@@ -53584,7 +53588,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=ML".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=ML"), codePointRanges);
   }
 
   // Unicode code points with property "WB=MN"
@@ -53607,7 +53611,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=MN".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=MN"), codePointRanges);
   }
 
   // Unicode code points with property "WB=NU"
@@ -53670,7 +53674,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=NU".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=NU"), codePointRanges);
   }
 
   // Unicode code points with property "WB=EX"
@@ -53686,7 +53690,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=EX".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=EX"), codePointRanges);
   }
 
   // Unicode code points with property "WB=CR"
@@ -53696,7 +53700,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=CR".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=CR"), codePointRanges);
   }
 
   // Unicode code points with property "WB=Extend"
@@ -53958,7 +53962,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=Extend".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=Extend"), codePointRanges);
   }
 
   // Unicode code points with property "WB=LF"
@@ -53968,7 +53972,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=LF".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=LF"), codePointRanges);
   }
 
   // Unicode code points with property "WB=MB"
@@ -53983,7 +53987,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=MB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=MB"), codePointRanges);
   }
 
   // Unicode code points with property "WB=NL"
@@ -53995,7 +53999,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=NL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=NL"), codePointRanges);
   }
 
   // Unicode code points with property "WB=RI"
@@ -54005,7 +54009,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=RI".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=RI"), codePointRanges);
   }
 
   // Unicode code points with property "WB=HL"
@@ -54024,7 +54028,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=HL".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=HL"), codePointRanges);
   }
 
   // Unicode code points with property "WB=SQ"
@@ -54034,7 +54038,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=SQ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=SQ"), codePointRanges);
   }
 
   // Unicode code points with property "WB=DQ"
@@ -54044,7 +54048,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=DQ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=DQ"), codePointRanges);
   }
 
   // Unicode code points with property "WB=EB"
@@ -54081,7 +54085,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=EB".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=EB"), codePointRanges);
   }
 
   // Unicode code points with property "WB=EBG"
@@ -54091,7 +54095,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=EBG".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=EBG"), codePointRanges);
   }
 
   // Unicode code points with property "WB=EM"
@@ -54101,7 +54105,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=EM".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=EM"), codePointRanges);
   }
 
   // Unicode code points with property "WB=GAZ"
@@ -54113,7 +54117,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=GAZ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=GAZ"), codePointRanges);
   }
 
   // Unicode code points with property "WB=ZWJ"
@@ -54123,7 +54127,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("WB=ZWJ".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("WB=ZWJ"), codePointRanges);
   }
 
   // Unicode code points with property "bpt=n"
@@ -54162,7 +54166,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bpt=n".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bpt=n"), codePointRanges);
   }
 
   // Unicode code points with property "bpt=o"
@@ -54231,7 +54235,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bpt=o".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bpt=o"), codePointRanges);
   }
 
   // Unicode code points with property "bpt=c"
@@ -54300,7 +54304,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("bpt=c".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("bpt=c"), codePointRanges);
   }
 
   // Unicode code points with property "Extended_Pictographic"
@@ -54411,7 +54415,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("Extended_Pictographic".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("Extended_Pictographic"), codePointRanges);
   }
 
   // Unicode code points with property "EmojiRK"
@@ -54429,7 +54433,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("EmojiRK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("EmojiRK"), codePointRanges);
   }
 
   // Unicode code points with property "EmojiNRK"
@@ -54576,7 +54580,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("EmojiNRK".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("EmojiNRK"), codePointRanges);
   }
 
   // Unicode code points with property "EmojiPresentation=EmojiDefault"
@@ -54662,7 +54666,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("EmojiPresentation=EmojiDefault".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("EmojiPresentation=EmojiDefault"), codePointRanges);
   }
 
   // Unicode code points with property "EmojiPresentation=TextDefault"
@@ -54788,7 +54792,7 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("EmojiPresentation=TextDefault".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("EmojiPresentation=TextDefault"), codePointRanges);
   }
 
   // Unicode code points with property "EmojiPresentation=Text"
@@ -54945,2252 +54949,2252 @@ public enum UnicodeData {
     );
     IntervalSet codePointRanges = new IntervalSet(intervals);
     codePointRanges.setReadonly(true);
-    propertyCodePointRanges.put("EmojiPresentation=Text".toLowerCase(Locale.US), codePointRanges);
+    propertyCodePointRanges.put(toLowerCase("EmojiPresentation=Text"), codePointRanges);
   }
 
   // Property aliases
   static private void addPropertyAliases() {
-    propertyAliases.put("Control".toLowerCase(Locale.US), "C".toLowerCase(Locale.US));
-    propertyAliases.put("cntrl".toLowerCase(Locale.US), "Cc".toLowerCase(Locale.US));
-    propertyAliases.put("Space_Separator".toLowerCase(Locale.US), "Zs".toLowerCase(Locale.US));
-    propertyAliases.put("Other_Punctuation".toLowerCase(Locale.US), "Po".toLowerCase(Locale.US));
-    propertyAliases.put("Currency_Symbol".toLowerCase(Locale.US), "Sc".toLowerCase(Locale.US));
-    propertyAliases.put("Open_Punctuation".toLowerCase(Locale.US), "Ps".toLowerCase(Locale.US));
-    propertyAliases.put("Close_Punctuation".toLowerCase(Locale.US), "Pe".toLowerCase(Locale.US));
-    propertyAliases.put("Math_Symbol".toLowerCase(Locale.US), "Sm".toLowerCase(Locale.US));
-    propertyAliases.put("Dash_Punctuation".toLowerCase(Locale.US), "Pd".toLowerCase(Locale.US));
-    propertyAliases.put("Decimal_Number".toLowerCase(Locale.US), "Nd".toLowerCase(Locale.US));
-    propertyAliases.put("digit".toLowerCase(Locale.US), "Nd".toLowerCase(Locale.US));
-    propertyAliases.put("Uppercase_Letter".toLowerCase(Locale.US), "Lu".toLowerCase(Locale.US));
-    propertyAliases.put("Modifier_Symbol".toLowerCase(Locale.US), "Sk".toLowerCase(Locale.US));
-    propertyAliases.put("Connector_Punctuation".toLowerCase(Locale.US), "Pc".toLowerCase(Locale.US));
-    propertyAliases.put("Lowercase_Letter".toLowerCase(Locale.US), "Ll".toLowerCase(Locale.US));
-    propertyAliases.put("Other_Symbol".toLowerCase(Locale.US), "So".toLowerCase(Locale.US));
-    propertyAliases.put("Other_Letter".toLowerCase(Locale.US), "Lo".toLowerCase(Locale.US));
-    propertyAliases.put("Initial_Punctuation".toLowerCase(Locale.US), "Pi".toLowerCase(Locale.US));
-    propertyAliases.put("Format".toLowerCase(Locale.US), "Cf".toLowerCase(Locale.US));
-    propertyAliases.put("Other_Number".toLowerCase(Locale.US), "No".toLowerCase(Locale.US));
-    propertyAliases.put("Final_Punctuation".toLowerCase(Locale.US), "Pf".toLowerCase(Locale.US));
-    propertyAliases.put("Titlecase_Letter".toLowerCase(Locale.US), "Lt".toLowerCase(Locale.US));
-    propertyAliases.put("Modifier_Letter".toLowerCase(Locale.US), "Lm".toLowerCase(Locale.US));
-    propertyAliases.put("Nonspacing_Mark".toLowerCase(Locale.US), "Mn".toLowerCase(Locale.US));
-    propertyAliases.put("Unassigned".toLowerCase(Locale.US), "Cn".toLowerCase(Locale.US));
-    propertyAliases.put("Enclosing_Mark".toLowerCase(Locale.US), "Me".toLowerCase(Locale.US));
-    propertyAliases.put("Spacing_Mark".toLowerCase(Locale.US), "Mc".toLowerCase(Locale.US));
-    propertyAliases.put("Letter_Number".toLowerCase(Locale.US), "Nl".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Separator".toLowerCase(Locale.US), "Zl".toLowerCase(Locale.US));
-    propertyAliases.put("Paragraph_Separator".toLowerCase(Locale.US), "Zp".toLowerCase(Locale.US));
-    propertyAliases.put("Surrogate".toLowerCase(Locale.US), "Cs".toLowerCase(Locale.US));
-    propertyAliases.put("Private_Use".toLowerCase(Locale.US), "Co".toLowerCase(Locale.US));
-    propertyAliases.put("Letter".toLowerCase(Locale.US), "L".toLowerCase(Locale.US));
-    propertyAliases.put("Number".toLowerCase(Locale.US), "N".toLowerCase(Locale.US));
-    propertyAliases.put("Mark".toLowerCase(Locale.US), "M".toLowerCase(Locale.US));
-    propertyAliases.put("Punctuation".toLowerCase(Locale.US), "P".toLowerCase(Locale.US));
-    propertyAliases.put("Symbol".toLowerCase(Locale.US), "S".toLowerCase(Locale.US));
-    propertyAliases.put("Space".toLowerCase(Locale.US), "Z".toLowerCase(Locale.US));
-    propertyAliases.put("Alphabetic".toLowerCase(Locale.US), "Alpha".toLowerCase(Locale.US));
-    propertyAliases.put("ASCII_Hex_Digit".toLowerCase(Locale.US), "AHex".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Control".toLowerCase(Locale.US), "Bidi_C".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Mirrored".toLowerCase(Locale.US), "Bidi_M".toLowerCase(Locale.US));
-    propertyAliases.put("Dash".toLowerCase(Locale.US), "Dash".toLowerCase(Locale.US));
-    propertyAliases.put("Default_Ignorable_Code_Point".toLowerCase(Locale.US), "DI".toLowerCase(Locale.US));
-    propertyAliases.put("Deprecated".toLowerCase(Locale.US), "Dep".toLowerCase(Locale.US));
-    propertyAliases.put("Diacritic".toLowerCase(Locale.US), "Dia".toLowerCase(Locale.US));
-    propertyAliases.put("Extender".toLowerCase(Locale.US), "Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Full_Composition_Exclusion".toLowerCase(Locale.US), "Comp_Ex".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Base".toLowerCase(Locale.US), "Gr_Base".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Extend".toLowerCase(Locale.US), "Gr_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Link".toLowerCase(Locale.US), "Gr_Link".toLowerCase(Locale.US));
-    propertyAliases.put("Hex_Digit".toLowerCase(Locale.US), "Hex".toLowerCase(Locale.US));
-    propertyAliases.put("Hyphen".toLowerCase(Locale.US), "Hyphen".toLowerCase(Locale.US));
-    propertyAliases.put("ID_Continue".toLowerCase(Locale.US), "IDC".toLowerCase(Locale.US));
-    propertyAliases.put("ID_Start".toLowerCase(Locale.US), "IDS".toLowerCase(Locale.US));
-    propertyAliases.put("Ideographic".toLowerCase(Locale.US), "Ideo".toLowerCase(Locale.US));
-    propertyAliases.put("IDS_Binary_Operator".toLowerCase(Locale.US), "IDSB".toLowerCase(Locale.US));
-    propertyAliases.put("IDS_Trinary_Operator".toLowerCase(Locale.US), "IDST".toLowerCase(Locale.US));
-    propertyAliases.put("Join_Control".toLowerCase(Locale.US), "Join_C".toLowerCase(Locale.US));
-    propertyAliases.put("Logical_Order_Exception".toLowerCase(Locale.US), "LOE".toLowerCase(Locale.US));
-    propertyAliases.put("Lowercase".toLowerCase(Locale.US), "Lower".toLowerCase(Locale.US));
-    propertyAliases.put("Math".toLowerCase(Locale.US), "Math".toLowerCase(Locale.US));
-    propertyAliases.put("Noncharacter_Code_Point".toLowerCase(Locale.US), "NChar".toLowerCase(Locale.US));
-    propertyAliases.put("Quotation_Mark".toLowerCase(Locale.US), "QMark".toLowerCase(Locale.US));
-    propertyAliases.put("Radical".toLowerCase(Locale.US), "Radical".toLowerCase(Locale.US));
-    propertyAliases.put("Soft_Dotted".toLowerCase(Locale.US), "SD".toLowerCase(Locale.US));
-    propertyAliases.put("Terminal_Punctuation".toLowerCase(Locale.US), "Term".toLowerCase(Locale.US));
-    propertyAliases.put("Unified_Ideograph".toLowerCase(Locale.US), "UIdeo".toLowerCase(Locale.US));
-    propertyAliases.put("Uppercase".toLowerCase(Locale.US), "Upper".toLowerCase(Locale.US));
-    propertyAliases.put("White_Space".toLowerCase(Locale.US), "WSpace".toLowerCase(Locale.US));
-    propertyAliases.put("space".toLowerCase(Locale.US), "WSpace".toLowerCase(Locale.US));
-    propertyAliases.put("XID_Continue".toLowerCase(Locale.US), "XIDC".toLowerCase(Locale.US));
-    propertyAliases.put("XID_Start".toLowerCase(Locale.US), "XIDS".toLowerCase(Locale.US));
-    propertyAliases.put("Case_Sensitive".toLowerCase(Locale.US), "Sensitive".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Terminal".toLowerCase(Locale.US), "STerm".toLowerCase(Locale.US));
-    propertyAliases.put("Variation_Selector".toLowerCase(Locale.US), "VS".toLowerCase(Locale.US));
-    propertyAliases.put("NFD_Inert".toLowerCase(Locale.US), "nfdinert".toLowerCase(Locale.US));
-    propertyAliases.put("NFKD_Inert".toLowerCase(Locale.US), "nfkdinert".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Inert".toLowerCase(Locale.US), "nfcinert".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Inert".toLowerCase(Locale.US), "nfkcinert".toLowerCase(Locale.US));
-    propertyAliases.put("Segment_Starter".toLowerCase(Locale.US), "segstart".toLowerCase(Locale.US));
-    propertyAliases.put("Pattern_Syntax".toLowerCase(Locale.US), "Pat_Syn".toLowerCase(Locale.US));
-    propertyAliases.put("Pattern_White_Space".toLowerCase(Locale.US), "Pat_WS".toLowerCase(Locale.US));
-    propertyAliases.put("alnum".toLowerCase(Locale.US), "alnum".toLowerCase(Locale.US));
-    propertyAliases.put("blank".toLowerCase(Locale.US), "blank".toLowerCase(Locale.US));
-    propertyAliases.put("graph".toLowerCase(Locale.US), "graph".toLowerCase(Locale.US));
-    propertyAliases.put("print".toLowerCase(Locale.US), "print".toLowerCase(Locale.US));
-    propertyAliases.put("xdigit".toLowerCase(Locale.US), "xdigit".toLowerCase(Locale.US));
-    propertyAliases.put("Cased".toLowerCase(Locale.US), "Cased".toLowerCase(Locale.US));
-    propertyAliases.put("Case_Ignorable".toLowerCase(Locale.US), "CI".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_Lowercased".toLowerCase(Locale.US), "CWL".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_Uppercased".toLowerCase(Locale.US), "CWU".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_Titlecased".toLowerCase(Locale.US), "CWT".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_Casefolded".toLowerCase(Locale.US), "CWCF".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_Casemapped".toLowerCase(Locale.US), "CWCM".toLowerCase(Locale.US));
-    propertyAliases.put("Changes_When_NFKC_Casefolded".toLowerCase(Locale.US), "CWKCF".toLowerCase(Locale.US));
-    propertyAliases.put("Emoji".toLowerCase(Locale.US), "Emoji".toLowerCase(Locale.US));
-    propertyAliases.put("Emoji_Presentation".toLowerCase(Locale.US), "Emoji_Presentation".toLowerCase(Locale.US));
-    propertyAliases.put("Emoji_Modifier".toLowerCase(Locale.US), "Emoji_Modifier".toLowerCase(Locale.US));
-    propertyAliases.put("Emoji_Modifier_Base".toLowerCase(Locale.US), "Emoji_Modifier_Base".toLowerCase(Locale.US));
-    propertyAliases.put("Zyyy".toLowerCase(Locale.US), "sc=Zyyy".toLowerCase(Locale.US));
-    propertyAliases.put("Common".toLowerCase(Locale.US), "sc=Zyyy".toLowerCase(Locale.US));
-    propertyAliases.put("Zinh".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Inherited".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Qaai".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Arab".toLowerCase(Locale.US), "sc=Arab".toLowerCase(Locale.US));
-    propertyAliases.put("Arabic".toLowerCase(Locale.US), "sc=Arab".toLowerCase(Locale.US));
-    propertyAliases.put("Armn".toLowerCase(Locale.US), "sc=Armn".toLowerCase(Locale.US));
-    propertyAliases.put("Armenian".toLowerCase(Locale.US), "sc=Armn".toLowerCase(Locale.US));
-    propertyAliases.put("Beng".toLowerCase(Locale.US), "sc=Beng".toLowerCase(Locale.US));
-    propertyAliases.put("Bengali".toLowerCase(Locale.US), "sc=Beng".toLowerCase(Locale.US));
-    propertyAliases.put("Bopo".toLowerCase(Locale.US), "sc=Bopo".toLowerCase(Locale.US));
-    propertyAliases.put("Bopomofo".toLowerCase(Locale.US), "sc=Bopo".toLowerCase(Locale.US));
-    propertyAliases.put("Cher".toLowerCase(Locale.US), "sc=Cher".toLowerCase(Locale.US));
-    propertyAliases.put("Cherokee".toLowerCase(Locale.US), "sc=Cher".toLowerCase(Locale.US));
-    propertyAliases.put("Copt".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Coptic".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Qaac".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Cyrl".toLowerCase(Locale.US), "sc=Cyrl".toLowerCase(Locale.US));
-    propertyAliases.put("Cyrillic".toLowerCase(Locale.US), "sc=Cyrl".toLowerCase(Locale.US));
-    propertyAliases.put("Dsrt".toLowerCase(Locale.US), "sc=Dsrt".toLowerCase(Locale.US));
-    propertyAliases.put("Deseret".toLowerCase(Locale.US), "sc=Dsrt".toLowerCase(Locale.US));
-    propertyAliases.put("Deva".toLowerCase(Locale.US), "sc=Deva".toLowerCase(Locale.US));
-    propertyAliases.put("Devanagari".toLowerCase(Locale.US), "sc=Deva".toLowerCase(Locale.US));
-    propertyAliases.put("Ethi".toLowerCase(Locale.US), "sc=Ethi".toLowerCase(Locale.US));
-    propertyAliases.put("Ethiopic".toLowerCase(Locale.US), "sc=Ethi".toLowerCase(Locale.US));
-    propertyAliases.put("Geor".toLowerCase(Locale.US), "sc=Geor".toLowerCase(Locale.US));
-    propertyAliases.put("Georgian".toLowerCase(Locale.US), "sc=Geor".toLowerCase(Locale.US));
-    propertyAliases.put("Goth".toLowerCase(Locale.US), "sc=Goth".toLowerCase(Locale.US));
-    propertyAliases.put("Gothic".toLowerCase(Locale.US), "sc=Goth".toLowerCase(Locale.US));
-    propertyAliases.put("Grek".toLowerCase(Locale.US), "sc=Grek".toLowerCase(Locale.US));
-    propertyAliases.put("Greek".toLowerCase(Locale.US), "sc=Grek".toLowerCase(Locale.US));
-    propertyAliases.put("Gujr".toLowerCase(Locale.US), "sc=Gujr".toLowerCase(Locale.US));
-    propertyAliases.put("Gujarati".toLowerCase(Locale.US), "sc=Gujr".toLowerCase(Locale.US));
-    propertyAliases.put("Guru".toLowerCase(Locale.US), "sc=Guru".toLowerCase(Locale.US));
-    propertyAliases.put("Gurmukhi".toLowerCase(Locale.US), "sc=Guru".toLowerCase(Locale.US));
-    propertyAliases.put("Hani".toLowerCase(Locale.US), "sc=Hani".toLowerCase(Locale.US));
-    propertyAliases.put("Han".toLowerCase(Locale.US), "sc=Hani".toLowerCase(Locale.US));
-    propertyAliases.put("Hang".toLowerCase(Locale.US), "sc=Hang".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul".toLowerCase(Locale.US), "sc=Hang".toLowerCase(Locale.US));
-    propertyAliases.put("Hebr".toLowerCase(Locale.US), "sc=Hebr".toLowerCase(Locale.US));
-    propertyAliases.put("Hebrew".toLowerCase(Locale.US), "sc=Hebr".toLowerCase(Locale.US));
-    propertyAliases.put("Hira".toLowerCase(Locale.US), "sc=Hira".toLowerCase(Locale.US));
-    propertyAliases.put("Hiragana".toLowerCase(Locale.US), "sc=Hira".toLowerCase(Locale.US));
-    propertyAliases.put("Knda".toLowerCase(Locale.US), "sc=Knda".toLowerCase(Locale.US));
-    propertyAliases.put("Kannada".toLowerCase(Locale.US), "sc=Knda".toLowerCase(Locale.US));
-    propertyAliases.put("Kana".toLowerCase(Locale.US), "sc=Kana".toLowerCase(Locale.US));
-    propertyAliases.put("Katakana".toLowerCase(Locale.US), "sc=Kana".toLowerCase(Locale.US));
-    propertyAliases.put("Khmr".toLowerCase(Locale.US), "sc=Khmr".toLowerCase(Locale.US));
-    propertyAliases.put("Khmer".toLowerCase(Locale.US), "sc=Khmr".toLowerCase(Locale.US));
-    propertyAliases.put("Laoo".toLowerCase(Locale.US), "sc=Laoo".toLowerCase(Locale.US));
-    propertyAliases.put("Lao".toLowerCase(Locale.US), "sc=Laoo".toLowerCase(Locale.US));
-    propertyAliases.put("Latn".toLowerCase(Locale.US), "sc=Latn".toLowerCase(Locale.US));
-    propertyAliases.put("Latin".toLowerCase(Locale.US), "sc=Latn".toLowerCase(Locale.US));
-    propertyAliases.put("Mlym".toLowerCase(Locale.US), "sc=Mlym".toLowerCase(Locale.US));
-    propertyAliases.put("Malayalam".toLowerCase(Locale.US), "sc=Mlym".toLowerCase(Locale.US));
-    propertyAliases.put("Mong".toLowerCase(Locale.US), "sc=Mong".toLowerCase(Locale.US));
-    propertyAliases.put("Mongolian".toLowerCase(Locale.US), "sc=Mong".toLowerCase(Locale.US));
-    propertyAliases.put("Mymr".toLowerCase(Locale.US), "sc=Mymr".toLowerCase(Locale.US));
-    propertyAliases.put("Myanmar".toLowerCase(Locale.US), "sc=Mymr".toLowerCase(Locale.US));
-    propertyAliases.put("Ogam".toLowerCase(Locale.US), "sc=Ogam".toLowerCase(Locale.US));
-    propertyAliases.put("Ogham".toLowerCase(Locale.US), "sc=Ogam".toLowerCase(Locale.US));
-    propertyAliases.put("Ital".toLowerCase(Locale.US), "sc=Ital".toLowerCase(Locale.US));
-    propertyAliases.put("Old_Italic".toLowerCase(Locale.US), "sc=Ital".toLowerCase(Locale.US));
-    propertyAliases.put("Orya".toLowerCase(Locale.US), "sc=Orya".toLowerCase(Locale.US));
-    propertyAliases.put("Oriya".toLowerCase(Locale.US), "sc=Orya".toLowerCase(Locale.US));
-    propertyAliases.put("Runr".toLowerCase(Locale.US), "sc=Runr".toLowerCase(Locale.US));
-    propertyAliases.put("Runic".toLowerCase(Locale.US), "sc=Runr".toLowerCase(Locale.US));
-    propertyAliases.put("Sinh".toLowerCase(Locale.US), "sc=Sinh".toLowerCase(Locale.US));
-    propertyAliases.put("Sinhala".toLowerCase(Locale.US), "sc=Sinh".toLowerCase(Locale.US));
-    propertyAliases.put("Syrc".toLowerCase(Locale.US), "sc=Syrc".toLowerCase(Locale.US));
-    propertyAliases.put("Syriac".toLowerCase(Locale.US), "sc=Syrc".toLowerCase(Locale.US));
-    propertyAliases.put("Taml".toLowerCase(Locale.US), "sc=Taml".toLowerCase(Locale.US));
-    propertyAliases.put("Tamil".toLowerCase(Locale.US), "sc=Taml".toLowerCase(Locale.US));
-    propertyAliases.put("Telu".toLowerCase(Locale.US), "sc=Telu".toLowerCase(Locale.US));
-    propertyAliases.put("Telugu".toLowerCase(Locale.US), "sc=Telu".toLowerCase(Locale.US));
-    propertyAliases.put("Thaa".toLowerCase(Locale.US), "sc=Thaa".toLowerCase(Locale.US));
-    propertyAliases.put("Thaana".toLowerCase(Locale.US), "sc=Thaa".toLowerCase(Locale.US));
-    propertyAliases.put("Thai".toLowerCase(Locale.US), "sc=Thai".toLowerCase(Locale.US));
-    propertyAliases.put("Tibt".toLowerCase(Locale.US), "sc=Tibt".toLowerCase(Locale.US));
-    propertyAliases.put("Tibetan".toLowerCase(Locale.US), "sc=Tibt".toLowerCase(Locale.US));
-    propertyAliases.put("Cans".toLowerCase(Locale.US), "sc=Cans".toLowerCase(Locale.US));
-    propertyAliases.put("Canadian_Aboriginal".toLowerCase(Locale.US), "sc=Cans".toLowerCase(Locale.US));
-    propertyAliases.put("Yiii".toLowerCase(Locale.US), "sc=Yiii".toLowerCase(Locale.US));
-    propertyAliases.put("Yi".toLowerCase(Locale.US), "sc=Yiii".toLowerCase(Locale.US));
-    propertyAliases.put("Tglg".toLowerCase(Locale.US), "sc=Tglg".toLowerCase(Locale.US));
-    propertyAliases.put("Tagalog".toLowerCase(Locale.US), "sc=Tglg".toLowerCase(Locale.US));
-    propertyAliases.put("Hano".toLowerCase(Locale.US), "sc=Hano".toLowerCase(Locale.US));
-    propertyAliases.put("Hanunoo".toLowerCase(Locale.US), "sc=Hano".toLowerCase(Locale.US));
-    propertyAliases.put("Buhd".toLowerCase(Locale.US), "sc=Buhd".toLowerCase(Locale.US));
-    propertyAliases.put("Buhid".toLowerCase(Locale.US), "sc=Buhd".toLowerCase(Locale.US));
-    propertyAliases.put("Tagb".toLowerCase(Locale.US), "sc=Tagb".toLowerCase(Locale.US));
-    propertyAliases.put("Tagbanwa".toLowerCase(Locale.US), "sc=Tagb".toLowerCase(Locale.US));
-    propertyAliases.put("Brai".toLowerCase(Locale.US), "sc=Brai".toLowerCase(Locale.US));
-    propertyAliases.put("Braille".toLowerCase(Locale.US), "sc=Brai".toLowerCase(Locale.US));
-    propertyAliases.put("Cprt".toLowerCase(Locale.US), "sc=Cprt".toLowerCase(Locale.US));
-    propertyAliases.put("Cypriot".toLowerCase(Locale.US), "sc=Cprt".toLowerCase(Locale.US));
-    propertyAliases.put("Limb".toLowerCase(Locale.US), "sc=Limb".toLowerCase(Locale.US));
-    propertyAliases.put("Limbu".toLowerCase(Locale.US), "sc=Limb".toLowerCase(Locale.US));
-    propertyAliases.put("Linb".toLowerCase(Locale.US), "sc=Linb".toLowerCase(Locale.US));
-    propertyAliases.put("Linear_B".toLowerCase(Locale.US), "sc=Linb".toLowerCase(Locale.US));
-    propertyAliases.put("Osma".toLowerCase(Locale.US), "sc=Osma".toLowerCase(Locale.US));
-    propertyAliases.put("Osmanya".toLowerCase(Locale.US), "sc=Osma".toLowerCase(Locale.US));
-    propertyAliases.put("Shaw".toLowerCase(Locale.US), "sc=Shaw".toLowerCase(Locale.US));
-    propertyAliases.put("Shavian".toLowerCase(Locale.US), "sc=Shaw".toLowerCase(Locale.US));
-    propertyAliases.put("Tale".toLowerCase(Locale.US), "sc=Tale".toLowerCase(Locale.US));
-    propertyAliases.put("Tai_Le".toLowerCase(Locale.US), "sc=Tale".toLowerCase(Locale.US));
-    propertyAliases.put("Ugar".toLowerCase(Locale.US), "sc=Ugar".toLowerCase(Locale.US));
-    propertyAliases.put("Ugaritic".toLowerCase(Locale.US), "sc=Ugar".toLowerCase(Locale.US));
-    propertyAliases.put("Hrkt".toLowerCase(Locale.US), "sc=Hrkt".toLowerCase(Locale.US));
-    propertyAliases.put("Katakana_Or_Hiragana".toLowerCase(Locale.US), "sc=Hrkt".toLowerCase(Locale.US));
-    propertyAliases.put("Bugi".toLowerCase(Locale.US), "sc=Bugi".toLowerCase(Locale.US));
-    propertyAliases.put("Buginese".toLowerCase(Locale.US), "sc=Bugi".toLowerCase(Locale.US));
-    propertyAliases.put("Glag".toLowerCase(Locale.US), "sc=Glag".toLowerCase(Locale.US));
-    propertyAliases.put("Glagolitic".toLowerCase(Locale.US), "sc=Glag".toLowerCase(Locale.US));
-    propertyAliases.put("Khar".toLowerCase(Locale.US), "sc=Khar".toLowerCase(Locale.US));
-    propertyAliases.put("Kharoshthi".toLowerCase(Locale.US), "sc=Khar".toLowerCase(Locale.US));
-    propertyAliases.put("Sylo".toLowerCase(Locale.US), "sc=Sylo".toLowerCase(Locale.US));
-    propertyAliases.put("Syloti_Nagri".toLowerCase(Locale.US), "sc=Sylo".toLowerCase(Locale.US));
-    propertyAliases.put("Talu".toLowerCase(Locale.US), "sc=Talu".toLowerCase(Locale.US));
-    propertyAliases.put("New_Tai_Lue".toLowerCase(Locale.US), "sc=Talu".toLowerCase(Locale.US));
-    propertyAliases.put("Tfng".toLowerCase(Locale.US), "sc=Tfng".toLowerCase(Locale.US));
-    propertyAliases.put("Tifinagh".toLowerCase(Locale.US), "sc=Tfng".toLowerCase(Locale.US));
-    propertyAliases.put("Xpeo".toLowerCase(Locale.US), "sc=Xpeo".toLowerCase(Locale.US));
-    propertyAliases.put("Old_Persian".toLowerCase(Locale.US), "sc=Xpeo".toLowerCase(Locale.US));
-    propertyAliases.put("Bali".toLowerCase(Locale.US), "sc=Bali".toLowerCase(Locale.US));
-    propertyAliases.put("Balinese".toLowerCase(Locale.US), "sc=Bali".toLowerCase(Locale.US));
-    propertyAliases.put("Batk".toLowerCase(Locale.US), "sc=Batk".toLowerCase(Locale.US));
-    propertyAliases.put("Batak".toLowerCase(Locale.US), "sc=Batk".toLowerCase(Locale.US));
-    propertyAliases.put("Blis".toLowerCase(Locale.US), "sc=Blis".toLowerCase(Locale.US));
-    propertyAliases.put("Brah".toLowerCase(Locale.US), "sc=Brah".toLowerCase(Locale.US));
-    propertyAliases.put("Brahmi".toLowerCase(Locale.US), "sc=Brah".toLowerCase(Locale.US));
-    propertyAliases.put("Cham".toLowerCase(Locale.US), "sc=Cham".toLowerCase(Locale.US));
-    propertyAliases.put("Cirt".toLowerCase(Locale.US), "sc=Cirt".toLowerCase(Locale.US));
-    propertyAliases.put("Cyrs".toLowerCase(Locale.US), "sc=Cyrs".toLowerCase(Locale.US));
-    propertyAliases.put("Egyd".toLowerCase(Locale.US), "sc=Egyd".toLowerCase(Locale.US));
-    propertyAliases.put("Egyh".toLowerCase(Locale.US), "sc=Egyh".toLowerCase(Locale.US));
-    propertyAliases.put("Egyp".toLowerCase(Locale.US), "sc=Egyp".toLowerCase(Locale.US));
-    propertyAliases.put("Egyptian_Hieroglyphs".toLowerCase(Locale.US), "sc=Egyp".toLowerCase(Locale.US));
-    propertyAliases.put("Geok".toLowerCase(Locale.US), "sc=Geok".toLowerCase(Locale.US));
-    propertyAliases.put("Hans".toLowerCase(Locale.US), "sc=Hans".toLowerCase(Locale.US));
-    propertyAliases.put("Hant".toLowerCase(Locale.US), "sc=Hant".toLowerCase(Locale.US));
-    propertyAliases.put("Hmng".toLowerCase(Locale.US), "sc=Hmng".toLowerCase(Locale.US));
-    propertyAliases.put("Pahawh_Hmong".toLowerCase(Locale.US), "sc=Hmng".toLowerCase(Locale.US));
-    propertyAliases.put("Hung".toLowerCase(Locale.US), "sc=Hung".toLowerCase(Locale.US));
-    propertyAliases.put("Old_Hungarian".toLowerCase(Locale.US), "sc=Hung".toLowerCase(Locale.US));
-    propertyAliases.put("Inds".toLowerCase(Locale.US), "sc=Inds".toLowerCase(Locale.US));
-    propertyAliases.put("Java".toLowerCase(Locale.US), "sc=Java".toLowerCase(Locale.US));
-    propertyAliases.put("Javanese".toLowerCase(Locale.US), "sc=Java".toLowerCase(Locale.US));
-    propertyAliases.put("Kali".toLowerCase(Locale.US), "sc=Kali".toLowerCase(Locale.US));
-    propertyAliases.put("Kayah_Li".toLowerCase(Locale.US), "sc=Kali".toLowerCase(Locale.US));
-    propertyAliases.put("Latf".toLowerCase(Locale.US), "sc=Latf".toLowerCase(Locale.US));
-    propertyAliases.put("Latg".toLowerCase(Locale.US), "sc=Latg".toLowerCase(Locale.US));
-    propertyAliases.put("Lepc".toLowerCase(Locale.US), "sc=Lepc".toLowerCase(Locale.US));
-    propertyAliases.put("Lepcha".toLowerCase(Locale.US), "sc=Lepc".toLowerCase(Locale.US));
-    propertyAliases.put("Lina".toLowerCase(Locale.US), "sc=Lina".toLowerCase(Locale.US));
-    propertyAliases.put("Linear_A".toLowerCase(Locale.US), "sc=Lina".toLowerCase(Locale.US));
-    propertyAliases.put("Mand".toLowerCase(Locale.US), "sc=Mand".toLowerCase(Locale.US));
-    propertyAliases.put("Mandaic".toLowerCase(Locale.US), "sc=Mand".toLowerCase(Locale.US));
-    propertyAliases.put("Maya".toLowerCase(Locale.US), "sc=Maya".toLowerCase(Locale.US));
-    propertyAliases.put("Mero".toLowerCase(Locale.US), "sc=Mero".toLowerCase(Locale.US));
-    propertyAliases.put("Meroitic_Hieroglyphs".toLowerCase(Locale.US), "sc=Mero".toLowerCase(Locale.US));
-    propertyAliases.put("Nkoo".toLowerCase(Locale.US), "sc=Nkoo".toLowerCase(Locale.US));
-    propertyAliases.put("Nko".toLowerCase(Locale.US), "sc=Nkoo".toLowerCase(Locale.US));
-    propertyAliases.put("Orkh".toLowerCase(Locale.US), "sc=Orkh".toLowerCase(Locale.US));
-    propertyAliases.put("Old_Turkic".toLowerCase(Locale.US), "sc=Orkh".toLowerCase(Locale.US));
-    propertyAliases.put("Perm".toLowerCase(Locale.US), "sc=Perm".toLowerCase(Locale.US));
-    propertyAliases.put("Old_Permic".toLowerCase(Locale.US), "sc=Perm".toLowerCase(Locale.US));
-    propertyAliases.put("Phag".toLowerCase(Locale.US), "sc=Phag".toLowerCase(Locale.US));
-    propertyAliases.put("Phags_Pa".toLowerCase(Locale.US), "sc=Phag".toLowerCase(Locale.US));
-    propertyAliases.put("Phnx".toLowerCase(Locale.US), "sc=Phnx".toLowerCase(Locale.US));
-    propertyAliases.put("Phoenician".toLowerCase(Locale.US), "sc=Phnx".toLowerCase(Locale.US));
-    propertyAliases.put("Plrd".toLowerCase(Locale.US), "sc=Plrd".toLowerCase(Locale.US));
-    propertyAliases.put("Miao".toLowerCase(Locale.US), "sc=Plrd".toLowerCase(Locale.US));
-    propertyAliases.put("Roro".toLowerCase(Locale.US), "sc=Roro".toLowerCase(Locale.US));
-    propertyAliases.put("Sara".toLowerCase(Locale.US), "sc=Sara".toLowerCase(Locale.US));
-    propertyAliases.put("Syre".toLowerCase(Locale.US), "sc=Syre".toLowerCase(Locale.US));
-    propertyAliases.put("Syrj".toLowerCase(Locale.US), "sc=Syrj".toLowerCase(Locale.US));
-    propertyAliases.put("Syrn".toLowerCase(Locale.US), "sc=Syrn".toLowerCase(Locale.US));
-    propertyAliases.put("Teng".toLowerCase(Locale.US), "sc=Teng".toLowerCase(Locale.US));
-    propertyAliases.put("Vaii".toLowerCase(Locale.US), "sc=Vaii".toLowerCase(Locale.US));
-    propertyAliases.put("Vai".toLowerCase(Locale.US), "sc=Vaii".toLowerCase(Locale.US));
-    propertyAliases.put("Visp".toLowerCase(Locale.US), "sc=Visp".toLowerCase(Locale.US));
-    propertyAliases.put("Xsux".toLowerCase(Locale.US), "sc=Xsux".toLowerCase(Locale.US));
-    propertyAliases.put("Cuneiform".toLowerCase(Locale.US), "sc=Xsux".toLowerCase(Locale.US));
-    propertyAliases.put("Zxxx".toLowerCase(Locale.US), "sc=Zxxx".toLowerCase(Locale.US));
-    propertyAliases.put("Zzzz".toLowerCase(Locale.US), "sc=Zzzz".toLowerCase(Locale.US));
-    propertyAliases.put("Unknown".toLowerCase(Locale.US), "sc=Zzzz".toLowerCase(Locale.US));
-    propertyAliases.put("Cari".toLowerCase(Locale.US), "sc=Cari".toLowerCase(Locale.US));
-    propertyAliases.put("Carian".toLowerCase(Locale.US), "sc=Cari".toLowerCase(Locale.US));
-    propertyAliases.put("Jpan".toLowerCase(Locale.US), "sc=Jpan".toLowerCase(Locale.US));
-    propertyAliases.put("Lana".toLowerCase(Locale.US), "sc=Lana".toLowerCase(Locale.US));
-    propertyAliases.put("Tai_Tham".toLowerCase(Locale.US), "sc=Lana".toLowerCase(Locale.US));
-    propertyAliases.put("Lyci".toLowerCase(Locale.US), "sc=Lyci".toLowerCase(Locale.US));
-    propertyAliases.put("Lycian".toLowerCase(Locale.US), "sc=Lyci".toLowerCase(Locale.US));
-    propertyAliases.put("Lydi".toLowerCase(Locale.US), "sc=Lydi".toLowerCase(Locale.US));
-    propertyAliases.put("Lydian".toLowerCase(Locale.US), "sc=Lydi".toLowerCase(Locale.US));
-    propertyAliases.put("Olck".toLowerCase(Locale.US), "sc=Olck".toLowerCase(Locale.US));
-    propertyAliases.put("Ol_Chiki".toLowerCase(Locale.US), "sc=Olck".toLowerCase(Locale.US));
-    propertyAliases.put("Rjng".toLowerCase(Locale.US), "sc=Rjng".toLowerCase(Locale.US));
-    propertyAliases.put("Rejang".toLowerCase(Locale.US), "sc=Rjng".toLowerCase(Locale.US));
-    propertyAliases.put("Saur".toLowerCase(Locale.US), "sc=Saur".toLowerCase(Locale.US));
-    propertyAliases.put("Saurashtra".toLowerCase(Locale.US), "sc=Saur".toLowerCase(Locale.US));
-    propertyAliases.put("Sgnw".toLowerCase(Locale.US), "sc=Sgnw".toLowerCase(Locale.US));
-    propertyAliases.put("SignWriting".toLowerCase(Locale.US), "sc=Sgnw".toLowerCase(Locale.US));
-    propertyAliases.put("Sund".toLowerCase(Locale.US), "sc=Sund".toLowerCase(Locale.US));
-    propertyAliases.put("Sundanese".toLowerCase(Locale.US), "sc=Sund".toLowerCase(Locale.US));
-    propertyAliases.put("Moon".toLowerCase(Locale.US), "sc=Moon".toLowerCase(Locale.US));
-    propertyAliases.put("Mtei".toLowerCase(Locale.US), "sc=Mtei".toLowerCase(Locale.US));
-    propertyAliases.put("Meetei_Mayek".toLowerCase(Locale.US), "sc=Mtei".toLowerCase(Locale.US));
-    propertyAliases.put("Armi".toLowerCase(Locale.US), "sc=Armi".toLowerCase(Locale.US));
-    propertyAliases.put("Imperial_Aramaic".toLowerCase(Locale.US), "sc=Armi".toLowerCase(Locale.US));
-    propertyAliases.put("Avst".toLowerCase(Locale.US), "sc=Avst".toLowerCase(Locale.US));
-    propertyAliases.put("Avestan".toLowerCase(Locale.US), "sc=Avst".toLowerCase(Locale.US));
-    propertyAliases.put("Cakm".toLowerCase(Locale.US), "sc=Cakm".toLowerCase(Locale.US));
-    propertyAliases.put("Chakma".toLowerCase(Locale.US), "sc=Cakm".toLowerCase(Locale.US));
-    propertyAliases.put("Kore".toLowerCase(Locale.US), "sc=Kore".toLowerCase(Locale.US));
-    propertyAliases.put("Kthi".toLowerCase(Locale.US), "sc=Kthi".toLowerCase(Locale.US));
-    propertyAliases.put("Kaithi".toLowerCase(Locale.US), "sc=Kthi".toLowerCase(Locale.US));
-    propertyAliases.put("Mani".toLowerCase(Locale.US), "sc=Mani".toLowerCase(Locale.US));
-    propertyAliases.put("Manichaean".toLowerCase(Locale.US), "sc=Mani".toLowerCase(Locale.US));
-    propertyAliases.put("Phli".toLowerCase(Locale.US), "sc=Phli".toLowerCase(Locale.US));
-    propertyAliases.put("Inscriptional_Pahlavi".toLowerCase(Locale.US), "sc=Phli".toLowerCase(Locale.US));
-    propertyAliases.put("Phlp".toLowerCase(Locale.US), "sc=Phlp".toLowerCase(Locale.US));
-    propertyAliases.put("Psalter_Pahlavi".toLowerCase(Locale.US), "sc=Phlp".toLowerCase(Locale.US));
-    propertyAliases.put("Phlv".toLowerCase(Locale.US), "sc=Phlv".toLowerCase(Locale.US));
-    propertyAliases.put("Prti".toLowerCase(Locale.US), "sc=Prti".toLowerCase(Locale.US));
-    propertyAliases.put("Inscriptional_Parthian".toLowerCase(Locale.US), "sc=Prti".toLowerCase(Locale.US));
-    propertyAliases.put("Samr".toLowerCase(Locale.US), "sc=Samr".toLowerCase(Locale.US));
-    propertyAliases.put("Samaritan".toLowerCase(Locale.US), "sc=Samr".toLowerCase(Locale.US));
-    propertyAliases.put("Tavt".toLowerCase(Locale.US), "sc=Tavt".toLowerCase(Locale.US));
-    propertyAliases.put("Tai_Viet".toLowerCase(Locale.US), "sc=Tavt".toLowerCase(Locale.US));
-    propertyAliases.put("Zmth".toLowerCase(Locale.US), "sc=Zmth".toLowerCase(Locale.US));
-    propertyAliases.put("Zsym".toLowerCase(Locale.US), "sc=Zsym".toLowerCase(Locale.US));
-    propertyAliases.put("Bamu".toLowerCase(Locale.US), "sc=Bamu".toLowerCase(Locale.US));
-    propertyAliases.put("Bamum".toLowerCase(Locale.US), "sc=Bamu".toLowerCase(Locale.US));
-    propertyAliases.put("Lisu".toLowerCase(Locale.US), "sc=Lisu".toLowerCase(Locale.US));
-    propertyAliases.put("Nkgb".toLowerCase(Locale.US), "sc=Nkgb".toLowerCase(Locale.US));
-    propertyAliases.put("Sarb".toLowerCase(Locale.US), "sc=Sarb".toLowerCase(Locale.US));
-    propertyAliases.put("Old_South_Arabian".toLowerCase(Locale.US), "sc=Sarb".toLowerCase(Locale.US));
-    propertyAliases.put("Bass".toLowerCase(Locale.US), "sc=Bass".toLowerCase(Locale.US));
-    propertyAliases.put("Bassa_Vah".toLowerCase(Locale.US), "sc=Bass".toLowerCase(Locale.US));
-    propertyAliases.put("Dupl".toLowerCase(Locale.US), "sc=Dupl".toLowerCase(Locale.US));
-    propertyAliases.put("Duployan".toLowerCase(Locale.US), "sc=Dupl".toLowerCase(Locale.US));
-    propertyAliases.put("Elba".toLowerCase(Locale.US), "sc=Elba".toLowerCase(Locale.US));
-    propertyAliases.put("Elbasan".toLowerCase(Locale.US), "sc=Elba".toLowerCase(Locale.US));
-    propertyAliases.put("Gran".toLowerCase(Locale.US), "sc=Gran".toLowerCase(Locale.US));
-    propertyAliases.put("Grantha".toLowerCase(Locale.US), "sc=Gran".toLowerCase(Locale.US));
-    propertyAliases.put("Kpel".toLowerCase(Locale.US), "sc=Kpel".toLowerCase(Locale.US));
-    propertyAliases.put("Loma".toLowerCase(Locale.US), "sc=Loma".toLowerCase(Locale.US));
-    propertyAliases.put("Mend".toLowerCase(Locale.US), "sc=Mend".toLowerCase(Locale.US));
-    propertyAliases.put("Mende_Kikakui".toLowerCase(Locale.US), "sc=Mend".toLowerCase(Locale.US));
-    propertyAliases.put("Merc".toLowerCase(Locale.US), "sc=Merc".toLowerCase(Locale.US));
-    propertyAliases.put("Meroitic_Cursive".toLowerCase(Locale.US), "sc=Merc".toLowerCase(Locale.US));
-    propertyAliases.put("Narb".toLowerCase(Locale.US), "sc=Narb".toLowerCase(Locale.US));
-    propertyAliases.put("Old_North_Arabian".toLowerCase(Locale.US), "sc=Narb".toLowerCase(Locale.US));
-    propertyAliases.put("Nbat".toLowerCase(Locale.US), "sc=Nbat".toLowerCase(Locale.US));
-    propertyAliases.put("Nabataean".toLowerCase(Locale.US), "sc=Nbat".toLowerCase(Locale.US));
-    propertyAliases.put("Palm".toLowerCase(Locale.US), "sc=Palm".toLowerCase(Locale.US));
-    propertyAliases.put("Palmyrene".toLowerCase(Locale.US), "sc=Palm".toLowerCase(Locale.US));
-    propertyAliases.put("Sind".toLowerCase(Locale.US), "sc=Sind".toLowerCase(Locale.US));
-    propertyAliases.put("Khudawadi".toLowerCase(Locale.US), "sc=Sind".toLowerCase(Locale.US));
-    propertyAliases.put("Wara".toLowerCase(Locale.US), "sc=Wara".toLowerCase(Locale.US));
-    propertyAliases.put("Warang_Citi".toLowerCase(Locale.US), "sc=Wara".toLowerCase(Locale.US));
-    propertyAliases.put("Afak".toLowerCase(Locale.US), "sc=Afak".toLowerCase(Locale.US));
-    propertyAliases.put("Jurc".toLowerCase(Locale.US), "sc=Jurc".toLowerCase(Locale.US));
-    propertyAliases.put("Mroo".toLowerCase(Locale.US), "sc=Mroo".toLowerCase(Locale.US));
-    propertyAliases.put("Mro".toLowerCase(Locale.US), "sc=Mroo".toLowerCase(Locale.US));
-    propertyAliases.put("Nshu".toLowerCase(Locale.US), "sc=Nshu".toLowerCase(Locale.US));
-    propertyAliases.put("Shrd".toLowerCase(Locale.US), "sc=Shrd".toLowerCase(Locale.US));
-    propertyAliases.put("Sharada".toLowerCase(Locale.US), "sc=Shrd".toLowerCase(Locale.US));
-    propertyAliases.put("Sora".toLowerCase(Locale.US), "sc=Sora".toLowerCase(Locale.US));
-    propertyAliases.put("Sora_Sompeng".toLowerCase(Locale.US), "sc=Sora".toLowerCase(Locale.US));
-    propertyAliases.put("Takr".toLowerCase(Locale.US), "sc=Takr".toLowerCase(Locale.US));
-    propertyAliases.put("Takri".toLowerCase(Locale.US), "sc=Takr".toLowerCase(Locale.US));
-    propertyAliases.put("Tang".toLowerCase(Locale.US), "sc=Tang".toLowerCase(Locale.US));
-    propertyAliases.put("Tangut".toLowerCase(Locale.US), "sc=Tang".toLowerCase(Locale.US));
-    propertyAliases.put("Wole".toLowerCase(Locale.US), "sc=Wole".toLowerCase(Locale.US));
-    propertyAliases.put("Hluw".toLowerCase(Locale.US), "sc=Hluw".toLowerCase(Locale.US));
-    propertyAliases.put("Anatolian_Hieroglyphs".toLowerCase(Locale.US), "sc=Hluw".toLowerCase(Locale.US));
-    propertyAliases.put("Khoj".toLowerCase(Locale.US), "sc=Khoj".toLowerCase(Locale.US));
-    propertyAliases.put("Khojki".toLowerCase(Locale.US), "sc=Khoj".toLowerCase(Locale.US));
-    propertyAliases.put("Tirh".toLowerCase(Locale.US), "sc=Tirh".toLowerCase(Locale.US));
-    propertyAliases.put("Tirhuta".toLowerCase(Locale.US), "sc=Tirh".toLowerCase(Locale.US));
-    propertyAliases.put("Aghb".toLowerCase(Locale.US), "sc=Aghb".toLowerCase(Locale.US));
-    propertyAliases.put("Caucasian_Albanian".toLowerCase(Locale.US), "sc=Aghb".toLowerCase(Locale.US));
-    propertyAliases.put("Mahj".toLowerCase(Locale.US), "sc=Mahj".toLowerCase(Locale.US));
-    propertyAliases.put("Mahajani".toLowerCase(Locale.US), "sc=Mahj".toLowerCase(Locale.US));
-    propertyAliases.put("Ahom".toLowerCase(Locale.US), "sc=Ahom".toLowerCase(Locale.US));
-    propertyAliases.put("Hatr".toLowerCase(Locale.US), "sc=Hatr".toLowerCase(Locale.US));
-    propertyAliases.put("Hatran".toLowerCase(Locale.US), "sc=Hatr".toLowerCase(Locale.US));
-    propertyAliases.put("Modi".toLowerCase(Locale.US), "sc=Modi".toLowerCase(Locale.US));
-    propertyAliases.put("Mult".toLowerCase(Locale.US), "sc=Mult".toLowerCase(Locale.US));
-    propertyAliases.put("Multani".toLowerCase(Locale.US), "sc=Mult".toLowerCase(Locale.US));
-    propertyAliases.put("Pauc".toLowerCase(Locale.US), "sc=Pauc".toLowerCase(Locale.US));
-    propertyAliases.put("Pau_Cin_Hau".toLowerCase(Locale.US), "sc=Pauc".toLowerCase(Locale.US));
-    propertyAliases.put("Sidd".toLowerCase(Locale.US), "sc=Sidd".toLowerCase(Locale.US));
-    propertyAliases.put("Siddham".toLowerCase(Locale.US), "sc=Sidd".toLowerCase(Locale.US));
-    propertyAliases.put("Adlm".toLowerCase(Locale.US), "sc=Adlm".toLowerCase(Locale.US));
-    propertyAliases.put("Adlam".toLowerCase(Locale.US), "sc=Adlm".toLowerCase(Locale.US));
-    propertyAliases.put("Bhks".toLowerCase(Locale.US), "sc=Bhks".toLowerCase(Locale.US));
-    propertyAliases.put("Bhaiksuki".toLowerCase(Locale.US), "sc=Bhks".toLowerCase(Locale.US));
-    propertyAliases.put("Marc".toLowerCase(Locale.US), "sc=Marc".toLowerCase(Locale.US));
-    propertyAliases.put("Marchen".toLowerCase(Locale.US), "sc=Marc".toLowerCase(Locale.US));
-    propertyAliases.put("Newa".toLowerCase(Locale.US), "sc=Newa".toLowerCase(Locale.US));
-    propertyAliases.put("Osge".toLowerCase(Locale.US), "sc=Osge".toLowerCase(Locale.US));
-    propertyAliases.put("Osage".toLowerCase(Locale.US), "sc=Osge".toLowerCase(Locale.US));
-    propertyAliases.put("Hanb".toLowerCase(Locale.US), "sc=Hanb".toLowerCase(Locale.US));
-    propertyAliases.put("Jamo".toLowerCase(Locale.US), "sc=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Zsye".toLowerCase(Locale.US), "sc=Zsye".toLowerCase(Locale.US));
-    propertyAliases.put("InNB".toLowerCase(Locale.US), "blk=NB".toLowerCase(Locale.US));
-    propertyAliases.put("InNo_Block".toLowerCase(Locale.US), "blk=NB".toLowerCase(Locale.US));
-    propertyAliases.put("InASCII".toLowerCase(Locale.US), "blk=ASCII".toLowerCase(Locale.US));
-    propertyAliases.put("InBasic_Latin".toLowerCase(Locale.US), "blk=ASCII".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_1_Sup".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_1_Supplement".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_1".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_A".toLowerCase(Locale.US), "blk=Latin_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_A".toLowerCase(Locale.US), "blk=Latin_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_B".toLowerCase(Locale.US), "blk=Latin_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_B".toLowerCase(Locale.US), "blk=Latin_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InIPA_Ext".toLowerCase(Locale.US), "blk=IPA_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InIPA_Extensions".toLowerCase(Locale.US), "blk=IPA_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InModifier_Letters".toLowerCase(Locale.US), "blk=Modifier_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("InSpacing_Modifier_Letters".toLowerCase(Locale.US), "blk=Modifier_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("InDiacriticals".toLowerCase(Locale.US), "blk=Diacriticals".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Diacritical_Marks".toLowerCase(Locale.US), "blk=Diacriticals".toLowerCase(Locale.US));
-    propertyAliases.put("InGreek".toLowerCase(Locale.US), "blk=Greek".toLowerCase(Locale.US));
-    propertyAliases.put("InGreek_And_Coptic".toLowerCase(Locale.US), "blk=Greek".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic".toLowerCase(Locale.US), "blk=Cyrillic".toLowerCase(Locale.US));
-    propertyAliases.put("InArmenian".toLowerCase(Locale.US), "blk=Armenian".toLowerCase(Locale.US));
-    propertyAliases.put("InHebrew".toLowerCase(Locale.US), "blk=Hebrew".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic".toLowerCase(Locale.US), "blk=Arabic".toLowerCase(Locale.US));
-    propertyAliases.put("InSyriac".toLowerCase(Locale.US), "blk=Syriac".toLowerCase(Locale.US));
-    propertyAliases.put("InThaana".toLowerCase(Locale.US), "blk=Thaana".toLowerCase(Locale.US));
-    propertyAliases.put("InDevanagari".toLowerCase(Locale.US), "blk=Devanagari".toLowerCase(Locale.US));
-    propertyAliases.put("InBengali".toLowerCase(Locale.US), "blk=Bengali".toLowerCase(Locale.US));
-    propertyAliases.put("InGurmukhi".toLowerCase(Locale.US), "blk=Gurmukhi".toLowerCase(Locale.US));
-    propertyAliases.put("InGujarati".toLowerCase(Locale.US), "blk=Gujarati".toLowerCase(Locale.US));
-    propertyAliases.put("InOriya".toLowerCase(Locale.US), "blk=Oriya".toLowerCase(Locale.US));
-    propertyAliases.put("InTamil".toLowerCase(Locale.US), "blk=Tamil".toLowerCase(Locale.US));
-    propertyAliases.put("InTelugu".toLowerCase(Locale.US), "blk=Telugu".toLowerCase(Locale.US));
-    propertyAliases.put("InKannada".toLowerCase(Locale.US), "blk=Kannada".toLowerCase(Locale.US));
-    propertyAliases.put("InMalayalam".toLowerCase(Locale.US), "blk=Malayalam".toLowerCase(Locale.US));
-    propertyAliases.put("InSinhala".toLowerCase(Locale.US), "blk=Sinhala".toLowerCase(Locale.US));
-    propertyAliases.put("InThai".toLowerCase(Locale.US), "blk=Thai".toLowerCase(Locale.US));
-    propertyAliases.put("InLao".toLowerCase(Locale.US), "blk=Lao".toLowerCase(Locale.US));
-    propertyAliases.put("InTibetan".toLowerCase(Locale.US), "blk=Tibetan".toLowerCase(Locale.US));
-    propertyAliases.put("InMyanmar".toLowerCase(Locale.US), "blk=Myanmar".toLowerCase(Locale.US));
-    propertyAliases.put("InGeorgian".toLowerCase(Locale.US), "blk=Georgian".toLowerCase(Locale.US));
-    propertyAliases.put("InJamo".toLowerCase(Locale.US), "blk=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul_Jamo".toLowerCase(Locale.US), "blk=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic".toLowerCase(Locale.US), "blk=Ethiopic".toLowerCase(Locale.US));
-    propertyAliases.put("InCherokee".toLowerCase(Locale.US), "blk=Cherokee".toLowerCase(Locale.US));
-    propertyAliases.put("InUCAS".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("InUnified_Canadian_Aboriginal_Syllabics".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("InCanadian_Syllabics".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("InOgham".toLowerCase(Locale.US), "blk=Ogham".toLowerCase(Locale.US));
-    propertyAliases.put("InRunic".toLowerCase(Locale.US), "blk=Runic".toLowerCase(Locale.US));
-    propertyAliases.put("InKhmer".toLowerCase(Locale.US), "blk=Khmer".toLowerCase(Locale.US));
-    propertyAliases.put("InMongolian".toLowerCase(Locale.US), "blk=Mongolian".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_Additional".toLowerCase(Locale.US), "blk=Latin_Ext_Additional".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_Additional".toLowerCase(Locale.US), "blk=Latin_Ext_Additional".toLowerCase(Locale.US));
-    propertyAliases.put("InGreek_Ext".toLowerCase(Locale.US), "blk=Greek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InGreek_Extended".toLowerCase(Locale.US), "blk=Greek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InPunctuation".toLowerCase(Locale.US), "blk=Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("InGeneral_Punctuation".toLowerCase(Locale.US), "blk=Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("InSuper_And_Sub".toLowerCase(Locale.US), "blk=Super_And_Sub".toLowerCase(Locale.US));
-    propertyAliases.put("InSuperscripts_And_Subscripts".toLowerCase(Locale.US), "blk=Super_And_Sub".toLowerCase(Locale.US));
-    propertyAliases.put("InCurrency_Symbols".toLowerCase(Locale.US), "blk=Currency_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InDiacriticals_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Diacritical_Marks_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Marks_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InLetterlike_Symbols".toLowerCase(Locale.US), "blk=Letterlike_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InNumber_Forms".toLowerCase(Locale.US), "blk=Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InArrows".toLowerCase(Locale.US), "blk=Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("InMath_Operators".toLowerCase(Locale.US), "blk=Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("InMathematical_Operators".toLowerCase(Locale.US), "blk=Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Technical".toLowerCase(Locale.US), "blk=Misc_Technical".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Technical".toLowerCase(Locale.US), "blk=Misc_Technical".toLowerCase(Locale.US));
-    propertyAliases.put("InControl_Pictures".toLowerCase(Locale.US), "blk=Control_Pictures".toLowerCase(Locale.US));
-    propertyAliases.put("InOCR".toLowerCase(Locale.US), "blk=OCR".toLowerCase(Locale.US));
-    propertyAliases.put("InOptical_Character_Recognition".toLowerCase(Locale.US), "blk=OCR".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Alphanum".toLowerCase(Locale.US), "blk=Enclosed_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Alphanumerics".toLowerCase(Locale.US), "blk=Enclosed_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("InBox_Drawing".toLowerCase(Locale.US), "blk=Box_Drawing".toLowerCase(Locale.US));
-    propertyAliases.put("InBlock_Elements".toLowerCase(Locale.US), "blk=Block_Elements".toLowerCase(Locale.US));
-    propertyAliases.put("InGeometric_Shapes".toLowerCase(Locale.US), "blk=Geometric_Shapes".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Symbols".toLowerCase(Locale.US), "blk=Misc_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Symbols".toLowerCase(Locale.US), "blk=Misc_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InDingbats".toLowerCase(Locale.US), "blk=Dingbats".toLowerCase(Locale.US));
-    propertyAliases.put("InBraille".toLowerCase(Locale.US), "blk=Braille".toLowerCase(Locale.US));
-    propertyAliases.put("InBraille_Patterns".toLowerCase(Locale.US), "blk=Braille".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Radicals_Sup".toLowerCase(Locale.US), "blk=CJK_Radicals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Radicals_Supplement".toLowerCase(Locale.US), "blk=CJK_Radicals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InKangxi".toLowerCase(Locale.US), "blk=Kangxi".toLowerCase(Locale.US));
-    propertyAliases.put("InKangxi_Radicals".toLowerCase(Locale.US), "blk=Kangxi".toLowerCase(Locale.US));
-    propertyAliases.put("InIDC".toLowerCase(Locale.US), "blk=IDC".toLowerCase(Locale.US));
-    propertyAliases.put("InIdeographic_Description_Characters".toLowerCase(Locale.US), "blk=IDC".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Symbols".toLowerCase(Locale.US), "blk=CJK_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Symbols_And_Punctuation".toLowerCase(Locale.US), "blk=CJK_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InHiragana".toLowerCase(Locale.US), "blk=Hiragana".toLowerCase(Locale.US));
-    propertyAliases.put("InKatakana".toLowerCase(Locale.US), "blk=Katakana".toLowerCase(Locale.US));
-    propertyAliases.put("InBopomofo".toLowerCase(Locale.US), "blk=Bopomofo".toLowerCase(Locale.US));
-    propertyAliases.put("InCompat_Jamo".toLowerCase(Locale.US), "blk=Compat_Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul_Compatibility_Jamo".toLowerCase(Locale.US), "blk=Compat_Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("InKanbun".toLowerCase(Locale.US), "blk=Kanbun".toLowerCase(Locale.US));
-    propertyAliases.put("InBopomofo_Ext".toLowerCase(Locale.US), "blk=Bopomofo_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InBopomofo_Extended".toLowerCase(Locale.US), "blk=Bopomofo_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_CJK".toLowerCase(Locale.US), "blk=Enclosed_CJK".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_CJK_Letters_And_Months".toLowerCase(Locale.US), "blk=Enclosed_CJK".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compat".toLowerCase(Locale.US), "blk=CJK_Compat".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compatibility".toLowerCase(Locale.US), "blk=CJK_Compat".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Ext_A".toLowerCase(Locale.US), "blk=CJK_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs_Extension_A".toLowerCase(Locale.US), "blk=CJK_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK".toLowerCase(Locale.US), "blk=CJK".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs".toLowerCase(Locale.US), "blk=CJK".toLowerCase(Locale.US));
-    propertyAliases.put("InYi_Syllables".toLowerCase(Locale.US), "blk=Yi_Syllables".toLowerCase(Locale.US));
-    propertyAliases.put("InYi_Radicals".toLowerCase(Locale.US), "blk=Yi_Radicals".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul".toLowerCase(Locale.US), "blk=Hangul".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul_Syllables".toLowerCase(Locale.US), "blk=Hangul".toLowerCase(Locale.US));
-    propertyAliases.put("InHigh_Surrogates".toLowerCase(Locale.US), "blk=High_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("InHigh_PU_Surrogates".toLowerCase(Locale.US), "blk=High_PU_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("InHigh_Private_Use_Surrogates".toLowerCase(Locale.US), "blk=High_PU_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("InLow_Surrogates".toLowerCase(Locale.US), "blk=Low_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("InPUA".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("InPrivate_Use_Area".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("InPrivate_Use".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compat_Ideographs".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compatibility_Ideographs".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs".toLowerCase(Locale.US));
-    propertyAliases.put("InAlphabetic_PF".toLowerCase(Locale.US), "blk=Alphabetic_PF".toLowerCase(Locale.US));
-    propertyAliases.put("InAlphabetic_Presentation_Forms".toLowerCase(Locale.US), "blk=Alphabetic_PF".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_PF_A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Presentation_Forms_A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Presentation_Forms-A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("InHalf_Marks".toLowerCase(Locale.US), "blk=Half_Marks".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Half_Marks".toLowerCase(Locale.US), "blk=Half_Marks".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compat_Forms".toLowerCase(Locale.US), "blk=CJK_Compat_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compatibility_Forms".toLowerCase(Locale.US), "blk=CJK_Compat_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InSmall_Forms".toLowerCase(Locale.US), "blk=Small_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InSmall_Form_Variants".toLowerCase(Locale.US), "blk=Small_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_PF_B".toLowerCase(Locale.US), "blk=Arabic_PF_B".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Presentation_Forms_B".toLowerCase(Locale.US), "blk=Arabic_PF_B".toLowerCase(Locale.US));
-    propertyAliases.put("InSpecials".toLowerCase(Locale.US), "blk=Specials".toLowerCase(Locale.US));
-    propertyAliases.put("InHalf_And_Full_Forms".toLowerCase(Locale.US), "blk=Half_And_Full_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InHalfwidth_And_Fullwidth_Forms".toLowerCase(Locale.US), "blk=Half_And_Full_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_Italic".toLowerCase(Locale.US), "blk=Old_Italic".toLowerCase(Locale.US));
-    propertyAliases.put("InGothic".toLowerCase(Locale.US), "blk=Gothic".toLowerCase(Locale.US));
-    propertyAliases.put("InDeseret".toLowerCase(Locale.US), "blk=Deseret".toLowerCase(Locale.US));
-    propertyAliases.put("InByzantine_Music".toLowerCase(Locale.US), "blk=Byzantine_Music".toLowerCase(Locale.US));
-    propertyAliases.put("InByzantine_Musical_Symbols".toLowerCase(Locale.US), "blk=Byzantine_Music".toLowerCase(Locale.US));
-    propertyAliases.put("InMusic".toLowerCase(Locale.US), "blk=Music".toLowerCase(Locale.US));
-    propertyAliases.put("InMusical_Symbols".toLowerCase(Locale.US), "blk=Music".toLowerCase(Locale.US));
-    propertyAliases.put("InMath_Alphanum".toLowerCase(Locale.US), "blk=Math_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("InMathematical_Alphanumeric_Symbols".toLowerCase(Locale.US), "blk=Math_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Ext_B".toLowerCase(Locale.US), "blk=CJK_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs_Extension_B".toLowerCase(Locale.US), "blk=CJK_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compat_Ideographs_Sup".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Compatibility_Ideographs_Supplement".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InTags".toLowerCase(Locale.US), "blk=Tags".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Sup".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Supplement".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Supplementary".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InTagalog".toLowerCase(Locale.US), "blk=Tagalog".toLowerCase(Locale.US));
-    propertyAliases.put("InHanunoo".toLowerCase(Locale.US), "blk=Hanunoo".toLowerCase(Locale.US));
-    propertyAliases.put("InBuhid".toLowerCase(Locale.US), "blk=Buhid".toLowerCase(Locale.US));
-    propertyAliases.put("InTagbanwa".toLowerCase(Locale.US), "blk=Tagbanwa".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Math_Symbols_A".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_A".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Mathematical_Symbols_A".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_A".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Arrows_A".toLowerCase(Locale.US), "blk=Sup_Arrows_A".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Arrows_A".toLowerCase(Locale.US), "blk=Sup_Arrows_A".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Arrows_B".toLowerCase(Locale.US), "blk=Sup_Arrows_B".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Arrows_B".toLowerCase(Locale.US), "blk=Sup_Arrows_B".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Math_Symbols_B".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_B".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Mathematical_Symbols_B".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_B".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Math_Operators".toLowerCase(Locale.US), "blk=Sup_Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Mathematical_Operators".toLowerCase(Locale.US), "blk=Sup_Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("InKatakana_Ext".toLowerCase(Locale.US), "blk=Katakana_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InKatakana_Phonetic_Extensions".toLowerCase(Locale.US), "blk=Katakana_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InVS".toLowerCase(Locale.US), "blk=VS".toLowerCase(Locale.US));
-    propertyAliases.put("InVariation_Selectors".toLowerCase(Locale.US), "blk=VS".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_PUA_A".toLowerCase(Locale.US), "blk=Sup_PUA_A".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplementary_Private_Use_Area_A".toLowerCase(Locale.US), "blk=Sup_PUA_A".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_PUA_B".toLowerCase(Locale.US), "blk=Sup_PUA_B".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplementary_Private_Use_Area_B".toLowerCase(Locale.US), "blk=Sup_PUA_B".toLowerCase(Locale.US));
-    propertyAliases.put("InLimbu".toLowerCase(Locale.US), "blk=Limbu".toLowerCase(Locale.US));
-    propertyAliases.put("InTai_Le".toLowerCase(Locale.US), "blk=Tai_Le".toLowerCase(Locale.US));
-    propertyAliases.put("InKhmer_Symbols".toLowerCase(Locale.US), "blk=Khmer_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InPhonetic_Ext".toLowerCase(Locale.US), "blk=Phonetic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InPhonetic_Extensions".toLowerCase(Locale.US), "blk=Phonetic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Arrows".toLowerCase(Locale.US), "blk=Misc_Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Symbols_And_Arrows".toLowerCase(Locale.US), "blk=Misc_Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("InYijing".toLowerCase(Locale.US), "blk=Yijing".toLowerCase(Locale.US));
-    propertyAliases.put("InYijing_Hexagram_Symbols".toLowerCase(Locale.US), "blk=Yijing".toLowerCase(Locale.US));
-    propertyAliases.put("InLinear_B_Syllabary".toLowerCase(Locale.US), "blk=Linear_B_Syllabary".toLowerCase(Locale.US));
-    propertyAliases.put("InLinear_B_Ideograms".toLowerCase(Locale.US), "blk=Linear_B_Ideograms".toLowerCase(Locale.US));
-    propertyAliases.put("InAegean_Numbers".toLowerCase(Locale.US), "blk=Aegean_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InUgaritic".toLowerCase(Locale.US), "blk=Ugaritic".toLowerCase(Locale.US));
-    propertyAliases.put("InShavian".toLowerCase(Locale.US), "blk=Shavian".toLowerCase(Locale.US));
-    propertyAliases.put("InOsmanya".toLowerCase(Locale.US), "blk=Osmanya".toLowerCase(Locale.US));
-    propertyAliases.put("InCypriot_Syllabary".toLowerCase(Locale.US), "blk=Cypriot_Syllabary".toLowerCase(Locale.US));
-    propertyAliases.put("InTai_Xuan_Jing".toLowerCase(Locale.US), "blk=Tai_Xuan_Jing".toLowerCase(Locale.US));
-    propertyAliases.put("InTai_Xuan_Jing_Symbols".toLowerCase(Locale.US), "blk=Tai_Xuan_Jing".toLowerCase(Locale.US));
-    propertyAliases.put("InVS_Sup".toLowerCase(Locale.US), "blk=VS_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InVariation_Selectors_Supplement".toLowerCase(Locale.US), "blk=VS_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InAncient_Greek_Music".toLowerCase(Locale.US), "blk=Ancient_Greek_Music".toLowerCase(Locale.US));
-    propertyAliases.put("InAncient_Greek_Musical_Notation".toLowerCase(Locale.US), "blk=Ancient_Greek_Music".toLowerCase(Locale.US));
-    propertyAliases.put("InAncient_Greek_Numbers".toLowerCase(Locale.US), "blk=Ancient_Greek_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Sup".toLowerCase(Locale.US), "blk=Arabic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Supplement".toLowerCase(Locale.US), "blk=Arabic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InBuginese".toLowerCase(Locale.US), "blk=Buginese".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Strokes".toLowerCase(Locale.US), "blk=CJK_Strokes".toLowerCase(Locale.US));
-    propertyAliases.put("InDiacriticals_Sup".toLowerCase(Locale.US), "blk=Diacriticals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Diacritical_Marks_Supplement".toLowerCase(Locale.US), "blk=Diacriticals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCoptic".toLowerCase(Locale.US), "blk=Coptic".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Ext".toLowerCase(Locale.US), "blk=Ethiopic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Extended".toLowerCase(Locale.US), "blk=Ethiopic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Sup".toLowerCase(Locale.US), "blk=Ethiopic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Supplement".toLowerCase(Locale.US), "blk=Ethiopic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InGeorgian_Sup".toLowerCase(Locale.US), "blk=Georgian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InGeorgian_Supplement".toLowerCase(Locale.US), "blk=Georgian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InGlagolitic".toLowerCase(Locale.US), "blk=Glagolitic".toLowerCase(Locale.US));
-    propertyAliases.put("InKharoshthi".toLowerCase(Locale.US), "blk=Kharoshthi".toLowerCase(Locale.US));
-    propertyAliases.put("InModifier_Tone_Letters".toLowerCase(Locale.US), "blk=Modifier_Tone_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("InNew_Tai_Lue".toLowerCase(Locale.US), "blk=New_Tai_Lue".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_Persian".toLowerCase(Locale.US), "blk=Old_Persian".toLowerCase(Locale.US));
-    propertyAliases.put("InPhonetic_Ext_Sup".toLowerCase(Locale.US), "blk=Phonetic_Ext_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InPhonetic_Extensions_Supplement".toLowerCase(Locale.US), "blk=Phonetic_Ext_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Punctuation".toLowerCase(Locale.US), "blk=Sup_Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Punctuation".toLowerCase(Locale.US), "blk=Sup_Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("InSyloti_Nagri".toLowerCase(Locale.US), "blk=Syloti_Nagri".toLowerCase(Locale.US));
-    propertyAliases.put("InTifinagh".toLowerCase(Locale.US), "blk=Tifinagh".toLowerCase(Locale.US));
-    propertyAliases.put("InVertical_Forms".toLowerCase(Locale.US), "blk=Vertical_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InNKo".toLowerCase(Locale.US), "blk=NKo".toLowerCase(Locale.US));
-    propertyAliases.put("InBalinese".toLowerCase(Locale.US), "blk=Balinese".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_C".toLowerCase(Locale.US), "blk=Latin_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_C".toLowerCase(Locale.US), "blk=Latin_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_D".toLowerCase(Locale.US), "blk=Latin_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_D".toLowerCase(Locale.US), "blk=Latin_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("InPhags_Pa".toLowerCase(Locale.US), "blk=Phags_Pa".toLowerCase(Locale.US));
-    propertyAliases.put("InPhoenician".toLowerCase(Locale.US), "blk=Phoenician".toLowerCase(Locale.US));
-    propertyAliases.put("InCuneiform".toLowerCase(Locale.US), "blk=Cuneiform".toLowerCase(Locale.US));
-    propertyAliases.put("InCuneiform_Numbers".toLowerCase(Locale.US), "blk=Cuneiform_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InCuneiform_Numbers_And_Punctuation".toLowerCase(Locale.US), "blk=Cuneiform_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InCounting_Rod".toLowerCase(Locale.US), "blk=Counting_Rod".toLowerCase(Locale.US));
-    propertyAliases.put("InCounting_Rod_Numerals".toLowerCase(Locale.US), "blk=Counting_Rod".toLowerCase(Locale.US));
-    propertyAliases.put("InSundanese".toLowerCase(Locale.US), "blk=Sundanese".toLowerCase(Locale.US));
-    propertyAliases.put("InLepcha".toLowerCase(Locale.US), "blk=Lepcha".toLowerCase(Locale.US));
-    propertyAliases.put("InOl_Chiki".toLowerCase(Locale.US), "blk=Ol_Chiki".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Ext_A".toLowerCase(Locale.US), "blk=Cyrillic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Extended_A".toLowerCase(Locale.US), "blk=Cyrillic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InVai".toLowerCase(Locale.US), "blk=Vai".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Ext_B".toLowerCase(Locale.US), "blk=Cyrillic_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Extended_B".toLowerCase(Locale.US), "blk=Cyrillic_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InSaurashtra".toLowerCase(Locale.US), "blk=Saurashtra".toLowerCase(Locale.US));
-    propertyAliases.put("InKayah_Li".toLowerCase(Locale.US), "blk=Kayah_Li".toLowerCase(Locale.US));
-    propertyAliases.put("InRejang".toLowerCase(Locale.US), "blk=Rejang".toLowerCase(Locale.US));
-    propertyAliases.put("InCham".toLowerCase(Locale.US), "blk=Cham".toLowerCase(Locale.US));
-    propertyAliases.put("InAncient_Symbols".toLowerCase(Locale.US), "blk=Ancient_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InPhaistos".toLowerCase(Locale.US), "blk=Phaistos".toLowerCase(Locale.US));
-    propertyAliases.put("InPhaistos_Disc".toLowerCase(Locale.US), "blk=Phaistos".toLowerCase(Locale.US));
-    propertyAliases.put("InLycian".toLowerCase(Locale.US), "blk=Lycian".toLowerCase(Locale.US));
-    propertyAliases.put("InCarian".toLowerCase(Locale.US), "blk=Carian".toLowerCase(Locale.US));
-    propertyAliases.put("InLydian".toLowerCase(Locale.US), "blk=Lydian".toLowerCase(Locale.US));
-    propertyAliases.put("InMahjong".toLowerCase(Locale.US), "blk=Mahjong".toLowerCase(Locale.US));
-    propertyAliases.put("InMahjong_Tiles".toLowerCase(Locale.US), "blk=Mahjong".toLowerCase(Locale.US));
-    propertyAliases.put("InDomino".toLowerCase(Locale.US), "blk=Domino".toLowerCase(Locale.US));
-    propertyAliases.put("InDomino_Tiles".toLowerCase(Locale.US), "blk=Domino".toLowerCase(Locale.US));
-    propertyAliases.put("InSamaritan".toLowerCase(Locale.US), "blk=Samaritan".toLowerCase(Locale.US));
-    propertyAliases.put("InUCAS_Ext".toLowerCase(Locale.US), "blk=UCAS_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InUnified_Canadian_Aboriginal_Syllabics_Extended".toLowerCase(Locale.US), "blk=UCAS_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InTai_Tham".toLowerCase(Locale.US), "blk=Tai_Tham".toLowerCase(Locale.US));
-    propertyAliases.put("InVedic_Ext".toLowerCase(Locale.US), "blk=Vedic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InVedic_Extensions".toLowerCase(Locale.US), "blk=Vedic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InLisu".toLowerCase(Locale.US), "blk=Lisu".toLowerCase(Locale.US));
-    propertyAliases.put("InBamum".toLowerCase(Locale.US), "blk=Bamum".toLowerCase(Locale.US));
-    propertyAliases.put("InIndic_Number_Forms".toLowerCase(Locale.US), "blk=Indic_Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InCommon_Indic_Number_Forms".toLowerCase(Locale.US), "blk=Indic_Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("InDevanagari_Ext".toLowerCase(Locale.US), "blk=Devanagari_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InDevanagari_Extended".toLowerCase(Locale.US), "blk=Devanagari_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InJamo_Ext_A".toLowerCase(Locale.US), "blk=Jamo_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul_Jamo_Extended_A".toLowerCase(Locale.US), "blk=Jamo_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InJavanese".toLowerCase(Locale.US), "blk=Javanese".toLowerCase(Locale.US));
-    propertyAliases.put("InMyanmar_Ext_A".toLowerCase(Locale.US), "blk=Myanmar_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InMyanmar_Extended_A".toLowerCase(Locale.US), "blk=Myanmar_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InTai_Viet".toLowerCase(Locale.US), "blk=Tai_Viet".toLowerCase(Locale.US));
-    propertyAliases.put("InMeetei_Mayek".toLowerCase(Locale.US), "blk=Meetei_Mayek".toLowerCase(Locale.US));
-    propertyAliases.put("InJamo_Ext_B".toLowerCase(Locale.US), "blk=Jamo_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InHangul_Jamo_Extended_B".toLowerCase(Locale.US), "blk=Jamo_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InImperial_Aramaic".toLowerCase(Locale.US), "blk=Imperial_Aramaic".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_South_Arabian".toLowerCase(Locale.US), "blk=Old_South_Arabian".toLowerCase(Locale.US));
-    propertyAliases.put("InAvestan".toLowerCase(Locale.US), "blk=Avestan".toLowerCase(Locale.US));
-    propertyAliases.put("InInscriptional_Parthian".toLowerCase(Locale.US), "blk=Inscriptional_Parthian".toLowerCase(Locale.US));
-    propertyAliases.put("InInscriptional_Pahlavi".toLowerCase(Locale.US), "blk=Inscriptional_Pahlavi".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_Turkic".toLowerCase(Locale.US), "blk=Old_Turkic".toLowerCase(Locale.US));
-    propertyAliases.put("InRumi".toLowerCase(Locale.US), "blk=Rumi".toLowerCase(Locale.US));
-    propertyAliases.put("InRumi_Numeral_Symbols".toLowerCase(Locale.US), "blk=Rumi".toLowerCase(Locale.US));
-    propertyAliases.put("InKaithi".toLowerCase(Locale.US), "blk=Kaithi".toLowerCase(Locale.US));
-    propertyAliases.put("InEgyptian_Hieroglyphs".toLowerCase(Locale.US), "blk=Egyptian_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Alphanum_Sup".toLowerCase(Locale.US), "blk=Enclosed_Alphanum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Alphanumeric_Supplement".toLowerCase(Locale.US), "blk=Enclosed_Alphanum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Ideographic_Sup".toLowerCase(Locale.US), "blk=Enclosed_Ideographic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InEnclosed_Ideographic_Supplement".toLowerCase(Locale.US), "blk=Enclosed_Ideographic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Ext_C".toLowerCase(Locale.US), "blk=CJK_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs_Extension_C".toLowerCase(Locale.US), "blk=CJK_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InMandaic".toLowerCase(Locale.US), "blk=Mandaic".toLowerCase(Locale.US));
-    propertyAliases.put("InBatak".toLowerCase(Locale.US), "blk=Batak".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Ext_A".toLowerCase(Locale.US), "blk=Ethiopic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InEthiopic_Extended_A".toLowerCase(Locale.US), "blk=Ethiopic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InBrahmi".toLowerCase(Locale.US), "blk=Brahmi".toLowerCase(Locale.US));
-    propertyAliases.put("InBamum_Sup".toLowerCase(Locale.US), "blk=Bamum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InBamum_Supplement".toLowerCase(Locale.US), "blk=Bamum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InKana_Sup".toLowerCase(Locale.US), "blk=Kana_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InKana_Supplement".toLowerCase(Locale.US), "blk=Kana_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InPlaying_Cards".toLowerCase(Locale.US), "blk=Playing_Cards".toLowerCase(Locale.US));
-    propertyAliases.put("InMisc_Pictographs".toLowerCase(Locale.US), "blk=Misc_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("InMiscellaneous_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Misc_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("InEmoticons".toLowerCase(Locale.US), "blk=Emoticons".toLowerCase(Locale.US));
-    propertyAliases.put("InTransport_And_Map".toLowerCase(Locale.US), "blk=Transport_And_Map".toLowerCase(Locale.US));
-    propertyAliases.put("InTransport_And_Map_Symbols".toLowerCase(Locale.US), "blk=Transport_And_Map".toLowerCase(Locale.US));
-    propertyAliases.put("InAlchemical".toLowerCase(Locale.US), "blk=Alchemical".toLowerCase(Locale.US));
-    propertyAliases.put("InAlchemical_Symbols".toLowerCase(Locale.US), "blk=Alchemical".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Ext_D".toLowerCase(Locale.US), "blk=CJK_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs_Extension_D".toLowerCase(Locale.US), "blk=CJK_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Ext_A".toLowerCase(Locale.US), "blk=Arabic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Extended_A".toLowerCase(Locale.US), "blk=Arabic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Math".toLowerCase(Locale.US), "blk=Arabic_Math".toLowerCase(Locale.US));
-    propertyAliases.put("InArabic_Mathematical_Alphabetic_Symbols".toLowerCase(Locale.US), "blk=Arabic_Math".toLowerCase(Locale.US));
-    propertyAliases.put("InChakma".toLowerCase(Locale.US), "blk=Chakma".toLowerCase(Locale.US));
-    propertyAliases.put("InMeetei_Mayek_Ext".toLowerCase(Locale.US), "blk=Meetei_Mayek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InMeetei_Mayek_Extensions".toLowerCase(Locale.US), "blk=Meetei_Mayek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InMeroitic_Cursive".toLowerCase(Locale.US), "blk=Meroitic_Cursive".toLowerCase(Locale.US));
-    propertyAliases.put("InMeroitic_Hieroglyphs".toLowerCase(Locale.US), "blk=Meroitic_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("InMiao".toLowerCase(Locale.US), "blk=Miao".toLowerCase(Locale.US));
-    propertyAliases.put("InSharada".toLowerCase(Locale.US), "blk=Sharada".toLowerCase(Locale.US));
-    propertyAliases.put("InSora_Sompeng".toLowerCase(Locale.US), "blk=Sora_Sompeng".toLowerCase(Locale.US));
-    propertyAliases.put("InSundanese_Sup".toLowerCase(Locale.US), "blk=Sundanese_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InSundanese_Supplement".toLowerCase(Locale.US), "blk=Sundanese_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InTakri".toLowerCase(Locale.US), "blk=Takri".toLowerCase(Locale.US));
-    propertyAliases.put("InBassa_Vah".toLowerCase(Locale.US), "blk=Bassa_Vah".toLowerCase(Locale.US));
-    propertyAliases.put("InCaucasian_Albanian".toLowerCase(Locale.US), "blk=Caucasian_Albanian".toLowerCase(Locale.US));
-    propertyAliases.put("InCoptic_Epact_Numbers".toLowerCase(Locale.US), "blk=Coptic_Epact_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InDiacriticals_Ext".toLowerCase(Locale.US), "blk=Diacriticals_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InCombining_Diacritical_Marks_Extended".toLowerCase(Locale.US), "blk=Diacriticals_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InDuployan".toLowerCase(Locale.US), "blk=Duployan".toLowerCase(Locale.US));
-    propertyAliases.put("InElbasan".toLowerCase(Locale.US), "blk=Elbasan".toLowerCase(Locale.US));
-    propertyAliases.put("InGeometric_Shapes_Ext".toLowerCase(Locale.US), "blk=Geometric_Shapes_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InGeometric_Shapes_Extended".toLowerCase(Locale.US), "blk=Geometric_Shapes_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("InGrantha".toLowerCase(Locale.US), "blk=Grantha".toLowerCase(Locale.US));
-    propertyAliases.put("InKhojki".toLowerCase(Locale.US), "blk=Khojki".toLowerCase(Locale.US));
-    propertyAliases.put("InKhudawadi".toLowerCase(Locale.US), "blk=Khudawadi".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Ext_E".toLowerCase(Locale.US), "blk=Latin_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("InLatin_Extended_E".toLowerCase(Locale.US), "blk=Latin_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("InLinear_A".toLowerCase(Locale.US), "blk=Linear_A".toLowerCase(Locale.US));
-    propertyAliases.put("InMahajani".toLowerCase(Locale.US), "blk=Mahajani".toLowerCase(Locale.US));
-    propertyAliases.put("InManichaean".toLowerCase(Locale.US), "blk=Manichaean".toLowerCase(Locale.US));
-    propertyAliases.put("InMende_Kikakui".toLowerCase(Locale.US), "blk=Mende_Kikakui".toLowerCase(Locale.US));
-    propertyAliases.put("InModi".toLowerCase(Locale.US), "blk=Modi".toLowerCase(Locale.US));
-    propertyAliases.put("InMro".toLowerCase(Locale.US), "blk=Mro".toLowerCase(Locale.US));
-    propertyAliases.put("InMyanmar_Ext_B".toLowerCase(Locale.US), "blk=Myanmar_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InMyanmar_Extended_B".toLowerCase(Locale.US), "blk=Myanmar_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("InNabataean".toLowerCase(Locale.US), "blk=Nabataean".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_North_Arabian".toLowerCase(Locale.US), "blk=Old_North_Arabian".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_Permic".toLowerCase(Locale.US), "blk=Old_Permic".toLowerCase(Locale.US));
-    propertyAliases.put("InOrnamental_Dingbats".toLowerCase(Locale.US), "blk=Ornamental_Dingbats".toLowerCase(Locale.US));
-    propertyAliases.put("InPahawh_Hmong".toLowerCase(Locale.US), "blk=Pahawh_Hmong".toLowerCase(Locale.US));
-    propertyAliases.put("InPalmyrene".toLowerCase(Locale.US), "blk=Palmyrene".toLowerCase(Locale.US));
-    propertyAliases.put("InPau_Cin_Hau".toLowerCase(Locale.US), "blk=Pau_Cin_Hau".toLowerCase(Locale.US));
-    propertyAliases.put("InPsalter_Pahlavi".toLowerCase(Locale.US), "blk=Psalter_Pahlavi".toLowerCase(Locale.US));
-    propertyAliases.put("InShorthand_Format_Controls".toLowerCase(Locale.US), "blk=Shorthand_Format_Controls".toLowerCase(Locale.US));
-    propertyAliases.put("InSiddham".toLowerCase(Locale.US), "blk=Siddham".toLowerCase(Locale.US));
-    propertyAliases.put("InSinhala_Archaic_Numbers".toLowerCase(Locale.US), "blk=Sinhala_Archaic_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Arrows_C".toLowerCase(Locale.US), "blk=Sup_Arrows_C".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Arrows_C".toLowerCase(Locale.US), "blk=Sup_Arrows_C".toLowerCase(Locale.US));
-    propertyAliases.put("InTirhuta".toLowerCase(Locale.US), "blk=Tirhuta".toLowerCase(Locale.US));
-    propertyAliases.put("InWarang_Citi".toLowerCase(Locale.US), "blk=Warang_Citi".toLowerCase(Locale.US));
-    propertyAliases.put("InAhom".toLowerCase(Locale.US), "blk=Ahom".toLowerCase(Locale.US));
-    propertyAliases.put("InAnatolian_Hieroglyphs".toLowerCase(Locale.US), "blk=Anatolian_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("InCherokee_Sup".toLowerCase(Locale.US), "blk=Cherokee_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCherokee_Supplement".toLowerCase(Locale.US), "blk=Cherokee_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Ext_E".toLowerCase(Locale.US), "blk=CJK_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("InCJK_Unified_Ideographs_Extension_E".toLowerCase(Locale.US), "blk=CJK_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("InEarly_Dynastic_Cuneiform".toLowerCase(Locale.US), "blk=Early_Dynastic_Cuneiform".toLowerCase(Locale.US));
-    propertyAliases.put("InHatran".toLowerCase(Locale.US), "blk=Hatran".toLowerCase(Locale.US));
-    propertyAliases.put("InMultani".toLowerCase(Locale.US), "blk=Multani".toLowerCase(Locale.US));
-    propertyAliases.put("InOld_Hungarian".toLowerCase(Locale.US), "blk=Old_Hungarian".toLowerCase(Locale.US));
-    propertyAliases.put("InSup_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("InSupplemental_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("InSutton_SignWriting".toLowerCase(Locale.US), "blk=Sutton_SignWriting".toLowerCase(Locale.US));
-    propertyAliases.put("InAdlam".toLowerCase(Locale.US), "blk=Adlam".toLowerCase(Locale.US));
-    propertyAliases.put("InBhaiksuki".toLowerCase(Locale.US), "blk=Bhaiksuki".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Ext_C".toLowerCase(Locale.US), "blk=Cyrillic_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InCyrillic_Extended_C".toLowerCase(Locale.US), "blk=Cyrillic_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("InGlagolitic_Sup".toLowerCase(Locale.US), "blk=Glagolitic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InGlagolitic_Supplement".toLowerCase(Locale.US), "blk=Glagolitic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InIdeographic_Symbols".toLowerCase(Locale.US), "blk=Ideographic_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InIdeographic_Symbols_And_Punctuation".toLowerCase(Locale.US), "blk=Ideographic_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("InMarchen".toLowerCase(Locale.US), "blk=Marchen".toLowerCase(Locale.US));
-    propertyAliases.put("InMongolian_Sup".toLowerCase(Locale.US), "blk=Mongolian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InMongolian_Supplement".toLowerCase(Locale.US), "blk=Mongolian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("InNewa".toLowerCase(Locale.US), "blk=Newa".toLowerCase(Locale.US));
-    propertyAliases.put("InOsage".toLowerCase(Locale.US), "blk=Osage".toLowerCase(Locale.US));
-    propertyAliases.put("InTangut".toLowerCase(Locale.US), "blk=Tangut".toLowerCase(Locale.US));
-    propertyAliases.put("InTangut_Components".toLowerCase(Locale.US), "blk=Tangut_Components".toLowerCase(Locale.US));
+    propertyAliases.put(toLowerCase("Control"), toLowerCase("C"));
+    propertyAliases.put(toLowerCase("cntrl"), toLowerCase("Cc"));
+    propertyAliases.put(toLowerCase("Space_Separator"), toLowerCase("Zs"));
+    propertyAliases.put(toLowerCase("Other_Punctuation"), toLowerCase("Po"));
+    propertyAliases.put(toLowerCase("Currency_Symbol"), toLowerCase("Sc"));
+    propertyAliases.put(toLowerCase("Open_Punctuation"), toLowerCase("Ps"));
+    propertyAliases.put(toLowerCase("Close_Punctuation"), toLowerCase("Pe"));
+    propertyAliases.put(toLowerCase("Math_Symbol"), toLowerCase("Sm"));
+    propertyAliases.put(toLowerCase("Dash_Punctuation"), toLowerCase("Pd"));
+    propertyAliases.put(toLowerCase("Decimal_Number"), toLowerCase("Nd"));
+    propertyAliases.put(toLowerCase("digit"), toLowerCase("Nd"));
+    propertyAliases.put(toLowerCase("Uppercase_Letter"), toLowerCase("Lu"));
+    propertyAliases.put(toLowerCase("Modifier_Symbol"), toLowerCase("Sk"));
+    propertyAliases.put(toLowerCase("Connector_Punctuation"), toLowerCase("Pc"));
+    propertyAliases.put(toLowerCase("Lowercase_Letter"), toLowerCase("Ll"));
+    propertyAliases.put(toLowerCase("Other_Symbol"), toLowerCase("So"));
+    propertyAliases.put(toLowerCase("Other_Letter"), toLowerCase("Lo"));
+    propertyAliases.put(toLowerCase("Initial_Punctuation"), toLowerCase("Pi"));
+    propertyAliases.put(toLowerCase("Format"), toLowerCase("Cf"));
+    propertyAliases.put(toLowerCase("Other_Number"), toLowerCase("No"));
+    propertyAliases.put(toLowerCase("Final_Punctuation"), toLowerCase("Pf"));
+    propertyAliases.put(toLowerCase("Titlecase_Letter"), toLowerCase("Lt"));
+    propertyAliases.put(toLowerCase("Modifier_Letter"), toLowerCase("Lm"));
+    propertyAliases.put(toLowerCase("Nonspacing_Mark"), toLowerCase("Mn"));
+    propertyAliases.put(toLowerCase("Unassigned"), toLowerCase("Cn"));
+    propertyAliases.put(toLowerCase("Enclosing_Mark"), toLowerCase("Me"));
+    propertyAliases.put(toLowerCase("Spacing_Mark"), toLowerCase("Mc"));
+    propertyAliases.put(toLowerCase("Letter_Number"), toLowerCase("Nl"));
+    propertyAliases.put(toLowerCase("Line_Separator"), toLowerCase("Zl"));
+    propertyAliases.put(toLowerCase("Paragraph_Separator"), toLowerCase("Zp"));
+    propertyAliases.put(toLowerCase("Surrogate"), toLowerCase("Cs"));
+    propertyAliases.put(toLowerCase("Private_Use"), toLowerCase("Co"));
+    propertyAliases.put(toLowerCase("Letter"), toLowerCase("L"));
+    propertyAliases.put(toLowerCase("Number"), toLowerCase("N"));
+    propertyAliases.put(toLowerCase("Mark"), toLowerCase("M"));
+    propertyAliases.put(toLowerCase("Punctuation"), toLowerCase("P"));
+    propertyAliases.put(toLowerCase("Symbol"), toLowerCase("S"));
+    propertyAliases.put(toLowerCase("Space"), toLowerCase("Z"));
+    propertyAliases.put(toLowerCase("Alphabetic"), toLowerCase("Alpha"));
+    propertyAliases.put(toLowerCase("ASCII_Hex_Digit"), toLowerCase("AHex"));
+    propertyAliases.put(toLowerCase("Bidi_Control"), toLowerCase("Bidi_C"));
+    propertyAliases.put(toLowerCase("Bidi_Mirrored"), toLowerCase("Bidi_M"));
+    propertyAliases.put(toLowerCase("Dash"), toLowerCase("Dash"));
+    propertyAliases.put(toLowerCase("Default_Ignorable_Code_Point"), toLowerCase("DI"));
+    propertyAliases.put(toLowerCase("Deprecated"), toLowerCase("Dep"));
+    propertyAliases.put(toLowerCase("Diacritic"), toLowerCase("Dia"));
+    propertyAliases.put(toLowerCase("Extender"), toLowerCase("Ext"));
+    propertyAliases.put(toLowerCase("Full_Composition_Exclusion"), toLowerCase("Comp_Ex"));
+    propertyAliases.put(toLowerCase("Grapheme_Base"), toLowerCase("Gr_Base"));
+    propertyAliases.put(toLowerCase("Grapheme_Extend"), toLowerCase("Gr_Ext"));
+    propertyAliases.put(toLowerCase("Grapheme_Link"), toLowerCase("Gr_Link"));
+    propertyAliases.put(toLowerCase("Hex_Digit"), toLowerCase("Hex"));
+    propertyAliases.put(toLowerCase("Hyphen"), toLowerCase("Hyphen"));
+    propertyAliases.put(toLowerCase("ID_Continue"), toLowerCase("IDC"));
+    propertyAliases.put(toLowerCase("ID_Start"), toLowerCase("IDS"));
+    propertyAliases.put(toLowerCase("Ideographic"), toLowerCase("Ideo"));
+    propertyAliases.put(toLowerCase("IDS_Binary_Operator"), toLowerCase("IDSB"));
+    propertyAliases.put(toLowerCase("IDS_Trinary_Operator"), toLowerCase("IDST"));
+    propertyAliases.put(toLowerCase("Join_Control"), toLowerCase("Join_C"));
+    propertyAliases.put(toLowerCase("Logical_Order_Exception"), toLowerCase("LOE"));
+    propertyAliases.put(toLowerCase("Lowercase"), toLowerCase("Lower"));
+    propertyAliases.put(toLowerCase("Math"), toLowerCase("Math"));
+    propertyAliases.put(toLowerCase("Noncharacter_Code_Point"), toLowerCase("NChar"));
+    propertyAliases.put(toLowerCase("Quotation_Mark"), toLowerCase("QMark"));
+    propertyAliases.put(toLowerCase("Radical"), toLowerCase("Radical"));
+    propertyAliases.put(toLowerCase("Soft_Dotted"), toLowerCase("SD"));
+    propertyAliases.put(toLowerCase("Terminal_Punctuation"), toLowerCase("Term"));
+    propertyAliases.put(toLowerCase("Unified_Ideograph"), toLowerCase("UIdeo"));
+    propertyAliases.put(toLowerCase("Uppercase"), toLowerCase("Upper"));
+    propertyAliases.put(toLowerCase("White_Space"), toLowerCase("WSpace"));
+    propertyAliases.put(toLowerCase("space"), toLowerCase("WSpace"));
+    propertyAliases.put(toLowerCase("XID_Continue"), toLowerCase("XIDC"));
+    propertyAliases.put(toLowerCase("XID_Start"), toLowerCase("XIDS"));
+    propertyAliases.put(toLowerCase("Case_Sensitive"), toLowerCase("Sensitive"));
+    propertyAliases.put(toLowerCase("Sentence_Terminal"), toLowerCase("STerm"));
+    propertyAliases.put(toLowerCase("Variation_Selector"), toLowerCase("VS"));
+    propertyAliases.put(toLowerCase("NFD_Inert"), toLowerCase("nfdinert"));
+    propertyAliases.put(toLowerCase("NFKD_Inert"), toLowerCase("nfkdinert"));
+    propertyAliases.put(toLowerCase("NFC_Inert"), toLowerCase("nfcinert"));
+    propertyAliases.put(toLowerCase("NFKC_Inert"), toLowerCase("nfkcinert"));
+    propertyAliases.put(toLowerCase("Segment_Starter"), toLowerCase("segstart"));
+    propertyAliases.put(toLowerCase("Pattern_Syntax"), toLowerCase("Pat_Syn"));
+    propertyAliases.put(toLowerCase("Pattern_White_Space"), toLowerCase("Pat_WS"));
+    propertyAliases.put(toLowerCase("alnum"), toLowerCase("alnum"));
+    propertyAliases.put(toLowerCase("blank"), toLowerCase("blank"));
+    propertyAliases.put(toLowerCase("graph"), toLowerCase("graph"));
+    propertyAliases.put(toLowerCase("print"), toLowerCase("print"));
+    propertyAliases.put(toLowerCase("xdigit"), toLowerCase("xdigit"));
+    propertyAliases.put(toLowerCase("Cased"), toLowerCase("Cased"));
+    propertyAliases.put(toLowerCase("Case_Ignorable"), toLowerCase("CI"));
+    propertyAliases.put(toLowerCase("Changes_When_Lowercased"), toLowerCase("CWL"));
+    propertyAliases.put(toLowerCase("Changes_When_Uppercased"), toLowerCase("CWU"));
+    propertyAliases.put(toLowerCase("Changes_When_Titlecased"), toLowerCase("CWT"));
+    propertyAliases.put(toLowerCase("Changes_When_Casefolded"), toLowerCase("CWCF"));
+    propertyAliases.put(toLowerCase("Changes_When_Casemapped"), toLowerCase("CWCM"));
+    propertyAliases.put(toLowerCase("Changes_When_NFKC_Casefolded"), toLowerCase("CWKCF"));
+    propertyAliases.put(toLowerCase("Emoji"), toLowerCase("Emoji"));
+    propertyAliases.put(toLowerCase("Emoji_Presentation"), toLowerCase("Emoji_Presentation"));
+    propertyAliases.put(toLowerCase("Emoji_Modifier"), toLowerCase("Emoji_Modifier"));
+    propertyAliases.put(toLowerCase("Emoji_Modifier_Base"), toLowerCase("Emoji_Modifier_Base"));
+    propertyAliases.put(toLowerCase("Zyyy"), toLowerCase("sc=Zyyy"));
+    propertyAliases.put(toLowerCase("Common"), toLowerCase("sc=Zyyy"));
+    propertyAliases.put(toLowerCase("Zinh"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Inherited"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Qaai"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Arab"), toLowerCase("sc=Arab"));
+    propertyAliases.put(toLowerCase("Arabic"), toLowerCase("sc=Arab"));
+    propertyAliases.put(toLowerCase("Armn"), toLowerCase("sc=Armn"));
+    propertyAliases.put(toLowerCase("Armenian"), toLowerCase("sc=Armn"));
+    propertyAliases.put(toLowerCase("Beng"), toLowerCase("sc=Beng"));
+    propertyAliases.put(toLowerCase("Bengali"), toLowerCase("sc=Beng"));
+    propertyAliases.put(toLowerCase("Bopo"), toLowerCase("sc=Bopo"));
+    propertyAliases.put(toLowerCase("Bopomofo"), toLowerCase("sc=Bopo"));
+    propertyAliases.put(toLowerCase("Cher"), toLowerCase("sc=Cher"));
+    propertyAliases.put(toLowerCase("Cherokee"), toLowerCase("sc=Cher"));
+    propertyAliases.put(toLowerCase("Copt"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Coptic"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Qaac"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Cyrl"), toLowerCase("sc=Cyrl"));
+    propertyAliases.put(toLowerCase("Cyrillic"), toLowerCase("sc=Cyrl"));
+    propertyAliases.put(toLowerCase("Dsrt"), toLowerCase("sc=Dsrt"));
+    propertyAliases.put(toLowerCase("Deseret"), toLowerCase("sc=Dsrt"));
+    propertyAliases.put(toLowerCase("Deva"), toLowerCase("sc=Deva"));
+    propertyAliases.put(toLowerCase("Devanagari"), toLowerCase("sc=Deva"));
+    propertyAliases.put(toLowerCase("Ethi"), toLowerCase("sc=Ethi"));
+    propertyAliases.put(toLowerCase("Ethiopic"), toLowerCase("sc=Ethi"));
+    propertyAliases.put(toLowerCase("Geor"), toLowerCase("sc=Geor"));
+    propertyAliases.put(toLowerCase("Georgian"), toLowerCase("sc=Geor"));
+    propertyAliases.put(toLowerCase("Goth"), toLowerCase("sc=Goth"));
+    propertyAliases.put(toLowerCase("Gothic"), toLowerCase("sc=Goth"));
+    propertyAliases.put(toLowerCase("Grek"), toLowerCase("sc=Grek"));
+    propertyAliases.put(toLowerCase("Greek"), toLowerCase("sc=Grek"));
+    propertyAliases.put(toLowerCase("Gujr"), toLowerCase("sc=Gujr"));
+    propertyAliases.put(toLowerCase("Gujarati"), toLowerCase("sc=Gujr"));
+    propertyAliases.put(toLowerCase("Guru"), toLowerCase("sc=Guru"));
+    propertyAliases.put(toLowerCase("Gurmukhi"), toLowerCase("sc=Guru"));
+    propertyAliases.put(toLowerCase("Hani"), toLowerCase("sc=Hani"));
+    propertyAliases.put(toLowerCase("Han"), toLowerCase("sc=Hani"));
+    propertyAliases.put(toLowerCase("Hang"), toLowerCase("sc=Hang"));
+    propertyAliases.put(toLowerCase("Hangul"), toLowerCase("sc=Hang"));
+    propertyAliases.put(toLowerCase("Hebr"), toLowerCase("sc=Hebr"));
+    propertyAliases.put(toLowerCase("Hebrew"), toLowerCase("sc=Hebr"));
+    propertyAliases.put(toLowerCase("Hira"), toLowerCase("sc=Hira"));
+    propertyAliases.put(toLowerCase("Hiragana"), toLowerCase("sc=Hira"));
+    propertyAliases.put(toLowerCase("Knda"), toLowerCase("sc=Knda"));
+    propertyAliases.put(toLowerCase("Kannada"), toLowerCase("sc=Knda"));
+    propertyAliases.put(toLowerCase("Kana"), toLowerCase("sc=Kana"));
+    propertyAliases.put(toLowerCase("Katakana"), toLowerCase("sc=Kana"));
+    propertyAliases.put(toLowerCase("Khmr"), toLowerCase("sc=Khmr"));
+    propertyAliases.put(toLowerCase("Khmer"), toLowerCase("sc=Khmr"));
+    propertyAliases.put(toLowerCase("Laoo"), toLowerCase("sc=Laoo"));
+    propertyAliases.put(toLowerCase("Lao"), toLowerCase("sc=Laoo"));
+    propertyAliases.put(toLowerCase("Latn"), toLowerCase("sc=Latn"));
+    propertyAliases.put(toLowerCase("Latin"), toLowerCase("sc=Latn"));
+    propertyAliases.put(toLowerCase("Mlym"), toLowerCase("sc=Mlym"));
+    propertyAliases.put(toLowerCase("Malayalam"), toLowerCase("sc=Mlym"));
+    propertyAliases.put(toLowerCase("Mong"), toLowerCase("sc=Mong"));
+    propertyAliases.put(toLowerCase("Mongolian"), toLowerCase("sc=Mong"));
+    propertyAliases.put(toLowerCase("Mymr"), toLowerCase("sc=Mymr"));
+    propertyAliases.put(toLowerCase("Myanmar"), toLowerCase("sc=Mymr"));
+    propertyAliases.put(toLowerCase("Ogam"), toLowerCase("sc=Ogam"));
+    propertyAliases.put(toLowerCase("Ogham"), toLowerCase("sc=Ogam"));
+    propertyAliases.put(toLowerCase("Ital"), toLowerCase("sc=Ital"));
+    propertyAliases.put(toLowerCase("Old_Italic"), toLowerCase("sc=Ital"));
+    propertyAliases.put(toLowerCase("Orya"), toLowerCase("sc=Orya"));
+    propertyAliases.put(toLowerCase("Oriya"), toLowerCase("sc=Orya"));
+    propertyAliases.put(toLowerCase("Runr"), toLowerCase("sc=Runr"));
+    propertyAliases.put(toLowerCase("Runic"), toLowerCase("sc=Runr"));
+    propertyAliases.put(toLowerCase("Sinh"), toLowerCase("sc=Sinh"));
+    propertyAliases.put(toLowerCase("Sinhala"), toLowerCase("sc=Sinh"));
+    propertyAliases.put(toLowerCase("Syrc"), toLowerCase("sc=Syrc"));
+    propertyAliases.put(toLowerCase("Syriac"), toLowerCase("sc=Syrc"));
+    propertyAliases.put(toLowerCase("Taml"), toLowerCase("sc=Taml"));
+    propertyAliases.put(toLowerCase("Tamil"), toLowerCase("sc=Taml"));
+    propertyAliases.put(toLowerCase("Telu"), toLowerCase("sc=Telu"));
+    propertyAliases.put(toLowerCase("Telugu"), toLowerCase("sc=Telu"));
+    propertyAliases.put(toLowerCase("Thaa"), toLowerCase("sc=Thaa"));
+    propertyAliases.put(toLowerCase("Thaana"), toLowerCase("sc=Thaa"));
+    propertyAliases.put(toLowerCase("Thai"), toLowerCase("sc=Thai"));
+    propertyAliases.put(toLowerCase("Tibt"), toLowerCase("sc=Tibt"));
+    propertyAliases.put(toLowerCase("Tibetan"), toLowerCase("sc=Tibt"));
+    propertyAliases.put(toLowerCase("Cans"), toLowerCase("sc=Cans"));
+    propertyAliases.put(toLowerCase("Canadian_Aboriginal"), toLowerCase("sc=Cans"));
+    propertyAliases.put(toLowerCase("Yiii"), toLowerCase("sc=Yiii"));
+    propertyAliases.put(toLowerCase("Yi"), toLowerCase("sc=Yiii"));
+    propertyAliases.put(toLowerCase("Tglg"), toLowerCase("sc=Tglg"));
+    propertyAliases.put(toLowerCase("Tagalog"), toLowerCase("sc=Tglg"));
+    propertyAliases.put(toLowerCase("Hano"), toLowerCase("sc=Hano"));
+    propertyAliases.put(toLowerCase("Hanunoo"), toLowerCase("sc=Hano"));
+    propertyAliases.put(toLowerCase("Buhd"), toLowerCase("sc=Buhd"));
+    propertyAliases.put(toLowerCase("Buhid"), toLowerCase("sc=Buhd"));
+    propertyAliases.put(toLowerCase("Tagb"), toLowerCase("sc=Tagb"));
+    propertyAliases.put(toLowerCase("Tagbanwa"), toLowerCase("sc=Tagb"));
+    propertyAliases.put(toLowerCase("Brai"), toLowerCase("sc=Brai"));
+    propertyAliases.put(toLowerCase("Braille"), toLowerCase("sc=Brai"));
+    propertyAliases.put(toLowerCase("Cprt"), toLowerCase("sc=Cprt"));
+    propertyAliases.put(toLowerCase("Cypriot"), toLowerCase("sc=Cprt"));
+    propertyAliases.put(toLowerCase("Limb"), toLowerCase("sc=Limb"));
+    propertyAliases.put(toLowerCase("Limbu"), toLowerCase("sc=Limb"));
+    propertyAliases.put(toLowerCase("Linb"), toLowerCase("sc=Linb"));
+    propertyAliases.put(toLowerCase("Linear_B"), toLowerCase("sc=Linb"));
+    propertyAliases.put(toLowerCase("Osma"), toLowerCase("sc=Osma"));
+    propertyAliases.put(toLowerCase("Osmanya"), toLowerCase("sc=Osma"));
+    propertyAliases.put(toLowerCase("Shaw"), toLowerCase("sc=Shaw"));
+    propertyAliases.put(toLowerCase("Shavian"), toLowerCase("sc=Shaw"));
+    propertyAliases.put(toLowerCase("Tale"), toLowerCase("sc=Tale"));
+    propertyAliases.put(toLowerCase("Tai_Le"), toLowerCase("sc=Tale"));
+    propertyAliases.put(toLowerCase("Ugar"), toLowerCase("sc=Ugar"));
+    propertyAliases.put(toLowerCase("Ugaritic"), toLowerCase("sc=Ugar"));
+    propertyAliases.put(toLowerCase("Hrkt"), toLowerCase("sc=Hrkt"));
+    propertyAliases.put(toLowerCase("Katakana_Or_Hiragana"), toLowerCase("sc=Hrkt"));
+    propertyAliases.put(toLowerCase("Bugi"), toLowerCase("sc=Bugi"));
+    propertyAliases.put(toLowerCase("Buginese"), toLowerCase("sc=Bugi"));
+    propertyAliases.put(toLowerCase("Glag"), toLowerCase("sc=Glag"));
+    propertyAliases.put(toLowerCase("Glagolitic"), toLowerCase("sc=Glag"));
+    propertyAliases.put(toLowerCase("Khar"), toLowerCase("sc=Khar"));
+    propertyAliases.put(toLowerCase("Kharoshthi"), toLowerCase("sc=Khar"));
+    propertyAliases.put(toLowerCase("Sylo"), toLowerCase("sc=Sylo"));
+    propertyAliases.put(toLowerCase("Syloti_Nagri"), toLowerCase("sc=Sylo"));
+    propertyAliases.put(toLowerCase("Talu"), toLowerCase("sc=Talu"));
+    propertyAliases.put(toLowerCase("New_Tai_Lue"), toLowerCase("sc=Talu"));
+    propertyAliases.put(toLowerCase("Tfng"), toLowerCase("sc=Tfng"));
+    propertyAliases.put(toLowerCase("Tifinagh"), toLowerCase("sc=Tfng"));
+    propertyAliases.put(toLowerCase("Xpeo"), toLowerCase("sc=Xpeo"));
+    propertyAliases.put(toLowerCase("Old_Persian"), toLowerCase("sc=Xpeo"));
+    propertyAliases.put(toLowerCase("Bali"), toLowerCase("sc=Bali"));
+    propertyAliases.put(toLowerCase("Balinese"), toLowerCase("sc=Bali"));
+    propertyAliases.put(toLowerCase("Batk"), toLowerCase("sc=Batk"));
+    propertyAliases.put(toLowerCase("Batak"), toLowerCase("sc=Batk"));
+    propertyAliases.put(toLowerCase("Blis"), toLowerCase("sc=Blis"));
+    propertyAliases.put(toLowerCase("Brah"), toLowerCase("sc=Brah"));
+    propertyAliases.put(toLowerCase("Brahmi"), toLowerCase("sc=Brah"));
+    propertyAliases.put(toLowerCase("Cham"), toLowerCase("sc=Cham"));
+    propertyAliases.put(toLowerCase("Cirt"), toLowerCase("sc=Cirt"));
+    propertyAliases.put(toLowerCase("Cyrs"), toLowerCase("sc=Cyrs"));
+    propertyAliases.put(toLowerCase("Egyd"), toLowerCase("sc=Egyd"));
+    propertyAliases.put(toLowerCase("Egyh"), toLowerCase("sc=Egyh"));
+    propertyAliases.put(toLowerCase("Egyp"), toLowerCase("sc=Egyp"));
+    propertyAliases.put(toLowerCase("Egyptian_Hieroglyphs"), toLowerCase("sc=Egyp"));
+    propertyAliases.put(toLowerCase("Geok"), toLowerCase("sc=Geok"));
+    propertyAliases.put(toLowerCase("Hans"), toLowerCase("sc=Hans"));
+    propertyAliases.put(toLowerCase("Hant"), toLowerCase("sc=Hant"));
+    propertyAliases.put(toLowerCase("Hmng"), toLowerCase("sc=Hmng"));
+    propertyAliases.put(toLowerCase("Pahawh_Hmong"), toLowerCase("sc=Hmng"));
+    propertyAliases.put(toLowerCase("Hung"), toLowerCase("sc=Hung"));
+    propertyAliases.put(toLowerCase("Old_Hungarian"), toLowerCase("sc=Hung"));
+    propertyAliases.put(toLowerCase("Inds"), toLowerCase("sc=Inds"));
+    propertyAliases.put(toLowerCase("Java"), toLowerCase("sc=Java"));
+    propertyAliases.put(toLowerCase("Javanese"), toLowerCase("sc=Java"));
+    propertyAliases.put(toLowerCase("Kali"), toLowerCase("sc=Kali"));
+    propertyAliases.put(toLowerCase("Kayah_Li"), toLowerCase("sc=Kali"));
+    propertyAliases.put(toLowerCase("Latf"), toLowerCase("sc=Latf"));
+    propertyAliases.put(toLowerCase("Latg"), toLowerCase("sc=Latg"));
+    propertyAliases.put(toLowerCase("Lepc"), toLowerCase("sc=Lepc"));
+    propertyAliases.put(toLowerCase("Lepcha"), toLowerCase("sc=Lepc"));
+    propertyAliases.put(toLowerCase("Lina"), toLowerCase("sc=Lina"));
+    propertyAliases.put(toLowerCase("Linear_A"), toLowerCase("sc=Lina"));
+    propertyAliases.put(toLowerCase("Mand"), toLowerCase("sc=Mand"));
+    propertyAliases.put(toLowerCase("Mandaic"), toLowerCase("sc=Mand"));
+    propertyAliases.put(toLowerCase("Maya"), toLowerCase("sc=Maya"));
+    propertyAliases.put(toLowerCase("Mero"), toLowerCase("sc=Mero"));
+    propertyAliases.put(toLowerCase("Meroitic_Hieroglyphs"), toLowerCase("sc=Mero"));
+    propertyAliases.put(toLowerCase("Nkoo"), toLowerCase("sc=Nkoo"));
+    propertyAliases.put(toLowerCase("Nko"), toLowerCase("sc=Nkoo"));
+    propertyAliases.put(toLowerCase("Orkh"), toLowerCase("sc=Orkh"));
+    propertyAliases.put(toLowerCase("Old_Turkic"), toLowerCase("sc=Orkh"));
+    propertyAliases.put(toLowerCase("Perm"), toLowerCase("sc=Perm"));
+    propertyAliases.put(toLowerCase("Old_Permic"), toLowerCase("sc=Perm"));
+    propertyAliases.put(toLowerCase("Phag"), toLowerCase("sc=Phag"));
+    propertyAliases.put(toLowerCase("Phags_Pa"), toLowerCase("sc=Phag"));
+    propertyAliases.put(toLowerCase("Phnx"), toLowerCase("sc=Phnx"));
+    propertyAliases.put(toLowerCase("Phoenician"), toLowerCase("sc=Phnx"));
+    propertyAliases.put(toLowerCase("Plrd"), toLowerCase("sc=Plrd"));
+    propertyAliases.put(toLowerCase("Miao"), toLowerCase("sc=Plrd"));
+    propertyAliases.put(toLowerCase("Roro"), toLowerCase("sc=Roro"));
+    propertyAliases.put(toLowerCase("Sara"), toLowerCase("sc=Sara"));
+    propertyAliases.put(toLowerCase("Syre"), toLowerCase("sc=Syre"));
+    propertyAliases.put(toLowerCase("Syrj"), toLowerCase("sc=Syrj"));
+    propertyAliases.put(toLowerCase("Syrn"), toLowerCase("sc=Syrn"));
+    propertyAliases.put(toLowerCase("Teng"), toLowerCase("sc=Teng"));
+    propertyAliases.put(toLowerCase("Vaii"), toLowerCase("sc=Vaii"));
+    propertyAliases.put(toLowerCase("Vai"), toLowerCase("sc=Vaii"));
+    propertyAliases.put(toLowerCase("Visp"), toLowerCase("sc=Visp"));
+    propertyAliases.put(toLowerCase("Xsux"), toLowerCase("sc=Xsux"));
+    propertyAliases.put(toLowerCase("Cuneiform"), toLowerCase("sc=Xsux"));
+    propertyAliases.put(toLowerCase("Zxxx"), toLowerCase("sc=Zxxx"));
+    propertyAliases.put(toLowerCase("Zzzz"), toLowerCase("sc=Zzzz"));
+    propertyAliases.put(toLowerCase("Unknown"), toLowerCase("sc=Zzzz"));
+    propertyAliases.put(toLowerCase("Cari"), toLowerCase("sc=Cari"));
+    propertyAliases.put(toLowerCase("Carian"), toLowerCase("sc=Cari"));
+    propertyAliases.put(toLowerCase("Jpan"), toLowerCase("sc=Jpan"));
+    propertyAliases.put(toLowerCase("Lana"), toLowerCase("sc=Lana"));
+    propertyAliases.put(toLowerCase("Tai_Tham"), toLowerCase("sc=Lana"));
+    propertyAliases.put(toLowerCase("Lyci"), toLowerCase("sc=Lyci"));
+    propertyAliases.put(toLowerCase("Lycian"), toLowerCase("sc=Lyci"));
+    propertyAliases.put(toLowerCase("Lydi"), toLowerCase("sc=Lydi"));
+    propertyAliases.put(toLowerCase("Lydian"), toLowerCase("sc=Lydi"));
+    propertyAliases.put(toLowerCase("Olck"), toLowerCase("sc=Olck"));
+    propertyAliases.put(toLowerCase("Ol_Chiki"), toLowerCase("sc=Olck"));
+    propertyAliases.put(toLowerCase("Rjng"), toLowerCase("sc=Rjng"));
+    propertyAliases.put(toLowerCase("Rejang"), toLowerCase("sc=Rjng"));
+    propertyAliases.put(toLowerCase("Saur"), toLowerCase("sc=Saur"));
+    propertyAliases.put(toLowerCase("Saurashtra"), toLowerCase("sc=Saur"));
+    propertyAliases.put(toLowerCase("Sgnw"), toLowerCase("sc=Sgnw"));
+    propertyAliases.put(toLowerCase("SignWriting"), toLowerCase("sc=Sgnw"));
+    propertyAliases.put(toLowerCase("Sund"), toLowerCase("sc=Sund"));
+    propertyAliases.put(toLowerCase("Sundanese"), toLowerCase("sc=Sund"));
+    propertyAliases.put(toLowerCase("Moon"), toLowerCase("sc=Moon"));
+    propertyAliases.put(toLowerCase("Mtei"), toLowerCase("sc=Mtei"));
+    propertyAliases.put(toLowerCase("Meetei_Mayek"), toLowerCase("sc=Mtei"));
+    propertyAliases.put(toLowerCase("Armi"), toLowerCase("sc=Armi"));
+    propertyAliases.put(toLowerCase("Imperial_Aramaic"), toLowerCase("sc=Armi"));
+    propertyAliases.put(toLowerCase("Avst"), toLowerCase("sc=Avst"));
+    propertyAliases.put(toLowerCase("Avestan"), toLowerCase("sc=Avst"));
+    propertyAliases.put(toLowerCase("Cakm"), toLowerCase("sc=Cakm"));
+    propertyAliases.put(toLowerCase("Chakma"), toLowerCase("sc=Cakm"));
+    propertyAliases.put(toLowerCase("Kore"), toLowerCase("sc=Kore"));
+    propertyAliases.put(toLowerCase("Kthi"), toLowerCase("sc=Kthi"));
+    propertyAliases.put(toLowerCase("Kaithi"), toLowerCase("sc=Kthi"));
+    propertyAliases.put(toLowerCase("Mani"), toLowerCase("sc=Mani"));
+    propertyAliases.put(toLowerCase("Manichaean"), toLowerCase("sc=Mani"));
+    propertyAliases.put(toLowerCase("Phli"), toLowerCase("sc=Phli"));
+    propertyAliases.put(toLowerCase("Inscriptional_Pahlavi"), toLowerCase("sc=Phli"));
+    propertyAliases.put(toLowerCase("Phlp"), toLowerCase("sc=Phlp"));
+    propertyAliases.put(toLowerCase("Psalter_Pahlavi"), toLowerCase("sc=Phlp"));
+    propertyAliases.put(toLowerCase("Phlv"), toLowerCase("sc=Phlv"));
+    propertyAliases.put(toLowerCase("Prti"), toLowerCase("sc=Prti"));
+    propertyAliases.put(toLowerCase("Inscriptional_Parthian"), toLowerCase("sc=Prti"));
+    propertyAliases.put(toLowerCase("Samr"), toLowerCase("sc=Samr"));
+    propertyAliases.put(toLowerCase("Samaritan"), toLowerCase("sc=Samr"));
+    propertyAliases.put(toLowerCase("Tavt"), toLowerCase("sc=Tavt"));
+    propertyAliases.put(toLowerCase("Tai_Viet"), toLowerCase("sc=Tavt"));
+    propertyAliases.put(toLowerCase("Zmth"), toLowerCase("sc=Zmth"));
+    propertyAliases.put(toLowerCase("Zsym"), toLowerCase("sc=Zsym"));
+    propertyAliases.put(toLowerCase("Bamu"), toLowerCase("sc=Bamu"));
+    propertyAliases.put(toLowerCase("Bamum"), toLowerCase("sc=Bamu"));
+    propertyAliases.put(toLowerCase("Lisu"), toLowerCase("sc=Lisu"));
+    propertyAliases.put(toLowerCase("Nkgb"), toLowerCase("sc=Nkgb"));
+    propertyAliases.put(toLowerCase("Sarb"), toLowerCase("sc=Sarb"));
+    propertyAliases.put(toLowerCase("Old_South_Arabian"), toLowerCase("sc=Sarb"));
+    propertyAliases.put(toLowerCase("Bass"), toLowerCase("sc=Bass"));
+    propertyAliases.put(toLowerCase("Bassa_Vah"), toLowerCase("sc=Bass"));
+    propertyAliases.put(toLowerCase("Dupl"), toLowerCase("sc=Dupl"));
+    propertyAliases.put(toLowerCase("Duployan"), toLowerCase("sc=Dupl"));
+    propertyAliases.put(toLowerCase("Elba"), toLowerCase("sc=Elba"));
+    propertyAliases.put(toLowerCase("Elbasan"), toLowerCase("sc=Elba"));
+    propertyAliases.put(toLowerCase("Gran"), toLowerCase("sc=Gran"));
+    propertyAliases.put(toLowerCase("Grantha"), toLowerCase("sc=Gran"));
+    propertyAliases.put(toLowerCase("Kpel"), toLowerCase("sc=Kpel"));
+    propertyAliases.put(toLowerCase("Loma"), toLowerCase("sc=Loma"));
+    propertyAliases.put(toLowerCase("Mend"), toLowerCase("sc=Mend"));
+    propertyAliases.put(toLowerCase("Mende_Kikakui"), toLowerCase("sc=Mend"));
+    propertyAliases.put(toLowerCase("Merc"), toLowerCase("sc=Merc"));
+    propertyAliases.put(toLowerCase("Meroitic_Cursive"), toLowerCase("sc=Merc"));
+    propertyAliases.put(toLowerCase("Narb"), toLowerCase("sc=Narb"));
+    propertyAliases.put(toLowerCase("Old_North_Arabian"), toLowerCase("sc=Narb"));
+    propertyAliases.put(toLowerCase("Nbat"), toLowerCase("sc=Nbat"));
+    propertyAliases.put(toLowerCase("Nabataean"), toLowerCase("sc=Nbat"));
+    propertyAliases.put(toLowerCase("Palm"), toLowerCase("sc=Palm"));
+    propertyAliases.put(toLowerCase("Palmyrene"), toLowerCase("sc=Palm"));
+    propertyAliases.put(toLowerCase("Sind"), toLowerCase("sc=Sind"));
+    propertyAliases.put(toLowerCase("Khudawadi"), toLowerCase("sc=Sind"));
+    propertyAliases.put(toLowerCase("Wara"), toLowerCase("sc=Wara"));
+    propertyAliases.put(toLowerCase("Warang_Citi"), toLowerCase("sc=Wara"));
+    propertyAliases.put(toLowerCase("Afak"), toLowerCase("sc=Afak"));
+    propertyAliases.put(toLowerCase("Jurc"), toLowerCase("sc=Jurc"));
+    propertyAliases.put(toLowerCase("Mroo"), toLowerCase("sc=Mroo"));
+    propertyAliases.put(toLowerCase("Mro"), toLowerCase("sc=Mroo"));
+    propertyAliases.put(toLowerCase("Nshu"), toLowerCase("sc=Nshu"));
+    propertyAliases.put(toLowerCase("Shrd"), toLowerCase("sc=Shrd"));
+    propertyAliases.put(toLowerCase("Sharada"), toLowerCase("sc=Shrd"));
+    propertyAliases.put(toLowerCase("Sora"), toLowerCase("sc=Sora"));
+    propertyAliases.put(toLowerCase("Sora_Sompeng"), toLowerCase("sc=Sora"));
+    propertyAliases.put(toLowerCase("Takr"), toLowerCase("sc=Takr"));
+    propertyAliases.put(toLowerCase("Takri"), toLowerCase("sc=Takr"));
+    propertyAliases.put(toLowerCase("Tang"), toLowerCase("sc=Tang"));
+    propertyAliases.put(toLowerCase("Tangut"), toLowerCase("sc=Tang"));
+    propertyAliases.put(toLowerCase("Wole"), toLowerCase("sc=Wole"));
+    propertyAliases.put(toLowerCase("Hluw"), toLowerCase("sc=Hluw"));
+    propertyAliases.put(toLowerCase("Anatolian_Hieroglyphs"), toLowerCase("sc=Hluw"));
+    propertyAliases.put(toLowerCase("Khoj"), toLowerCase("sc=Khoj"));
+    propertyAliases.put(toLowerCase("Khojki"), toLowerCase("sc=Khoj"));
+    propertyAliases.put(toLowerCase("Tirh"), toLowerCase("sc=Tirh"));
+    propertyAliases.put(toLowerCase("Tirhuta"), toLowerCase("sc=Tirh"));
+    propertyAliases.put(toLowerCase("Aghb"), toLowerCase("sc=Aghb"));
+    propertyAliases.put(toLowerCase("Caucasian_Albanian"), toLowerCase("sc=Aghb"));
+    propertyAliases.put(toLowerCase("Mahj"), toLowerCase("sc=Mahj"));
+    propertyAliases.put(toLowerCase("Mahajani"), toLowerCase("sc=Mahj"));
+    propertyAliases.put(toLowerCase("Ahom"), toLowerCase("sc=Ahom"));
+    propertyAliases.put(toLowerCase("Hatr"), toLowerCase("sc=Hatr"));
+    propertyAliases.put(toLowerCase("Hatran"), toLowerCase("sc=Hatr"));
+    propertyAliases.put(toLowerCase("Modi"), toLowerCase("sc=Modi"));
+    propertyAliases.put(toLowerCase("Mult"), toLowerCase("sc=Mult"));
+    propertyAliases.put(toLowerCase("Multani"), toLowerCase("sc=Mult"));
+    propertyAliases.put(toLowerCase("Pauc"), toLowerCase("sc=Pauc"));
+    propertyAliases.put(toLowerCase("Pau_Cin_Hau"), toLowerCase("sc=Pauc"));
+    propertyAliases.put(toLowerCase("Sidd"), toLowerCase("sc=Sidd"));
+    propertyAliases.put(toLowerCase("Siddham"), toLowerCase("sc=Sidd"));
+    propertyAliases.put(toLowerCase("Adlm"), toLowerCase("sc=Adlm"));
+    propertyAliases.put(toLowerCase("Adlam"), toLowerCase("sc=Adlm"));
+    propertyAliases.put(toLowerCase("Bhks"), toLowerCase("sc=Bhks"));
+    propertyAliases.put(toLowerCase("Bhaiksuki"), toLowerCase("sc=Bhks"));
+    propertyAliases.put(toLowerCase("Marc"), toLowerCase("sc=Marc"));
+    propertyAliases.put(toLowerCase("Marchen"), toLowerCase("sc=Marc"));
+    propertyAliases.put(toLowerCase("Newa"), toLowerCase("sc=Newa"));
+    propertyAliases.put(toLowerCase("Osge"), toLowerCase("sc=Osge"));
+    propertyAliases.put(toLowerCase("Osage"), toLowerCase("sc=Osge"));
+    propertyAliases.put(toLowerCase("Hanb"), toLowerCase("sc=Hanb"));
+    propertyAliases.put(toLowerCase("Jamo"), toLowerCase("sc=Jamo"));
+    propertyAliases.put(toLowerCase("Zsye"), toLowerCase("sc=Zsye"));
+    propertyAliases.put(toLowerCase("InNB"), toLowerCase("blk=NB"));
+    propertyAliases.put(toLowerCase("InNo_Block"), toLowerCase("blk=NB"));
+    propertyAliases.put(toLowerCase("InASCII"), toLowerCase("blk=ASCII"));
+    propertyAliases.put(toLowerCase("InBasic_Latin"), toLowerCase("blk=ASCII"));
+    propertyAliases.put(toLowerCase("InLatin_1_Sup"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("InLatin_1_Supplement"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("InLatin_1"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_A"), toLowerCase("blk=Latin_Ext_A"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_A"), toLowerCase("blk=Latin_Ext_A"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_B"), toLowerCase("blk=Latin_Ext_B"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_B"), toLowerCase("blk=Latin_Ext_B"));
+    propertyAliases.put(toLowerCase("InIPA_Ext"), toLowerCase("blk=IPA_Ext"));
+    propertyAliases.put(toLowerCase("InIPA_Extensions"), toLowerCase("blk=IPA_Ext"));
+    propertyAliases.put(toLowerCase("InModifier_Letters"), toLowerCase("blk=Modifier_Letters"));
+    propertyAliases.put(toLowerCase("InSpacing_Modifier_Letters"), toLowerCase("blk=Modifier_Letters"));
+    propertyAliases.put(toLowerCase("InDiacriticals"), toLowerCase("blk=Diacriticals"));
+    propertyAliases.put(toLowerCase("InCombining_Diacritical_Marks"), toLowerCase("blk=Diacriticals"));
+    propertyAliases.put(toLowerCase("InGreek"), toLowerCase("blk=Greek"));
+    propertyAliases.put(toLowerCase("InGreek_And_Coptic"), toLowerCase("blk=Greek"));
+    propertyAliases.put(toLowerCase("InCyrillic"), toLowerCase("blk=Cyrillic"));
+    propertyAliases.put(toLowerCase("InArmenian"), toLowerCase("blk=Armenian"));
+    propertyAliases.put(toLowerCase("InHebrew"), toLowerCase("blk=Hebrew"));
+    propertyAliases.put(toLowerCase("InArabic"), toLowerCase("blk=Arabic"));
+    propertyAliases.put(toLowerCase("InSyriac"), toLowerCase("blk=Syriac"));
+    propertyAliases.put(toLowerCase("InThaana"), toLowerCase("blk=Thaana"));
+    propertyAliases.put(toLowerCase("InDevanagari"), toLowerCase("blk=Devanagari"));
+    propertyAliases.put(toLowerCase("InBengali"), toLowerCase("blk=Bengali"));
+    propertyAliases.put(toLowerCase("InGurmukhi"), toLowerCase("blk=Gurmukhi"));
+    propertyAliases.put(toLowerCase("InGujarati"), toLowerCase("blk=Gujarati"));
+    propertyAliases.put(toLowerCase("InOriya"), toLowerCase("blk=Oriya"));
+    propertyAliases.put(toLowerCase("InTamil"), toLowerCase("blk=Tamil"));
+    propertyAliases.put(toLowerCase("InTelugu"), toLowerCase("blk=Telugu"));
+    propertyAliases.put(toLowerCase("InKannada"), toLowerCase("blk=Kannada"));
+    propertyAliases.put(toLowerCase("InMalayalam"), toLowerCase("blk=Malayalam"));
+    propertyAliases.put(toLowerCase("InSinhala"), toLowerCase("blk=Sinhala"));
+    propertyAliases.put(toLowerCase("InThai"), toLowerCase("blk=Thai"));
+    propertyAliases.put(toLowerCase("InLao"), toLowerCase("blk=Lao"));
+    propertyAliases.put(toLowerCase("InTibetan"), toLowerCase("blk=Tibetan"));
+    propertyAliases.put(toLowerCase("InMyanmar"), toLowerCase("blk=Myanmar"));
+    propertyAliases.put(toLowerCase("InGeorgian"), toLowerCase("blk=Georgian"));
+    propertyAliases.put(toLowerCase("InJamo"), toLowerCase("blk=Jamo"));
+    propertyAliases.put(toLowerCase("InHangul_Jamo"), toLowerCase("blk=Jamo"));
+    propertyAliases.put(toLowerCase("InEthiopic"), toLowerCase("blk=Ethiopic"));
+    propertyAliases.put(toLowerCase("InCherokee"), toLowerCase("blk=Cherokee"));
+    propertyAliases.put(toLowerCase("InUCAS"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("InUnified_Canadian_Aboriginal_Syllabics"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("InCanadian_Syllabics"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("InOgham"), toLowerCase("blk=Ogham"));
+    propertyAliases.put(toLowerCase("InRunic"), toLowerCase("blk=Runic"));
+    propertyAliases.put(toLowerCase("InKhmer"), toLowerCase("blk=Khmer"));
+    propertyAliases.put(toLowerCase("InMongolian"), toLowerCase("blk=Mongolian"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_Additional"), toLowerCase("blk=Latin_Ext_Additional"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_Additional"), toLowerCase("blk=Latin_Ext_Additional"));
+    propertyAliases.put(toLowerCase("InGreek_Ext"), toLowerCase("blk=Greek_Ext"));
+    propertyAliases.put(toLowerCase("InGreek_Extended"), toLowerCase("blk=Greek_Ext"));
+    propertyAliases.put(toLowerCase("InPunctuation"), toLowerCase("blk=Punctuation"));
+    propertyAliases.put(toLowerCase("InGeneral_Punctuation"), toLowerCase("blk=Punctuation"));
+    propertyAliases.put(toLowerCase("InSuper_And_Sub"), toLowerCase("blk=Super_And_Sub"));
+    propertyAliases.put(toLowerCase("InSuperscripts_And_Subscripts"), toLowerCase("blk=Super_And_Sub"));
+    propertyAliases.put(toLowerCase("InCurrency_Symbols"), toLowerCase("blk=Currency_Symbols"));
+    propertyAliases.put(toLowerCase("InDiacriticals_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("InCombining_Diacritical_Marks_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("InCombining_Marks_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("InLetterlike_Symbols"), toLowerCase("blk=Letterlike_Symbols"));
+    propertyAliases.put(toLowerCase("InNumber_Forms"), toLowerCase("blk=Number_Forms"));
+    propertyAliases.put(toLowerCase("InArrows"), toLowerCase("blk=Arrows"));
+    propertyAliases.put(toLowerCase("InMath_Operators"), toLowerCase("blk=Math_Operators"));
+    propertyAliases.put(toLowerCase("InMathematical_Operators"), toLowerCase("blk=Math_Operators"));
+    propertyAliases.put(toLowerCase("InMisc_Technical"), toLowerCase("blk=Misc_Technical"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Technical"), toLowerCase("blk=Misc_Technical"));
+    propertyAliases.put(toLowerCase("InControl_Pictures"), toLowerCase("blk=Control_Pictures"));
+    propertyAliases.put(toLowerCase("InOCR"), toLowerCase("blk=OCR"));
+    propertyAliases.put(toLowerCase("InOptical_Character_Recognition"), toLowerCase("blk=OCR"));
+    propertyAliases.put(toLowerCase("InEnclosed_Alphanum"), toLowerCase("blk=Enclosed_Alphanum"));
+    propertyAliases.put(toLowerCase("InEnclosed_Alphanumerics"), toLowerCase("blk=Enclosed_Alphanum"));
+    propertyAliases.put(toLowerCase("InBox_Drawing"), toLowerCase("blk=Box_Drawing"));
+    propertyAliases.put(toLowerCase("InBlock_Elements"), toLowerCase("blk=Block_Elements"));
+    propertyAliases.put(toLowerCase("InGeometric_Shapes"), toLowerCase("blk=Geometric_Shapes"));
+    propertyAliases.put(toLowerCase("InMisc_Symbols"), toLowerCase("blk=Misc_Symbols"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Symbols"), toLowerCase("blk=Misc_Symbols"));
+    propertyAliases.put(toLowerCase("InDingbats"), toLowerCase("blk=Dingbats"));
+    propertyAliases.put(toLowerCase("InBraille"), toLowerCase("blk=Braille"));
+    propertyAliases.put(toLowerCase("InBraille_Patterns"), toLowerCase("blk=Braille"));
+    propertyAliases.put(toLowerCase("InCJK_Radicals_Sup"), toLowerCase("blk=CJK_Radicals_Sup"));
+    propertyAliases.put(toLowerCase("InCJK_Radicals_Supplement"), toLowerCase("blk=CJK_Radicals_Sup"));
+    propertyAliases.put(toLowerCase("InKangxi"), toLowerCase("blk=Kangxi"));
+    propertyAliases.put(toLowerCase("InKangxi_Radicals"), toLowerCase("blk=Kangxi"));
+    propertyAliases.put(toLowerCase("InIDC"), toLowerCase("blk=IDC"));
+    propertyAliases.put(toLowerCase("InIdeographic_Description_Characters"), toLowerCase("blk=IDC"));
+    propertyAliases.put(toLowerCase("InCJK_Symbols"), toLowerCase("blk=CJK_Symbols"));
+    propertyAliases.put(toLowerCase("InCJK_Symbols_And_Punctuation"), toLowerCase("blk=CJK_Symbols"));
+    propertyAliases.put(toLowerCase("InHiragana"), toLowerCase("blk=Hiragana"));
+    propertyAliases.put(toLowerCase("InKatakana"), toLowerCase("blk=Katakana"));
+    propertyAliases.put(toLowerCase("InBopomofo"), toLowerCase("blk=Bopomofo"));
+    propertyAliases.put(toLowerCase("InCompat_Jamo"), toLowerCase("blk=Compat_Jamo"));
+    propertyAliases.put(toLowerCase("InHangul_Compatibility_Jamo"), toLowerCase("blk=Compat_Jamo"));
+    propertyAliases.put(toLowerCase("InKanbun"), toLowerCase("blk=Kanbun"));
+    propertyAliases.put(toLowerCase("InBopomofo_Ext"), toLowerCase("blk=Bopomofo_Ext"));
+    propertyAliases.put(toLowerCase("InBopomofo_Extended"), toLowerCase("blk=Bopomofo_Ext"));
+    propertyAliases.put(toLowerCase("InEnclosed_CJK"), toLowerCase("blk=Enclosed_CJK"));
+    propertyAliases.put(toLowerCase("InEnclosed_CJK_Letters_And_Months"), toLowerCase("blk=Enclosed_CJK"));
+    propertyAliases.put(toLowerCase("InCJK_Compat"), toLowerCase("blk=CJK_Compat"));
+    propertyAliases.put(toLowerCase("InCJK_Compatibility"), toLowerCase("blk=CJK_Compat"));
+    propertyAliases.put(toLowerCase("InCJK_Ext_A"), toLowerCase("blk=CJK_Ext_A"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs_Extension_A"), toLowerCase("blk=CJK_Ext_A"));
+    propertyAliases.put(toLowerCase("InCJK"), toLowerCase("blk=CJK"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs"), toLowerCase("blk=CJK"));
+    propertyAliases.put(toLowerCase("InYi_Syllables"), toLowerCase("blk=Yi_Syllables"));
+    propertyAliases.put(toLowerCase("InYi_Radicals"), toLowerCase("blk=Yi_Radicals"));
+    propertyAliases.put(toLowerCase("InHangul"), toLowerCase("blk=Hangul"));
+    propertyAliases.put(toLowerCase("InHangul_Syllables"), toLowerCase("blk=Hangul"));
+    propertyAliases.put(toLowerCase("InHigh_Surrogates"), toLowerCase("blk=High_Surrogates"));
+    propertyAliases.put(toLowerCase("InHigh_PU_Surrogates"), toLowerCase("blk=High_PU_Surrogates"));
+    propertyAliases.put(toLowerCase("InHigh_Private_Use_Surrogates"), toLowerCase("blk=High_PU_Surrogates"));
+    propertyAliases.put(toLowerCase("InLow_Surrogates"), toLowerCase("blk=Low_Surrogates"));
+    propertyAliases.put(toLowerCase("InPUA"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("InPrivate_Use_Area"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("InPrivate_Use"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("InCJK_Compat_Ideographs"), toLowerCase("blk=CJK_Compat_Ideographs"));
+    propertyAliases.put(toLowerCase("InCJK_Compatibility_Ideographs"), toLowerCase("blk=CJK_Compat_Ideographs"));
+    propertyAliases.put(toLowerCase("InAlphabetic_PF"), toLowerCase("blk=Alphabetic_PF"));
+    propertyAliases.put(toLowerCase("InAlphabetic_Presentation_Forms"), toLowerCase("blk=Alphabetic_PF"));
+    propertyAliases.put(toLowerCase("InArabic_PF_A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("InArabic_Presentation_Forms_A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("InArabic_Presentation_Forms-A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("InHalf_Marks"), toLowerCase("blk=Half_Marks"));
+    propertyAliases.put(toLowerCase("InCombining_Half_Marks"), toLowerCase("blk=Half_Marks"));
+    propertyAliases.put(toLowerCase("InCJK_Compat_Forms"), toLowerCase("blk=CJK_Compat_Forms"));
+    propertyAliases.put(toLowerCase("InCJK_Compatibility_Forms"), toLowerCase("blk=CJK_Compat_Forms"));
+    propertyAliases.put(toLowerCase("InSmall_Forms"), toLowerCase("blk=Small_Forms"));
+    propertyAliases.put(toLowerCase("InSmall_Form_Variants"), toLowerCase("blk=Small_Forms"));
+    propertyAliases.put(toLowerCase("InArabic_PF_B"), toLowerCase("blk=Arabic_PF_B"));
+    propertyAliases.put(toLowerCase("InArabic_Presentation_Forms_B"), toLowerCase("blk=Arabic_PF_B"));
+    propertyAliases.put(toLowerCase("InSpecials"), toLowerCase("blk=Specials"));
+    propertyAliases.put(toLowerCase("InHalf_And_Full_Forms"), toLowerCase("blk=Half_And_Full_Forms"));
+    propertyAliases.put(toLowerCase("InHalfwidth_And_Fullwidth_Forms"), toLowerCase("blk=Half_And_Full_Forms"));
+    propertyAliases.put(toLowerCase("InOld_Italic"), toLowerCase("blk=Old_Italic"));
+    propertyAliases.put(toLowerCase("InGothic"), toLowerCase("blk=Gothic"));
+    propertyAliases.put(toLowerCase("InDeseret"), toLowerCase("blk=Deseret"));
+    propertyAliases.put(toLowerCase("InByzantine_Music"), toLowerCase("blk=Byzantine_Music"));
+    propertyAliases.put(toLowerCase("InByzantine_Musical_Symbols"), toLowerCase("blk=Byzantine_Music"));
+    propertyAliases.put(toLowerCase("InMusic"), toLowerCase("blk=Music"));
+    propertyAliases.put(toLowerCase("InMusical_Symbols"), toLowerCase("blk=Music"));
+    propertyAliases.put(toLowerCase("InMath_Alphanum"), toLowerCase("blk=Math_Alphanum"));
+    propertyAliases.put(toLowerCase("InMathematical_Alphanumeric_Symbols"), toLowerCase("blk=Math_Alphanum"));
+    propertyAliases.put(toLowerCase("InCJK_Ext_B"), toLowerCase("blk=CJK_Ext_B"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs_Extension_B"), toLowerCase("blk=CJK_Ext_B"));
+    propertyAliases.put(toLowerCase("InCJK_Compat_Ideographs_Sup"), toLowerCase("blk=CJK_Compat_Ideographs_Sup"));
+    propertyAliases.put(toLowerCase("InCJK_Compatibility_Ideographs_Supplement"), toLowerCase("blk=CJK_Compat_Ideographs_Sup"));
+    propertyAliases.put(toLowerCase("InTags"), toLowerCase("blk=Tags"));
+    propertyAliases.put(toLowerCase("InCyrillic_Sup"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("InCyrillic_Supplement"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("InCyrillic_Supplementary"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("InTagalog"), toLowerCase("blk=Tagalog"));
+    propertyAliases.put(toLowerCase("InHanunoo"), toLowerCase("blk=Hanunoo"));
+    propertyAliases.put(toLowerCase("InBuhid"), toLowerCase("blk=Buhid"));
+    propertyAliases.put(toLowerCase("InTagbanwa"), toLowerCase("blk=Tagbanwa"));
+    propertyAliases.put(toLowerCase("InMisc_Math_Symbols_A"), toLowerCase("blk=Misc_Math_Symbols_A"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Mathematical_Symbols_A"), toLowerCase("blk=Misc_Math_Symbols_A"));
+    propertyAliases.put(toLowerCase("InSup_Arrows_A"), toLowerCase("blk=Sup_Arrows_A"));
+    propertyAliases.put(toLowerCase("InSupplemental_Arrows_A"), toLowerCase("blk=Sup_Arrows_A"));
+    propertyAliases.put(toLowerCase("InSup_Arrows_B"), toLowerCase("blk=Sup_Arrows_B"));
+    propertyAliases.put(toLowerCase("InSupplemental_Arrows_B"), toLowerCase("blk=Sup_Arrows_B"));
+    propertyAliases.put(toLowerCase("InMisc_Math_Symbols_B"), toLowerCase("blk=Misc_Math_Symbols_B"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Mathematical_Symbols_B"), toLowerCase("blk=Misc_Math_Symbols_B"));
+    propertyAliases.put(toLowerCase("InSup_Math_Operators"), toLowerCase("blk=Sup_Math_Operators"));
+    propertyAliases.put(toLowerCase("InSupplemental_Mathematical_Operators"), toLowerCase("blk=Sup_Math_Operators"));
+    propertyAliases.put(toLowerCase("InKatakana_Ext"), toLowerCase("blk=Katakana_Ext"));
+    propertyAliases.put(toLowerCase("InKatakana_Phonetic_Extensions"), toLowerCase("blk=Katakana_Ext"));
+    propertyAliases.put(toLowerCase("InVS"), toLowerCase("blk=VS"));
+    propertyAliases.put(toLowerCase("InVariation_Selectors"), toLowerCase("blk=VS"));
+    propertyAliases.put(toLowerCase("InSup_PUA_A"), toLowerCase("blk=Sup_PUA_A"));
+    propertyAliases.put(toLowerCase("InSupplementary_Private_Use_Area_A"), toLowerCase("blk=Sup_PUA_A"));
+    propertyAliases.put(toLowerCase("InSup_PUA_B"), toLowerCase("blk=Sup_PUA_B"));
+    propertyAliases.put(toLowerCase("InSupplementary_Private_Use_Area_B"), toLowerCase("blk=Sup_PUA_B"));
+    propertyAliases.put(toLowerCase("InLimbu"), toLowerCase("blk=Limbu"));
+    propertyAliases.put(toLowerCase("InTai_Le"), toLowerCase("blk=Tai_Le"));
+    propertyAliases.put(toLowerCase("InKhmer_Symbols"), toLowerCase("blk=Khmer_Symbols"));
+    propertyAliases.put(toLowerCase("InPhonetic_Ext"), toLowerCase("blk=Phonetic_Ext"));
+    propertyAliases.put(toLowerCase("InPhonetic_Extensions"), toLowerCase("blk=Phonetic_Ext"));
+    propertyAliases.put(toLowerCase("InMisc_Arrows"), toLowerCase("blk=Misc_Arrows"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Symbols_And_Arrows"), toLowerCase("blk=Misc_Arrows"));
+    propertyAliases.put(toLowerCase("InYijing"), toLowerCase("blk=Yijing"));
+    propertyAliases.put(toLowerCase("InYijing_Hexagram_Symbols"), toLowerCase("blk=Yijing"));
+    propertyAliases.put(toLowerCase("InLinear_B_Syllabary"), toLowerCase("blk=Linear_B_Syllabary"));
+    propertyAliases.put(toLowerCase("InLinear_B_Ideograms"), toLowerCase("blk=Linear_B_Ideograms"));
+    propertyAliases.put(toLowerCase("InAegean_Numbers"), toLowerCase("blk=Aegean_Numbers"));
+    propertyAliases.put(toLowerCase("InUgaritic"), toLowerCase("blk=Ugaritic"));
+    propertyAliases.put(toLowerCase("InShavian"), toLowerCase("blk=Shavian"));
+    propertyAliases.put(toLowerCase("InOsmanya"), toLowerCase("blk=Osmanya"));
+    propertyAliases.put(toLowerCase("InCypriot_Syllabary"), toLowerCase("blk=Cypriot_Syllabary"));
+    propertyAliases.put(toLowerCase("InTai_Xuan_Jing"), toLowerCase("blk=Tai_Xuan_Jing"));
+    propertyAliases.put(toLowerCase("InTai_Xuan_Jing_Symbols"), toLowerCase("blk=Tai_Xuan_Jing"));
+    propertyAliases.put(toLowerCase("InVS_Sup"), toLowerCase("blk=VS_Sup"));
+    propertyAliases.put(toLowerCase("InVariation_Selectors_Supplement"), toLowerCase("blk=VS_Sup"));
+    propertyAliases.put(toLowerCase("InAncient_Greek_Music"), toLowerCase("blk=Ancient_Greek_Music"));
+    propertyAliases.put(toLowerCase("InAncient_Greek_Musical_Notation"), toLowerCase("blk=Ancient_Greek_Music"));
+    propertyAliases.put(toLowerCase("InAncient_Greek_Numbers"), toLowerCase("blk=Ancient_Greek_Numbers"));
+    propertyAliases.put(toLowerCase("InArabic_Sup"), toLowerCase("blk=Arabic_Sup"));
+    propertyAliases.put(toLowerCase("InArabic_Supplement"), toLowerCase("blk=Arabic_Sup"));
+    propertyAliases.put(toLowerCase("InBuginese"), toLowerCase("blk=Buginese"));
+    propertyAliases.put(toLowerCase("InCJK_Strokes"), toLowerCase("blk=CJK_Strokes"));
+    propertyAliases.put(toLowerCase("InDiacriticals_Sup"), toLowerCase("blk=Diacriticals_Sup"));
+    propertyAliases.put(toLowerCase("InCombining_Diacritical_Marks_Supplement"), toLowerCase("blk=Diacriticals_Sup"));
+    propertyAliases.put(toLowerCase("InCoptic"), toLowerCase("blk=Coptic"));
+    propertyAliases.put(toLowerCase("InEthiopic_Ext"), toLowerCase("blk=Ethiopic_Ext"));
+    propertyAliases.put(toLowerCase("InEthiopic_Extended"), toLowerCase("blk=Ethiopic_Ext"));
+    propertyAliases.put(toLowerCase("InEthiopic_Sup"), toLowerCase("blk=Ethiopic_Sup"));
+    propertyAliases.put(toLowerCase("InEthiopic_Supplement"), toLowerCase("blk=Ethiopic_Sup"));
+    propertyAliases.put(toLowerCase("InGeorgian_Sup"), toLowerCase("blk=Georgian_Sup"));
+    propertyAliases.put(toLowerCase("InGeorgian_Supplement"), toLowerCase("blk=Georgian_Sup"));
+    propertyAliases.put(toLowerCase("InGlagolitic"), toLowerCase("blk=Glagolitic"));
+    propertyAliases.put(toLowerCase("InKharoshthi"), toLowerCase("blk=Kharoshthi"));
+    propertyAliases.put(toLowerCase("InModifier_Tone_Letters"), toLowerCase("blk=Modifier_Tone_Letters"));
+    propertyAliases.put(toLowerCase("InNew_Tai_Lue"), toLowerCase("blk=New_Tai_Lue"));
+    propertyAliases.put(toLowerCase("InOld_Persian"), toLowerCase("blk=Old_Persian"));
+    propertyAliases.put(toLowerCase("InPhonetic_Ext_Sup"), toLowerCase("blk=Phonetic_Ext_Sup"));
+    propertyAliases.put(toLowerCase("InPhonetic_Extensions_Supplement"), toLowerCase("blk=Phonetic_Ext_Sup"));
+    propertyAliases.put(toLowerCase("InSup_Punctuation"), toLowerCase("blk=Sup_Punctuation"));
+    propertyAliases.put(toLowerCase("InSupplemental_Punctuation"), toLowerCase("blk=Sup_Punctuation"));
+    propertyAliases.put(toLowerCase("InSyloti_Nagri"), toLowerCase("blk=Syloti_Nagri"));
+    propertyAliases.put(toLowerCase("InTifinagh"), toLowerCase("blk=Tifinagh"));
+    propertyAliases.put(toLowerCase("InVertical_Forms"), toLowerCase("blk=Vertical_Forms"));
+    propertyAliases.put(toLowerCase("InNKo"), toLowerCase("blk=NKo"));
+    propertyAliases.put(toLowerCase("InBalinese"), toLowerCase("blk=Balinese"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_C"), toLowerCase("blk=Latin_Ext_C"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_C"), toLowerCase("blk=Latin_Ext_C"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_D"), toLowerCase("blk=Latin_Ext_D"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_D"), toLowerCase("blk=Latin_Ext_D"));
+    propertyAliases.put(toLowerCase("InPhags_Pa"), toLowerCase("blk=Phags_Pa"));
+    propertyAliases.put(toLowerCase("InPhoenician"), toLowerCase("blk=Phoenician"));
+    propertyAliases.put(toLowerCase("InCuneiform"), toLowerCase("blk=Cuneiform"));
+    propertyAliases.put(toLowerCase("InCuneiform_Numbers"), toLowerCase("blk=Cuneiform_Numbers"));
+    propertyAliases.put(toLowerCase("InCuneiform_Numbers_And_Punctuation"), toLowerCase("blk=Cuneiform_Numbers"));
+    propertyAliases.put(toLowerCase("InCounting_Rod"), toLowerCase("blk=Counting_Rod"));
+    propertyAliases.put(toLowerCase("InCounting_Rod_Numerals"), toLowerCase("blk=Counting_Rod"));
+    propertyAliases.put(toLowerCase("InSundanese"), toLowerCase("blk=Sundanese"));
+    propertyAliases.put(toLowerCase("InLepcha"), toLowerCase("blk=Lepcha"));
+    propertyAliases.put(toLowerCase("InOl_Chiki"), toLowerCase("blk=Ol_Chiki"));
+    propertyAliases.put(toLowerCase("InCyrillic_Ext_A"), toLowerCase("blk=Cyrillic_Ext_A"));
+    propertyAliases.put(toLowerCase("InCyrillic_Extended_A"), toLowerCase("blk=Cyrillic_Ext_A"));
+    propertyAliases.put(toLowerCase("InVai"), toLowerCase("blk=Vai"));
+    propertyAliases.put(toLowerCase("InCyrillic_Ext_B"), toLowerCase("blk=Cyrillic_Ext_B"));
+    propertyAliases.put(toLowerCase("InCyrillic_Extended_B"), toLowerCase("blk=Cyrillic_Ext_B"));
+    propertyAliases.put(toLowerCase("InSaurashtra"), toLowerCase("blk=Saurashtra"));
+    propertyAliases.put(toLowerCase("InKayah_Li"), toLowerCase("blk=Kayah_Li"));
+    propertyAliases.put(toLowerCase("InRejang"), toLowerCase("blk=Rejang"));
+    propertyAliases.put(toLowerCase("InCham"), toLowerCase("blk=Cham"));
+    propertyAliases.put(toLowerCase("InAncient_Symbols"), toLowerCase("blk=Ancient_Symbols"));
+    propertyAliases.put(toLowerCase("InPhaistos"), toLowerCase("blk=Phaistos"));
+    propertyAliases.put(toLowerCase("InPhaistos_Disc"), toLowerCase("blk=Phaistos"));
+    propertyAliases.put(toLowerCase("InLycian"), toLowerCase("blk=Lycian"));
+    propertyAliases.put(toLowerCase("InCarian"), toLowerCase("blk=Carian"));
+    propertyAliases.put(toLowerCase("InLydian"), toLowerCase("blk=Lydian"));
+    propertyAliases.put(toLowerCase("InMahjong"), toLowerCase("blk=Mahjong"));
+    propertyAliases.put(toLowerCase("InMahjong_Tiles"), toLowerCase("blk=Mahjong"));
+    propertyAliases.put(toLowerCase("InDomino"), toLowerCase("blk=Domino"));
+    propertyAliases.put(toLowerCase("InDomino_Tiles"), toLowerCase("blk=Domino"));
+    propertyAliases.put(toLowerCase("InSamaritan"), toLowerCase("blk=Samaritan"));
+    propertyAliases.put(toLowerCase("InUCAS_Ext"), toLowerCase("blk=UCAS_Ext"));
+    propertyAliases.put(toLowerCase("InUnified_Canadian_Aboriginal_Syllabics_Extended"), toLowerCase("blk=UCAS_Ext"));
+    propertyAliases.put(toLowerCase("InTai_Tham"), toLowerCase("blk=Tai_Tham"));
+    propertyAliases.put(toLowerCase("InVedic_Ext"), toLowerCase("blk=Vedic_Ext"));
+    propertyAliases.put(toLowerCase("InVedic_Extensions"), toLowerCase("blk=Vedic_Ext"));
+    propertyAliases.put(toLowerCase("InLisu"), toLowerCase("blk=Lisu"));
+    propertyAliases.put(toLowerCase("InBamum"), toLowerCase("blk=Bamum"));
+    propertyAliases.put(toLowerCase("InIndic_Number_Forms"), toLowerCase("blk=Indic_Number_Forms"));
+    propertyAliases.put(toLowerCase("InCommon_Indic_Number_Forms"), toLowerCase("blk=Indic_Number_Forms"));
+    propertyAliases.put(toLowerCase("InDevanagari_Ext"), toLowerCase("blk=Devanagari_Ext"));
+    propertyAliases.put(toLowerCase("InDevanagari_Extended"), toLowerCase("blk=Devanagari_Ext"));
+    propertyAliases.put(toLowerCase("InJamo_Ext_A"), toLowerCase("blk=Jamo_Ext_A"));
+    propertyAliases.put(toLowerCase("InHangul_Jamo_Extended_A"), toLowerCase("blk=Jamo_Ext_A"));
+    propertyAliases.put(toLowerCase("InJavanese"), toLowerCase("blk=Javanese"));
+    propertyAliases.put(toLowerCase("InMyanmar_Ext_A"), toLowerCase("blk=Myanmar_Ext_A"));
+    propertyAliases.put(toLowerCase("InMyanmar_Extended_A"), toLowerCase("blk=Myanmar_Ext_A"));
+    propertyAliases.put(toLowerCase("InTai_Viet"), toLowerCase("blk=Tai_Viet"));
+    propertyAliases.put(toLowerCase("InMeetei_Mayek"), toLowerCase("blk=Meetei_Mayek"));
+    propertyAliases.put(toLowerCase("InJamo_Ext_B"), toLowerCase("blk=Jamo_Ext_B"));
+    propertyAliases.put(toLowerCase("InHangul_Jamo_Extended_B"), toLowerCase("blk=Jamo_Ext_B"));
+    propertyAliases.put(toLowerCase("InImperial_Aramaic"), toLowerCase("blk=Imperial_Aramaic"));
+    propertyAliases.put(toLowerCase("InOld_South_Arabian"), toLowerCase("blk=Old_South_Arabian"));
+    propertyAliases.put(toLowerCase("InAvestan"), toLowerCase("blk=Avestan"));
+    propertyAliases.put(toLowerCase("InInscriptional_Parthian"), toLowerCase("blk=Inscriptional_Parthian"));
+    propertyAliases.put(toLowerCase("InInscriptional_Pahlavi"), toLowerCase("blk=Inscriptional_Pahlavi"));
+    propertyAliases.put(toLowerCase("InOld_Turkic"), toLowerCase("blk=Old_Turkic"));
+    propertyAliases.put(toLowerCase("InRumi"), toLowerCase("blk=Rumi"));
+    propertyAliases.put(toLowerCase("InRumi_Numeral_Symbols"), toLowerCase("blk=Rumi"));
+    propertyAliases.put(toLowerCase("InKaithi"), toLowerCase("blk=Kaithi"));
+    propertyAliases.put(toLowerCase("InEgyptian_Hieroglyphs"), toLowerCase("blk=Egyptian_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("InEnclosed_Alphanum_Sup"), toLowerCase("blk=Enclosed_Alphanum_Sup"));
+    propertyAliases.put(toLowerCase("InEnclosed_Alphanumeric_Supplement"), toLowerCase("blk=Enclosed_Alphanum_Sup"));
+    propertyAliases.put(toLowerCase("InEnclosed_Ideographic_Sup"), toLowerCase("blk=Enclosed_Ideographic_Sup"));
+    propertyAliases.put(toLowerCase("InEnclosed_Ideographic_Supplement"), toLowerCase("blk=Enclosed_Ideographic_Sup"));
+    propertyAliases.put(toLowerCase("InCJK_Ext_C"), toLowerCase("blk=CJK_Ext_C"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs_Extension_C"), toLowerCase("blk=CJK_Ext_C"));
+    propertyAliases.put(toLowerCase("InMandaic"), toLowerCase("blk=Mandaic"));
+    propertyAliases.put(toLowerCase("InBatak"), toLowerCase("blk=Batak"));
+    propertyAliases.put(toLowerCase("InEthiopic_Ext_A"), toLowerCase("blk=Ethiopic_Ext_A"));
+    propertyAliases.put(toLowerCase("InEthiopic_Extended_A"), toLowerCase("blk=Ethiopic_Ext_A"));
+    propertyAliases.put(toLowerCase("InBrahmi"), toLowerCase("blk=Brahmi"));
+    propertyAliases.put(toLowerCase("InBamum_Sup"), toLowerCase("blk=Bamum_Sup"));
+    propertyAliases.put(toLowerCase("InBamum_Supplement"), toLowerCase("blk=Bamum_Sup"));
+    propertyAliases.put(toLowerCase("InKana_Sup"), toLowerCase("blk=Kana_Sup"));
+    propertyAliases.put(toLowerCase("InKana_Supplement"), toLowerCase("blk=Kana_Sup"));
+    propertyAliases.put(toLowerCase("InPlaying_Cards"), toLowerCase("blk=Playing_Cards"));
+    propertyAliases.put(toLowerCase("InMisc_Pictographs"), toLowerCase("blk=Misc_Pictographs"));
+    propertyAliases.put(toLowerCase("InMiscellaneous_Symbols_And_Pictographs"), toLowerCase("blk=Misc_Pictographs"));
+    propertyAliases.put(toLowerCase("InEmoticons"), toLowerCase("blk=Emoticons"));
+    propertyAliases.put(toLowerCase("InTransport_And_Map"), toLowerCase("blk=Transport_And_Map"));
+    propertyAliases.put(toLowerCase("InTransport_And_Map_Symbols"), toLowerCase("blk=Transport_And_Map"));
+    propertyAliases.put(toLowerCase("InAlchemical"), toLowerCase("blk=Alchemical"));
+    propertyAliases.put(toLowerCase("InAlchemical_Symbols"), toLowerCase("blk=Alchemical"));
+    propertyAliases.put(toLowerCase("InCJK_Ext_D"), toLowerCase("blk=CJK_Ext_D"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs_Extension_D"), toLowerCase("blk=CJK_Ext_D"));
+    propertyAliases.put(toLowerCase("InArabic_Ext_A"), toLowerCase("blk=Arabic_Ext_A"));
+    propertyAliases.put(toLowerCase("InArabic_Extended_A"), toLowerCase("blk=Arabic_Ext_A"));
+    propertyAliases.put(toLowerCase("InArabic_Math"), toLowerCase("blk=Arabic_Math"));
+    propertyAliases.put(toLowerCase("InArabic_Mathematical_Alphabetic_Symbols"), toLowerCase("blk=Arabic_Math"));
+    propertyAliases.put(toLowerCase("InChakma"), toLowerCase("blk=Chakma"));
+    propertyAliases.put(toLowerCase("InMeetei_Mayek_Ext"), toLowerCase("blk=Meetei_Mayek_Ext"));
+    propertyAliases.put(toLowerCase("InMeetei_Mayek_Extensions"), toLowerCase("blk=Meetei_Mayek_Ext"));
+    propertyAliases.put(toLowerCase("InMeroitic_Cursive"), toLowerCase("blk=Meroitic_Cursive"));
+    propertyAliases.put(toLowerCase("InMeroitic_Hieroglyphs"), toLowerCase("blk=Meroitic_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("InMiao"), toLowerCase("blk=Miao"));
+    propertyAliases.put(toLowerCase("InSharada"), toLowerCase("blk=Sharada"));
+    propertyAliases.put(toLowerCase("InSora_Sompeng"), toLowerCase("blk=Sora_Sompeng"));
+    propertyAliases.put(toLowerCase("InSundanese_Sup"), toLowerCase("blk=Sundanese_Sup"));
+    propertyAliases.put(toLowerCase("InSundanese_Supplement"), toLowerCase("blk=Sundanese_Sup"));
+    propertyAliases.put(toLowerCase("InTakri"), toLowerCase("blk=Takri"));
+    propertyAliases.put(toLowerCase("InBassa_Vah"), toLowerCase("blk=Bassa_Vah"));
+    propertyAliases.put(toLowerCase("InCaucasian_Albanian"), toLowerCase("blk=Caucasian_Albanian"));
+    propertyAliases.put(toLowerCase("InCoptic_Epact_Numbers"), toLowerCase("blk=Coptic_Epact_Numbers"));
+    propertyAliases.put(toLowerCase("InDiacriticals_Ext"), toLowerCase("blk=Diacriticals_Ext"));
+    propertyAliases.put(toLowerCase("InCombining_Diacritical_Marks_Extended"), toLowerCase("blk=Diacriticals_Ext"));
+    propertyAliases.put(toLowerCase("InDuployan"), toLowerCase("blk=Duployan"));
+    propertyAliases.put(toLowerCase("InElbasan"), toLowerCase("blk=Elbasan"));
+    propertyAliases.put(toLowerCase("InGeometric_Shapes_Ext"), toLowerCase("blk=Geometric_Shapes_Ext"));
+    propertyAliases.put(toLowerCase("InGeometric_Shapes_Extended"), toLowerCase("blk=Geometric_Shapes_Ext"));
+    propertyAliases.put(toLowerCase("InGrantha"), toLowerCase("blk=Grantha"));
+    propertyAliases.put(toLowerCase("InKhojki"), toLowerCase("blk=Khojki"));
+    propertyAliases.put(toLowerCase("InKhudawadi"), toLowerCase("blk=Khudawadi"));
+    propertyAliases.put(toLowerCase("InLatin_Ext_E"), toLowerCase("blk=Latin_Ext_E"));
+    propertyAliases.put(toLowerCase("InLatin_Extended_E"), toLowerCase("blk=Latin_Ext_E"));
+    propertyAliases.put(toLowerCase("InLinear_A"), toLowerCase("blk=Linear_A"));
+    propertyAliases.put(toLowerCase("InMahajani"), toLowerCase("blk=Mahajani"));
+    propertyAliases.put(toLowerCase("InManichaean"), toLowerCase("blk=Manichaean"));
+    propertyAliases.put(toLowerCase("InMende_Kikakui"), toLowerCase("blk=Mende_Kikakui"));
+    propertyAliases.put(toLowerCase("InModi"), toLowerCase("blk=Modi"));
+    propertyAliases.put(toLowerCase("InMro"), toLowerCase("blk=Mro"));
+    propertyAliases.put(toLowerCase("InMyanmar_Ext_B"), toLowerCase("blk=Myanmar_Ext_B"));
+    propertyAliases.put(toLowerCase("InMyanmar_Extended_B"), toLowerCase("blk=Myanmar_Ext_B"));
+    propertyAliases.put(toLowerCase("InNabataean"), toLowerCase("blk=Nabataean"));
+    propertyAliases.put(toLowerCase("InOld_North_Arabian"), toLowerCase("blk=Old_North_Arabian"));
+    propertyAliases.put(toLowerCase("InOld_Permic"), toLowerCase("blk=Old_Permic"));
+    propertyAliases.put(toLowerCase("InOrnamental_Dingbats"), toLowerCase("blk=Ornamental_Dingbats"));
+    propertyAliases.put(toLowerCase("InPahawh_Hmong"), toLowerCase("blk=Pahawh_Hmong"));
+    propertyAliases.put(toLowerCase("InPalmyrene"), toLowerCase("blk=Palmyrene"));
+    propertyAliases.put(toLowerCase("InPau_Cin_Hau"), toLowerCase("blk=Pau_Cin_Hau"));
+    propertyAliases.put(toLowerCase("InPsalter_Pahlavi"), toLowerCase("blk=Psalter_Pahlavi"));
+    propertyAliases.put(toLowerCase("InShorthand_Format_Controls"), toLowerCase("blk=Shorthand_Format_Controls"));
+    propertyAliases.put(toLowerCase("InSiddham"), toLowerCase("blk=Siddham"));
+    propertyAliases.put(toLowerCase("InSinhala_Archaic_Numbers"), toLowerCase("blk=Sinhala_Archaic_Numbers"));
+    propertyAliases.put(toLowerCase("InSup_Arrows_C"), toLowerCase("blk=Sup_Arrows_C"));
+    propertyAliases.put(toLowerCase("InSupplemental_Arrows_C"), toLowerCase("blk=Sup_Arrows_C"));
+    propertyAliases.put(toLowerCase("InTirhuta"), toLowerCase("blk=Tirhuta"));
+    propertyAliases.put(toLowerCase("InWarang_Citi"), toLowerCase("blk=Warang_Citi"));
+    propertyAliases.put(toLowerCase("InAhom"), toLowerCase("blk=Ahom"));
+    propertyAliases.put(toLowerCase("InAnatolian_Hieroglyphs"), toLowerCase("blk=Anatolian_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("InCherokee_Sup"), toLowerCase("blk=Cherokee_Sup"));
+    propertyAliases.put(toLowerCase("InCherokee_Supplement"), toLowerCase("blk=Cherokee_Sup"));
+    propertyAliases.put(toLowerCase("InCJK_Ext_E"), toLowerCase("blk=CJK_Ext_E"));
+    propertyAliases.put(toLowerCase("InCJK_Unified_Ideographs_Extension_E"), toLowerCase("blk=CJK_Ext_E"));
+    propertyAliases.put(toLowerCase("InEarly_Dynastic_Cuneiform"), toLowerCase("blk=Early_Dynastic_Cuneiform"));
+    propertyAliases.put(toLowerCase("InHatran"), toLowerCase("blk=Hatran"));
+    propertyAliases.put(toLowerCase("InMultani"), toLowerCase("blk=Multani"));
+    propertyAliases.put(toLowerCase("InOld_Hungarian"), toLowerCase("blk=Old_Hungarian"));
+    propertyAliases.put(toLowerCase("InSup_Symbols_And_Pictographs"), toLowerCase("blk=Sup_Symbols_And_Pictographs"));
+    propertyAliases.put(toLowerCase("InSupplemental_Symbols_And_Pictographs"), toLowerCase("blk=Sup_Symbols_And_Pictographs"));
+    propertyAliases.put(toLowerCase("InSutton_SignWriting"), toLowerCase("blk=Sutton_SignWriting"));
+    propertyAliases.put(toLowerCase("InAdlam"), toLowerCase("blk=Adlam"));
+    propertyAliases.put(toLowerCase("InBhaiksuki"), toLowerCase("blk=Bhaiksuki"));
+    propertyAliases.put(toLowerCase("InCyrillic_Ext_C"), toLowerCase("blk=Cyrillic_Ext_C"));
+    propertyAliases.put(toLowerCase("InCyrillic_Extended_C"), toLowerCase("blk=Cyrillic_Ext_C"));
+    propertyAliases.put(toLowerCase("InGlagolitic_Sup"), toLowerCase("blk=Glagolitic_Sup"));
+    propertyAliases.put(toLowerCase("InGlagolitic_Supplement"), toLowerCase("blk=Glagolitic_Sup"));
+    propertyAliases.put(toLowerCase("InIdeographic_Symbols"), toLowerCase("blk=Ideographic_Symbols"));
+    propertyAliases.put(toLowerCase("InIdeographic_Symbols_And_Punctuation"), toLowerCase("blk=Ideographic_Symbols"));
+    propertyAliases.put(toLowerCase("InMarchen"), toLowerCase("blk=Marchen"));
+    propertyAliases.put(toLowerCase("InMongolian_Sup"), toLowerCase("blk=Mongolian_Sup"));
+    propertyAliases.put(toLowerCase("InMongolian_Supplement"), toLowerCase("blk=Mongolian_Sup"));
+    propertyAliases.put(toLowerCase("InNewa"), toLowerCase("blk=Newa"));
+    propertyAliases.put(toLowerCase("InOsage"), toLowerCase("blk=Osage"));
+    propertyAliases.put(toLowerCase("InTangut"), toLowerCase("blk=Tangut"));
+    propertyAliases.put(toLowerCase("InTangut_Components"), toLowerCase("blk=Tangut_Components"));
     addPropertyAliases_p2();
   }
 
   static private void addPropertyAliases_p2() {
-    propertyAliases.put("Bidi_Class=L".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Left_To_Right".toLowerCase(Locale.US), "bc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=R".toLowerCase(Locale.US), "bc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Right_To_Left".toLowerCase(Locale.US), "bc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=EN".toLowerCase(Locale.US), "bc=EN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=European_Number".toLowerCase(Locale.US), "bc=EN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=ES".toLowerCase(Locale.US), "bc=ES".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=European_Separator".toLowerCase(Locale.US), "bc=ES".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=ET".toLowerCase(Locale.US), "bc=ET".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=European_Terminator".toLowerCase(Locale.US), "bc=ET".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=AN".toLowerCase(Locale.US), "bc=AN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Arabic_Number".toLowerCase(Locale.US), "bc=AN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=CS".toLowerCase(Locale.US), "bc=CS".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Common_Separator".toLowerCase(Locale.US), "bc=CS".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=B".toLowerCase(Locale.US), "bc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Paragraph_Separator".toLowerCase(Locale.US), "bc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=S".toLowerCase(Locale.US), "bc=S".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Segment_Separator".toLowerCase(Locale.US), "bc=S".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=WS".toLowerCase(Locale.US), "bc=WS".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=White_Space".toLowerCase(Locale.US), "bc=WS".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=ON".toLowerCase(Locale.US), "bc=ON".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Other_Neutral".toLowerCase(Locale.US), "bc=ON".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=LRE".toLowerCase(Locale.US), "bc=LRE".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Left_To_Right_Embedding".toLowerCase(Locale.US), "bc=LRE".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=LRO".toLowerCase(Locale.US), "bc=LRO".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Left_To_Right_Override".toLowerCase(Locale.US), "bc=LRO".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=AL".toLowerCase(Locale.US), "bc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Arabic_Letter".toLowerCase(Locale.US), "bc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=RLE".toLowerCase(Locale.US), "bc=RLE".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Right_To_Left_Embedding".toLowerCase(Locale.US), "bc=RLE".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=RLO".toLowerCase(Locale.US), "bc=RLO".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Right_To_Left_Override".toLowerCase(Locale.US), "bc=RLO".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=PDF".toLowerCase(Locale.US), "bc=PDF".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Pop_Directional_Format".toLowerCase(Locale.US), "bc=PDF".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=NSM".toLowerCase(Locale.US), "bc=NSM".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Nonspacing_Mark".toLowerCase(Locale.US), "bc=NSM".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=BN".toLowerCase(Locale.US), "bc=BN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Boundary_Neutral".toLowerCase(Locale.US), "bc=BN".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=FSI".toLowerCase(Locale.US), "bc=FSI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=First_Strong_Isolate".toLowerCase(Locale.US), "bc=FSI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=LRI".toLowerCase(Locale.US), "bc=LRI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Left_To_Right_Isolate".toLowerCase(Locale.US), "bc=LRI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=RLI".toLowerCase(Locale.US), "bc=RLI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Right_To_Left_Isolate".toLowerCase(Locale.US), "bc=RLI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=PDI".toLowerCase(Locale.US), "bc=PDI".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Class=Pop_Directional_Isolate".toLowerCase(Locale.US), "bc=PDI".toLowerCase(Locale.US));
-    propertyAliases.put("Block=NB".toLowerCase(Locale.US), "blk=NB".toLowerCase(Locale.US));
-    propertyAliases.put("Block=No_Block".toLowerCase(Locale.US), "blk=NB".toLowerCase(Locale.US));
-    propertyAliases.put("Block=ASCII".toLowerCase(Locale.US), "blk=ASCII".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Basic_Latin".toLowerCase(Locale.US), "blk=ASCII".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_1_Sup".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_1_Supplement".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_1".toLowerCase(Locale.US), "blk=Latin_1_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_A".toLowerCase(Locale.US), "blk=Latin_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_A".toLowerCase(Locale.US), "blk=Latin_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_B".toLowerCase(Locale.US), "blk=Latin_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_B".toLowerCase(Locale.US), "blk=Latin_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=IPA_Ext".toLowerCase(Locale.US), "blk=IPA_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=IPA_Extensions".toLowerCase(Locale.US), "blk=IPA_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Modifier_Letters".toLowerCase(Locale.US), "blk=Modifier_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Spacing_Modifier_Letters".toLowerCase(Locale.US), "blk=Modifier_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Diacriticals".toLowerCase(Locale.US), "blk=Diacriticals".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Diacritical_Marks".toLowerCase(Locale.US), "blk=Diacriticals".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Greek".toLowerCase(Locale.US), "blk=Greek".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Greek_And_Coptic".toLowerCase(Locale.US), "blk=Greek".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic".toLowerCase(Locale.US), "blk=Cyrillic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Armenian".toLowerCase(Locale.US), "blk=Armenian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hebrew".toLowerCase(Locale.US), "blk=Hebrew".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic".toLowerCase(Locale.US), "blk=Arabic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Syriac".toLowerCase(Locale.US), "blk=Syriac".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Thaana".toLowerCase(Locale.US), "blk=Thaana".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Devanagari".toLowerCase(Locale.US), "blk=Devanagari".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bengali".toLowerCase(Locale.US), "blk=Bengali".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Gurmukhi".toLowerCase(Locale.US), "blk=Gurmukhi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Gujarati".toLowerCase(Locale.US), "blk=Gujarati".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Oriya".toLowerCase(Locale.US), "blk=Oriya".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tamil".toLowerCase(Locale.US), "blk=Tamil".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Telugu".toLowerCase(Locale.US), "blk=Telugu".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kannada".toLowerCase(Locale.US), "blk=Kannada".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Malayalam".toLowerCase(Locale.US), "blk=Malayalam".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sinhala".toLowerCase(Locale.US), "blk=Sinhala".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Thai".toLowerCase(Locale.US), "blk=Thai".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Lao".toLowerCase(Locale.US), "blk=Lao".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tibetan".toLowerCase(Locale.US), "blk=Tibetan".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Myanmar".toLowerCase(Locale.US), "blk=Myanmar".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Georgian".toLowerCase(Locale.US), "blk=Georgian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Jamo".toLowerCase(Locale.US), "blk=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul_Jamo".toLowerCase(Locale.US), "blk=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic".toLowerCase(Locale.US), "blk=Ethiopic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cherokee".toLowerCase(Locale.US), "blk=Cherokee".toLowerCase(Locale.US));
-    propertyAliases.put("Block=UCAS".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Unified_Canadian_Aboriginal_Syllabics".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Canadian_Syllabics".toLowerCase(Locale.US), "blk=UCAS".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ogham".toLowerCase(Locale.US), "blk=Ogham".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Runic".toLowerCase(Locale.US), "blk=Runic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Khmer".toLowerCase(Locale.US), "blk=Khmer".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mongolian".toLowerCase(Locale.US), "blk=Mongolian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_Additional".toLowerCase(Locale.US), "blk=Latin_Ext_Additional".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_Additional".toLowerCase(Locale.US), "blk=Latin_Ext_Additional".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Greek_Ext".toLowerCase(Locale.US), "blk=Greek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Greek_Extended".toLowerCase(Locale.US), "blk=Greek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Punctuation".toLowerCase(Locale.US), "blk=Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("Block=General_Punctuation".toLowerCase(Locale.US), "blk=Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Super_And_Sub".toLowerCase(Locale.US), "blk=Super_And_Sub".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Superscripts_And_Subscripts".toLowerCase(Locale.US), "blk=Super_And_Sub".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Currency_Symbols".toLowerCase(Locale.US), "blk=Currency_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Diacriticals_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Diacritical_Marks_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Marks_For_Symbols".toLowerCase(Locale.US), "blk=Diacriticals_For_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Letterlike_Symbols".toLowerCase(Locale.US), "blk=Letterlike_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Number_Forms".toLowerCase(Locale.US), "blk=Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arrows".toLowerCase(Locale.US), "blk=Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Math_Operators".toLowerCase(Locale.US), "blk=Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mathematical_Operators".toLowerCase(Locale.US), "blk=Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Technical".toLowerCase(Locale.US), "blk=Misc_Technical".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Technical".toLowerCase(Locale.US), "blk=Misc_Technical".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Control_Pictures".toLowerCase(Locale.US), "blk=Control_Pictures".toLowerCase(Locale.US));
-    propertyAliases.put("Block=OCR".toLowerCase(Locale.US), "blk=OCR".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Optical_Character_Recognition".toLowerCase(Locale.US), "blk=OCR".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Alphanum".toLowerCase(Locale.US), "blk=Enclosed_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Alphanumerics".toLowerCase(Locale.US), "blk=Enclosed_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Box_Drawing".toLowerCase(Locale.US), "blk=Box_Drawing".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Block_Elements".toLowerCase(Locale.US), "blk=Block_Elements".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Geometric_Shapes".toLowerCase(Locale.US), "blk=Geometric_Shapes".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Symbols".toLowerCase(Locale.US), "blk=Misc_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Symbols".toLowerCase(Locale.US), "blk=Misc_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Dingbats".toLowerCase(Locale.US), "blk=Dingbats".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Braille".toLowerCase(Locale.US), "blk=Braille".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Braille_Patterns".toLowerCase(Locale.US), "blk=Braille".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Radicals_Sup".toLowerCase(Locale.US), "blk=CJK_Radicals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Radicals_Supplement".toLowerCase(Locale.US), "blk=CJK_Radicals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kangxi".toLowerCase(Locale.US), "blk=Kangxi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kangxi_Radicals".toLowerCase(Locale.US), "blk=Kangxi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=IDC".toLowerCase(Locale.US), "blk=IDC".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ideographic_Description_Characters".toLowerCase(Locale.US), "blk=IDC".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Symbols".toLowerCase(Locale.US), "blk=CJK_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Symbols_And_Punctuation".toLowerCase(Locale.US), "blk=CJK_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hiragana".toLowerCase(Locale.US), "blk=Hiragana".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Katakana".toLowerCase(Locale.US), "blk=Katakana".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bopomofo".toLowerCase(Locale.US), "blk=Bopomofo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Compat_Jamo".toLowerCase(Locale.US), "blk=Compat_Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul_Compatibility_Jamo".toLowerCase(Locale.US), "blk=Compat_Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kanbun".toLowerCase(Locale.US), "blk=Kanbun".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bopomofo_Ext".toLowerCase(Locale.US), "blk=Bopomofo_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bopomofo_Extended".toLowerCase(Locale.US), "blk=Bopomofo_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_CJK".toLowerCase(Locale.US), "blk=Enclosed_CJK".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_CJK_Letters_And_Months".toLowerCase(Locale.US), "blk=Enclosed_CJK".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compat".toLowerCase(Locale.US), "blk=CJK_Compat".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compatibility".toLowerCase(Locale.US), "blk=CJK_Compat".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Ext_A".toLowerCase(Locale.US), "blk=CJK_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs_Extension_A".toLowerCase(Locale.US), "blk=CJK_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK".toLowerCase(Locale.US), "blk=CJK".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs".toLowerCase(Locale.US), "blk=CJK".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Yi_Syllables".toLowerCase(Locale.US), "blk=Yi_Syllables".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Yi_Radicals".toLowerCase(Locale.US), "blk=Yi_Radicals".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul".toLowerCase(Locale.US), "blk=Hangul".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul_Syllables".toLowerCase(Locale.US), "blk=Hangul".toLowerCase(Locale.US));
-    propertyAliases.put("Block=High_Surrogates".toLowerCase(Locale.US), "blk=High_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("Block=High_PU_Surrogates".toLowerCase(Locale.US), "blk=High_PU_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("Block=High_Private_Use_Surrogates".toLowerCase(Locale.US), "blk=High_PU_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Low_Surrogates".toLowerCase(Locale.US), "blk=Low_Surrogates".toLowerCase(Locale.US));
-    propertyAliases.put("Block=PUA".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Private_Use_Area".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Private_Use".toLowerCase(Locale.US), "blk=PUA".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compat_Ideographs".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compatibility_Ideographs".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Alphabetic_PF".toLowerCase(Locale.US), "blk=Alphabetic_PF".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Alphabetic_Presentation_Forms".toLowerCase(Locale.US), "blk=Alphabetic_PF".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_PF_A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Presentation_Forms_A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Presentation_Forms-A".toLowerCase(Locale.US), "blk=Arabic_PF_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Half_Marks".toLowerCase(Locale.US), "blk=Half_Marks".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Half_Marks".toLowerCase(Locale.US), "blk=Half_Marks".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compat_Forms".toLowerCase(Locale.US), "blk=CJK_Compat_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compatibility_Forms".toLowerCase(Locale.US), "blk=CJK_Compat_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Small_Forms".toLowerCase(Locale.US), "blk=Small_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Small_Form_Variants".toLowerCase(Locale.US), "blk=Small_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_PF_B".toLowerCase(Locale.US), "blk=Arabic_PF_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Presentation_Forms_B".toLowerCase(Locale.US), "blk=Arabic_PF_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Specials".toLowerCase(Locale.US), "blk=Specials".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Half_And_Full_Forms".toLowerCase(Locale.US), "blk=Half_And_Full_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Halfwidth_And_Fullwidth_Forms".toLowerCase(Locale.US), "blk=Half_And_Full_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_Italic".toLowerCase(Locale.US), "blk=Old_Italic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Gothic".toLowerCase(Locale.US), "blk=Gothic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Deseret".toLowerCase(Locale.US), "blk=Deseret".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Byzantine_Music".toLowerCase(Locale.US), "blk=Byzantine_Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Byzantine_Musical_Symbols".toLowerCase(Locale.US), "blk=Byzantine_Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Music".toLowerCase(Locale.US), "blk=Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Musical_Symbols".toLowerCase(Locale.US), "blk=Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Math_Alphanum".toLowerCase(Locale.US), "blk=Math_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mathematical_Alphanumeric_Symbols".toLowerCase(Locale.US), "blk=Math_Alphanum".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Ext_B".toLowerCase(Locale.US), "blk=CJK_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs_Extension_B".toLowerCase(Locale.US), "blk=CJK_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Compatibility_Ideographs_Supplement".toLowerCase(Locale.US), "blk=CJK_Compat_Ideographs_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tags".toLowerCase(Locale.US), "blk=Tags".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Sup".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Supplement".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Supplementary".toLowerCase(Locale.US), "blk=Cyrillic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tagalog".toLowerCase(Locale.US), "blk=Tagalog".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hanunoo".toLowerCase(Locale.US), "blk=Hanunoo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Buhid".toLowerCase(Locale.US), "blk=Buhid".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tagbanwa".toLowerCase(Locale.US), "blk=Tagbanwa".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Math_Symbols_A".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Mathematical_Symbols_A".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Arrows_A".toLowerCase(Locale.US), "blk=Sup_Arrows_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Arrows_A".toLowerCase(Locale.US), "blk=Sup_Arrows_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Arrows_B".toLowerCase(Locale.US), "blk=Sup_Arrows_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Arrows_B".toLowerCase(Locale.US), "blk=Sup_Arrows_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Math_Symbols_B".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Mathematical_Symbols_B".toLowerCase(Locale.US), "blk=Misc_Math_Symbols_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Math_Operators".toLowerCase(Locale.US), "blk=Sup_Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Mathematical_Operators".toLowerCase(Locale.US), "blk=Sup_Math_Operators".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Katakana_Ext".toLowerCase(Locale.US), "blk=Katakana_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Katakana_Phonetic_Extensions".toLowerCase(Locale.US), "blk=Katakana_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=VS".toLowerCase(Locale.US), "blk=VS".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Variation_Selectors".toLowerCase(Locale.US), "blk=VS".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_PUA_A".toLowerCase(Locale.US), "blk=Sup_PUA_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplementary_Private_Use_Area_A".toLowerCase(Locale.US), "blk=Sup_PUA_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_PUA_B".toLowerCase(Locale.US), "blk=Sup_PUA_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplementary_Private_Use_Area_B".toLowerCase(Locale.US), "blk=Sup_PUA_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Limbu".toLowerCase(Locale.US), "blk=Limbu".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tai_Le".toLowerCase(Locale.US), "blk=Tai_Le".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Khmer_Symbols".toLowerCase(Locale.US), "blk=Khmer_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phonetic_Ext".toLowerCase(Locale.US), "blk=Phonetic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phonetic_Extensions".toLowerCase(Locale.US), "blk=Phonetic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Arrows".toLowerCase(Locale.US), "blk=Misc_Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Symbols_And_Arrows".toLowerCase(Locale.US), "blk=Misc_Arrows".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Yijing".toLowerCase(Locale.US), "blk=Yijing".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Yijing_Hexagram_Symbols".toLowerCase(Locale.US), "blk=Yijing".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Linear_B_Syllabary".toLowerCase(Locale.US), "blk=Linear_B_Syllabary".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Linear_B_Ideograms".toLowerCase(Locale.US), "blk=Linear_B_Ideograms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Aegean_Numbers".toLowerCase(Locale.US), "blk=Aegean_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ugaritic".toLowerCase(Locale.US), "blk=Ugaritic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Shavian".toLowerCase(Locale.US), "blk=Shavian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Osmanya".toLowerCase(Locale.US), "blk=Osmanya".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cypriot_Syllabary".toLowerCase(Locale.US), "blk=Cypriot_Syllabary".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tai_Xuan_Jing".toLowerCase(Locale.US), "blk=Tai_Xuan_Jing".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tai_Xuan_Jing_Symbols".toLowerCase(Locale.US), "blk=Tai_Xuan_Jing".toLowerCase(Locale.US));
-    propertyAliases.put("Block=VS_Sup".toLowerCase(Locale.US), "blk=VS_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Variation_Selectors_Supplement".toLowerCase(Locale.US), "blk=VS_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ancient_Greek_Music".toLowerCase(Locale.US), "blk=Ancient_Greek_Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ancient_Greek_Musical_Notation".toLowerCase(Locale.US), "blk=Ancient_Greek_Music".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ancient_Greek_Numbers".toLowerCase(Locale.US), "blk=Ancient_Greek_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Sup".toLowerCase(Locale.US), "blk=Arabic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Supplement".toLowerCase(Locale.US), "blk=Arabic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Buginese".toLowerCase(Locale.US), "blk=Buginese".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Strokes".toLowerCase(Locale.US), "blk=CJK_Strokes".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Diacriticals_Sup".toLowerCase(Locale.US), "blk=Diacriticals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Diacritical_Marks_Supplement".toLowerCase(Locale.US), "blk=Diacriticals_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Coptic".toLowerCase(Locale.US), "blk=Coptic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Ext".toLowerCase(Locale.US), "blk=Ethiopic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Extended".toLowerCase(Locale.US), "blk=Ethiopic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Sup".toLowerCase(Locale.US), "blk=Ethiopic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Supplement".toLowerCase(Locale.US), "blk=Ethiopic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Georgian_Sup".toLowerCase(Locale.US), "blk=Georgian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Georgian_Supplement".toLowerCase(Locale.US), "blk=Georgian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Glagolitic".toLowerCase(Locale.US), "blk=Glagolitic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kharoshthi".toLowerCase(Locale.US), "blk=Kharoshthi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Modifier_Tone_Letters".toLowerCase(Locale.US), "blk=Modifier_Tone_Letters".toLowerCase(Locale.US));
-    propertyAliases.put("Block=New_Tai_Lue".toLowerCase(Locale.US), "blk=New_Tai_Lue".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_Persian".toLowerCase(Locale.US), "blk=Old_Persian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phonetic_Ext_Sup".toLowerCase(Locale.US), "blk=Phonetic_Ext_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phonetic_Extensions_Supplement".toLowerCase(Locale.US), "blk=Phonetic_Ext_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Punctuation".toLowerCase(Locale.US), "blk=Sup_Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Punctuation".toLowerCase(Locale.US), "blk=Sup_Punctuation".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Syloti_Nagri".toLowerCase(Locale.US), "blk=Syloti_Nagri".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tifinagh".toLowerCase(Locale.US), "blk=Tifinagh".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Vertical_Forms".toLowerCase(Locale.US), "blk=Vertical_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=NKo".toLowerCase(Locale.US), "blk=NKo".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Balinese".toLowerCase(Locale.US), "blk=Balinese".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_C".toLowerCase(Locale.US), "blk=Latin_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_C".toLowerCase(Locale.US), "blk=Latin_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_D".toLowerCase(Locale.US), "blk=Latin_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_D".toLowerCase(Locale.US), "blk=Latin_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phags_Pa".toLowerCase(Locale.US), "blk=Phags_Pa".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phoenician".toLowerCase(Locale.US), "blk=Phoenician".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cuneiform".toLowerCase(Locale.US), "blk=Cuneiform".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cuneiform_Numbers".toLowerCase(Locale.US), "blk=Cuneiform_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cuneiform_Numbers_And_Punctuation".toLowerCase(Locale.US), "blk=Cuneiform_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Counting_Rod".toLowerCase(Locale.US), "blk=Counting_Rod".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Counting_Rod_Numerals".toLowerCase(Locale.US), "blk=Counting_Rod".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sundanese".toLowerCase(Locale.US), "blk=Sundanese".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Lepcha".toLowerCase(Locale.US), "blk=Lepcha".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ol_Chiki".toLowerCase(Locale.US), "blk=Ol_Chiki".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Ext_A".toLowerCase(Locale.US), "blk=Cyrillic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Extended_A".toLowerCase(Locale.US), "blk=Cyrillic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Vai".toLowerCase(Locale.US), "blk=Vai".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Ext_B".toLowerCase(Locale.US), "blk=Cyrillic_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Extended_B".toLowerCase(Locale.US), "blk=Cyrillic_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Saurashtra".toLowerCase(Locale.US), "blk=Saurashtra".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kayah_Li".toLowerCase(Locale.US), "blk=Kayah_Li".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Rejang".toLowerCase(Locale.US), "blk=Rejang".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cham".toLowerCase(Locale.US), "blk=Cham".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ancient_Symbols".toLowerCase(Locale.US), "blk=Ancient_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phaistos".toLowerCase(Locale.US), "blk=Phaistos".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Phaistos_Disc".toLowerCase(Locale.US), "blk=Phaistos".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Lycian".toLowerCase(Locale.US), "blk=Lycian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Carian".toLowerCase(Locale.US), "blk=Carian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Lydian".toLowerCase(Locale.US), "blk=Lydian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mahjong".toLowerCase(Locale.US), "blk=Mahjong".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mahjong_Tiles".toLowerCase(Locale.US), "blk=Mahjong".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Domino".toLowerCase(Locale.US), "blk=Domino".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Domino_Tiles".toLowerCase(Locale.US), "blk=Domino".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Samaritan".toLowerCase(Locale.US), "blk=Samaritan".toLowerCase(Locale.US));
-    propertyAliases.put("Block=UCAS_Ext".toLowerCase(Locale.US), "blk=UCAS_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Unified_Canadian_Aboriginal_Syllabics_Extended".toLowerCase(Locale.US), "blk=UCAS_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tai_Tham".toLowerCase(Locale.US), "blk=Tai_Tham".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Vedic_Ext".toLowerCase(Locale.US), "blk=Vedic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Vedic_Extensions".toLowerCase(Locale.US), "blk=Vedic_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Lisu".toLowerCase(Locale.US), "blk=Lisu".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bamum".toLowerCase(Locale.US), "blk=Bamum".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Indic_Number_Forms".toLowerCase(Locale.US), "blk=Indic_Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Common_Indic_Number_Forms".toLowerCase(Locale.US), "blk=Indic_Number_Forms".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Devanagari_Ext".toLowerCase(Locale.US), "blk=Devanagari_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Devanagari_Extended".toLowerCase(Locale.US), "blk=Devanagari_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Jamo_Ext_A".toLowerCase(Locale.US), "blk=Jamo_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul_Jamo_Extended_A".toLowerCase(Locale.US), "blk=Jamo_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Javanese".toLowerCase(Locale.US), "blk=Javanese".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Myanmar_Ext_A".toLowerCase(Locale.US), "blk=Myanmar_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Myanmar_Extended_A".toLowerCase(Locale.US), "blk=Myanmar_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tai_Viet".toLowerCase(Locale.US), "blk=Tai_Viet".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Meetei_Mayek".toLowerCase(Locale.US), "blk=Meetei_Mayek".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Jamo_Ext_B".toLowerCase(Locale.US), "blk=Jamo_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hangul_Jamo_Extended_B".toLowerCase(Locale.US), "blk=Jamo_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Imperial_Aramaic".toLowerCase(Locale.US), "blk=Imperial_Aramaic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_South_Arabian".toLowerCase(Locale.US), "blk=Old_South_Arabian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Avestan".toLowerCase(Locale.US), "blk=Avestan".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Inscriptional_Parthian".toLowerCase(Locale.US), "blk=Inscriptional_Parthian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Inscriptional_Pahlavi".toLowerCase(Locale.US), "blk=Inscriptional_Pahlavi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_Turkic".toLowerCase(Locale.US), "blk=Old_Turkic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Rumi".toLowerCase(Locale.US), "blk=Rumi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Rumi_Numeral_Symbols".toLowerCase(Locale.US), "blk=Rumi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kaithi".toLowerCase(Locale.US), "blk=Kaithi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Egyptian_Hieroglyphs".toLowerCase(Locale.US), "blk=Egyptian_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Alphanum_Sup".toLowerCase(Locale.US), "blk=Enclosed_Alphanum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Alphanumeric_Supplement".toLowerCase(Locale.US), "blk=Enclosed_Alphanum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Ideographic_Sup".toLowerCase(Locale.US), "blk=Enclosed_Ideographic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Enclosed_Ideographic_Supplement".toLowerCase(Locale.US), "blk=Enclosed_Ideographic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Ext_C".toLowerCase(Locale.US), "blk=CJK_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs_Extension_C".toLowerCase(Locale.US), "blk=CJK_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mandaic".toLowerCase(Locale.US), "blk=Mandaic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Batak".toLowerCase(Locale.US), "blk=Batak".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Ext_A".toLowerCase(Locale.US), "blk=Ethiopic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ethiopic_Extended_A".toLowerCase(Locale.US), "blk=Ethiopic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Brahmi".toLowerCase(Locale.US), "blk=Brahmi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bamum_Sup".toLowerCase(Locale.US), "blk=Bamum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bamum_Supplement".toLowerCase(Locale.US), "blk=Bamum_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kana_Sup".toLowerCase(Locale.US), "blk=Kana_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Kana_Supplement".toLowerCase(Locale.US), "blk=Kana_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Playing_Cards".toLowerCase(Locale.US), "blk=Playing_Cards".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Misc_Pictographs".toLowerCase(Locale.US), "blk=Misc_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miscellaneous_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Misc_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Emoticons".toLowerCase(Locale.US), "blk=Emoticons".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Transport_And_Map".toLowerCase(Locale.US), "blk=Transport_And_Map".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Transport_And_Map_Symbols".toLowerCase(Locale.US), "blk=Transport_And_Map".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Alchemical".toLowerCase(Locale.US), "blk=Alchemical".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Alchemical_Symbols".toLowerCase(Locale.US), "blk=Alchemical".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Ext_D".toLowerCase(Locale.US), "blk=CJK_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs_Extension_D".toLowerCase(Locale.US), "blk=CJK_Ext_D".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Ext_A".toLowerCase(Locale.US), "blk=Arabic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Extended_A".toLowerCase(Locale.US), "blk=Arabic_Ext_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Math".toLowerCase(Locale.US), "blk=Arabic_Math".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Arabic_Mathematical_Alphabetic_Symbols".toLowerCase(Locale.US), "blk=Arabic_Math".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Chakma".toLowerCase(Locale.US), "blk=Chakma".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Meetei_Mayek_Ext".toLowerCase(Locale.US), "blk=Meetei_Mayek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Meetei_Mayek_Extensions".toLowerCase(Locale.US), "blk=Meetei_Mayek_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Meroitic_Cursive".toLowerCase(Locale.US), "blk=Meroitic_Cursive".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Meroitic_Hieroglyphs".toLowerCase(Locale.US), "blk=Meroitic_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Miao".toLowerCase(Locale.US), "blk=Miao".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sharada".toLowerCase(Locale.US), "blk=Sharada".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sora_Sompeng".toLowerCase(Locale.US), "blk=Sora_Sompeng".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sundanese_Sup".toLowerCase(Locale.US), "blk=Sundanese_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sundanese_Supplement".toLowerCase(Locale.US), "blk=Sundanese_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Takri".toLowerCase(Locale.US), "blk=Takri".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bassa_Vah".toLowerCase(Locale.US), "blk=Bassa_Vah".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Caucasian_Albanian".toLowerCase(Locale.US), "blk=Caucasian_Albanian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Coptic_Epact_Numbers".toLowerCase(Locale.US), "blk=Coptic_Epact_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Diacriticals_Ext".toLowerCase(Locale.US), "blk=Diacriticals_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Combining_Diacritical_Marks_Extended".toLowerCase(Locale.US), "blk=Diacriticals_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Duployan".toLowerCase(Locale.US), "blk=Duployan".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Elbasan".toLowerCase(Locale.US), "blk=Elbasan".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Geometric_Shapes_Ext".toLowerCase(Locale.US), "blk=Geometric_Shapes_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Geometric_Shapes_Extended".toLowerCase(Locale.US), "blk=Geometric_Shapes_Ext".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Grantha".toLowerCase(Locale.US), "blk=Grantha".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Khojki".toLowerCase(Locale.US), "blk=Khojki".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Khudawadi".toLowerCase(Locale.US), "blk=Khudawadi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Ext_E".toLowerCase(Locale.US), "blk=Latin_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Latin_Extended_E".toLowerCase(Locale.US), "blk=Latin_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Linear_A".toLowerCase(Locale.US), "blk=Linear_A".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mahajani".toLowerCase(Locale.US), "blk=Mahajani".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Manichaean".toLowerCase(Locale.US), "blk=Manichaean".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mende_Kikakui".toLowerCase(Locale.US), "blk=Mende_Kikakui".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Modi".toLowerCase(Locale.US), "blk=Modi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mro".toLowerCase(Locale.US), "blk=Mro".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Myanmar_Ext_B".toLowerCase(Locale.US), "blk=Myanmar_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Myanmar_Extended_B".toLowerCase(Locale.US), "blk=Myanmar_Ext_B".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Nabataean".toLowerCase(Locale.US), "blk=Nabataean".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_North_Arabian".toLowerCase(Locale.US), "blk=Old_North_Arabian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_Permic".toLowerCase(Locale.US), "blk=Old_Permic".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ornamental_Dingbats".toLowerCase(Locale.US), "blk=Ornamental_Dingbats".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Pahawh_Hmong".toLowerCase(Locale.US), "blk=Pahawh_Hmong".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Palmyrene".toLowerCase(Locale.US), "blk=Palmyrene".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Pau_Cin_Hau".toLowerCase(Locale.US), "blk=Pau_Cin_Hau".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Psalter_Pahlavi".toLowerCase(Locale.US), "blk=Psalter_Pahlavi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Shorthand_Format_Controls".toLowerCase(Locale.US), "blk=Shorthand_Format_Controls".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Siddham".toLowerCase(Locale.US), "blk=Siddham".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sinhala_Archaic_Numbers".toLowerCase(Locale.US), "blk=Sinhala_Archaic_Numbers".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Arrows_C".toLowerCase(Locale.US), "blk=Sup_Arrows_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Arrows_C".toLowerCase(Locale.US), "blk=Sup_Arrows_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tirhuta".toLowerCase(Locale.US), "blk=Tirhuta".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Warang_Citi".toLowerCase(Locale.US), "blk=Warang_Citi".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ahom".toLowerCase(Locale.US), "blk=Ahom".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Anatolian_Hieroglyphs".toLowerCase(Locale.US), "blk=Anatolian_Hieroglyphs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cherokee_Sup".toLowerCase(Locale.US), "blk=Cherokee_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cherokee_Supplement".toLowerCase(Locale.US), "blk=Cherokee_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Ext_E".toLowerCase(Locale.US), "blk=CJK_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("Block=CJK_Unified_Ideographs_Extension_E".toLowerCase(Locale.US), "blk=CJK_Ext_E".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Early_Dynastic_Cuneiform".toLowerCase(Locale.US), "blk=Early_Dynastic_Cuneiform".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Hatran".toLowerCase(Locale.US), "blk=Hatran".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Multani".toLowerCase(Locale.US), "blk=Multani".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Old_Hungarian".toLowerCase(Locale.US), "blk=Old_Hungarian".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Supplemental_Symbols_And_Pictographs".toLowerCase(Locale.US), "blk=Sup_Symbols_And_Pictographs".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Sutton_SignWriting".toLowerCase(Locale.US), "blk=Sutton_SignWriting".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Adlam".toLowerCase(Locale.US), "blk=Adlam".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Bhaiksuki".toLowerCase(Locale.US), "blk=Bhaiksuki".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Ext_C".toLowerCase(Locale.US), "blk=Cyrillic_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Cyrillic_Extended_C".toLowerCase(Locale.US), "blk=Cyrillic_Ext_C".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Glagolitic_Sup".toLowerCase(Locale.US), "blk=Glagolitic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Glagolitic_Supplement".toLowerCase(Locale.US), "blk=Glagolitic_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ideographic_Symbols".toLowerCase(Locale.US), "blk=Ideographic_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Ideographic_Symbols_And_Punctuation".toLowerCase(Locale.US), "blk=Ideographic_Symbols".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Marchen".toLowerCase(Locale.US), "blk=Marchen".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mongolian_Sup".toLowerCase(Locale.US), "blk=Mongolian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Mongolian_Supplement".toLowerCase(Locale.US), "blk=Mongolian_Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Newa".toLowerCase(Locale.US), "blk=Newa".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Osage".toLowerCase(Locale.US), "blk=Osage".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tangut".toLowerCase(Locale.US), "blk=Tangut".toLowerCase(Locale.US));
-    propertyAliases.put("Block=Tangut_Components".toLowerCase(Locale.US), "blk=Tangut_Components".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=NR".toLowerCase(Locale.US), "ccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Not_Reordered".toLowerCase(Locale.US), "ccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=OV".toLowerCase(Locale.US), "ccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Overlay".toLowerCase(Locale.US), "ccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=null".toLowerCase(Locale.US), "ccc=null".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=NK".toLowerCase(Locale.US), "ccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Nukta".toLowerCase(Locale.US), "ccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=KV".toLowerCase(Locale.US), "ccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Kana_Voicing".toLowerCase(Locale.US), "ccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=VR".toLowerCase(Locale.US), "ccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Virama".toLowerCase(Locale.US), "ccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC10".toLowerCase(Locale.US), "ccc=CCC10".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC11".toLowerCase(Locale.US), "ccc=CCC11".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC12".toLowerCase(Locale.US), "ccc=CCC12".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC13".toLowerCase(Locale.US), "ccc=CCC13".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC14".toLowerCase(Locale.US), "ccc=CCC14".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC15".toLowerCase(Locale.US), "ccc=CCC15".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC16".toLowerCase(Locale.US), "ccc=CCC16".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC17".toLowerCase(Locale.US), "ccc=CCC17".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC18".toLowerCase(Locale.US), "ccc=CCC18".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC19".toLowerCase(Locale.US), "ccc=CCC19".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC20".toLowerCase(Locale.US), "ccc=CCC20".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC21".toLowerCase(Locale.US), "ccc=CCC21".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC22".toLowerCase(Locale.US), "ccc=CCC22".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC23".toLowerCase(Locale.US), "ccc=CCC23".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC24".toLowerCase(Locale.US), "ccc=CCC24".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC25".toLowerCase(Locale.US), "ccc=CCC25".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC26".toLowerCase(Locale.US), "ccc=CCC26".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC27".toLowerCase(Locale.US), "ccc=CCC27".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC28".toLowerCase(Locale.US), "ccc=CCC28".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC29".toLowerCase(Locale.US), "ccc=CCC29".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC30".toLowerCase(Locale.US), "ccc=CCC30".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC31".toLowerCase(Locale.US), "ccc=CCC31".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC32".toLowerCase(Locale.US), "ccc=CCC32".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC33".toLowerCase(Locale.US), "ccc=CCC33".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC34".toLowerCase(Locale.US), "ccc=CCC34".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC35".toLowerCase(Locale.US), "ccc=CCC35".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC36".toLowerCase(Locale.US), "ccc=CCC36".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC84".toLowerCase(Locale.US), "ccc=CCC84".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC91".toLowerCase(Locale.US), "ccc=CCC91".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC103".toLowerCase(Locale.US), "ccc=CCC103".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC107".toLowerCase(Locale.US), "ccc=CCC107".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC118".toLowerCase(Locale.US), "ccc=CCC118".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC122".toLowerCase(Locale.US), "ccc=CCC122".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC129".toLowerCase(Locale.US), "ccc=CCC129".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC130".toLowerCase(Locale.US), "ccc=CCC130".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC132".toLowerCase(Locale.US), "ccc=CCC132".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=CCC133".toLowerCase(Locale.US), "ccc=CCC133".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=ATBL".toLowerCase(Locale.US), "ccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Attached_Below_Left".toLowerCase(Locale.US), "ccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=ATB".toLowerCase(Locale.US), "ccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Attached_Below".toLowerCase(Locale.US), "ccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=ATA".toLowerCase(Locale.US), "ccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Attached_Above".toLowerCase(Locale.US), "ccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=ATAR".toLowerCase(Locale.US), "ccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Attached_Above_Right".toLowerCase(Locale.US), "ccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=BL".toLowerCase(Locale.US), "ccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Below_Left".toLowerCase(Locale.US), "ccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=B".toLowerCase(Locale.US), "ccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Below".toLowerCase(Locale.US), "ccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=BR".toLowerCase(Locale.US), "ccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Below_Right".toLowerCase(Locale.US), "ccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=L".toLowerCase(Locale.US), "ccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Left".toLowerCase(Locale.US), "ccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=R".toLowerCase(Locale.US), "ccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Right".toLowerCase(Locale.US), "ccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=AL".toLowerCase(Locale.US), "ccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Above_Left".toLowerCase(Locale.US), "ccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=A".toLowerCase(Locale.US), "ccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Above".toLowerCase(Locale.US), "ccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=AR".toLowerCase(Locale.US), "ccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Above_Right".toLowerCase(Locale.US), "ccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=DB".toLowerCase(Locale.US), "ccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Double_Below".toLowerCase(Locale.US), "ccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=DA".toLowerCase(Locale.US), "ccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Double_Above".toLowerCase(Locale.US), "ccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=IS".toLowerCase(Locale.US), "ccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Canonical_Combining_Class=Iota_Subscript".toLowerCase(Locale.US), "ccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=None".toLowerCase(Locale.US), "dt=None".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=none".toLowerCase(Locale.US), "dt=None".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Can".toLowerCase(Locale.US), "dt=Can".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Canonical".toLowerCase(Locale.US), "dt=Can".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=can".toLowerCase(Locale.US), "dt=Can".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Com".toLowerCase(Locale.US), "dt=Com".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Compat".toLowerCase(Locale.US), "dt=Com".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=com".toLowerCase(Locale.US), "dt=Com".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Enc".toLowerCase(Locale.US), "dt=Enc".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Circle".toLowerCase(Locale.US), "dt=Enc".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=enc".toLowerCase(Locale.US), "dt=Enc".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Fin".toLowerCase(Locale.US), "dt=Fin".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Final".toLowerCase(Locale.US), "dt=Fin".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=fin".toLowerCase(Locale.US), "dt=Fin".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Font".toLowerCase(Locale.US), "dt=Font".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=font".toLowerCase(Locale.US), "dt=Font".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Fra".toLowerCase(Locale.US), "dt=Fra".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Fraction".toLowerCase(Locale.US), "dt=Fra".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=fra".toLowerCase(Locale.US), "dt=Fra".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Init".toLowerCase(Locale.US), "dt=Init".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Initial".toLowerCase(Locale.US), "dt=Init".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=init".toLowerCase(Locale.US), "dt=Init".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Iso".toLowerCase(Locale.US), "dt=Iso".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Isolated".toLowerCase(Locale.US), "dt=Iso".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=iso".toLowerCase(Locale.US), "dt=Iso".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Med".toLowerCase(Locale.US), "dt=Med".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Medial".toLowerCase(Locale.US), "dt=Med".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=med".toLowerCase(Locale.US), "dt=Med".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Nar".toLowerCase(Locale.US), "dt=Nar".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Narrow".toLowerCase(Locale.US), "dt=Nar".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=nar".toLowerCase(Locale.US), "dt=Nar".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Nb".toLowerCase(Locale.US), "dt=Nb".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Nobreak".toLowerCase(Locale.US), "dt=Nb".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=nb".toLowerCase(Locale.US), "dt=Nb".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Sml".toLowerCase(Locale.US), "dt=Sml".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Small".toLowerCase(Locale.US), "dt=Sml".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=sml".toLowerCase(Locale.US), "dt=Sml".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Sqr".toLowerCase(Locale.US), "dt=Sqr".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Square".toLowerCase(Locale.US), "dt=Sqr".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=sqr".toLowerCase(Locale.US), "dt=Sqr".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Sub".toLowerCase(Locale.US), "dt=Sub".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=sub".toLowerCase(Locale.US), "dt=Sub".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Sup".toLowerCase(Locale.US), "dt=Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Super".toLowerCase(Locale.US), "dt=Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=sup".toLowerCase(Locale.US), "dt=Sup".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Vert".toLowerCase(Locale.US), "dt=Vert".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Vertical".toLowerCase(Locale.US), "dt=Vert".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=vert".toLowerCase(Locale.US), "dt=Vert".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=Wide".toLowerCase(Locale.US), "dt=Wide".toLowerCase(Locale.US));
-    propertyAliases.put("Decomposition_Type=wide".toLowerCase(Locale.US), "dt=Wide".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=N".toLowerCase(Locale.US), "ea=N".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Neutral".toLowerCase(Locale.US), "ea=N".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=A".toLowerCase(Locale.US), "ea=A".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Ambiguous".toLowerCase(Locale.US), "ea=A".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=H".toLowerCase(Locale.US), "ea=H".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Halfwidth".toLowerCase(Locale.US), "ea=H".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=F".toLowerCase(Locale.US), "ea=F".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Fullwidth".toLowerCase(Locale.US), "ea=F".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Na".toLowerCase(Locale.US), "ea=Na".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Narrow".toLowerCase(Locale.US), "ea=Na".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=W".toLowerCase(Locale.US), "ea=W".toLowerCase(Locale.US));
-    propertyAliases.put("East_Asian_Width=Wide".toLowerCase(Locale.US), "ea=W".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Cn".toLowerCase(Locale.US), "gc=Cn".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Unassigned".toLowerCase(Locale.US), "gc=Cn".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Lu".toLowerCase(Locale.US), "gc=Lu".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Uppercase_Letter".toLowerCase(Locale.US), "gc=Lu".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Ll".toLowerCase(Locale.US), "gc=Ll".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Lowercase_Letter".toLowerCase(Locale.US), "gc=Ll".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Lt".toLowerCase(Locale.US), "gc=Lt".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Titlecase_Letter".toLowerCase(Locale.US), "gc=Lt".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Lm".toLowerCase(Locale.US), "gc=Lm".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Modifier_Letter".toLowerCase(Locale.US), "gc=Lm".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Lo".toLowerCase(Locale.US), "gc=Lo".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Other_Letter".toLowerCase(Locale.US), "gc=Lo".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Mn".toLowerCase(Locale.US), "gc=Mn".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Nonspacing_Mark".toLowerCase(Locale.US), "gc=Mn".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Me".toLowerCase(Locale.US), "gc=Me".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Enclosing_Mark".toLowerCase(Locale.US), "gc=Me".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Mc".toLowerCase(Locale.US), "gc=Mc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Spacing_Mark".toLowerCase(Locale.US), "gc=Mc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Nd".toLowerCase(Locale.US), "gc=Nd".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Decimal_Number".toLowerCase(Locale.US), "gc=Nd".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=digit".toLowerCase(Locale.US), "gc=Nd".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Nl".toLowerCase(Locale.US), "gc=Nl".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Letter_Number".toLowerCase(Locale.US), "gc=Nl".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=No".toLowerCase(Locale.US), "gc=No".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Other_Number".toLowerCase(Locale.US), "gc=No".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Zs".toLowerCase(Locale.US), "gc=Zs".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Space_Separator".toLowerCase(Locale.US), "gc=Zs".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Zl".toLowerCase(Locale.US), "gc=Zl".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Line_Separator".toLowerCase(Locale.US), "gc=Zl".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Zp".toLowerCase(Locale.US), "gc=Zp".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Paragraph_Separator".toLowerCase(Locale.US), "gc=Zp".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Cc".toLowerCase(Locale.US), "gc=Cc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Control".toLowerCase(Locale.US), "gc=Cc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=cntrl".toLowerCase(Locale.US), "gc=Cc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Cf".toLowerCase(Locale.US), "gc=Cf".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Format".toLowerCase(Locale.US), "gc=Cf".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Co".toLowerCase(Locale.US), "gc=Co".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Private_Use".toLowerCase(Locale.US), "gc=Co".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Cs".toLowerCase(Locale.US), "gc=Cs".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Surrogate".toLowerCase(Locale.US), "gc=Cs".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Pd".toLowerCase(Locale.US), "gc=Pd".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Dash_Punctuation".toLowerCase(Locale.US), "gc=Pd".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Ps".toLowerCase(Locale.US), "gc=Ps".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Open_Punctuation".toLowerCase(Locale.US), "gc=Ps".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Pe".toLowerCase(Locale.US), "gc=Pe".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Close_Punctuation".toLowerCase(Locale.US), "gc=Pe".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Pc".toLowerCase(Locale.US), "gc=Pc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Connector_Punctuation".toLowerCase(Locale.US), "gc=Pc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Po".toLowerCase(Locale.US), "gc=Po".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Other_Punctuation".toLowerCase(Locale.US), "gc=Po".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Sm".toLowerCase(Locale.US), "gc=Sm".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Math_Symbol".toLowerCase(Locale.US), "gc=Sm".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Sc".toLowerCase(Locale.US), "gc=Sc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Currency_Symbol".toLowerCase(Locale.US), "gc=Sc".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Sk".toLowerCase(Locale.US), "gc=Sk".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Modifier_Symbol".toLowerCase(Locale.US), "gc=Sk".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=So".toLowerCase(Locale.US), "gc=So".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Other_Symbol".toLowerCase(Locale.US), "gc=So".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Pi".toLowerCase(Locale.US), "gc=Pi".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Initial_Punctuation".toLowerCase(Locale.US), "gc=Pi".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Pf".toLowerCase(Locale.US), "gc=Pf".toLowerCase(Locale.US));
-    propertyAliases.put("General_Category=Final_Punctuation".toLowerCase(Locale.US), "gc=Pf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=No_Joining_Group".toLowerCase(Locale.US), "jg=No_Joining_Group".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Ain".toLowerCase(Locale.US), "jg=Ain".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Alaph".toLowerCase(Locale.US), "jg=Alaph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Alef".toLowerCase(Locale.US), "jg=Alef".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Beh".toLowerCase(Locale.US), "jg=Beh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Beth".toLowerCase(Locale.US), "jg=Beth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Dal".toLowerCase(Locale.US), "jg=Dal".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Dalath_Rish".toLowerCase(Locale.US), "jg=Dalath_Rish".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=E".toLowerCase(Locale.US), "jg=E".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Feh".toLowerCase(Locale.US), "jg=Feh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Final_Semkath".toLowerCase(Locale.US), "jg=Final_Semkath".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Gaf".toLowerCase(Locale.US), "jg=Gaf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Gamal".toLowerCase(Locale.US), "jg=Gamal".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Hah".toLowerCase(Locale.US), "jg=Hah".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Teh_Marbuta_Goal".toLowerCase(Locale.US), "jg=Teh_Marbuta_Goal".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Hamza_On_Heh_Goal".toLowerCase(Locale.US), "jg=Teh_Marbuta_Goal".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=He".toLowerCase(Locale.US), "jg=He".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Heh".toLowerCase(Locale.US), "jg=Heh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Heh_Goal".toLowerCase(Locale.US), "jg=Heh_Goal".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Heth".toLowerCase(Locale.US), "jg=Heth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Kaf".toLowerCase(Locale.US), "jg=Kaf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Kaph".toLowerCase(Locale.US), "jg=Kaph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Knotted_Heh".toLowerCase(Locale.US), "jg=Knotted_Heh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Lam".toLowerCase(Locale.US), "jg=Lam".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Lamadh".toLowerCase(Locale.US), "jg=Lamadh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Meem".toLowerCase(Locale.US), "jg=Meem".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Mim".toLowerCase(Locale.US), "jg=Mim".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Noon".toLowerCase(Locale.US), "jg=Noon".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Nun".toLowerCase(Locale.US), "jg=Nun".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Pe".toLowerCase(Locale.US), "jg=Pe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Qaf".toLowerCase(Locale.US), "jg=Qaf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Qaph".toLowerCase(Locale.US), "jg=Qaph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Reh".toLowerCase(Locale.US), "jg=Reh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Reversed_Pe".toLowerCase(Locale.US), "jg=Reversed_Pe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Sad".toLowerCase(Locale.US), "jg=Sad".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Sadhe".toLowerCase(Locale.US), "jg=Sadhe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Seen".toLowerCase(Locale.US), "jg=Seen".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Semkath".toLowerCase(Locale.US), "jg=Semkath".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Shin".toLowerCase(Locale.US), "jg=Shin".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Swash_Kaf".toLowerCase(Locale.US), "jg=Swash_Kaf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Syriac_Waw".toLowerCase(Locale.US), "jg=Syriac_Waw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Tah".toLowerCase(Locale.US), "jg=Tah".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Taw".toLowerCase(Locale.US), "jg=Taw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Teh_Marbuta".toLowerCase(Locale.US), "jg=Teh_Marbuta".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Teth".toLowerCase(Locale.US), "jg=Teth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Waw".toLowerCase(Locale.US), "jg=Waw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Yeh".toLowerCase(Locale.US), "jg=Yeh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Yeh_Barree".toLowerCase(Locale.US), "jg=Yeh_Barree".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Yeh_With_Tail".toLowerCase(Locale.US), "jg=Yeh_With_Tail".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Yudh".toLowerCase(Locale.US), "jg=Yudh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Yudh_He".toLowerCase(Locale.US), "jg=Yudh_He".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Zain".toLowerCase(Locale.US), "jg=Zain".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Fe".toLowerCase(Locale.US), "jg=Fe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Khaph".toLowerCase(Locale.US), "jg=Khaph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Zhain".toLowerCase(Locale.US), "jg=Zhain".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Burushaski_Yeh_Barree".toLowerCase(Locale.US), "jg=Burushaski_Yeh_Barree".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Farsi_Yeh".toLowerCase(Locale.US), "jg=Farsi_Yeh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Nya".toLowerCase(Locale.US), "jg=Nya".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Rohingya_Yeh".toLowerCase(Locale.US), "jg=Rohingya_Yeh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Aleph".toLowerCase(Locale.US), "jg=Manichaean_Aleph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Ayin".toLowerCase(Locale.US), "jg=Manichaean_Ayin".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Beth".toLowerCase(Locale.US), "jg=Manichaean_Beth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Daleth".toLowerCase(Locale.US), "jg=Manichaean_Daleth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Dhamedh".toLowerCase(Locale.US), "jg=Manichaean_Dhamedh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Five".toLowerCase(Locale.US), "jg=Manichaean_Five".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Gimel".toLowerCase(Locale.US), "jg=Manichaean_Gimel".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Heth".toLowerCase(Locale.US), "jg=Manichaean_Heth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Hundred".toLowerCase(Locale.US), "jg=Manichaean_Hundred".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Kaph".toLowerCase(Locale.US), "jg=Manichaean_Kaph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Lamedh".toLowerCase(Locale.US), "jg=Manichaean_Lamedh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Mem".toLowerCase(Locale.US), "jg=Manichaean_Mem".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Nun".toLowerCase(Locale.US), "jg=Manichaean_Nun".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_One".toLowerCase(Locale.US), "jg=Manichaean_One".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Pe".toLowerCase(Locale.US), "jg=Manichaean_Pe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Qoph".toLowerCase(Locale.US), "jg=Manichaean_Qoph".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Resh".toLowerCase(Locale.US), "jg=Manichaean_Resh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Sadhe".toLowerCase(Locale.US), "jg=Manichaean_Sadhe".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Samekh".toLowerCase(Locale.US), "jg=Manichaean_Samekh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Taw".toLowerCase(Locale.US), "jg=Manichaean_Taw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Ten".toLowerCase(Locale.US), "jg=Manichaean_Ten".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Teth".toLowerCase(Locale.US), "jg=Manichaean_Teth".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Thamedh".toLowerCase(Locale.US), "jg=Manichaean_Thamedh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Twenty".toLowerCase(Locale.US), "jg=Manichaean_Twenty".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Waw".toLowerCase(Locale.US), "jg=Manichaean_Waw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Yodh".toLowerCase(Locale.US), "jg=Manichaean_Yodh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Manichaean_Zayin".toLowerCase(Locale.US), "jg=Manichaean_Zayin".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=Straight_Waw".toLowerCase(Locale.US), "jg=Straight_Waw".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=African_Feh".toLowerCase(Locale.US), "jg=African_Feh".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=African_Noon".toLowerCase(Locale.US), "jg=African_Noon".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Group=African_Qaf".toLowerCase(Locale.US), "jg=African_Qaf".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=U".toLowerCase(Locale.US), "jt=U".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Non_Joining".toLowerCase(Locale.US), "jt=U".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=C".toLowerCase(Locale.US), "jt=C".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Join_Causing".toLowerCase(Locale.US), "jt=C".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=D".toLowerCase(Locale.US), "jt=D".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Dual_Joining".toLowerCase(Locale.US), "jt=D".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=L".toLowerCase(Locale.US), "jt=L".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Left_Joining".toLowerCase(Locale.US), "jt=L".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=R".toLowerCase(Locale.US), "jt=R".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Right_Joining".toLowerCase(Locale.US), "jt=R".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=T".toLowerCase(Locale.US), "jt=T".toLowerCase(Locale.US));
-    propertyAliases.put("Joining_Type=Transparent".toLowerCase(Locale.US), "jt=T".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=XX".toLowerCase(Locale.US), "lb=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Unknown".toLowerCase(Locale.US), "lb=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=AI".toLowerCase(Locale.US), "lb=AI".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Ambiguous".toLowerCase(Locale.US), "lb=AI".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=AL".toLowerCase(Locale.US), "lb=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Alphabetic".toLowerCase(Locale.US), "lb=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=B2".toLowerCase(Locale.US), "lb=B2".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Break_Both".toLowerCase(Locale.US), "lb=B2".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=BA".toLowerCase(Locale.US), "lb=BA".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Break_After".toLowerCase(Locale.US), "lb=BA".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=BB".toLowerCase(Locale.US), "lb=BB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Break_Before".toLowerCase(Locale.US), "lb=BB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=BK".toLowerCase(Locale.US), "lb=BK".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Mandatory_Break".toLowerCase(Locale.US), "lb=BK".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CB".toLowerCase(Locale.US), "lb=CB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Contingent_Break".toLowerCase(Locale.US), "lb=CB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CL".toLowerCase(Locale.US), "lb=CL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Close_Punctuation".toLowerCase(Locale.US), "lb=CL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CM".toLowerCase(Locale.US), "lb=CM".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Combining_Mark".toLowerCase(Locale.US), "lb=CM".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CR".toLowerCase(Locale.US), "lb=CR".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Carriage_Return".toLowerCase(Locale.US), "lb=CR".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=EX".toLowerCase(Locale.US), "lb=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Exclamation".toLowerCase(Locale.US), "lb=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=GL".toLowerCase(Locale.US), "lb=GL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Glue".toLowerCase(Locale.US), "lb=GL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=HY".toLowerCase(Locale.US), "lb=HY".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Hyphen".toLowerCase(Locale.US), "lb=HY".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=ID".toLowerCase(Locale.US), "lb=ID".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Ideographic".toLowerCase(Locale.US), "lb=ID".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=IN".toLowerCase(Locale.US), "lb=IN".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Inseparable".toLowerCase(Locale.US), "lb=IN".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Inseperable".toLowerCase(Locale.US), "lb=IN".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=IS".toLowerCase(Locale.US), "lb=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Infix_Numeric".toLowerCase(Locale.US), "lb=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=LF".toLowerCase(Locale.US), "lb=LF".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Line_Feed".toLowerCase(Locale.US), "lb=LF".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=NS".toLowerCase(Locale.US), "lb=NS".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Nonstarter".toLowerCase(Locale.US), "lb=NS".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=NU".toLowerCase(Locale.US), "lb=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Numeric".toLowerCase(Locale.US), "lb=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=OP".toLowerCase(Locale.US), "lb=OP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Open_Punctuation".toLowerCase(Locale.US), "lb=OP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=PO".toLowerCase(Locale.US), "lb=PO".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Postfix_Numeric".toLowerCase(Locale.US), "lb=PO".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=PR".toLowerCase(Locale.US), "lb=PR".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Prefix_Numeric".toLowerCase(Locale.US), "lb=PR".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=QU".toLowerCase(Locale.US), "lb=QU".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Quotation".toLowerCase(Locale.US), "lb=QU".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=SA".toLowerCase(Locale.US), "lb=SA".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Complex_Context".toLowerCase(Locale.US), "lb=SA".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=SG".toLowerCase(Locale.US), "lb=SG".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Surrogate".toLowerCase(Locale.US), "lb=SG".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=SP".toLowerCase(Locale.US), "lb=SP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Space".toLowerCase(Locale.US), "lb=SP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=SY".toLowerCase(Locale.US), "lb=SY".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Break_Symbols".toLowerCase(Locale.US), "lb=SY".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=ZW".toLowerCase(Locale.US), "lb=ZW".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=ZWSpace".toLowerCase(Locale.US), "lb=ZW".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=NL".toLowerCase(Locale.US), "lb=NL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Next_Line".toLowerCase(Locale.US), "lb=NL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=WJ".toLowerCase(Locale.US), "lb=WJ".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Word_Joiner".toLowerCase(Locale.US), "lb=WJ".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=H2".toLowerCase(Locale.US), "lb=H2".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=H3".toLowerCase(Locale.US), "lb=H3".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=JL".toLowerCase(Locale.US), "lb=JL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=JT".toLowerCase(Locale.US), "lb=JT".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=JV".toLowerCase(Locale.US), "lb=JV".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CP".toLowerCase(Locale.US), "lb=CP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Close_Parenthesis".toLowerCase(Locale.US), "lb=CP".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=CJ".toLowerCase(Locale.US), "lb=CJ".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Conditional_Japanese_Starter".toLowerCase(Locale.US), "lb=CJ".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=HL".toLowerCase(Locale.US), "lb=HL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Hebrew_Letter".toLowerCase(Locale.US), "lb=HL".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=RI".toLowerCase(Locale.US), "lb=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=Regional_Indicator".toLowerCase(Locale.US), "lb=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=EB".toLowerCase(Locale.US), "lb=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=E_Base".toLowerCase(Locale.US), "lb=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=EM".toLowerCase(Locale.US), "lb=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=E_Modifier".toLowerCase(Locale.US), "lb=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Line_Break=ZWJ".toLowerCase(Locale.US), "lb=ZWJ".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=None".toLowerCase(Locale.US), "nt=None".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=De".toLowerCase(Locale.US), "nt=De".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=Decimal".toLowerCase(Locale.US), "nt=De".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=Di".toLowerCase(Locale.US), "nt=Di".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=Digit".toLowerCase(Locale.US), "nt=Di".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=Nu".toLowerCase(Locale.US), "nt=Nu".toLowerCase(Locale.US));
-    propertyAliases.put("Numeric_Type=Numeric".toLowerCase(Locale.US), "nt=Nu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zyyy".toLowerCase(Locale.US), "sc=Zyyy".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Common".toLowerCase(Locale.US), "sc=Zyyy".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zinh".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Inherited".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Qaai".toLowerCase(Locale.US), "sc=Zinh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Arab".toLowerCase(Locale.US), "sc=Arab".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Arabic".toLowerCase(Locale.US), "sc=Arab".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Armn".toLowerCase(Locale.US), "sc=Armn".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Armenian".toLowerCase(Locale.US), "sc=Armn".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Beng".toLowerCase(Locale.US), "sc=Beng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bengali".toLowerCase(Locale.US), "sc=Beng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bopo".toLowerCase(Locale.US), "sc=Bopo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bopomofo".toLowerCase(Locale.US), "sc=Bopo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cher".toLowerCase(Locale.US), "sc=Cher".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cherokee".toLowerCase(Locale.US), "sc=Cher".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Copt".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Coptic".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Qaac".toLowerCase(Locale.US), "sc=Copt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cyrl".toLowerCase(Locale.US), "sc=Cyrl".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cyrillic".toLowerCase(Locale.US), "sc=Cyrl".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Dsrt".toLowerCase(Locale.US), "sc=Dsrt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Deseret".toLowerCase(Locale.US), "sc=Dsrt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Deva".toLowerCase(Locale.US), "sc=Deva".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Devanagari".toLowerCase(Locale.US), "sc=Deva".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ethi".toLowerCase(Locale.US), "sc=Ethi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ethiopic".toLowerCase(Locale.US), "sc=Ethi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Geor".toLowerCase(Locale.US), "sc=Geor".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Georgian".toLowerCase(Locale.US), "sc=Geor".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Goth".toLowerCase(Locale.US), "sc=Goth".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Gothic".toLowerCase(Locale.US), "sc=Goth".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Grek".toLowerCase(Locale.US), "sc=Grek".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Greek".toLowerCase(Locale.US), "sc=Grek".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Gujr".toLowerCase(Locale.US), "sc=Gujr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Gujarati".toLowerCase(Locale.US), "sc=Gujr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Guru".toLowerCase(Locale.US), "sc=Guru".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Gurmukhi".toLowerCase(Locale.US), "sc=Guru".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hani".toLowerCase(Locale.US), "sc=Hani".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Han".toLowerCase(Locale.US), "sc=Hani".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hang".toLowerCase(Locale.US), "sc=Hang".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hangul".toLowerCase(Locale.US), "sc=Hang".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hebr".toLowerCase(Locale.US), "sc=Hebr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hebrew".toLowerCase(Locale.US), "sc=Hebr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hira".toLowerCase(Locale.US), "sc=Hira".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hiragana".toLowerCase(Locale.US), "sc=Hira".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Knda".toLowerCase(Locale.US), "sc=Knda".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kannada".toLowerCase(Locale.US), "sc=Knda".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kana".toLowerCase(Locale.US), "sc=Kana".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Katakana".toLowerCase(Locale.US), "sc=Kana".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khmr".toLowerCase(Locale.US), "sc=Khmr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khmer".toLowerCase(Locale.US), "sc=Khmr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Laoo".toLowerCase(Locale.US), "sc=Laoo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lao".toLowerCase(Locale.US), "sc=Laoo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Latn".toLowerCase(Locale.US), "sc=Latn".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Latin".toLowerCase(Locale.US), "sc=Latn".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mlym".toLowerCase(Locale.US), "sc=Mlym".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Malayalam".toLowerCase(Locale.US), "sc=Mlym".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mong".toLowerCase(Locale.US), "sc=Mong".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mongolian".toLowerCase(Locale.US), "sc=Mong".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mymr".toLowerCase(Locale.US), "sc=Mymr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Myanmar".toLowerCase(Locale.US), "sc=Mymr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ogam".toLowerCase(Locale.US), "sc=Ogam".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ogham".toLowerCase(Locale.US), "sc=Ogam".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ital".toLowerCase(Locale.US), "sc=Ital".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_Italic".toLowerCase(Locale.US), "sc=Ital".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Orya".toLowerCase(Locale.US), "sc=Orya".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Oriya".toLowerCase(Locale.US), "sc=Orya".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Runr".toLowerCase(Locale.US), "sc=Runr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Runic".toLowerCase(Locale.US), "sc=Runr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sinh".toLowerCase(Locale.US), "sc=Sinh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sinhala".toLowerCase(Locale.US), "sc=Sinh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syrc".toLowerCase(Locale.US), "sc=Syrc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syriac".toLowerCase(Locale.US), "sc=Syrc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Taml".toLowerCase(Locale.US), "sc=Taml".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tamil".toLowerCase(Locale.US), "sc=Taml".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Telu".toLowerCase(Locale.US), "sc=Telu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Telugu".toLowerCase(Locale.US), "sc=Telu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Thaa".toLowerCase(Locale.US), "sc=Thaa".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Thaana".toLowerCase(Locale.US), "sc=Thaa".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Thai".toLowerCase(Locale.US), "sc=Thai".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tibt".toLowerCase(Locale.US), "sc=Tibt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tibetan".toLowerCase(Locale.US), "sc=Tibt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cans".toLowerCase(Locale.US), "sc=Cans".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Canadian_Aboriginal".toLowerCase(Locale.US), "sc=Cans".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Yiii".toLowerCase(Locale.US), "sc=Yiii".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Yi".toLowerCase(Locale.US), "sc=Yiii".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tglg".toLowerCase(Locale.US), "sc=Tglg".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tagalog".toLowerCase(Locale.US), "sc=Tglg".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hano".toLowerCase(Locale.US), "sc=Hano".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hanunoo".toLowerCase(Locale.US), "sc=Hano".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Buhd".toLowerCase(Locale.US), "sc=Buhd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Buhid".toLowerCase(Locale.US), "sc=Buhd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tagb".toLowerCase(Locale.US), "sc=Tagb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tagbanwa".toLowerCase(Locale.US), "sc=Tagb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Brai".toLowerCase(Locale.US), "sc=Brai".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Braille".toLowerCase(Locale.US), "sc=Brai".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cprt".toLowerCase(Locale.US), "sc=Cprt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cypriot".toLowerCase(Locale.US), "sc=Cprt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Limb".toLowerCase(Locale.US), "sc=Limb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Limbu".toLowerCase(Locale.US), "sc=Limb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Linb".toLowerCase(Locale.US), "sc=Linb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Linear_B".toLowerCase(Locale.US), "sc=Linb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Osma".toLowerCase(Locale.US), "sc=Osma".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Osmanya".toLowerCase(Locale.US), "sc=Osma".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Shaw".toLowerCase(Locale.US), "sc=Shaw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Shavian".toLowerCase(Locale.US), "sc=Shaw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tale".toLowerCase(Locale.US), "sc=Tale".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tai_Le".toLowerCase(Locale.US), "sc=Tale".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ugar".toLowerCase(Locale.US), "sc=Ugar".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ugaritic".toLowerCase(Locale.US), "sc=Ugar".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hrkt".toLowerCase(Locale.US), "sc=Hrkt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Katakana_Or_Hiragana".toLowerCase(Locale.US), "sc=Hrkt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bugi".toLowerCase(Locale.US), "sc=Bugi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Buginese".toLowerCase(Locale.US), "sc=Bugi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Glag".toLowerCase(Locale.US), "sc=Glag".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Glagolitic".toLowerCase(Locale.US), "sc=Glag".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khar".toLowerCase(Locale.US), "sc=Khar".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kharoshthi".toLowerCase(Locale.US), "sc=Khar".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sylo".toLowerCase(Locale.US), "sc=Sylo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syloti_Nagri".toLowerCase(Locale.US), "sc=Sylo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Talu".toLowerCase(Locale.US), "sc=Talu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=New_Tai_Lue".toLowerCase(Locale.US), "sc=Talu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tfng".toLowerCase(Locale.US), "sc=Tfng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tifinagh".toLowerCase(Locale.US), "sc=Tfng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Xpeo".toLowerCase(Locale.US), "sc=Xpeo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_Persian".toLowerCase(Locale.US), "sc=Xpeo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bali".toLowerCase(Locale.US), "sc=Bali".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Balinese".toLowerCase(Locale.US), "sc=Bali".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Batk".toLowerCase(Locale.US), "sc=Batk".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Batak".toLowerCase(Locale.US), "sc=Batk".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Blis".toLowerCase(Locale.US), "sc=Blis".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Brah".toLowerCase(Locale.US), "sc=Brah".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Brahmi".toLowerCase(Locale.US), "sc=Brah".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cham".toLowerCase(Locale.US), "sc=Cham".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cirt".toLowerCase(Locale.US), "sc=Cirt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cyrs".toLowerCase(Locale.US), "sc=Cyrs".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Egyd".toLowerCase(Locale.US), "sc=Egyd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Egyh".toLowerCase(Locale.US), "sc=Egyh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Egyp".toLowerCase(Locale.US), "sc=Egyp".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Egyptian_Hieroglyphs".toLowerCase(Locale.US), "sc=Egyp".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Geok".toLowerCase(Locale.US), "sc=Geok".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hans".toLowerCase(Locale.US), "sc=Hans".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hant".toLowerCase(Locale.US), "sc=Hant".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hmng".toLowerCase(Locale.US), "sc=Hmng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Pahawh_Hmong".toLowerCase(Locale.US), "sc=Hmng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hung".toLowerCase(Locale.US), "sc=Hung".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_Hungarian".toLowerCase(Locale.US), "sc=Hung".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Inds".toLowerCase(Locale.US), "sc=Inds".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Java".toLowerCase(Locale.US), "sc=Java".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Javanese".toLowerCase(Locale.US), "sc=Java".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kali".toLowerCase(Locale.US), "sc=Kali".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kayah_Li".toLowerCase(Locale.US), "sc=Kali".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Latf".toLowerCase(Locale.US), "sc=Latf".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Latg".toLowerCase(Locale.US), "sc=Latg".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lepc".toLowerCase(Locale.US), "sc=Lepc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lepcha".toLowerCase(Locale.US), "sc=Lepc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lina".toLowerCase(Locale.US), "sc=Lina".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Linear_A".toLowerCase(Locale.US), "sc=Lina".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mand".toLowerCase(Locale.US), "sc=Mand".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mandaic".toLowerCase(Locale.US), "sc=Mand".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Maya".toLowerCase(Locale.US), "sc=Maya".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mero".toLowerCase(Locale.US), "sc=Mero".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Meroitic_Hieroglyphs".toLowerCase(Locale.US), "sc=Mero".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nkoo".toLowerCase(Locale.US), "sc=Nkoo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nko".toLowerCase(Locale.US), "sc=Nkoo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Orkh".toLowerCase(Locale.US), "sc=Orkh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_Turkic".toLowerCase(Locale.US), "sc=Orkh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Perm".toLowerCase(Locale.US), "sc=Perm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_Permic".toLowerCase(Locale.US), "sc=Perm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phag".toLowerCase(Locale.US), "sc=Phag".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phags_Pa".toLowerCase(Locale.US), "sc=Phag".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phnx".toLowerCase(Locale.US), "sc=Phnx".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phoenician".toLowerCase(Locale.US), "sc=Phnx".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Plrd".toLowerCase(Locale.US), "sc=Plrd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Miao".toLowerCase(Locale.US), "sc=Plrd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Roro".toLowerCase(Locale.US), "sc=Roro".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sara".toLowerCase(Locale.US), "sc=Sara".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syre".toLowerCase(Locale.US), "sc=Syre".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syrj".toLowerCase(Locale.US), "sc=Syrj".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Syrn".toLowerCase(Locale.US), "sc=Syrn".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Teng".toLowerCase(Locale.US), "sc=Teng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Vaii".toLowerCase(Locale.US), "sc=Vaii".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Vai".toLowerCase(Locale.US), "sc=Vaii".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Visp".toLowerCase(Locale.US), "sc=Visp".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Xsux".toLowerCase(Locale.US), "sc=Xsux".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cuneiform".toLowerCase(Locale.US), "sc=Xsux".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zxxx".toLowerCase(Locale.US), "sc=Zxxx".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zzzz".toLowerCase(Locale.US), "sc=Zzzz".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Unknown".toLowerCase(Locale.US), "sc=Zzzz".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cari".toLowerCase(Locale.US), "sc=Cari".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Carian".toLowerCase(Locale.US), "sc=Cari".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Jpan".toLowerCase(Locale.US), "sc=Jpan".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lana".toLowerCase(Locale.US), "sc=Lana".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tai_Tham".toLowerCase(Locale.US), "sc=Lana".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lyci".toLowerCase(Locale.US), "sc=Lyci".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lycian".toLowerCase(Locale.US), "sc=Lyci".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lydi".toLowerCase(Locale.US), "sc=Lydi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lydian".toLowerCase(Locale.US), "sc=Lydi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Olck".toLowerCase(Locale.US), "sc=Olck".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ol_Chiki".toLowerCase(Locale.US), "sc=Olck".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Rjng".toLowerCase(Locale.US), "sc=Rjng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Rejang".toLowerCase(Locale.US), "sc=Rjng".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Saur".toLowerCase(Locale.US), "sc=Saur".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Saurashtra".toLowerCase(Locale.US), "sc=Saur".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sgnw".toLowerCase(Locale.US), "sc=Sgnw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=SignWriting".toLowerCase(Locale.US), "sc=Sgnw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sund".toLowerCase(Locale.US), "sc=Sund".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sundanese".toLowerCase(Locale.US), "sc=Sund".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Moon".toLowerCase(Locale.US), "sc=Moon".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mtei".toLowerCase(Locale.US), "sc=Mtei".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Meetei_Mayek".toLowerCase(Locale.US), "sc=Mtei".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Armi".toLowerCase(Locale.US), "sc=Armi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Imperial_Aramaic".toLowerCase(Locale.US), "sc=Armi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Avst".toLowerCase(Locale.US), "sc=Avst".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Avestan".toLowerCase(Locale.US), "sc=Avst".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Cakm".toLowerCase(Locale.US), "sc=Cakm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Chakma".toLowerCase(Locale.US), "sc=Cakm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kore".toLowerCase(Locale.US), "sc=Kore".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kthi".toLowerCase(Locale.US), "sc=Kthi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kaithi".toLowerCase(Locale.US), "sc=Kthi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mani".toLowerCase(Locale.US), "sc=Mani".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Manichaean".toLowerCase(Locale.US), "sc=Mani".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phli".toLowerCase(Locale.US), "sc=Phli".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Inscriptional_Pahlavi".toLowerCase(Locale.US), "sc=Phli".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phlp".toLowerCase(Locale.US), "sc=Phlp".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Psalter_Pahlavi".toLowerCase(Locale.US), "sc=Phlp".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Phlv".toLowerCase(Locale.US), "sc=Phlv".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Prti".toLowerCase(Locale.US), "sc=Prti".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Inscriptional_Parthian".toLowerCase(Locale.US), "sc=Prti".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Samr".toLowerCase(Locale.US), "sc=Samr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Samaritan".toLowerCase(Locale.US), "sc=Samr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tavt".toLowerCase(Locale.US), "sc=Tavt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tai_Viet".toLowerCase(Locale.US), "sc=Tavt".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zmth".toLowerCase(Locale.US), "sc=Zmth".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zsym".toLowerCase(Locale.US), "sc=Zsym".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bamu".toLowerCase(Locale.US), "sc=Bamu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bamum".toLowerCase(Locale.US), "sc=Bamu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Lisu".toLowerCase(Locale.US), "sc=Lisu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nkgb".toLowerCase(Locale.US), "sc=Nkgb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sarb".toLowerCase(Locale.US), "sc=Sarb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_South_Arabian".toLowerCase(Locale.US), "sc=Sarb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bass".toLowerCase(Locale.US), "sc=Bass".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bassa_Vah".toLowerCase(Locale.US), "sc=Bass".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Dupl".toLowerCase(Locale.US), "sc=Dupl".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Duployan".toLowerCase(Locale.US), "sc=Dupl".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Elba".toLowerCase(Locale.US), "sc=Elba".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Elbasan".toLowerCase(Locale.US), "sc=Elba".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Gran".toLowerCase(Locale.US), "sc=Gran".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Grantha".toLowerCase(Locale.US), "sc=Gran".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Kpel".toLowerCase(Locale.US), "sc=Kpel".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Loma".toLowerCase(Locale.US), "sc=Loma".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mend".toLowerCase(Locale.US), "sc=Mend".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mende_Kikakui".toLowerCase(Locale.US), "sc=Mend".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Merc".toLowerCase(Locale.US), "sc=Merc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Meroitic_Cursive".toLowerCase(Locale.US), "sc=Merc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Narb".toLowerCase(Locale.US), "sc=Narb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Old_North_Arabian".toLowerCase(Locale.US), "sc=Narb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nbat".toLowerCase(Locale.US), "sc=Nbat".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nabataean".toLowerCase(Locale.US), "sc=Nbat".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Palm".toLowerCase(Locale.US), "sc=Palm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Palmyrene".toLowerCase(Locale.US), "sc=Palm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sind".toLowerCase(Locale.US), "sc=Sind".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khudawadi".toLowerCase(Locale.US), "sc=Sind".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Wara".toLowerCase(Locale.US), "sc=Wara".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Warang_Citi".toLowerCase(Locale.US), "sc=Wara".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Afak".toLowerCase(Locale.US), "sc=Afak".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Jurc".toLowerCase(Locale.US), "sc=Jurc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mroo".toLowerCase(Locale.US), "sc=Mroo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mro".toLowerCase(Locale.US), "sc=Mroo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Nshu".toLowerCase(Locale.US), "sc=Nshu".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Shrd".toLowerCase(Locale.US), "sc=Shrd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sharada".toLowerCase(Locale.US), "sc=Shrd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sora".toLowerCase(Locale.US), "sc=Sora".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sora_Sompeng".toLowerCase(Locale.US), "sc=Sora".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Takr".toLowerCase(Locale.US), "sc=Takr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Takri".toLowerCase(Locale.US), "sc=Takr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tang".toLowerCase(Locale.US), "sc=Tang".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tangut".toLowerCase(Locale.US), "sc=Tang".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Wole".toLowerCase(Locale.US), "sc=Wole".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hluw".toLowerCase(Locale.US), "sc=Hluw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Anatolian_Hieroglyphs".toLowerCase(Locale.US), "sc=Hluw".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khoj".toLowerCase(Locale.US), "sc=Khoj".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Khojki".toLowerCase(Locale.US), "sc=Khoj".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tirh".toLowerCase(Locale.US), "sc=Tirh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Tirhuta".toLowerCase(Locale.US), "sc=Tirh".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Aghb".toLowerCase(Locale.US), "sc=Aghb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Caucasian_Albanian".toLowerCase(Locale.US), "sc=Aghb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mahj".toLowerCase(Locale.US), "sc=Mahj".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mahajani".toLowerCase(Locale.US), "sc=Mahj".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Ahom".toLowerCase(Locale.US), "sc=Ahom".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hatr".toLowerCase(Locale.US), "sc=Hatr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hatran".toLowerCase(Locale.US), "sc=Hatr".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Modi".toLowerCase(Locale.US), "sc=Modi".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Mult".toLowerCase(Locale.US), "sc=Mult".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Multani".toLowerCase(Locale.US), "sc=Mult".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Pauc".toLowerCase(Locale.US), "sc=Pauc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Pau_Cin_Hau".toLowerCase(Locale.US), "sc=Pauc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Sidd".toLowerCase(Locale.US), "sc=Sidd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Siddham".toLowerCase(Locale.US), "sc=Sidd".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Adlm".toLowerCase(Locale.US), "sc=Adlm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Adlam".toLowerCase(Locale.US), "sc=Adlm".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bhks".toLowerCase(Locale.US), "sc=Bhks".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Bhaiksuki".toLowerCase(Locale.US), "sc=Bhks".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Marc".toLowerCase(Locale.US), "sc=Marc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Marchen".toLowerCase(Locale.US), "sc=Marc".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Newa".toLowerCase(Locale.US), "sc=Newa".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Osge".toLowerCase(Locale.US), "sc=Osge".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Osage".toLowerCase(Locale.US), "sc=Osge".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Hanb".toLowerCase(Locale.US), "sc=Hanb".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Jamo".toLowerCase(Locale.US), "sc=Jamo".toLowerCase(Locale.US));
-    propertyAliases.put("Script=Zsye".toLowerCase(Locale.US), "sc=Zsye".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=NA".toLowerCase(Locale.US), "hst=NA".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=Not_Applicable".toLowerCase(Locale.US), "hst=NA".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=L".toLowerCase(Locale.US), "hst=L".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=Leading_Jamo".toLowerCase(Locale.US), "hst=L".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=V".toLowerCase(Locale.US), "hst=V".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=Vowel_Jamo".toLowerCase(Locale.US), "hst=V".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=T".toLowerCase(Locale.US), "hst=T".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=Trailing_Jamo".toLowerCase(Locale.US), "hst=T".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=LV".toLowerCase(Locale.US), "hst=LV".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=LV_Syllable".toLowerCase(Locale.US), "hst=LV".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=LVT".toLowerCase(Locale.US), "hst=LVT".toLowerCase(Locale.US));
-    propertyAliases.put("Hangul_Syllable_Type=LVT_Syllable".toLowerCase(Locale.US), "hst=LVT".toLowerCase(Locale.US));
-    propertyAliases.put("NFD_Quick_Check=N".toLowerCase(Locale.US), "NFD_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFD_Quick_Check=No".toLowerCase(Locale.US), "NFD_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFD_Quick_Check=Y".toLowerCase(Locale.US), "NFD_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFD_Quick_Check=Yes".toLowerCase(Locale.US), "NFD_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFKD_Quick_Check=N".toLowerCase(Locale.US), "NFKD_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFKD_Quick_Check=No".toLowerCase(Locale.US), "NFKD_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFKD_Quick_Check=Y".toLowerCase(Locale.US), "NFKD_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFKD_Quick_Check=Yes".toLowerCase(Locale.US), "NFKD_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=N".toLowerCase(Locale.US), "NFC_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=No".toLowerCase(Locale.US), "NFC_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=Y".toLowerCase(Locale.US), "NFC_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=Yes".toLowerCase(Locale.US), "NFC_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=M".toLowerCase(Locale.US), "NFC_QC=M".toLowerCase(Locale.US));
-    propertyAliases.put("NFC_Quick_Check=Maybe".toLowerCase(Locale.US), "NFC_QC=M".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=N".toLowerCase(Locale.US), "NFKC_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=No".toLowerCase(Locale.US), "NFKC_QC=N".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=Y".toLowerCase(Locale.US), "NFKC_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=Yes".toLowerCase(Locale.US), "NFKC_QC=Y".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=M".toLowerCase(Locale.US), "NFKC_QC=M".toLowerCase(Locale.US));
-    propertyAliases.put("NFKC_Quick_Check=Maybe".toLowerCase(Locale.US), "NFKC_QC=M".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=NR".toLowerCase(Locale.US), "lccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Not_Reordered".toLowerCase(Locale.US), "lccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=OV".toLowerCase(Locale.US), "lccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Overlay".toLowerCase(Locale.US), "lccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=null".toLowerCase(Locale.US), "lccc=null".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=NK".toLowerCase(Locale.US), "lccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Nukta".toLowerCase(Locale.US), "lccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=KV".toLowerCase(Locale.US), "lccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Kana_Voicing".toLowerCase(Locale.US), "lccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=VR".toLowerCase(Locale.US), "lccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Virama".toLowerCase(Locale.US), "lccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC10".toLowerCase(Locale.US), "lccc=CCC10".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC11".toLowerCase(Locale.US), "lccc=CCC11".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC12".toLowerCase(Locale.US), "lccc=CCC12".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC13".toLowerCase(Locale.US), "lccc=CCC13".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC14".toLowerCase(Locale.US), "lccc=CCC14".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC15".toLowerCase(Locale.US), "lccc=CCC15".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC16".toLowerCase(Locale.US), "lccc=CCC16".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC17".toLowerCase(Locale.US), "lccc=CCC17".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC18".toLowerCase(Locale.US), "lccc=CCC18".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC19".toLowerCase(Locale.US), "lccc=CCC19".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC20".toLowerCase(Locale.US), "lccc=CCC20".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC21".toLowerCase(Locale.US), "lccc=CCC21".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC22".toLowerCase(Locale.US), "lccc=CCC22".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC23".toLowerCase(Locale.US), "lccc=CCC23".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC24".toLowerCase(Locale.US), "lccc=CCC24".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC25".toLowerCase(Locale.US), "lccc=CCC25".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC26".toLowerCase(Locale.US), "lccc=CCC26".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC27".toLowerCase(Locale.US), "lccc=CCC27".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC28".toLowerCase(Locale.US), "lccc=CCC28".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC29".toLowerCase(Locale.US), "lccc=CCC29".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC30".toLowerCase(Locale.US), "lccc=CCC30".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC31".toLowerCase(Locale.US), "lccc=CCC31".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC32".toLowerCase(Locale.US), "lccc=CCC32".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC33".toLowerCase(Locale.US), "lccc=CCC33".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC34".toLowerCase(Locale.US), "lccc=CCC34".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC35".toLowerCase(Locale.US), "lccc=CCC35".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC36".toLowerCase(Locale.US), "lccc=CCC36".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC84".toLowerCase(Locale.US), "lccc=CCC84".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC91".toLowerCase(Locale.US), "lccc=CCC91".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC103".toLowerCase(Locale.US), "lccc=CCC103".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC107".toLowerCase(Locale.US), "lccc=CCC107".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC118".toLowerCase(Locale.US), "lccc=CCC118".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC122".toLowerCase(Locale.US), "lccc=CCC122".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC129".toLowerCase(Locale.US), "lccc=CCC129".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC130".toLowerCase(Locale.US), "lccc=CCC130".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC132".toLowerCase(Locale.US), "lccc=CCC132".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=CCC133".toLowerCase(Locale.US), "lccc=CCC133".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=ATBL".toLowerCase(Locale.US), "lccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Attached_Below_Left".toLowerCase(Locale.US), "lccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=ATB".toLowerCase(Locale.US), "lccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Attached_Below".toLowerCase(Locale.US), "lccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=ATA".toLowerCase(Locale.US), "lccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Attached_Above".toLowerCase(Locale.US), "lccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=ATAR".toLowerCase(Locale.US), "lccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Attached_Above_Right".toLowerCase(Locale.US), "lccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=BL".toLowerCase(Locale.US), "lccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Below_Left".toLowerCase(Locale.US), "lccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=B".toLowerCase(Locale.US), "lccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Below".toLowerCase(Locale.US), "lccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=BR".toLowerCase(Locale.US), "lccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Below_Right".toLowerCase(Locale.US), "lccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=L".toLowerCase(Locale.US), "lccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Left".toLowerCase(Locale.US), "lccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=R".toLowerCase(Locale.US), "lccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Right".toLowerCase(Locale.US), "lccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=AL".toLowerCase(Locale.US), "lccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Above_Left".toLowerCase(Locale.US), "lccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=A".toLowerCase(Locale.US), "lccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Above".toLowerCase(Locale.US), "lccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=AR".toLowerCase(Locale.US), "lccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Above_Right".toLowerCase(Locale.US), "lccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=DB".toLowerCase(Locale.US), "lccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Double_Below".toLowerCase(Locale.US), "lccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=DA".toLowerCase(Locale.US), "lccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Double_Above".toLowerCase(Locale.US), "lccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=IS".toLowerCase(Locale.US), "lccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Lead_Canonical_Combining_Class=Iota_Subscript".toLowerCase(Locale.US), "lccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=NR".toLowerCase(Locale.US), "tccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Not_Reordered".toLowerCase(Locale.US), "tccc=NR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=OV".toLowerCase(Locale.US), "tccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Overlay".toLowerCase(Locale.US), "tccc=OV".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=null".toLowerCase(Locale.US), "tccc=null".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=NK".toLowerCase(Locale.US), "tccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Nukta".toLowerCase(Locale.US), "tccc=NK".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=KV".toLowerCase(Locale.US), "tccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Kana_Voicing".toLowerCase(Locale.US), "tccc=KV".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=VR".toLowerCase(Locale.US), "tccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Virama".toLowerCase(Locale.US), "tccc=VR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC10".toLowerCase(Locale.US), "tccc=CCC10".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC11".toLowerCase(Locale.US), "tccc=CCC11".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC12".toLowerCase(Locale.US), "tccc=CCC12".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC13".toLowerCase(Locale.US), "tccc=CCC13".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC14".toLowerCase(Locale.US), "tccc=CCC14".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC15".toLowerCase(Locale.US), "tccc=CCC15".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC16".toLowerCase(Locale.US), "tccc=CCC16".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC17".toLowerCase(Locale.US), "tccc=CCC17".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC18".toLowerCase(Locale.US), "tccc=CCC18".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC19".toLowerCase(Locale.US), "tccc=CCC19".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC20".toLowerCase(Locale.US), "tccc=CCC20".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC21".toLowerCase(Locale.US), "tccc=CCC21".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC22".toLowerCase(Locale.US), "tccc=CCC22".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC23".toLowerCase(Locale.US), "tccc=CCC23".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC24".toLowerCase(Locale.US), "tccc=CCC24".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC25".toLowerCase(Locale.US), "tccc=CCC25".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC26".toLowerCase(Locale.US), "tccc=CCC26".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC27".toLowerCase(Locale.US), "tccc=CCC27".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC28".toLowerCase(Locale.US), "tccc=CCC28".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC29".toLowerCase(Locale.US), "tccc=CCC29".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC30".toLowerCase(Locale.US), "tccc=CCC30".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC31".toLowerCase(Locale.US), "tccc=CCC31".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC32".toLowerCase(Locale.US), "tccc=CCC32".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC33".toLowerCase(Locale.US), "tccc=CCC33".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC34".toLowerCase(Locale.US), "tccc=CCC34".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC35".toLowerCase(Locale.US), "tccc=CCC35".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC36".toLowerCase(Locale.US), "tccc=CCC36".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC84".toLowerCase(Locale.US), "tccc=CCC84".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC91".toLowerCase(Locale.US), "tccc=CCC91".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC103".toLowerCase(Locale.US), "tccc=CCC103".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC107".toLowerCase(Locale.US), "tccc=CCC107".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC118".toLowerCase(Locale.US), "tccc=CCC118".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC122".toLowerCase(Locale.US), "tccc=CCC122".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC129".toLowerCase(Locale.US), "tccc=CCC129".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC130".toLowerCase(Locale.US), "tccc=CCC130".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC132".toLowerCase(Locale.US), "tccc=CCC132".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=CCC133".toLowerCase(Locale.US), "tccc=CCC133".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=ATBL".toLowerCase(Locale.US), "tccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Attached_Below_Left".toLowerCase(Locale.US), "tccc=ATBL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=ATB".toLowerCase(Locale.US), "tccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Attached_Below".toLowerCase(Locale.US), "tccc=ATB".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=ATA".toLowerCase(Locale.US), "tccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Attached_Above".toLowerCase(Locale.US), "tccc=ATA".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=ATAR".toLowerCase(Locale.US), "tccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Attached_Above_Right".toLowerCase(Locale.US), "tccc=ATAR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=BL".toLowerCase(Locale.US), "tccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Below_Left".toLowerCase(Locale.US), "tccc=BL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=B".toLowerCase(Locale.US), "tccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Below".toLowerCase(Locale.US), "tccc=B".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=BR".toLowerCase(Locale.US), "tccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Below_Right".toLowerCase(Locale.US), "tccc=BR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=L".toLowerCase(Locale.US), "tccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Left".toLowerCase(Locale.US), "tccc=L".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=R".toLowerCase(Locale.US), "tccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Right".toLowerCase(Locale.US), "tccc=R".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=AL".toLowerCase(Locale.US), "tccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Above_Left".toLowerCase(Locale.US), "tccc=AL".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=A".toLowerCase(Locale.US), "tccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Above".toLowerCase(Locale.US), "tccc=A".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=AR".toLowerCase(Locale.US), "tccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Above_Right".toLowerCase(Locale.US), "tccc=AR".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=DB".toLowerCase(Locale.US), "tccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Double_Below".toLowerCase(Locale.US), "tccc=DB".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=DA".toLowerCase(Locale.US), "tccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Double_Above".toLowerCase(Locale.US), "tccc=DA".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=IS".toLowerCase(Locale.US), "tccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Trail_Canonical_Combining_Class=Iota_Subscript".toLowerCase(Locale.US), "tccc=IS".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=XX".toLowerCase(Locale.US), "GCB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Other".toLowerCase(Locale.US), "GCB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=CN".toLowerCase(Locale.US), "GCB=CN".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Control".toLowerCase(Locale.US), "GCB=CN".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=CR".toLowerCase(Locale.US), "GCB=CR".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=EX".toLowerCase(Locale.US), "GCB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Extend".toLowerCase(Locale.US), "GCB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=L".toLowerCase(Locale.US), "GCB=L".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=LF".toLowerCase(Locale.US), "GCB=LF".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=LV".toLowerCase(Locale.US), "GCB=LV".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=LVT".toLowerCase(Locale.US), "GCB=LVT".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=T".toLowerCase(Locale.US), "GCB=T".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=V".toLowerCase(Locale.US), "GCB=V".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=SM".toLowerCase(Locale.US), "GCB=SM".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=SpacingMark".toLowerCase(Locale.US), "GCB=SM".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=PP".toLowerCase(Locale.US), "GCB=PP".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Prepend".toLowerCase(Locale.US), "GCB=PP".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=RI".toLowerCase(Locale.US), "GCB=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Regional_Indicator".toLowerCase(Locale.US), "GCB=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=EB".toLowerCase(Locale.US), "GCB=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=E_Base".toLowerCase(Locale.US), "GCB=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=EBG".toLowerCase(Locale.US), "GCB=EBG".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=E_Base_GAZ".toLowerCase(Locale.US), "GCB=EBG".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=EM".toLowerCase(Locale.US), "GCB=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=E_Modifier".toLowerCase(Locale.US), "GCB=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=GAZ".toLowerCase(Locale.US), "GCB=GAZ".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=Glue_After_Zwj".toLowerCase(Locale.US), "GCB=GAZ".toLowerCase(Locale.US));
-    propertyAliases.put("Grapheme_Cluster_Break=ZWJ".toLowerCase(Locale.US), "GCB=ZWJ".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=XX".toLowerCase(Locale.US), "SB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Other".toLowerCase(Locale.US), "SB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=AT".toLowerCase(Locale.US), "SB=AT".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=ATerm".toLowerCase(Locale.US), "SB=AT".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=CL".toLowerCase(Locale.US), "SB=CL".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Close".toLowerCase(Locale.US), "SB=CL".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=FO".toLowerCase(Locale.US), "SB=FO".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Format".toLowerCase(Locale.US), "SB=FO".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=LO".toLowerCase(Locale.US), "SB=LO".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Lower".toLowerCase(Locale.US), "SB=LO".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=NU".toLowerCase(Locale.US), "SB=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Numeric".toLowerCase(Locale.US), "SB=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=LE".toLowerCase(Locale.US), "SB=LE".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=OLetter".toLowerCase(Locale.US), "SB=LE".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=SE".toLowerCase(Locale.US), "SB=SE".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Sep".toLowerCase(Locale.US), "SB=SE".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=SP".toLowerCase(Locale.US), "SB=SP".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Sp".toLowerCase(Locale.US), "SB=SP".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=ST".toLowerCase(Locale.US), "SB=ST".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=STerm".toLowerCase(Locale.US), "SB=ST".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=UP".toLowerCase(Locale.US), "SB=UP".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Upper".toLowerCase(Locale.US), "SB=UP".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=CR".toLowerCase(Locale.US), "SB=CR".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=EX".toLowerCase(Locale.US), "SB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=Extend".toLowerCase(Locale.US), "SB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=LF".toLowerCase(Locale.US), "SB=LF".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=SC".toLowerCase(Locale.US), "SB=SC".toLowerCase(Locale.US));
-    propertyAliases.put("Sentence_Break=SContinue".toLowerCase(Locale.US), "SB=SC".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=XX".toLowerCase(Locale.US), "WB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Other".toLowerCase(Locale.US), "WB=XX".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=LE".toLowerCase(Locale.US), "WB=LE".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=ALetter".toLowerCase(Locale.US), "WB=LE".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=FO".toLowerCase(Locale.US), "WB=FO".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Format".toLowerCase(Locale.US), "WB=FO".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=KA".toLowerCase(Locale.US), "WB=KA".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Katakana".toLowerCase(Locale.US), "WB=KA".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=ML".toLowerCase(Locale.US), "WB=ML".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=MidLetter".toLowerCase(Locale.US), "WB=ML".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=MN".toLowerCase(Locale.US), "WB=MN".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=MidNum".toLowerCase(Locale.US), "WB=MN".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=NU".toLowerCase(Locale.US), "WB=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Numeric".toLowerCase(Locale.US), "WB=NU".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=EX".toLowerCase(Locale.US), "WB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=ExtendNumLet".toLowerCase(Locale.US), "WB=EX".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=CR".toLowerCase(Locale.US), "WB=CR".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Extend".toLowerCase(Locale.US), "WB=Extend".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=LF".toLowerCase(Locale.US), "WB=LF".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=MB".toLowerCase(Locale.US), "WB=MB".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=MidNumLet".toLowerCase(Locale.US), "WB=MB".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=NL".toLowerCase(Locale.US), "WB=NL".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Newline".toLowerCase(Locale.US), "WB=NL".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=RI".toLowerCase(Locale.US), "WB=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Regional_Indicator".toLowerCase(Locale.US), "WB=RI".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=HL".toLowerCase(Locale.US), "WB=HL".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Hebrew_Letter".toLowerCase(Locale.US), "WB=HL".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=SQ".toLowerCase(Locale.US), "WB=SQ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Single_Quote".toLowerCase(Locale.US), "WB=SQ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=DQ".toLowerCase(Locale.US), "WB=DQ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Double_Quote".toLowerCase(Locale.US), "WB=DQ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=EB".toLowerCase(Locale.US), "WB=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=E_Base".toLowerCase(Locale.US), "WB=EB".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=EBG".toLowerCase(Locale.US), "WB=EBG".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=E_Base_GAZ".toLowerCase(Locale.US), "WB=EBG".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=EM".toLowerCase(Locale.US), "WB=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=E_Modifier".toLowerCase(Locale.US), "WB=EM".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=GAZ".toLowerCase(Locale.US), "WB=GAZ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=Glue_After_Zwj".toLowerCase(Locale.US), "WB=GAZ".toLowerCase(Locale.US));
-    propertyAliases.put("Word_Break=ZWJ".toLowerCase(Locale.US), "WB=ZWJ".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=n".toLowerCase(Locale.US), "bpt=n".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=None".toLowerCase(Locale.US), "bpt=n".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=o".toLowerCase(Locale.US), "bpt=o".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=Open".toLowerCase(Locale.US), "bpt=o".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=c".toLowerCase(Locale.US), "bpt=c".toLowerCase(Locale.US));
-    propertyAliases.put("Bidi_Paired_Bracket_Type=Close".toLowerCase(Locale.US), "bpt=c".toLowerCase(Locale.US));
-    propertyAliases.put("EP".toLowerCase(Locale.US), "Extended_Pictographic".toLowerCase(Locale.US));
+    propertyAliases.put(toLowerCase("Bidi_Class=L"), toLowerCase("bc=L"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Left_To_Right"), toLowerCase("bc=L"));
+    propertyAliases.put(toLowerCase("Bidi_Class=R"), toLowerCase("bc=R"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Right_To_Left"), toLowerCase("bc=R"));
+    propertyAliases.put(toLowerCase("Bidi_Class=EN"), toLowerCase("bc=EN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=European_Number"), toLowerCase("bc=EN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=ES"), toLowerCase("bc=ES"));
+    propertyAliases.put(toLowerCase("Bidi_Class=European_Separator"), toLowerCase("bc=ES"));
+    propertyAliases.put(toLowerCase("Bidi_Class=ET"), toLowerCase("bc=ET"));
+    propertyAliases.put(toLowerCase("Bidi_Class=European_Terminator"), toLowerCase("bc=ET"));
+    propertyAliases.put(toLowerCase("Bidi_Class=AN"), toLowerCase("bc=AN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Arabic_Number"), toLowerCase("bc=AN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=CS"), toLowerCase("bc=CS"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Common_Separator"), toLowerCase("bc=CS"));
+    propertyAliases.put(toLowerCase("Bidi_Class=B"), toLowerCase("bc=B"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Paragraph_Separator"), toLowerCase("bc=B"));
+    propertyAliases.put(toLowerCase("Bidi_Class=S"), toLowerCase("bc=S"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Segment_Separator"), toLowerCase("bc=S"));
+    propertyAliases.put(toLowerCase("Bidi_Class=WS"), toLowerCase("bc=WS"));
+    propertyAliases.put(toLowerCase("Bidi_Class=White_Space"), toLowerCase("bc=WS"));
+    propertyAliases.put(toLowerCase("Bidi_Class=ON"), toLowerCase("bc=ON"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Other_Neutral"), toLowerCase("bc=ON"));
+    propertyAliases.put(toLowerCase("Bidi_Class=LRE"), toLowerCase("bc=LRE"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Left_To_Right_Embedding"), toLowerCase("bc=LRE"));
+    propertyAliases.put(toLowerCase("Bidi_Class=LRO"), toLowerCase("bc=LRO"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Left_To_Right_Override"), toLowerCase("bc=LRO"));
+    propertyAliases.put(toLowerCase("Bidi_Class=AL"), toLowerCase("bc=AL"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Arabic_Letter"), toLowerCase("bc=AL"));
+    propertyAliases.put(toLowerCase("Bidi_Class=RLE"), toLowerCase("bc=RLE"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Right_To_Left_Embedding"), toLowerCase("bc=RLE"));
+    propertyAliases.put(toLowerCase("Bidi_Class=RLO"), toLowerCase("bc=RLO"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Right_To_Left_Override"), toLowerCase("bc=RLO"));
+    propertyAliases.put(toLowerCase("Bidi_Class=PDF"), toLowerCase("bc=PDF"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Pop_Directional_Format"), toLowerCase("bc=PDF"));
+    propertyAliases.put(toLowerCase("Bidi_Class=NSM"), toLowerCase("bc=NSM"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Nonspacing_Mark"), toLowerCase("bc=NSM"));
+    propertyAliases.put(toLowerCase("Bidi_Class=BN"), toLowerCase("bc=BN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Boundary_Neutral"), toLowerCase("bc=BN"));
+    propertyAliases.put(toLowerCase("Bidi_Class=FSI"), toLowerCase("bc=FSI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=First_Strong_Isolate"), toLowerCase("bc=FSI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=LRI"), toLowerCase("bc=LRI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Left_To_Right_Isolate"), toLowerCase("bc=LRI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=RLI"), toLowerCase("bc=RLI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Right_To_Left_Isolate"), toLowerCase("bc=RLI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=PDI"), toLowerCase("bc=PDI"));
+    propertyAliases.put(toLowerCase("Bidi_Class=Pop_Directional_Isolate"), toLowerCase("bc=PDI"));
+    propertyAliases.put(toLowerCase("Block=NB"), toLowerCase("blk=NB"));
+    propertyAliases.put(toLowerCase("Block=No_Block"), toLowerCase("blk=NB"));
+    propertyAliases.put(toLowerCase("Block=ASCII"), toLowerCase("blk=ASCII"));
+    propertyAliases.put(toLowerCase("Block=Basic_Latin"), toLowerCase("blk=ASCII"));
+    propertyAliases.put(toLowerCase("Block=Latin_1_Sup"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("Block=Latin_1_Supplement"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("Block=Latin_1"), toLowerCase("blk=Latin_1_Sup"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_A"), toLowerCase("blk=Latin_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_A"), toLowerCase("blk=Latin_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_B"), toLowerCase("blk=Latin_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_B"), toLowerCase("blk=Latin_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=IPA_Ext"), toLowerCase("blk=IPA_Ext"));
+    propertyAliases.put(toLowerCase("Block=IPA_Extensions"), toLowerCase("blk=IPA_Ext"));
+    propertyAliases.put(toLowerCase("Block=Modifier_Letters"), toLowerCase("blk=Modifier_Letters"));
+    propertyAliases.put(toLowerCase("Block=Spacing_Modifier_Letters"), toLowerCase("blk=Modifier_Letters"));
+    propertyAliases.put(toLowerCase("Block=Diacriticals"), toLowerCase("blk=Diacriticals"));
+    propertyAliases.put(toLowerCase("Block=Combining_Diacritical_Marks"), toLowerCase("blk=Diacriticals"));
+    propertyAliases.put(toLowerCase("Block=Greek"), toLowerCase("blk=Greek"));
+    propertyAliases.put(toLowerCase("Block=Greek_And_Coptic"), toLowerCase("blk=Greek"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic"), toLowerCase("blk=Cyrillic"));
+    propertyAliases.put(toLowerCase("Block=Armenian"), toLowerCase("blk=Armenian"));
+    propertyAliases.put(toLowerCase("Block=Hebrew"), toLowerCase("blk=Hebrew"));
+    propertyAliases.put(toLowerCase("Block=Arabic"), toLowerCase("blk=Arabic"));
+    propertyAliases.put(toLowerCase("Block=Syriac"), toLowerCase("blk=Syriac"));
+    propertyAliases.put(toLowerCase("Block=Thaana"), toLowerCase("blk=Thaana"));
+    propertyAliases.put(toLowerCase("Block=Devanagari"), toLowerCase("blk=Devanagari"));
+    propertyAliases.put(toLowerCase("Block=Bengali"), toLowerCase("blk=Bengali"));
+    propertyAliases.put(toLowerCase("Block=Gurmukhi"), toLowerCase("blk=Gurmukhi"));
+    propertyAliases.put(toLowerCase("Block=Gujarati"), toLowerCase("blk=Gujarati"));
+    propertyAliases.put(toLowerCase("Block=Oriya"), toLowerCase("blk=Oriya"));
+    propertyAliases.put(toLowerCase("Block=Tamil"), toLowerCase("blk=Tamil"));
+    propertyAliases.put(toLowerCase("Block=Telugu"), toLowerCase("blk=Telugu"));
+    propertyAliases.put(toLowerCase("Block=Kannada"), toLowerCase("blk=Kannada"));
+    propertyAliases.put(toLowerCase("Block=Malayalam"), toLowerCase("blk=Malayalam"));
+    propertyAliases.put(toLowerCase("Block=Sinhala"), toLowerCase("blk=Sinhala"));
+    propertyAliases.put(toLowerCase("Block=Thai"), toLowerCase("blk=Thai"));
+    propertyAliases.put(toLowerCase("Block=Lao"), toLowerCase("blk=Lao"));
+    propertyAliases.put(toLowerCase("Block=Tibetan"), toLowerCase("blk=Tibetan"));
+    propertyAliases.put(toLowerCase("Block=Myanmar"), toLowerCase("blk=Myanmar"));
+    propertyAliases.put(toLowerCase("Block=Georgian"), toLowerCase("blk=Georgian"));
+    propertyAliases.put(toLowerCase("Block=Jamo"), toLowerCase("blk=Jamo"));
+    propertyAliases.put(toLowerCase("Block=Hangul_Jamo"), toLowerCase("blk=Jamo"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic"), toLowerCase("blk=Ethiopic"));
+    propertyAliases.put(toLowerCase("Block=Cherokee"), toLowerCase("blk=Cherokee"));
+    propertyAliases.put(toLowerCase("Block=UCAS"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("Block=Unified_Canadian_Aboriginal_Syllabics"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("Block=Canadian_Syllabics"), toLowerCase("blk=UCAS"));
+    propertyAliases.put(toLowerCase("Block=Ogham"), toLowerCase("blk=Ogham"));
+    propertyAliases.put(toLowerCase("Block=Runic"), toLowerCase("blk=Runic"));
+    propertyAliases.put(toLowerCase("Block=Khmer"), toLowerCase("blk=Khmer"));
+    propertyAliases.put(toLowerCase("Block=Mongolian"), toLowerCase("blk=Mongolian"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_Additional"), toLowerCase("blk=Latin_Ext_Additional"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_Additional"), toLowerCase("blk=Latin_Ext_Additional"));
+    propertyAliases.put(toLowerCase("Block=Greek_Ext"), toLowerCase("blk=Greek_Ext"));
+    propertyAliases.put(toLowerCase("Block=Greek_Extended"), toLowerCase("blk=Greek_Ext"));
+    propertyAliases.put(toLowerCase("Block=Punctuation"), toLowerCase("blk=Punctuation"));
+    propertyAliases.put(toLowerCase("Block=General_Punctuation"), toLowerCase("blk=Punctuation"));
+    propertyAliases.put(toLowerCase("Block=Super_And_Sub"), toLowerCase("blk=Super_And_Sub"));
+    propertyAliases.put(toLowerCase("Block=Superscripts_And_Subscripts"), toLowerCase("blk=Super_And_Sub"));
+    propertyAliases.put(toLowerCase("Block=Currency_Symbols"), toLowerCase("blk=Currency_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Diacriticals_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Combining_Diacritical_Marks_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Combining_Marks_For_Symbols"), toLowerCase("blk=Diacriticals_For_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Letterlike_Symbols"), toLowerCase("blk=Letterlike_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Number_Forms"), toLowerCase("blk=Number_Forms"));
+    propertyAliases.put(toLowerCase("Block=Arrows"), toLowerCase("blk=Arrows"));
+    propertyAliases.put(toLowerCase("Block=Math_Operators"), toLowerCase("blk=Math_Operators"));
+    propertyAliases.put(toLowerCase("Block=Mathematical_Operators"), toLowerCase("blk=Math_Operators"));
+    propertyAliases.put(toLowerCase("Block=Misc_Technical"), toLowerCase("blk=Misc_Technical"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Technical"), toLowerCase("blk=Misc_Technical"));
+    propertyAliases.put(toLowerCase("Block=Control_Pictures"), toLowerCase("blk=Control_Pictures"));
+    propertyAliases.put(toLowerCase("Block=OCR"), toLowerCase("blk=OCR"));
+    propertyAliases.put(toLowerCase("Block=Optical_Character_Recognition"), toLowerCase("blk=OCR"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Alphanum"), toLowerCase("blk=Enclosed_Alphanum"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Alphanumerics"), toLowerCase("blk=Enclosed_Alphanum"));
+    propertyAliases.put(toLowerCase("Block=Box_Drawing"), toLowerCase("blk=Box_Drawing"));
+    propertyAliases.put(toLowerCase("Block=Block_Elements"), toLowerCase("blk=Block_Elements"));
+    propertyAliases.put(toLowerCase("Block=Geometric_Shapes"), toLowerCase("blk=Geometric_Shapes"));
+    propertyAliases.put(toLowerCase("Block=Misc_Symbols"), toLowerCase("blk=Misc_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Symbols"), toLowerCase("blk=Misc_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Dingbats"), toLowerCase("blk=Dingbats"));
+    propertyAliases.put(toLowerCase("Block=Braille"), toLowerCase("blk=Braille"));
+    propertyAliases.put(toLowerCase("Block=Braille_Patterns"), toLowerCase("blk=Braille"));
+    propertyAliases.put(toLowerCase("Block=CJK_Radicals_Sup"), toLowerCase("blk=CJK_Radicals_Sup"));
+    propertyAliases.put(toLowerCase("Block=CJK_Radicals_Supplement"), toLowerCase("blk=CJK_Radicals_Sup"));
+    propertyAliases.put(toLowerCase("Block=Kangxi"), toLowerCase("blk=Kangxi"));
+    propertyAliases.put(toLowerCase("Block=Kangxi_Radicals"), toLowerCase("blk=Kangxi"));
+    propertyAliases.put(toLowerCase("Block=IDC"), toLowerCase("blk=IDC"));
+    propertyAliases.put(toLowerCase("Block=Ideographic_Description_Characters"), toLowerCase("blk=IDC"));
+    propertyAliases.put(toLowerCase("Block=CJK_Symbols"), toLowerCase("blk=CJK_Symbols"));
+    propertyAliases.put(toLowerCase("Block=CJK_Symbols_And_Punctuation"), toLowerCase("blk=CJK_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Hiragana"), toLowerCase("blk=Hiragana"));
+    propertyAliases.put(toLowerCase("Block=Katakana"), toLowerCase("blk=Katakana"));
+    propertyAliases.put(toLowerCase("Block=Bopomofo"), toLowerCase("blk=Bopomofo"));
+    propertyAliases.put(toLowerCase("Block=Compat_Jamo"), toLowerCase("blk=Compat_Jamo"));
+    propertyAliases.put(toLowerCase("Block=Hangul_Compatibility_Jamo"), toLowerCase("blk=Compat_Jamo"));
+    propertyAliases.put(toLowerCase("Block=Kanbun"), toLowerCase("blk=Kanbun"));
+    propertyAliases.put(toLowerCase("Block=Bopomofo_Ext"), toLowerCase("blk=Bopomofo_Ext"));
+    propertyAliases.put(toLowerCase("Block=Bopomofo_Extended"), toLowerCase("blk=Bopomofo_Ext"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_CJK"), toLowerCase("blk=Enclosed_CJK"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_CJK_Letters_And_Months"), toLowerCase("blk=Enclosed_CJK"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compat"), toLowerCase("blk=CJK_Compat"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compatibility"), toLowerCase("blk=CJK_Compat"));
+    propertyAliases.put(toLowerCase("Block=CJK_Ext_A"), toLowerCase("blk=CJK_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs_Extension_A"), toLowerCase("blk=CJK_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=CJK"), toLowerCase("blk=CJK"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs"), toLowerCase("blk=CJK"));
+    propertyAliases.put(toLowerCase("Block=Yi_Syllables"), toLowerCase("blk=Yi_Syllables"));
+    propertyAliases.put(toLowerCase("Block=Yi_Radicals"), toLowerCase("blk=Yi_Radicals"));
+    propertyAliases.put(toLowerCase("Block=Hangul"), toLowerCase("blk=Hangul"));
+    propertyAliases.put(toLowerCase("Block=Hangul_Syllables"), toLowerCase("blk=Hangul"));
+    propertyAliases.put(toLowerCase("Block=High_Surrogates"), toLowerCase("blk=High_Surrogates"));
+    propertyAliases.put(toLowerCase("Block=High_PU_Surrogates"), toLowerCase("blk=High_PU_Surrogates"));
+    propertyAliases.put(toLowerCase("Block=High_Private_Use_Surrogates"), toLowerCase("blk=High_PU_Surrogates"));
+    propertyAliases.put(toLowerCase("Block=Low_Surrogates"), toLowerCase("blk=Low_Surrogates"));
+    propertyAliases.put(toLowerCase("Block=PUA"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("Block=Private_Use_Area"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("Block=Private_Use"), toLowerCase("blk=PUA"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compat_Ideographs"), toLowerCase("blk=CJK_Compat_Ideographs"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compatibility_Ideographs"), toLowerCase("blk=CJK_Compat_Ideographs"));
+    propertyAliases.put(toLowerCase("Block=Alphabetic_PF"), toLowerCase("blk=Alphabetic_PF"));
+    propertyAliases.put(toLowerCase("Block=Alphabetic_Presentation_Forms"), toLowerCase("blk=Alphabetic_PF"));
+    propertyAliases.put(toLowerCase("Block=Arabic_PF_A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Presentation_Forms_A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Presentation_Forms-A"), toLowerCase("blk=Arabic_PF_A"));
+    propertyAliases.put(toLowerCase("Block=Half_Marks"), toLowerCase("blk=Half_Marks"));
+    propertyAliases.put(toLowerCase("Block=Combining_Half_Marks"), toLowerCase("blk=Half_Marks"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compat_Forms"), toLowerCase("blk=CJK_Compat_Forms"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compatibility_Forms"), toLowerCase("blk=CJK_Compat_Forms"));
+    propertyAliases.put(toLowerCase("Block=Small_Forms"), toLowerCase("blk=Small_Forms"));
+    propertyAliases.put(toLowerCase("Block=Small_Form_Variants"), toLowerCase("blk=Small_Forms"));
+    propertyAliases.put(toLowerCase("Block=Arabic_PF_B"), toLowerCase("blk=Arabic_PF_B"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Presentation_Forms_B"), toLowerCase("blk=Arabic_PF_B"));
+    propertyAliases.put(toLowerCase("Block=Specials"), toLowerCase("blk=Specials"));
+    propertyAliases.put(toLowerCase("Block=Half_And_Full_Forms"), toLowerCase("blk=Half_And_Full_Forms"));
+    propertyAliases.put(toLowerCase("Block=Halfwidth_And_Fullwidth_Forms"), toLowerCase("blk=Half_And_Full_Forms"));
+    propertyAliases.put(toLowerCase("Block=Old_Italic"), toLowerCase("blk=Old_Italic"));
+    propertyAliases.put(toLowerCase("Block=Gothic"), toLowerCase("blk=Gothic"));
+    propertyAliases.put(toLowerCase("Block=Deseret"), toLowerCase("blk=Deseret"));
+    propertyAliases.put(toLowerCase("Block=Byzantine_Music"), toLowerCase("blk=Byzantine_Music"));
+    propertyAliases.put(toLowerCase("Block=Byzantine_Musical_Symbols"), toLowerCase("blk=Byzantine_Music"));
+    propertyAliases.put(toLowerCase("Block=Music"), toLowerCase("blk=Music"));
+    propertyAliases.put(toLowerCase("Block=Musical_Symbols"), toLowerCase("blk=Music"));
+    propertyAliases.put(toLowerCase("Block=Math_Alphanum"), toLowerCase("blk=Math_Alphanum"));
+    propertyAliases.put(toLowerCase("Block=Mathematical_Alphanumeric_Symbols"), toLowerCase("blk=Math_Alphanum"));
+    propertyAliases.put(toLowerCase("Block=CJK_Ext_B"), toLowerCase("blk=CJK_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs_Extension_B"), toLowerCase("blk=CJK_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compat_Ideographs_Sup"), toLowerCase("blk=CJK_Compat_Ideographs_Sup"));
+    propertyAliases.put(toLowerCase("Block=CJK_Compatibility_Ideographs_Supplement"), toLowerCase("blk=CJK_Compat_Ideographs_Sup"));
+    propertyAliases.put(toLowerCase("Block=Tags"), toLowerCase("blk=Tags"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Sup"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Supplement"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Supplementary"), toLowerCase("blk=Cyrillic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Tagalog"), toLowerCase("blk=Tagalog"));
+    propertyAliases.put(toLowerCase("Block=Hanunoo"), toLowerCase("blk=Hanunoo"));
+    propertyAliases.put(toLowerCase("Block=Buhid"), toLowerCase("blk=Buhid"));
+    propertyAliases.put(toLowerCase("Block=Tagbanwa"), toLowerCase("blk=Tagbanwa"));
+    propertyAliases.put(toLowerCase("Block=Misc_Math_Symbols_A"), toLowerCase("blk=Misc_Math_Symbols_A"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Mathematical_Symbols_A"), toLowerCase("blk=Misc_Math_Symbols_A"));
+    propertyAliases.put(toLowerCase("Block=Sup_Arrows_A"), toLowerCase("blk=Sup_Arrows_A"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Arrows_A"), toLowerCase("blk=Sup_Arrows_A"));
+    propertyAliases.put(toLowerCase("Block=Sup_Arrows_B"), toLowerCase("blk=Sup_Arrows_B"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Arrows_B"), toLowerCase("blk=Sup_Arrows_B"));
+    propertyAliases.put(toLowerCase("Block=Misc_Math_Symbols_B"), toLowerCase("blk=Misc_Math_Symbols_B"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Mathematical_Symbols_B"), toLowerCase("blk=Misc_Math_Symbols_B"));
+    propertyAliases.put(toLowerCase("Block=Sup_Math_Operators"), toLowerCase("blk=Sup_Math_Operators"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Mathematical_Operators"), toLowerCase("blk=Sup_Math_Operators"));
+    propertyAliases.put(toLowerCase("Block=Katakana_Ext"), toLowerCase("blk=Katakana_Ext"));
+    propertyAliases.put(toLowerCase("Block=Katakana_Phonetic_Extensions"), toLowerCase("blk=Katakana_Ext"));
+    propertyAliases.put(toLowerCase("Block=VS"), toLowerCase("blk=VS"));
+    propertyAliases.put(toLowerCase("Block=Variation_Selectors"), toLowerCase("blk=VS"));
+    propertyAliases.put(toLowerCase("Block=Sup_PUA_A"), toLowerCase("blk=Sup_PUA_A"));
+    propertyAliases.put(toLowerCase("Block=Supplementary_Private_Use_Area_A"), toLowerCase("blk=Sup_PUA_A"));
+    propertyAliases.put(toLowerCase("Block=Sup_PUA_B"), toLowerCase("blk=Sup_PUA_B"));
+    propertyAliases.put(toLowerCase("Block=Supplementary_Private_Use_Area_B"), toLowerCase("blk=Sup_PUA_B"));
+    propertyAliases.put(toLowerCase("Block=Limbu"), toLowerCase("blk=Limbu"));
+    propertyAliases.put(toLowerCase("Block=Tai_Le"), toLowerCase("blk=Tai_Le"));
+    propertyAliases.put(toLowerCase("Block=Khmer_Symbols"), toLowerCase("blk=Khmer_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Phonetic_Ext"), toLowerCase("blk=Phonetic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Phonetic_Extensions"), toLowerCase("blk=Phonetic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Misc_Arrows"), toLowerCase("blk=Misc_Arrows"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Symbols_And_Arrows"), toLowerCase("blk=Misc_Arrows"));
+    propertyAliases.put(toLowerCase("Block=Yijing"), toLowerCase("blk=Yijing"));
+    propertyAliases.put(toLowerCase("Block=Yijing_Hexagram_Symbols"), toLowerCase("blk=Yijing"));
+    propertyAliases.put(toLowerCase("Block=Linear_B_Syllabary"), toLowerCase("blk=Linear_B_Syllabary"));
+    propertyAliases.put(toLowerCase("Block=Linear_B_Ideograms"), toLowerCase("blk=Linear_B_Ideograms"));
+    propertyAliases.put(toLowerCase("Block=Aegean_Numbers"), toLowerCase("blk=Aegean_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Ugaritic"), toLowerCase("blk=Ugaritic"));
+    propertyAliases.put(toLowerCase("Block=Shavian"), toLowerCase("blk=Shavian"));
+    propertyAliases.put(toLowerCase("Block=Osmanya"), toLowerCase("blk=Osmanya"));
+    propertyAliases.put(toLowerCase("Block=Cypriot_Syllabary"), toLowerCase("blk=Cypriot_Syllabary"));
+    propertyAliases.put(toLowerCase("Block=Tai_Xuan_Jing"), toLowerCase("blk=Tai_Xuan_Jing"));
+    propertyAliases.put(toLowerCase("Block=Tai_Xuan_Jing_Symbols"), toLowerCase("blk=Tai_Xuan_Jing"));
+    propertyAliases.put(toLowerCase("Block=VS_Sup"), toLowerCase("blk=VS_Sup"));
+    propertyAliases.put(toLowerCase("Block=Variation_Selectors_Supplement"), toLowerCase("blk=VS_Sup"));
+    propertyAliases.put(toLowerCase("Block=Ancient_Greek_Music"), toLowerCase("blk=Ancient_Greek_Music"));
+    propertyAliases.put(toLowerCase("Block=Ancient_Greek_Musical_Notation"), toLowerCase("blk=Ancient_Greek_Music"));
+    propertyAliases.put(toLowerCase("Block=Ancient_Greek_Numbers"), toLowerCase("blk=Ancient_Greek_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Sup"), toLowerCase("blk=Arabic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Supplement"), toLowerCase("blk=Arabic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Buginese"), toLowerCase("blk=Buginese"));
+    propertyAliases.put(toLowerCase("Block=CJK_Strokes"), toLowerCase("blk=CJK_Strokes"));
+    propertyAliases.put(toLowerCase("Block=Diacriticals_Sup"), toLowerCase("blk=Diacriticals_Sup"));
+    propertyAliases.put(toLowerCase("Block=Combining_Diacritical_Marks_Supplement"), toLowerCase("blk=Diacriticals_Sup"));
+    propertyAliases.put(toLowerCase("Block=Coptic"), toLowerCase("blk=Coptic"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Ext"), toLowerCase("blk=Ethiopic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Extended"), toLowerCase("blk=Ethiopic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Sup"), toLowerCase("blk=Ethiopic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Supplement"), toLowerCase("blk=Ethiopic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Georgian_Sup"), toLowerCase("blk=Georgian_Sup"));
+    propertyAliases.put(toLowerCase("Block=Georgian_Supplement"), toLowerCase("blk=Georgian_Sup"));
+    propertyAliases.put(toLowerCase("Block=Glagolitic"), toLowerCase("blk=Glagolitic"));
+    propertyAliases.put(toLowerCase("Block=Kharoshthi"), toLowerCase("blk=Kharoshthi"));
+    propertyAliases.put(toLowerCase("Block=Modifier_Tone_Letters"), toLowerCase("blk=Modifier_Tone_Letters"));
+    propertyAliases.put(toLowerCase("Block=New_Tai_Lue"), toLowerCase("blk=New_Tai_Lue"));
+    propertyAliases.put(toLowerCase("Block=Old_Persian"), toLowerCase("blk=Old_Persian"));
+    propertyAliases.put(toLowerCase("Block=Phonetic_Ext_Sup"), toLowerCase("blk=Phonetic_Ext_Sup"));
+    propertyAliases.put(toLowerCase("Block=Phonetic_Extensions_Supplement"), toLowerCase("blk=Phonetic_Ext_Sup"));
+    propertyAliases.put(toLowerCase("Block=Sup_Punctuation"), toLowerCase("blk=Sup_Punctuation"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Punctuation"), toLowerCase("blk=Sup_Punctuation"));
+    propertyAliases.put(toLowerCase("Block=Syloti_Nagri"), toLowerCase("blk=Syloti_Nagri"));
+    propertyAliases.put(toLowerCase("Block=Tifinagh"), toLowerCase("blk=Tifinagh"));
+    propertyAliases.put(toLowerCase("Block=Vertical_Forms"), toLowerCase("blk=Vertical_Forms"));
+    propertyAliases.put(toLowerCase("Block=NKo"), toLowerCase("blk=NKo"));
+    propertyAliases.put(toLowerCase("Block=Balinese"), toLowerCase("blk=Balinese"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_C"), toLowerCase("blk=Latin_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_C"), toLowerCase("blk=Latin_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_D"), toLowerCase("blk=Latin_Ext_D"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_D"), toLowerCase("blk=Latin_Ext_D"));
+    propertyAliases.put(toLowerCase("Block=Phags_Pa"), toLowerCase("blk=Phags_Pa"));
+    propertyAliases.put(toLowerCase("Block=Phoenician"), toLowerCase("blk=Phoenician"));
+    propertyAliases.put(toLowerCase("Block=Cuneiform"), toLowerCase("blk=Cuneiform"));
+    propertyAliases.put(toLowerCase("Block=Cuneiform_Numbers"), toLowerCase("blk=Cuneiform_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Cuneiform_Numbers_And_Punctuation"), toLowerCase("blk=Cuneiform_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Counting_Rod"), toLowerCase("blk=Counting_Rod"));
+    propertyAliases.put(toLowerCase("Block=Counting_Rod_Numerals"), toLowerCase("blk=Counting_Rod"));
+    propertyAliases.put(toLowerCase("Block=Sundanese"), toLowerCase("blk=Sundanese"));
+    propertyAliases.put(toLowerCase("Block=Lepcha"), toLowerCase("blk=Lepcha"));
+    propertyAliases.put(toLowerCase("Block=Ol_Chiki"), toLowerCase("blk=Ol_Chiki"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Ext_A"), toLowerCase("blk=Cyrillic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Extended_A"), toLowerCase("blk=Cyrillic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Vai"), toLowerCase("blk=Vai"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Ext_B"), toLowerCase("blk=Cyrillic_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Extended_B"), toLowerCase("blk=Cyrillic_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Saurashtra"), toLowerCase("blk=Saurashtra"));
+    propertyAliases.put(toLowerCase("Block=Kayah_Li"), toLowerCase("blk=Kayah_Li"));
+    propertyAliases.put(toLowerCase("Block=Rejang"), toLowerCase("blk=Rejang"));
+    propertyAliases.put(toLowerCase("Block=Cham"), toLowerCase("blk=Cham"));
+    propertyAliases.put(toLowerCase("Block=Ancient_Symbols"), toLowerCase("blk=Ancient_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Phaistos"), toLowerCase("blk=Phaistos"));
+    propertyAliases.put(toLowerCase("Block=Phaistos_Disc"), toLowerCase("blk=Phaistos"));
+    propertyAliases.put(toLowerCase("Block=Lycian"), toLowerCase("blk=Lycian"));
+    propertyAliases.put(toLowerCase("Block=Carian"), toLowerCase("blk=Carian"));
+    propertyAliases.put(toLowerCase("Block=Lydian"), toLowerCase("blk=Lydian"));
+    propertyAliases.put(toLowerCase("Block=Mahjong"), toLowerCase("blk=Mahjong"));
+    propertyAliases.put(toLowerCase("Block=Mahjong_Tiles"), toLowerCase("blk=Mahjong"));
+    propertyAliases.put(toLowerCase("Block=Domino"), toLowerCase("blk=Domino"));
+    propertyAliases.put(toLowerCase("Block=Domino_Tiles"), toLowerCase("blk=Domino"));
+    propertyAliases.put(toLowerCase("Block=Samaritan"), toLowerCase("blk=Samaritan"));
+    propertyAliases.put(toLowerCase("Block=UCAS_Ext"), toLowerCase("blk=UCAS_Ext"));
+    propertyAliases.put(toLowerCase("Block=Unified_Canadian_Aboriginal_Syllabics_Extended"), toLowerCase("blk=UCAS_Ext"));
+    propertyAliases.put(toLowerCase("Block=Tai_Tham"), toLowerCase("blk=Tai_Tham"));
+    propertyAliases.put(toLowerCase("Block=Vedic_Ext"), toLowerCase("blk=Vedic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Vedic_Extensions"), toLowerCase("blk=Vedic_Ext"));
+    propertyAliases.put(toLowerCase("Block=Lisu"), toLowerCase("blk=Lisu"));
+    propertyAliases.put(toLowerCase("Block=Bamum"), toLowerCase("blk=Bamum"));
+    propertyAliases.put(toLowerCase("Block=Indic_Number_Forms"), toLowerCase("blk=Indic_Number_Forms"));
+    propertyAliases.put(toLowerCase("Block=Common_Indic_Number_Forms"), toLowerCase("blk=Indic_Number_Forms"));
+    propertyAliases.put(toLowerCase("Block=Devanagari_Ext"), toLowerCase("blk=Devanagari_Ext"));
+    propertyAliases.put(toLowerCase("Block=Devanagari_Extended"), toLowerCase("blk=Devanagari_Ext"));
+    propertyAliases.put(toLowerCase("Block=Jamo_Ext_A"), toLowerCase("blk=Jamo_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Hangul_Jamo_Extended_A"), toLowerCase("blk=Jamo_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Javanese"), toLowerCase("blk=Javanese"));
+    propertyAliases.put(toLowerCase("Block=Myanmar_Ext_A"), toLowerCase("blk=Myanmar_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Myanmar_Extended_A"), toLowerCase("blk=Myanmar_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Tai_Viet"), toLowerCase("blk=Tai_Viet"));
+    propertyAliases.put(toLowerCase("Block=Meetei_Mayek"), toLowerCase("blk=Meetei_Mayek"));
+    propertyAliases.put(toLowerCase("Block=Jamo_Ext_B"), toLowerCase("blk=Jamo_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Hangul_Jamo_Extended_B"), toLowerCase("blk=Jamo_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Imperial_Aramaic"), toLowerCase("blk=Imperial_Aramaic"));
+    propertyAliases.put(toLowerCase("Block=Old_South_Arabian"), toLowerCase("blk=Old_South_Arabian"));
+    propertyAliases.put(toLowerCase("Block=Avestan"), toLowerCase("blk=Avestan"));
+    propertyAliases.put(toLowerCase("Block=Inscriptional_Parthian"), toLowerCase("blk=Inscriptional_Parthian"));
+    propertyAliases.put(toLowerCase("Block=Inscriptional_Pahlavi"), toLowerCase("blk=Inscriptional_Pahlavi"));
+    propertyAliases.put(toLowerCase("Block=Old_Turkic"), toLowerCase("blk=Old_Turkic"));
+    propertyAliases.put(toLowerCase("Block=Rumi"), toLowerCase("blk=Rumi"));
+    propertyAliases.put(toLowerCase("Block=Rumi_Numeral_Symbols"), toLowerCase("blk=Rumi"));
+    propertyAliases.put(toLowerCase("Block=Kaithi"), toLowerCase("blk=Kaithi"));
+    propertyAliases.put(toLowerCase("Block=Egyptian_Hieroglyphs"), toLowerCase("blk=Egyptian_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Alphanum_Sup"), toLowerCase("blk=Enclosed_Alphanum_Sup"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Alphanumeric_Supplement"), toLowerCase("blk=Enclosed_Alphanum_Sup"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Ideographic_Sup"), toLowerCase("blk=Enclosed_Ideographic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Enclosed_Ideographic_Supplement"), toLowerCase("blk=Enclosed_Ideographic_Sup"));
+    propertyAliases.put(toLowerCase("Block=CJK_Ext_C"), toLowerCase("blk=CJK_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs_Extension_C"), toLowerCase("blk=CJK_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=Mandaic"), toLowerCase("blk=Mandaic"));
+    propertyAliases.put(toLowerCase("Block=Batak"), toLowerCase("blk=Batak"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Ext_A"), toLowerCase("blk=Ethiopic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Ethiopic_Extended_A"), toLowerCase("blk=Ethiopic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Brahmi"), toLowerCase("blk=Brahmi"));
+    propertyAliases.put(toLowerCase("Block=Bamum_Sup"), toLowerCase("blk=Bamum_Sup"));
+    propertyAliases.put(toLowerCase("Block=Bamum_Supplement"), toLowerCase("blk=Bamum_Sup"));
+    propertyAliases.put(toLowerCase("Block=Kana_Sup"), toLowerCase("blk=Kana_Sup"));
+    propertyAliases.put(toLowerCase("Block=Kana_Supplement"), toLowerCase("blk=Kana_Sup"));
+    propertyAliases.put(toLowerCase("Block=Playing_Cards"), toLowerCase("blk=Playing_Cards"));
+    propertyAliases.put(toLowerCase("Block=Misc_Pictographs"), toLowerCase("blk=Misc_Pictographs"));
+    propertyAliases.put(toLowerCase("Block=Miscellaneous_Symbols_And_Pictographs"), toLowerCase("blk=Misc_Pictographs"));
+    propertyAliases.put(toLowerCase("Block=Emoticons"), toLowerCase("blk=Emoticons"));
+    propertyAliases.put(toLowerCase("Block=Transport_And_Map"), toLowerCase("blk=Transport_And_Map"));
+    propertyAliases.put(toLowerCase("Block=Transport_And_Map_Symbols"), toLowerCase("blk=Transport_And_Map"));
+    propertyAliases.put(toLowerCase("Block=Alchemical"), toLowerCase("blk=Alchemical"));
+    propertyAliases.put(toLowerCase("Block=Alchemical_Symbols"), toLowerCase("blk=Alchemical"));
+    propertyAliases.put(toLowerCase("Block=CJK_Ext_D"), toLowerCase("blk=CJK_Ext_D"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs_Extension_D"), toLowerCase("blk=CJK_Ext_D"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Ext_A"), toLowerCase("blk=Arabic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Extended_A"), toLowerCase("blk=Arabic_Ext_A"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Math"), toLowerCase("blk=Arabic_Math"));
+    propertyAliases.put(toLowerCase("Block=Arabic_Mathematical_Alphabetic_Symbols"), toLowerCase("blk=Arabic_Math"));
+    propertyAliases.put(toLowerCase("Block=Chakma"), toLowerCase("blk=Chakma"));
+    propertyAliases.put(toLowerCase("Block=Meetei_Mayek_Ext"), toLowerCase("blk=Meetei_Mayek_Ext"));
+    propertyAliases.put(toLowerCase("Block=Meetei_Mayek_Extensions"), toLowerCase("blk=Meetei_Mayek_Ext"));
+    propertyAliases.put(toLowerCase("Block=Meroitic_Cursive"), toLowerCase("blk=Meroitic_Cursive"));
+    propertyAliases.put(toLowerCase("Block=Meroitic_Hieroglyphs"), toLowerCase("blk=Meroitic_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("Block=Miao"), toLowerCase("blk=Miao"));
+    propertyAliases.put(toLowerCase("Block=Sharada"), toLowerCase("blk=Sharada"));
+    propertyAliases.put(toLowerCase("Block=Sora_Sompeng"), toLowerCase("blk=Sora_Sompeng"));
+    propertyAliases.put(toLowerCase("Block=Sundanese_Sup"), toLowerCase("blk=Sundanese_Sup"));
+    propertyAliases.put(toLowerCase("Block=Sundanese_Supplement"), toLowerCase("blk=Sundanese_Sup"));
+    propertyAliases.put(toLowerCase("Block=Takri"), toLowerCase("blk=Takri"));
+    propertyAliases.put(toLowerCase("Block=Bassa_Vah"), toLowerCase("blk=Bassa_Vah"));
+    propertyAliases.put(toLowerCase("Block=Caucasian_Albanian"), toLowerCase("blk=Caucasian_Albanian"));
+    propertyAliases.put(toLowerCase("Block=Coptic_Epact_Numbers"), toLowerCase("blk=Coptic_Epact_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Diacriticals_Ext"), toLowerCase("blk=Diacriticals_Ext"));
+    propertyAliases.put(toLowerCase("Block=Combining_Diacritical_Marks_Extended"), toLowerCase("blk=Diacriticals_Ext"));
+    propertyAliases.put(toLowerCase("Block=Duployan"), toLowerCase("blk=Duployan"));
+    propertyAliases.put(toLowerCase("Block=Elbasan"), toLowerCase("blk=Elbasan"));
+    propertyAliases.put(toLowerCase("Block=Geometric_Shapes_Ext"), toLowerCase("blk=Geometric_Shapes_Ext"));
+    propertyAliases.put(toLowerCase("Block=Geometric_Shapes_Extended"), toLowerCase("blk=Geometric_Shapes_Ext"));
+    propertyAliases.put(toLowerCase("Block=Grantha"), toLowerCase("blk=Grantha"));
+    propertyAliases.put(toLowerCase("Block=Khojki"), toLowerCase("blk=Khojki"));
+    propertyAliases.put(toLowerCase("Block=Khudawadi"), toLowerCase("blk=Khudawadi"));
+    propertyAliases.put(toLowerCase("Block=Latin_Ext_E"), toLowerCase("blk=Latin_Ext_E"));
+    propertyAliases.put(toLowerCase("Block=Latin_Extended_E"), toLowerCase("blk=Latin_Ext_E"));
+    propertyAliases.put(toLowerCase("Block=Linear_A"), toLowerCase("blk=Linear_A"));
+    propertyAliases.put(toLowerCase("Block=Mahajani"), toLowerCase("blk=Mahajani"));
+    propertyAliases.put(toLowerCase("Block=Manichaean"), toLowerCase("blk=Manichaean"));
+    propertyAliases.put(toLowerCase("Block=Mende_Kikakui"), toLowerCase("blk=Mende_Kikakui"));
+    propertyAliases.put(toLowerCase("Block=Modi"), toLowerCase("blk=Modi"));
+    propertyAliases.put(toLowerCase("Block=Mro"), toLowerCase("blk=Mro"));
+    propertyAliases.put(toLowerCase("Block=Myanmar_Ext_B"), toLowerCase("blk=Myanmar_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Myanmar_Extended_B"), toLowerCase("blk=Myanmar_Ext_B"));
+    propertyAliases.put(toLowerCase("Block=Nabataean"), toLowerCase("blk=Nabataean"));
+    propertyAliases.put(toLowerCase("Block=Old_North_Arabian"), toLowerCase("blk=Old_North_Arabian"));
+    propertyAliases.put(toLowerCase("Block=Old_Permic"), toLowerCase("blk=Old_Permic"));
+    propertyAliases.put(toLowerCase("Block=Ornamental_Dingbats"), toLowerCase("blk=Ornamental_Dingbats"));
+    propertyAliases.put(toLowerCase("Block=Pahawh_Hmong"), toLowerCase("blk=Pahawh_Hmong"));
+    propertyAliases.put(toLowerCase("Block=Palmyrene"), toLowerCase("blk=Palmyrene"));
+    propertyAliases.put(toLowerCase("Block=Pau_Cin_Hau"), toLowerCase("blk=Pau_Cin_Hau"));
+    propertyAliases.put(toLowerCase("Block=Psalter_Pahlavi"), toLowerCase("blk=Psalter_Pahlavi"));
+    propertyAliases.put(toLowerCase("Block=Shorthand_Format_Controls"), toLowerCase("blk=Shorthand_Format_Controls"));
+    propertyAliases.put(toLowerCase("Block=Siddham"), toLowerCase("blk=Siddham"));
+    propertyAliases.put(toLowerCase("Block=Sinhala_Archaic_Numbers"), toLowerCase("blk=Sinhala_Archaic_Numbers"));
+    propertyAliases.put(toLowerCase("Block=Sup_Arrows_C"), toLowerCase("blk=Sup_Arrows_C"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Arrows_C"), toLowerCase("blk=Sup_Arrows_C"));
+    propertyAliases.put(toLowerCase("Block=Tirhuta"), toLowerCase("blk=Tirhuta"));
+    propertyAliases.put(toLowerCase("Block=Warang_Citi"), toLowerCase("blk=Warang_Citi"));
+    propertyAliases.put(toLowerCase("Block=Ahom"), toLowerCase("blk=Ahom"));
+    propertyAliases.put(toLowerCase("Block=Anatolian_Hieroglyphs"), toLowerCase("blk=Anatolian_Hieroglyphs"));
+    propertyAliases.put(toLowerCase("Block=Cherokee_Sup"), toLowerCase("blk=Cherokee_Sup"));
+    propertyAliases.put(toLowerCase("Block=Cherokee_Supplement"), toLowerCase("blk=Cherokee_Sup"));
+    propertyAliases.put(toLowerCase("Block=CJK_Ext_E"), toLowerCase("blk=CJK_Ext_E"));
+    propertyAliases.put(toLowerCase("Block=CJK_Unified_Ideographs_Extension_E"), toLowerCase("blk=CJK_Ext_E"));
+    propertyAliases.put(toLowerCase("Block=Early_Dynastic_Cuneiform"), toLowerCase("blk=Early_Dynastic_Cuneiform"));
+    propertyAliases.put(toLowerCase("Block=Hatran"), toLowerCase("blk=Hatran"));
+    propertyAliases.put(toLowerCase("Block=Multani"), toLowerCase("blk=Multani"));
+    propertyAliases.put(toLowerCase("Block=Old_Hungarian"), toLowerCase("blk=Old_Hungarian"));
+    propertyAliases.put(toLowerCase("Block=Sup_Symbols_And_Pictographs"), toLowerCase("blk=Sup_Symbols_And_Pictographs"));
+    propertyAliases.put(toLowerCase("Block=Supplemental_Symbols_And_Pictographs"), toLowerCase("blk=Sup_Symbols_And_Pictographs"));
+    propertyAliases.put(toLowerCase("Block=Sutton_SignWriting"), toLowerCase("blk=Sutton_SignWriting"));
+    propertyAliases.put(toLowerCase("Block=Adlam"), toLowerCase("blk=Adlam"));
+    propertyAliases.put(toLowerCase("Block=Bhaiksuki"), toLowerCase("blk=Bhaiksuki"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Ext_C"), toLowerCase("blk=Cyrillic_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=Cyrillic_Extended_C"), toLowerCase("blk=Cyrillic_Ext_C"));
+    propertyAliases.put(toLowerCase("Block=Glagolitic_Sup"), toLowerCase("blk=Glagolitic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Glagolitic_Supplement"), toLowerCase("blk=Glagolitic_Sup"));
+    propertyAliases.put(toLowerCase("Block=Ideographic_Symbols"), toLowerCase("blk=Ideographic_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Ideographic_Symbols_And_Punctuation"), toLowerCase("blk=Ideographic_Symbols"));
+    propertyAliases.put(toLowerCase("Block=Marchen"), toLowerCase("blk=Marchen"));
+    propertyAliases.put(toLowerCase("Block=Mongolian_Sup"), toLowerCase("blk=Mongolian_Sup"));
+    propertyAliases.put(toLowerCase("Block=Mongolian_Supplement"), toLowerCase("blk=Mongolian_Sup"));
+    propertyAliases.put(toLowerCase("Block=Newa"), toLowerCase("blk=Newa"));
+    propertyAliases.put(toLowerCase("Block=Osage"), toLowerCase("blk=Osage"));
+    propertyAliases.put(toLowerCase("Block=Tangut"), toLowerCase("blk=Tangut"));
+    propertyAliases.put(toLowerCase("Block=Tangut_Components"), toLowerCase("blk=Tangut_Components"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=NR"), toLowerCase("ccc=NR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Not_Reordered"), toLowerCase("ccc=NR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=OV"), toLowerCase("ccc=OV"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Overlay"), toLowerCase("ccc=OV"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=null"), toLowerCase("ccc=null"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=NK"), toLowerCase("ccc=NK"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Nukta"), toLowerCase("ccc=NK"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=KV"), toLowerCase("ccc=KV"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Kana_Voicing"), toLowerCase("ccc=KV"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=VR"), toLowerCase("ccc=VR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Virama"), toLowerCase("ccc=VR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC10"), toLowerCase("ccc=CCC10"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC11"), toLowerCase("ccc=CCC11"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC12"), toLowerCase("ccc=CCC12"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC13"), toLowerCase("ccc=CCC13"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC14"), toLowerCase("ccc=CCC14"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC15"), toLowerCase("ccc=CCC15"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC16"), toLowerCase("ccc=CCC16"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC17"), toLowerCase("ccc=CCC17"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC18"), toLowerCase("ccc=CCC18"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC19"), toLowerCase("ccc=CCC19"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC20"), toLowerCase("ccc=CCC20"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC21"), toLowerCase("ccc=CCC21"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC22"), toLowerCase("ccc=CCC22"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC23"), toLowerCase("ccc=CCC23"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC24"), toLowerCase("ccc=CCC24"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC25"), toLowerCase("ccc=CCC25"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC26"), toLowerCase("ccc=CCC26"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC27"), toLowerCase("ccc=CCC27"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC28"), toLowerCase("ccc=CCC28"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC29"), toLowerCase("ccc=CCC29"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC30"), toLowerCase("ccc=CCC30"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC31"), toLowerCase("ccc=CCC31"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC32"), toLowerCase("ccc=CCC32"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC33"), toLowerCase("ccc=CCC33"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC34"), toLowerCase("ccc=CCC34"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC35"), toLowerCase("ccc=CCC35"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC36"), toLowerCase("ccc=CCC36"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC84"), toLowerCase("ccc=CCC84"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC91"), toLowerCase("ccc=CCC91"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC103"), toLowerCase("ccc=CCC103"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC107"), toLowerCase("ccc=CCC107"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC118"), toLowerCase("ccc=CCC118"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC122"), toLowerCase("ccc=CCC122"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC129"), toLowerCase("ccc=CCC129"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC130"), toLowerCase("ccc=CCC130"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC132"), toLowerCase("ccc=CCC132"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=CCC133"), toLowerCase("ccc=CCC133"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=ATBL"), toLowerCase("ccc=ATBL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Attached_Below_Left"), toLowerCase("ccc=ATBL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=ATB"), toLowerCase("ccc=ATB"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Attached_Below"), toLowerCase("ccc=ATB"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=ATA"), toLowerCase("ccc=ATA"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Attached_Above"), toLowerCase("ccc=ATA"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=ATAR"), toLowerCase("ccc=ATAR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Attached_Above_Right"), toLowerCase("ccc=ATAR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=BL"), toLowerCase("ccc=BL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Below_Left"), toLowerCase("ccc=BL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=B"), toLowerCase("ccc=B"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Below"), toLowerCase("ccc=B"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=BR"), toLowerCase("ccc=BR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Below_Right"), toLowerCase("ccc=BR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=L"), toLowerCase("ccc=L"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Left"), toLowerCase("ccc=L"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=R"), toLowerCase("ccc=R"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Right"), toLowerCase("ccc=R"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=AL"), toLowerCase("ccc=AL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Above_Left"), toLowerCase("ccc=AL"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=A"), toLowerCase("ccc=A"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Above"), toLowerCase("ccc=A"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=AR"), toLowerCase("ccc=AR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Above_Right"), toLowerCase("ccc=AR"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=DB"), toLowerCase("ccc=DB"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Double_Below"), toLowerCase("ccc=DB"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=DA"), toLowerCase("ccc=DA"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Double_Above"), toLowerCase("ccc=DA"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=IS"), toLowerCase("ccc=IS"));
+    propertyAliases.put(toLowerCase("Canonical_Combining_Class=Iota_Subscript"), toLowerCase("ccc=IS"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=None"), toLowerCase("dt=None"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=none"), toLowerCase("dt=None"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Can"), toLowerCase("dt=Can"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Canonical"), toLowerCase("dt=Can"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=can"), toLowerCase("dt=Can"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Com"), toLowerCase("dt=Com"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Compat"), toLowerCase("dt=Com"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=com"), toLowerCase("dt=Com"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Enc"), toLowerCase("dt=Enc"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Circle"), toLowerCase("dt=Enc"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=enc"), toLowerCase("dt=Enc"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Fin"), toLowerCase("dt=Fin"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Final"), toLowerCase("dt=Fin"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=fin"), toLowerCase("dt=Fin"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Font"), toLowerCase("dt=Font"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=font"), toLowerCase("dt=Font"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Fra"), toLowerCase("dt=Fra"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Fraction"), toLowerCase("dt=Fra"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=fra"), toLowerCase("dt=Fra"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Init"), toLowerCase("dt=Init"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Initial"), toLowerCase("dt=Init"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=init"), toLowerCase("dt=Init"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Iso"), toLowerCase("dt=Iso"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Isolated"), toLowerCase("dt=Iso"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=iso"), toLowerCase("dt=Iso"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Med"), toLowerCase("dt=Med"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Medial"), toLowerCase("dt=Med"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=med"), toLowerCase("dt=Med"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Nar"), toLowerCase("dt=Nar"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Narrow"), toLowerCase("dt=Nar"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=nar"), toLowerCase("dt=Nar"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Nb"), toLowerCase("dt=Nb"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Nobreak"), toLowerCase("dt=Nb"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=nb"), toLowerCase("dt=Nb"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Sml"), toLowerCase("dt=Sml"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Small"), toLowerCase("dt=Sml"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=sml"), toLowerCase("dt=Sml"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Sqr"), toLowerCase("dt=Sqr"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Square"), toLowerCase("dt=Sqr"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=sqr"), toLowerCase("dt=Sqr"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Sub"), toLowerCase("dt=Sub"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=sub"), toLowerCase("dt=Sub"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Sup"), toLowerCase("dt=Sup"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Super"), toLowerCase("dt=Sup"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=sup"), toLowerCase("dt=Sup"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Vert"), toLowerCase("dt=Vert"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Vertical"), toLowerCase("dt=Vert"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=vert"), toLowerCase("dt=Vert"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=Wide"), toLowerCase("dt=Wide"));
+    propertyAliases.put(toLowerCase("Decomposition_Type=wide"), toLowerCase("dt=Wide"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=N"), toLowerCase("ea=N"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Neutral"), toLowerCase("ea=N"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=A"), toLowerCase("ea=A"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Ambiguous"), toLowerCase("ea=A"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=H"), toLowerCase("ea=H"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Halfwidth"), toLowerCase("ea=H"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=F"), toLowerCase("ea=F"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Fullwidth"), toLowerCase("ea=F"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Na"), toLowerCase("ea=Na"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Narrow"), toLowerCase("ea=Na"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=W"), toLowerCase("ea=W"));
+    propertyAliases.put(toLowerCase("East_Asian_Width=Wide"), toLowerCase("ea=W"));
+    propertyAliases.put(toLowerCase("General_Category=Cn"), toLowerCase("gc=Cn"));
+    propertyAliases.put(toLowerCase("General_Category=Unassigned"), toLowerCase("gc=Cn"));
+    propertyAliases.put(toLowerCase("General_Category=Lu"), toLowerCase("gc=Lu"));
+    propertyAliases.put(toLowerCase("General_Category=Uppercase_Letter"), toLowerCase("gc=Lu"));
+    propertyAliases.put(toLowerCase("General_Category=Ll"), toLowerCase("gc=Ll"));
+    propertyAliases.put(toLowerCase("General_Category=Lowercase_Letter"), toLowerCase("gc=Ll"));
+    propertyAliases.put(toLowerCase("General_Category=Lt"), toLowerCase("gc=Lt"));
+    propertyAliases.put(toLowerCase("General_Category=Titlecase_Letter"), toLowerCase("gc=Lt"));
+    propertyAliases.put(toLowerCase("General_Category=Lm"), toLowerCase("gc=Lm"));
+    propertyAliases.put(toLowerCase("General_Category=Modifier_Letter"), toLowerCase("gc=Lm"));
+    propertyAliases.put(toLowerCase("General_Category=Lo"), toLowerCase("gc=Lo"));
+    propertyAliases.put(toLowerCase("General_Category=Other_Letter"), toLowerCase("gc=Lo"));
+    propertyAliases.put(toLowerCase("General_Category=Mn"), toLowerCase("gc=Mn"));
+    propertyAliases.put(toLowerCase("General_Category=Nonspacing_Mark"), toLowerCase("gc=Mn"));
+    propertyAliases.put(toLowerCase("General_Category=Me"), toLowerCase("gc=Me"));
+    propertyAliases.put(toLowerCase("General_Category=Enclosing_Mark"), toLowerCase("gc=Me"));
+    propertyAliases.put(toLowerCase("General_Category=Mc"), toLowerCase("gc=Mc"));
+    propertyAliases.put(toLowerCase("General_Category=Spacing_Mark"), toLowerCase("gc=Mc"));
+    propertyAliases.put(toLowerCase("General_Category=Nd"), toLowerCase("gc=Nd"));
+    propertyAliases.put(toLowerCase("General_Category=Decimal_Number"), toLowerCase("gc=Nd"));
+    propertyAliases.put(toLowerCase("General_Category=digit"), toLowerCase("gc=Nd"));
+    propertyAliases.put(toLowerCase("General_Category=Nl"), toLowerCase("gc=Nl"));
+    propertyAliases.put(toLowerCase("General_Category=Letter_Number"), toLowerCase("gc=Nl"));
+    propertyAliases.put(toLowerCase("General_Category=No"), toLowerCase("gc=No"));
+    propertyAliases.put(toLowerCase("General_Category=Other_Number"), toLowerCase("gc=No"));
+    propertyAliases.put(toLowerCase("General_Category=Zs"), toLowerCase("gc=Zs"));
+    propertyAliases.put(toLowerCase("General_Category=Space_Separator"), toLowerCase("gc=Zs"));
+    propertyAliases.put(toLowerCase("General_Category=Zl"), toLowerCase("gc=Zl"));
+    propertyAliases.put(toLowerCase("General_Category=Line_Separator"), toLowerCase("gc=Zl"));
+    propertyAliases.put(toLowerCase("General_Category=Zp"), toLowerCase("gc=Zp"));
+    propertyAliases.put(toLowerCase("General_Category=Paragraph_Separator"), toLowerCase("gc=Zp"));
+    propertyAliases.put(toLowerCase("General_Category=Cc"), toLowerCase("gc=Cc"));
+    propertyAliases.put(toLowerCase("General_Category=Control"), toLowerCase("gc=Cc"));
+    propertyAliases.put(toLowerCase("General_Category=cntrl"), toLowerCase("gc=Cc"));
+    propertyAliases.put(toLowerCase("General_Category=Cf"), toLowerCase("gc=Cf"));
+    propertyAliases.put(toLowerCase("General_Category=Format"), toLowerCase("gc=Cf"));
+    propertyAliases.put(toLowerCase("General_Category=Co"), toLowerCase("gc=Co"));
+    propertyAliases.put(toLowerCase("General_Category=Private_Use"), toLowerCase("gc=Co"));
+    propertyAliases.put(toLowerCase("General_Category=Cs"), toLowerCase("gc=Cs"));
+    propertyAliases.put(toLowerCase("General_Category=Surrogate"), toLowerCase("gc=Cs"));
+    propertyAliases.put(toLowerCase("General_Category=Pd"), toLowerCase("gc=Pd"));
+    propertyAliases.put(toLowerCase("General_Category=Dash_Punctuation"), toLowerCase("gc=Pd"));
+    propertyAliases.put(toLowerCase("General_Category=Ps"), toLowerCase("gc=Ps"));
+    propertyAliases.put(toLowerCase("General_Category=Open_Punctuation"), toLowerCase("gc=Ps"));
+    propertyAliases.put(toLowerCase("General_Category=Pe"), toLowerCase("gc=Pe"));
+    propertyAliases.put(toLowerCase("General_Category=Close_Punctuation"), toLowerCase("gc=Pe"));
+    propertyAliases.put(toLowerCase("General_Category=Pc"), toLowerCase("gc=Pc"));
+    propertyAliases.put(toLowerCase("General_Category=Connector_Punctuation"), toLowerCase("gc=Pc"));
+    propertyAliases.put(toLowerCase("General_Category=Po"), toLowerCase("gc=Po"));
+    propertyAliases.put(toLowerCase("General_Category=Other_Punctuation"), toLowerCase("gc=Po"));
+    propertyAliases.put(toLowerCase("General_Category=Sm"), toLowerCase("gc=Sm"));
+    propertyAliases.put(toLowerCase("General_Category=Math_Symbol"), toLowerCase("gc=Sm"));
+    propertyAliases.put(toLowerCase("General_Category=Sc"), toLowerCase("gc=Sc"));
+    propertyAliases.put(toLowerCase("General_Category=Currency_Symbol"), toLowerCase("gc=Sc"));
+    propertyAliases.put(toLowerCase("General_Category=Sk"), toLowerCase("gc=Sk"));
+    propertyAliases.put(toLowerCase("General_Category=Modifier_Symbol"), toLowerCase("gc=Sk"));
+    propertyAliases.put(toLowerCase("General_Category=So"), toLowerCase("gc=So"));
+    propertyAliases.put(toLowerCase("General_Category=Other_Symbol"), toLowerCase("gc=So"));
+    propertyAliases.put(toLowerCase("General_Category=Pi"), toLowerCase("gc=Pi"));
+    propertyAliases.put(toLowerCase("General_Category=Initial_Punctuation"), toLowerCase("gc=Pi"));
+    propertyAliases.put(toLowerCase("General_Category=Pf"), toLowerCase("gc=Pf"));
+    propertyAliases.put(toLowerCase("General_Category=Final_Punctuation"), toLowerCase("gc=Pf"));
+    propertyAliases.put(toLowerCase("Joining_Group=No_Joining_Group"), toLowerCase("jg=No_Joining_Group"));
+    propertyAliases.put(toLowerCase("Joining_Group=Ain"), toLowerCase("jg=Ain"));
+    propertyAliases.put(toLowerCase("Joining_Group=Alaph"), toLowerCase("jg=Alaph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Alef"), toLowerCase("jg=Alef"));
+    propertyAliases.put(toLowerCase("Joining_Group=Beh"), toLowerCase("jg=Beh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Beth"), toLowerCase("jg=Beth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Dal"), toLowerCase("jg=Dal"));
+    propertyAliases.put(toLowerCase("Joining_Group=Dalath_Rish"), toLowerCase("jg=Dalath_Rish"));
+    propertyAliases.put(toLowerCase("Joining_Group=E"), toLowerCase("jg=E"));
+    propertyAliases.put(toLowerCase("Joining_Group=Feh"), toLowerCase("jg=Feh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Final_Semkath"), toLowerCase("jg=Final_Semkath"));
+    propertyAliases.put(toLowerCase("Joining_Group=Gaf"), toLowerCase("jg=Gaf"));
+    propertyAliases.put(toLowerCase("Joining_Group=Gamal"), toLowerCase("jg=Gamal"));
+    propertyAliases.put(toLowerCase("Joining_Group=Hah"), toLowerCase("jg=Hah"));
+    propertyAliases.put(toLowerCase("Joining_Group=Teh_Marbuta_Goal"), toLowerCase("jg=Teh_Marbuta_Goal"));
+    propertyAliases.put(toLowerCase("Joining_Group=Hamza_On_Heh_Goal"), toLowerCase("jg=Teh_Marbuta_Goal"));
+    propertyAliases.put(toLowerCase("Joining_Group=He"), toLowerCase("jg=He"));
+    propertyAliases.put(toLowerCase("Joining_Group=Heh"), toLowerCase("jg=Heh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Heh_Goal"), toLowerCase("jg=Heh_Goal"));
+    propertyAliases.put(toLowerCase("Joining_Group=Heth"), toLowerCase("jg=Heth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Kaf"), toLowerCase("jg=Kaf"));
+    propertyAliases.put(toLowerCase("Joining_Group=Kaph"), toLowerCase("jg=Kaph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Knotted_Heh"), toLowerCase("jg=Knotted_Heh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Lam"), toLowerCase("jg=Lam"));
+    propertyAliases.put(toLowerCase("Joining_Group=Lamadh"), toLowerCase("jg=Lamadh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Meem"), toLowerCase("jg=Meem"));
+    propertyAliases.put(toLowerCase("Joining_Group=Mim"), toLowerCase("jg=Mim"));
+    propertyAliases.put(toLowerCase("Joining_Group=Noon"), toLowerCase("jg=Noon"));
+    propertyAliases.put(toLowerCase("Joining_Group=Nun"), toLowerCase("jg=Nun"));
+    propertyAliases.put(toLowerCase("Joining_Group=Pe"), toLowerCase("jg=Pe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Qaf"), toLowerCase("jg=Qaf"));
+    propertyAliases.put(toLowerCase("Joining_Group=Qaph"), toLowerCase("jg=Qaph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Reh"), toLowerCase("jg=Reh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Reversed_Pe"), toLowerCase("jg=Reversed_Pe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Sad"), toLowerCase("jg=Sad"));
+    propertyAliases.put(toLowerCase("Joining_Group=Sadhe"), toLowerCase("jg=Sadhe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Seen"), toLowerCase("jg=Seen"));
+    propertyAliases.put(toLowerCase("Joining_Group=Semkath"), toLowerCase("jg=Semkath"));
+    propertyAliases.put(toLowerCase("Joining_Group=Shin"), toLowerCase("jg=Shin"));
+    propertyAliases.put(toLowerCase("Joining_Group=Swash_Kaf"), toLowerCase("jg=Swash_Kaf"));
+    propertyAliases.put(toLowerCase("Joining_Group=Syriac_Waw"), toLowerCase("jg=Syriac_Waw"));
+    propertyAliases.put(toLowerCase("Joining_Group=Tah"), toLowerCase("jg=Tah"));
+    propertyAliases.put(toLowerCase("Joining_Group=Taw"), toLowerCase("jg=Taw"));
+    propertyAliases.put(toLowerCase("Joining_Group=Teh_Marbuta"), toLowerCase("jg=Teh_Marbuta"));
+    propertyAliases.put(toLowerCase("Joining_Group=Teth"), toLowerCase("jg=Teth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Waw"), toLowerCase("jg=Waw"));
+    propertyAliases.put(toLowerCase("Joining_Group=Yeh"), toLowerCase("jg=Yeh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Yeh_Barree"), toLowerCase("jg=Yeh_Barree"));
+    propertyAliases.put(toLowerCase("Joining_Group=Yeh_With_Tail"), toLowerCase("jg=Yeh_With_Tail"));
+    propertyAliases.put(toLowerCase("Joining_Group=Yudh"), toLowerCase("jg=Yudh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Yudh_He"), toLowerCase("jg=Yudh_He"));
+    propertyAliases.put(toLowerCase("Joining_Group=Zain"), toLowerCase("jg=Zain"));
+    propertyAliases.put(toLowerCase("Joining_Group=Fe"), toLowerCase("jg=Fe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Khaph"), toLowerCase("jg=Khaph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Zhain"), toLowerCase("jg=Zhain"));
+    propertyAliases.put(toLowerCase("Joining_Group=Burushaski_Yeh_Barree"), toLowerCase("jg=Burushaski_Yeh_Barree"));
+    propertyAliases.put(toLowerCase("Joining_Group=Farsi_Yeh"), toLowerCase("jg=Farsi_Yeh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Nya"), toLowerCase("jg=Nya"));
+    propertyAliases.put(toLowerCase("Joining_Group=Rohingya_Yeh"), toLowerCase("jg=Rohingya_Yeh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Aleph"), toLowerCase("jg=Manichaean_Aleph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Ayin"), toLowerCase("jg=Manichaean_Ayin"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Beth"), toLowerCase("jg=Manichaean_Beth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Daleth"), toLowerCase("jg=Manichaean_Daleth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Dhamedh"), toLowerCase("jg=Manichaean_Dhamedh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Five"), toLowerCase("jg=Manichaean_Five"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Gimel"), toLowerCase("jg=Manichaean_Gimel"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Heth"), toLowerCase("jg=Manichaean_Heth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Hundred"), toLowerCase("jg=Manichaean_Hundred"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Kaph"), toLowerCase("jg=Manichaean_Kaph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Lamedh"), toLowerCase("jg=Manichaean_Lamedh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Mem"), toLowerCase("jg=Manichaean_Mem"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Nun"), toLowerCase("jg=Manichaean_Nun"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_One"), toLowerCase("jg=Manichaean_One"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Pe"), toLowerCase("jg=Manichaean_Pe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Qoph"), toLowerCase("jg=Manichaean_Qoph"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Resh"), toLowerCase("jg=Manichaean_Resh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Sadhe"), toLowerCase("jg=Manichaean_Sadhe"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Samekh"), toLowerCase("jg=Manichaean_Samekh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Taw"), toLowerCase("jg=Manichaean_Taw"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Ten"), toLowerCase("jg=Manichaean_Ten"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Teth"), toLowerCase("jg=Manichaean_Teth"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Thamedh"), toLowerCase("jg=Manichaean_Thamedh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Twenty"), toLowerCase("jg=Manichaean_Twenty"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Waw"), toLowerCase("jg=Manichaean_Waw"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Yodh"), toLowerCase("jg=Manichaean_Yodh"));
+    propertyAliases.put(toLowerCase("Joining_Group=Manichaean_Zayin"), toLowerCase("jg=Manichaean_Zayin"));
+    propertyAliases.put(toLowerCase("Joining_Group=Straight_Waw"), toLowerCase("jg=Straight_Waw"));
+    propertyAliases.put(toLowerCase("Joining_Group=African_Feh"), toLowerCase("jg=African_Feh"));
+    propertyAliases.put(toLowerCase("Joining_Group=African_Noon"), toLowerCase("jg=African_Noon"));
+    propertyAliases.put(toLowerCase("Joining_Group=African_Qaf"), toLowerCase("jg=African_Qaf"));
+    propertyAliases.put(toLowerCase("Joining_Type=U"), toLowerCase("jt=U"));
+    propertyAliases.put(toLowerCase("Joining_Type=Non_Joining"), toLowerCase("jt=U"));
+    propertyAliases.put(toLowerCase("Joining_Type=C"), toLowerCase("jt=C"));
+    propertyAliases.put(toLowerCase("Joining_Type=Join_Causing"), toLowerCase("jt=C"));
+    propertyAliases.put(toLowerCase("Joining_Type=D"), toLowerCase("jt=D"));
+    propertyAliases.put(toLowerCase("Joining_Type=Dual_Joining"), toLowerCase("jt=D"));
+    propertyAliases.put(toLowerCase("Joining_Type=L"), toLowerCase("jt=L"));
+    propertyAliases.put(toLowerCase("Joining_Type=Left_Joining"), toLowerCase("jt=L"));
+    propertyAliases.put(toLowerCase("Joining_Type=R"), toLowerCase("jt=R"));
+    propertyAliases.put(toLowerCase("Joining_Type=Right_Joining"), toLowerCase("jt=R"));
+    propertyAliases.put(toLowerCase("Joining_Type=T"), toLowerCase("jt=T"));
+    propertyAliases.put(toLowerCase("Joining_Type=Transparent"), toLowerCase("jt=T"));
+    propertyAliases.put(toLowerCase("Line_Break=XX"), toLowerCase("lb=XX"));
+    propertyAliases.put(toLowerCase("Line_Break=Unknown"), toLowerCase("lb=XX"));
+    propertyAliases.put(toLowerCase("Line_Break=AI"), toLowerCase("lb=AI"));
+    propertyAliases.put(toLowerCase("Line_Break=Ambiguous"), toLowerCase("lb=AI"));
+    propertyAliases.put(toLowerCase("Line_Break=AL"), toLowerCase("lb=AL"));
+    propertyAliases.put(toLowerCase("Line_Break=Alphabetic"), toLowerCase("lb=AL"));
+    propertyAliases.put(toLowerCase("Line_Break=B2"), toLowerCase("lb=B2"));
+    propertyAliases.put(toLowerCase("Line_Break=Break_Both"), toLowerCase("lb=B2"));
+    propertyAliases.put(toLowerCase("Line_Break=BA"), toLowerCase("lb=BA"));
+    propertyAliases.put(toLowerCase("Line_Break=Break_After"), toLowerCase("lb=BA"));
+    propertyAliases.put(toLowerCase("Line_Break=BB"), toLowerCase("lb=BB"));
+    propertyAliases.put(toLowerCase("Line_Break=Break_Before"), toLowerCase("lb=BB"));
+    propertyAliases.put(toLowerCase("Line_Break=BK"), toLowerCase("lb=BK"));
+    propertyAliases.put(toLowerCase("Line_Break=Mandatory_Break"), toLowerCase("lb=BK"));
+    propertyAliases.put(toLowerCase("Line_Break=CB"), toLowerCase("lb=CB"));
+    propertyAliases.put(toLowerCase("Line_Break=Contingent_Break"), toLowerCase("lb=CB"));
+    propertyAliases.put(toLowerCase("Line_Break=CL"), toLowerCase("lb=CL"));
+    propertyAliases.put(toLowerCase("Line_Break=Close_Punctuation"), toLowerCase("lb=CL"));
+    propertyAliases.put(toLowerCase("Line_Break=CM"), toLowerCase("lb=CM"));
+    propertyAliases.put(toLowerCase("Line_Break=Combining_Mark"), toLowerCase("lb=CM"));
+    propertyAliases.put(toLowerCase("Line_Break=CR"), toLowerCase("lb=CR"));
+    propertyAliases.put(toLowerCase("Line_Break=Carriage_Return"), toLowerCase("lb=CR"));
+    propertyAliases.put(toLowerCase("Line_Break=EX"), toLowerCase("lb=EX"));
+    propertyAliases.put(toLowerCase("Line_Break=Exclamation"), toLowerCase("lb=EX"));
+    propertyAliases.put(toLowerCase("Line_Break=GL"), toLowerCase("lb=GL"));
+    propertyAliases.put(toLowerCase("Line_Break=Glue"), toLowerCase("lb=GL"));
+    propertyAliases.put(toLowerCase("Line_Break=HY"), toLowerCase("lb=HY"));
+    propertyAliases.put(toLowerCase("Line_Break=Hyphen"), toLowerCase("lb=HY"));
+    propertyAliases.put(toLowerCase("Line_Break=ID"), toLowerCase("lb=ID"));
+    propertyAliases.put(toLowerCase("Line_Break=Ideographic"), toLowerCase("lb=ID"));
+    propertyAliases.put(toLowerCase("Line_Break=IN"), toLowerCase("lb=IN"));
+    propertyAliases.put(toLowerCase("Line_Break=Inseparable"), toLowerCase("lb=IN"));
+    propertyAliases.put(toLowerCase("Line_Break=Inseperable"), toLowerCase("lb=IN"));
+    propertyAliases.put(toLowerCase("Line_Break=IS"), toLowerCase("lb=IS"));
+    propertyAliases.put(toLowerCase("Line_Break=Infix_Numeric"), toLowerCase("lb=IS"));
+    propertyAliases.put(toLowerCase("Line_Break=LF"), toLowerCase("lb=LF"));
+    propertyAliases.put(toLowerCase("Line_Break=Line_Feed"), toLowerCase("lb=LF"));
+    propertyAliases.put(toLowerCase("Line_Break=NS"), toLowerCase("lb=NS"));
+    propertyAliases.put(toLowerCase("Line_Break=Nonstarter"), toLowerCase("lb=NS"));
+    propertyAliases.put(toLowerCase("Line_Break=NU"), toLowerCase("lb=NU"));
+    propertyAliases.put(toLowerCase("Line_Break=Numeric"), toLowerCase("lb=NU"));
+    propertyAliases.put(toLowerCase("Line_Break=OP"), toLowerCase("lb=OP"));
+    propertyAliases.put(toLowerCase("Line_Break=Open_Punctuation"), toLowerCase("lb=OP"));
+    propertyAliases.put(toLowerCase("Line_Break=PO"), toLowerCase("lb=PO"));
+    propertyAliases.put(toLowerCase("Line_Break=Postfix_Numeric"), toLowerCase("lb=PO"));
+    propertyAliases.put(toLowerCase("Line_Break=PR"), toLowerCase("lb=PR"));
+    propertyAliases.put(toLowerCase("Line_Break=Prefix_Numeric"), toLowerCase("lb=PR"));
+    propertyAliases.put(toLowerCase("Line_Break=QU"), toLowerCase("lb=QU"));
+    propertyAliases.put(toLowerCase("Line_Break=Quotation"), toLowerCase("lb=QU"));
+    propertyAliases.put(toLowerCase("Line_Break=SA"), toLowerCase("lb=SA"));
+    propertyAliases.put(toLowerCase("Line_Break=Complex_Context"), toLowerCase("lb=SA"));
+    propertyAliases.put(toLowerCase("Line_Break=SG"), toLowerCase("lb=SG"));
+    propertyAliases.put(toLowerCase("Line_Break=Surrogate"), toLowerCase("lb=SG"));
+    propertyAliases.put(toLowerCase("Line_Break=SP"), toLowerCase("lb=SP"));
+    propertyAliases.put(toLowerCase("Line_Break=Space"), toLowerCase("lb=SP"));
+    propertyAliases.put(toLowerCase("Line_Break=SY"), toLowerCase("lb=SY"));
+    propertyAliases.put(toLowerCase("Line_Break=Break_Symbols"), toLowerCase("lb=SY"));
+    propertyAliases.put(toLowerCase("Line_Break=ZW"), toLowerCase("lb=ZW"));
+    propertyAliases.put(toLowerCase("Line_Break=ZWSpace"), toLowerCase("lb=ZW"));
+    propertyAliases.put(toLowerCase("Line_Break=NL"), toLowerCase("lb=NL"));
+    propertyAliases.put(toLowerCase("Line_Break=Next_Line"), toLowerCase("lb=NL"));
+    propertyAliases.put(toLowerCase("Line_Break=WJ"), toLowerCase("lb=WJ"));
+    propertyAliases.put(toLowerCase("Line_Break=Word_Joiner"), toLowerCase("lb=WJ"));
+    propertyAliases.put(toLowerCase("Line_Break=H2"), toLowerCase("lb=H2"));
+    propertyAliases.put(toLowerCase("Line_Break=H3"), toLowerCase("lb=H3"));
+    propertyAliases.put(toLowerCase("Line_Break=JL"), toLowerCase("lb=JL"));
+    propertyAliases.put(toLowerCase("Line_Break=JT"), toLowerCase("lb=JT"));
+    propertyAliases.put(toLowerCase("Line_Break=JV"), toLowerCase("lb=JV"));
+    propertyAliases.put(toLowerCase("Line_Break=CP"), toLowerCase("lb=CP"));
+    propertyAliases.put(toLowerCase("Line_Break=Close_Parenthesis"), toLowerCase("lb=CP"));
+    propertyAliases.put(toLowerCase("Line_Break=CJ"), toLowerCase("lb=CJ"));
+    propertyAliases.put(toLowerCase("Line_Break=Conditional_Japanese_Starter"), toLowerCase("lb=CJ"));
+    propertyAliases.put(toLowerCase("Line_Break=HL"), toLowerCase("lb=HL"));
+    propertyAliases.put(toLowerCase("Line_Break=Hebrew_Letter"), toLowerCase("lb=HL"));
+    propertyAliases.put(toLowerCase("Line_Break=RI"), toLowerCase("lb=RI"));
+    propertyAliases.put(toLowerCase("Line_Break=Regional_Indicator"), toLowerCase("lb=RI"));
+    propertyAliases.put(toLowerCase("Line_Break=EB"), toLowerCase("lb=EB"));
+    propertyAliases.put(toLowerCase("Line_Break=E_Base"), toLowerCase("lb=EB"));
+    propertyAliases.put(toLowerCase("Line_Break=EM"), toLowerCase("lb=EM"));
+    propertyAliases.put(toLowerCase("Line_Break=E_Modifier"), toLowerCase("lb=EM"));
+    propertyAliases.put(toLowerCase("Line_Break=ZWJ"), toLowerCase("lb=ZWJ"));
+    propertyAliases.put(toLowerCase("Numeric_Type=None"), toLowerCase("nt=None"));
+    propertyAliases.put(toLowerCase("Numeric_Type=De"), toLowerCase("nt=De"));
+    propertyAliases.put(toLowerCase("Numeric_Type=Decimal"), toLowerCase("nt=De"));
+    propertyAliases.put(toLowerCase("Numeric_Type=Di"), toLowerCase("nt=Di"));
+    propertyAliases.put(toLowerCase("Numeric_Type=Digit"), toLowerCase("nt=Di"));
+    propertyAliases.put(toLowerCase("Numeric_Type=Nu"), toLowerCase("nt=Nu"));
+    propertyAliases.put(toLowerCase("Numeric_Type=Numeric"), toLowerCase("nt=Nu"));
+    propertyAliases.put(toLowerCase("Script=Zyyy"), toLowerCase("sc=Zyyy"));
+    propertyAliases.put(toLowerCase("Script=Common"), toLowerCase("sc=Zyyy"));
+    propertyAliases.put(toLowerCase("Script=Zinh"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Script=Inherited"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Script=Qaai"), toLowerCase("sc=Zinh"));
+    propertyAliases.put(toLowerCase("Script=Arab"), toLowerCase("sc=Arab"));
+    propertyAliases.put(toLowerCase("Script=Arabic"), toLowerCase("sc=Arab"));
+    propertyAliases.put(toLowerCase("Script=Armn"), toLowerCase("sc=Armn"));
+    propertyAliases.put(toLowerCase("Script=Armenian"), toLowerCase("sc=Armn"));
+    propertyAliases.put(toLowerCase("Script=Beng"), toLowerCase("sc=Beng"));
+    propertyAliases.put(toLowerCase("Script=Bengali"), toLowerCase("sc=Beng"));
+    propertyAliases.put(toLowerCase("Script=Bopo"), toLowerCase("sc=Bopo"));
+    propertyAliases.put(toLowerCase("Script=Bopomofo"), toLowerCase("sc=Bopo"));
+    propertyAliases.put(toLowerCase("Script=Cher"), toLowerCase("sc=Cher"));
+    propertyAliases.put(toLowerCase("Script=Cherokee"), toLowerCase("sc=Cher"));
+    propertyAliases.put(toLowerCase("Script=Copt"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Script=Coptic"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Script=Qaac"), toLowerCase("sc=Copt"));
+    propertyAliases.put(toLowerCase("Script=Cyrl"), toLowerCase("sc=Cyrl"));
+    propertyAliases.put(toLowerCase("Script=Cyrillic"), toLowerCase("sc=Cyrl"));
+    propertyAliases.put(toLowerCase("Script=Dsrt"), toLowerCase("sc=Dsrt"));
+    propertyAliases.put(toLowerCase("Script=Deseret"), toLowerCase("sc=Dsrt"));
+    propertyAliases.put(toLowerCase("Script=Deva"), toLowerCase("sc=Deva"));
+    propertyAliases.put(toLowerCase("Script=Devanagari"), toLowerCase("sc=Deva"));
+    propertyAliases.put(toLowerCase("Script=Ethi"), toLowerCase("sc=Ethi"));
+    propertyAliases.put(toLowerCase("Script=Ethiopic"), toLowerCase("sc=Ethi"));
+    propertyAliases.put(toLowerCase("Script=Geor"), toLowerCase("sc=Geor"));
+    propertyAliases.put(toLowerCase("Script=Georgian"), toLowerCase("sc=Geor"));
+    propertyAliases.put(toLowerCase("Script=Goth"), toLowerCase("sc=Goth"));
+    propertyAliases.put(toLowerCase("Script=Gothic"), toLowerCase("sc=Goth"));
+    propertyAliases.put(toLowerCase("Script=Grek"), toLowerCase("sc=Grek"));
+    propertyAliases.put(toLowerCase("Script=Greek"), toLowerCase("sc=Grek"));
+    propertyAliases.put(toLowerCase("Script=Gujr"), toLowerCase("sc=Gujr"));
+    propertyAliases.put(toLowerCase("Script=Gujarati"), toLowerCase("sc=Gujr"));
+    propertyAliases.put(toLowerCase("Script=Guru"), toLowerCase("sc=Guru"));
+    propertyAliases.put(toLowerCase("Script=Gurmukhi"), toLowerCase("sc=Guru"));
+    propertyAliases.put(toLowerCase("Script=Hani"), toLowerCase("sc=Hani"));
+    propertyAliases.put(toLowerCase("Script=Han"), toLowerCase("sc=Hani"));
+    propertyAliases.put(toLowerCase("Script=Hang"), toLowerCase("sc=Hang"));
+    propertyAliases.put(toLowerCase("Script=Hangul"), toLowerCase("sc=Hang"));
+    propertyAliases.put(toLowerCase("Script=Hebr"), toLowerCase("sc=Hebr"));
+    propertyAliases.put(toLowerCase("Script=Hebrew"), toLowerCase("sc=Hebr"));
+    propertyAliases.put(toLowerCase("Script=Hira"), toLowerCase("sc=Hira"));
+    propertyAliases.put(toLowerCase("Script=Hiragana"), toLowerCase("sc=Hira"));
+    propertyAliases.put(toLowerCase("Script=Knda"), toLowerCase("sc=Knda"));
+    propertyAliases.put(toLowerCase("Script=Kannada"), toLowerCase("sc=Knda"));
+    propertyAliases.put(toLowerCase("Script=Kana"), toLowerCase("sc=Kana"));
+    propertyAliases.put(toLowerCase("Script=Katakana"), toLowerCase("sc=Kana"));
+    propertyAliases.put(toLowerCase("Script=Khmr"), toLowerCase("sc=Khmr"));
+    propertyAliases.put(toLowerCase("Script=Khmer"), toLowerCase("sc=Khmr"));
+    propertyAliases.put(toLowerCase("Script=Laoo"), toLowerCase("sc=Laoo"));
+    propertyAliases.put(toLowerCase("Script=Lao"), toLowerCase("sc=Laoo"));
+    propertyAliases.put(toLowerCase("Script=Latn"), toLowerCase("sc=Latn"));
+    propertyAliases.put(toLowerCase("Script=Latin"), toLowerCase("sc=Latn"));
+    propertyAliases.put(toLowerCase("Script=Mlym"), toLowerCase("sc=Mlym"));
+    propertyAliases.put(toLowerCase("Script=Malayalam"), toLowerCase("sc=Mlym"));
+    propertyAliases.put(toLowerCase("Script=Mong"), toLowerCase("sc=Mong"));
+    propertyAliases.put(toLowerCase("Script=Mongolian"), toLowerCase("sc=Mong"));
+    propertyAliases.put(toLowerCase("Script=Mymr"), toLowerCase("sc=Mymr"));
+    propertyAliases.put(toLowerCase("Script=Myanmar"), toLowerCase("sc=Mymr"));
+    propertyAliases.put(toLowerCase("Script=Ogam"), toLowerCase("sc=Ogam"));
+    propertyAliases.put(toLowerCase("Script=Ogham"), toLowerCase("sc=Ogam"));
+    propertyAliases.put(toLowerCase("Script=Ital"), toLowerCase("sc=Ital"));
+    propertyAliases.put(toLowerCase("Script=Old_Italic"), toLowerCase("sc=Ital"));
+    propertyAliases.put(toLowerCase("Script=Orya"), toLowerCase("sc=Orya"));
+    propertyAliases.put(toLowerCase("Script=Oriya"), toLowerCase("sc=Orya"));
+    propertyAliases.put(toLowerCase("Script=Runr"), toLowerCase("sc=Runr"));
+    propertyAliases.put(toLowerCase("Script=Runic"), toLowerCase("sc=Runr"));
+    propertyAliases.put(toLowerCase("Script=Sinh"), toLowerCase("sc=Sinh"));
+    propertyAliases.put(toLowerCase("Script=Sinhala"), toLowerCase("sc=Sinh"));
+    propertyAliases.put(toLowerCase("Script=Syrc"), toLowerCase("sc=Syrc"));
+    propertyAliases.put(toLowerCase("Script=Syriac"), toLowerCase("sc=Syrc"));
+    propertyAliases.put(toLowerCase("Script=Taml"), toLowerCase("sc=Taml"));
+    propertyAliases.put(toLowerCase("Script=Tamil"), toLowerCase("sc=Taml"));
+    propertyAliases.put(toLowerCase("Script=Telu"), toLowerCase("sc=Telu"));
+    propertyAliases.put(toLowerCase("Script=Telugu"), toLowerCase("sc=Telu"));
+    propertyAliases.put(toLowerCase("Script=Thaa"), toLowerCase("sc=Thaa"));
+    propertyAliases.put(toLowerCase("Script=Thaana"), toLowerCase("sc=Thaa"));
+    propertyAliases.put(toLowerCase("Script=Thai"), toLowerCase("sc=Thai"));
+    propertyAliases.put(toLowerCase("Script=Tibt"), toLowerCase("sc=Tibt"));
+    propertyAliases.put(toLowerCase("Script=Tibetan"), toLowerCase("sc=Tibt"));
+    propertyAliases.put(toLowerCase("Script=Cans"), toLowerCase("sc=Cans"));
+    propertyAliases.put(toLowerCase("Script=Canadian_Aboriginal"), toLowerCase("sc=Cans"));
+    propertyAliases.put(toLowerCase("Script=Yiii"), toLowerCase("sc=Yiii"));
+    propertyAliases.put(toLowerCase("Script=Yi"), toLowerCase("sc=Yiii"));
+    propertyAliases.put(toLowerCase("Script=Tglg"), toLowerCase("sc=Tglg"));
+    propertyAliases.put(toLowerCase("Script=Tagalog"), toLowerCase("sc=Tglg"));
+    propertyAliases.put(toLowerCase("Script=Hano"), toLowerCase("sc=Hano"));
+    propertyAliases.put(toLowerCase("Script=Hanunoo"), toLowerCase("sc=Hano"));
+    propertyAliases.put(toLowerCase("Script=Buhd"), toLowerCase("sc=Buhd"));
+    propertyAliases.put(toLowerCase("Script=Buhid"), toLowerCase("sc=Buhd"));
+    propertyAliases.put(toLowerCase("Script=Tagb"), toLowerCase("sc=Tagb"));
+    propertyAliases.put(toLowerCase("Script=Tagbanwa"), toLowerCase("sc=Tagb"));
+    propertyAliases.put(toLowerCase("Script=Brai"), toLowerCase("sc=Brai"));
+    propertyAliases.put(toLowerCase("Script=Braille"), toLowerCase("sc=Brai"));
+    propertyAliases.put(toLowerCase("Script=Cprt"), toLowerCase("sc=Cprt"));
+    propertyAliases.put(toLowerCase("Script=Cypriot"), toLowerCase("sc=Cprt"));
+    propertyAliases.put(toLowerCase("Script=Limb"), toLowerCase("sc=Limb"));
+    propertyAliases.put(toLowerCase("Script=Limbu"), toLowerCase("sc=Limb"));
+    propertyAliases.put(toLowerCase("Script=Linb"), toLowerCase("sc=Linb"));
+    propertyAliases.put(toLowerCase("Script=Linear_B"), toLowerCase("sc=Linb"));
+    propertyAliases.put(toLowerCase("Script=Osma"), toLowerCase("sc=Osma"));
+    propertyAliases.put(toLowerCase("Script=Osmanya"), toLowerCase("sc=Osma"));
+    propertyAliases.put(toLowerCase("Script=Shaw"), toLowerCase("sc=Shaw"));
+    propertyAliases.put(toLowerCase("Script=Shavian"), toLowerCase("sc=Shaw"));
+    propertyAliases.put(toLowerCase("Script=Tale"), toLowerCase("sc=Tale"));
+    propertyAliases.put(toLowerCase("Script=Tai_Le"), toLowerCase("sc=Tale"));
+    propertyAliases.put(toLowerCase("Script=Ugar"), toLowerCase("sc=Ugar"));
+    propertyAliases.put(toLowerCase("Script=Ugaritic"), toLowerCase("sc=Ugar"));
+    propertyAliases.put(toLowerCase("Script=Hrkt"), toLowerCase("sc=Hrkt"));
+    propertyAliases.put(toLowerCase("Script=Katakana_Or_Hiragana"), toLowerCase("sc=Hrkt"));
+    propertyAliases.put(toLowerCase("Script=Bugi"), toLowerCase("sc=Bugi"));
+    propertyAliases.put(toLowerCase("Script=Buginese"), toLowerCase("sc=Bugi"));
+    propertyAliases.put(toLowerCase("Script=Glag"), toLowerCase("sc=Glag"));
+    propertyAliases.put(toLowerCase("Script=Glagolitic"), toLowerCase("sc=Glag"));
+    propertyAliases.put(toLowerCase("Script=Khar"), toLowerCase("sc=Khar"));
+    propertyAliases.put(toLowerCase("Script=Kharoshthi"), toLowerCase("sc=Khar"));
+    propertyAliases.put(toLowerCase("Script=Sylo"), toLowerCase("sc=Sylo"));
+    propertyAliases.put(toLowerCase("Script=Syloti_Nagri"), toLowerCase("sc=Sylo"));
+    propertyAliases.put(toLowerCase("Script=Talu"), toLowerCase("sc=Talu"));
+    propertyAliases.put(toLowerCase("Script=New_Tai_Lue"), toLowerCase("sc=Talu"));
+    propertyAliases.put(toLowerCase("Script=Tfng"), toLowerCase("sc=Tfng"));
+    propertyAliases.put(toLowerCase("Script=Tifinagh"), toLowerCase("sc=Tfng"));
+    propertyAliases.put(toLowerCase("Script=Xpeo"), toLowerCase("sc=Xpeo"));
+    propertyAliases.put(toLowerCase("Script=Old_Persian"), toLowerCase("sc=Xpeo"));
+    propertyAliases.put(toLowerCase("Script=Bali"), toLowerCase("sc=Bali"));
+    propertyAliases.put(toLowerCase("Script=Balinese"), toLowerCase("sc=Bali"));
+    propertyAliases.put(toLowerCase("Script=Batk"), toLowerCase("sc=Batk"));
+    propertyAliases.put(toLowerCase("Script=Batak"), toLowerCase("sc=Batk"));
+    propertyAliases.put(toLowerCase("Script=Blis"), toLowerCase("sc=Blis"));
+    propertyAliases.put(toLowerCase("Script=Brah"), toLowerCase("sc=Brah"));
+    propertyAliases.put(toLowerCase("Script=Brahmi"), toLowerCase("sc=Brah"));
+    propertyAliases.put(toLowerCase("Script=Cham"), toLowerCase("sc=Cham"));
+    propertyAliases.put(toLowerCase("Script=Cirt"), toLowerCase("sc=Cirt"));
+    propertyAliases.put(toLowerCase("Script=Cyrs"), toLowerCase("sc=Cyrs"));
+    propertyAliases.put(toLowerCase("Script=Egyd"), toLowerCase("sc=Egyd"));
+    propertyAliases.put(toLowerCase("Script=Egyh"), toLowerCase("sc=Egyh"));
+    propertyAliases.put(toLowerCase("Script=Egyp"), toLowerCase("sc=Egyp"));
+    propertyAliases.put(toLowerCase("Script=Egyptian_Hieroglyphs"), toLowerCase("sc=Egyp"));
+    propertyAliases.put(toLowerCase("Script=Geok"), toLowerCase("sc=Geok"));
+    propertyAliases.put(toLowerCase("Script=Hans"), toLowerCase("sc=Hans"));
+    propertyAliases.put(toLowerCase("Script=Hant"), toLowerCase("sc=Hant"));
+    propertyAliases.put(toLowerCase("Script=Hmng"), toLowerCase("sc=Hmng"));
+    propertyAliases.put(toLowerCase("Script=Pahawh_Hmong"), toLowerCase("sc=Hmng"));
+    propertyAliases.put(toLowerCase("Script=Hung"), toLowerCase("sc=Hung"));
+    propertyAliases.put(toLowerCase("Script=Old_Hungarian"), toLowerCase("sc=Hung"));
+    propertyAliases.put(toLowerCase("Script=Inds"), toLowerCase("sc=Inds"));
+    propertyAliases.put(toLowerCase("Script=Java"), toLowerCase("sc=Java"));
+    propertyAliases.put(toLowerCase("Script=Javanese"), toLowerCase("sc=Java"));
+    propertyAliases.put(toLowerCase("Script=Kali"), toLowerCase("sc=Kali"));
+    propertyAliases.put(toLowerCase("Script=Kayah_Li"), toLowerCase("sc=Kali"));
+    propertyAliases.put(toLowerCase("Script=Latf"), toLowerCase("sc=Latf"));
+    propertyAliases.put(toLowerCase("Script=Latg"), toLowerCase("sc=Latg"));
+    propertyAliases.put(toLowerCase("Script=Lepc"), toLowerCase("sc=Lepc"));
+    propertyAliases.put(toLowerCase("Script=Lepcha"), toLowerCase("sc=Lepc"));
+    propertyAliases.put(toLowerCase("Script=Lina"), toLowerCase("sc=Lina"));
+    propertyAliases.put(toLowerCase("Script=Linear_A"), toLowerCase("sc=Lina"));
+    propertyAliases.put(toLowerCase("Script=Mand"), toLowerCase("sc=Mand"));
+    propertyAliases.put(toLowerCase("Script=Mandaic"), toLowerCase("sc=Mand"));
+    propertyAliases.put(toLowerCase("Script=Maya"), toLowerCase("sc=Maya"));
+    propertyAliases.put(toLowerCase("Script=Mero"), toLowerCase("sc=Mero"));
+    propertyAliases.put(toLowerCase("Script=Meroitic_Hieroglyphs"), toLowerCase("sc=Mero"));
+    propertyAliases.put(toLowerCase("Script=Nkoo"), toLowerCase("sc=Nkoo"));
+    propertyAliases.put(toLowerCase("Script=Nko"), toLowerCase("sc=Nkoo"));
+    propertyAliases.put(toLowerCase("Script=Orkh"), toLowerCase("sc=Orkh"));
+    propertyAliases.put(toLowerCase("Script=Old_Turkic"), toLowerCase("sc=Orkh"));
+    propertyAliases.put(toLowerCase("Script=Perm"), toLowerCase("sc=Perm"));
+    propertyAliases.put(toLowerCase("Script=Old_Permic"), toLowerCase("sc=Perm"));
+    propertyAliases.put(toLowerCase("Script=Phag"), toLowerCase("sc=Phag"));
+    propertyAliases.put(toLowerCase("Script=Phags_Pa"), toLowerCase("sc=Phag"));
+    propertyAliases.put(toLowerCase("Script=Phnx"), toLowerCase("sc=Phnx"));
+    propertyAliases.put(toLowerCase("Script=Phoenician"), toLowerCase("sc=Phnx"));
+    propertyAliases.put(toLowerCase("Script=Plrd"), toLowerCase("sc=Plrd"));
+    propertyAliases.put(toLowerCase("Script=Miao"), toLowerCase("sc=Plrd"));
+    propertyAliases.put(toLowerCase("Script=Roro"), toLowerCase("sc=Roro"));
+    propertyAliases.put(toLowerCase("Script=Sara"), toLowerCase("sc=Sara"));
+    propertyAliases.put(toLowerCase("Script=Syre"), toLowerCase("sc=Syre"));
+    propertyAliases.put(toLowerCase("Script=Syrj"), toLowerCase("sc=Syrj"));
+    propertyAliases.put(toLowerCase("Script=Syrn"), toLowerCase("sc=Syrn"));
+    propertyAliases.put(toLowerCase("Script=Teng"), toLowerCase("sc=Teng"));
+    propertyAliases.put(toLowerCase("Script=Vaii"), toLowerCase("sc=Vaii"));
+    propertyAliases.put(toLowerCase("Script=Vai"), toLowerCase("sc=Vaii"));
+    propertyAliases.put(toLowerCase("Script=Visp"), toLowerCase("sc=Visp"));
+    propertyAliases.put(toLowerCase("Script=Xsux"), toLowerCase("sc=Xsux"));
+    propertyAliases.put(toLowerCase("Script=Cuneiform"), toLowerCase("sc=Xsux"));
+    propertyAliases.put(toLowerCase("Script=Zxxx"), toLowerCase("sc=Zxxx"));
+    propertyAliases.put(toLowerCase("Script=Zzzz"), toLowerCase("sc=Zzzz"));
+    propertyAliases.put(toLowerCase("Script=Unknown"), toLowerCase("sc=Zzzz"));
+    propertyAliases.put(toLowerCase("Script=Cari"), toLowerCase("sc=Cari"));
+    propertyAliases.put(toLowerCase("Script=Carian"), toLowerCase("sc=Cari"));
+    propertyAliases.put(toLowerCase("Script=Jpan"), toLowerCase("sc=Jpan"));
+    propertyAliases.put(toLowerCase("Script=Lana"), toLowerCase("sc=Lana"));
+    propertyAliases.put(toLowerCase("Script=Tai_Tham"), toLowerCase("sc=Lana"));
+    propertyAliases.put(toLowerCase("Script=Lyci"), toLowerCase("sc=Lyci"));
+    propertyAliases.put(toLowerCase("Script=Lycian"), toLowerCase("sc=Lyci"));
+    propertyAliases.put(toLowerCase("Script=Lydi"), toLowerCase("sc=Lydi"));
+    propertyAliases.put(toLowerCase("Script=Lydian"), toLowerCase("sc=Lydi"));
+    propertyAliases.put(toLowerCase("Script=Olck"), toLowerCase("sc=Olck"));
+    propertyAliases.put(toLowerCase("Script=Ol_Chiki"), toLowerCase("sc=Olck"));
+    propertyAliases.put(toLowerCase("Script=Rjng"), toLowerCase("sc=Rjng"));
+    propertyAliases.put(toLowerCase("Script=Rejang"), toLowerCase("sc=Rjng"));
+    propertyAliases.put(toLowerCase("Script=Saur"), toLowerCase("sc=Saur"));
+    propertyAliases.put(toLowerCase("Script=Saurashtra"), toLowerCase("sc=Saur"));
+    propertyAliases.put(toLowerCase("Script=Sgnw"), toLowerCase("sc=Sgnw"));
+    propertyAliases.put(toLowerCase("Script=SignWriting"), toLowerCase("sc=Sgnw"));
+    propertyAliases.put(toLowerCase("Script=Sund"), toLowerCase("sc=Sund"));
+    propertyAliases.put(toLowerCase("Script=Sundanese"), toLowerCase("sc=Sund"));
+    propertyAliases.put(toLowerCase("Script=Moon"), toLowerCase("sc=Moon"));
+    propertyAliases.put(toLowerCase("Script=Mtei"), toLowerCase("sc=Mtei"));
+    propertyAliases.put(toLowerCase("Script=Meetei_Mayek"), toLowerCase("sc=Mtei"));
+    propertyAliases.put(toLowerCase("Script=Armi"), toLowerCase("sc=Armi"));
+    propertyAliases.put(toLowerCase("Script=Imperial_Aramaic"), toLowerCase("sc=Armi"));
+    propertyAliases.put(toLowerCase("Script=Avst"), toLowerCase("sc=Avst"));
+    propertyAliases.put(toLowerCase("Script=Avestan"), toLowerCase("sc=Avst"));
+    propertyAliases.put(toLowerCase("Script=Cakm"), toLowerCase("sc=Cakm"));
+    propertyAliases.put(toLowerCase("Script=Chakma"), toLowerCase("sc=Cakm"));
+    propertyAliases.put(toLowerCase("Script=Kore"), toLowerCase("sc=Kore"));
+    propertyAliases.put(toLowerCase("Script=Kthi"), toLowerCase("sc=Kthi"));
+    propertyAliases.put(toLowerCase("Script=Kaithi"), toLowerCase("sc=Kthi"));
+    propertyAliases.put(toLowerCase("Script=Mani"), toLowerCase("sc=Mani"));
+    propertyAliases.put(toLowerCase("Script=Manichaean"), toLowerCase("sc=Mani"));
+    propertyAliases.put(toLowerCase("Script=Phli"), toLowerCase("sc=Phli"));
+    propertyAliases.put(toLowerCase("Script=Inscriptional_Pahlavi"), toLowerCase("sc=Phli"));
+    propertyAliases.put(toLowerCase("Script=Phlp"), toLowerCase("sc=Phlp"));
+    propertyAliases.put(toLowerCase("Script=Psalter_Pahlavi"), toLowerCase("sc=Phlp"));
+    propertyAliases.put(toLowerCase("Script=Phlv"), toLowerCase("sc=Phlv"));
+    propertyAliases.put(toLowerCase("Script=Prti"), toLowerCase("sc=Prti"));
+    propertyAliases.put(toLowerCase("Script=Inscriptional_Parthian"), toLowerCase("sc=Prti"));
+    propertyAliases.put(toLowerCase("Script=Samr"), toLowerCase("sc=Samr"));
+    propertyAliases.put(toLowerCase("Script=Samaritan"), toLowerCase("sc=Samr"));
+    propertyAliases.put(toLowerCase("Script=Tavt"), toLowerCase("sc=Tavt"));
+    propertyAliases.put(toLowerCase("Script=Tai_Viet"), toLowerCase("sc=Tavt"));
+    propertyAliases.put(toLowerCase("Script=Zmth"), toLowerCase("sc=Zmth"));
+    propertyAliases.put(toLowerCase("Script=Zsym"), toLowerCase("sc=Zsym"));
+    propertyAliases.put(toLowerCase("Script=Bamu"), toLowerCase("sc=Bamu"));
+    propertyAliases.put(toLowerCase("Script=Bamum"), toLowerCase("sc=Bamu"));
+    propertyAliases.put(toLowerCase("Script=Lisu"), toLowerCase("sc=Lisu"));
+    propertyAliases.put(toLowerCase("Script=Nkgb"), toLowerCase("sc=Nkgb"));
+    propertyAliases.put(toLowerCase("Script=Sarb"), toLowerCase("sc=Sarb"));
+    propertyAliases.put(toLowerCase("Script=Old_South_Arabian"), toLowerCase("sc=Sarb"));
+    propertyAliases.put(toLowerCase("Script=Bass"), toLowerCase("sc=Bass"));
+    propertyAliases.put(toLowerCase("Script=Bassa_Vah"), toLowerCase("sc=Bass"));
+    propertyAliases.put(toLowerCase("Script=Dupl"), toLowerCase("sc=Dupl"));
+    propertyAliases.put(toLowerCase("Script=Duployan"), toLowerCase("sc=Dupl"));
+    propertyAliases.put(toLowerCase("Script=Elba"), toLowerCase("sc=Elba"));
+    propertyAliases.put(toLowerCase("Script=Elbasan"), toLowerCase("sc=Elba"));
+    propertyAliases.put(toLowerCase("Script=Gran"), toLowerCase("sc=Gran"));
+    propertyAliases.put(toLowerCase("Script=Grantha"), toLowerCase("sc=Gran"));
+    propertyAliases.put(toLowerCase("Script=Kpel"), toLowerCase("sc=Kpel"));
+    propertyAliases.put(toLowerCase("Script=Loma"), toLowerCase("sc=Loma"));
+    propertyAliases.put(toLowerCase("Script=Mend"), toLowerCase("sc=Mend"));
+    propertyAliases.put(toLowerCase("Script=Mende_Kikakui"), toLowerCase("sc=Mend"));
+    propertyAliases.put(toLowerCase("Script=Merc"), toLowerCase("sc=Merc"));
+    propertyAliases.put(toLowerCase("Script=Meroitic_Cursive"), toLowerCase("sc=Merc"));
+    propertyAliases.put(toLowerCase("Script=Narb"), toLowerCase("sc=Narb"));
+    propertyAliases.put(toLowerCase("Script=Old_North_Arabian"), toLowerCase("sc=Narb"));
+    propertyAliases.put(toLowerCase("Script=Nbat"), toLowerCase("sc=Nbat"));
+    propertyAliases.put(toLowerCase("Script=Nabataean"), toLowerCase("sc=Nbat"));
+    propertyAliases.put(toLowerCase("Script=Palm"), toLowerCase("sc=Palm"));
+    propertyAliases.put(toLowerCase("Script=Palmyrene"), toLowerCase("sc=Palm"));
+    propertyAliases.put(toLowerCase("Script=Sind"), toLowerCase("sc=Sind"));
+    propertyAliases.put(toLowerCase("Script=Khudawadi"), toLowerCase("sc=Sind"));
+    propertyAliases.put(toLowerCase("Script=Wara"), toLowerCase("sc=Wara"));
+    propertyAliases.put(toLowerCase("Script=Warang_Citi"), toLowerCase("sc=Wara"));
+    propertyAliases.put(toLowerCase("Script=Afak"), toLowerCase("sc=Afak"));
+    propertyAliases.put(toLowerCase("Script=Jurc"), toLowerCase("sc=Jurc"));
+    propertyAliases.put(toLowerCase("Script=Mroo"), toLowerCase("sc=Mroo"));
+    propertyAliases.put(toLowerCase("Script=Mro"), toLowerCase("sc=Mroo"));
+    propertyAliases.put(toLowerCase("Script=Nshu"), toLowerCase("sc=Nshu"));
+    propertyAliases.put(toLowerCase("Script=Shrd"), toLowerCase("sc=Shrd"));
+    propertyAliases.put(toLowerCase("Script=Sharada"), toLowerCase("sc=Shrd"));
+    propertyAliases.put(toLowerCase("Script=Sora"), toLowerCase("sc=Sora"));
+    propertyAliases.put(toLowerCase("Script=Sora_Sompeng"), toLowerCase("sc=Sora"));
+    propertyAliases.put(toLowerCase("Script=Takr"), toLowerCase("sc=Takr"));
+    propertyAliases.put(toLowerCase("Script=Takri"), toLowerCase("sc=Takr"));
+    propertyAliases.put(toLowerCase("Script=Tang"), toLowerCase("sc=Tang"));
+    propertyAliases.put(toLowerCase("Script=Tangut"), toLowerCase("sc=Tang"));
+    propertyAliases.put(toLowerCase("Script=Wole"), toLowerCase("sc=Wole"));
+    propertyAliases.put(toLowerCase("Script=Hluw"), toLowerCase("sc=Hluw"));
+    propertyAliases.put(toLowerCase("Script=Anatolian_Hieroglyphs"), toLowerCase("sc=Hluw"));
+    propertyAliases.put(toLowerCase("Script=Khoj"), toLowerCase("sc=Khoj"));
+    propertyAliases.put(toLowerCase("Script=Khojki"), toLowerCase("sc=Khoj"));
+    propertyAliases.put(toLowerCase("Script=Tirh"), toLowerCase("sc=Tirh"));
+    propertyAliases.put(toLowerCase("Script=Tirhuta"), toLowerCase("sc=Tirh"));
+    propertyAliases.put(toLowerCase("Script=Aghb"), toLowerCase("sc=Aghb"));
+    propertyAliases.put(toLowerCase("Script=Caucasian_Albanian"), toLowerCase("sc=Aghb"));
+    propertyAliases.put(toLowerCase("Script=Mahj"), toLowerCase("sc=Mahj"));
+    propertyAliases.put(toLowerCase("Script=Mahajani"), toLowerCase("sc=Mahj"));
+    propertyAliases.put(toLowerCase("Script=Ahom"), toLowerCase("sc=Ahom"));
+    propertyAliases.put(toLowerCase("Script=Hatr"), toLowerCase("sc=Hatr"));
+    propertyAliases.put(toLowerCase("Script=Hatran"), toLowerCase("sc=Hatr"));
+    propertyAliases.put(toLowerCase("Script=Modi"), toLowerCase("sc=Modi"));
+    propertyAliases.put(toLowerCase("Script=Mult"), toLowerCase("sc=Mult"));
+    propertyAliases.put(toLowerCase("Script=Multani"), toLowerCase("sc=Mult"));
+    propertyAliases.put(toLowerCase("Script=Pauc"), toLowerCase("sc=Pauc"));
+    propertyAliases.put(toLowerCase("Script=Pau_Cin_Hau"), toLowerCase("sc=Pauc"));
+    propertyAliases.put(toLowerCase("Script=Sidd"), toLowerCase("sc=Sidd"));
+    propertyAliases.put(toLowerCase("Script=Siddham"), toLowerCase("sc=Sidd"));
+    propertyAliases.put(toLowerCase("Script=Adlm"), toLowerCase("sc=Adlm"));
+    propertyAliases.put(toLowerCase("Script=Adlam"), toLowerCase("sc=Adlm"));
+    propertyAliases.put(toLowerCase("Script=Bhks"), toLowerCase("sc=Bhks"));
+    propertyAliases.put(toLowerCase("Script=Bhaiksuki"), toLowerCase("sc=Bhks"));
+    propertyAliases.put(toLowerCase("Script=Marc"), toLowerCase("sc=Marc"));
+    propertyAliases.put(toLowerCase("Script=Marchen"), toLowerCase("sc=Marc"));
+    propertyAliases.put(toLowerCase("Script=Newa"), toLowerCase("sc=Newa"));
+    propertyAliases.put(toLowerCase("Script=Osge"), toLowerCase("sc=Osge"));
+    propertyAliases.put(toLowerCase("Script=Osage"), toLowerCase("sc=Osge"));
+    propertyAliases.put(toLowerCase("Script=Hanb"), toLowerCase("sc=Hanb"));
+    propertyAliases.put(toLowerCase("Script=Jamo"), toLowerCase("sc=Jamo"));
+    propertyAliases.put(toLowerCase("Script=Zsye"), toLowerCase("sc=Zsye"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=NA"), toLowerCase("hst=NA"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=Not_Applicable"), toLowerCase("hst=NA"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=L"), toLowerCase("hst=L"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=Leading_Jamo"), toLowerCase("hst=L"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=V"), toLowerCase("hst=V"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=Vowel_Jamo"), toLowerCase("hst=V"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=T"), toLowerCase("hst=T"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=Trailing_Jamo"), toLowerCase("hst=T"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=LV"), toLowerCase("hst=LV"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=LV_Syllable"), toLowerCase("hst=LV"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=LVT"), toLowerCase("hst=LVT"));
+    propertyAliases.put(toLowerCase("Hangul_Syllable_Type=LVT_Syllable"), toLowerCase("hst=LVT"));
+    propertyAliases.put(toLowerCase("NFD_Quick_Check=N"), toLowerCase("NFD_QC=N"));
+    propertyAliases.put(toLowerCase("NFD_Quick_Check=No"), toLowerCase("NFD_QC=N"));
+    propertyAliases.put(toLowerCase("NFD_Quick_Check=Y"), toLowerCase("NFD_QC=Y"));
+    propertyAliases.put(toLowerCase("NFD_Quick_Check=Yes"), toLowerCase("NFD_QC=Y"));
+    propertyAliases.put(toLowerCase("NFKD_Quick_Check=N"), toLowerCase("NFKD_QC=N"));
+    propertyAliases.put(toLowerCase("NFKD_Quick_Check=No"), toLowerCase("NFKD_QC=N"));
+    propertyAliases.put(toLowerCase("NFKD_Quick_Check=Y"), toLowerCase("NFKD_QC=Y"));
+    propertyAliases.put(toLowerCase("NFKD_Quick_Check=Yes"), toLowerCase("NFKD_QC=Y"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=N"), toLowerCase("NFC_QC=N"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=No"), toLowerCase("NFC_QC=N"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=Y"), toLowerCase("NFC_QC=Y"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=Yes"), toLowerCase("NFC_QC=Y"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=M"), toLowerCase("NFC_QC=M"));
+    propertyAliases.put(toLowerCase("NFC_Quick_Check=Maybe"), toLowerCase("NFC_QC=M"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=N"), toLowerCase("NFKC_QC=N"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=No"), toLowerCase("NFKC_QC=N"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=Y"), toLowerCase("NFKC_QC=Y"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=Yes"), toLowerCase("NFKC_QC=Y"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=M"), toLowerCase("NFKC_QC=M"));
+    propertyAliases.put(toLowerCase("NFKC_Quick_Check=Maybe"), toLowerCase("NFKC_QC=M"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=NR"), toLowerCase("lccc=NR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Not_Reordered"), toLowerCase("lccc=NR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=OV"), toLowerCase("lccc=OV"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Overlay"), toLowerCase("lccc=OV"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=null"), toLowerCase("lccc=null"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=NK"), toLowerCase("lccc=NK"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Nukta"), toLowerCase("lccc=NK"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=KV"), toLowerCase("lccc=KV"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Kana_Voicing"), toLowerCase("lccc=KV"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=VR"), toLowerCase("lccc=VR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Virama"), toLowerCase("lccc=VR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC10"), toLowerCase("lccc=CCC10"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC11"), toLowerCase("lccc=CCC11"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC12"), toLowerCase("lccc=CCC12"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC13"), toLowerCase("lccc=CCC13"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC14"), toLowerCase("lccc=CCC14"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC15"), toLowerCase("lccc=CCC15"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC16"), toLowerCase("lccc=CCC16"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC17"), toLowerCase("lccc=CCC17"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC18"), toLowerCase("lccc=CCC18"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC19"), toLowerCase("lccc=CCC19"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC20"), toLowerCase("lccc=CCC20"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC21"), toLowerCase("lccc=CCC21"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC22"), toLowerCase("lccc=CCC22"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC23"), toLowerCase("lccc=CCC23"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC24"), toLowerCase("lccc=CCC24"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC25"), toLowerCase("lccc=CCC25"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC26"), toLowerCase("lccc=CCC26"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC27"), toLowerCase("lccc=CCC27"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC28"), toLowerCase("lccc=CCC28"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC29"), toLowerCase("lccc=CCC29"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC30"), toLowerCase("lccc=CCC30"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC31"), toLowerCase("lccc=CCC31"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC32"), toLowerCase("lccc=CCC32"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC33"), toLowerCase("lccc=CCC33"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC34"), toLowerCase("lccc=CCC34"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC35"), toLowerCase("lccc=CCC35"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC36"), toLowerCase("lccc=CCC36"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC84"), toLowerCase("lccc=CCC84"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC91"), toLowerCase("lccc=CCC91"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC103"), toLowerCase("lccc=CCC103"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC107"), toLowerCase("lccc=CCC107"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC118"), toLowerCase("lccc=CCC118"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC122"), toLowerCase("lccc=CCC122"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC129"), toLowerCase("lccc=CCC129"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC130"), toLowerCase("lccc=CCC130"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC132"), toLowerCase("lccc=CCC132"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=CCC133"), toLowerCase("lccc=CCC133"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=ATBL"), toLowerCase("lccc=ATBL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Attached_Below_Left"), toLowerCase("lccc=ATBL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=ATB"), toLowerCase("lccc=ATB"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Attached_Below"), toLowerCase("lccc=ATB"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=ATA"), toLowerCase("lccc=ATA"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Attached_Above"), toLowerCase("lccc=ATA"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=ATAR"), toLowerCase("lccc=ATAR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Attached_Above_Right"), toLowerCase("lccc=ATAR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=BL"), toLowerCase("lccc=BL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Below_Left"), toLowerCase("lccc=BL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=B"), toLowerCase("lccc=B"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Below"), toLowerCase("lccc=B"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=BR"), toLowerCase("lccc=BR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Below_Right"), toLowerCase("lccc=BR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=L"), toLowerCase("lccc=L"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Left"), toLowerCase("lccc=L"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=R"), toLowerCase("lccc=R"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Right"), toLowerCase("lccc=R"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=AL"), toLowerCase("lccc=AL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Above_Left"), toLowerCase("lccc=AL"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=A"), toLowerCase("lccc=A"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Above"), toLowerCase("lccc=A"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=AR"), toLowerCase("lccc=AR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Above_Right"), toLowerCase("lccc=AR"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=DB"), toLowerCase("lccc=DB"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Double_Below"), toLowerCase("lccc=DB"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=DA"), toLowerCase("lccc=DA"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Double_Above"), toLowerCase("lccc=DA"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=IS"), toLowerCase("lccc=IS"));
+    propertyAliases.put(toLowerCase("Lead_Canonical_Combining_Class=Iota_Subscript"), toLowerCase("lccc=IS"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=NR"), toLowerCase("tccc=NR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Not_Reordered"), toLowerCase("tccc=NR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=OV"), toLowerCase("tccc=OV"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Overlay"), toLowerCase("tccc=OV"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=null"), toLowerCase("tccc=null"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=NK"), toLowerCase("tccc=NK"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Nukta"), toLowerCase("tccc=NK"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=KV"), toLowerCase("tccc=KV"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Kana_Voicing"), toLowerCase("tccc=KV"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=VR"), toLowerCase("tccc=VR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Virama"), toLowerCase("tccc=VR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC10"), toLowerCase("tccc=CCC10"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC11"), toLowerCase("tccc=CCC11"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC12"), toLowerCase("tccc=CCC12"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC13"), toLowerCase("tccc=CCC13"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC14"), toLowerCase("tccc=CCC14"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC15"), toLowerCase("tccc=CCC15"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC16"), toLowerCase("tccc=CCC16"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC17"), toLowerCase("tccc=CCC17"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC18"), toLowerCase("tccc=CCC18"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC19"), toLowerCase("tccc=CCC19"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC20"), toLowerCase("tccc=CCC20"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC21"), toLowerCase("tccc=CCC21"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC22"), toLowerCase("tccc=CCC22"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC23"), toLowerCase("tccc=CCC23"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC24"), toLowerCase("tccc=CCC24"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC25"), toLowerCase("tccc=CCC25"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC26"), toLowerCase("tccc=CCC26"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC27"), toLowerCase("tccc=CCC27"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC28"), toLowerCase("tccc=CCC28"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC29"), toLowerCase("tccc=CCC29"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC30"), toLowerCase("tccc=CCC30"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC31"), toLowerCase("tccc=CCC31"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC32"), toLowerCase("tccc=CCC32"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC33"), toLowerCase("tccc=CCC33"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC34"), toLowerCase("tccc=CCC34"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC35"), toLowerCase("tccc=CCC35"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC36"), toLowerCase("tccc=CCC36"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC84"), toLowerCase("tccc=CCC84"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC91"), toLowerCase("tccc=CCC91"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC103"), toLowerCase("tccc=CCC103"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC107"), toLowerCase("tccc=CCC107"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC118"), toLowerCase("tccc=CCC118"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC122"), toLowerCase("tccc=CCC122"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC129"), toLowerCase("tccc=CCC129"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC130"), toLowerCase("tccc=CCC130"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC132"), toLowerCase("tccc=CCC132"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=CCC133"), toLowerCase("tccc=CCC133"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=ATBL"), toLowerCase("tccc=ATBL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Attached_Below_Left"), toLowerCase("tccc=ATBL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=ATB"), toLowerCase("tccc=ATB"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Attached_Below"), toLowerCase("tccc=ATB"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=ATA"), toLowerCase("tccc=ATA"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Attached_Above"), toLowerCase("tccc=ATA"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=ATAR"), toLowerCase("tccc=ATAR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Attached_Above_Right"), toLowerCase("tccc=ATAR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=BL"), toLowerCase("tccc=BL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Below_Left"), toLowerCase("tccc=BL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=B"), toLowerCase("tccc=B"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Below"), toLowerCase("tccc=B"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=BR"), toLowerCase("tccc=BR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Below_Right"), toLowerCase("tccc=BR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=L"), toLowerCase("tccc=L"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Left"), toLowerCase("tccc=L"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=R"), toLowerCase("tccc=R"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Right"), toLowerCase("tccc=R"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=AL"), toLowerCase("tccc=AL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Above_Left"), toLowerCase("tccc=AL"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=A"), toLowerCase("tccc=A"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Above"), toLowerCase("tccc=A"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=AR"), toLowerCase("tccc=AR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Above_Right"), toLowerCase("tccc=AR"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=DB"), toLowerCase("tccc=DB"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Double_Below"), toLowerCase("tccc=DB"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=DA"), toLowerCase("tccc=DA"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Double_Above"), toLowerCase("tccc=DA"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=IS"), toLowerCase("tccc=IS"));
+    propertyAliases.put(toLowerCase("Trail_Canonical_Combining_Class=Iota_Subscript"), toLowerCase("tccc=IS"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=XX"), toLowerCase("GCB=XX"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Other"), toLowerCase("GCB=XX"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=CN"), toLowerCase("GCB=CN"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Control"), toLowerCase("GCB=CN"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=CR"), toLowerCase("GCB=CR"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=EX"), toLowerCase("GCB=EX"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Extend"), toLowerCase("GCB=EX"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=L"), toLowerCase("GCB=L"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=LF"), toLowerCase("GCB=LF"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=LV"), toLowerCase("GCB=LV"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=LVT"), toLowerCase("GCB=LVT"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=T"), toLowerCase("GCB=T"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=V"), toLowerCase("GCB=V"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=SM"), toLowerCase("GCB=SM"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=SpacingMark"), toLowerCase("GCB=SM"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=PP"), toLowerCase("GCB=PP"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Prepend"), toLowerCase("GCB=PP"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=RI"), toLowerCase("GCB=RI"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Regional_Indicator"), toLowerCase("GCB=RI"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=EB"), toLowerCase("GCB=EB"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=E_Base"), toLowerCase("GCB=EB"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=EBG"), toLowerCase("GCB=EBG"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=E_Base_GAZ"), toLowerCase("GCB=EBG"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=EM"), toLowerCase("GCB=EM"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=E_Modifier"), toLowerCase("GCB=EM"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=GAZ"), toLowerCase("GCB=GAZ"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=Glue_After_Zwj"), toLowerCase("GCB=GAZ"));
+    propertyAliases.put(toLowerCase("Grapheme_Cluster_Break=ZWJ"), toLowerCase("GCB=ZWJ"));
+    propertyAliases.put(toLowerCase("Sentence_Break=XX"), toLowerCase("SB=XX"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Other"), toLowerCase("SB=XX"));
+    propertyAliases.put(toLowerCase("Sentence_Break=AT"), toLowerCase("SB=AT"));
+    propertyAliases.put(toLowerCase("Sentence_Break=ATerm"), toLowerCase("SB=AT"));
+    propertyAliases.put(toLowerCase("Sentence_Break=CL"), toLowerCase("SB=CL"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Close"), toLowerCase("SB=CL"));
+    propertyAliases.put(toLowerCase("Sentence_Break=FO"), toLowerCase("SB=FO"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Format"), toLowerCase("SB=FO"));
+    propertyAliases.put(toLowerCase("Sentence_Break=LO"), toLowerCase("SB=LO"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Lower"), toLowerCase("SB=LO"));
+    propertyAliases.put(toLowerCase("Sentence_Break=NU"), toLowerCase("SB=NU"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Numeric"), toLowerCase("SB=NU"));
+    propertyAliases.put(toLowerCase("Sentence_Break=LE"), toLowerCase("SB=LE"));
+    propertyAliases.put(toLowerCase("Sentence_Break=OLetter"), toLowerCase("SB=LE"));
+    propertyAliases.put(toLowerCase("Sentence_Break=SE"), toLowerCase("SB=SE"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Sep"), toLowerCase("SB=SE"));
+    propertyAliases.put(toLowerCase("Sentence_Break=SP"), toLowerCase("SB=SP"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Sp"), toLowerCase("SB=SP"));
+    propertyAliases.put(toLowerCase("Sentence_Break=ST"), toLowerCase("SB=ST"));
+    propertyAliases.put(toLowerCase("Sentence_Break=STerm"), toLowerCase("SB=ST"));
+    propertyAliases.put(toLowerCase("Sentence_Break=UP"), toLowerCase("SB=UP"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Upper"), toLowerCase("SB=UP"));
+    propertyAliases.put(toLowerCase("Sentence_Break=CR"), toLowerCase("SB=CR"));
+    propertyAliases.put(toLowerCase("Sentence_Break=EX"), toLowerCase("SB=EX"));
+    propertyAliases.put(toLowerCase("Sentence_Break=Extend"), toLowerCase("SB=EX"));
+    propertyAliases.put(toLowerCase("Sentence_Break=LF"), toLowerCase("SB=LF"));
+    propertyAliases.put(toLowerCase("Sentence_Break=SC"), toLowerCase("SB=SC"));
+    propertyAliases.put(toLowerCase("Sentence_Break=SContinue"), toLowerCase("SB=SC"));
+    propertyAliases.put(toLowerCase("Word_Break=XX"), toLowerCase("WB=XX"));
+    propertyAliases.put(toLowerCase("Word_Break=Other"), toLowerCase("WB=XX"));
+    propertyAliases.put(toLowerCase("Word_Break=LE"), toLowerCase("WB=LE"));
+    propertyAliases.put(toLowerCase("Word_Break=ALetter"), toLowerCase("WB=LE"));
+    propertyAliases.put(toLowerCase("Word_Break=FO"), toLowerCase("WB=FO"));
+    propertyAliases.put(toLowerCase("Word_Break=Format"), toLowerCase("WB=FO"));
+    propertyAliases.put(toLowerCase("Word_Break=KA"), toLowerCase("WB=KA"));
+    propertyAliases.put(toLowerCase("Word_Break=Katakana"), toLowerCase("WB=KA"));
+    propertyAliases.put(toLowerCase("Word_Break=ML"), toLowerCase("WB=ML"));
+    propertyAliases.put(toLowerCase("Word_Break=MidLetter"), toLowerCase("WB=ML"));
+    propertyAliases.put(toLowerCase("Word_Break=MN"), toLowerCase("WB=MN"));
+    propertyAliases.put(toLowerCase("Word_Break=MidNum"), toLowerCase("WB=MN"));
+    propertyAliases.put(toLowerCase("Word_Break=NU"), toLowerCase("WB=NU"));
+    propertyAliases.put(toLowerCase("Word_Break=Numeric"), toLowerCase("WB=NU"));
+    propertyAliases.put(toLowerCase("Word_Break=EX"), toLowerCase("WB=EX"));
+    propertyAliases.put(toLowerCase("Word_Break=ExtendNumLet"), toLowerCase("WB=EX"));
+    propertyAliases.put(toLowerCase("Word_Break=CR"), toLowerCase("WB=CR"));
+    propertyAliases.put(toLowerCase("Word_Break=Extend"), toLowerCase("WB=Extend"));
+    propertyAliases.put(toLowerCase("Word_Break=LF"), toLowerCase("WB=LF"));
+    propertyAliases.put(toLowerCase("Word_Break=MB"), toLowerCase("WB=MB"));
+    propertyAliases.put(toLowerCase("Word_Break=MidNumLet"), toLowerCase("WB=MB"));
+    propertyAliases.put(toLowerCase("Word_Break=NL"), toLowerCase("WB=NL"));
+    propertyAliases.put(toLowerCase("Word_Break=Newline"), toLowerCase("WB=NL"));
+    propertyAliases.put(toLowerCase("Word_Break=RI"), toLowerCase("WB=RI"));
+    propertyAliases.put(toLowerCase("Word_Break=Regional_Indicator"), toLowerCase("WB=RI"));
+    propertyAliases.put(toLowerCase("Word_Break=HL"), toLowerCase("WB=HL"));
+    propertyAliases.put(toLowerCase("Word_Break=Hebrew_Letter"), toLowerCase("WB=HL"));
+    propertyAliases.put(toLowerCase("Word_Break=SQ"), toLowerCase("WB=SQ"));
+    propertyAliases.put(toLowerCase("Word_Break=Single_Quote"), toLowerCase("WB=SQ"));
+    propertyAliases.put(toLowerCase("Word_Break=DQ"), toLowerCase("WB=DQ"));
+    propertyAliases.put(toLowerCase("Word_Break=Double_Quote"), toLowerCase("WB=DQ"));
+    propertyAliases.put(toLowerCase("Word_Break=EB"), toLowerCase("WB=EB"));
+    propertyAliases.put(toLowerCase("Word_Break=E_Base"), toLowerCase("WB=EB"));
+    propertyAliases.put(toLowerCase("Word_Break=EBG"), toLowerCase("WB=EBG"));
+    propertyAliases.put(toLowerCase("Word_Break=E_Base_GAZ"), toLowerCase("WB=EBG"));
+    propertyAliases.put(toLowerCase("Word_Break=EM"), toLowerCase("WB=EM"));
+    propertyAliases.put(toLowerCase("Word_Break=E_Modifier"), toLowerCase("WB=EM"));
+    propertyAliases.put(toLowerCase("Word_Break=GAZ"), toLowerCase("WB=GAZ"));
+    propertyAliases.put(toLowerCase("Word_Break=Glue_After_Zwj"), toLowerCase("WB=GAZ"));
+    propertyAliases.put(toLowerCase("Word_Break=ZWJ"), toLowerCase("WB=ZWJ"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=n"), toLowerCase("bpt=n"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=None"), toLowerCase("bpt=n"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=o"), toLowerCase("bpt=o"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=Open"), toLowerCase("bpt=o"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=c"), toLowerCase("bpt=c"));
+    propertyAliases.put(toLowerCase("Bidi_Paired_Bracket_Type=Close"), toLowerCase("bpt=c"));
+    propertyAliases.put(toLowerCase("EP"), toLowerCase("Extended_Pictographic"));
   }
 
   // Put it all together
@@ -58219,7 +58223,7 @@ public enum UnicodeData {
   }
 
   private static String normalize(String propertyCodeOrAlias) {
-    return propertyCodeOrAlias.toLowerCase(Locale.US).replace('-', '_');
+    return toLowerCase(propertyCodeOrAlias).replace('-', '_');
   }
 
   /**

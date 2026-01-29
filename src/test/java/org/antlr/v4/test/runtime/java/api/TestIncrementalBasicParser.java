@@ -98,12 +98,11 @@ public class TestIncrementalBasicParser extends IncrementalParser {
 
   public TestIncrementalBasicParser(IncrementalTokenStream input) {
     this(input, null);
-    _interp = new ParserATNSimulator(this, _ATN);
   }
 
   public TestIncrementalBasicParser(IncrementalTokenStream input, IncrementalParserData data) {
     super(input, data);
-    _interp = new ParserATNSimulator(this, _ATN);
+    setInterpreter(new ParserATNSimulator(this, _ATN));
   }
 
 

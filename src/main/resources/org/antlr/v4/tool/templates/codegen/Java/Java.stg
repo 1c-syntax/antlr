@@ -367,12 +367,12 @@ public <p.name>(IncrementalTokenStream input) {
 public <p.name>(IncrementalTokenStream input, IncrementalParserData data)
 {
 	super(input, data);
-	_interp = new ParserATNSimulator(this, _ATN);
+	setInterpreter(new ParserATNSimulator(this, _ATN));
 }
 <else>
 public <p.name>(TokenStream input) {
 	super(input);
-	_interp = new ParserATNSimulator(this, _ATN);
+	setInterpreter(new ParserATNSimulator(this, _ATN));
 }
 <endif>
 >>
@@ -1142,8 +1142,7 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 
 	public <lexer.name>(CharStream input) {
 		super(input);
-		_interp = new LexerATNSimulator(this,_ATN);
-		validateInputStream(_ATN, input);
+		setInterpreter(new LexerATNSimulator(this,_ATN));
 	}
 
 	@Override

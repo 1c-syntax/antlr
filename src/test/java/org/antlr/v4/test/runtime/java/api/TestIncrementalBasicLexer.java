@@ -58,8 +58,7 @@ public class TestIncrementalBasicLexer extends Lexer {
 
 	public TestIncrementalBasicLexer(CharStream input) {
 		super(input);
-		_interp = new LexerATNSimulator(this,_ATN);
-		validateInputStream(_ATN, input);
+		setInterpreter(new LexerATNSimulator(this,_ATN));
 	}
 
 	@Override

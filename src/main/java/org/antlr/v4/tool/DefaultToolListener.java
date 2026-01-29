@@ -12,9 +12,6 @@ package org.antlr.v4.tool;
 import org.antlr.v4.Tool;
 import org.stringtemplate.v4.ST;
 
-/**
- *
- */
 public class DefaultToolListener implements ANTLRToolListener {
   public Tool tool;
 

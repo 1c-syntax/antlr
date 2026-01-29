@@ -34,7 +34,7 @@ public enum ErrorSeverity {
    * Standard getter method for the text that should be displayed in order to
    * represent the severity to humans and product modelers.
    *
-   * @return The human readable string representing the severity level
+   * @return The human-readable string representing the severity level
    */
   public String getText() {
     return text;
@@ -43,7 +43,7 @@ public enum ErrorSeverity {
   /**
    * Standard constructor to build an instance of the Enum entries
    *
-   * @param text The human readable string representing the severity level
+   * @param text The human-readable string representing the severity level
    */
   ErrorSeverity(String text) {
     this.text = text;

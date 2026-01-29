@@ -9,8 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A source of tokens must provide a sequence of tokens via {@link #nextToken()}
@@ -34,7 +33,6 @@ public interface TokenSource {
    * on the characters until you get a good one; errors are not passed through
    * to the parser.
    */
-  @NotNull
   Token nextToken();
 
   /**
@@ -71,7 +69,6 @@ public interface TokenSource {
    * non-null, non-empty string. If such a name is not known, this method
    * returns {@link IntStream#UNKNOWN_SOURCE_NAME}.
    */
-  @NotNull
   String getSourceName();
 
   /**
@@ -80,7 +77,7 @@ public interface TokenSource {
    *
    * @param factory The {@link TokenFactory} to use for creating tokens.
    */
-  void setTokenFactory(@NotNull TokenFactory factory);
+  void setTokenFactory(TokenFactory factory);
 
   /**
    * Gets the {@link TokenFactory} this token source is currently using for
@@ -88,6 +85,5 @@ public interface TokenSource {
    *
    * @return The {@link TokenFactory} currently used by this token source.
    */
-  @NotNull
   TokenFactory getTokenFactory();
 }

@@ -30,7 +30,6 @@ import org.antlr.v4.parse.v3TreeGrammarException;
 import org.antlr.v4.runtime.atn.ATNSerializer;
 import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.LogManager;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.semantics.SemanticPipeline;
 import org.antlr.v4.tool.ANTLRMessage;
 import org.antlr.v4.tool.ANTLRToolListener;
@@ -49,6 +48,8 @@ import org.antlr.v4.tool.ast.GrammarASTErrorNode;
 import org.antlr.v4.tool.ast.GrammarRootAST;
 import org.antlr.v4.tool.ast.RuleAST;
 import org.antlr.v4.tool.ast.TerminalAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.stringtemplate.v4.STGroup;
 
 import java.io.BufferedWriter;
@@ -66,6 +67,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@NullMarked
 public class Tool {
   public static final String VERSION;
 
@@ -102,10 +104,10 @@ public class Tool {
   // fields set by option manager
 
   public File inputDirectory; // used by mvn plugin but not set by tool itself.
-  public String outputDirectory;
-  public String libDirectory;
+  public @Nullable String outputDirectory;
+  public @Nullable String libDirectory;
   public boolean generate_ATN_dot = false;
-  public String grammarEncoding = null; // use default locale's encoding
+  public @Nullable String grammarEncoding = null; // use default locale's encoding
   public String msgFormat = "antlr";
   public boolean launch_ST_inspector = false;
   public boolean ST_inspector_wait_for_close = false;
@@ -114,8 +116,8 @@ public class Tool {
   public boolean gen_listener = true;
   public boolean gen_visitor = false;
   public boolean gen_dependencies = false;
-  public String genPackage = null;
-  public Map<String, String> grammarOptions = null;
+  public @Nullable String genPackage = null;
+  public @Nullable Map<String, String> grammarOptions = null;
   public boolean warnings_are_errors = false;
   public boolean longMessages = false;
   public boolean exact_output_dir = false;
@@ -125,7 +127,8 @@ public class Tool {
     new Option("libDirectory", "-lib", OptionArgType.STRING, "specify location of grammars, tokens files"),
     new Option("generate_ATN_dot", "-atn", "generate rule augmented transition network diagrams"),
     new Option("grammarEncoding", "-encoding", OptionArgType.STRING, "specify grammar file encoding; e.g., euc-jp"),
-    new Option("msgFormat", "-message-format", OptionArgType.STRING, "specify output style for messages in antlr, gnu, vs2005"),
+    new Option("msgFormat", "-message-format", OptionArgType.STRING,
+      "specify output style for messages in antlr, gnu, vs2005"),
     new Option("longMessages", "-long-messages", "show exception details when available for errors and warnings"),
     new Option("gen_listener", "-listener", "generate parse tree listener (default)"),
     new Option("gen_listener", "-no-listener", "don't generate parse tree listener"),
@@ -143,7 +146,6 @@ public class Tool {
   };
 
   // helper vars for option management
-  protected boolean haveOutputDir = false;
   protected boolean return_dont_exit = false;
 
   // The internal options are for my use on the command line during dev
@@ -151,7 +153,7 @@ public class Tool {
   public static boolean internalOption_ShowATNConfigsInDFA = false;
 
 
-  public final String[] args;
+  public final String @Nullable[] args;
 
   protected List<String> grammarFiles = new ArrayList<>();
 
@@ -197,7 +199,7 @@ public class Tool {
     this(null);
   }
 
-  public Tool(String[] args) {
+  public Tool(String @Nullable[] args) {
     this.args = args;
     errMgr = new ErrorManager(this);
     // We have to use the default message format until we have
@@ -252,7 +254,6 @@ public class Tool {
           outputDirectory.substring(0, outputDirectory.length() - 1);
       }
       File outDir = new File(outputDirectory);
-      haveOutputDir = true;
       if (outDir.exists() && !outDir.isDirectory()) {
         errMgr.toolError(ErrorType.OUTPUT_DIR_IS_FILE, outputDirectory);
         outputDirectory = ".";
@@ -451,7 +452,7 @@ public class Tool {
       }
 
       @Override
-      public void ruleRef(GrammarAST ref, ActionAST arg) {
+      public void ruleRef(GrammarAST ref, @Nullable ActionAST arg) {
         RuleAST ruleAST = ruleToAST.get(ref.getText());
         String fileName = ref.getToken().getInputStream().getSourceName();
         if (Character.isUpperCase(currentRuleName.charAt(0)) &&
@@ -479,13 +480,16 @@ public class Tool {
   }
 
   public List<GrammarRootAST> sortGrammarByTokenVocab(List<String> fileNames) {
-//		System.out.println(fileNames);
     Graph<String> g = new Graph<>();
     List<GrammarRootAST> roots = new ArrayList<>();
     for (String fileName : fileNames) {
       GrammarAST t = parseGrammar(fileName);
-      if (t == null || t instanceof GrammarASTErrorNode) continue; // came back as error node
-      if (((GrammarRootAST) t).hasErrors) continue;
+      if (t == null || t instanceof GrammarASTErrorNode) {
+        continue; // came back as error node
+      }
+      if (((GrammarRootAST) t).hasErrors) {
+        continue;
+      }
       GrammarRootAST root = (GrammarRootAST) t;
       roots.add(root);
       root.fileName = fileName;
@@ -537,6 +541,7 @@ public class Tool {
   /**
    * Manually get option node from tree; return null if no defined.
    */
+  @Nullable
   public static GrammarAST findOptionValueAST(GrammarRootAST root, String option) {
     GrammarAST options = (GrammarAST) root.getFirstChildWithType(ANTLRParser.OPTIONS);
     if (options != null && options.getChildCount() > 0) {
@@ -550,7 +555,6 @@ public class Tool {
     }
     return null;
   }
-
 
   /**
    * Given the raw AST of a grammar, create a grammar object
@@ -569,6 +573,7 @@ public class Tool {
     return g;
   }
 
+  @Nullable
   public GrammarRootAST parseGrammar(String fileName) {
     try {
       File file = new File(fileName);
@@ -592,6 +597,9 @@ public class Tool {
    */
   public Grammar loadGrammar(String fileName) {
     GrammarRootAST grammarRootAST = parseGrammar(fileName);
+    if (grammarRootAST == null) {
+      throw new IllegalArgumentException("Error parse " + fileName);
+    }
     final Grammar g = createGrammar(grammarRootAST);
     g.fileName = fileName;
     process(g, false);
@@ -606,6 +614,7 @@ public class Tool {
    * @param g
    * @param nameNode The node associated with the imported grammar name.
    */
+  @Nullable
   public Grammar loadImportedGrammar(Grammar g, GrammarAST nameNode) throws IOException {
     String name = nameNode.getText();
     Grammar imported = importedGrammars.get(name);
@@ -639,10 +648,12 @@ public class Tool {
     return imported;
   }
 
+  @Nullable
   public GrammarRootAST parseGrammarFromString(String grammar) {
     return parse("<string>", new ANTLRStringStream(grammar));
   }
 
+  @Nullable
   public GrammarRootAST parse(String fileName, CharStream in) {
     try {
       GrammarASTAdaptor adaptor = new GrammarASTAdaptor(in);
@@ -786,6 +797,7 @@ public class Tool {
     return new BufferedWriter(osw);
   }
 
+  @Nullable
   public File getImportedGrammarFile(Grammar g, String fileName) {
     File importedFile = new File(inputDirectory, fileName);
     if (!importedFile.exists()) {
@@ -813,7 +825,7 @@ public class Tool {
   public File getOutputDirectory(String fileNameWithPath) {
     File outputDir;
     var fileDirectory = getFileDirectory(fileNameWithPath);
-    if (haveOutputDir) {
+    if (haveOutputDir()) {
       if (exact_output_dir) {
         // -o /tmp /var/lib/t.g4 => /tmp/T.java
         // -o subdir/output /usr/lib/t.g4 => subdir/output/T.java
@@ -843,7 +855,7 @@ public class Tool {
     return outputDir;
   }
 
-  private static String getFileDirectory(String fileNameWithPath) {
+  private static String getFileDirectory(@Nullable String fileNameWithPath) {
     String fileDirectory;
 
     // Some files are given to us without a PATH but should should
@@ -895,7 +907,7 @@ public class Tool {
     return errMgr.getNumErrors();
   }
 
-  public void addListener(ANTLRToolListener tl) {
+  public void addListener(@Nullable ANTLRToolListener tl) {
     if (tl != null) listeners.add(tl);
   }
 
@@ -951,4 +963,7 @@ public class Tool {
     throw new Error("ANTLR panic");
   }
 
+  private boolean haveOutputDir() {
+    return outputDirectory != null;
+  }
 }

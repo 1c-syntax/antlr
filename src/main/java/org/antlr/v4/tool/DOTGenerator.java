@@ -32,6 +32,7 @@ import org.antlr.v4.runtime.atn.StarLoopbackState;
 import org.antlr.v4.runtime.atn.Transition;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.dfa.DFAState;
+import org.jspecify.annotations.Nullable;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupFile;
@@ -49,15 +50,12 @@ import java.util.Set;
  */
 public class DOTGenerator {
   public static final boolean STRIP_NONREDUCED_STATES = false;
-
-  protected String arrowhead = "normal";
-  protected String rankdir = "LR";
-
   /**
    * Library of output templates; use {@code <attrname>} format.
    */
   public static STGroup stlib = new STGroupFile("org/antlr/v4/tool/templates/dot/graphs.stg");
-
+  protected String arrowhead = "normal";
+  protected String rankdir = "LR";
   protected Grammar grammar;
 
   /**
@@ -67,18 +65,22 @@ public class DOTGenerator {
     this.grammar = grammar;
   }
 
+  @Nullable
   public String getDOT(DFA dfa, boolean isLexer) {
-    if (dfa.s0.get() == null) return null;
+    if (dfa.s0.get() == null) {
+      return null;
+    }
 
     ST dot = stlib.getInstanceOf("dfa");
     dot.add("name", "DFA" + dfa.decision);
     dot.add("startState", dfa.s0.get().stateNumber);
-//		dot.add("useBox", Tool.internalOption_ShowATNConfigsInDFA);
     dot.add("rankdir", rankdir);
 
     // define stop states first; seems to be a bug in DOT where doublecircle
     for (DFAState d : dfa.states.keySet()) {
-      if (!d.isAcceptState()) continue;
+      if (!d.isAcceptState()) {
+        continue;
+      }
       ST st = stlib.getInstanceOf("stopstate");
       st.add("name", "s" + d.stateNumber);
       st.add("label", getStateLabel(d));
@@ -86,8 +88,12 @@ public class DOTGenerator {
     }
 
     for (DFAState d : dfa.states.keySet()) {
-      if (d.isAcceptState()) continue;
-      if (d.stateNumber == Integer.MAX_VALUE) continue;
+      if (d.isAcceptState()) {
+        continue;
+      }
+      if (d.stateNumber == Integer.MAX_VALUE) {
+        continue;
+      }
       ST st = stlib.getInstanceOf("state");
       st.add("name", "s" + d.stateNumber);
       st.add("label", getStateLabel(d));
@@ -98,12 +104,19 @@ public class DOTGenerator {
       Map<Integer, DFAState> edges = d.getEdgeMap();
       for (Map.Entry<Integer, DFAState> entry : edges.entrySet()) {
         DFAState target = entry.getValue();
-        if (target == null) continue;
-        if (target.stateNumber == Integer.MAX_VALUE) continue;
+        if (target == null) {
+          continue;
+        }
+        if (target.stateNumber == Integer.MAX_VALUE) {
+          continue;
+        }
         int ttype = entry.getKey();
         String label = String.valueOf(ttype);
-        if (isLexer) label = "'" + getEdgeLabel(new StringBuilder().appendCodePoint(entry.getKey()).toString()) + "'";
-        else if (grammar != null) label = grammar.getTokenDisplayName(ttype);
+        if (isLexer) {
+          label = "'" + getEdgeLabel(new StringBuilder().appendCodePoint(entry.getKey()).toString()) + "'";
+        } else if (grammar != null) {
+          label = grammar.getTokenDisplayName(ttype);
+        }
         ST st = stlib.getInstanceOf("edge");
         st.add("label", label);
         st.add("src", "s" + d.stateNumber);
@@ -118,7 +131,9 @@ public class DOTGenerator {
   }
 
   protected String getStateLabel(DFAState s) {
-    if (s == null) return "null";
+    if (s == null) {
+      return "null";
+    }
     StringBuilder buf = new StringBuilder(250);
     buf.append('s');
     buf.append(s.stateNumber);
@@ -140,7 +155,9 @@ public class DOTGenerator {
         // it will help us print better later
         List<ATNConfig> configsInAlt = new ArrayList<>();
         for (ATNConfig c : configurations) {
-          if (c.getAlt() != alt) continue;
+          if (c.getAlt() != alt) {
+            continue;
+          }
           configsInAlt.add(c);
         }
         int n = 0;
@@ -168,17 +185,21 @@ public class DOTGenerator {
     Set<String> ruleNames = grammar.rules.keySet();
     String[] names = new String[ruleNames.size() + 1];
     int i = 0;
-    for (String s : ruleNames) names[i++] = s;
+    for (String s : ruleNames) {
+      names[i++] = s;
+    }
     return getDOT(startState, names, isLexer);
   }
 
   /**
-   * Return a String containing a DOT description that, when displayed,
-   * will show the incoming state machine visually.  All nodes reachable
-   * from startState will be included.
+   * Return a String containing a DOT description that, when displayed, will show the incoming state machine visually.
+   * All nodes reachable from startState will be included.
    */
-  public String getDOT(ATNState startState, String[] ruleNames, boolean isLexer) {
-    if (startState == null) return null;
+  @Nullable
+  public String getDOT(@Nullable ATNState startState, String[] ruleNames, boolean isLexer) {
+    if (startState == null) {
+      return null;
+    }
 
     // The output DOT graph for visualization
     Set<ATNState> markedStates = new HashSet<>();
@@ -198,21 +219,9 @@ public class DOTGenerator {
       markedStates.add(s);
 
       // don't go past end of rule node to the follow states
-      if (s instanceof RuleStopState) continue;
-
-      // special case: if decision point, then line up the alt start states
-      // unless it's an end of block
-//			if ( s instanceof BlockStartState ) {
-//				ST rankST = stlib.getInstanceOf("decision-rank");
-//				DecisionState alt = (DecisionState)s;
-//				for (int i=0; i<alt.getNumberOfTransitions(); i++) {
-//					ATNState target = alt.transition(i).target;
-//					if ( target!=null ) {
-//						rankST.add("states", target.stateNumber);
-//					}
-//				}
-//				dot.add("decisionRanks", rankST);
-//			}
+      if (s instanceof RuleStopState) {
+        continue;
+      }
 
       // make a DOT edge for each transition
       ST edgeST;
@@ -246,30 +255,43 @@ public class DOTGenerator {
           edgeST = stlib.getInstanceOf("epsilon-edge");
           edgeST.add("label", getEdgeLabel(edge.toString()));
           boolean loopback = false;
-          if (edge.target instanceof PlusBlockStartState) {
-            loopback = s.equals(((PlusBlockStartState) edge.target).loopBackState);
-          } else if (edge.target instanceof StarLoopEntryState) {
-            loopback = s.equals(((StarLoopEntryState) edge.target).loopBackState);
+          if (edge.target instanceof PlusBlockStartState plusBlockStartState) {
+            loopback = s.equals(plusBlockStartState.loopBackState);
+          } else if (edge.target instanceof StarLoopEntryState starLoopEntryState) {
+            loopback = s.equals(starLoopEntryState.loopBackState);
           }
           edgeST.add("loopback", loopback);
         } else if (edge instanceof AtomTransition atom) {
           edgeST = stlib.getInstanceOf("edge");
           String label = String.valueOf(atom.label);
-          if (isLexer) label = "'" + getEdgeLabel(new StringBuilder().appendCodePoint(atom.label).toString()) + "'";
-          else if (grammar != null) label = grammar.getTokenDisplayName(atom.label);
+          if (isLexer) {
+            label = "'" + getEdgeLabel(new StringBuilder().appendCodePoint(atom.label).toString()) + "'";
+          } else if (grammar != null) {
+            label = grammar.getTokenDisplayName(atom.label);
+          }
           edgeST.add("label", getEdgeLabel(label));
         } else if (edge instanceof SetTransition set) {
           edgeST = stlib.getInstanceOf("edge");
           String label = set.label().toString();
-          if (isLexer) label = set.label().toString(true);
-          else if (grammar != null) label = set.label().toString(grammar.getVocabulary());
-          if (edge instanceof NotSetTransition) label = "~" + label;
+          if (isLexer) {
+            label = set.label().toString(true);
+          }
+          else if (grammar != null) {
+            label = set.label().toString(grammar.getVocabulary());
+          }
+          if (edge instanceof NotSetTransition) {
+            label = "~" + label;
+          }
           edgeST.add("label", getEdgeLabel(label));
         } else if (edge instanceof RangeTransition range) {
           edgeST = stlib.getInstanceOf("edge");
           String label = range.label().toString();
-          if (isLexer) label = range.toString();
-          else if (grammar != null) label = range.label().toString(grammar.getVocabulary());
+          if (isLexer) {
+            label = range.toString();
+          }
+          else if (grammar != null) {
+            label = range.label().toString(grammar.getVocabulary());
+          }
           edgeST.add("label", getEdgeLabel(label));
         } else {
           edgeST = stlib.getInstanceOf("edge");
@@ -293,7 +315,9 @@ public class DOTGenerator {
     // define stop state first; seems to be a bug in DOT where doublecircle
     // shape only works if we define them first. weird.
     for (ATNState s : markedStates) {
-      if (!(s instanceof RuleStopState)) continue;
+      if (!(s instanceof RuleStopState)) {
+        continue;
+      }
       ST st = stlib.getInstanceOf("stopstate");
       st.add("name", "s" + s.stateNumber);
       st.add("label", getStateLabel(s));
@@ -301,7 +325,9 @@ public class DOTGenerator {
     }
 
     for (ATNState s : markedStates) {
-      if (s instanceof RuleStopState) continue;
+      if (s instanceof RuleStopState) {
+        continue;
+      }
       ST st = stlib.getInstanceOf("state");
       st.add("name", "s" + s.stateNumber);
       st.add("label", getStateLabel(s));
@@ -313,8 +339,7 @@ public class DOTGenerator {
   }
 
   /**
-   * Fix edge strings so they print out in DOT properly;
-   * generate any gated predicates on edge too.
+   * Fix edge strings so they print out in DOT properly; generate any gated predicates on edge too.
    */
   protected String getEdgeLabel(String label) {
     label = label.replace("\\", "\\\\");
@@ -325,7 +350,9 @@ public class DOTGenerator {
   }
 
   protected String getStateLabel(ATNState s) {
-    if (s == null) return "null";
+    if (s == null) {
+      return "null";
+    }
     String stateLabel = "";
 
     if (s instanceof BlockStartState) {

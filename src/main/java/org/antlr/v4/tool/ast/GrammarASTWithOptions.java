@@ -13,6 +13,7 @@ import org.antlr.runtime.Token;
 import org.antlr.v4.misc.CharSupport;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.tool.ErrorType;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -47,6 +48,7 @@ public abstract class GrammarASTWithOptions extends GrammarAST {
     options.put(key, node);
   }
 
+  @Nullable
   public String getOptionString(String key) {
     GrammarAST value = getOptionAST(key);
     if (value == null) return null;
