@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.tool.ast;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.runtime.Token;
 import org.antlr.v4.tool.AttributeResolver;
 
@@ -16,6 +18,8 @@ import java.util.List;
 
 public class ActionAST extends GrammarASTWithOptions implements RuleElementAST {
   // Alt, rule, grammar space
+  @Setter
+  @Getter
   GrammarAST scope = null;
   public AttributeResolver resolver;
   public List<Token> chunks; // useful for ANTLR IDE developers
@@ -46,14 +50,6 @@ public class ActionAST extends GrammarASTWithOptions implements RuleElementAST {
   @Override
   public Object visit(GrammarASTVisitor v) {
     return v.visit(this);
-  }
-
-  public void setScope(GrammarAST scope) {
-    this.scope = scope;
-  }
-
-  public GrammarAST getScope() {
-    return scope;
   }
 
 

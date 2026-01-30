@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.misc.MurmurHash;
@@ -28,6 +29,17 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @since 4.2
  */
 public final class LexerIndexedCustomAction implements LexerAction {
+  /**
+   * -- GETTER --
+   *  Gets the location in the input
+   *  at which the lexer
+   *  action should be executed. The value is interpreted as an offset relative
+   *  to the token start index.
+   *
+   * @return The location in the input {@link CharStream} at which the lexer
+   * action should be executed.
+   */
+  @Getter
   private final int offset;
   private final LexerAction action;
 
@@ -47,18 +59,6 @@ public final class LexerIndexedCustomAction implements LexerAction {
   public LexerIndexedCustomAction(int offset, @NotNull LexerAction action) {
     this.offset = offset;
     this.action = action;
-  }
-
-  /**
-   * Gets the location in the input {@link CharStream} at which the lexer
-   * action should be executed. The value is interpreted as an offset relative
-   * to the token start index.
-   *
-   * @return The location in the input {@link CharStream} at which the lexer
-   * action should be executed.
-   */
-  public int getOffset() {
-    return offset;
   }
 
   /**

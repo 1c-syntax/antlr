@@ -9,8 +9,10 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Recognizer;
 
+@Getter
 public final class EmptyPredictionContext extends PredictionContext {
   public static final EmptyPredictionContext LOCAL_CONTEXT = new EmptyPredictionContext(false);
   public static final EmptyPredictionContext FULL_CONTEXT = new EmptyPredictionContext(true);
@@ -20,10 +22,6 @@ public final class EmptyPredictionContext extends PredictionContext {
   private EmptyPredictionContext(boolean fullContext) {
     super(calculateEmptyHashCode());
     this.fullContext = fullContext;
-  }
-
-  public boolean isFullContext() {
-    return fullContext;
   }
 
   @Override

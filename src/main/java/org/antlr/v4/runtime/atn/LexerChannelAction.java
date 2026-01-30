@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.MurmurHash;
@@ -21,7 +22,9 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @author Sam Harwell
  * @since 4.2
  */
+@Getter
 public final class LexerChannelAction implements LexerAction {
+
   private final int channel;
 
   /**
@@ -31,15 +34,6 @@ public final class LexerChannelAction implements LexerAction {
    */
   public LexerChannelAction(int channel) {
     this.channel = channel;
-  }
-
-  /**
-   * Gets the channel to use for the {@link Token} created by the lexer.
-   *
-   * @return The channel to use for the {@link Token} created by the lexer.
-   */
-  public int getChannel() {
-    return channel;
   }
 
   /**

@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.atn.ActionTransition;
@@ -88,9 +89,20 @@ public class ParserInterpreter extends Parser {
    * us what the root of the parse tree is when using override
    * for an ambiguity/lookahead check.
    */
+  @Getter
   protected InterpreterRuleContext overrideDecisionRoot = null;
 
 
+  /**
+   * -- GETTER --
+   *  Return the root of the parse, which can be useful if the parser
+   *  bails out. You still can access the top node. Note that,
+   *  because of the way left recursive rules add children, it's possible
+   *  that the root will not have any children if the start rule immediately
+   *  called and left recursive rule that fails.
+   *
+   */
+  @Getter
   protected InterpreterRuleContext rootContext;
 
   /**
@@ -388,10 +400,6 @@ public class ParserInterpreter extends Parser {
     overrideDecisionAlt = forcedAlt;
   }
 
-  public InterpreterRuleContext getOverrideDecisionRoot() {
-    return overrideDecisionRoot;
-  }
-
   /**
    * Rely on the error handler for this parser but, if no tokens are consumed
    * to recover, add an error node. Otherwise, nothing is seen in the parse
@@ -432,17 +440,5 @@ public class ParserInterpreter extends Parser {
     return _errHandler.recoverInline(this);
   }
 
-  /**
-   * Return the root of the parse, which can be useful if the parser
-   * bails out. You still can access the top node. Note that,
-   * because of the way left recursive rules add children, it's possible
-   * that the root will not have any children if the start rule immediately
-   * called and left recursive rule that fails.
-   *
-   * @since 4.5.1
-   */
-  public InterpreterRuleContext getRootContext() {
-    return rootContext;
-  }
 }
 

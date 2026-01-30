@@ -9,41 +9,27 @@
  */
 package org.antlr.v4.runtime.tree.pattern;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.Getter;
 
 /**
- * Represents a span of raw text (concrete syntax) between tags in a tree
- * pattern string.
+ * Represents a span of raw text (concrete syntax) between tags in a tree pattern string.
  */
+@Getter
 class TextChunk extends Chunk {
   /**
    * This is the backing field for {@link #getText}.
    */
-  @NotNull
   private final String text;
 
   /**
    * Constructs a new instance of {@link TextChunk} with the specified text.
    *
    * @param text The text of this chunk.
+   *
    * @throws IllegalArgumentException if {@code text} is {@code null}.
    */
-  public TextChunk(@NotNull String text) {
-    if (text == null) {
-      throw new IllegalArgumentException("text cannot be null");
-    }
-
+  public TextChunk(String text) {
     this.text = text;
-  }
-
-  /**
-   * Gets the raw text of this chunk.
-   *
-   * @return The text of the chunk.
-   */
-  @NotNull
-  public final String getText() {
-    return text;
   }
 
   /**

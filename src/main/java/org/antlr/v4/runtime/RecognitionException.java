@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.DecisionState;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.Nullable;
@@ -45,6 +46,19 @@ public class RecognitionException extends RuntimeException {
    */
   private Token offendingToken;
 
+  /**
+   * -- GETTER --
+   *  Get the ATN state number the parser was in at the time the error
+   *  occurred. For
+   *  and
+   *
+   *  exceptions, this is the
+   *
+   *  number. For others, it is the state whose outgoing
+   *  edge we couldn't match.
+   *  <p>If the state number is not known, this method returns -1.</p>
+   */
+  @Getter
   private int offendingState = -1;
 
   public RecognitionException(@Nullable Lexer lexer,
@@ -72,19 +86,6 @@ public class RecognitionException extends RuntimeException {
     this.input = input;
     this.ctx = ctx;
     if (recognizer != null) this.offendingState = recognizer.getState();
-  }
-
-  /**
-   * Get the ATN state number the parser was in at the time the error
-   * occurred. For {@link NoViableAltException} and
-   * {@link LexerNoViableAltException} exceptions, this is the
-   * {@link DecisionState} number. For others, it is the state whose outgoing
-   * edge we couldn't match.
-   *
-   * <p>If the state number is not known, this method returns -1.</p>
-   */
-  public int getOffendingState() {
-    return offendingState;
   }
 
   protected final void setOffendingState(int offendingState) {

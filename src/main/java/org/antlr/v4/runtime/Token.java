@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime;
 
+import org.jspecify.annotations.Nullable;
+
 /**
  * A token has properties: text, type, line, character position in the line (so we can ignore tabs), token channel,
  * index, and source from which we obtained this token.
@@ -98,12 +100,12 @@ public interface Token {
   /**
    * Gets the {@link TokenSource} which created this token.
    */
-  TokenSource getTokenSource();
+  @Nullable TokenSource getTokenSource();
 
   /**
    * Gets the {@link CharStream} from which this token was derived.
    */
-  CharStream getInputStream();
+  @Nullable CharStream getInputStream();
 
   private static Token empty() {
     return new Token() {

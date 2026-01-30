@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
@@ -37,6 +38,7 @@ public class NoViableAltException extends RecognitionException {
    * time the error occurred, of course the stream needs to keep a
    * buffer all of the tokens but later we might not have access to those.)
    */
+  @Getter
   @NotNull
   private final Token startToken;
 
@@ -59,10 +61,6 @@ public class NoViableAltException extends RecognitionException {
     this.deadEndConfigs = deadEndConfigs;
     this.startToken = startToken;
     this.setOffendingToken(recognizer, offendingToken);
-  }
-
-  public Token getStartToken() {
-    return startToken;
   }
 
   @Nullable

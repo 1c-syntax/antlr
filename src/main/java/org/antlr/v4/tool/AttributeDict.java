@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.jspecify.annotations.NullMarked;
@@ -29,6 +30,7 @@ import java.util.Set;
  */
 @NullMarked
 public class AttributeDict {
+  @Getter
   public String name;
   public GrammarAST ast;
   public DictType type;
@@ -74,10 +76,6 @@ public class AttributeDict {
 
   public Attribute get(String name) {
     return attributes.get(name);
-  }
-
-  public String getName() {
-    return name;
   }
 
   public int size() {

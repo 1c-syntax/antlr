@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -38,6 +39,7 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   // created.
   private static AtomicInteger _PARSER_EPOCH = new AtomicInteger(0);
 
+  @Getter
   private int parserEpoch;
   private IncrementalParserData parseData;
 
@@ -55,10 +57,6 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
 
   protected static int incrementGlobalParserEpoch() {
     return IncrementalParser._PARSER_EPOCH.addAndGet(1);
-  }
-
-  public int getParserEpoch() {
-    return parserEpoch;
   }
 
   // Push the current token data onto the min max stack for the stream.

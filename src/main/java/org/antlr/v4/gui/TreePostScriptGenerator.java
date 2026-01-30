@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.gui;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.abego.treelayout.Configuration;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
@@ -48,6 +50,8 @@ public class TreePostScriptGenerator {
   protected int nodeHeightPaddingBelow = 5;
 
   protected Tree root;
+  @Setter
+  @Getter
   protected TreeTextProvider treeTextProvider;
   protected TreeLayout<Tree> treeLayout;
 
@@ -144,14 +148,6 @@ public class TreePostScriptGenerator {
     String s = treeTextProvider.getText(tree);
     s = Utils.escapeWhitespace(s, false);
     return s;
-  }
-
-  public TreeTextProvider getTreeTextProvider() {
-    return treeTextProvider;
-  }
-
-  public void setTreeTextProvider(TreeTextProvider treeTextProvider) {
-    this.treeTextProvider = treeTextProvider;
   }
 
 }

@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.misc;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.Vocabulary;
@@ -32,6 +33,7 @@ import java.util.Set;
  * the range {@link Integer#MIN_VALUE} to {@link Integer#MAX_VALUE}
  * (inclusive).</p>
  */
+@Getter
 public class IntervalSet implements IntSet {
   public static final IntervalSet COMPLETE_CHAR_SET = IntervalSet.of(Lexer.MIN_CHAR_VALUE, Lexer.MAX_CHAR_VALUE);
 
@@ -459,13 +461,6 @@ public class IntervalSet implements IntSet {
     return intervals.get(0).a;
   }
 
-  /**
-   * Return a list of Interval objects.
-   */
-  public List<Interval> getIntervals() {
-    return intervals;
-  }
-
   @Override
   public int hashCode() {
     int hash = MurmurHash.initialize();
@@ -657,10 +652,6 @@ public class IntervalSet implements IntSet {
         add(el + 1, oldb); // add [x+1..b]
       }
     }
-  }
-
-  public boolean isReadonly() {
-    return readonly;
   }
 
   public void setReadonly(boolean readonly) {

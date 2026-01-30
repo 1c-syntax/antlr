@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.dfa;
 
+import lombok.Getter;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
@@ -18,6 +20,7 @@ import java.util.Set;
 /**
  * @author Sam Harwell
  */
+@Getter
 public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
 
   private final int key;
@@ -32,14 +35,6 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
       this.key = 0;
       this.value = null;
     }
-  }
-
-  public int getKey() {
-    return key;
-  }
-
-  public T getValue() {
-    return value;
   }
 
   @Override

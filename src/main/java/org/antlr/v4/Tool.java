@@ -9,6 +9,7 @@
  */
 package org.antlr.v4;
 
+import lombok.Getter;
 import org.antlr.runtime.ANTLRFileStream;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CharStream;
@@ -160,6 +161,7 @@ public class Tool {
   public ErrorManager errMgr;
   public LogManager logMgr = new LogManager();
 
+  @Getter
   List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<>();
 
   /**
@@ -917,10 +919,6 @@ public class Tool {
 
   public void removeListeners() {
     listeners.clear();
-  }
-
-  public List<ANTLRToolListener> getListeners() {
-    return listeners;
   }
 
   public void info(String msg) {

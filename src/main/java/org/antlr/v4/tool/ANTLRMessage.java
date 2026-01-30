@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.runtime.Token;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 public class ANTLRMessage {
   private static final Object[] EMPTY_ARGS = new Object[0];
 
+  @Getter
   private final ErrorType errorType;
   private final Object @Nullable [] args;
   private final @Nullable Throwable e;
@@ -52,10 +54,6 @@ public class ANTLRMessage {
     this.e = e;
     this.args = args;
     this.offendingToken = offendingToken;
-  }
-
-  public ErrorType getErrorType() {
-    return errorType;
   }
 
   public Object[] getArgs() {

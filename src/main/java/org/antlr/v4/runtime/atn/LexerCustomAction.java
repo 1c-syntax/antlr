@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Recognizer;
@@ -28,6 +29,7 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @author Sam Harwell
  * @since 4.2
  */
+@Getter
 public final class LexerCustomAction implements LexerAction {
   private final int ruleIndex;
   private final int actionIndex;
@@ -44,24 +46,6 @@ public final class LexerCustomAction implements LexerAction {
   public LexerCustomAction(int ruleIndex, int actionIndex) {
     this.ruleIndex = ruleIndex;
     this.actionIndex = actionIndex;
-  }
-
-  /**
-   * Gets the rule index to use for calls to {@link Recognizer#action}.
-   *
-   * @return The rule index for the custom action.
-   */
-  public int getRuleIndex() {
-    return ruleIndex;
-  }
-
-  /**
-   * Gets the action index to use for calls to {@link Recognizer#action}.
-   *
-   * @return The action index for the custom action.
-   */
-  public int getActionIndex() {
-    return actionIndex;
   }
 
   /**

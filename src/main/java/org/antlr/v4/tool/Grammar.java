@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.v4.Tool;
 import org.antlr.v4.analysis.LeftRecursiveRuleTransformer;
 import org.antlr.v4.automata.ParserATNFactory;
@@ -1449,20 +1450,13 @@ public class Grammar implements AttributeResolver {
     return new ParserInterpreter(fileName, getVocabulary(), Arrays.asList(getRuleNames()), deserialized, tokenStream);
   }
 
+  @Getter
   protected static class AltLabelVisitor extends GrammarTreeVisitor {
     private final Map<String, List<Pair<Integer, AltAST>>> labeledAlternatives = new LinkedHashMap<>();
     private final List<AltAST> unlabeledAlternatives = new ArrayList<>();
 
     public AltLabelVisitor(org.antlr.runtime.tree.TreeNodeStream input) {
       super(input);
-    }
-
-    public Map<String, List<Pair<Integer, AltAST>>> getLabeledAlternatives() {
-      return labeledAlternatives;
-    }
-
-    public List<AltAST> getUnlabeledAlternatives() {
-      return unlabeledAlternatives;
     }
 
     @Override

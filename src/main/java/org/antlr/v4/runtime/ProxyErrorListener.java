@@ -9,26 +9,22 @@
  */
 package org.antlr.v4.runtime;
 
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collection;
 
 /**
- * This implementation of {@link ANTLRErrorListener} dispatches all calls to a
- * collection of delegate listeners. This reduces the effort required to support multiple
- * listeners.
+ * This implementation of {@link ANTLRErrorListener} dispatches all calls to a collection of delegate listeners. This
+ * reduces the effort required to support multiple listeners.
  *
  * @author Sam Harwell
  */
+@NullMarked
 public class ProxyErrorListener<Symbol> implements ANTLRErrorListener<Symbol> {
   private final Collection<? extends ANTLRErrorListener<? super Symbol>> delegates;
 
   public ProxyErrorListener(Collection<? extends ANTLRErrorListener<? super Symbol>> delegates) {
-    if (delegates == null) {
-      throw new NullPointerException("delegates");
-    }
-
     this.delegates = delegates;
   }
 
@@ -37,11 +33,11 @@ public class ProxyErrorListener<Symbol> implements ANTLRErrorListener<Symbol> {
   }
 
   @Override
-  public <T extends Symbol> void syntaxError(@NotNull Recognizer<T, ?> recognizer,
+  public <T extends Symbol> void syntaxError(Recognizer<T, ?> recognizer,
                                              @Nullable T offendingSymbol,
                                              int line,
                                              int charPositionInLine,
-                                             @NotNull String msg,
+                                             String msg,
                                              @Nullable RecognitionException e) {
     for (ANTLRErrorListener<? super Symbol> listener : delegates) {
       listener.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);

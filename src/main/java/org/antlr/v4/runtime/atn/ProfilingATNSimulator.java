@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
@@ -32,6 +33,7 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
   protected int _llStopIndex;
 
   protected int currentDecision;
+  @Getter
   protected SimulatorState currentState;
 
   /**
@@ -274,7 +276,4 @@ public class ProfilingATNSimulator extends ParserATNSimulator {
     return decisions;
   }
 
-  public SimulatorState getCurrentState() {
-    return currentState;
-  }
 }
