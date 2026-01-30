@@ -9,38 +9,29 @@
  */
 package org.antlr.v4.runtime.tree;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.Parser;
-import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Interval;
-
+import org.jspecify.annotations.Nullable;
 
 public class TerminalNodeImpl implements TerminalNode {
-  public Token symbol;
-  public RuleNode parent;
+  @Getter
+  private final Token symbol;
+
+  @Getter
+  @Setter
+  private @Nullable RuleNode parent;
 
   public TerminalNodeImpl(Token symbol) {
     this.symbol = symbol;
   }
 
   @Override
+  @Nullable
   public ParseTree getChild(int i) {
     return null;
-  }
-
-  @Override
-  public Token getSymbol() {
-    return symbol;
-  }
-
-  @Override
-  public RuleNode getParent() {
-    return parent;
-  }
-
-  public void setParent(RuleContext parent) {
-    this.parent = parent;
   }
 
   @Override
@@ -50,12 +41,8 @@ public class TerminalNodeImpl implements TerminalNode {
 
   @Override
   public Interval getSourceInterval() {
-    if (symbol != null) {
-      int tokenIndex = symbol.getTokenIndex();
-      return new Interval(tokenIndex, tokenIndex);
-    }
-
-    return Interval.INVALID;
+    var tokenIndex = symbol.getTokenIndex();
+    return new Interval(tokenIndex, tokenIndex);
   }
 
   @Override
@@ -64,17 +51,14 @@ public class TerminalNodeImpl implements TerminalNode {
   }
 
   @Override
+  @Nullable
   public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
     return visitor.visitTerminal(this);
   }
 
   @Override
   public String getText() {
-    if (symbol != null) {
-      return symbol.getText();
-    }
-
-    return null;
+    return symbol.getText();
   }
 
   @Override
@@ -84,15 +68,11 @@ public class TerminalNodeImpl implements TerminalNode {
 
   @Override
   public String toString() {
-    if (symbol != null) {
-      if (symbol.getType() == Token.EOF) {
-        return "<EOF>";
-      }
-
-      return symbol.getText();
-    } else {
-      return "<null>";
+    if (symbol.getType() == Token.EOF) {
+      return "<EOF>";
     }
+
+    return symbol.getText();
   }
 
   @Override

@@ -192,8 +192,8 @@ public class XPath {
    * {@link #evaluate}.
    */
   public Collection<ParseTree> evaluate(final ParseTree t) {
-    ParserRuleContext dummyRoot = new ParserRuleContext();
-    dummyRoot.children = Collections.singletonList(t); // don't set t's parent.
+    ParserRuleContext dummyRoot = new ParserRuleContext(null, -1);
+    dummyRoot.addAnyChild(t); // don't set t's parent.
 
     Collection<ParseTree> work = Collections.singleton(dummyRoot);
 

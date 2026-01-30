@@ -59,7 +59,7 @@ dependencies {
     testImplementation("org.assertj", "assertj-core", "3.27.0")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
-    testCompileOnly("org.jspecify", "jspecify", "1.0.0")
+    testImplementation("org.jspecify", "jspecify", "1.0.0")
 }
 
 java {

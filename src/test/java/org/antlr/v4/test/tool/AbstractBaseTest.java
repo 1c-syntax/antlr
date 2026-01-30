@@ -340,12 +340,6 @@ public abstract class AbstractBaseTest {
     compileOptions.add("-Xlint:-options");
     compileOptions.add("-proc:none"); // Disable annotation processing to avoid old runtime references
 
-    String bootclasspath = getBootClassPath();
-    if (bootclasspath != null) {
-      compileOptions.add("-bootclasspath");
-      compileOptions.add(bootclasspath);
-    }
-
     if (STRICT_COMPILE_CHECKS) {
       compileOptions.add("-Xlint");
       compileOptions.add("-Xlint:-serial");
@@ -354,24 +348,6 @@ public abstract class AbstractBaseTest {
 
     compileOptions.addAll(Arrays.asList("-d", tmpdir, "-cp", tmpdir + pathSep + CLASSPATH));
     return compileOptions;
-  }
-
-  public String getBootClassPath() {
-    String path = System.getProperty("bootclasspath.java6");
-    if (path != null) {
-      return path;
-    }
-
-    path = System.getProperty("java6.home");
-    if (path == null) {
-      path = System.getenv("JAVA6_HOME");
-    }
-
-    if (path != null) {
-      return path + File.separatorChar + "lib" + File.separatorChar + "rt.jar";
-    }
-
-    return null;
   }
 
   protected ErrorQueue antlr(String grammarFileName, boolean defaultListener, String... extraOptions) {

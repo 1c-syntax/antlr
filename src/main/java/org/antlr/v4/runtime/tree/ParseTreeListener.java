@@ -10,26 +10,24 @@
 package org.antlr.v4.runtime.tree;
 
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.NotNull;
 
 /**
- * This interface describes the minimal core of methods triggered
- * by {@link ParseTreeWalker}. E.g.,
+ * This interface describes the minimal core of methods triggered by {@link ParseTreeWalker}. E.g.,
  * <p>
- * ParseTreeWalker walker = new ParseTreeWalker();
- * walker.walk(myParseTreeListener, myParseTree); <-- triggers events in your listener
+ * ParseTreeWalker walker = new ParseTreeWalker(); walker.walk(myParseTreeListener, myParseTree); <-- triggers events in
+ * your listener
  * <p>
- * If you want to trigger events in multiple listeners during a single
- * tree walk, you can use the ParseTreeDispatcher object available at
+ * If you want to trigger events in multiple listeners during a single tree walk, you can use the ParseTreeDispatcher
+ * object available at
  * <p>
  * https://github.com/antlr/antlr4/issues/841
  */
 public interface ParseTreeListener {
-  void visitTerminal(@NotNull TerminalNode node);
+  void visitTerminal(TerminalNode node);
 
-  void visitErrorNode(@NotNull ErrorNode node);
+  void visitErrorNode(ErrorNode node);
 
-  void enterEveryRule(@NotNull ParserRuleContext ctx);
+  void enterEveryRule(ParserRuleContext ctx);
 
-  void exitEveryRule(@NotNull ParserRuleContext ctx);
+  void exitEveryRule(ParserRuleContext ctx);
 }

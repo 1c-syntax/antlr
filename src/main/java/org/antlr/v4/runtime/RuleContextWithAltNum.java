@@ -16,18 +16,12 @@ import org.antlr.v4.runtime.atn.ATN;
  * <p>
  * options {contextSuperClass=org.antlr.v4.runtime.RuleContextWithAltNum;}
  * <p>
- * that provides a backing field / impl for the outer alternative number
- * matched for an internal parse tree node.
+ * that provides a backing field / impl for the outer alternative number matched for an internal parse tree node.
  * <p>
- * I'm only putting into Java runtime as I'm certain I'm the only one that
- * will really every use this.
+ * I'm only putting into Java runtime as I'm certain I'm the only one that will really every use this.
  */
 public class RuleContextWithAltNum extends ParserRuleContext {
-  private int altNumber;
-
-  public RuleContextWithAltNum() {
-    altNumber = ATN.INVALID_ALT_NUMBER;
-  }
+  private int altNumber = ATN.INVALID_ALT_NUMBER;
 
   public RuleContextWithAltNum(ParserRuleContext parent, int invokingStateNumber) {
     super(parent, invokingStateNumber);
