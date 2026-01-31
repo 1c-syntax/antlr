@@ -47,7 +47,7 @@ dependencies {
     implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
 
     implementation("io.github.1c-syntax", "utils", "0.6.3")
-    implementation("org.jspecify", "jspecify", "1.0.0")
+    api("org.jspecify", "jspecify", "1.0.0")
 
     compileOnly("com.ibm.icu", "icu4j", "77.1")
 
