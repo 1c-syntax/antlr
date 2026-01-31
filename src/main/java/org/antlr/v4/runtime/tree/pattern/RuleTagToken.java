@@ -61,7 +61,7 @@ public class RuleTagToken implements Token {
    */
   public RuleTagToken(String ruleName, int bypassTokenType, @Nullable String label) {
     if (ruleName.isEmpty()) {
-      throw new IllegalArgumentException("ruleName cannot be null or empty.");
+      throw new IllegalArgumentException("ruleName cannot be empty.");
     }
 
     this.ruleName = ruleName;

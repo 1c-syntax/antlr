@@ -9,80 +9,74 @@
  */
 package org.antlr.v4.runtime;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import lombok.Getter;
 import org.antlr.v4.runtime.misc.Tuple;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
 /**
- * Provides an implementation of {@link TokenSource} as a wrapper around a list
- * of {@link Token} objects.
+ * Provides an implementation of {@link TokenSource} as a wrapper around a list of {@link Token} objects.
  *
  * <p>If the final token in the list is an {@link Token#EOF} token, it will be used
- * as the EOF token for every call to {@link #nextToken} after the end of the
- * list is reached. Otherwise, an EOF token will be created.</p>
+ * as the EOF token for every call to {@link #nextToken} after the end of the list is reached. Otherwise, an EOF token
+ * will be created.</p>
  */
+@NullMarked
 public class ListTokenSource implements TokenSource {
   /**
    * The wrapped collection of {@link Token} objects to return.
    */
-  protected final List<? extends Token> tokens;
+  private final List<? extends Token> tokens;
 
   /**
-   * The name of the input source. If this value is {@code null}, a call to
-   * {@link #getSourceName} should return the source name used to create the
-   * the next token in {@link #tokens} (or the previous token if the end of
-   * the input has been reached).
+   * The name of the input source. If this value is {@code null}, a call to {@link #getSourceName} should return the
+   * source name used to create the next token in {@link #tokens} (or the previous token if the end of the input has
+   * been reached).
    */
-  private final String sourceName;
+  private final @Nullable String sourceName;
 
   /**
-   * The index into {@link #tokens} of token to return by the next call to
-   * {@link #nextToken}. The end of the input is indicated by this value
-   * being greater than or equal to the number of items in {@link #tokens}.
+   * The index into {@link #tokens} of token to return by the next call to {@link #nextToken}. The end of the input is
+   * indicated by this value being greater than or equal to the number of items in {@link #tokens}.
    */
-  protected int i;
+  private int i;
 
   /**
    * This field caches the EOF token for the token source.
    */
-  protected Token eofToken;
+  private @Nullable Token eofToken;
 
   /**
-   * This is the backing field for {@link #getTokenFactory} and
-   * {@link setTokenFactory}.
+   * This is the backing field for {@link #getTokenFactory} and {link setTokenFactory}.
    */
-  private TokenFactory _factory = CommonTokenFactory.DEFAULT;
+  @Getter
+  private TokenFactory tokenFactory = CommonTokenFactory.DEFAULT;
 
   /**
-   * Constructs a new {@link ListTokenSource} instance from the specified
-   * collection of {@link Token} objects.
+   * Constructs a new {@link ListTokenSource} instance from the specified collection of {@link Token} objects.
    *
-   * @param tokens The collection of {@link Token} objects to provide as a
-   *               {@link TokenSource}.
+   * @param tokens The collection of {@link Token} objects to provide as a {@link TokenSource}.
+   *
    * @throws NullPointerException if {@code tokens} is {@code null}
    */
-  public ListTokenSource(@NotNull List<? extends Token> tokens) {
+  public ListTokenSource(List<? extends Token> tokens) {
     this(tokens, null);
   }
 
   /**
-   * Constructs a new {@link ListTokenSource} instance from the specified
-   * collection of {@link Token} objects and source name.
+   * Constructs a new {@link ListTokenSource} instance from the specified collection of {@link Token} objects and source
+   * name.
    *
-   * @param tokens     The collection of {@link Token} objects to provide as a
-   *                   {@link TokenSource}.
-   * @param sourceName The name of the {@link TokenSource}. If this value is
-   *                   {@code null}, {@link #getSourceName} will attempt to infer the name from
-   *                   the next {@link Token} (or the previous token if the end of the input has
-   *                   been reached).
+   * @param tokens     The collection of {@link Token} objects to provide as a {@link TokenSource}.
+   * @param sourceName The name of the {@link TokenSource}. If this value is {@code null}, {@link #getSourceName} will
+   *                   attempt to infer the name from the next {@link Token} (or the previous token if the end of the
+   *                   input has been reached).
+   *
    * @throws NullPointerException if {@code tokens} is {@code null}
    */
-  public ListTokenSource(@NotNull List<? extends Token> tokens, String sourceName) {
-    if (tokens == null) {
-      throw new NullPointerException("tokens cannot be null");
-    }
-
+  public ListTokenSource(List<? extends Token> tokens, @Nullable String sourceName) {
     this.tokens = tokens;
     this.sourceName = sourceName;
   }
@@ -132,7 +126,7 @@ public class ListTokenSource implements TokenSource {
         }
 
         int stop = Math.max(-1, start - 1);
-        eofToken = _factory.create(Tuple.create(this, getInputStream()),
+        eofToken = tokenFactory.create(Tuple.create(this, getInputStream()),
           Token.EOF,
           "EOF",
           Token.DEFAULT_CHANNEL,
@@ -191,6 +185,7 @@ public class ListTokenSource implements TokenSource {
    * {@inheritDoc}
    */
   @Override
+  @Nullable
   public CharStream getInputStream() {
     if (i < tokens.size()) {
       return tokens.get(i).getInputStream();
@@ -225,16 +220,7 @@ public class ListTokenSource implements TokenSource {
    * {@inheritDoc}
    */
   @Override
-  public void setTokenFactory(@NotNull TokenFactory factory) {
-    this._factory = factory;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  @NotNull
-  public TokenFactory getTokenFactory() {
-    return _factory;
+  public void setTokenFactory(TokenFactory factory) {
+    this.tokenFactory = factory;
   }
 }

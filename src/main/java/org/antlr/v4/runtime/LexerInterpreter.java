@@ -9,28 +9,34 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNType;
 import org.antlr.v4.runtime.atn.LexerATNSimulator;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Collection;
 
+@NullMarked
 public class LexerInterpreter extends Lexer {
-  protected final String grammarFileName;
-  protected final ATN atn;
+  @Getter
+  private final String grammarFileName;
+  private final ATN atn;
 
-  protected final String[] ruleNames;
-  protected final String[] channelNames;
-  protected final String[] modeNames;
-  @NotNull
+  @Getter
+  private final String[] ruleNames;
+  @Getter
+  private final String[] channelNames;
+  @Getter
+  private final String[] modeNames;
+
+  @Getter
   private final Vocabulary vocabulary;
 
   public LexerInterpreter(String grammarFileName,
-                          @NotNull Vocabulary vocabulary,
+                          Vocabulary vocabulary,
                           Collection<String> ruleNames,
-                          @Nullable Collection<String> channelNames,
+                          Collection<String> channelNames,
                           Collection<String> modeNames,
                           ATN atn,
                           CharStream input) {
@@ -44,7 +50,7 @@ public class LexerInterpreter extends Lexer {
     this.atn = atn;
 
     this.ruleNames = ruleNames.toArray(new String[0]);
-    this.channelNames = channelNames != null ? channelNames.toArray(new String[0]) : null;
+    this.channelNames = channelNames.toArray(new String[0]);
     this.modeNames = modeNames.toArray(new String[0]);
     this.vocabulary = vocabulary;
     this.setInterpreter(new LexerATNSimulator(this, atn));
@@ -55,28 +61,4 @@ public class LexerInterpreter extends Lexer {
     return atn;
   }
 
-  @Override
-  public String getGrammarFileName() {
-    return grammarFileName;
-  }
-
-  @Override
-  public String[] getRuleNames() {
-    return ruleNames;
-  }
-
-  @Override
-  public String[] getChannelNames() {
-    return channelNames;
-  }
-
-  @Override
-  public String[] getModeNames() {
-    return modeNames;
-  }
-
-  @Override
-  public Vocabulary getVocabulary() {
-    return vocabulary;
-  }
 }

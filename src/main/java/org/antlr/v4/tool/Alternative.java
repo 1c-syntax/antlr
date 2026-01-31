@@ -14,6 +14,7 @@ import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.TerminalAST;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -22,10 +23,11 @@ import java.util.List;
 /**
  * An outermost alternative for a rule.  We don't track inner alternatives.
  */
+@NullMarked
 public class Alternative implements AttributeResolver {
   public Rule rule;
 
-  public AltAST ast;
+  public @Nullable AltAST ast;
 
   /**
    * What alternative number is this outermost alt? 1..n
@@ -82,6 +84,7 @@ public class Alternative implements AttributeResolver {
    * $x		Attribute: rule arguments, return values, predefined rule prop.
    */
   @Override
+  @Nullable
   public Attribute resolveToAttribute(String x, ActionAST node) {
     return rule.resolveToAttribute(x, node); // reuse that code
   }

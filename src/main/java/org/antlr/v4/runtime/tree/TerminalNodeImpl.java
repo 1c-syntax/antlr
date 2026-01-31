@@ -51,8 +51,7 @@ public class TerminalNodeImpl implements TerminalNode {
   }
 
   @Override
-  @Nullable
-  public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+  public <T> @Nullable T accept(ParseTreeVisitor<? extends T> visitor) {
     return visitor.visitTerminal(this);
   }
 

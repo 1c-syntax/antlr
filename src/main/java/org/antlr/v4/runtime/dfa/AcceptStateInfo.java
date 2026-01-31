@@ -27,9 +27,7 @@ public class AcceptStateInfo {
    * predicate evaluation.
    */
   private final int prediction;
-  /**
-   * Gets the which can be used to execute actions and/or commands after the lexer matches a token.
-   */
+
   private final LexerActionExecutor lexerActionExecutor;
 
   public AcceptStateInfo(int prediction) {

@@ -23,8 +23,7 @@ public class ErrorNodeImpl extends TerminalNodeImpl implements ErrorNode {
   }
 
   @Override
-  @Nullable
-  public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+  public <T> @Nullable T accept(ParseTreeVisitor<? extends T> visitor) {
     return visitor.visitErrorNode(this);
   }
 }

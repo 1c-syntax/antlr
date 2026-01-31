@@ -58,7 +58,7 @@ class TagChunk extends Chunk {
    */
   public TagChunk(@Nullable String label, String tag) {
     if (tag.isEmpty()) {
-      throw new IllegalArgumentException("tag cannot be null or empty");
+      throw new IllegalArgumentException("tag cannot be empty");
     }
 
     this.label = label;

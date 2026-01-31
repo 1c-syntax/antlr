@@ -34,7 +34,7 @@ public interface ParseTree extends SyntaxTree {
   /**
    * The {@link ParseTreeVisitor} needs a double dispatch method.
    */
-  @Nullable <T> T accept(ParseTreeVisitor<? extends T> visitor);
+  <T> @Nullable T accept(ParseTreeVisitor<? extends T> visitor);
 
   /**
    * Return the combined text of all leaf nodes. Does not get any off-channel tokens (if any) so won't return whitespace

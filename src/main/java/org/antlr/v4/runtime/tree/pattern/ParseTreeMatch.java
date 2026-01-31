@@ -9,10 +9,9 @@
  */
 package org.antlr.v4.runtime.tree.pattern;
 
-import lombok.Getter;
+import lombok.Value;
 import org.antlr.v4.runtime.misc.MultiMap;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
@@ -21,36 +20,20 @@ import java.util.List;
 /**
  * Represents the result of matching a {@link ParseTree} against a tree pattern.
  */
+@Value
 public class ParseTreeMatch {
 
-  /**
-   * This is the backing field for {@link #getTree()}. -- GETTER -- Get the parse tree we are trying to match to a
-   * pattern.
-   *
-   */
-  @Getter
-  private final ParseTree tree;
+  ParseTree tree;
+
+  ParseTreePattern pattern;
 
   /**
-   * This is the backing field for {@link #getPattern()}. -- GETTER -- Get the tree pattern we are matching against.
-   *
+   * The map includes special entries corresponding to the names of rules and tokens referenced in tags in the original
+   * pattern. For additional information, see the description
    */
-  @Getter
-  private final ParseTreePattern pattern;
+  MultiMap<String, ParseTree> labels;
 
-  /**
-   * This is the backing field for {@link #getLabels()}. -- GETTER -- Return a mapping from label &rarr; [list of
-   * nodes].
-   * <p>The map includes special entries corresponding to the names of rules and
-   * tokens referenced in tags in the original pattern. For additional information, see the description of .</p>
-   */
-  @Getter
-  private final MultiMap<String, ParseTree> labels;
-
-  /**
-   * This is the backing field for {@link #getMismatchedNode()}.
-   */
-  private final @Nullable ParseTree mismatchedNode;
+  @Nullable ParseTree mismatchedNode;
 
   /**
    * Constructs a new instance of {@link ParseTreeMatch} from the specified parse tree and pattern.
@@ -60,10 +43,6 @@ public class ParseTreeMatch {
    * @param labels         A mapping from label names to collections of {@link ParseTree} objects located by the tree
    *                       pattern matching process.
    * @param mismatchedNode The first node which failed to match the tree pattern during the matching process.
-   *
-   * @throws IllegalArgumentException if {@code tree} is {@code null}
-   * @throws IllegalArgumentException if {@code pattern} is {@code null}
-   * @throws IllegalArgumentException if {@code labels} is {@code null}
    */
   public ParseTreeMatch(ParseTree tree,
                         ParseTreePattern pattern,
@@ -129,16 +108,6 @@ public class ParseTreeMatch {
     }
 
     return nodes;
-  }
-
-  /**
-   * Get the node at which we first detected a mismatch.
-   *
-   * @return the node at which we first detected a mismatch, or {@code null} if the match was successful.
-   */
-  @Nullable
-  public ParseTree getMismatchedNode() {
-    return mismatchedNode;
   }
 
   /**

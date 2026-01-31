@@ -9,12 +9,14 @@
  */
 package org.antlr.v4.runtime;
 
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 /**
  * A token has properties: text, type, line, character position in the line (so we can ignore tabs), token channel,
  * index, and source from which we obtained this token.
  */
+@NullMarked
 public interface Token {
 
   Token EMPTY = empty();
@@ -46,7 +48,7 @@ public interface Token {
    * This is the minimum constant value which can be assigned to a user-defined token channel.
    *
    * <p>
-   * The non-negative numbers less than {@link #MIN_USER_CHANNEL_VALUE} are assigned to the predefined channels
+   * The non-negative numbers less than MIN_USER_CHANNEL_VALUE are assigned to the predefined channels
    * {@link #DEFAULT_CHANNEL} and {@link #HIDDEN_CHANNEL}.</p>
    *
    * @see Token#getChannel()
@@ -136,25 +138,27 @@ public interface Token {
 
       @Override
       public int getTokenIndex() {
-        return 0;
+        return -1;
       }
 
       @Override
       public int getStartIndex() {
-        return 0;
+        return -1;
       }
 
       @Override
       public int getStopIndex() {
-        return 0;
+        return -1;
       }
 
       @Override
+      @Nullable
       public TokenSource getTokenSource() {
         return null;
       }
 
       @Override
+      @Nullable
       public CharStream getInputStream() {
         return null;
       }

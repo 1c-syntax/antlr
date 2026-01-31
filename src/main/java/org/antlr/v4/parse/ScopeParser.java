@@ -54,7 +54,7 @@ public class ScopeParser {
   }
 
   public static AttributeDict parse(@Nullable ActionAST action, String s, char separator, Grammar g) {
-    AttributeDict dict = new AttributeDict();
+    AttributeDict dict = new AttributeDict(AttributeDict.DictType.ARG);
     List<Pair<String, Integer>> decls = splitDecls(s, separator);
     for (Pair<String, Integer> decl : decls) {
       if (!decl.getItem1().trim().isEmpty()) {

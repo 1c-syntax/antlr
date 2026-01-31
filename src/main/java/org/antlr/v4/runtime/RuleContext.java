@@ -181,8 +181,7 @@ public class RuleContext implements RuleNode {
   }
 
   @Override
-  @Nullable
-  public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+  public <T> @Nullable T accept(ParseTreeVisitor<? extends T> visitor) {
     return visitor.visitChildren(this);
   }
 

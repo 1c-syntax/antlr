@@ -26,7 +26,6 @@ class TextChunk extends Chunk {
    *
    * @param text The text of this chunk.
    *
-   * @throws IllegalArgumentException if {@code text} is {@code null}.
    */
   public TextChunk(String text) {
     this.text = text;

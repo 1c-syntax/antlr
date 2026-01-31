@@ -20,7 +20,7 @@ public class ActionAST extends GrammarASTWithOptions implements RuleElementAST {
   // Alt, rule, grammar space
   @Setter
   @Getter
-  GrammarAST scope = null;
+  private GrammarAST scope = null;
   public AttributeResolver resolver;
   public List<Token> chunks; // useful for ANTLR IDE developers
 

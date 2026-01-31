@@ -156,7 +156,7 @@ public class ActionTranslator implements ActionSplitterListener {
     gen.g.tool.log("action-translator", "attr " + x);
     Attribute a = node.resolver.resolveToAttribute(x.getText(), node);
     if (a != null) {
-      switch (a.dict.type) {
+      switch (a.dict.getType()) {
         case ARG:
           chunks.add(new ArgRef(nodeContext, x.getText()));
           break;
@@ -207,7 +207,7 @@ public class ActionTranslator implements ActionSplitterListener {
         "rule");
       return;
     }
-    switch (a.dict.type) {
+    switch (a.dict.getType()) {
       case ARG:
         chunks.add(new ArgRef(nodeContext, y.getText()));
         break; // has to be current rule

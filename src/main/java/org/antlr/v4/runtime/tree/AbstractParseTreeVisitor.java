@@ -92,7 +92,7 @@ public abstract class AbstractParseTreeVisitor<Result> implements ParseTreeVisit
    * @return The default value returned by visitor methods.
    */
   @Nullable
-  private Result defaultResult() {
+  protected Result defaultResult() {
     return null;
   }
 

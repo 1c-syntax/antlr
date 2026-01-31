@@ -172,8 +172,7 @@ public class LeftRecursiveRuleTransformer {
     ActionAST arg = (ActionAST) r.ast.getFirstChildWithType(ANTLRParser.ARG_ACTION);
     if (arg != null) {
       r.args = ScopeParser.parseTypedArgList(arg, arg.getText(), g);
-      r.args.type = AttributeDict.DictType.ARG;
-      r.args.ast = arg;
+      r.args.setType(AttributeDict.DictType.ARG);
       arg.resolver = r.alt[1]; // todo: isn't this Rule or something?
     }
 
