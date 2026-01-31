@@ -20,18 +20,18 @@ import java.util.Collection;
 @NullMarked
 public class LexerInterpreter extends Lexer {
   @Getter
-  private final String grammarFileName;
-  private final ATN atn;
+  protected final String grammarFileName;
+  protected final ATN atn;
 
   @Getter
-  private final String[] ruleNames;
+  protected final String[] ruleNames;
   @Getter
-  private final String[] channelNames;
+  protected final String[] channelNames;
   @Getter
-  private final String[] modeNames;
+  protected final String[] modeNames;
 
   @Getter
-  private final Vocabulary vocabulary;
+  protected final Vocabulary vocabulary;
 
   public LexerInterpreter(String grammarFileName,
                           Vocabulary vocabulary,

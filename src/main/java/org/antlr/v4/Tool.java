@@ -154,7 +154,7 @@ public class Tool {
   public static boolean internalOption_ShowATNConfigsInDFA = false;
 
 
-  public final String @Nullable[] args;
+  public final String @Nullable [] args;
 
   protected List<String> grammarFiles = new ArrayList<>();
 
@@ -165,8 +165,7 @@ public class Tool {
   List<ANTLRToolListener> listeners = new CopyOnWriteArrayList<>();
 
   /**
-   * Track separately so if someone adds a listener, it's the only one
-   * instead of it and the default stderr listener.
+   * Track separately so if someone adds a listener, it's the only one instead of it and the default stderr listener.
    */
   DefaultToolListener defaultListener = new DefaultToolListener(this);
 
@@ -201,7 +200,7 @@ public class Tool {
     this(null);
   }
 
-  public Tool(String @Nullable[] args) {
+  public Tool(String @Nullable [] args) {
     this.args = args;
     errMgr = new ErrorManager(this);
     // We have to use the default message format until we have
@@ -326,11 +325,9 @@ public class Tool {
   }
 
   /**
-   * To process a grammar, we load all of its imported grammars into
-   * subordinate grammar objects. Then we merge the imported rules
-   * into the root grammar. If a root grammar is a combined grammar,
-   * we have to extract the implicit lexer. Once all this is done, we
-   * process the lexer first, if present, and then the parser grammar
+   * To process a grammar, we load all of its imported grammars into subordinate grammar objects. Then we merge the
+   * imported rules into the root grammar. If a root grammar is a combined grammar, we have to extract the implicit
+   * lexer. Once all this is done, we process the lexer first, if present, and then the parser grammar
    */
   public void process(Grammar g, boolean gencode) {
     g.loadImportedGrammars();
@@ -405,11 +402,9 @@ public class Tool {
   }
 
   /**
-   * Important enough to avoid multiple definitions that we do very early,
-   * right after AST construction. Also check for undefined rules in
-   * parser/lexer to avoid exceptions later. Return true if we find multiple
-   * definitions of the same rule or a reference to an undefined rule or
-   * parser rule ref in lexer rule.
+   * Important enough to avoid multiple definitions that we do very early, right after AST construction. Also check for
+   * undefined rules in parser/lexer to avoid exceptions later. Return true if we find multiple definitions of the same
+   * rule or a reference to an undefined rule or parser rule ref in lexer rule.
    */
   public boolean checkForRuleIssues(final Grammar g) {
     // check for redefined rules
@@ -559,11 +554,9 @@ public class Tool {
   }
 
   /**
-   * Given the raw AST of a grammar, create a grammar object
-   * associated with the AST. Once we have the grammar object, ensure
-   * that all nodes in tree referred to this grammar. Later, we will
-   * use it for error handling and generally knowing from where a rule
-   * comes from.
+   * Given the raw AST of a grammar, create a grammar object associated with the AST. Once we have the grammar object,
+   * ensure that all nodes in tree referred to this grammar. Later, we will use it for error handling and generally
+   * knowing from where a rule comes from.
    */
   public Grammar createGrammar(GrammarRootAST ast) {
     final Grammar g;
@@ -592,10 +585,8 @@ public class Tool {
   }
 
   /**
-   * Convenience method to load and process an ANTLR grammar. Useful
-   * when creating interpreters.  If you need to access to the lexer
-   * grammar created while processing a combined grammar, use
-   * getImplicitLexer() on returned grammar.
+   * Convenience method to load and process an ANTLR grammar. Useful when creating interpreters.  If you need to access
+   * to the lexer grammar created while processing a combined grammar, use getImplicitLexer() on returned grammar.
    */
   public Grammar loadGrammar(String fileName) {
     GrammarRootAST grammarRootAST = parseGrammar(fileName);
@@ -760,20 +751,14 @@ public class Tool {
   }
 
   /**
-   * This method is used by all code generators to create new output
-   * files. If the outputDir set by -o is not present it will be created.
-   * The final filename is sensitive to the output directory and
-   * the directory where the grammar file was found.  If -o is /tmp
-   * and the original grammar file was foo/t.g4 then output files
-   * go in /tmp/foo.
+   * This method is used by all code generators to create new output files. If the outputDir set by -o is not present it
+   * will be created. The final filename is sensitive to the output directory and the directory where the grammar file
+   * was found.  If -o is /tmp and the original grammar file was foo/t.g4 then output files go in /tmp/foo.
    * <p>
-   * The output dir -o spec takes precedence if it's absolute.
-   * E.g., if the grammar file dir is absolute the output dir is given
-   * precedence. "-o /tmp /usr/lib/t.g4" results in "/tmp/T.java" as
-   * output (assuming t.g4 holds T.java).
+   * The output dir -o spec takes precedence if it's absolute. E.g., if the grammar file dir is absolute the output dir
+   * is given precedence. "-o /tmp /usr/lib/t.g4" results in "/tmp/T.java" as output (assuming t.g4 holds T.java).
    * <p>
-   * If no -o is specified, then just write to the directory where the
-   * grammar file was found.
+   * If no -o is specified, then just write to the directory where the grammar file was found.
    * <p>
    * If outputDirectory==null then write a String.
    */
@@ -817,10 +802,9 @@ public class Tool {
   }
 
   /**
-   * Return the location where ANTLR will generate output files for a given
-   * file. This is a base directory and output files will be relative to
-   * here in some cases such as when -o option is used and input files are
-   * given relative to the input directory.
+   * Return the location where ANTLR will generate output files for a given file. This is a base directory and output
+   * files will be relative to here in some cases such as when -o option is used and input files are given relative to
+   * the input directory.
    *
    * @param fileNameWithPath path to input source
    */
@@ -962,6 +946,6 @@ public class Tool {
   }
 
   private boolean haveOutputDir() {
-    return outputDirectory != null;
+    return outputDirectory != null && !".".equals(outputDirectory);
   }
 }
