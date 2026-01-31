@@ -169,7 +169,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
         "@header {" +
         "import java.util.*;" +
         "}" +
-        "s : {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
+        "s : {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
         "    a ';' a;\n" + // do 2x: once in ATN, next in DFA
         "a :          ID {System.out.println(\"alt 1\");}\n" +
         "  |          ID {System.out.println(\"alt 2\");}\n" +
@@ -198,7 +198,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
         "@header {" +
         "import java.util.*;" +
         "}" +
-        "s : {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
+        "s : {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
         "    a ';' a ';' a;\n" +
         "a : INT         {System.out.println(\"alt 1\");}\n" +
         "  |          ID {System.out.println(\"alt 2\");}\n" + // must pick this one for ID since pred is false

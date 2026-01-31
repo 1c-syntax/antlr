@@ -9,56 +9,53 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.stringtemplate.v4.ST;
 
 import java.util.Arrays;
 
+@NullMarked
 public class ANTLRMessage {
   private static final Object[] EMPTY_ARGS = new Object[0];
 
-  @NotNull
+  @Getter
   private final ErrorType errorType;
-  @Nullable
-  private final Object[] args;
-  @Nullable
-  private final Throwable e;
+  private final Object @Nullable [] args;
+  private final @Nullable Throwable e;
 
   // used for location template
-  public String fileName;
+  public @Nullable String fileName;
   public int line = -1;
   public int charPosition = -1;
 
   public Grammar g;
-  /**
-   * Most of the time, we'll have a token such as an undefined rule ref
-   * and so this will be set.
-   */
-  public Token offendingToken;
 
-  public ANTLRMessage(@NotNull ErrorType errorType) {
+  /**
+   * Most of the time, we'll have a token such as an undefined rule ref and so this will be set.
+   */
+  public @Nullable Token offendingToken;
+
+  public ANTLRMessage(ErrorType errorType) {
     this(errorType, (Throwable) null, Token.INVALID_TOKEN);
   }
 
-  public ANTLRMessage(@NotNull ErrorType errorType, Token offendingToken, Object... args) {
+  public ANTLRMessage(ErrorType errorType, @Nullable Token offendingToken, Object @Nullable ... args) {
     this(errorType, null, offendingToken, args);
   }
 
-  public ANTLRMessage(@NotNull ErrorType errorType, @Nullable Throwable e, Token offendingToken, Object... args) {
+  public ANTLRMessage(ErrorType errorType,
+                      @Nullable Throwable e,
+                      @Nullable Token offendingToken,
+                      Object @Nullable ... args) {
     this.errorType = errorType;
     this.e = e;
     this.args = args;
     this.offendingToken = offendingToken;
   }
 
-  @NotNull
-  public ErrorType getErrorType() {
-    return errorType;
-  }
-
-  @NotNull
   public Object[] getArgs() {
     if (args == null) {
       return EMPTY_ARGS;

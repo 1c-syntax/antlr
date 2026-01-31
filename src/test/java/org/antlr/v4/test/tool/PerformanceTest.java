@@ -42,8 +42,6 @@ import org.antlr.v4.runtime.dfa.DFAState;
 import org.antlr.v4.runtime.dfa.EmptyEdgeMap;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.MurmurHash;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -51,6 +49,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -94,10 +94,11 @@ import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@NullMarked
 class PerformanceTest extends AbstractBaseTest {
   /**
-   * Parse all java files under this package within the JDK_SOURCE_ROOT
-   * (environment variable or property defined on the Java command line).
+   * Parse all java files under this package within the JDK_SOURCE_ROOT (environment variable or property defined on the
+   * Java command line).
    */
   private static final String TOP_PACKAGE;
 
@@ -111,16 +112,13 @@ class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * {@code true} to load java files from sub-packages of
-   * {@link #TOP_PACKAGE}.
+   * {@code true} to load java files from sub-packages of {@link #TOP_PACKAGE}.
    */
   private static final boolean RECURSIVE = true;
   /**
-   * {@code true} to read all source files from disk into memory before
-   * starting the parse. The default value is {@code true} to help prevent
-   * drive speed from affecting the performance results. This value may be set
-   * to {@code false} to support parsing large input sets which would not
-   * otherwise fit into memory.
+   * {@code true} to read all source files from disk into memory before starting the parse. The default value is
+   * {@code true} to help prevent drive speed from affecting the performance results. This value may be set to
+   * {@code false} to support parsing large input sets which would not otherwise fit into memory.
    */
   private static final boolean PRELOAD_SOURCES = true;
   /**
@@ -133,65 +131,54 @@ class PerformanceTest extends AbstractBaseTest {
   private static final int MAX_FILES_PER_PARSE_ITERATION = Integer.MAX_VALUE;
 
   /**
-   * {@code true} to call {@link Collections#shuffle} on the list of input
-   * files before the first parse iteration.
+   * {@code true} to call {@link Collections#shuffle} on the list of input files before the first parse iteration.
    */
   private static final boolean SHUFFLE_FILES_AT_START = false;
   /**
-   * {@code true} to call {@link Collections#shuffle} before each parse
-   * iteration <em>after</em> the first.
+   * {@code true} to call {@link Collections#shuffle} before each parse iteration <em>after</em> the first.
    */
   private static final boolean SHUFFLE_FILES_AFTER_ITERATIONS = false;
   /**
-   * The instance of {@link Random} passed when calling
-   * {@link Collections#shuffle}.
+   * The instance of {@link Random} passed when calling {@link Collections#shuffle}.
    */
   private static final Random RANDOM = new Random();
 
   /**
-   * {@code true} to use the Java grammar with expressions in the v4
-   * left-recursive syntax (JavaLR.g4). {@code false} to use the standard
-   * grammar (Java.g4). In either case, the grammar is renamed in the
-   * temporary directory to Java.g4 before compiling.
+   * {@code true} to use the Java grammar with expressions in the v4 left-recursive syntax (JavaLR.g4). {@code false} to
+   * use the standard grammar (Java.g4). In either case, the grammar is renamed in the temporary directory to Java.g4
+   * before compiling.
    */
   private static final boolean USE_LR_GRAMMAR = true;
   /**
-   * {@code true} to specify the {@code -Xforce-atn} option when generating
-   * the grammar, forcing all decisions in {@code JavaParser} to be handled by
-   * {@link ParserATNSimulator#adaptivePredict}.
+   * {@code true} to specify the {@code -Xforce-atn} option when generating the grammar, forcing all decisions in
+   * {@code JavaParser} to be handled by {@link ParserATNSimulator#adaptivePredict}.
    */
   private static final boolean FORCE_ATN = false;
   /**
-   * {@code true} to specify the {@code -atn} option when generating the
-   * grammar. This will cause ANTLR to export the ATN for each decision as a
-   * DOT (GraphViz) file.
+   * {@code true} to specify the {@code -atn} option when generating the grammar. This will cause ANTLR to export the
+   * ATN for each decision as a DOT (GraphViz) file.
    */
   private static final boolean EXPORT_ATN_GRAPHS = true;
   /**
-   * {@code true} to specify the {@code -XdbgST} option when generating the
-   * grammar.
+   * {@code true} to specify the {@code -XdbgST} option when generating the grammar.
    */
   private static final boolean DEBUG_TEMPLATES = false;
   /**
-   * {@code true} to specify the {@code -XdbgSTWait} option when generating the
-   * grammar.
+   * {@code true} to specify the {@code -XdbgSTWait} option when generating the grammar.
    */
   private static final boolean DEBUG_TEMPLATES_WAIT = DEBUG_TEMPLATES;
   /**
-   * {@code true} to delete temporary (generated and compiled) files when the
-   * test completes.
+   * {@code true} to delete temporary (generated and compiled) files when the test completes.
    */
   private static final boolean DELETE_TEMP_FILES = true;
   /**
-   * {@code true} to use a {@link ParserInterpreter} for parsing instead of
-   * generated parser.
+   * {@code true} to use a {@link ParserInterpreter} for parsing instead of generated parser.
    */
   private static final boolean USE_PARSER_INTERPRETER = false;
 
   /**
-   * {@code true} to call {@link System#gc} and then wait for 5 seconds at the
-   * end of the test to make it easier for a profiler to grab a heap dump at
-   * the end of the test run.
+   * {@code true} to call {@link System#gc} and then wait for 5 seconds at the end of the test to make it easier for a
+   * profiler to grab a heap dump at the end of the test run.
    */
   private static final boolean PAUSE_FOR_HEAP_DUMP = false;
 
@@ -200,13 +187,11 @@ class PerformanceTest extends AbstractBaseTest {
    */
   private static final boolean RUN_PARSER = true;
   /**
-   * {@code true} to use {@link BailErrorStrategy}, {@code false} to use
-   * {@link DefaultErrorStrategy}.
+   * {@code true} to use {@link BailErrorStrategy}, {@code false} to use {@link DefaultErrorStrategy}.
    */
   private static final boolean BAIL_ON_ERROR = false;
   /**
-   * {@code true} to compute a checksum for verifying consistency across
-   * optimizations and multiple passes.
+   * {@code true} to compute a checksum for verifying consistency across optimizations and multiple passes.
    */
   private static final boolean COMPUTE_CHECKSUM = true;
   /**
@@ -214,28 +199,24 @@ class PerformanceTest extends AbstractBaseTest {
    */
   private static final boolean BUILD_PARSE_TREES = false;
   /**
-   * Use
-   * {@link ParseTreeWalker#DEFAULT}{@code .}{@link ParseTreeWalker#walk walk}
-   * with the {@code JavaParserBaseListener} to show parse tree walking
-   * overhead. If {@link #BUILD_PARSE_TREES} is {@code false}, the listener
-   * will instead be called during the parsing process via
-   * {@link Parser#addParseListener}.
+   * Use {@link ParseTreeWalker#DEFAULT}{@code .}{@link ParseTreeWalker#walk walk} with the
+   * {@code JavaParserBaseListener} to show parse tree walking overhead. If {@link #BUILD_PARSE_TREES} is {@code false},
+   * the listener will instead be called during the parsing process via {@link Parser#addParseListener}.
    */
   private static final boolean BLANK_LISTENER = false;
 
   private static final boolean EXPORT_LARGEST_CONFIG_CONTEXTS = false;
 
   /**
-   * Shows the number of {@link DFAState} and {@link ATNConfig} instances in
-   * the DFA cache at the end of each pass. If {@link #REUSE_LEXER_DFA} and/or
-   * {@link #REUSE_PARSER_DFA} are false, the corresponding instance numbers
-   * will only apply to one file (the last file if {@link #NUMBER_OF_THREADS}
-   * is 0, otherwise the last file which was parsed on the first thread).
+   * Shows the number of {@link DFAState} and {@link ATNConfig} instances in the DFA cache at the end of each pass. If
+   * {@link #REUSE_LEXER_DFA} and/or {@link #REUSE_PARSER_DFA} are false, the corresponding instance numbers will only
+   * apply to one file (the last file if {@link #NUMBER_OF_THREADS} is 0, otherwise the last file which was parsed on
+   * the first thread).
    */
   private static final boolean SHOW_DFA_STATE_STATS = true;
   /**
-   * If {@code true}, the DFA state statistics report includes a breakdown of
-   * the number of DFA states contained in each decision (with rule names).
+   * If {@code true}, the DFA state statistics report includes a breakdown of the number of DFA states contained in each
+   * decision (with rule names).
    */
   private static final boolean DETAILED_DFA_STATE_STATS = true;
 
@@ -243,16 +224,14 @@ class PerformanceTest extends AbstractBaseTest {
 
   private static final boolean ENABLE_PARSER_DFA = true;
   /**
-   * If {@code true}, the DFA will be used for full context parsing as well as
-   * SLL parsing.
+   * If {@code true}, the DFA will be used for full context parsing as well as SLL parsing.
    */
   private static final boolean ENABLE_PARSER_FULL_CONTEXT_DFA = false;
 
   /**
-   * Specify the {@link PredictionMode} used by the
-   * {@link ParserATNSimulator}. If {@link #TWO_STAGE_PARSING} is
-   * {@code true}, this value only applies to the second stage, as the first
-   * stage will always use {@link PredictionMode#SLL}.
+   * Specify the {@link PredictionMode} used by the {@link ParserATNSimulator}. If {@link #TWO_STAGE_PARSING} is
+   * {@code true}, this value only applies to the second stage, as the first stage will always use
+   * {@link PredictionMode#SLL}.
    */
   private static final PredictionMode PREDICTION_MODE = PredictionMode.LL;
   private static final boolean FORCE_GLOBAL_CONTEXT = false;
@@ -268,47 +247,41 @@ class PerformanceTest extends AbstractBaseTest {
   private static final boolean SHOW_CONFIG_STATS = false;
 
   /**
-   * If {@code true}, detailed statistics for the number of DFA edges were
-   * taken while parsing each file, as well as the number of DFA edges which
-   * required on-the-fly computation.
+   * If {@code true}, detailed statistics for the number of DFA edges were taken while parsing each file, as well as the
+   * number of DFA edges which required on-the-fly computation.
    */
   private static final boolean COMPUTE_TRANSITION_STATS = false;
   private static final boolean SHOW_TRANSITION_STATS_PER_FILE = false;
   /**
-   * If {@code true}, the transition statistics will be adjusted to a running
-   * total before reporting the final results.
+   * If {@code true}, the transition statistics will be adjusted to a running total before reporting the final results.
    */
   private static final boolean TRANSITION_RUNNING_AVERAGE = false;
   /**
-   * If {@code true}, transition statistics will be weighted according to the
-   * total number of transitions taken during the parsing of each file.
+   * If {@code true}, transition statistics will be weighted according to the total number of transitions taken during
+   * the parsing of each file.
    */
   private static final boolean TRANSITION_WEIGHTED_AVERAGE = false;
 
   /**
-   * If {@code true}, after each pass a summary of the time required to parse
-   * each file will be printed.
+   * If {@code true}, after each pass a summary of the time required to parse each file will be printed.
    */
   private static final boolean COMPUTE_TIMING_STATS = false;
   /**
-   * If {@code true}, the timing statistics for {@link #COMPUTE_TIMING_STATS}
-   * will be cumulative (i.e. the time reported for the <em>n</em>th file will
-   * be the total time required to parse the first <em>n</em> files).
+   * If {@code true}, the timing statistics for {@link #COMPUTE_TIMING_STATS} will be cumulative (i.e. the time reported
+   * for the <em>n</em>th file will be the total time required to parse the first <em>n</em> files).
    */
   private static final boolean TIMING_CUMULATIVE = false;
   /**
-   * If {@code true}, the timing statistics will include the parser only. This
-   * flag allows for targeted measurements, and helps eliminate variance when
-   * {@link #PRELOAD_SOURCES} is {@code false}.
+   * If {@code true}, the timing statistics will include the parser only. This flag allows for targeted measurements,
+   * and helps eliminate variance when {@link #PRELOAD_SOURCES} is {@code false}.
    * <p/>
    * This flag has no impact when {@link #RUN_PARSER} is {@code false}.
    */
   private static final boolean TIME_PARSE_ONLY = false;
 
   /**
-   * When {@code true}, messages will be printed to {@link System#err} when
-   * the first stage (SLL) parsing resulted in a syntax error. This option is
-   * ignored when {@link #TWO_STAGE_PARSING} is {@code false}.
+   * When {@code true}, messages will be printed to {@link System#err} when the first stage (SLL) parsing resulted in a
+   * syntax error. This option is ignored when {@link #TWO_STAGE_PARSING} is {@code false}.
    */
   private static final boolean REPORT_SECOND_STAGE_RETRY = true;
   private static final boolean REPORT_SYNTAX_ERRORS = true;
@@ -317,37 +290,31 @@ class PerformanceTest extends AbstractBaseTest {
   private static final boolean REPORT_CONTEXT_SENSITIVITY = REPORT_FULL_CONTEXT;
 
   /**
-   * If {@code true}, a single {@code JavaLexer} will be used, and
-   * {@link Lexer#setInputStream} will be called to initialize it for each
-   * source file. Otherwise, a new instance will be created for each file.
+   * If {@code true}, a single {@code JavaLexer} will be used, and {@link Lexer#setInputStream} will be called to
+   * initialize it for each source file. Otherwise, a new instance will be created for each file.
    */
   private static final boolean REUSE_LEXER = false;
   /**
-   * If {@code true}, a single DFA will be used for lexing which is shared
-   * across all threads and files. Otherwise, each file will be lexed with its
-   * own DFA which is accomplished by creating one ATN instance per thread and
-   * clearing its DFA cache before lexing each file.
+   * If {@code true}, a single DFA will be used for lexing which is shared across all threads and files. Otherwise, each
+   * file will be lexed with its own DFA which is accomplished by creating one ATN instance per thread and clearing its
+   * DFA cache before lexing each file.
    */
   private static final boolean REUSE_LEXER_DFA = true;
   /**
-   * If {@code true}, a single {@code JavaParser} will be used, and
-   * {@link Parser#setInputStream} will be called to initialize it for each
-   * source file. Otherwise, a new instance will be created for each file.
+   * If {@code true}, a single {@code JavaParser} will be used, and {@link Parser#setInputStream} will be called to
+   * initialize it for each source file. Otherwise, a new instance will be created for each file.
    */
   private static final boolean REUSE_PARSER = false;
   /**
-   * If {@code true}, a single DFA will be used for parsing which is shared
-   * across all threads and files. Otherwise, each file will be parsed with
-   * its own DFA which is accomplished by creating one ATN instance per thread
-   * and clearing its DFA cache before parsing each file.
+   * If {@code true}, a single DFA will be used for parsing which is shared across all threads and files. Otherwise,
+   * each file will be parsed with its own DFA which is accomplished by creating one ATN instance per thread and
+   * clearing its DFA cache before parsing each file.
    */
   private static final boolean REUSE_PARSER_DFA = true;
   /**
-   * If {@code true}, the shared lexer and parser are reset after each pass.
-   * If {@code false}, all passes after the first will be fully "warmed up",
-   * which makes them faster and can compare them to the first warm-up pass,
-   * but it will not distinguish bytecode load/JIT time from warm-up time
-   * during the first pass.
+   * If {@code true}, the shared lexer and parser are reset after each pass. If {@code false}, all passes after the
+   * first will be fully "warmed up", which makes them faster and can compare them to the first warm-up pass, but it
+   * will not distinguish bytecode load/JIT time from warm-up time during the first pass.
    */
   private static final boolean CLEAR_DFA = false;
   /**
@@ -356,9 +323,8 @@ class PerformanceTest extends AbstractBaseTest {
   private static final int PASSES = 4;
 
   /**
-   * This option controls the granularity of multi-threaded parse operations.
-   * If {@code true}, the parsing operation will be parallelized across files;
-   * otherwise the parsing will be parallelized across multiple iterations.
+   * This option controls the granularity of multi-threaded parse operations. If {@code true}, the parsing operation
+   * will be parallelized across files; otherwise the parsing will be parallelized across multiple iterations.
    */
   private static final boolean FILE_GRANULARITY = true;
 
@@ -383,8 +349,8 @@ class PerformanceTest extends AbstractBaseTest {
       totalTransitionsPerFile = new long[PASSES][];
       computedTransitionsPerFile = new long[PASSES][];
     } else {
-      totalTransitionsPerFile = null;
-      computedTransitionsPerFile = null;
+      totalTransitionsPerFile = new long[0][];
+      computedTransitionsPerFile = new long[0][];
     }
   }
 
@@ -404,12 +370,12 @@ class PerformanceTest extends AbstractBaseTest {
       computedTransitionsPerDecisionPerFile = new long[PASSES][][];
       fullContextTransitionsPerDecisionPerFile = new long[PASSES][][];
     } else {
-      decisionInvocationsPerFile = null;
-      fullContextFallbackPerFile = null;
-      nonSllPerFile = null;
-      totalTransitionsPerDecisionPerFile = null;
-      computedTransitionsPerDecisionPerFile = null;
-      fullContextTransitionsPerDecisionPerFile = null;
+      decisionInvocationsPerFile = new long[0][][];
+      fullContextFallbackPerFile = new long[0][][];
+      nonSllPerFile = new long[0][][];
+      totalTransitionsPerDecisionPerFile = new long[0][][];
+      computedTransitionsPerDecisionPerFile = new long[0][][];
+      fullContextTransitionsPerDecisionPerFile = new long[0][][];
     }
   }
 
@@ -421,8 +387,8 @@ class PerformanceTest extends AbstractBaseTest {
       timePerFile = new long[PASSES][];
       tokensPerFile = new int[PASSES][];
     } else {
-      timePerFile = null;
-      tokensPerFile = null;
+      timePerFile = new long[0][];
+      tokensPerFile = new int[0][];
     }
   }
 
@@ -457,22 +423,22 @@ class PerformanceTest extends AbstractBaseTest {
 
     for (int i = 0; i < PASSES; i++) {
       if (COMPUTE_TRANSITION_STATS) {
-        totalTransitionsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
-        computedTransitionsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
+        totalTransitionsPerFile[i] = new long[sources.size()];
+        computedTransitionsPerFile[i] = new long[sources.size()];
 
         if (DETAILED_DFA_STATE_STATS) {
-          decisionInvocationsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          fullContextFallbackPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          nonSllPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          totalTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          computedTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          fullContextTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
+          decisionInvocationsPerFile[i] = new long[sources.size()][];
+          fullContextFallbackPerFile[i] = new long[sources.size()][];
+          nonSllPerFile[i] = new long[sources.size()][];
+          totalTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
+          computedTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
+          fullContextTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
         }
       }
 
       if (COMPUTE_TIMING_STATS) {
-        timePerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
-        tokensPerFile[i] = new int[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
+        timePerFile[i] = new long[sources.size()];
+        tokensPerFile[i] = new int[sources.size()];
       }
     }
     System.out.format("Located %d source files.%n", sources.size());
@@ -773,8 +739,8 @@ class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * This method is separate from {@link #parse2} so the first pass can be distinguished when analyzing
-   * profiler results.
+   * This method is separate from {@link #parse2} so the first pass can be distinguished when analyzing profiler
+   * results.
    */
   protected void parse1(int currentPass,
                         ParserFactory factory,
@@ -788,8 +754,8 @@ class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * This method is separate from {@link #parse1} so the first pass can be distinguished when analyzing
-   * profiler results.
+   * This method is separate from {@link #parse1} so the first pass can be distinguished when analyzing profiler
+   * results.
    */
   protected void parse2(int currentPass,
                         ParserFactory factory,
@@ -1695,12 +1661,13 @@ class PerformanceTest extends AbstractBaseTest {
     }
   }
 
+  @NullMarked
   private static class DescriptiveErrorListener extends BaseErrorListener {
     public static DescriptiveErrorListener INSTANCE = new DescriptiveErrorListener();
 
     @Override
     public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
-                                              int charPositionInLine, String msg, RecognitionException e) {
+                                              int charPositionInLine, String msg, @org.jspecify.annotations.Nullable RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1715,12 +1682,13 @@ class PerformanceTest extends AbstractBaseTest {
 
   }
 
+  @NullMarked
   private static class DescriptiveLexerErrorListener implements ANTLRErrorListener<Integer> {
     public static DescriptiveLexerErrorListener INSTANCE = new DescriptiveLexerErrorListener();
 
     @Override
     public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
-                                                int charPositionInLine, String msg, RecognitionException e) {
+                                                int charPositionInLine, String msg, @org.jspecify.annotations.Nullable RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1970,9 +1938,9 @@ class PerformanceTest extends AbstractBaseTest {
       super(parser, atn);
     }
 
-    @NotNull
+
     @Override
-    protected DFAState createDFAState(@NotNull DFA dfa, @NotNull ATNConfigSet configs) {
+    protected DFAState createDFAState(DFA dfa, ATNConfigSet configs) {
       return new DFAState(emptyMap, dfa.getEmptyContextEdgeMap(), configs);
     }
 
@@ -2062,14 +2030,14 @@ class PerformanceTest extends AbstractBaseTest {
     private final String source;
     private Reference<CodePointBuffer> inputStream;
 
-    public InputDescriptor(@NotNull String source) {
+    public InputDescriptor(String source) {
       this.source = source;
       if (PRELOAD_SOURCES) {
         getInputStream();
       }
     }
 
-    @NotNull
+
     public CharStream getInputStream() {
       CodePointBuffer buffer = inputStream != null ? inputStream.get() : null;
       if (buffer == null) {

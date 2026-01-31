@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.misc.MurmurHash;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -20,7 +21,11 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @author Sam Harwell
  * @since 4.2
  */
+@Getter
 public class LexerTypeAction implements LexerAction {
+  /**
+   *  Gets the type to assign to a token created by the lexer.
+   */
   private final int type;
 
   /**
@@ -30,15 +35,6 @@ public class LexerTypeAction implements LexerAction {
    */
   public LexerTypeAction(int type) {
     this.type = type;
-  }
-
-  /**
-   * Gets the type to assign to a token created by the lexer.
-   *
-   * @return The type to assign to a token created by the lexer.
-   */
-  public int getType() {
-    return type;
   }
 
   /**

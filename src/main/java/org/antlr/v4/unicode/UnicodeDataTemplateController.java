@@ -177,13 +177,17 @@ public abstract class UnicodeDataTemplateController {
     }
   }
 
-  private static void addIntPropertyRanges(int property, String namePrefix, Map<String, IntervalSet> propertyCodePointRanges) {
+  private static void addIntPropertyRanges(int property,
+                                           String namePrefix,
+                                           Map<String, IntervalSet> propertyCodePointRanges) {
     for (int propertyValue = UCharacter.getIntPropertyMinValue(property);
          propertyValue <= UCharacter.getIntPropertyMaxValue(property);
          propertyValue++) {
       UnicodeSet set = new UnicodeSet();
       set.applyIntPropertyValue(property, propertyValue);
-      String propertyName = namePrefix + UCharacter.getPropertyValueName(property, propertyValue, UProperty.NameChoice.SHORT);
+      String propertyName = namePrefix + UCharacter.getPropertyValueName(property,
+        propertyValue,
+        UProperty.NameChoice.SHORT);
       IntervalSet intervalSet = propertyCodePointRanges.get(propertyName);
       if (intervalSet == null) {
         intervalSet = new IntervalSet();
@@ -209,7 +213,8 @@ public abstract class UnicodeDataTemplateController {
     }
   }
 
-  private static void addTR35ExtendedPictographicPropertyCodesToCodePointRanges(Map<String, IntervalSet> propertyCodePointRanges) {
+  private static void addTR35ExtendedPictographicPropertyCodesToCodePointRanges(
+    Map<String, IntervalSet> propertyCodePointRanges) {
     IntervalSet set = new IntervalSet();
     // Generated using scripts/parse-extended-pictographic/parse.py
     set.add(0x1F774, 0x1F77F);
@@ -340,7 +345,8 @@ public abstract class UnicodeDataTemplateController {
     set.add(0x1F6F9, 0x1F6FF);
     propertyCodePointRanges.put("Extended_Pictographic", set);
 
-    UnicodeSet emojiRKUnicodeSet = new UnicodeSet("[\\p{GCB=Regional_Indicator}\\*#0-9\\u00a9\\u00ae\\u2122\\u3030\\u303d]");
+    UnicodeSet emojiRKUnicodeSet = new UnicodeSet(
+      "[\\p{GCB=Regional_Indicator}\\*#0-9\\u00a9\\u00ae\\u2122\\u3030\\u303d]");
     IntervalSet emojiRKIntervalSet = new IntervalSet();
     addUnicodeSetToIntervalSet(emojiRKUnicodeSet, emojiRKIntervalSet);
     propertyCodePointRanges.put("EmojiRK", emojiRKIntervalSet);
@@ -352,7 +358,8 @@ public abstract class UnicodeDataTemplateController {
     propertyCodePointRanges.put("EmojiNRK", emojiNRKIntervalSet);
   }
 
-  private static void addEmojiPresentationPropertyCodesToCodePointRanges(Map<String, IntervalSet> propertyCodePointRanges) {
+  private static void addEmojiPresentationPropertyCodesToCodePointRanges(
+    Map<String, IntervalSet> propertyCodePointRanges) {
     UnicodeSet emojiDefaultUnicodeSet = new UnicodeSet("[[\\p{Emoji=Yes}]&[\\p{Emoji_Presentation=Yes}]]");
     IntervalSet emojiDefaultIntervalSet = new IntervalSet();
     addUnicodeSetToIntervalSet(emojiDefaultUnicodeSet, emojiDefaultIntervalSet);
@@ -374,7 +381,8 @@ public abstract class UnicodeDataTemplateController {
     for (int propertyValue = UCharacter.getIntPropertyMinValue(property);
          propertyValue <= UCharacter.getIntPropertyMaxValue(property);
          propertyValue++) {
-      String aliasTarget = propertyName + "=" + UCharacter.getPropertyValueName(property, propertyValue, UProperty.NameChoice.SHORT);
+      var aliasTarget = propertyName + "=" + UCharacter.getPropertyValueName(property, propertyValue,
+        UProperty.NameChoice.SHORT);
       int nameChoice = UProperty.NameChoice.SHORT;
       String alias;
       while (true) {
@@ -384,7 +392,6 @@ public abstract class UnicodeDataTemplateController {
           // No more aliases.
           break;
         }
-        assert alias != null;
         addPropertyAlias(propertyAliases, alias, aliasTarget);
         nameChoice++;
       }

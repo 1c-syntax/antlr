@@ -40,7 +40,7 @@ class LexerActionsTest extends AbstractBaseTest {
     String grammar =
       """
         lexer grammar L;
-        I : [0-9] {System.out.println("2nd char: "+(char)_input.LA(1));} [0-9]+ ;
+        I : [0-9] {System.out.println("2nd char: "+(char)getInputStream().LA(1));} [0-9]+ ;
         WS : (' '|'\\n') -> skip ;""";
     String found = execLexer("L.g4", grammar, "L", "123 45");
     String expecting =
@@ -73,11 +73,13 @@ class LexerActionsTest extends AbstractBaseTest {
         
            public String getText ()
            {
-              return lexer._input.getText (new Interval (start_index, stop_index));
+              return lexer.getInputStream().getText (new Interval (start_index, stop_index));
            }
         
-           public void start ()  { start_index = lexer._input.index (); System.out.println ("Start:" + start_index);}
-           public void stop () { stop_index = lexer._input.index (); System.out.println ("Stop:" + stop_index);}
+           public void start ()  { 
+           start_index = lexer.getInputStream().index (); System.out.println ("Start:" + start_index);}
+           public void stop () { 
+           stop_index = lexer.getInputStream().index (); System.out.println ("Stop:" + stop_index);}
         
            private int start_index = 0;
            private int stop_index = 0;
@@ -87,7 +89,8 @@ class LexerActionsTest extends AbstractBaseTest {
         Marker m_name = new Marker (this);
         }
         
-        HELLO: 'hello' WS { m_name.start (); } NAME { m_name.stop (); } '\\n' { System.out.println ("Hello: " + m_name.getText ()); };
+        HELLO: 'hello' WS { m_name.start (); } NAME { m_name.stop (); } '\\n' 
+        { System.out.println ("Hello: " + m_name.getText ()); };
         NAME: ('a'..'z' | 'A'..'Z')+ ('\\n')?;
         
         fragment WS: [ \\r\\t\\n]+ ;

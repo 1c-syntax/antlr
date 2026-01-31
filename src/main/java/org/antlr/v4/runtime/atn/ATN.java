@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Setter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
@@ -66,6 +67,7 @@ public class ATN {
    */
   public final int maxTokenType;
 
+  @Setter
   private boolean hasUnicodeSMPTransitions;
 
   /**
@@ -270,7 +272,4 @@ public class ATN {
     return hasUnicodeSMPTransitions;
   }
 
-  public void setHasUnicodeSMPTransitions(boolean value) {
-    hasUnicodeSMPTransitions = value;
-  }
 }

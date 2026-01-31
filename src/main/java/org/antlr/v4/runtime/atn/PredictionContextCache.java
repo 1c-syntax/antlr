@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -114,6 +116,7 @@ public class PredictionContextCache {
     }
   }
 
+  @Getter
   protected static final class IdentityCommutativePredictionContextOperands {
 
     private final PredictionContext x;
@@ -122,14 +125,6 @@ public class PredictionContextCache {
     public IdentityCommutativePredictionContextOperands(PredictionContext x, PredictionContext y) {
       this.x = x;
       this.y = y;
-    }
-
-    public PredictionContext getX() {
-      return x;
-    }
-
-    public PredictionContext getY() {
-      return y;
     }
 
     @Override

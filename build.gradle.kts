@@ -9,6 +9,7 @@ plugins {
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.21.0"
     id("org.sonarqube") version "7.2.2.6593"
+    id("io.freefair.lombok") version "9.2.0"
 }
 
 repositories {
@@ -46,11 +47,9 @@ dependencies {
     implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
 
     implementation("io.github.1c-syntax", "utils", "0.6.3")
+    api("org.jspecify", "jspecify", "1.0.0")
 
     compileOnly("com.ibm.icu", "icu4j", "77.1")
-
-    // nullability annotations
-    compileOnly("org.jspecify", "jspecify", "1.0.0")
 
     testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")
     testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
@@ -58,6 +57,7 @@ dependencies {
     testImplementation("org.assertj", "assertj-core", "3.27.0")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
+    testImplementation("org.jspecify", "jspecify", "1.0.0")
 }
 
 java {
@@ -78,6 +78,12 @@ tasks.withType<Javadoc> {
     isFailOnError = false
     //todo разбор и корректировка javadoc не самая приоритетная задача, в будущем исправлю
     (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
+}
+
+tasks.javadoc {
+    exclude("dot/org/antlr/v4/**")
+    exclude("**/**/*.g")
+    exclude("**/**/*.g4")
 }
 
 tasks.test {

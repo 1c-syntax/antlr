@@ -9,10 +9,12 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.tool.ast.GrammarAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,20 +24,19 @@ import java.util.Set;
 /**
  * Track the attributes within retval, arg lists etc...
  * <p>
- * Each rule has potentially 3 scopes: return values,
- * parameters, and an implicitly-named scope (i.e., a scope defined in a rule).
- * Implicitly-defined scopes are named after the rule; rules and scopes then
- * must live in the same name space--no collisions allowed.
+ * Each rule has potentially 3 scopes: return values, parameters, and an implicitly-named scope (i.e., a scope defined
+ * in a rule). Implicitly-defined scopes are named after the rule; rules and scopes then must live in the same name
+ * space--no collisions allowed.
  */
+@NullMarked
 public class AttributeDict {
-  public String name;
-  public GrammarAST ast;
-  public DictType type;
+  @Getter
+  @Setter
+  private DictType type;
 
   /**
-   * All {@link Token} scopes (token labels) share the same fixed scope of
-   * of predefined attributes.  I keep this out of the {@link Token}
-   * interface to avoid a runtime type leakage.
+   * All {@link Token} scopes (token labels) share the same fixed scope of predefined attributes.  I keep this out of
+   * the {@link Token} interface to avoid a runtime type leakage.
    */
   public static final AttributeDict predefinedTokenDict = new AttributeDict(DictType.TOKEN);
 
@@ -50,23 +51,24 @@ public class AttributeDict {
   }
 
   public enum DictType {
-    ARG, RET, LOCAL, TOKEN,
-    PREDEFINED_RULE, PREDEFINED_LEXER_RULE,
+    ARG,
+    RET,
+    LOCAL,
+    TOKEN,
+    PREDEFINED_RULE,
+    PREDEFINED_LEXER_RULE,
   }
 
   /**
    * The list of {@link Attribute} objects.
    */
-  @NotNull
   public final LinkedHashMap<String, Attribute> attributes = new LinkedHashMap<>();
-
-  public AttributeDict() {
-  }
 
   public AttributeDict(DictType type) {
     this.type = type;
   }
 
+  @Nullable
   public Attribute add(Attribute a) {
     a.dict = this;
     return attributes.put(a.name, a);
@@ -76,19 +78,13 @@ public class AttributeDict {
     return attributes.get(name);
   }
 
-  public String getName() {
-    return name;
-  }
-
   public int size() {
     return attributes.size();
   }
 
   /**
-   * Return the set of keys that collide from
-   * {@code this} and {@code other}.
+   * Return the set of keys that collide from {@code this} and {@code other}.
    */
-  @NotNull
   public Set<String> intersection(@Nullable AttributeDict other) {
     if (other == null || other.size() == 0 || size() == 0) {
       return Collections.emptySet();
@@ -101,6 +97,6 @@ public class AttributeDict {
 
   @Override
   public String toString() {
-    return getName() + ":" + attributes;
+    return type + ":" + attributes;
   }
 }

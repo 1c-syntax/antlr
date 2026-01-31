@@ -10,6 +10,7 @@
 package org.antlr.v4.tool;
 
 import org.antlr.runtime.Token;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A problem with the symbols and/or meaning of a grammar such as rule
@@ -18,7 +19,7 @@ import org.antlr.runtime.Token;
 public class GrammarSemanticsMessage extends ANTLRMessage {
   public GrammarSemanticsMessage(ErrorType etype,
                                  String fileName,
-                                 Token offendingToken,
+                                 @Nullable Token offendingToken,
                                  Object... args) {
     super(etype, offendingToken, args);
     this.fileName = fileName;

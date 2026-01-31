@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.IntStream;
 import org.antlr.v4.runtime.Lexer;
@@ -78,11 +80,15 @@ public class LexerATNSimulator extends ATNSimulator {
   /**
    * line number 1..n within the input
    */
+  @Setter
+  @Getter
   protected int line = 1;
 
   /**
    * The index of the character relative to the beginning of the line 0..n-1
    */
+  @Setter
+  @Getter
   protected int charPositionInLine = 0;
 
   protected int mode = Lexer.DEFAULT_MODE;
@@ -680,22 +686,6 @@ public class LexerATNSimulator extends ATNSimulator {
   public String getText(@NotNull CharStream input) {
     // index is first lookahead char, don't include.
     return input.getText(Interval.of(startIndex, input.index() - 1));
-  }
-
-  public int getLine() {
-    return line;
-  }
-
-  public void setLine(int line) {
-    this.line = line;
-  }
-
-  public int getCharPositionInLine() {
-    return charPositionInLine;
-  }
-
-  public void setCharPositionInLine(int charPositionInLine) {
-    this.charPositionInLine = charPositionInLine;
   }
 
   public void consume(@NotNull CharStream input) {

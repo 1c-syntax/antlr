@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.codegen;
 
+import lombok.Getter;
 import org.antlr.v4.codegen.model.RuleFunction;
 import org.antlr.v4.codegen.model.SerializedATN;
 import org.antlr.v4.misc.Utils;
@@ -46,6 +47,7 @@ public abstract class Target {
   protected String[] targetCharValueEscape = new String[255];
 
   protected final CodeGenerator gen;
+  @Getter
   private final String language;
   private STGroup templates;
 
@@ -64,10 +66,6 @@ public abstract class Target {
 
   public CodeGenerator getCodeGenerator() {
     return gen;
-  }
-
-  public String getLanguage() {
-    return language;
   }
 
   @NotNull

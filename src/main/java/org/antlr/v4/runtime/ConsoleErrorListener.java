@@ -9,9 +9,13 @@
  */
 package org.antlr.v4.runtime;
 
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
 /**
  * @author Sam Harwell
  */
+@NullMarked
 public class ConsoleErrorListener implements ANTLRErrorListener<Object> {
   /**
    * Provides a default instance of {@link ConsoleErrorListener}.
@@ -36,7 +40,7 @@ public class ConsoleErrorListener implements ANTLRErrorListener<Object> {
                               int line,
                               int charPositionInLine,
                               String msg,
-                              RecognitionException e) {
+                              @Nullable RecognitionException e) {
     System.err.println("line " + line + ":" + charPositionInLine + " " + msg);
   }
 

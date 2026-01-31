@@ -73,21 +73,18 @@ public class RuleCollector extends GrammarTreeVisitor {
 
     if (arg != null) {
       r.args = ScopeParser.parseTypedArgList(arg, arg.getText(), g);
-      r.args.type = AttributeDict.DictType.ARG;
-      r.args.ast = arg;
+      r.args.setType(AttributeDict.DictType.ARG);
       arg.resolver = r.alt[currentOuterAltNumber];
     }
 
     if (returns != null) {
       r.retvals = ScopeParser.parseTypedArgList(returns, returns.getText(), g);
-      r.retvals.type = AttributeDict.DictType.RET;
-      r.retvals.ast = returns;
+      r.retvals.setType(AttributeDict.DictType.RET);
     }
 
     if (locals != null) {
       r.locals = ScopeParser.parseTypedArgList(locals, locals.getText(), g);
-      r.locals.type = AttributeDict.DictType.LOCAL;
-      r.locals.ast = locals;
+      r.locals.setType(AttributeDict.DictType.LOCAL);
     }
 
     for (GrammarAST a : actions) {

@@ -9,20 +9,20 @@
  */
 package org.antlr.v4.runtime;
 
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
- * This class extends {@link ParserRuleContext} by allowing the value of
- * {@link #getRuleIndex} to be explicitly set for the context.
+ * This class extends {@link ParserRuleContext} by allowing the value of {@link #getRuleIndex} to be explicitly set for
+ * the context.
  *
  * <p>
- * {@link ParserRuleContext} does not include field storage for the rule index
- * since the context classes created by the code generator override the
- * {@link #getRuleIndex} method to return the correct value for that context.
- * Since the parser interpreter does not use the context classes generated for a
- * parser, this class (with slightly more memory overhead per node) is used to
- * provide equivalent functionality.</p>
+ * {@link ParserRuleContext} does not include field storage for the rule index since the context classes created by the
+ * code generator override the {@link #getRuleIndex} method to return the correct value for that context. Since the
+ * parser interpreter does not use the context classes generated for a parser, this class (with slightly more memory
+ * overhead per node) is used to provide equivalent functionality.</p>
  */
+@NullMarked
 public class InterpreterRuleContext extends ParserRuleContext {
   /**
    * This is the backing field for {@link #getRuleIndex}.
@@ -30,8 +30,7 @@ public class InterpreterRuleContext extends ParserRuleContext {
   private final int ruleIndex;
 
   /**
-   * Constructs a new {@link InterpreterRuleContext} with the specified
-   * parent, invoking state, and rule index.
+   * Constructs a new {@link InterpreterRuleContext} with the specified parent, invoking state, and rule index.
    *
    * @param parent              The parent context.
    * @param invokingStateNumber The invoking state number.

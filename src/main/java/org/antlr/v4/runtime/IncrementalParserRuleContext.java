@@ -73,9 +73,6 @@ public class IncrementalParserRuleContext extends ParserRuleContext {
     return n;
   }
 
-  public IncrementalParserRuleContext() {
-  }
-
   public IncrementalParserRuleContext(IncrementalParserRuleContext parent, int invokingStateNumber) {
     super(parent, invokingStateNumber);
   }

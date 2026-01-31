@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Setter;
 import org.antlr.v4.runtime.atn.ATNSimulator;
 import org.antlr.v4.runtime.misc.MultiMap;
 import org.antlr.v4.runtime.misc.Pair;
@@ -61,6 +62,7 @@ public class Rule implements AttributeResolver {
   }
 
   public String name;
+  @Setter
   private String baseContext;
   public List<GrammarAST> modifiers;
 
@@ -146,10 +148,6 @@ public class Rule implements AttributeResolver {
     }
 
     return name;
-  }
-
-  public void setBaseContext(String baseContext) {
-    this.baseContext = baseContext;
   }
 
   public void defineActionInAlt(int currentAlt, ActionAST actionAST) {

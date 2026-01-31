@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.v4.analysis.LeftRecursiveRuleAltInfo;
 import org.antlr.v4.misc.OrderedHashMap;
 import org.antlr.v4.runtime.misc.Pair;
@@ -25,6 +26,7 @@ import java.util.Map;
 public class LeftRecursiveRule extends Rule {
   public List<LeftRecursiveRuleAltInfo> recPrimaryAlts;
   public OrderedHashMap<Integer, LeftRecursiveRuleAltInfo> recOpAlts;
+  @Getter
   public RuleAST originalAST;
 
   /**
@@ -50,10 +52,6 @@ public class LeftRecursiveRule extends Rule {
     if (recPrimaryAlts != null) n += recPrimaryAlts.size();
     if (recOpAlts != null) n += recOpAlts.size();
     return n;
-  }
-
-  public RuleAST getOriginalAST() {
-    return originalAST;
   }
 
   @Override

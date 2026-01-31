@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -25,6 +26,7 @@ public class LexerNoViableAltException extends RecognitionException {
   /**
    * Matching attempted at what input index?
    */
+  @Getter
   private final int startIndex;
 
   /**
@@ -40,10 +42,6 @@ public class LexerNoViableAltException extends RecognitionException {
     super(lexer, input);
     this.startIndex = startIndex;
     this.deadEndConfigs = deadEndConfigs;
-  }
-
-  public int getStartIndex() {
-    return startIndex;
   }
 
   @Nullable

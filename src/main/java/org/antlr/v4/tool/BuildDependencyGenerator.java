@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.tool;
 
+import lombok.Getter;
 import org.antlr.v4.Tool;
 import org.antlr.v4.codegen.CodeGenerator;
 import org.antlr.v4.codegen.Target;
@@ -67,6 +68,7 @@ import java.util.List;
 public class BuildDependencyGenerator {
   protected Tool tool;
   protected Grammar g;
+  @Getter
   protected CodeGenerator generator;
   protected STGroup templates;
 
@@ -250,10 +252,6 @@ public class BuildDependencyGenerator {
     if (templates != null) return;
     String fileName = "org/antlr/v4/tool/templates/depend.stg";
     templates = new STGroupFile(fileName, "UTF-8");
-  }
-
-  public CodeGenerator getGenerator() {
-    return generator;
   }
 
   public String groomQualifiedFileName(String outputDir, String fileName) {

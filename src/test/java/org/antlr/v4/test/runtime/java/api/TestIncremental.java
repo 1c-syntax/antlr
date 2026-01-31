@@ -128,8 +128,8 @@ public class TestIncremental {
     // Should have been created by the second parser.
     assertEquals(secondEpoch, secondTree.epoch);
     // But all child nodes should have come from the old parse tree
-    for (ParseTree child : secondTree.children) {
-      IncrementalParserRuleContext incChild = (IncrementalParserRuleContext) child;
+    for (var child : secondTree.getChildren()) {
+      var incChild = (IncrementalParserRuleContext) child;
       assertEquals(startingEpoch, incChild.epoch);
     }
   }

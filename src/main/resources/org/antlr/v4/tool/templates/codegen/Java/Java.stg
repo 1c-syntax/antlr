@@ -48,6 +48,9 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.ArrayList;
 
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
+
 <parser>
 >>
 
@@ -59,15 +62,18 @@ package <file.genPackage>;
 <endif>
 <header>
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
+
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link <file.parserName>}.
  */
+@NullMarked
 public interface <file.grammarName>Listener extends ParseTreeListener {
 	<file.listenerNames:{lname |
+
 /**
 <if(file.listenerLabelRuleNames.(lname))>
  * Enter a parse tree produced by the {@code <lname>\}
@@ -77,7 +83,8 @@ public interface <file.grammarName>Listener extends ParseTreeListener {
 <endif>
  * @param ctx the parse tree
  */
-void enter<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx);
+void enter<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx);
+
 /**
 <if(file.listenerLabelRuleNames.(lname))>
  * Exit a parse tree produced by the {@code <lname>\}
@@ -87,7 +94,7 @@ void enter<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">
 <endif>
  * @param ctx the parse tree
  */
-void exit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx);}; separator="\n">
+void exit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx);}; separator="\n">
 }
 >>
 
@@ -101,54 +108,61 @@ package <file.genPackage>;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This class provides an empty implementation of {@link <file.grammarName>Listener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
+@NullMarked
 public class <file.grammarName>BaseListener implements <file.grammarName>Listener {
 	<file.listenerNames:{lname |
+
 /**
  * {@inheritDoc\}
  *
  * \<p>The default implementation does nothing.\</p>
  */
-@Override public void enter<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx) { \}
+@Override public void enter<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) { \}
+
 /**
  * {@inheritDoc\}
  *
  * \<p>The default implementation does nothing.\</p>
  */
-@Override public void exit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx) { \}}; separator="\n">
+@Override public void exit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) { \}}; separator="\n">
 
 	/**
 	 * {@inheritDoc\}
 	 *
 	 * \<p>The default implementation does nothing.\</p>
 	 */
-	@Override public void enterEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
+
 	/**
 	 * {@inheritDoc\}
 	 *
 	 * \<p>The default implementation does nothing.\</p>
 	 */
-	@Override public void exitEveryRule(@NotNull ParserRuleContext ctx) { }
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
+
 	/**
 	 * {@inheritDoc\}
 	 *
 	 * \<p>The default implementation does nothing.\</p>
 	 */
-	@Override public void visitTerminal(@NotNull TerminalNode node) { }
+	@Override public void visitTerminal(TerminalNode node) { }
+
 	/**
 	 * {@inheritDoc\}
 	 *
 	 * \<p>The default implementation does nothing.\</p>
 	 */
-	@Override public void visitErrorNode(@NotNull ErrorNode node) { }
+	@Override public void visitErrorNode(ErrorNode node) { }
 }
 >>
 
@@ -160,8 +174,10 @@ package <file.genPackage>;
 <endif>
 <header>
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -170,8 +186,10 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * @param \<Result> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
+@NullMarked
 public interface <file.grammarName>Visitor\<Result> extends ParseTreeVisitor\<Result> {
 	<file.visitorNames:{lname |
+
 /**
 <if(file.visitorLabelRuleNames.(lname))>
  * Visit a parse tree produced by the {@code <lname>\}
@@ -182,7 +200,7 @@ public interface <file.grammarName>Visitor\<Result> extends ParseTreeVisitor\<Re
  * @param ctx the parse tree
  * @return the visitor result
  */
-Result visit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx);}; separator="\n">
+@Nullable Result visit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx);}; separator="\n">
 }
 >>
 
@@ -194,8 +212,10 @@ package <file.genPackage>;
 <endif>
 <header>
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+
+import org.jspecify.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 /**
  * This class provides an empty implementation of {@link <file.grammarName>Visitor},
@@ -205,6 +225,7 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * @param \<Result> The return type of the visit operation. Use {@link Void} for
  * operations with no return type.
  */
+@NullMarked
 public class <file.grammarName>BaseVisitor\<Result> extends AbstractParseTreeVisitor\<Result> implements <file.grammarName>Visitor\<Result> {
 	<file.visitorNames:{lname |
 /**
@@ -213,7 +234,7 @@ public class <file.grammarName>BaseVisitor\<Result> extends AbstractParseTreeVis
  * \<p>The default implementation returns the result of calling
  * {@link #visitChildren\} on {@code ctx\}.\</p>
  */
-@Override public Result visit<lname; format="cap">(@NotNull <file.parserName>.<lname; format="cap">Context ctx) { return visitChildren(ctx); \}}; separator="\n">
+@Override public @Nullable Result visit<lname; format="cap">(<file.parserName>.<lname; format="cap">Context ctx) { return visitChildren(ctx); \}}; separator="\n">
 }
 >>
 
@@ -235,6 +256,7 @@ Parser(parser, funcs, atn, sempredFuncs, superClass) ::= <<
 
 // Parser implementation template
 Parser_(parser, funcs, atn, sempredFuncs, ctor, superClass) ::= <<
+@NullMarked
 <if(parser.file.incremental)>
 public <if(parser.abstractRecognizer)>abstract <endif>class <parser.name> extends <superClass; null="IncrementalParser"> {
 <else>
@@ -265,9 +287,8 @@ public <if(parser.abstractRecognizer)>abstract <endif>class <parser.name> extend
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
-	public String getSerializedATN() { return _serializedATN; }
+	public String getSerializedATN() { return serializedATN; }
 
-	@NotNull
 	private FailedPredicateException createFailedPredicateException() {
 		return createFailedPredicateException(null);
 	}
@@ -277,7 +298,6 @@ public <if(parser.abstractRecognizer)>abstract <endif>class <parser.name> extend
 		return createFailedPredicateException(predicate, null);
 	}
 
-	@NotNull
 	protected FailedPredicateException createFailedPredicateException(@Nullable String predicate, @Nullable String message) {
 		return new FailedPredicateException(this, predicate, message);
 	}
@@ -304,7 +324,7 @@ case <f.ruleIndex>:
 
 // Vocabulary template
 vocabulary(literalNames, symbolicNames) ::= <<
-private static final Vocabulary VOCABULARY = new VocabularyImpl(makeLiteralNames(), makeSymbolicNames());
+public static final Vocabulary VOCABULARY = new VocabularyImpl(makeLiteralNames(), makeSymbolicNames());
 
 private static String[] makeLiteralNames() {
 	return new String[] {
@@ -319,14 +339,10 @@ private static String[] makeSymbolicNames() {
 }
 
 @Override
-@NotNull
 public Vocabulary getVocabulary() {
 	return VOCABULARY;
 }
 
-public static final Vocabulary VOCABULARY() {
-	return VOCABULARY;
-}
 >>
 
 // Action and predicate handling template
@@ -367,12 +383,12 @@ public <p.name>(IncrementalTokenStream input) {
 public <p.name>(IncrementalTokenStream input, IncrementalParserData data)
 {
 	super(input, data);
-	_interp = new ParserATNSimulator(this, _ATN);
+	setInterpreter(new ParserATNSimulator(this, _ATN));
 }
 <else>
 public <p.name>(TokenStream input) {
 	super(input);
-	_interp = new ParserATNSimulator(this, _ATN);
+	setInterpreter(new ParserATNSimulator(this, _ATN));
 }
 <endif>
 >>
@@ -428,7 +444,7 @@ RuleFunction(currentRule,args,code,locals,ruleCtx,altLabelCtxs,namedActions,fina
 		return guardResult;
 	}
 	<endif>
-	<currentRule.ctxType> _localctx = new <currentRule.ctxType>(_ctx, getState()<currentRule.args:{a | , <a.name>}>);
+	var _localctx = new <currentRule.ctxType>(_ctx, getState()<currentRule.args:{a | , <a.name>}>);
 	enterRule(_localctx, <currentRule.startState>, RULE_<currentRule.name>);
 	<namedActions.init>
 	<locals; separator="\n">
@@ -921,16 +937,16 @@ RuleContextDecl(r) ::= "<r.ctxName> <r.name>"
 RuleContextListDecl(rdecl) ::= "List\<<rdecl.ctxName>> <rdecl.name> = new ArrayList\<<rdecl.ctxName>>()"
 
 ContextTokenGetterDecl(t)      ::=
-    "public TerminalNode <t.name>() { return getToken(<parser.name>.<t.name>, 0); }"
+    "public @Nullable TerminalNode <t.name>() { return getToken(<parser.name>.<t.name>, 0); }"
 ContextTokenListGetterDecl(t)  ::=
     "public List\<? extends TerminalNode> <t.name>() { return getTokens(<parser.name>.<t.name>); }"
 ContextTokenListIndexedGetterDecl(t)  ::= <<
-public TerminalNode <t.name>(int i) {
+public @Nullable TerminalNode <t.name>(int i) {
 	return getToken(<parser.name>.<t.name>, i);
 }
 >>
 ContextRuleGetterDecl(r)       ::= <<
-public <r.ctxName> <r.name>() {
+public @Nullable <r.ctxName> <r.name>() {
 	return getRuleContext(<r.ctxName>.class,0);
 }
 >>
@@ -940,7 +956,7 @@ public List\<? extends <r.ctxName>\> <r.name>() {
 }
 >>
 ContextRuleListIndexedGetterDecl(r)   ::= <<
-public <r.ctxName> <r.name>(int i) {
+public @Nullable <r.ctxName> <r.name>(int i) {
 	return getRuleContext(<r.ctxName>.class,i);
 }
 >>
@@ -970,6 +986,7 @@ CaptureNextTokenType(d) ::= "<d.varName> = _input.LA(1);"
 
 StructDecl(struct,ctorAttrs,attrs,getters,dispatchMethods,interfaces,extensionMembers)
 	::= <<
+@NullMarked
 public static class <struct.name> extends <if(contextSuperClass)><contextSuperClass><elseif(parser.file.incremental)>IncrementalParserRuleContext<else>ParserRuleContext<endif><if(interfaces)> implements <interfaces; separator=", "><endif> {
 	<attrs:{a | public <a>;}; separator="\n">
 	<getters:{g | <g>}; separator="\n">
@@ -984,9 +1001,8 @@ public static class <struct.name> extends <if(contextSuperClass)><contextSuperCl
 
 	@Override public int getRuleIndex() { return RULE_<struct.derivedFromName>; }
 <if(struct.provideCopyFrom)> <! don't need copy unless we have subclasses !>
-	public <struct.name>() { }
-	public void copyFrom(<struct.name> ctx) {
-		super.copyFrom(ctx);
+	public <struct.name>(<struct.name> ctx) {
+		super(ctx);
 		<struct.attrs:{a | this.<a.name> = ctx.<a.name>;}; separator="\n">
 	}
 <endif>
@@ -1000,7 +1016,7 @@ AltLabelStructDecl(struct,attrs,getters,dispatchMethods) ::= <<
 public static class <struct.name> extends <currentRule.name; format="cap">Context {
 	<attrs:{a | public <a>;}; separator="\n">
 	<getters:{g | <g>}; separator="\n">
-	public <struct.name>(<currentRule.name; format="cap">Context ctx) { copyFrom(ctx); }
+	public <struct.name>(<currentRule.name; format="cap">Context ctx) { super(ctx); }
 	<dispatchMethods; separator="\n">
 }
 >>
@@ -1008,15 +1024,18 @@ public static class <struct.name> extends <currentRule.name; format="cap">Contex
 ListenerDispatchMethod(method) ::= <<
 @Override
 public void <if(method.isEnter)>enter<else>exit<endif>Rule(ParseTreeListener listener) {
-	if ( listener instanceof <parser.grammarName>Listener ) ((<parser.grammarName>Listener)listener).<if(method.isEnter)>enter<else>exit<endif><struct.derivedFromName; format="cap">(this);
+	if (listener instanceof <parser.grammarName>Listener currentListener) { currentListener.<if(method.isEnter)>enter<else>exit<endif><struct.derivedFromName; format="cap">(this); }
 }
 >>
 
 VisitorDispatchMethod(method) ::= <<
 @Override
-public \<Result> Result accept(ParseTreeVisitor\<? extends Result> visitor) {
-	if ( visitor instanceof <parser.grammarName>Visitor\<?> ) return ((<parser.grammarName>Visitor\<? extends Result>)visitor).visit<struct.derivedFromName; format="cap">(this);
-	else return visitor.visitChildren(this);
+public @Nullable \<Result> Result accept(ParseTreeVisitor\<? extends Result> visitor) {
+	if (visitor instanceof <parser.grammarName>Visitor\<? extends Result> currentVisitor) {
+		return currentVisitor.visit<struct.derivedFromName; format="cap">(this);
+	} else {
+		return visitor.visitChildren(this);
+	}
 }
 >>
 
@@ -1099,11 +1118,14 @@ import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.*;
 
+import org.jspecify.annotations.NullMarked;
+
 <lexer>
 >>
 
 // Lexer implementation template
 Lexer(lexer, atn, actionFuncs, sempredFuncs, superClass) ::= <<
+@NullMarked
 public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends <superClass; null="Lexer"> {
 	<if(lexer.tokens)>
 	public static final int
@@ -1120,11 +1142,11 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 		<rest(lexer.modes):{m | <m>=<i>}; separator=", ", wrap, anchor>;
 	<endif>
 
-	public static String[] channelNames = {
+    public static final String[] channelNames = {
 		"DEFAULT_TOKEN_CHANNEL", "HIDDEN"<if (lexer.channels)>, <lexer.channels:{c| "<c>"}; separator=", ", wrap, anchor><endif>
 	};
 
-	public static String[] modeNames = {
+	public static final String[] modeNames = {
 		<lexer.modes:{m| "<m>"}; separator=", ", wrap, anchor>
 	};
 
@@ -1142,8 +1164,7 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 
 	public <lexer.name>(CharStream input) {
 		super(input);
-		_interp = new LexerATNSimulator(this,_ATN);
-		validateInputStream(_ATN, input);
+		setInterpreter(new LexerATNSimulator(this, _ATN));
 	}
 
 	@Override
@@ -1153,14 +1174,12 @@ public <if(lexer.abstractRecognizer)>abstract <endif>class <lexer.name> extends 
 	public String[] getRuleNames() { return ruleNames; }
 
 	@Override
-	public String getSerializedATN() { return _serializedATN; }
+	public String getSerializedATN() { return serializedATN; }
 
 	@Override
-	@NotNull
 	public String[] getChannelNames() { return channelNames; }
 
 	@Override
-	@NotNull
 	public String[] getModeNames() { return modeNames; }
 
 	<dumpActions(lexer, "", actionFuncs, sempredFuncs)>
@@ -1178,7 +1197,7 @@ SerializedATN(model) ::= <<
 <model.segments:{segment|private static final String _serializedATNSegment<i0> =
 	"<segment; wrap={"+<\n><\t>"}>";}; separator="\n\n">
 
-private static final String _serializedATN = Utils.join(
+private static final String serializedATN = Utils.join(
 	new String[] {
 		<model.segments:{segment | _serializedATNSegment<i0>}; separator=",\n">
 	},
@@ -1186,12 +1205,11 @@ private static final String _serializedATN = Utils.join(
 );
 <else>
 <! only one segment, can be inlined !>
-private static final String _serializedATN =
+private static final String serializedATN =
 	"<model.serialized; wrap={"+<\n><\t>"}>";
 <endif>
 
-private static final ATN _ATN =
-	new ATNDeserializer().deserialize(_serializedATN.toCharArray());
+private static final ATN _ATN = new ATNDeserializer().deserialize(serializedATN.toCharArray());
 >>
 
 // ============================================================================

@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.gui;
 
+import lombok.Getter;
+
 import java.awt.*;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
@@ -17,6 +19,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Sam Harwell
  */
+@Getter
 public class SystemFontMetrics extends BasicFontMetrics {
   protected final Font font;
 
@@ -35,7 +38,4 @@ public class SystemFontMetrics extends BasicFontMetrics {
     super.maxCharHeight = (int) Math.round(maxHeight);
   }
 
-  public Font getFont() {
-    return font;
-  }
 }

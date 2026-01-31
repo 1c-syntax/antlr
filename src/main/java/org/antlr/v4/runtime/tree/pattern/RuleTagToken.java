@@ -9,85 +9,64 @@
  */
 package org.antlr.v4.runtime.tree.pattern;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.TokenSource;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
- * A {@link Token} object representing an entire subtree matched by a parser
- * rule; e.g., {@code <expr>}. These tokens are created for {@link TagChunk}
- * chunks where the tag corresponds to a parser rule.
+ * A {@link Token} object representing an entire subtree matched by a parser rule; e.g., {@code <expr>}. These tokens
+ * are created for {@link TagChunk} chunks where the tag corresponds to a parser rule.
  */
 public class RuleTagToken implements Token {
   /**
    * This is the backing field for {@link #getRuleName}.
    */
+  @Getter
   private final String ruleName;
+
   /**
-   * The token type for the current token. This is the token type assigned to
-   * the bypass alternative for the rule during ATN deserialization.
+   * The token type for the current token. This is the token type assigned to the bypass alternative for the rule during
+   * ATN deserialization.
    */
   private final int bypassTokenType;
+
   /**
    * This is the backing field for {@link #getLabel}.
    */
-  private final String label;
+  @Getter
+  private final @Nullable String label;
 
   /**
-   * Constructs a new instance of {@link RuleTagToken} with the specified rule
-   * name and bypass token type and no label.
+   * Constructs a new instance of {@link RuleTagToken} with the specified rule name and bypass token type and no label.
    *
    * @param ruleName        The name of the parser rule this rule tag matches.
    * @param bypassTokenType The bypass token type assigned to the parser rule.
-   * @throws IllegalArgumentException if {@code ruleName} is {@code null}
-   *                                  or empty.
+   *
+   * @throws IllegalArgumentException if {@code ruleName} is {@code null} or empty.
    */
-  public RuleTagToken(@NotNull String ruleName, int bypassTokenType) {
+  public RuleTagToken(String ruleName, int bypassTokenType) {
     this(ruleName, bypassTokenType, null);
   }
 
   /**
-   * Constructs a new instance of {@link RuleTagToken} with the specified rule
-   * name, bypass token type, and label.
+   * Constructs a new instance of {@link RuleTagToken} with the specified rule name, bypass token type, and label.
    *
    * @param ruleName        The name of the parser rule this rule tag matches.
    * @param bypassTokenType The bypass token type assigned to the parser rule.
-   * @param label           The label associated with the rule tag, or {@code null} if
-   *                        the rule tag is unlabeled.
-   * @throws IllegalArgumentException if {@code ruleName} is {@code null}
-   *                                  or empty.
+   * @param label           The label associated with the rule tag, or {@code null} if the rule tag is unlabeled.
+   *
+   * @throws IllegalArgumentException if {@code ruleName} is {@code null} or empty.
    */
-  public RuleTagToken(@NotNull String ruleName, int bypassTokenType, @Nullable String label) {
-    if (ruleName == null || ruleName.isEmpty()) {
-      throw new IllegalArgumentException("ruleName cannot be null or empty.");
+  public RuleTagToken(String ruleName, int bypassTokenType, @Nullable String label) {
+    if (ruleName.isEmpty()) {
+      throw new IllegalArgumentException("ruleName cannot be empty.");
     }
 
     this.ruleName = ruleName;
     this.bypassTokenType = bypassTokenType;
     this.label = label;
-  }
-
-  /**
-   * Gets the name of the rule associated with this rule tag.
-   *
-   * @return The name of the parser rule associated with this rule tag.
-   */
-  @NotNull
-  public final String getRuleName() {
-    return ruleName;
-  }
-
-  /**
-   * Gets the label associated with the rule tag.
-   *
-   * @return The name of the label associated with the rule tag, or
-   * {@code null} if this is an unlabeled rule tag.
-   */
-  @Nullable
-  public final String getLabel() {
-    return label;
   }
 
   /**
@@ -182,6 +161,7 @@ public class RuleTagToken implements Token {
    * <p>The implementation for {@link RuleTagToken} always returns {@code null}.</p>
    */
   @Override
+  @Nullable
   public TokenSource getTokenSource() {
     return null;
   }
@@ -192,6 +172,7 @@ public class RuleTagToken implements Token {
    * <p>The implementation for {@link RuleTagToken} always returns {@code null}.</p>
    */
   @Override
+  @Nullable
   public CharStream getInputStream() {
     return null;
   }

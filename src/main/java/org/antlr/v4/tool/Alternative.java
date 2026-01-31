@@ -14,6 +14,8 @@ import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.TerminalAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +23,11 @@ import java.util.List;
 /**
  * An outermost alternative for a rule.  We don't track inner alternatives.
  */
+@NullMarked
 public class Alternative implements AttributeResolver {
   public Rule rule;
 
-  public AltAST ast;
+  public @Nullable AltAST ast;
 
   /**
    * What alternative number is this outermost alt? 1..n
@@ -49,10 +52,9 @@ public class Alternative implements AttributeResolver {
   public MultiMap<String, LabelElementPair> labelDefs = new MultiMap<>();
 
   /**
-   * Track all executable actions other than named actions like @init
-   * and catch/finally (not in an alt). Also tracks predicates, rewrite actions.
-   * We need to examine these actions before code generation so
-   * that we can detect refs to $rule.attr etc...
+   * Track all executable actions other than named actions like @init and catch/finally (not in an alt). Also tracks
+   * predicates, rewrite actions. We need to examine these actions before code generation so that we can detect refs to
+   * $rule.attr etc...
    * <p>
    * This tracks per alt
    */
@@ -82,15 +84,17 @@ public class Alternative implements AttributeResolver {
    * $x		Attribute: rule arguments, return values, predefined rule prop.
    */
   @Override
+  @Nullable
   public Attribute resolveToAttribute(String x, ActionAST node) {
     return rule.resolveToAttribute(x, node); // reuse that code
   }
 
   /**
-   * $x.y, x can be surrounding rule, token/rule/label ref. y is visible
-   * attr in that dictionary.  Can't see args on rule refs.
+   * $x.y, x can be surrounding rule, token/rule/label ref. y is visible attr in that dictionary.  Can't see args on
+   * rule refs.
    */
   @Override
+  @Nullable
   public Attribute resolveToAttribute(String x, String y, ActionAST node) {
     if (tokenRefs.get(x) != null) { // token ref in this alt?
       return rule.getPredefinedScope(LabelType.TOKEN_LABEL).get(y);
@@ -129,6 +133,7 @@ public class Alternative implements AttributeResolver {
         anyLabelDef.type == LabelType.TOKEN_LIST_LABEL);
   }
 
+  @Nullable
   public LabelElementPair getAnyLabelDef(String x) {
     List<LabelElementPair> labels = labelDefs.get(x);
     if (labels != null) return labels.get(0);
@@ -138,6 +143,7 @@ public class Alternative implements AttributeResolver {
   /**
    * x can be ruleref or rule label.
    */
+  @Nullable
   public Rule resolveToRule(String x) {
     if (ruleRefs.get(x) != null) return rule.g.getRule(x);
     LabelElementPair anyLabelDef = getAnyLabelDef(x);

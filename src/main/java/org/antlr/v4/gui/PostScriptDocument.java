@@ -9,6 +9,8 @@
  */
 package org.antlr.v4.gui;
 
+import lombok.Getter;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Locale;
@@ -40,6 +42,7 @@ public class PostScriptDocument {
 
   protected SystemFontMetrics fontMetrics;
   protected String fontName;
+  @Getter
   protected int fontSize = 12;
   protected double lineWidth = 0.3;
   protected String boundingBox;
@@ -197,7 +200,4 @@ public class PostScriptDocument {
     return fontMetrics.getLineHeight(fontSize);
   }
 
-  public int getFontSize() {
-    return fontSize;
-  }
 }

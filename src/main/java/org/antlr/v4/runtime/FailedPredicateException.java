@@ -9,38 +9,40 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.atn.AbstractPredicateTransition;
 import org.antlr.v4.runtime.atn.PredicateTransition;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.util.Locale;
 
 /**
- * A semantic predicate failed during validation.  Validation of predicates
- * occurs when normally parsing the alternative just like matching a token.
- * Disambiguating predicate evaluation occurs when we test a predicate during
- * prediction.
+ * A semantic predicate failed during validation.  Validation of predicates occurs when normally parsing the alternative
+ * just like matching a token. Disambiguating predicate evaluation occurs when we test a predicate during prediction.
  */
+@NullMarked
 public class FailedPredicateException extends RecognitionException {
   @Serial
   private static final long serialVersionUID = 5379330841495778709L;
 
+  @Getter
   private final int ruleIndex;
   private final int predicateIndex;
-  private final String predicate;
+  @Getter
+  private final @Nullable String predicate;
 
-  public FailedPredicateException(@NotNull Parser recognizer) {
+  public FailedPredicateException(Parser recognizer) {
     this(recognizer, null);
   }
 
-  public FailedPredicateException(@NotNull Parser recognizer, @Nullable String predicate) {
+  public FailedPredicateException(Parser recognizer, @Nullable String predicate) {
     this(recognizer, predicate, null);
   }
 
-  public FailedPredicateException(@NotNull Parser recognizer,
+  public FailedPredicateException(Parser recognizer,
                                   @Nullable String predicate,
                                   @Nullable String message) {
     super(formatMessage(predicate, message), recognizer, recognizer.getInputStream(), recognizer._ctx);
@@ -59,20 +61,10 @@ public class FailedPredicateException extends RecognitionException {
     this.setOffendingToken(recognizer, recognizer.getCurrentToken());
   }
 
-  public int getRuleIndex() {
-    return ruleIndex;
-  }
-
   public int getPredIndex() {
     return predicateIndex;
   }
 
-  @Nullable
-  public String getPredicate() {
-    return predicate;
-  }
-
-  @NotNull
   private static String formatMessage(@Nullable String predicate, @Nullable String message) {
     if (message != null) {
       return message;

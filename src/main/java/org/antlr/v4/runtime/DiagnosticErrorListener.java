@@ -14,16 +14,15 @@ import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.atn.SimulatorState;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.BitSet;
 
 /**
- * This implementation of {@link ANTLRErrorListener} can be used to identify
- * certain potential correctness and performance problems in grammars. "Reports"
- * are made by calling {@link Parser#notifyErrorListeners} with the appropriate
- * message.
+ * This implementation of {@link ANTLRErrorListener} can be used to identify certain potential correctness and
+ * performance problems in grammars. "Reports" are made by calling {@link Parser#notifyErrorListeners} with the
+ * appropriate message.
  *
  * <ul>
  * <li><b>Ambiguities</b>: These are cases where more than one path through the
@@ -40,6 +39,7 @@ import java.util.BitSet;
  *
  * @author Sam Harwell
  */
+@NullMarked
 public class DiagnosticErrorListener extends BaseErrorListener {
   /**
    * When {@code true}, only exactly known ambiguities are reported.
@@ -47,32 +47,30 @@ public class DiagnosticErrorListener extends BaseErrorListener {
   protected final boolean exactOnly;
 
   /**
-   * Initializes a new instance of {@link DiagnosticErrorListener} which only
-   * reports exact ambiguities.
+   * Initializes a new instance of {@link DiagnosticErrorListener} which only reports exact ambiguities.
    */
   public DiagnosticErrorListener() {
     this(true);
   }
 
   /**
-   * Initializes a new instance of {@link DiagnosticErrorListener}, specifying
-   * whether all ambiguities or only exact ambiguities are reported.
+   * Initializes a new instance of {@link DiagnosticErrorListener}, specifying whether all ambiguities or only exact
+   * ambiguities are reported.
    *
-   * @param exactOnly {@code true} to report only exact ambiguities, otherwise
-   *                  {@code false} to report all ambiguities.
+   * @param exactOnly {@code true} to report only exact ambiguities, otherwise {@code false} to report all ambiguities.
    */
   public DiagnosticErrorListener(boolean exactOnly) {
     this.exactOnly = exactOnly;
   }
 
   @Override
-  public void reportAmbiguity(@NotNull Parser recognizer,
-                              @NotNull DFA dfa,
+  public void reportAmbiguity(Parser recognizer,
+                              DFA dfa,
                               int startIndex,
                               int stopIndex,
                               boolean exact,
                               @Nullable BitSet ambigAlts,
-                              @NotNull ATNConfigSet configs) {
+                              ATNConfigSet configs) {
     if (exactOnly && !exact) {
       return;
     }
@@ -86,12 +84,12 @@ public class DiagnosticErrorListener extends BaseErrorListener {
   }
 
   @Override
-  public void reportAttemptingFullContext(@NotNull Parser recognizer,
-                                          @NotNull DFA dfa,
+  public void reportAttemptingFullContext(Parser recognizer,
+                                          DFA dfa,
                                           int startIndex,
                                           int stopIndex,
                                           @Nullable BitSet conflictingAlts,
-                                          @NotNull SimulatorState conflictState) {
+                                          SimulatorState conflictState) {
     String format = "reportAttemptingFullContext d=%s, input='%s'";
     String decision = getDecisionDescription(recognizer, dfa);
     String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
@@ -100,12 +98,12 @@ public class DiagnosticErrorListener extends BaseErrorListener {
   }
 
   @Override
-  public void reportContextSensitivity(@NotNull Parser recognizer,
-                                       @NotNull DFA dfa,
+  public void reportContextSensitivity(Parser recognizer,
+                                       DFA dfa,
                                        int startIndex,
                                        int stopIndex,
                                        int prediction,
-                                       @NotNull SimulatorState acceptState) {
+                                       SimulatorState acceptState) {
     String format = "reportContextSensitivity d=%s, input='%s'";
     String decision = getDecisionDescription(recognizer, dfa);
     String text = recognizer.getInputStream().getText(Interval.of(startIndex, stopIndex));
@@ -113,7 +111,7 @@ public class DiagnosticErrorListener extends BaseErrorListener {
     recognizer.notifyErrorListeners(message);
   }
 
-  protected <T extends Token> String getDecisionDescription(@NotNull Parser recognizer, @NotNull DFA dfa) {
+  protected <T extends Token> String getDecisionDescription(Parser recognizer, DFA dfa) {
     int decision = dfa.decision;
     int ruleIndex = dfa.atnStartState.ruleIndex;
 
@@ -123,7 +121,7 @@ public class DiagnosticErrorListener extends BaseErrorListener {
     }
 
     String ruleName = ruleNames[ruleIndex];
-    if (ruleName == null || ruleName.isEmpty()) {
+    if (ruleName.isEmpty()) {
       return String.valueOf(decision);
     }
 
@@ -131,18 +129,16 @@ public class DiagnosticErrorListener extends BaseErrorListener {
   }
 
   /**
-   * Computes the set of conflicting or ambiguous alternatives from a
-   * configuration set, if that information was not already provided by the
-   * parser.
+   * Computes the set of conflicting or ambiguous alternatives from a configuration set, if that information was not
+   * already provided by the parser.
    *
-   * @param reportedAlts The set of conflicting or ambiguous alternatives, as
-   *                     reported by the parser.
+   * @param reportedAlts The set of conflicting or ambiguous alternatives, as reported by the parser.
    * @param configs      The conflicting or ambiguous configuration set.
-   * @return Returns {@code reportedAlts} if it is not {@code null}, otherwise
-   * returns the set of alternatives represented in {@code configs}.
+   *
+   * @return Returns {@code reportedAlts} if it is not {@code null}, otherwise returns the set of alternatives
+   * represented in {@code configs}.
    */
-  @NotNull
-  protected BitSet getConflictingAlts(@Nullable BitSet reportedAlts, @NotNull ATNConfigSet configs) {
+  protected BitSet getConflictingAlts(@Nullable BitSet reportedAlts, ATNConfigSet configs) {
     if (reportedAlts != null) {
       return reportedAlts;
     }

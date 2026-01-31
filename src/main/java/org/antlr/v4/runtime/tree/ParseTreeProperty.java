@@ -13,10 +13,9 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 /**
- * Associate a property with a parse tree node. Useful with parse tree listeners
- * that need to associate values with particular tree nodes, kind of like
- * specifying a return value for the listener event method that visited a
- * particular node. Example:
+ * Associate a property with a parse tree node. Useful with parse tree listeners that need to associate values with
+ * particular tree nodes, kind of like specifying a return value for the listener event method that visited a particular
+ * node. Example:
  *
  * <pre>
  * ParseTreeProperty&lt;Integer&gt; values = new ParseTreeProperty&lt;Integer&gt;();
@@ -25,8 +24,7 @@ import java.util.Map;
  * values.removeFrom(tree);
  * </pre>
  * <p>
- * You would make one decl (values here) in the listener and use lots of times
- * in your event methods.
+ * You would make one decl (values here) in the listener and use lots of times in your event methods.
  */
 public class ParseTreeProperty<V> {
   protected Map<ParseTree, V> annotations = new IdentityHashMap<>();

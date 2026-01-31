@@ -9,6 +9,7 @@
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.FailedPredicateException;
 import org.antlr.v4.runtime.IntStream;
@@ -301,6 +302,11 @@ public class ParserATNSimulator extends ATNSimulator {
   public boolean tail_call_preserves_sll = true;
   public boolean treat_sllk1_conflict_as_ambiguity = false;
 
+  /**
+   * -- GETTER --
+   *
+   */
+  @Getter
   @Nullable
   protected final Parser parser;
 
@@ -2383,10 +2389,4 @@ public class ParserATNSimulator extends ATNSimulator {
     return context;
   }
 
-  /**
-   * @since 4.3
-   */
-  public Parser getParser() {
-    return parser;
-  }
 }
