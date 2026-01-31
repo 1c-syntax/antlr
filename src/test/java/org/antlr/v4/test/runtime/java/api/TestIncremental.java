@@ -119,7 +119,7 @@ public class TestIncremental {
       .setOldToken((CommonToken) oldTokens.get(4))
       .build();
 
-    ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
+    ArrayList<TokenChange> changes = new ArrayList<>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
     parser = new TestIncrementalBasicParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
@@ -159,7 +159,7 @@ public class TestIncremental {
       .setNewToken((CommonToken) tokenStream.get(10))
       .build();
 
-    ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
+    ArrayList<TokenChange> changes = new ArrayList<>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
     parser = new TestIncrementalBasicParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
@@ -210,7 +210,7 @@ public class TestIncremental {
     // Parse the same text with the old tree.
     lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_1));
     tokenStream = new IncrementalTokenStream(lexer);
-    IncrementalParserData parserData = new IncrementalParserData(tokenStream, new ArrayList<TokenChange>(), firstTree);
+    IncrementalParserData parserData = new IncrementalParserData(tokenStream, new ArrayList<>(), firstTree);
     parser = new TestIncrementalJavaParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
     IncrementalParserRuleContext secondTree = parser.compilationUnit();

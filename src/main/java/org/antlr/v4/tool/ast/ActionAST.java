@@ -51,6 +51,4 @@ public class ActionAST extends GrammarASTWithOptions implements RuleElementAST {
   public Object visit(GrammarASTVisitor v) {
     return v.visit(this);
   }
-
-
 }

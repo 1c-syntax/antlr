@@ -989,6 +989,7 @@ public abstract class AbstractBaseTest {
     }
 
     @Override
+    @org.jspecify.annotations.Nullable
     public Token LT(int i) {
       CommonToken t;
       int rawIndex = p + i - 1;

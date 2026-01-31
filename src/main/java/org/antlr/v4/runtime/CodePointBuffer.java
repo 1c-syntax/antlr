@@ -248,12 +248,11 @@ public class CodePointBuffer {
           if (!Character.isHighSurrogate(c)) {
             byteToCharBuffer(utf16In.remaining());
             appendArrayChar(utf16In);
-            return;
           } else {
             byteToIntBuffer(utf16In.remaining());
             appendArrayInt(utf16In);
-            return;
           }
+          return;
         }
         inOffset++;
         outOffset++;

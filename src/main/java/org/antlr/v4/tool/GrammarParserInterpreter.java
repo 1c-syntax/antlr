@@ -30,6 +30,7 @@ import org.antlr.v4.runtime.atn.RuleStartState;
 import org.antlr.v4.runtime.atn.StarLoopEntryState;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.Trees;
+import org.jspecify.annotations.NullMarked;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.List;
  *
  * @since 4.5.1
  */
+@NullMarked
 public class GrammarParserInterpreter extends ParserInterpreter {
   /**
    * The grammar associated with this interpreter. Unlike the

@@ -36,8 +36,8 @@ import java.util.List;
  * such as SContext) and makes it the root of a parse tree, recorded by field Parser._ctx.
  * <p>
  * public final SContext s() throws RecognitionException { SContext _localctx = new SContext(_ctx, getState()); --
- * create new node enterRule(_localctx, 0, RULE_s);                     -- push it ... exitRule();
- * -- pop back to _localctx return _localctx; }
+ * create new node enterRule(_localctx, 0, RULE_s);                     -- push it ... exitRule(); -- pop back to
+ * _localctx return _localctx; }
  * <p>
  * A subsequent rule invocation of r from the start rule s pushes a new context object for r whose parent points at s
  * and use invoking state is the state with r emanating as edge label.
@@ -70,6 +70,8 @@ public class RuleContext implements RuleNode {
    * What state invoked the rule associated with this context? The "return address" is the followState of invokingState
    * If parent is null, this should be -1 this context object represents the start rule.
    */
+  // todo на самом деле все не совсем так, есть варианты, когда
+  // todo parent == null, а стейт отличен от -1
   public int invokingState = -1;
 
   public RuleContext(@Nullable RuleContext parent, int invokingState) {

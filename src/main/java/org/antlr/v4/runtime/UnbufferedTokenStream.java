@@ -11,6 +11,7 @@ package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
 
@@ -90,6 +91,7 @@ public class UnbufferedTokenStream implements TokenStream {
   }
 
   @Override
+  @Nullable
   public Token LT(int i) {
     if (i == -1) {
       return lastToken;

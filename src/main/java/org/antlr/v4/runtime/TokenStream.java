@@ -11,6 +11,7 @@ package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
 import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * An {@link IntStream} whose symbols are {@link Token} instances.
@@ -24,7 +25,7 @@ public interface TokenStream extends IntStream {
    *
    * @see IntStream#LA
    */
-  Token LT(int k);
+  @Nullable Token LT(int k);
 
   /**
    * Gets the {@link Token} at the specified {@code index} in the stream. When the preconditions of this method are met,

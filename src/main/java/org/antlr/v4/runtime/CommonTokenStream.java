@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class extends {@link BufferedTokenStream} with functionality to filter
@@ -92,10 +93,15 @@ public class CommonTokenStream extends BufferedTokenStream {
   }
 
   @Override
+  @Nullable
   public Token LT(int k) {
     lazyInit();
-    if (k == 0) return null;
-    if (k < 0) return LB(-k);
+    if (k == 0) {
+      return null;
+    }
+    if (k < 0) {
+      return LB(-k);
+    }
     int i = p;
     int n = 1; // we know tokens[p] is a good one
     // find k good tokens
