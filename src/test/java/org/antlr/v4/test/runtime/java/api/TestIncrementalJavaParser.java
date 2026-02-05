@@ -8793,7 +8793,9 @@ public class TestIncrementalJavaParser extends IncrementalParser {
         _alt = getInterpreter().adaptivePredict(_input, 131, _ctx);
         while (_alt != 2 && _alt != ATN.INVALID_ALT_NUMBER) {
           if (_alt == 1) {
-            if (_parseListeners != null) triggerExitRuleEvent();
+            if (!_parseListeners.isEmpty()) {
+              triggerExitRuleEvent();
+            }
             _prevctx = _localctx;
             {
               setState(1199);

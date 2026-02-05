@@ -523,6 +523,7 @@ public class Grammar implements AttributeResolver {
     return true;
   }
 
+  @Nullable
   public Rule getRule(String name) {
     return rules.get(name);
   }

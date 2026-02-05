@@ -26,7 +26,7 @@ public final class Tuple {
     return new Pair<>(item1, item2);
   }
 
-  public <T1, T2, T3> Tuple3<T1, T2, T3> create(T1 item1, T2 item2, T3 item3) {
+  public <T1, T2, T3> Tuple3<@Nullable T1, T2, T3> create(@Nullable T1 item1, T2 item2, T3 item3) {
     return new Tuple3<>(item1, item2, item3);
   }
 

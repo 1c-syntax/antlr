@@ -96,7 +96,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
    */
   @Setter
   @Getter
-  private int type;
+  private int type = Token.INVALID_TYPE;
 
   @Setter
   @Accessors(fluent = true)
@@ -119,10 +119,6 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
 
   @Override
   public Token nextToken() {
-    if (inputStream == null) {
-      throw new IllegalStateException("nextToken requires a non-null input stream.");
-    }
-
     // Mark start location in char stream so unbuffered streams are
     // guaranteed at least have text of current token
     int tokenStartMarker = inputStream.mark();
@@ -181,7 +177,9 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
   }
 
   public void pushMode(int m) {
-    if (LexerATNSimulator.debug) System.out.println("pushMode " + m);
+    if (LexerATNSimulator.debug) {
+      System.out.println("pushMode " + m);
+    }
     modeStack.push(mode);
     mode(m);
   }
@@ -199,9 +197,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
 
   public void reset() {
     // wack Lexer state variables
-    if (inputStream != null) {
-      inputStream.seek(0); // rewind the input
-    }
+    inputStream.seek(0); // rewind the input
     token = null;
     type = Token.INVALID_TYPE;
     channel = Token.DEFAULT_CHANNEL;
@@ -221,9 +217,9 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
    * Set the char stream and reset the lexer
    */
   public void setInputStream(CharStream inputStream) {
-    this.inputStream = null;
-    this.tokenFactorySourcePair = Tuple.create(this, this.inputStream);
-    reset();
+    if (type != Token.INVALID_TYPE) {
+      reset();
+    }
     this.inputStream = inputStream;
     this.tokenFactorySourcePair = Tuple.create(this, this.inputStream);
   }

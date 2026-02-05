@@ -11,8 +11,9 @@ package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.dfa.DFAState;
 import org.antlr.v4.runtime.dfa.EmptyEdgeMap;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public abstract class ATNSimulator {
 
   public static final char RULE_VARIANT_DELIMITER = '$';
@@ -22,9 +23,8 @@ public abstract class ATNSimulator {
   /**
    * Must distinguish between missing edge and edge we know leads nowhere
    */
-  @NotNull
   public static final DFAState ERROR;
-  @NotNull
+
   public final ATN atn;
 
   static {
@@ -32,20 +32,17 @@ public abstract class ATNSimulator {
     ERROR.stateNumber = Integer.MAX_VALUE;
   }
 
-  public ATNSimulator(@NotNull ATN atn) {
+  public ATNSimulator(ATN atn) {
     this.atn = atn;
   }
 
   public abstract void reset();
 
   /**
-   * Clear the DFA cache used by the current instance. Since the DFA cache may
-   * be shared by multiple ATN simulators, this method may affect the
-   * performance (but not accuracy) of other parsers which are being used
-   * concurrently.
+   * Clear the DFA cache used by the current instance. Since the DFA cache may be shared by multiple ATN simulators,
+   * this method may affect the performance (but not accuracy) of other parsers which are being used concurrently.
    *
-   * @throws UnsupportedOperationException if the current instance does not
-   *                                       support clearing the DFA.
+   * @throws UnsupportedOperationException if the current instance does not support clearing the DFA.
    * @since 4.3
    */
   public void clearDFA() {

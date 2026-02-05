@@ -19,6 +19,8 @@ import org.antlr.v4.tool.ast.AltAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.PredAST;
 import org.antlr.v4.tool.ast.RuleAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,10 +30,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@NullMarked
 public class Rule implements AttributeResolver {
   /**
-   * Rule refs have a predefined set of attributes as well as
-   * the return values and args.
+   * Rule refs have a predefined set of attributes as well as the return values and args.
    * <p>
    * These must be consistent with ActionTranslator.rulePropToModelMap, ...
    */
@@ -63,13 +65,13 @@ public class Rule implements AttributeResolver {
 
   public String name;
   @Setter
-  private String baseContext;
-  public List<GrammarAST> modifiers;
+  private @Nullable String baseContext;
+  public @Nullable List<GrammarAST> modifiers;
 
   public RuleAST ast;
-  public AttributeDict args;
-  public AttributeDict retvals;
-  public AttributeDict locals;
+  public @Nullable AttributeDict args;
+  public @Nullable AttributeDict retvals;
+  public @Nullable AttributeDict locals;
 
   /**
    * In which grammar does this rule live?
@@ -82,24 +84,20 @@ public class Rule implements AttributeResolver {
   public String mode;
 
   /**
-   * Map a name to an action for this rule like @init {...}.
-   * The code generator will use this to fill holes in the rule template.
-   * I track the AST node for the action in case I need the line number
-   * for errors.
+   * Map a name to an action for this rule like @init {...}. The code generator will use this to fill holes in the rule
+   * template. I track the AST node for the action in case I need the line number for errors.
    */
   public Map<String, ActionAST> namedActions = new HashMap<>();
 
   /**
-   * Track exception handlers; points at "catch" node of (catch exception action)
-   * don't track finally action
+   * Track exception handlers; points at "catch" node of (catch exception action) don't track finally action
    */
   public List<GrammarAST> exceptions = new ArrayList<>();
 
   /**
-   * Track all executable actions other than named actions like @init
-   * and catch/finally (not in an alt). Also tracks predicates, rewrite actions.
-   * We need to examine these actions before code generation so
-   * that we can detect refs to $rule.attr etc...
+   * Track all executable actions other than named actions like @init and catch/finally (not in an alt). Also tracks
+   * predicates, rewrite actions. We need to examine these actions before code generation so that we can detect refs to
+   * $rule.attr etc...
    * <p>
    * This tracks per rule; Alternative objs also track per alt.
    */
@@ -172,13 +170,17 @@ public class Rule implements AttributeResolver {
     g.sempreds.computeIfAbsent(predAST, k -> g.sempreds.size());
   }
 
+  @Nullable
   public Attribute resolveRetvalOrProperty(String y) {
     if (retvals != null) {
       Attribute a = retvals.get(y);
       if (a != null) return a;
     }
-    AttributeDict d = getPredefinedScope(LabelType.RULE_LABEL);
-    return d.get(y);
+    var dict = getPredefinedScope(LabelType.RULE_LABEL);
+    if (dict != null) {
+      return dict.get(y);
+    }
+    return null;
   }
 
   public Set<String> getTokenRefs() {
@@ -189,6 +191,7 @@ public class Rule implements AttributeResolver {
     return refs;
   }
 
+  @Nullable
   public Set<String> getElementLabelNames() {
     Set<String> refs = new HashSet<>();
     for (int i = 1; i <= numberOfAlts; i++) {
@@ -222,11 +225,11 @@ public class Rule implements AttributeResolver {
   }
 
   /**
-   * Get {@code #} labels. The keys of the map are the labels applied to outer
-   * alternatives of a lexer rule, and the values are collections of pairs
-   * (alternative number and {@link AltAST}) identifying the alternatives with
-   * this label. Unlabeled alternatives are not included in the result.
+   * Get {@code #} labels. The keys of the map are the labels applied to outer alternatives of a lexer rule, and the
+   * values are collections of pairs (alternative number and {@link AltAST}) identifying the alternatives with this
+   * label. Unlabeled alternatives are not included in the result.
    */
+  @Nullable
   public Map<String, List<Pair<Integer, AltAST>>> getAltLabels() {
     Map<String, List<Pair<Integer, AltAST>>> labels = new LinkedHashMap<>();
     for (int i = 1; i <= numberOfAlts; i++) {
@@ -241,6 +244,7 @@ public class Rule implements AttributeResolver {
     return labels;
   }
 
+  @Nullable
   public List<AltAST> getUnlabeledAltASTs() {
     List<AltAST> alts = new ArrayList<>();
     for (int i = 1; i <= numberOfAlts; i++) {
@@ -255,7 +259,8 @@ public class Rule implements AttributeResolver {
    * $x		Attribute: rule arguments, return values, predefined rule prop.
    */
   @Override
-  public Attribute resolveToAttribute(String x, ActionAST node) {
+  @Nullable
+  public Attribute resolveToAttribute(String x, @Nullable ActionAST node) {
     if (args != null) {
       Attribute a = args.get(x);
       if (a != null) return a;
@@ -268,14 +273,18 @@ public class Rule implements AttributeResolver {
       Attribute a = locals.get(x);
       if (a != null) return a;
     }
-    AttributeDict properties = getPredefinedScope(LabelType.RULE_LABEL);
-    return properties.get(x);
+    var properties = getPredefinedScope(LabelType.RULE_LABEL);
+    if (properties != null) {
+      return properties.get(x);
+    }
+    return null;
   }
 
   /**
    * $x.y	Attribute: x is surrounding rule, label ref (in any alts)
    */
   @Override
+  @Nullable
   public Attribute resolveToAttribute(String x, String y, ActionAST node) {
     LabelElementPair anyLabelDef = getAnyLabelDef(x);
     if (anyLabelDef != null) {
@@ -321,6 +330,7 @@ public class Rule implements AttributeResolver {
     return resolvesToToken(x, node);
   }
 
+  @Nullable
   public Rule resolveToRule(String x) {
     if (x.equals(this.name)) return this;
     LabelElementPair anyLabelDef = getAnyLabelDef(x);
@@ -330,12 +340,14 @@ public class Rule implements AttributeResolver {
     return g.getRule(x);
   }
 
+  @Nullable
   public LabelElementPair getAnyLabelDef(String x) {
     List<LabelElementPair> labels = getElementLabelDefs().get(x);
     if (labels != null) return labels.get(0);
     return null;
   }
 
+  @Nullable
   public AttributeDict getPredefinedScope(LabelType ltype) {
     String grammarLabelKey = g.getTypeString() + ":" + ltype;
     return Grammar.grammarAndLabelRefTypeToScope.get(grammarLabelKey);

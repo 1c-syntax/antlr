@@ -73,6 +73,7 @@ public class AttributeDict {
     return attributes.put(a.name, a);
   }
 
+  @Nullable
   public Attribute get(String name) {
     return attributes.get(name);
   }
