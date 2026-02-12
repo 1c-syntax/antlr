@@ -277,7 +277,7 @@ public class ParserATNFactory implements ATNFactory {
 
   @Override
   public Handle charSetLiteral(GrammarAST charSetAST) {
-    throw new IllegalCallerException("Char sets not allowed in parser");
+    throw new UnsupportedOperationException("Char sets not allowed in parser");
   }
 
   /**

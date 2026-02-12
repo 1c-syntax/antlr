@@ -513,7 +513,7 @@ public abstract class Parser extends Recognizer<Token, ParserATNSimulator> {
     if (lt != null) {
       return lt;
     }
-    throw new IllegalCallerException("Parser not initialized");
+    throw new UnsupportedOperationException("Parser not initialized");
   }
 
   public final void notifyErrorListeners(String msg) {
