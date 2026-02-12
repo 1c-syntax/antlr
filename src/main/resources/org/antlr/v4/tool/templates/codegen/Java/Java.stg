@@ -1014,7 +1014,7 @@ public static class <struct.name> extends <if(contextSuperClass)><contextSuperCl
 
 AltLabelStructDecl(struct,attrs,getters,dispatchMethods) ::= <<
 public static class <struct.name> extends <currentRule.name; format="cap">Context {
-	<attrs:{a | public <a>;}; separator="\n">
+	<attrs:{a | public @Nullable <a>;}; separator="\n">
 	<getters:{g | <g>}; separator="\n">
 	public <struct.name>(<currentRule.name; format="cap">Context ctx) { super(ctx); }
 	<dispatchMethods; separator="\n">

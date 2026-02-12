@@ -217,7 +217,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
    * Set the char stream and reset the lexer
    */
   public void setInputStream(CharStream inputStream) {
-    if (type != Token.INVALID_TYPE) {
+    if (hitEOF || !modeStack.isEmpty() || type != Token.INVALID_TYPE) {
       reset();
     }
     this.inputStream = inputStream;

@@ -142,7 +142,7 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
    * @since 4.3
    */
   public ParseInfo getParseInfo() {
-    throw new IllegalCallerException("Not implemended");
+    throw new UnsupportedOperationException("Not implemented");
   }
 
   /**

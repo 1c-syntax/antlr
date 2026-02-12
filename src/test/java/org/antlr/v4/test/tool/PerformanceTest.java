@@ -1294,7 +1294,7 @@ class PerformanceTest extends AbstractBaseTest {
 
             ATN atn = (FILE_GRANULARITY || previousParser == null ? parser : previousParser).getATN();
             if (!REUSE_PARSER_DFA || (!FILE_GRANULARITY && previousParser == null)) {
-              atn = sharedLexerATNs[thread];
+              atn = sharedParserATNs[thread];
             }
 
             if (!ENABLE_PARSER_DFA) {

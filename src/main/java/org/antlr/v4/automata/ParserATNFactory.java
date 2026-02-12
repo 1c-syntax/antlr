@@ -146,8 +146,8 @@ public class ParserATNFactory implements ATNFactory {
           if (item1 != null) {
             g.tool.errMgr.grammarError(ErrorType.EPSILON_OPTIONAL,
               g.fileName,
-              ((GrammarAST) pair.getItem1().ast.getChild(0)).getToken(),
-              pair.getItem1().name);
+              ((GrammarAST) item1.ast.getChild(0)).getToken(),
+              item1.name);
           }
           continue optionalCheck;
         }
