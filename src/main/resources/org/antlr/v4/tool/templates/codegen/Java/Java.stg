@@ -988,7 +988,7 @@ StructDecl(struct,ctorAttrs,attrs,getters,dispatchMethods,interfaces,extensionMe
 	::= <<
 @NullMarked
 public static class <struct.name> extends <if(contextSuperClass)><contextSuperClass><elseif(parser.file.incremental)>IncrementalParserRuleContext<else>ParserRuleContext<endif><if(interfaces)> implements <interfaces; separator=", "><endif> {
-	<attrs:{a | public <a>;}; separator="\n">
+	<attrs:{a | public @Nullable <a>;}; separator="\n">
 	<getters:{g | <g>}; separator="\n">
 <if(ctorAttrs)>
 	public <struct.name>(ParserRuleContext parent, int invokingState) { super(<if(parser.file.incremental)>(IncrementalParserRuleContext)<endif>parent, invokingState); }
