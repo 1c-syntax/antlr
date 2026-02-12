@@ -83,6 +83,7 @@ public abstract class Lexer extends Recognizer<Integer, LexerATNSimulator> imple
   /**
    * Once we see EOF on char stream, next token will be EOF. If you have DONE : EOF ; then you see DONE EOF.
    */
+  @Getter
   private boolean hitEOF;
 
   /**
