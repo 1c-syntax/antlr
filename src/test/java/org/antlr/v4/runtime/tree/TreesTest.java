@@ -52,7 +52,7 @@ class TreesTest {
     terminal1 = new TerminalNodeImpl(token1);
     terminal2 = new TerminalNodeImpl(token2);
 
-    root = new TestParserRuleContext(null, 0, 0);
+    root = new TestParserRuleContext(null, -1, 0);
     child1 = new TestParserRuleContext(root, -1, 1);
     child2 = new TestParserRuleContext(root, -1, 1);
     grandChild = new TestParserRuleContext(child1, -1, 2);
@@ -167,7 +167,7 @@ class TreesTest {
 
   @Test
   void testGetTokensFromParseTreeEmpty() {
-    ParserRuleContext emptyContext = new TestParserRuleContext(null, 0, 0);
+    ParserRuleContext emptyContext = new TestParserRuleContext(null, -1, 0);
     List<Token> tokens = Trees.getTokensFromParseTree(emptyContext);
     assertThat(tokens).isEmpty();
   }

@@ -30,7 +30,7 @@ import java.util.List;
  * current context is the bottom of the stack. The ParserRuleContext subclass as a children list so that we can turn
  * this data structure into a tree.
  * <p>
- * The root node always has a null pointer and invokingState of -1.
+ * The root node of an actual parse tree always has a null parent pointer and invokingState of -1.
  * <p>
  * Upon entry to parsing, the first invoked rule function creates a context object (a subclass specialized for that rule
  * such as SContext) and makes it the root of a parse tree, recorded by field Parser._ctx.
@@ -67,11 +67,9 @@ public class RuleContext implements RuleNode {
   public @Nullable RuleContext parent;
 
   /**
-   * What state invoked the rule associated with this context? The "return address" is the followState of invokingState
-   * If parent is null, this should be -1 this context object represents the start rule.
+   * What state invoked the rule associated with this context? The "return address" is the followState of invokingState.
+   * For the root node of an actual parse tree, where parent is null, this should be -1.
    */
-  // todo на самом деле все не совсем так, есть варианты, когда
-  // todo parent == null, а стейт отличен от -1
   public int invokingState = -1;
 
   public RuleContext(@Nullable RuleContext parent, int invokingState) {
