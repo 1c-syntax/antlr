@@ -141,9 +141,8 @@ public abstract class Recognizer<Symbol, ATNInterpreter extends ATNSimulator> {
    *
    * @since 4.3
    */
-  @Nullable
   public ParseInfo getParseInfo() {
-    return null;
+    throw new UnsupportedOperationException("Not implemented");
   }
 
   /**

@@ -10,6 +10,7 @@
 package org.antlr.v4.tool;
 
 import org.antlr.v4.tool.ast.ActionAST;
+import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -42,6 +43,7 @@ import org.jspecify.annotations.Nullable;
  * $s		AttributeDict: s is a global scope
  * $s::y	Attribute: s is a global scope; y is prop within
  */
+@NullMarked
 public interface AttributeResolver {
   boolean resolvesToListLabel(String x, ActionAST node);
 

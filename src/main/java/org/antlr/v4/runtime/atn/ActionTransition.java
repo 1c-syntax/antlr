@@ -9,18 +9,19 @@
  */
 package org.antlr.v4.runtime.atn;
 
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 public final class ActionTransition extends Transition {
   public final int ruleIndex;
   public final int actionIndex;
   public final boolean isCtxDependent; // e.g., $i ref in action
 
-  public ActionTransition(@NotNull ATNState target, int ruleIndex) {
+  public ActionTransition(ATNState target, int ruleIndex) {
     this(target, ruleIndex, -1, false);
   }
 
-  public ActionTransition(@NotNull ATNState target, int ruleIndex, int actionIndex, boolean isCtxDependent) {
+  public ActionTransition(ATNState target, int ruleIndex, int actionIndex, boolean isCtxDependent) {
     super(target);
     this.ruleIndex = ruleIndex;
     this.actionIndex = actionIndex;

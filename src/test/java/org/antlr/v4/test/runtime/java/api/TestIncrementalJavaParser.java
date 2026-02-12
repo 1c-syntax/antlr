@@ -8793,7 +8793,9 @@ public class TestIncrementalJavaParser extends IncrementalParser {
         _alt = getInterpreter().adaptivePredict(_input, 131, _ctx);
         while (_alt != 2 && _alt != ATN.INVALID_ALT_NUMBER) {
           if (_alt == 1) {
-            if (_parseListeners != null) triggerExitRuleEvent();
+            if (!_parseListeners.isEmpty()) {
+              triggerExitRuleEvent();
+            }
             _prevctx = _localctx;
             {
               setState(1199);
@@ -10297,59 +10299,37 @@ public class TestIncrementalJavaParser extends IncrementalParser {
   }
 
   public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-    switch (ruleIndex) {
-      case 106:
-        return expression_sempred((ExpressionContext) _localctx, predIndex);
+    if (ruleIndex == 106) {
+      return expression_sempred((ExpressionContext) _localctx, predIndex);
     }
     return true;
   }
 
   private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 0:
-        return precpred(_ctx, 13);
-      case 1:
-        return precpred(_ctx, 12);
-      case 2:
-        return precpred(_ctx, 11);
-      case 3:
-        return precpred(_ctx, 10);
-      case 4:
-        return precpred(_ctx, 8);
-      case 5:
-        return precpred(_ctx, 7);
-      case 6:
-        return precpred(_ctx, 6);
-      case 7:
-        return precpred(_ctx, 5);
-      case 8:
-        return precpred(_ctx, 4);
-      case 9:
-        return precpred(_ctx, 3);
-      case 10:
-        return precpred(_ctx, 2);
-      case 11:
-        return precpred(_ctx, 1);
-      case 12:
-        return precpred(_ctx, 25);
-      case 13:
-        return precpred(_ctx, 24);
-      case 14:
-        return precpred(_ctx, 23);
-      case 15:
-        return precpred(_ctx, 22);
-      case 16:
-        return precpred(_ctx, 21);
-      case 17:
-        return precpred(_ctx, 19);
-      case 18:
-        return precpred(_ctx, 17);
-      case 19:
-        return precpred(_ctx, 16);
-      case 20:
-        return precpred(_ctx, 9);
-    }
-    return true;
+    return switch (predIndex) {
+      case 0 -> precpred(_ctx, 13);
+      case 1 -> precpred(_ctx, 12);
+      case 2 -> precpred(_ctx, 11);
+      case 3 -> precpred(_ctx, 10);
+      case 4 -> precpred(_ctx, 8);
+      case 5 -> precpred(_ctx, 7);
+      case 6 -> precpred(_ctx, 6);
+      case 7 -> precpred(_ctx, 5);
+      case 8 -> precpred(_ctx, 4);
+      case 9 -> precpred(_ctx, 3);
+      case 10 -> precpred(_ctx, 2);
+      case 11 -> precpred(_ctx, 1);
+      case 12 -> precpred(_ctx, 25);
+      case 13 -> precpred(_ctx, 24);
+      case 14 -> precpred(_ctx, 23);
+      case 15 -> precpred(_ctx, 22);
+      case 16 -> precpred(_ctx, 21);
+      case 17 -> precpred(_ctx, 19);
+      case 18 -> precpred(_ctx, 17);
+      case 19 -> precpred(_ctx, 16);
+      case 20 -> precpred(_ctx, 9);
+      default -> true;
+    };
   }
 
   public static final String _serializedATN =

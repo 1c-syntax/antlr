@@ -62,7 +62,7 @@ public class IncrementalParserRuleContext extends ParserRuleContext {
     if (cachedParent != null && cachedParent == this.parent) {
       return cachedDepth;
     }
-    int n = 1;
+    int n;
     if (this.parent != null) {
       int parentDepth = this.parent.depth();
       this.cachedParent = this.parent;

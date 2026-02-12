@@ -225,7 +225,7 @@ class RuleVersioningTest extends AbstractBaseTest {
 
   private STGroup createGroup(Properties properties) {
     STGroup group = new STGroup();
-    Map<String, Map<String, Object>> dictionaries = new HashMap<String, Map<String, Object>>();
+    Map<String, Map<String, Object>> dictionaries = new HashMap<>();
     for (Entry<Object, Object> entry : properties.entrySet()) {
       String key = entry.getKey().toString();
       String[] elements = key.split("\\.");
@@ -247,7 +247,7 @@ class RuleVersioningTest extends AbstractBaseTest {
 
   @Override
   public List<String> getCompileOptions() {
-    List<String> result = new ArrayList<String>(super.getCompileOptions());
+    List<String> result = new ArrayList<>(super.getCompileOptions());
     result.add(0, "-proc:none");
     return result;
   }
@@ -269,27 +269,22 @@ class RuleVersioningTest extends AbstractBaseTest {
 
     @Override
     public Set<Entry<String, Object>> entrySet() {
-      List<Entry<Object, Object>> entries = new ArrayList<Entry<Object, Object>>(properties.entrySet());
-      Utils.removeAll(entries, new Predicate<Entry<Object, Object>>() {
-
-        @Override
-        public boolean eval(Entry<Object, Object> arg) {
-          String key = arg.getKey().toString();
-          for (Pair<String, Integer> prefix : prefixes) {
-            if (key.startsWith(prefix.getItem1() + '.') || key.equals(prefix.getItem1())) {
-              // don't remove items matching the prefix
-              return false;
-            }
+      List<Entry<Object, Object>> entries = new ArrayList<>(properties.entrySet());
+      Utils.removeAll(entries, (Entry<Object, Object> arg) -> {
+        String key = arg.getKey().toString();
+        for (Pair<String, Integer> prefix : prefixes) {
+          if (key.startsWith(prefix.getItem1() + '.') || key.equals(prefix.getItem1())) {
+            // don't remove items matching the prefix
+            return false;
           }
-          // remove items without a match
-          return true;
         }
+        // remove items without a match
+        return true;
       });
 
-      final Map<String, Object> subkeyValues = new HashMap<String, Object>();
-      final Map<String, List<Pair<String, Integer>>> subkeyPrefixes = new HashMap<String, List<Pair<String, Integer>>>();
-      for (int i = 0; i < prefixes.size(); i++) {
-        Pair<String, Integer> prefix = prefixes.get(i);
+      final Map<String, Object> subkeyValues = new HashMap<>();
+      final Map<String, List<Pair<String, Integer>>> subkeyPrefixes = new HashMap<>();
+      for (Pair<String, Integer> prefix : prefixes) {
         for (Entry<Object, Object> entry : entries) {
           String key = entry.getKey().toString();
           if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template")
@@ -306,11 +301,7 @@ class RuleVersioningTest extends AbstractBaseTest {
 
               assert !subkeyValues.containsKey(subkey);
               subkey = subkey.substring(0, dot);
-              List<Pair<String, Integer>> prefixList = subkeyPrefixes.get(subkey);
-              if (prefixList == null) {
-                prefixList = new ArrayList<Pair<String, Integer>>();
-                subkeyPrefixes.put(subkey, prefixList);
-              }
+              List<Pair<String, Integer>> prefixList = subkeyPrefixes.computeIfAbsent(subkey, k -> new ArrayList<>());
 
               String nextPrefix = inherit ? entry.getValue().toString() : prefix.getItem1() + '.' + subkey;
               int priority = prefix.getItem2() + (inherit ? 1 : 0);
@@ -337,18 +328,13 @@ class RuleVersioningTest extends AbstractBaseTest {
 
       // sort prefix lists by priority
       for (List<Pair<String, Integer>> list : subkeyPrefixes.values()) {
-        Collections.sort(list, new Comparator<Pair<String, Integer>>() {
-          @Override
-          public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-            return o1.getItem2() - o2.getItem2();
-          }
-        });
+        list.sort(Comparator.comparingInt(Pair::getItem2));
       }
 
-      return new AbstractSet<Entry<String, Object>>() {
+      return new AbstractSet<>() {
         @Override
         public Iterator<Entry<String, Object>> iterator() {
-          return new Iterator<Entry<String, Object>>() {
+          return new Iterator<>() {
             final Iterator<Entry<String, Object>> valueIterator = subkeyValues.entrySet().iterator();
             final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet()
               .iterator();
@@ -364,7 +350,7 @@ class RuleVersioningTest extends AbstractBaseTest {
                 return valueIterator.next();
               } else {
                 final Entry<String, List<Pair<String, Integer>>> next = prefixIterator.next();
-                return new Entry<String, Object>() {
+                return new Entry<>() {
                   @Override
                   public String getKey() {
                     return next.getKey();

@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Stack;
 
@@ -80,6 +81,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * token index looked at.
    */
   @Override
+  @Nullable
   public Token LT(int k) {
     Token result = super.LT(k);
     // Adjust the top of the minimum maximum stack if the position/lookahead amount

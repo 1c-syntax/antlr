@@ -11,13 +11,11 @@ package org.antlr.v4.runtime.atn;
 
 import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.MurmurHash;
 import org.antlr.v4.runtime.misc.NotNull;
 
 /**
- * Implements the {@code channel} lexer action by calling
- * {@link Lexer#setChannel} with the assigned channel.
+ * Implements the {@code channel} lexer action by calling {@link Lexer#setChannel} with the assigned channel.
  *
  * @author Sam Harwell
  * @since 4.2

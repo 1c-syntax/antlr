@@ -164,33 +164,29 @@ public class TestIncrementalJavaLexer extends Lexer {
 
   @Override
   public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-    switch (ruleIndex) {
-      case 143:
-        return JavaLetter_sempred(_localctx, predIndex);
-      case 144:
-        return JavaLetterOrDigit_sempred(_localctx, predIndex);
-    }
-    return true;
+    return switch (ruleIndex) {
+      case 143 -> JavaLetter_sempred(_localctx, predIndex);
+      case 144 -> JavaLetterOrDigit_sempred(_localctx, predIndex);
+      default -> true;
+    };
   }
 
   private boolean JavaLetter_sempred(RuleContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 0:
-        return Character.isJavaIdentifierStart(getInputStream().LA(-1));
-      case 1:
-        return Character.isJavaIdentifierStart(Character.toCodePoint((char) getInputStream().LA(-2), (char) getInputStream().LA(-1)));
-    }
-    return true;
+    return switch (predIndex) {
+      case 0 -> Character.isJavaIdentifierStart(getInputStream().LA(-1));
+      case 1 ->
+        Character.isJavaIdentifierStart(Character.toCodePoint((char) getInputStream().LA(-2), (char) getInputStream().LA(-1)));
+      default -> true;
+    };
   }
 
   private boolean JavaLetterOrDigit_sempred(RuleContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 2:
-        return Character.isJavaIdentifierPart(getInputStream().LA(-1));
-      case 3:
-        return Character.isJavaIdentifierPart(Character.toCodePoint((char) getInputStream().LA(-2), (char) getInputStream().LA(-1)));
-    }
-    return true;
+    return switch (predIndex) {
+      case 2 -> Character.isJavaIdentifierPart(getInputStream().LA(-1));
+      case 3 ->
+        Character.isJavaIdentifierPart(Character.toCodePoint((char) getInputStream().LA(-2), (char) getInputStream().LA(-1)));
+      default -> true;
+    };
   }
 
   public static final String _serializedATN =

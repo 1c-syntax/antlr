@@ -12,7 +12,6 @@ package org.antlr.v4.tool;
 import lombok.Getter;
 import lombok.Setter;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.tool.ast.GrammarAST;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
@@ -74,6 +73,7 @@ public class AttributeDict {
     return attributes.put(a.name, a);
   }
 
+  @Nullable
   public Attribute get(String name) {
     return attributes.get(name);
   }

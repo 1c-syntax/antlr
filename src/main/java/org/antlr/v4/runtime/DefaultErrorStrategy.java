@@ -18,6 +18,8 @@ import org.antlr.v4.runtime.misc.Tuple;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
+
 /**
  * This is the default implementation of {@link ANTLRErrorStrategy} used for error reporting and recovery in ANTLR
  * parsers.
@@ -538,7 +540,8 @@ public class DefaultErrorStrategy implements ANTLRErrorStrategy {
   protected Token constructToken(TokenSource tokenSource, int expectedTokenType, String tokenText, Token current) {
     TokenFactory factory = tokenSource.getTokenFactory();
     return
-      factory.create(Tuple.create(tokenSource, current.getTokenSource().getInputStream()), expectedTokenType, tokenText,
+      factory.create(Tuple.create(tokenSource, Objects.requireNonNull(current.getTokenSource()).getInputStream()),
+        expectedTokenType, tokenText,
         Token.DEFAULT_CHANNEL,
         -1, -1,
         current.getLine(), current.getCharPositionInLine());

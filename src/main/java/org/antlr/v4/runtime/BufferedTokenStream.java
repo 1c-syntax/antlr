@@ -213,7 +213,9 @@ public class BufferedTokenStream implements TokenStream {
     if (k == 0) {
       return null;
     }
-    if (k < 0) return LB(-k);
+    if (k < 0) {
+      return LB(-k);
+    }
 
     int i = p + k - 1;
     sync(i);

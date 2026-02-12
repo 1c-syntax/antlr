@@ -9,80 +9,82 @@
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.io.Serial;
 import java.io.Serializable;
 
+@NullMarked
 public class CommonToken implements WritableToken, Serializable {
   @Serial
   private static final long serialVersionUID = -6708843461296520577L;
 
   /**
-   * An empty {@link Pair} which is used as the default value of
-   * {@link #source} for tokens that do not have a source.
+   * An empty {@link Pair} which is used as the default value of {@link #source} for tokens that do not have a source.
    */
-  protected static final Pair<TokenSource, CharStream> EMPTY_SOURCE =
-    Tuple.create(null, null);
+  protected static final Pair<TokenSource, CharStream> EMPTY_SOURCE = Tuple.create(null, null);
 
   /**
    * This is the backing field for {@link #getType} and {@link #setType}.
    */
+  @Setter
+  @Getter
   protected int type;
+
   /**
    * This is the backing field for {@link #getLine} and {@link #setLine}.
    */
+  @Setter
   protected int line;
+
   /**
-   * This is the backing field for {@link #getCharPositionInLine} and
-   * {@link #setCharPositionInLine}.
+   * This is the backing field for {@link #getCharPositionInLine} and {@link #setCharPositionInLine}.
    */
   protected int charPositionInLine = -1; // set to invalid position
+
   /**
-   * This is the backing field for {@link #getChannel} and
-   * {@link #setChannel}.
+   * This is the backing field for {@link #getChannel} and {@link #setChannel}.
    */
+  @Setter
+  @Getter
   protected int channel = DEFAULT_CHANNEL;
+
   /**
-   * This is the backing field for {@link #getTokenSource} and
-   * {@link #getInputStream}.
+   * This is the backing field for {@link #getTokenSource} and {@link #getInputStream}.
    *
    * <p>
-   * These properties share a field to reduce the memory footprint of
-   * {@link CommonToken}. Tokens created by a {@link CommonTokenFactory} from
-   * the same source and input stream share a reference to the same
-   * {@link Pair} containing these values.</p>
+   * These properties share a field to reduce the memory footprint of {@link CommonToken}. Tokens created by a
+   * {@link CommonTokenFactory} from the same source and input stream share a reference to the same {@link Pair}
+   * containing these values.</p>
    */
-  @NotNull
   protected Pair<? extends TokenSource, CharStream> source;
 
   /**
-   * This is the backing field for {@link #getText} when the token text is
-   * explicitly set in the constructor or via {@link #setText}.
+   * This is the backing field for {@link #getText} when the token text is explicitly set in the constructor or via
+   * {@link #setText}.
    *
    * @see #getText()
    */
-  protected String text;
+  protected @Nullable String text;
 
   /**
-   * This is the backing field for {@link #getTokenIndex} and
-   * {@link #setTokenIndex}.
+   * This is the backing field for {@link #getTokenIndex} and {@link #setTokenIndex}.
    */
   protected int index = -1;
 
   /**
-   * This is the backing field for {@link #getStartIndex} and
-   * {@link #setStartIndex}.
+   * This is the backing field for {@link #getStartIndex} and {@link #setStartIndex}.
    */
   protected int start;
 
   /**
-   * This is the backing field for {@link #getStopIndex} and
-   * {@link #setStopIndex}.
+   * This is the backing field for {@link #getStopIndex} and {@link #setStopIndex}.
    */
   protected int stop;
 
@@ -96,7 +98,7 @@ public class CommonToken implements WritableToken, Serializable {
     this.source = EMPTY_SOURCE;
   }
 
-  public CommonToken(@NotNull Pair<? extends TokenSource, CharStream> source,
+  public CommonToken(Pair<? extends TokenSource, CharStream> source,
                      int type,
                      int channel,
                      int start,
@@ -113,8 +115,7 @@ public class CommonToken implements WritableToken, Serializable {
   }
 
   /**
-   * Constructs a new {@link CommonToken} with the specified token type and
-   * text.
+   * Constructs a new {@link CommonToken} with the specified token type and text.
    *
    * @param type The token type.
    * @param text The text of the token.
@@ -130,16 +131,14 @@ public class CommonToken implements WritableToken, Serializable {
    * Constructs a new {@link CommonToken} as a copy of another {@link Token}.
    *
    * <p>
-   * If {@code oldToken} is also a {@link CommonToken} instance, the newly
-   * constructed token will share a reference to the {@link #text} field and
-   * the {@link Pair} stored in {@link #source}. Otherwise, {@link #text} will
-   * be assigned the result of calling {@link #getText}, and {@link #source}
-   * will be constructed from the result of {@link Token#getTokenSource} and
-   * {@link Token#getInputStream}.</p>
+   * If {@code oldToken} is also a {@link CommonToken} instance, the newly constructed token will share a reference to
+   * the {@link #text} field and the {@link Pair} stored in {@link #source}. Otherwise, {@link #text} will be assigned
+   * the result of calling {@link #getText}, and {@link #source} will be constructed from the result of
+   * {@link Token#getTokenSource} and {@link Token#getInputStream}.</p>
    *
    * @param oldToken The token to copy.
    */
-  public CommonToken(@NotNull Token oldToken) {
+  public CommonToken(Token oldToken) {
     type = oldToken.getType();
     line = oldToken.getLine();
     index = oldToken.getTokenIndex();
@@ -158,39 +157,27 @@ public class CommonToken implements WritableToken, Serializable {
   }
 
   @Override
-  public int getType() {
-    return type;
-  }
-
-  @Override
-  public void setLine(int line) {
-    this.line = line;
-  }
-
-  @Override
   public String getText() {
     if (text != null) {
       return text;
     }
 
     CharStream input = getInputStream();
-    if (input == null) return null;
-    int n = input.size();
-    if (start < n && stop < n) {
-      return input.getText(Interval.of(start, stop));
-    } else {
-      return "<EOF>";
+    if (input != null) {
+      int n = input.size();
+      if (start < n && stop < n) {
+        return input.getText(Interval.of(start, stop));
+      }
     }
+    return "<EOF>";
   }
 
   /**
-   * Explicitly set the text for this token. If {code text} is not
-   * {@code null}, then {@link #getText} will return this value rather than
-   * extracting the text from the input.
+   * Explicitly set the text for this token. If {code text} is not {@code null}, then {@link #getText} will return this
+   * value rather than extracting the text from the input.
    *
-   * @param text The explicit text of the token, or {@code null} if the text
-   *             should be obtained from the input along with the start and stop indexes
-   *             of the token.
+   * @param text The explicit text of the token, or {@code null} if the text should be obtained from the input along
+   *             with the start and stop indexes of the token.
    */
   @Override
   public void setText(String text) {
@@ -210,21 +197,6 @@ public class CommonToken implements WritableToken, Serializable {
   @Override
   public void setCharPositionInLine(int charPositionInLine) {
     this.charPositionInLine = charPositionInLine;
-  }
-
-  @Override
-  public int getChannel() {
-    return channel;
-  }
-
-  @Override
-  public void setChannel(int channel) {
-    this.channel = channel;
-  }
-
-  @Override
-  public void setType(int type) {
-    this.type = type;
   }
 
   @Override
@@ -256,11 +228,13 @@ public class CommonToken implements WritableToken, Serializable {
   }
 
   @Override
+  @Nullable
   public TokenSource getTokenSource() {
     return source.getItem1();
   }
 
   @Override
+  @Nullable
   public CharStream getInputStream() {
     return source.getItem2();
   }
@@ -276,13 +250,9 @@ public class CommonToken implements WritableToken, Serializable {
       channelStr = ",channel=" + channel;
     }
     String txt = getText();
-    if (txt != null) {
-      txt = txt.replace("\n", "\\n");
-      txt = txt.replace("\r", "\\r");
-      txt = txt.replace("\t", "\\t");
-    } else {
-      txt = "<no text>";
-    }
+    txt = txt.replace("\n", "\\n");
+    txt = txt.replace("\r", "\\r");
+    txt = txt.replace("\t", "\\t");
 
     String typeString = String.valueOf(type);
     if (r != null) {

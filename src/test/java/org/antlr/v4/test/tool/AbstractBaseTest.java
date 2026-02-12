@@ -34,8 +34,6 @@ import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.atn.LexerATNSimulator;
 import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
 import org.antlr.v4.runtime.misc.Utils;
@@ -48,6 +46,8 @@ import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.GrammarSemanticsMessage;
 import org.antlr.v4.tool.LexerGrammar;
 import org.antlr.v4.tool.Rule;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -77,6 +77,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,55 +92,45 @@ public abstract class AbstractBaseTest {
   public static final String pathSep = File.pathSeparator;
 
   /**
-   * When the {@code antlr.testinprocess} runtime property is set to
-   * {@code true}, the test suite will attempt to load generated classes into
-   * the test process for direct execution rather than invoking the JVM in a
-   * new process for testing.
+   * When the {@code antlr.testinprocess} runtime property is set to {@code true}, the test suite will attempt to load
+   * generated classes into the test process for direct execution rather than invoking the JVM in a new process for
+   * testing.
    *
    * <p>
-   * In-process testing results in a substantial performance improvement, but
-   * some test environments created by IDEs do not support the mechanisms
-   * currently used by the tests to dynamically load compiled code. Therefore,
-   * the default behavior (used in all other cases) favors reliable
-   * cross-system test execution by executing generated test code in a
-   * separate process.</p>
+   * In-process testing results in a substantial performance improvement, but some test environments created by IDEs do
+   * not support the mechanisms currently used by the tests to dynamically load compiled code. Therefore, the default
+   * behavior (used in all other cases) favors reliable cross-system test execution by executing generated test code in
+   * a separate process.</p>
    */
   public static final boolean TEST_IN_SAME_PROCESS = Boolean.parseBoolean(System.getProperty("antlr.testinprocess"));
   public static final boolean STRICT_COMPILE_CHECKS = Boolean.parseBoolean(System.getProperty("antlr.strictcompile"));
 
   /**
-   * When the {@code antlr.preserve-test-dir} runtime property is set to
-   * {@code true}, the temporary directories created by the test run will not
-   * be removed at the end of the test run, even for tests that completed
-   * successfully.
+   * When the {@code antlr.preserve-test-dir} runtime property is set to {@code true}, the temporary directories created
+   * by the test run will not be removed at the end of the test run, even for tests that completed successfully.
    *
    * <p>
-   * The default behavior (used in all other cases) is removing the temporary
-   * directories for all tests which completed successfully, and preserving
-   * the directories for tests which failed.</p>
+   * The default behavior (used in all other cases) is removing the temporary directories for all tests which completed
+   * successfully, and preserving the directories for tests which failed.</p>
    */
   public static final boolean PRESERVE_TEST_DIR = Boolean.parseBoolean(System.getProperty("antlr.preserve-test-dir"));
 
   /**
-   * The base test directory is the directory where generated files get placed
-   * during unit test execution.
+   * The base test directory is the directory where generated files get placed during unit test execution.
    *
    * <p>
-   * The default value for this property is the {@code java.io.tmpdir} system
-   * property, and can be overridden by setting the
-   * {@code antlr.java-test-dir} property to a custom location. Note that the
-   * {@code antlr.java-test-dir} property directly affects the
-   * {@link #CREATE_PER_TEST_DIRECTORIES} value as well.</p>
+   * The default value for this property is the {@code java.io.tmpdir} system property, and can be overridden by setting
+   * the {@code antlr.java-test-dir} property to a custom location. Note that the {@code antlr.java-test-dir} property
+   * directly affects the {@link #CREATE_PER_TEST_DIRECTORIES} value as well.</p>
    */
   public static final String BASE_TEST_DIR;
 
   /**
-   * When {@code true}, a temporary directory will be created for each test
-   * executed during the test run.
+   * When {@code true}, a temporary directory will be created for each test executed during the test run.
    *
    * <p>
-   * This value is {@code true} when the {@code antlr.java-test-dir} system
-   * property is set, and otherwise {@code false}.</p>
+   * This value is {@code true} when the {@code antlr.java-test-dir} system property is set, and otherwise
+   * {@code false}.</p>
    */
   public static final boolean CREATE_PER_TEST_DIRECTORIES;
 
@@ -167,8 +158,8 @@ public abstract class AbstractBaseTest {
   public String tmpdir = null;
 
   /**
-   * If error during parser execution, store stderr here; can't return
-   * stdout and stderr.  This doesn't trap errors from running antlr.
+   * If error during parser execution, store stderr here; can't return stdout and stderr.  This doesn't trap errors from
+   * running antlr.
    */
   protected String stderrDuringParse;
 
@@ -296,8 +287,8 @@ public abstract class AbstractBaseTest {
   }
 
   /**
-   * Wow! much faster than compiling outside of VM. Finicky though.
-   * Had rules called r and modulo. Wouldn't compile til I changed to 'a'.
+   * Wow! much faster than compiling outside of VM. Finicky though. Had rules called r and modulo. Wouldn't compile til
+   * I changed to 'a'.
    */
   protected boolean compile(String... fileNames) {
     List<File> files = new ArrayList<>();
@@ -940,6 +931,7 @@ public abstract class AbstractBaseTest {
     assertThat(text).isNotEmpty();
   }
 
+  @NullMarked
   public static class IntTokenStream implements TokenStream {
     IntegerList types;
     int p = 0;
@@ -955,7 +947,7 @@ public abstract class AbstractBaseTest {
 
     @Override
     public int LA(int i) {
-      return LT(i).getType();
+      return Objects.requireNonNull(LT(i)).getType();
     }
 
     @Override
@@ -989,6 +981,7 @@ public abstract class AbstractBaseTest {
     }
 
     @Override
+    @Nullable
     public Token LT(int i) {
       CommonToken t;
       int rawIndex = p + i - 1;
@@ -1008,25 +1001,21 @@ public abstract class AbstractBaseTest {
       return null;
     }
 
-    @NotNull
     @Override
     public String getText() {
       throw new UnsupportedOperationException("can't give strings");
     }
 
-    @NotNull
     @Override
     public String getText(Interval interval) {
       throw new UnsupportedOperationException("can't give strings");
     }
 
-    @NotNull
     @Override
     public String getText(RuleContext ctx) {
       throw new UnsupportedOperationException("can't give strings");
     }
 
-    @NotNull
     @Override
     public String getText(Object start, Object stop) {
       throw new UnsupportedOperationException("can't give strings");

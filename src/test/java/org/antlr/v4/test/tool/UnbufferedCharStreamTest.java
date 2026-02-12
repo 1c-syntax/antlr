@@ -199,14 +199,16 @@ class UnbufferedCharStreamTest extends AbstractBaseTest {
   @Test
   void testAFewTokens() throws RecognitionException {
     LexerGrammar g = new LexerGrammar(
-      "lexer grammar t;\n" +
-        "ID : 'a'..'z'+;\n" +
-        "INT : '0'..'9'+;\n" +
-        "SEMI : ';';\n" +
-        "ASSIGN : '=';\n" +
-        "PLUS : '+';\n" +
-        "MULT : '*';\n" +
-        "WS : ' '+;\n");
+      """
+        lexer grammar t;
+        ID : 'a'..'z'+;
+        INT : '0'..'9'+;
+        SEMI : ';';
+        ASSIGN : '=';
+        PLUS : '+';
+        MULT : '*';
+        WS : ' '+;
+        """);
     // Tokens: 012345678901234567
     // Input:  x = 3 * 0 + 2 * 0;
     TestingUnbufferedCharStream input = createStream("x = 302 * 91 + 20234234 * 0;");
