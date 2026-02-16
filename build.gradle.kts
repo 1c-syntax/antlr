@@ -56,7 +56,7 @@ dependencies {
     testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")
     testImplementation("org.assertj", "assertj-core", "3.27.0")
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.2")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
     testImplementation("org.jspecify", "jspecify", "1.0.0")
 }
 
