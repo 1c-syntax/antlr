@@ -68,7 +68,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
   /**
    * This is a regression test for antlr/antlr4#196
    * "element+ in expression grammar doesn't parse properly"
-   * https://github.com/antlr/antlr4/issues/196
+   * <a href="https://github.com/antlr/antlr4/issues/196">...</a>
    */
   @Test
   void testAtomWithClosureInTranslatedLRRule() {
@@ -637,7 +637,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
 
   /**
    * This is a regression test for antlr/antlr4#218 "ANTLR4 EOF Related Bug".
-   * https://github.com/antlr/antlr4/issues/218
+   * <a href="https://github.com/antlr/antlr4/issues/218">...</a>
    */
   @Test
   void testDisabledAlternative() {
@@ -665,7 +665,7 @@ class SemPredEvalParserTest extends AbstractBaseTest {
    * This is a regression test for antlr/antlr4#529 "Heuristic to improve
    * error messages did not evaluate predicates and could choose an invalid
    * alternative.".
-   * https://github.com/antlr/antlr4/issues/529
+   * <a href="https://github.com/antlr/antlr4/issues/529">...</a>
    */
   @Test
   void testPredFromAltTestedInLoopBack() {
