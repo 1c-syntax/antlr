@@ -42,22 +42,21 @@ gitVersioning.apply {
 }
 
 dependencies {
-    implementation("org.antlr", "ST4", "4.3.4")
-    implementation("commons-io", "commons-io", "2.15.1")
-    implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
+    implementation("org.antlr:ST4:4.3.4")
+    implementation("commons-io:commons-io:2.21.0")
+    implementation("org.abego.treelayout:org.abego.treelayout.core:1.0.3")
 
-    implementation("io.github.1c-syntax", "utils", "0.6.3")
-    api("org.jspecify", "jspecify", "1.0.0")
+    implementation("io.github.1c-syntax:utils:0.6.3")
+    api("org.jspecify:jspecify:1.0.0")
 
-    compileOnly("com.ibm.icu", "icu4j", "77.1")
+    compileOnly("com.ibm.icu:icu4j:78.2")
 
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")
-    testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
-    testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")
-    testImplementation("org.assertj", "assertj-core", "3.27.0")
+    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("org.assertj:assertj-core:3.27.7")
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
-    testImplementation("org.jspecify", "jspecify", "1.0.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
