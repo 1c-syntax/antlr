@@ -12,6 +12,6 @@
 
 ## Спасибо контрибьютерам
 
-<a href="https://github.com/1c-syntax/antl4/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=1c-syntax/antl4" />
+<a href="https://github.com/1c-syntax/antl/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=1c-syntax/antl" />
 </a>
