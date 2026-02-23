@@ -8,16 +8,16 @@ lexer grammar PositionAdjustingLexer;
 @members {
 	@Override
 	public Token nextToken() {
-		if (!(_interp instanceof PositionAdjustingLexerATNSimulator)) {
-			_interp = new PositionAdjustingLexerATNSimulator(this, _ATN);
+		if (!(super.getInterpreter() instanceof PositionAdjustingLexerATNSimulator)) {
+			setInterpreter(new PositionAdjustingLexerATNSimulator(this, _ATN));
 		}
 
 		return super.nextToken();
 	}
 
 	@Override
-	public Token emit() {
-		switch (_type) {
+	protected void emit() {
+		switch (getType()) {
 		case TOKENS:
 			handleAcceptPositionForKeyword("tokens");
 			break;
@@ -30,7 +30,7 @@ lexer grammar PositionAdjustingLexer;
 			break;
 		}
 
-		return super.emit();
+		super.emit();
 	}
 
 	private boolean handleAcceptPositionForIdentifier() {
@@ -40,9 +40,10 @@ lexer grammar PositionAdjustingLexer;
 			identifierLength++;
 		}
 
-		if (getInputStream().index() > _tokenStartCharIndex + identifierLength) {
+		if (getInputStream().index() > getTokenStartCharIndex() + identifierLength) {
 			int offset = identifierLength - 1;
-			getInterpreter().resetAcceptPosition(getInputStream(), _tokenStartCharIndex + offset, _tokenStartLine, _tokenStartCharPositionInLine + offset);
+			getInterpreter().resetAcceptPosition(getInputStream(), getTokenStartCharIndex() + offset, getTokenStartLine(), 
+			    getTokenStartCharPositionInLine() + offset);
 			return true;
 		}
 
@@ -50,9 +51,10 @@ lexer grammar PositionAdjustingLexer;
 	}
 
 	private boolean handleAcceptPositionForKeyword(String keyword) {
-		if (getInputStream().index() > _tokenStartCharIndex + keyword.length()) {
+		if (getInputStream().index() > getTokenStartCharIndex() + keyword.length()) {
 			int offset = keyword.length() - 1;
-			getInterpreter().resetAcceptPosition(getInputStream(), _tokenStartCharIndex + offset, _tokenStartLine, _tokenStartCharPositionInLine + offset);
+			getInterpreter().resetAcceptPosition(getInputStream(), getTokenStartCharIndex() + offset, getTokenStartLine(), 
+			    getTokenStartCharPositionInLine() + offset);
 			return true;
 		}
 
@@ -61,7 +63,8 @@ lexer grammar PositionAdjustingLexer;
 
 	@Override
 	public PositionAdjustingLexerATNSimulator getInterpreter() {
-		return (PositionAdjustingLexerATNSimulator)super.getInterpreter();
+	    var interpreter = super.getInterpreter();
+		return (PositionAdjustingLexerATNSimulator) interpreter;
 	}
 
 	private static boolean isIdentifierChar(char c) {

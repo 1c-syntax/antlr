@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -15,15 +15,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class IntegerListTest {
+class IntegerListTest {
   @Test
-  public void emptyListToEmptyCharArray() {
+  void emptyListToEmptyCharArray() {
     IntegerList l = new IntegerList();
     assertThat(Utils.toCharArray(l)).isEqualTo(new char[0]);
   }
 
   @Test
-  public void surrogateRangeIntegerToCharArray() {
+  void surrogateRangeIntegerToCharArray() {
     IntegerList l = new IntegerList();
     // Java allows dangling surrogates, so (currently) we do
     // as well. We could change this if desired.
@@ -33,7 +33,7 @@ public class IntegerListTest {
   }
 
   @Test
-  public void unicodeBMPIntegerListToCharArray() {
+  void unicodeBMPIntegerListToCharArray() {
     IntegerList l = new IntegerList();
     l.add(0x35);
     l.add(0x4E94);
@@ -43,7 +43,7 @@ public class IntegerListTest {
   }
 
   @Test
-  public void unicodeSMPIntegerListToCharArray() {
+  void unicodeSMPIntegerListToCharArray() {
     IntegerList l = new IntegerList();
     l.add(0x104A5);
     l.add(0x116C5);

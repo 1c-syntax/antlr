@@ -1,16 +1,18 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Recognizer;
 
+@Getter
 public final class EmptyPredictionContext extends PredictionContext {
   public static final EmptyPredictionContext LOCAL_CONTEXT = new EmptyPredictionContext(false);
   public static final EmptyPredictionContext FULL_CONTEXT = new EmptyPredictionContext(true);
@@ -20,10 +22,6 @@ public final class EmptyPredictionContext extends PredictionContext {
   private EmptyPredictionContext(boolean fullContext) {
     super(calculateEmptyHashCode());
     this.fullContext = fullContext;
-  }
-
-  public boolean isFullContext() {
-    return fullContext;
   }
 
   @Override

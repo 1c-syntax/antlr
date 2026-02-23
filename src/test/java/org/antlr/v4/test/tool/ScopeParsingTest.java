@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -21,17 +21,18 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("Частично работает")
-public class ScopeParsingTest extends AbstractBaseTest {
+@Disabled("Requires further investigation and fixes")
+class ScopeParsingTest extends AbstractBaseTest {
   @ValueSource(strings = {
     "int i|i:int",
     "int[] i, int j[]|i:int[], j:int []",
     "Map<A,B>[] i, int j[]|i:Map<A,B>[], j:int []",
     "Map<A,List<B>>[] i|i:Map<A,List<B>>[]",
     "int i = 34+a[3], int j[] = new int[34]|i:int=34+a[3], j:int []=new int[34]",
-    "char *[3] foo = {1,2,3}|foo:char *[3]={1,2,3}", // not valid C really, C is "type name" however so this is cool (this was broken in 4.5 anyway)
+    "char *[3] foo = {1,2,3}|foo:char *[3]={1,2,3}", // not valid C really, C is "type name" however so this is cool
+    // (this was broken in 4.5 anyway)
     "String[] headers|headers:String[]",
 
     // C++
@@ -59,7 +60,7 @@ public class ScopeParsingTest extends AbstractBaseTest {
     "map[string]int x|x:map[string]int",
   })
   @ParameterizedTest
-  public void testArgs(String text) throws Exception {
+  void testArgs(String text) throws Exception {
     var pars = text.split("\\|");
     String output = pars[0];
     String input = pars[1];
@@ -72,6 +73,6 @@ public class ScopeParsingTest extends AbstractBaseTest {
       out.add(attr.toString());
     }
     String actual = Utils.join(out.toArray(), ", ");
-    assertEquals(output, actual);
+    assertThat(actual).isEqualTo(output);
   }
 }

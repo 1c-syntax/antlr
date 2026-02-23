@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ActionTranslationTest extends AbstractBaseTest {
+class ActionTranslationTest extends AbstractBaseTest {
   String attributeTemplate =
     """
       attributeTemplate(members,init,inline,finally,inline2) ::= <<
@@ -37,7 +37,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
 
 
   @Test
-  public void testEscapedLessThanInAction() throws Exception {
+  void testEscapedLessThanInAction() throws Exception {
     String action = "i<3; '<xmltag>'";
     String expected = "i<3; '<xmltag>'";
     testActions(attributeTemplate, "members", action, expected);
@@ -48,7 +48,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEscaped$InAction() throws Exception {
+  void testEscaped$InAction() throws Exception {
     String action = "int \\$n; \"\\$in string\\$\"";
     String expected = "int $n; \"$in string$\"";
     testActions(attributeTemplate, "members", action, expected);
@@ -63,7 +63,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/176">...</a>
    */
   @Test
-  public void testUnescaped$InAction() throws Exception {
+  void testUnescaped$InAction() throws Exception {
     String action = "\\$string$";
     String expected = "$string$";
     testActions(attributeTemplate, "members", action, expected);
@@ -74,7 +74,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEscapedSlash() throws Exception {
+  void testEscapedSlash() throws Exception {
     String action = "x = '\\n';";
     String expected = "x = '\\n';";
     testActions(attributeTemplate, "members", action, expected);
@@ -85,7 +85,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplicatedArgParsing() throws Exception {
+  void testComplicatedArgParsing() throws Exception {
     String action = "x, (*a).foo(21,33), 3.2+1, '\\n', " +
       "\"a,oo\\nick\", {bl, \"fdkj\"eck}";
     String expected = "x, (*a).foo(21,33), 3.2+1, '\\n', " +
@@ -98,7 +98,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testComplicatedArgParsingWithTranslation() throws Exception {
+  void testComplicatedArgParsingWithTranslation() throws Exception {
     String action = "x, $ID.text+\"3242\", (*$ID).foo(21,33), 3.2+1, '\\n', " +
       "\"a,oo\\nick\", {bl, \"fdkj\"eck}";
     String expected =
@@ -108,49 +108,49 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testArguments() throws Exception {
+  void testArguments() throws Exception {
     String action = "$x; $ctx.x";
     String expected = "_localctx.x; _localctx.x";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testReturnValue() throws Exception {
+  void testReturnValue() throws Exception {
     String action = "$y; $ctx.y";
     String expected = "_localctx.y; _localctx.y";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testReturnValueWithNumber() throws Exception {
+  void testReturnValueWithNumber() throws Exception {
     String action = "$ctx.x1";
     String expected = "_localctx.x1";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testReturnValuesCurrentRule() throws Exception {
+  void testReturnValuesCurrentRule() throws Exception {
     String action = "$y; $ctx.y;";
     String expected = "_localctx.y; _localctx.y;";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testReturnValues() throws Exception {
+  void testReturnValues() throws Exception {
     String action = "$lab.e; $b.e; $y.e = \"\";";
     String expected = "_localctx.lab.e; _localctx.b.e; _localctx.y.e = \"\";";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testReturnWithMultipleRuleRefs() throws Exception {
+  void testReturnWithMultipleRuleRefs() throws Exception {
     String action = "$c.x; $c.y;";
     String expected = "_localctx.c.x; _localctx.c.y;";
     testActions(attributeTemplate, "inline", action, expected);
   }
 
   @Test
-  public void testTokenRefs() throws Exception {
+  void testTokenRefs() throws Exception {
     String action = "$id; $ID; $id.text; $id.getText(); $id.line;";
     String expected = "_localctx.id; _localctx.ID; (_localctx.id!=null?_localctx.id.getText():null);" +
       " _localctx.id.getText(); (_localctx.id!=null?_localctx.id.getLine():0);";
@@ -158,7 +158,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRuleRefs() throws Exception {
+  void testRuleRefs() throws Exception {
     String action = "$lab.start; $c.text;";
     String expected = "(_localctx.lab!=null?(_localctx.lab.start):null); " +
       "(_localctx.c!=null?_input.getText(_localctx.c.start,_localctx.c.stop):null);";
@@ -169,7 +169,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
    * Added in response to <a href="https://github.com/antlr/antlr4/issues/1211">...</a>
    */
   @Test
-  public void testUnknownAttr() throws Exception {
+  void testUnknownAttr() throws Exception {
     String action = "$qqq.text";
     String expected = ""; // was causing an exception
     testActions(attributeTemplate, "inline", action, expected);
@@ -181,7 +181,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/1295">...</a>
    */
   @Test
-  public void testRuleRefsRecursive() throws Exception {
+  void testRuleRefsRecursive() throws Exception {
     String recursiveTemplate =
       """
         recursiveTemplate(inline) ::= <<
@@ -218,7 +218,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRefToTextAttributeForCurrentRule() throws Exception {
+  void testRefToTextAttributeForCurrentRule() throws Exception {
     String action = "$ctx.text; $text";
 
     // this is the expected translation for all cases
@@ -230,7 +230,7 @@ public class ActionTranslationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyActions() throws Exception {
+  void testEmptyActions() throws Exception {
     String gS =
       """
         grammar A;

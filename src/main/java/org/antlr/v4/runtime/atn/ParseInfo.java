@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,45 +10,40 @@
 package org.antlr.v4.runtime.atn;
 
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class provides access to specific and aggregate statistics gathered
- * during profiling of a parser.
+ * This class provides access to specific and aggregate statistics gathered during profiling of a parser.
  *
  * @since 4.3
  */
+@NullMarked
 public class ParseInfo {
   protected final ProfilingATNSimulator atnSimulator;
 
-  public ParseInfo(@NotNull ProfilingATNSimulator atnSimulator) {
+  public ParseInfo(ProfilingATNSimulator atnSimulator) {
     this.atnSimulator = atnSimulator;
   }
 
   /**
-   * Gets an array of {@link DecisionInfo} instances containing the profiling
-   * information gathered for each decision in the ATN.
+   * Gets an array of {@link DecisionInfo} instances containing the profiling information gathered for each decision in
+   * the ATN.
    *
-   * @return An array of {@link DecisionInfo} instances, indexed by decision
-   * number.
+   * @return An array of {@link DecisionInfo} instances, indexed by decision number.
    */
-  @NotNull
   public DecisionInfo[] getDecisionInfo() {
     return atnSimulator.getDecisionInfo();
   }
 
   /**
-   * Gets the decision numbers for decisions that required one or more
-   * full-context predictions during parsing. These are decisions for which
-   * {@link DecisionInfo#LL_Fallback} is non-zero.
+   * Gets the decision numbers for decisions that required one or more full-context predictions during parsing. These
+   * are decisions for which {@link DecisionInfo#LL_Fallback} is non-zero.
    *
-   * @return A list of decision numbers which required one or more
-   * full-context predictions during parsing.
+   * @return A list of decision numbers which required one or more full-context predictions during parsing.
    */
-  @NotNull
   public List<Integer> getLLDecisions() {
     DecisionInfo[] decisions = atnSimulator.getDecisionInfo();
     List<Integer> LL = new ArrayList<>();
@@ -60,8 +55,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total time spent during prediction across all decisions made
-   * during parsing. This value is the sum of
+   * Gets the total time spent during prediction across all decisions made during parsing. This value is the sum of
    * {@link DecisionInfo#timeInPrediction} for all decisions.
    */
   public long getTotalTimeInPrediction() {
@@ -74,9 +68,8 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of SLL lookahead operations across all decisions
-   * made during parsing. This value is the sum of
-   * {@link DecisionInfo#SLL_TotalLook} for all decisions.
+   * Gets the total number of SLL lookahead operations across all decisions made during parsing. This value is the sum
+   * of {@link DecisionInfo#SLL_TotalLook} for all decisions.
    */
   public long getTotalSLLLookaheadOps() {
     DecisionInfo[] decisions = atnSimulator.getDecisionInfo();
@@ -88,8 +81,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of LL lookahead operations across all decisions
-   * made during parsing. This value is the sum of
+   * Gets the total number of LL lookahead operations across all decisions made during parsing. This value is the sum of
    * {@link DecisionInfo#LL_TotalLook} for all decisions.
    */
   public long getTotalLLLookaheadOps() {
@@ -102,8 +94,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of ATN lookahead operations for SLL prediction
-   * across all decisions made during parsing.
+   * Gets the total number of ATN lookahead operations for SLL prediction across all decisions made during parsing.
    */
   public long getTotalSLLATNLookaheadOps() {
     DecisionInfo[] decisions = atnSimulator.getDecisionInfo();
@@ -115,8 +106,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of ATN lookahead operations for LL prediction
-   * across all decisions made during parsing.
+   * Gets the total number of ATN lookahead operations for LL prediction across all decisions made during parsing.
    */
   public long getTotalLLATNLookaheadOps() {
     DecisionInfo[] decisions = atnSimulator.getDecisionInfo();
@@ -128,12 +118,11 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of ATN lookahead operations for SLL and LL
-   * prediction across all decisions made during parsing.
+   * Gets the total number of ATN lookahead operations for SLL and LL prediction across all decisions made during
+   * parsing.
    *
    * <p>
-   * This value is the sum of {@link #getTotalSLLATNLookaheadOps} and
-   * {@link #getTotalLLATNLookaheadOps}.</p>
+   * This value is the sum of {@link #getTotalSLLATNLookaheadOps} and {@link #getTotalLLATNLookaheadOps}.</p>
    */
   public long getTotalATNLookaheadOps() {
     DecisionInfo[] decisions = atnSimulator.getDecisionInfo();
@@ -146,8 +135,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of DFA states stored in the DFA cache for all
-   * decisions in the ATN.
+   * Gets the total number of DFA states stored in the DFA cache for all decisions in the ATN.
    */
   public int getDFASize() {
     int n = 0;
@@ -159,8 +147,7 @@ public class ParseInfo {
   }
 
   /**
-   * Gets the total number of DFA states stored in the DFA cache for a
-   * particular decision.
+   * Gets the total number of DFA states stored in the DFA cache for a particular decision.
    */
   public int getDFASize(int decision) {
     DFA decisionToDFA = atnSimulator.atn.decisionToDFA[decision];

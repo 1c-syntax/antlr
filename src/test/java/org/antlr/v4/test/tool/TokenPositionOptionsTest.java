@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenPositionOptionsTest extends AbstractBaseTest {
+class TokenPositionOptionsTest extends AbstractBaseTest {
   @Test
-  public void testLeftRecursionRewrite() throws Exception {
+  void testLeftRecursionRewrite() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -40,8 +40,16 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     );
 
     String expectedTree =
-      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} ('-' (ELEMENT_OPTIONS (= tokenIndex 43))) (e (ELEMENT_OPTIONS (= tokenIndex 45) (= p 2)))) (ALT (ID (ELEMENT_OPTIONS (= tokenIndex 49))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? (ELEMENT_OPTIONS (= p 5))) ('*' (ELEMENT_OPTIONS (= tokenIndex 21))) (e (ELEMENT_OPTIONS (= tokenIndex 23) (= p 6)))) (ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 29))) (e (ELEMENT_OPTIONS (= tokenIndex 31) (= p 5)))) (ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 37))) (ID (ELEMENT_OPTIONS (= tokenIndex 39)))))))))))";
-    assertEquals(expectedTree, g.ast.toStringTree());
+      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} "
+      + "('-' (ELEMENT_OPTIONS (= tokenIndex 43))) (e (ELEMENT_OPTIONS (= tokenIndex 45) (= p 2)))) "
+      + "(ALT (ID (ELEMENT_OPTIONS (= tokenIndex 49))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? "
+      + "(ELEMENT_OPTIONS (= p 5))) ('*' (ELEMENT_OPTIONS (= tokenIndex 21))) "
+      + "(e (ELEMENT_OPTIONS (= tokenIndex 23) (= p 6)))) "
+      + "(ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 29))) "
+      + "(e (ELEMENT_OPTIONS (= tokenIndex 31) (= p 5)))) "
+      + "(ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 37))) "
+      + "(ID (ELEMENT_OPTIONS (= tokenIndex 39)))))))))))";
+    assertThat(g.ast.toStringTree()).isEqualTo(expectedTree);
 
     String expectedElementTokens =
       """
@@ -68,11 +76,11 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     for (GrammarAST node : nodes) {
       tokens.add(node.getToken());
     }
-    assertEquals(expectedElementTokens, Utils.join(tokens.toArray(), "\n"));
+    assertThat(Utils.join(tokens.toArray(), "\n")).isEqualTo(expectedElementTokens);
   }
 
   @Test
-  public void testLeftRecursionWithLabels() throws Exception {
+  void testLeftRecursionWithLabels() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -88,8 +96,16 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     );
 
     String expectedTree =
-      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} ('-' (ELEMENT_OPTIONS (= tokenIndex 47))) (e (ELEMENT_OPTIONS (= tokenIndex 49) (= p 2)))) (ALT (ID (ELEMENT_OPTIONS (= tokenIndex 53))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? (ELEMENT_OPTIONS (= p 5))) ('*' (ELEMENT_OPTIONS (= tokenIndex 21))) (= x (e (ELEMENT_OPTIONS (= tokenIndex 25) (= p 6))))) (ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 31))) (e (ELEMENT_OPTIONS (= tokenIndex 33) (= p 5)))) (ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 39))) (= y (ID (ELEMENT_OPTIONS (= tokenIndex 43))))))))))))";
-    assertEquals(expectedTree, g.ast.toStringTree());
+      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} "
+      + "('-' (ELEMENT_OPTIONS (= tokenIndex 47))) (e (ELEMENT_OPTIONS (= tokenIndex 49) (= p 2)))) "
+      + "(ALT (ID (ELEMENT_OPTIONS (= tokenIndex 53))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? "
+      + "(ELEMENT_OPTIONS (= p 5))) ('*' (ELEMENT_OPTIONS (= tokenIndex 21))) "
+      + "(= x (e (ELEMENT_OPTIONS (= tokenIndex 25) (= p 6))))) "
+      + "(ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 31))) "
+      + "(e (ELEMENT_OPTIONS (= tokenIndex 33) (= p 5)))) "
+      + "(ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 39))) "
+      + "(= y (ID (ELEMENT_OPTIONS (= tokenIndex 43))))))))))))";
+    assertThat(g.ast.toStringTree()).isEqualTo(expectedTree);
 
     String expectedElementTokens =
       """
@@ -116,11 +132,11 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     for (GrammarAST node : nodes) {
       tokens.add(node.getToken());
     }
-    assertEquals(expectedElementTokens, Utils.join(tokens.toArray(), "\n"));
+    assertThat(Utils.join(tokens.toArray(), "\n")).isEqualTo(expectedElementTokens);
   }
 
   @Test
-  public void testLeftRecursionWithSet() throws Exception {
+  void testLeftRecursionWithSet() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -136,8 +152,16 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     );
 
     String expectedTree =
-      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} ('-' (ELEMENT_OPTIONS (= tokenIndex 49))) (e (ELEMENT_OPTIONS (= tokenIndex 51) (= p 2)))) (ALT (ID (ELEMENT_OPTIONS (= tokenIndex 55))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? (ELEMENT_OPTIONS (= p 5))) (= op (SET ('*' (ELEMENT_OPTIONS (= tokenIndex 24))) ('/' (ELEMENT_OPTIONS (= tokenIndex 26))))) (e (ELEMENT_OPTIONS (= tokenIndex 29) (= p 6)))) (ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 35))) (e (ELEMENT_OPTIONS (= tokenIndex 37) (= p 5)))) (ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 43))) (ID (ELEMENT_OPTIONS (= tokenIndex 45)))))))))))";
-    assertEquals(expectedTree, g.ast.toStringTree());
+      "(COMBINED_GRAMMAR T (RULES (RULE s (BLOCK (ALT e ';'))) (RULE e (BLOCK (ALT (BLOCK (ALT {} "
+      + "('-' (ELEMENT_OPTIONS (= tokenIndex 49))) (e (ELEMENT_OPTIONS (= tokenIndex 51) (= p 2)))) "
+      + "(ALT (ID (ELEMENT_OPTIONS (= tokenIndex 55))))) (* (BLOCK (ALT ({precpred(_ctx, 5)}? "
+      + "(ELEMENT_OPTIONS (= p 5))) (= op (SET ('*' (ELEMENT_OPTIONS (= tokenIndex 24))) "
+      + "('/' (ELEMENT_OPTIONS (= tokenIndex 26))))) (e (ELEMENT_OPTIONS (= tokenIndex 29) (= p 6)))) "
+      + "(ALT ({precpred(_ctx, 4)}? (ELEMENT_OPTIONS (= p 4))) ('+' (ELEMENT_OPTIONS (= tokenIndex 35))) "
+      + "(e (ELEMENT_OPTIONS (= tokenIndex 37) (= p 5)))) "
+      + "(ALT ({precpred(_ctx, 3)}? (ELEMENT_OPTIONS (= p 3))) ('.' (ELEMENT_OPTIONS (= tokenIndex 43))) "
+      + "(ID (ELEMENT_OPTIONS (= tokenIndex 45)))))))))))";
+    assertThat(g.ast.toStringTree()).isEqualTo(expectedTree);
 
     String expectedElementTokens =
       """
@@ -165,7 +189,7 @@ public class TokenPositionOptionsTest extends AbstractBaseTest {
     for (GrammarAST node : nodes) {
       tokens.add(node.getToken());
     }
-    assertEquals(expectedElementTokens, Utils.join(tokens.toArray(), "\n"));
+    assertThat(Utils.join(tokens.toArray(), "\n")).isEqualTo(expectedElementTokens);
   }
 
 }

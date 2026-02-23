@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -127,7 +127,9 @@ public class ATNOptimizer {
             newTransition = CodePointTransitions.createWithCodePoint(blockEndState, matchSet.getMinElement());
           } else {
             Interval matchInterval = matchSet.getIntervals().get(0);
-            newTransition = CodePointTransitions.createWithCodePointRange(blockEndState, matchInterval.a, matchInterval.b);
+            newTransition = CodePointTransitions.createWithCodePointRange(blockEndState,
+              matchInterval.a,
+              matchInterval.b);
           }
         } else {
           newTransition = new SetTransition(blockEndState, matchSet);

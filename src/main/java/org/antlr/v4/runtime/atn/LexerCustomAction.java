@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Recognizer;
@@ -28,6 +29,7 @@ import org.antlr.v4.runtime.misc.NotNull;
  * @author Sam Harwell
  * @since 4.2
  */
+@Getter
 public final class LexerCustomAction implements LexerAction {
   private final int ruleIndex;
   private final int actionIndex;
@@ -44,24 +46,6 @@ public final class LexerCustomAction implements LexerAction {
   public LexerCustomAction(int ruleIndex, int actionIndex) {
     this.ruleIndex = ruleIndex;
     this.actionIndex = actionIndex;
-  }
-
-  /**
-   * Gets the rule index to use for calls to {@link Recognizer#action}.
-   *
-   * @return The rule index for the custom action.
-   */
-  public int getRuleIndex() {
-    return ruleIndex;
-  }
-
-  /**
-   * Gets the action index to use for calls to {@link Recognizer#action}.
-   *
-   * @return The action index for the custom action.
-   */
-  public int getActionIndex() {
-    return actionIndex;
   }
 
   /**

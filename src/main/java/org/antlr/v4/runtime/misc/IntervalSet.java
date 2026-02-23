@@ -1,18 +1,18 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.misc;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.Vocabulary;
-import org.antlr.v4.runtime.VocabularyImpl;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,6 +33,7 @@ import java.util.Set;
  * the range {@link Integer#MIN_VALUE} to {@link Integer#MAX_VALUE}
  * (inclusive).</p>
  */
+@Getter
 public class IntervalSet implements IntSet {
   public static final IntervalSet COMPLETE_CHAR_SET = IntervalSet.of(Lexer.MIN_CHAR_VALUE, Lexer.MAX_CHAR_VALUE);
 
@@ -209,8 +210,8 @@ public class IntervalSet implements IntSet {
     }
 
     IntervalSet vocabularyIS;
-    if (vocabulary instanceof IntervalSet) {
-      vocabularyIS = (IntervalSet) vocabulary;
+    if (vocabulary instanceof IntervalSet intervalSet) {
+      vocabularyIS = intervalSet;
     } else {
       vocabularyIS = new IntervalSet();
       vocabularyIS.addAll(vocabulary);
@@ -225,8 +226,8 @@ public class IntervalSet implements IntSet {
       return new IntervalSet(this);
     }
 
-    if (a instanceof IntervalSet) {
-      return subtract(this, (IntervalSet) a);
+    if (a instanceof IntervalSet intervalSet) {
+      return subtract(this, intervalSet);
     }
 
     IntervalSet other = new IntervalSet();
@@ -337,7 +338,7 @@ public class IntervalSet implements IntSet {
     while (i < mySize && j < theirSize) {
       Interval mine = myIntervals.get(i);
       Interval theirs = theirIntervals.get(j);
-      //System.out.println("mine="+mine+" and theirs="+theirs);
+
       if (mine.startsBeforeDisjoint(theirs)) {
         // move this iterator looking for interval that might overlap
         i++;
@@ -460,13 +461,6 @@ public class IntervalSet implements IntSet {
     return intervals.get(0).a;
   }
 
-  /**
-   * Return a list of Interval objects.
-   */
-  public List<Interval> getIntervals() {
-    return intervals;
-  }
-
   @Override
   public int hashCode() {
     int hash = MurmurHash.initialize();
@@ -529,14 +523,6 @@ public class IntervalSet implements IntSet {
     return buf.toString();
   }
 
-  /**
-   * @deprecated Use {@link #toString(Vocabulary)} instead.
-   */
-  @Deprecated
-  public String toString(String[] tokenNames) {
-    return toString(VocabularyImpl.fromTokenNames(tokenNames));
-  }
-
   public String toString(@NotNull Vocabulary vocabulary) {
     StringBuilder buf = new StringBuilder();
     if (this.intervals == null || this.intervals.isEmpty()) {
@@ -566,14 +552,6 @@ public class IntervalSet implements IntSet {
       buf.append("}");
     }
     return buf.toString();
-  }
-
-  /**
-   * @deprecated Use {@link #elementName(Vocabulary, int)} instead.
-   */
-  @Deprecated
-  protected String elementName(String[] tokenNames, int a) {
-    return elementName(VocabularyImpl.fromTokenNames(tokenNames), a);
   }
 
   @NotNull
@@ -674,10 +652,6 @@ public class IntervalSet implements IntSet {
         add(el + 1, oldb); // add [x+1..b]
       }
     }
-  }
-
-  public boolean isReadonly() {
-    return readonly;
   }
 
   public void setReadonly(boolean readonly) {

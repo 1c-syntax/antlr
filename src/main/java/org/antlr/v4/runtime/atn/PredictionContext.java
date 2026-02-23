@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -105,7 +105,9 @@ public abstract class PredictionContext {
     return fromRuleContext(atn, outerContext, true);
   }
 
-  public static PredictionContext fromRuleContext(@NotNull ATN atn, @NotNull RuleContext outerContext, boolean fullContext) {
+  public static PredictionContext fromRuleContext(@NotNull ATN atn,
+                                                  @NotNull RuleContext outerContext,
+                                                  boolean fullContext) {
     if (outerContext.isEmpty()) {
       return fullContext ? EMPTY_FULL : EMPTY_LOCAL;
     }
@@ -135,7 +137,9 @@ public abstract class PredictionContext {
   }
 
   /*package*/
-  static PredictionContext join(@NotNull final PredictionContext context0, @NotNull final PredictionContext context1, @NotNull PredictionContextCache contextCache) {
+  static PredictionContext join(@NotNull final PredictionContext context0,
+                                @NotNull final PredictionContext context1,
+                                @NotNull PredictionContextCache contextCache) {
     if (context0 == context1) {
       return context0;
     }

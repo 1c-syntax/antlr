@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -92,7 +92,8 @@ public class LeftRecursiveRuleTransformer {
         continue; // already has arg; must be in rewritten rule
       if (leftRecursiveRuleNames.contains(r.getText())) {
         // found ref to recursive rule not already rewritten with arg
-        ((GrammarASTWithOptions) r).setOption(PRECEDENCE_OPTION_NAME, new GrammarASTAdaptor().create(ANTLRParser.INT, "0"));
+        ((GrammarASTWithOptions) r).setOption(PRECEDENCE_OPTION_NAME,
+          new GrammarASTAdaptor().create(ANTLRParser.INT, "0"));
       }
     }
   }
@@ -152,7 +153,10 @@ public class LeftRecursiveRuleTransformer {
     r.recPrimaryAlts = new ArrayList<>();
     r.recPrimaryAlts.addAll(leftRecursiveRuleWalker.prefixAndOtherAlts);
     if (r.recPrimaryAlts.isEmpty()) {
-      tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS, g.fileName, ((GrammarAST) r.ast.getChild(0)).getToken(), r.name);
+      tool.errMgr.grammarError(ErrorType.NO_NON_LR_ALTS,
+        g.fileName,
+        ((GrammarAST) r.ast.getChild(0)).getToken(),
+        r.name);
     }
 
     r.recOpAlts = new OrderedHashMap<>();
@@ -168,8 +172,7 @@ public class LeftRecursiveRuleTransformer {
     ActionAST arg = (ActionAST) r.ast.getFirstChildWithType(ANTLRParser.ARG_ACTION);
     if (arg != null) {
       r.args = ScopeParser.parseTypedArgList(arg, arg.getText(), g);
-      r.args.type = AttributeDict.DictType.ARG;
-      r.args.ast = arg;
+      r.args.setType(AttributeDict.DictType.ARG);
       arg.resolver = r.alt[1]; // todo: isn't this Rule or something?
     }
 

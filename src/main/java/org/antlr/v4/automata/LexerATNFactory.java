@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -41,17 +41,15 @@ import org.antlr.v4.runtime.atn.Transition;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.antlr.v4.runtime.misc.MurmurHash;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Utils;
 import org.antlr.v4.tool.ErrorType;
 import org.antlr.v4.tool.LexerGrammar;
-import org.antlr.v4.tool.Rule;
 import org.antlr.v4.tool.ast.ActionAST;
 import org.antlr.v4.tool.ast.GrammarAST;
 import org.antlr.v4.tool.ast.RangeAST;
 import org.antlr.v4.tool.ast.TerminalAST;
-import org.stringtemplate.v4.ST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.stringtemplate.v4.STGroup;
 
 import java.util.ArrayList;
@@ -60,16 +58,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@NullMarked
 public class LexerATNFactory extends ParserATNFactory {
   @Nullable
-  public STGroup codegenTemplates;
+  private final STGroup codegenTemplates;
 
   /**
-   * Provides a map of names of predefined constants which are likely to
-   * appear as the argument for lexer commands. These names would be resolved
-   * by the Java compiler for lexer commands that are translated to embedded
-   * actions, but are required during code generation for creating
-   * {@link LexerAction} instances that are usable by a lexer interpreter.
+   * Provides a map of names of predefined constants which are likely to appear as the argument for lexer commands.
+   * These names would be resolved by the Java compiler for lexer commands that are translated to embedded actions, but
+   * are required during code generation for creating {@link LexerAction} instances that are usable by a lexer
+   * interpreter.
    */
   public static final Map<String, Integer> COMMON_CONSTANTS = new HashMap<>();
 
@@ -115,16 +113,16 @@ public class LexerATNFactory extends ParserATNFactory {
   @Override
   public ATN createATN() {
     // BUILD ALL START STATES (ONE PER MODE)
-    Set<String> modes = ((LexerGrammar) g).modes.keySet();
-    for (String modeName : modes) {
+    var modes = ((LexerGrammar) g).modes.keySet();
+    for (var modeName : modes) {
       // create s0, start state; implied Tokens rule node
-      TokensStartState startState = newState(TokensStartState.class, null);
+      var startState = newState(TokensStartState.class, null);
       atn.defineMode(modeName, startState);
     }
 
     // INIT ACTION, RULE->TOKEN_TYPE MAP
     atn.ruleToTokenType = new int[g.rules.size()];
-    for (Rule r : g.rules.values()) {
+    for (var r : g.rules.values()) {
       atn.ruleToTokenType[r.index] = g.getTokenType(r.name);
     }
 
@@ -132,15 +130,15 @@ public class LexerATNFactory extends ParserATNFactory {
     _createATN(g.rules.values());
 
     atn.lexerActions = new LexerAction[indexToActionMap.size()];
-    for (Map.Entry<Integer, LexerAction> entry : indexToActionMap.entrySet()) {
+    for (var entry : indexToActionMap.entrySet()) {
       atn.lexerActions[entry.getKey()] = entry.getValue();
     }
 
     // LINK MODE START STATE TO EACH TOKEN RULE
-    for (String modeName : modes) {
-      List<Rule> rules = ((LexerGrammar) g).modes.get(modeName);
+    for (var modeName : modes) {
+      var rules = ((LexerGrammar) g).modes.get(modeName);
       TokensStartState startState = atn.modeNameToStartState.get(modeName);
-      for (Rule r : rules) {
+      for (var r : rules) {
         if (!r.isFragment()) {
           RuleStartState s = atn.ruleToStartState[r.index];
           epsilon(startState, s);
@@ -160,14 +158,14 @@ public class LexerATNFactory extends ParserATNFactory {
 
   @Override
   public Handle action(ActionAST action) {
-    int ruleIndex = currentRule.index;
-    int actionIndex = g.lexerActions.get(action);
-    LexerCustomAction lexerAction = new LexerCustomAction(ruleIndex, actionIndex);
+    var ruleIndex = currentRule.index;
+    var actionIndex = g.lexerActions.get(action);
+    var lexerAction = new LexerCustomAction(ruleIndex, actionIndex);
     return action(action, lexerAction);
   }
 
   protected int getLexerActionIndex(LexerAction lexerAction) {
-    Integer lexerActionIndex = actionToIndexMap.get(lexerAction);
+    var lexerActionIndex = actionToIndexMap.get(lexerAction);
     if (lexerActionIndex == null) {
       lexerActionIndex = actionToIndexMap.size();
       actionToIndexMap.put(lexerAction, lexerActionIndex);
@@ -180,24 +178,24 @@ public class LexerATNFactory extends ParserATNFactory {
   @Override
   public Handle action(String action) {
     if (action.trim().isEmpty()) {
-      ATNState left = newState(null);
-      ATNState right = newState(null);
+      var left = newState(null);
+      var right = newState(null);
       epsilon(left, right);
       return new Handle(left, right);
     }
 
     // define action AST for this rule as if we had found in grammar
-    ActionAST ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
+    var ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
     currentRule.defineActionInAlt(currentOuterAlt, ast);
     return action(ast);
   }
 
   protected Handle action(GrammarAST node, LexerAction lexerAction) {
-    ATNState left = newState(node);
-    ATNState right = newState(node);
-    boolean isCtxDependent = false;
-    int lexerActionIndex = getLexerActionIndex(lexerAction);
-    ActionTransition a = new ActionTransition(right, currentRule.index, lexerActionIndex, isCtxDependent);
+    var left = newState(node);
+    var right = newState(node);
+    var isCtxDependent = false;
+    var lexerActionIndex = getLexerActionIndex(lexerAction);
+    var a = new ActionTransition(right, currentRule.index, lexerActionIndex, isCtxDependent);
     left.addTransition(a);
     node.atnState = left;
     return new Handle(left, right);
@@ -205,14 +203,14 @@ public class LexerATNFactory extends ParserATNFactory {
 
   @Override
   public Handle lexerAltCommands(Handle alt, Handle cmds) {
-    Handle h = new Handle(alt.left, cmds.right);
+    var h = new Handle(alt.left, cmds.right);
     epsilon(alt.right, cmds.left);
     return h;
   }
 
   @Override
-  public Handle lexerCallCommand(GrammarAST ID, GrammarAST arg) {
-    LexerAction lexerAction = createLexerAction(ID, arg);
+  public Handle lexerCallCommand(GrammarAST ID, @Nullable GrammarAST arg) {
+    var lexerAction = createLexerAction(ID, arg);
     if (lexerAction != null) {
       return action(ID, lexerAction);
     }
@@ -223,7 +221,7 @@ public class LexerATNFactory extends ParserATNFactory {
     }
 
     // fall back to standard action generation for the command
-    ST cmdST = codegenTemplates.getInstanceOf("Lexer" +
+    var cmdST = codegenTemplates.getInstanceOf("Lexer" +
       CharSupport.capitalize(ID.getText()) +
       "Command");
     if (cmdST == null) {
@@ -231,49 +229,29 @@ public class LexerATNFactory extends ParserATNFactory {
       return epsilon(ID);
     }
 
-    if (cmdST.impl.formalArguments == null || !cmdST.impl.formalArguments.containsKey("arg")) {
+    if (arg != null && (cmdST.impl.formalArguments == null || !cmdST.impl.formalArguments.containsKey("arg"))) {
       g.tool.errMgr.grammarError(ErrorType.UNWANTED_LEXER_COMMAND_ARGUMENT, g.fileName, ID.token, ID.getText());
       return epsilon(ID);
+    } else if (arg == null && cmdST.impl.formalArguments != null && cmdST.impl.formalArguments.containsKey("arg")) {
+      g.tool.errMgr.grammarError(ErrorType.MISSING_LEXER_COMMAND_ARGUMENT, g.fileName, ID.token, ID.getText());
+      return epsilon(ID);
+    } else if (arg != null) {
+      cmdST.add("arg", arg.getText());
+      cmdST.add("grammar", arg.g);
     }
 
-    cmdST.add("arg", arg.getText());
-    cmdST.add("grammar", arg.g);
     return action(cmdST.render());
   }
 
   @Override
   public Handle lexerCommand(GrammarAST ID) {
-    LexerAction lexerAction = createLexerAction(ID, null);
-    if (lexerAction != null) {
-      return action(ID, lexerAction);
-    }
-
-    if (codegenTemplates == null) {
-      // suppress reporting a single missing template when the target couldn't be loaded
-      return epsilon(ID);
-    }
-
-    // fall back to standard action generation for the command
-    ST cmdST = codegenTemplates.getInstanceOf("Lexer" +
-      CharSupport.capitalize(ID.getText()) +
-      "Command");
-    if (cmdST == null) {
-      g.tool.errMgr.grammarError(ErrorType.INVALID_LEXER_COMMAND, g.fileName, ID.token, ID.getText());
-      return epsilon(ID);
-    }
-
-    if (cmdST.impl.formalArguments != null && cmdST.impl.formalArguments.containsKey("arg")) {
-      g.tool.errMgr.grammarError(ErrorType.MISSING_LEXER_COMMAND_ARGUMENT, g.fileName, ID.token, ID.getText());
-      return epsilon(ID);
-    }
-
-    return action(cmdST.render());
+    return lexerCallCommand(ID, null);
   }
 
   @Override
   public Handle range(GrammarAST a, GrammarAST b) {
-    ATNState left = newState(a);
-    ATNState right = newState(b);
+    var left = newState(a);
+    var right = newState(b);
     int t1 = CharSupport.getCharValueFromGrammarCharLiteral(a.getText());
     int t2 = CharSupport.getCharValueFromGrammarCharLiteral(b.getText());
     if (checkRange(a, b, t1, t2)) {
@@ -286,9 +264,9 @@ public class LexerATNFactory extends ParserATNFactory {
 
   @Override
   public Handle set(GrammarAST associatedAST, List<GrammarAST> alts, boolean invert) {
-    ATNState left = newState(associatedAST);
-    ATNState right = newState(associatedAST);
-    IntervalSet set = new IntervalSet();
+    var left = newState(associatedAST);
+    var right = newState(associatedAST);
+    var set = new IntervalSet();
     for (GrammarAST t : alts) {
       if (t.getType() == ANTLRParser.RANGE) {
         int a = CharSupport.getCharValueFromGrammarCharLiteral(t.getChild(0).getText());
@@ -351,27 +329,24 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   /**
-   * For a lexer, a string is a sequence of char to match.  That is,
-   * "fog" is treated as 'f' 'o' 'g' not as a single transition in
-   * the DFA.  Machine== o-'f'-&gt;o-'o'-&gt;o-'g'-&gt;o and has n+1 states
-   * for n characters.
-   * if "caseInsensitive" option is enabled, "fog" will be treated as
-   * o-('f'|'F') -> o-('o'|'O') -> o-('g'|'G')
+   * For a lexer, a string is a sequence of char to match.  That is, "fog" is treated as 'f' 'o' 'g' not as a single
+   * transition in the DFA.  Machine== o-'f'-&gt;o-'o'-&gt;o-'g'-&gt;o and has n+1 states for n characters. if
+   * "caseInsensitive" option is enabled, "fog" will be treated as o-('f'|'F') -> o-('o'|'O') -> o-('g'|'G')
    */
   @Override
   public Handle stringLiteral(TerminalAST stringLiteralAST) {
-    String chars = stringLiteralAST.getText();
-    ATNState left = newState(stringLiteralAST);
-    ATNState right;
-    String s = CharSupport.getStringFromGrammarStringLiteral(chars);
+    var chars = stringLiteralAST.getText();
+    var left = newState(stringLiteralAST);
+
+    var s = CharSupport.getStringFromGrammarStringLiteral(chars);
     if (s == null) {
       // the lexer will already have given an error
       return new Handle(left, left);
     }
 
-    int n = s.length();
-    ATNState prev = left;
-    right = null;
+    var n = s.length();
+    var prev = left;
+    ATNState right = null;
     for (int i = 0; i < n; ) {
       right = newState(stringLiteralAST);
       int codePoint = s.codePointAt(i);
@@ -380,6 +355,9 @@ public class LexerATNFactory extends ParserATNFactory {
       i += Character.charCount(codePoint);
     }
     stringLiteralAST.atnState = left;
+    if (right == null) {
+      right = left;
+    }
     return new Handle(left, right);
   }
 
@@ -388,9 +366,9 @@ public class LexerATNFactory extends ParserATNFactory {
    */
   @Override
   public Handle charSetLiteral(GrammarAST charSetAST) {
-    ATNState left = newState(charSetAST);
-    ATNState right = newState(charSetAST);
-    IntervalSet set = getSetFromCharSetLiteral(charSetAST);
+    var left = newState(charSetAST);
+    var right = newState(charSetAST);
+    var set = getSetFromCharSetLiteral(charSetAST);
     left.addTransition(new SetTransition(right, set));
     charSetAST.atnState = left;
     return new Handle(left, right);
@@ -460,7 +438,7 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   public IntervalSet getSetFromCharSetLiteral(GrammarAST charSetAST) {
-    String chars = charSetAST.getText();
+    var chars = charSetAST.getText();
     chars = chars.substring(1, chars.length() - 1);
     IntervalSet set = new IntervalSet();
 
@@ -470,7 +448,7 @@ public class LexerATNFactory extends ParserATNFactory {
       return set;
     }
 
-    CharSetParseState state = CharSetParseState.NONE;
+    var state = CharSetParseState.NONE;
 
     int n = chars.length();
     for (int i = 0; i < n; ) {
@@ -584,7 +562,7 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   private void checkRangeAndAddToSet(GrammarAST ast, IntervalSet set, int a, int b, boolean caseInsensitive) {
-    RangeBorderCharactersData charactersData = RangeBorderCharactersData.getAndCheckCharactersData(a, b, g, ast);
+    var charactersData = RangeBorderCharactersData.getAndCheckCharactersData(a, b, g, ast);
     if (caseInsensitive) {
       if (charactersData.lowerFrom == charactersData.upperFrom && charactersData.lowerTo == charactersData.upperTo ||
         charactersData.mixOfLowerAndUpperCharCase
@@ -625,14 +603,14 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   private Transition createTransition(ATNState target, int from, int to, CommonTree tree) {
-    RangeBorderCharactersData charactersData = RangeBorderCharactersData.getAndCheckCharactersData(from, to, g, tree);
+    var charactersData = RangeBorderCharactersData.getAndCheckCharactersData(from, to, g, tree);
     if (caseInsensitive) {
       if (charactersData.lowerFrom == charactersData.upperFrom && charactersData.lowerTo == charactersData.upperTo ||
         charactersData.mixOfLowerAndUpperCharCase
       ) {
         return CodePointTransitions.createWithCodePointRange(target, from, to);
       } else {
-        IntervalSet intervalSet = new IntervalSet();
+        var intervalSet = new IntervalSet();
         intervalSet.add(charactersData.lowerFrom, charactersData.lowerTo);
         intervalSet.add(charactersData.upperFrom, charactersData.upperTo);
         return new SetTransition(target, intervalSet);
@@ -646,8 +624,8 @@ public class LexerATNFactory extends ParserATNFactory {
   public Handle tokenRef(TerminalAST node) {
     // Ref to EOF in lexer yields char transition on -1
     if (node.getText().equals("EOF")) {
-      ATNState left = newState(node);
-      ATNState right = newState(node);
+      var left = newState(node);
+      var right = newState(node);
       left.addTransition(new AtomTransition(right, IntStream.EOF));
       return new Handle(left, right);
     }
@@ -655,8 +633,8 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   @Nullable
-  private LexerAction createLexerAction(@NotNull GrammarAST ID, @Nullable GrammarAST arg) {
-    String command = ID.getText();
+  private LexerAction createLexerAction(GrammarAST ID, @Nullable GrammarAST arg) {
+    var command = ID.getText();
     checkCommands(command, ID.getToken());
 
     if ("skip".equals(command) && arg == null) {
@@ -666,32 +644,32 @@ public class LexerATNFactory extends ParserATNFactory {
     } else if ("popMode".equals(command) && arg == null) {
       return LexerPopModeAction.INSTANCE;
     } else if ("mode".equals(command) && arg != null) {
-      String modeName = arg.getText();
-      Integer mode = getModeConstantValue(modeName, arg.getToken());
+      var modeName = arg.getText();
+      var mode = getModeConstantValue(modeName, arg.getToken());
       if (mode == null) {
         return null;
       }
 
       return new LexerModeAction(mode);
     } else if ("pushMode".equals(command) && arg != null) {
-      String modeName = arg.getText();
-      Integer mode = getModeConstantValue(modeName, arg.getToken());
+      var modeName = arg.getText();
+      var mode = getModeConstantValue(modeName, arg.getToken());
       if (mode == null) {
         return null;
       }
 
       return new LexerPushModeAction(mode);
     } else if ("type".equals(command) && arg != null) {
-      String typeName = arg.getText();
-      Integer type = getTokenConstantValue(typeName, arg.getToken());
+      var typeName = arg.getText();
+      var type = getTokenConstantValue(typeName, arg.getToken());
       if (type == null) {
         return null;
       }
 
       return new LexerTypeAction(type);
     } else if ("channel".equals(command) && arg != null) {
-      String channelName = arg.getText();
-      Integer channel = getChannelConstantValue(channelName, arg.getToken());
+      var channelName = arg.getText();
+      var channel = getChannelConstantValue(channelName, arg.getToken());
       if (channel == null) {
         return null;
       }
@@ -709,7 +687,7 @@ public class LexerATNFactory extends ParserATNFactory {
         g.tool.errMgr.grammarError(ErrorType.DUPLICATED_COMMAND, g.fileName, commandToken, command);
       }
 
-      if (!ruleCommands.equals("mode")) {
+      if (!command.equals("mode")) {
         String firstCommand = null;
 
         switch (command) {
@@ -751,7 +729,7 @@ public class LexerATNFactory extends ParserATNFactory {
   }
 
   @Nullable
-  private Integer getModeConstantValue(@Nullable String modeName, @Nullable Token token) {
+  private Integer getModeConstantValue(@Nullable String modeName, Token token) {
     if (modeName == null) {
       return null;
     }
@@ -764,7 +742,7 @@ public class LexerATNFactory extends ParserATNFactory {
       return null;
     }
 
-    List<String> modeNames = new ArrayList<>(((LexerGrammar) g).modes.keySet());
+    var modeNames = new ArrayList<>(((LexerGrammar) g).modes.keySet());
     int mode = modeNames.indexOf(modeName);
     if (mode >= 0) {
       return mode;
@@ -773,13 +751,16 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(modeName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_MODE_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }
 
   @Nullable
-  private Integer getTokenConstantValue(@Nullable String tokenName, @Nullable Token token) {
+  private Integer getTokenConstantValue(@Nullable String tokenName, Token token) {
     if (tokenName == null) {
       return null;
     }
@@ -800,13 +781,16 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(tokenName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_TOKEN_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }
 
   @Nullable
-  private Integer getChannelConstantValue(@Nullable String channelName, @Nullable Token token) {
+  private Integer getChannelConstantValue(@Nullable String channelName, Token token) {
     if (channelName == null) {
       return null;
     }
@@ -830,7 +814,10 @@ public class LexerATNFactory extends ParserATNFactory {
     try {
       return Integer.parseInt(channelName);
     } catch (NumberFormatException ex) {
-      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME, g.fileName, token, token.getText());
+      g.tool.errMgr.grammarError(ErrorType.CONSTANT_VALUE_IS_NOT_A_RECOGNIZED_CHANNEL_NAME,
+        g.fileName,
+        token,
+        token.getText());
       return null;
     }
   }

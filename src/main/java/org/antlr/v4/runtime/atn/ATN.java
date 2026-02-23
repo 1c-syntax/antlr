@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Setter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.RuleContext;
 import org.antlr.v4.runtime.Token;
@@ -66,6 +67,7 @@ public class ATN {
    */
   public final int maxTokenType;
 
+  @Setter
   private boolean hasUnicodeSMPTransitions;
 
   /**
@@ -220,7 +222,7 @@ public class ATN {
    * <p>The big difference is that with just the input, the parser could land
    * right in the middle of a lookahead decision. Getting all
    * <em>possible</em> tokens given a partial input stream is a separate
-   * computation. See https://github.com/antlr/antlr4/issues/1428</p>
+   * computation. See <a href="https://github.com/antlr/antlr4/issues/1428">...</a></p>
    *
    * <p>For this function, we are specifying an ATN state and call stack to
    * compute what token(s) can come next and specifically: outside of a
@@ -270,7 +272,4 @@ public class ATN {
     return hasUnicodeSMPTransitions;
   }
 
-  public void setHasUnicodeSMPTransitions(boolean value) {
-    hasUnicodeSMPTransitions = value;
-  }
 }

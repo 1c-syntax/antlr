@@ -1,26 +1,23 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.test.tool;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
-public class SemPredEvalParserTest extends AbstractBaseTest {
+class SemPredEvalParserTest extends AbstractBaseTest {
   // TEST VALIDATING PREDS
 
   @Test
-  public void testSimpleValidate() {
+  void testSimpleValidate() {
     String grammar =
       """
         grammar T;
@@ -38,59 +35,65 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
       "x", false);
 
     String expecting = "line 1:0 no viable alternative at input 'x'\n";
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
-  public void testSimpleValidate2() {
+  void testSimpleValidate2() {
     String grammar =
-      "grammar T;\n" +
-        "s : a a a;\n" +
-        "a : {false}? ID  {System.out.println(\"alt 1\");}\n" +
-        "  | {true}?  INT {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a a a;
+        a : {false}? ID  {System.out.println("alt 1");}
+          | {true}?  INT {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "3 4 x", false);
     String expecting =
-      "alt 2\n" +
-        "alt 2\n";
-    assertEquals(expecting, found);
+      """
+        alt 2
+        alt 2
+        """;
+    assertThat(found).isEqualTo(expecting);
 
     expecting = "line 1:4 no viable alternative at input 'x'\n";
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   /**
    * This is a regression test for antlr/antlr4#196
    * "element+ in expression grammar doesn't parse properly"
-   * https://github.com/antlr/antlr4/issues/196
+   * <a href="https://github.com/antlr/antlr4/issues/196">...</a>
    */
   @Test
-  public void testAtomWithClosureInTranslatedLRRule() {
+  void testAtomWithClosureInTranslatedLRRule() {
     String grammar =
-      "grammar T;\n" +
-        "start : e[0] EOF;\n" +
-        "e[int _p]\n" +
-        "    :   ( 'a'\n" +
-        "        | 'b'+\n" +
-        "        )\n" +
-        "        ( {3 >= $_p}? '+' e[4]\n" +
-        "        )*\n" +
-        "    ;\n";
+      """
+        grammar T;
+        start : e[0] EOF;
+        e[int _p]
+            :   ( 'a'
+                | 'b'+
+                )
+                ( {3 >= $_p}? '+' e[4]
+                )*
+            ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "start",
       "a+b+a", false);
     String expecting = "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
     assertThat(stderrDuringParse).isNull();
   }
 
   @Test
-  public void testValidateInDFA() {
+  void testValidateInDFA() {
     String grammar =
       "grammar T;\n" +
         "s : a ';' a;\n" +
@@ -107,18 +110,20 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x ; y", false);
     String expecting = "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     expecting =
-      "line 1:0 no viable alternative at input 'x'\n" +
-        "line 1:4 no viable alternative at input 'y'\n";
-    assertEquals(expecting, stderrDuringParse);
+      """
+        line 1:0 no viable alternative at input 'x'
+        line 1:4 no viable alternative at input 'y'
+        """;
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   // TEST DISAMBIG PREDS
 
   @Test
-  public void testSimple() {
+  void testSimple() {
     String grammar =
       "grammar T;\n" +
         "s : a a a;\n" + // do 3x: once in ATN, next in DFA then INT in ATN
@@ -133,14 +138,16 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x y 3", false);
     String expecting =
-      "alt 2\n" +
-        "alt 2\n" +
-        "alt 3\n";
-    assertEquals(expecting, found);
+      """
+        alt 2
+        alt 2
+        alt 3
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testOrder() {
+  void testOrder() {
     // Under new predicate ordering rules (see antlr/antlr4#29), the first
     // alt with an acceptable config (unpredicated, or predicated and evaluates
     // to true) is chosen.
@@ -159,20 +166,22 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x y", false);
     String expecting =
-      "alt 1\n" +
-        "alt 1\n";
-    assertEquals(expecting, found);
+      """
+        alt 1
+        alt 1
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void test2UnpredicatedAlts() {
+  void test2UnpredicatedAlts() {
     // We have n-2 predicates for n alternatives. pick first alt
     String grammar =
       "grammar T;\n" +
         "@header {" +
         "import java.util.*;" +
         "}" +
-        "s : {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
+        "s : {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
         "    a ';' a;\n" + // do 2x: once in ATN, next in DFA
         "a :          ID {System.out.println(\"alt 1\");}\n" +
         "  |          ID {System.out.println(\"alt 2\");}\n" +
@@ -185,24 +194,27 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x; y", true);
     String expecting =
-      "alt 1\n" +
-        "alt 1\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:0 reportAttemptingFullContext d=0 (a), input='x'\n" +
-        "line 1:0 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='x'\n" +
-        "line 1:3 reportAttemptingFullContext d=0 (a), input='y'\n" +
-        "line 1:3 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='y'\n",
-      this.stderrDuringParse);
+      """
+        alt 1
+        alt 1
+        """;
+    assertThat(found).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
+      line 1:0 reportAttemptingFullContext d=0 (a), input='x'
+      line 1:0 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='x'
+      line 1:3 reportAttemptingFullContext d=0 (a), input='y'
+      line 1:3 reportAmbiguity d=0 (a): ambigAlts={1, 2}, input='y'
+      """);
   }
 
   @Test
-  public void test2UnpredicatedAltsAndOneOrthogonalAlt() {
+  void test2UnpredicatedAltsAndOneOrthogonalAlt() {
     String grammar =
       "grammar T;\n" +
         "@header {" +
         "import java.util.*;" +
         "}" +
-        "s : {_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
+        "s : {getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);}\n" +
         "    a ';' a ';' a;\n" +
         "a : INT         {System.out.println(\"alt 1\");}\n" +
         "  |          ID {System.out.println(\"alt 2\");}\n" + // must pick this one for ID since pred is false
@@ -216,129 +228,148 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "34; x; y", true);
     String expecting =
-      "alt 1\n" +
-        "alt 2\n" +
-        "alt 2\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:4 reportAttemptingFullContext d=0 (a), input='x'\n" +
-        "line 1:4 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='x'\n" +
-        "line 1:7 reportAttemptingFullContext d=0 (a), input='y'\n" +
-        "line 1:7 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='y'\n",
-      this.stderrDuringParse);
+      """
+        alt 1
+        alt 2
+        alt 2
+        """;
+    assertThat(found).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("""
+      line 1:4 reportAttemptingFullContext d=0 (a), input='x'
+      line 1:4 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='x'
+      line 1:7 reportAttemptingFullContext d=0 (a), input='y'
+      line 1:7 reportAmbiguity d=0 (a): ambigAlts={2, 3}, input='y'
+      """);
   }
 
   @Test
-  public void testRewindBeforePredEval() {
+  void testRewindBeforePredEval() {
     // The parser consumes ID and moves to the 2nd token INT.
     // To properly evaluate the predicates after matching ID INT,
     // we must correctly see come back to starting index so LT(1) works
     String grammar =
-      "grammar T;\n" +
-        "s : a a;\n" +
-        "a : {_input.LT(1).getText().equals(\"x\")}? ID INT {System.out.println(\"alt 1\");}\n" +
-        "  | {_input.LT(1).getText().equals(\"y\")}? ID INT {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a a;
+        a : {_input.LT(1).getText().equals("x")}? ID INT {System.out.println("alt 1");}
+          | {_input.LT(1).getText().equals("y")}? ID INT {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "y 3 x 4", false);
     String expecting =
-      "alt 2\n" +
-        "alt 1\n";
-    assertEquals(expecting, found);
+      """
+        alt 2
+        alt 1
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testNoTruePredsThrowsNoViableAlt() {
+  void testNoTruePredsThrowsNoViableAlt() {
     // checks that we throw exception if all alts
     // are covered with a predicate and none succeeds
     String grammar =
-      "grammar T;\n" +
-        "s : a a;\n" +
-        "a : {false}? ID INT {System.out.println(\"alt 1\");}\n" +
-        "  | {false}? ID INT {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a a;
+        a : {false}? ID INT {System.out.println("alt 1");}
+          | {false}? ID INT {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "y 3 x 4", false);
     String expecting = "line 1:0 no viable alternative at input 'y'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  public void testToLeft() {
+  void testToLeft() {
     String grammar =
-      "grammar T;\n" +
-        "s : a+ ;\n" +
-        "a : {false}? ID {System.out.println(\"alt 1\");}\n" +
-        "  | {true}?  ID {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a+ ;
+        a : {false}? ID {System.out.println("alt 1");}
+          | {true}?  ID {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x x y", false);
     String expecting =
-      "alt 2\n" +
-        "alt 2\n" +
-        "alt 2\n";
-    assertEquals(expecting, found);
+      """
+        alt 2
+        alt 2
+        alt 2
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testUnpredicatedPathsInAlt() {
+  void testUnpredicatedPathsInAlt() {
     String grammar =
-      "grammar T;\n" +
-        "s : a {System.out.println(\"alt 1\");}\n" +
-        "  | b {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "a : {false}? ID INT\n" +
-        "  | ID INT\n" +
-        "  ;\n" +
-        "b : ID ID\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a {System.out.println("alt 1");}
+          | b {System.out.println("alt 2");}
+          ;
+        a : {false}? ID INT
+          | ID INT
+          ;
+        b : ID ID
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x 4", false);
     String expecting =
       "alt 1\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     expecting = null;
-    assertEquals(expecting, stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo(expecting);
   }
 
   @Test
-  public void testActionHidesPreds() {
+  void testActionHidesPreds() {
     // can't see preds, resolves to first alt found (1 in this case)
     String grammar =
-      "grammar T;\n" +
-        "@parser::members {int i;}\n" +
-        "s : a+ ;\n" +
-        "a : {i=1;} ID {i==1}? {System.out.println(\"alt 1\");}\n" +
-        "  | {i=2;} ID {i==2}? {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        @parser::members {int i;}
+        s : a+ ;
+        a : {i=1;} ID {i==1}? {System.out.println("alt 1");}
+          | {i=2;} ID {i==2}? {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x x y", false);
     String expecting =
-      "alt 1\n" +
-        "alt 1\n" +
-        "alt 1\n";
-    assertEquals(expecting, found);
+      """
+        alt 1
+        alt 1
+        alt 1
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -348,28 +379,32 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * The i++ action is done outside of the prediction and so it is executed.
    */
   @Test
-  public void testToLeftWithVaryingPredicate() {
+  void testToLeftWithVaryingPredicate() {
     String grammar =
-      "grammar T;\n" +
-        "@parser::members {int i=0;}\n" +
-        "s : ({i++; System.out.println(\"i=\"+i);} a)+ ;\n" +
-        "a : {i % 2 == 0}? ID {System.out.println(\"alt 1\");}\n" +
-        "  | {i % 2 != 0}? ID {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        @parser::members {int i=0;}
+        s : ({i++; System.out.println("i="+i);} a)+ ;
+        a : {i % 2 == 0}? ID {System.out.println("alt 1");}
+          | {i % 2 != 0}? ID {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "x x y", false);
     String expecting =
-      "i=1\n" +
-        "alt 2\n" +
-        "i=2\n" +
-        "alt 1\n" +
-        "i=3\n" +
-        "alt 2\n";
-    assertEquals(expecting, found);
+      """
+        i=1
+        alt 2
+        i=2
+        alt 1
+        i=3
+        alt 2
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -379,25 +414,29 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * is empty and we have not dipped into the outer context to make a decision.
    */
   @Test
-  public void testPredicateDependentOnArg() {
+  void testPredicateDependentOnArg() {
     String grammar =
-      "grammar T;\n" +
-        "@parser::members {int i=0;}\n" +
-        "s : a[2] a[1];\n" +
-        "a[int i]" +
-        "  : {$i==1}? ID {System.out.println(\"alt 1\");}\n" +
-        "  | {$i==2}? ID {System.out.println(\"alt 2\");}\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        @parser::members {int i=0;}
+        s : a[2] a[1];
+        a[int i]\
+          : {$i==1}? ID {System.out.println("alt 1");}
+          | {$i==2}? ID {System.out.println("alt 2");}
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a b", false);
     String expecting =
-      "alt 2\n" +
-        "alt 1\n";
-    assertEquals(expecting, found);
+      """
+        alt 2
+        alt 1
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -412,27 +451,29 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * encounters preds during FOLLOW.
    */
   @Test
-  public void testPredicateDependentOnArg2() {
+  void testPredicateDependentOnArg2() {
     String grammar =
-      "grammar T;\n" +
-        "s : a[2] a[1];\n" +
-        "a[int i]" +
-        "  : {$i==1}? ID\n" +
-        "  | {$i==2}? ID\n" +
-        "  ;\n" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : a[2] a[1];
+        a[int i]\
+          : {$i==1}? ID
+          | {$i==2}? ID
+          ;
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a b", false);
     String expecting =
       "";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testDependentPredNotInOuterCtxShouldBeIgnored() {
+  void testDependentPredNotInOuterCtxShouldBeIgnored() {
     // uses ID ';' or ID '.' lookahead to solve s. preds not tested.
     String grammar =
       "grammar T;\n" +
@@ -450,28 +491,30 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
       "a;", false);
     String expecting =
       "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testIndependentPredNotPassedOuterCtxToAvoidCastException() {
+  void testIndependentPredNotPassedOuterCtxToAvoidCastException() {
     String grammar =
-      "grammar T;\n" +
-        "s : b ';' |  b '.' ;\n" +
-        "b : a ;\n" +
-        "a" +
-        "  : {false}? ID {System.out.println(\"alt 1\");}\n" +
-        "  | {true}? ID {System.out.println(\"alt 2\");}\n" +
-        "  ;" +
-        "ID : 'a'..'z'+ ;\n" +
-        "INT : '0'..'9'+;\n" +
-        "WS : (' '|'\\n') -> skip ;\n";
+      """
+        grammar T;
+        s : b ';' |  b '.' ;
+        b : a ;
+        a\
+          : {false}? ID {System.out.println("alt 1");}
+          | {true}? ID {System.out.println("alt 2");}
+          ;\
+        ID : 'a'..'z'+ ;
+        INT : '0'..'9'+;
+        WS : (' '|'\\n') -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a;", false);
     String expecting =
       "alt 2\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -479,7 +522,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * predicates as long as they are not dependent on local context
    */
   @Test
-  public void testPredsInGlobalFOLLOW() {
+  void testPredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -496,10 +539,12 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a!", false);
     String expecting =
-      "eval=false\n" +
-        "eval=true\n" +
-        "parse\n";
-    assertEquals(expecting, found);
+      """
+        eval=false
+        eval=true
+        parse
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -507,7 +552,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * we are doing a global follow. They appear as if they were not there at all.
    */
   @Test
-  public void testDepedentPredsInGlobalFOLLOW() {
+  void testDepedentPredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -525,9 +570,11 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a!", false);
     String expecting =
-      "eval=true\n" +
-        "parse\n";
-    assertEquals(expecting, found);
+      """
+        eval=true
+        parse
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -537,7 +584,7 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * during global follow operations.
    */
   @Test
-  public void testActionsHidePredsInGlobalFOLLOW() {
+  void testActionsHidePredsInGlobalFOLLOW() {
     String grammar =
       "grammar T;\n" +
         "@parser::members {" +
@@ -554,57 +601,63 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "s",
       "a!", false);
     String expecting =
-      "eval=true\n" +
-        "parse\n";
-    assertEquals(expecting, found);
+      """
+        eval=true
+        parse
+        """;
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  public void testPredTestedEvenWhenUnAmbig() {
+  void testPredTestedEvenWhenUnAmbig() {
     String grammar =
-      "grammar T;\n" +
-        "\n" +
-        "@parser::members {boolean enumKeyword = true;}\n" +
-        "\n" +
-        "primary\n" +
-        "    :   ID                       {System.out.println(\"ID \"+$ID.text);}\n" +
-        "    |   {!enumKeyword}? 'enum'   {System.out.println(\"enum\");}\n" +
-        "    ;\n" +
-        "\n" +
-        "ID : [a-z]+ ;\n" +
-        "\n" +
-        "WS : [ \\t\\n\\r]+ -> skip ;\n";
+      """
+        grammar T;
+        
+        @parser::members {boolean enumKeyword = true;}
+        
+        primary
+            :   ID                       {System.out.println("ID "+$ID.text);}
+            |   {!enumKeyword}? 'enum'   {System.out.println("enum");}
+            ;
+        
+        ID : [a-z]+ ;
+        
+        WS : [ \\t\\n\\r]+ -> skip ;
+        """;
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "primary",
       "abc", false);
-    assertEquals("ID abc\n", found);
+    assertThat(found).isEqualTo("ID abc\n");
 
     execParser("T.g4", grammar, "TParser", "TLexer", "primary",
       "enum", false);
-    assertEquals("line 1:0 no viable alternative at input 'enum'\n", stderrDuringParse);
+    assertThat(stderrDuringParse).isEqualTo("line 1:0 no viable alternative at input 'enum'\n");
   }
 
   /**
    * This is a regression test for antlr/antlr4#218 "ANTLR4 EOF Related Bug".
-   * https://github.com/antlr/antlr4/issues/218
+   * <a href="https://github.com/antlr/antlr4/issues/218">...</a>
    */
   @Test
-  public void testDisabledAlternative() {
+  void testDisabledAlternative() {
     String grammar =
-      "grammar AnnotProcessor;\n" +
-        "\n" +
-        "cppCompilationUnit : content+ EOF;\n" +
-        "\n" +
-        "content: anything | {false}? .;\n" +
-        "\n" +
-        "anything: ANY_CHAR;\n" +
-        "\n" +
-        "ANY_CHAR: [_a-zA-Z0-9];\n";
+      """
+        grammar AnnotProcessor;
+        
+        cppCompilationUnit : content+ EOF;
+        
+        content: anything | {false}? .;
+        
+        anything: ANY_CHAR;
+        
+        ANY_CHAR: [_a-zA-Z0-9];
+        """;
 
     String input = "hello";
-    String found = execParser("AnnotProcessor.g4", grammar, "AnnotProcessorParser", "AnnotProcessorLexer", "cppCompilationUnit",
-      input, false);
-    assertEquals("", found);
+    String found = execParser("AnnotProcessor.g4", grammar, "AnnotProcessorParser", "AnnotProcessorLexer",
+      "cppCompilationUnit", input, false);
+    assertThat(found).isEqualTo("");
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -612,32 +665,34 @@ public class SemPredEvalParserTest extends AbstractBaseTest {
    * This is a regression test for antlr/antlr4#529 "Heuristic to improve
    * error messages did not evaluate predicates and could choose an invalid
    * alternative.".
-   * https://github.com/antlr/antlr4/issues/529
+   * <a href="https://github.com/antlr/antlr4/issues/529">...</a>
    */
   @Test
-  public void testPredFromAltTestedInLoopBack() {
+  void testPredFromAltTestedInLoopBack() {
     String grammar =
-      "grammar T2;\n" +
-        "\n" +
-        "file\n" +
-        "@after {System.out.println($ctx.toStringTree(this));}\n" +
-        "  : para para EOF ;" +
-        "para: paraContent NL NL ;\n" +
-        "paraContent : ('s'|'x'|{_input.LA(2)!=NL}? NL)+ ;\n" +
-        "NL : '\\n' ;\n" +
-        "S : 's' ;\n" +
-        "X : 'x' ;\n";
+      """
+        grammar T2;
+        
+        file
+        @after {System.out.println($ctx.toStringTree(this));}
+          : para para EOF ;\
+        para: paraContent NL NL ;
+        paraContent : ('s'|'x'|{_input.LA(2)!=NL}? NL)+ ;
+        NL : '\\n' ;
+        S : 's' ;
+        X : 'x' ;
+        """;
 
     String input = "s\n\n\nx\n";
     String found = execParser("T2.g4", grammar, "T2Parser", "T2Lexer", "file",
       input, true);
-    assertEquals("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x \\n)) <EOF>)\n", found);
-    assertEquals("line 5:0 mismatched input '<EOF>' expecting {'\n', 's', 'x'}\n", stderrDuringParse);
+    assertThat(found).isEqualTo("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x \\n)) <EOF>)\n");
+    assertThat(stderrDuringParse).isEqualTo("line 5:0 mismatched input '<EOF>' expecting {'\n', 's', 'x'}\n");
 
     input = "s\n\n\nx\n\n";
     found = execParser("T2.g4", grammar, "T2Parser", "T2Lexer", "file",
       input, true);
-    assertEquals("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x) \\n \\n) <EOF>)\n", found);
+    assertThat(found).isEqualTo("(file (para (paraContent s) \\n \\n) (para (paraContent \\n x) \\n \\n) <EOF>)\n");
 
     assertThat(stderrDuringParse).isNull();
   }

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -21,38 +21,35 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.pattern.ParseTreeMatch;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePattern;
 import org.antlr.v4.runtime.tree.pattern.ParseTreePatternMatcher;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ParseTreeMatcherTest extends AbstractBaseTest {
+class ParseTreeMatcherTest extends AbstractBaseTest {
 
   @Test
-  public void testChunking() {
+  void testChunking() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
-    assertEquals("[ID, ' = ', expr, ' ;']", m.split("<ID> = <expr> ;").toString());
-    assertEquals("[' ', ID, ' = ', expr]", m.split(" <ID> = <expr>").toString());
-    assertEquals("[ID, ' = ', expr]", m.split("<ID> = <expr>").toString());
-    assertEquals("[expr]", m.split("<expr>").toString());
-    assertEquals("['<x> foo']", m.split("\\<x\\> foo").toString());
-    assertEquals("['foo <x> bar ', tag]", m.split("foo \\<x\\> bar <tag>").toString());
+    assertThat(m.split("<ID> = <expr> ;")).hasToString("[ID, ' = ', expr, ' ;']");
+    assertThat(m.split(" <ID> = <expr>")).hasToString("[' ', ID, ' = ', expr]");
+    assertThat(m.split("<ID> = <expr>")).hasToString("[ID, ' = ', expr]");
+    assertThat(m.split("<expr>")).hasToString("[expr]");
+    assertThat(m.split("\\<x\\> foo")).hasToString("['<x> foo']");
+    assertThat(m.split("foo \\<x\\> bar <tag>")).hasToString("['foo <x> bar ', tag]");
   }
 
   @Test
-  public void testDelimiters() {
+  void testDelimiters() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     m.setDelimiters("<<", ">>", "$");
-    String result = m.split("<<ID>> = <<expr>> ;$<< ick $>>").toString();
-    assertEquals("[ID, ' = ', expr, ' ;<< ick >>']", result);
+    assertThat(m.split("<<ID>> = <<expr>> ;$<< ick $>>")).hasToString("[ID, ' = ', expr, ' ;<< ick >>']");
   }
 
   @Test
-  public void testInvertedTags() {
+  void testInvertedTags() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -61,11 +58,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "tag delimiters out of order in pattern: >expr<";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
-  public void testUnclosedTag() {
+  void testUnclosedTag() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -74,11 +71,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "unterminated tag in pattern: <expr hi mom";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
-  public void testExtraClose() {
+  void testExtraClose() {
     ParseTreePatternMatcher m = new ParseTreePatternMatcher(null, null);
     String result = null;
     try {
@@ -87,12 +84,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
       result = iae.getMessage();
     }
     String expected = "missing start tag in pattern: <expr> >";
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenizingPattern() throws Exception {
+  void testTokenizingPattern() throws Exception {
     String grammar =
       """
         grammar X1;
@@ -111,12 +107,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     List<? extends Token> tokens = m.tokenize("<ID> = <expr> ;");
     String results = tokens.toString();
     String expected = "[ID:3, [@-1,1:1='=',<1>,1:1], expr:7, [@-1,1:1=';',<2>,1:1]]";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingPattern() throws Exception {
+  void testCompilingPattern() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -135,12 +130,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <expr> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = (expr <expr>) ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingPatternConsumesAllTokens() throws Exception {
+  void testCompilingPatternConsumesAllTokens() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -166,8 +160,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPatternMatchesStartRule() throws Exception {
+  void testPatternMatchesStartRule() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -193,8 +186,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPatternMatchesStartRule2() throws Exception {
+  void testPatternMatchesStartRule2() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -220,8 +212,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testHiddenTokensNotSeenByTreePatternParser() throws Exception {
+  void testHiddenTokensNotSeenByTreePatternParser() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -240,12 +231,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <expr> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = (expr <expr>) ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testCompilingMultipleTokens() throws Exception {
+  void testCompilingMultipleTokens() throws Exception {
     String grammar =
       """
         grammar X2;
@@ -262,12 +252,11 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     ParseTreePattern t = m.compile("<ID> = <ID> ;", m.getParser().getRuleIndex("s"));
     String results = t.getPatternTree().toStringTree(m.getParser());
     String expected = "(s <ID> = <ID> ;)";
-    assertEquals(expected, results);
+    assertThat(results).isEqualTo(expected);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeMatches() throws Exception {
+  void testIDNodeMatches() throws Exception {
     String grammar =
       """
         grammar X3;
@@ -282,8 +271,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeWithLabelMatches() throws Exception {
+  void testIDNodeWithLabelMatches() throws Exception {
     String grammar =
       """
         grammar X8;
@@ -295,21 +283,20 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x ;";
     String pattern = "<id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X8");
-    assertEquals("{ID=[x], id=[x]}", m.getLabels().toString());
+    assertThat(m.getLabels()).hasToString("{ID=[x], id=[x]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("x", m.get("id").getText());
-    assertEquals("x", m.get("ID").getText());
-    assertEquals("[x]", m.getAll("id").toString());
-    assertEquals("[x]", m.getAll("ID").toString());
+    assertThat(m.get("id").getText()).isEqualTo("x");
+    assertThat(m.get("ID").getText()).isEqualTo("x");
+    assertThat(m.getAll("id")).hasToString("[x]");
+    assertThat(m.getAll("ID")).hasToString("[x]");
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabelGetsLastIDNode() throws Exception {
+  void testLabelGetsLastIDNode() throws Exception {
     String grammar =
       """
         grammar X9;
@@ -321,21 +308,20 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y;";
     String pattern = "<id:ID> <id:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X9");
-    assertEquals("{ID=[x, y], id=[x, y]}", m.getLabels().toString());
+    assertThat(m.getLabels()).hasToString("{ID=[x, y], id=[x, y]}");
     assertThat(m.get("id")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("y", m.get("id").getText());
-    assertEquals("y", m.get("ID").getText());
-    assertEquals("[x, y]", m.getAll("id").toString());
-    assertEquals("[x, y]", m.getAll("ID").toString());
+    assertThat(m.get("id").getText()).isEqualTo("y");
+    assertThat(m.get("ID").getText()).isEqualTo("y");
+    assertThat(m.getAll("id")).hasToString("[x, y]");
+    assertThat(m.getAll("ID")).hasToString("[x, y]");
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testIDNodeWithMultipleLabelMatches() throws Exception {
+  void testIDNodeWithMultipleLabelMatches() throws Exception {
     String grammar =
       """
         grammar X7;
@@ -347,26 +333,25 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     String input = "x y z;";
     String pattern = "<a:ID> <b:ID> <a:ID>;";
     ParseTreeMatch m = checkPatternMatch(grammar, "s", input, pattern, "X7");
-    assertEquals("{ID=[x, y, z], a=[x, z], b=[y]}", m.getLabels().toString());
+    assertThat(m.getLabels()).hasToString("{ID=[x, y, z], a=[x, z], b=[y]}");
     assertThat(m.get("a")).isNotNull(); // get first
     assertThat(m.get("b")).isNotNull();
     assertThat(m.get("ID")).isNotNull();
-    assertEquals("z", m.get("a").getText());
-    assertEquals("y", m.get("b").getText());
-    assertEquals("z", m.get("ID").getText()); // get last
-    assertEquals("[x, z]", m.getAll("a").toString());
-    assertEquals("[y]", m.getAll("b").toString());
-    assertEquals("[x, y, z]", m.getAll("ID").toString()); // ordered
+    assertThat(m.get("a").getText()).isEqualTo("z");
+    assertThat(m.get("b").getText()).isEqualTo("y");
+    assertThat(m.get("ID").getText()).isEqualTo("z"); // get last
+    assertThat(m.getAll("a")).hasToString("[x, z]");
+    assertThat(m.getAll("b")).hasToString("[y]");
+    assertThat(m.getAll("ID")).hasToString("[x, y, z]"); // ordered
 
-    assertEquals("xyz;", m.getTree().getText()); // whitespace stripped by lexer
+    assertThat(m.getTree().getText()).isEqualTo("xyz;"); // whitespace stripped by lexer
 
     assertThat(m.get("undefined")).isNull();
-    assertEquals("[]", m.getAll("undefined").toString());
+    assertThat(m.getAll("undefined")).hasToString("[]");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenAndRuleMatch() throws Exception {
+  void testTokenAndRuleMatch() throws Exception {
     String grammar =
       """
         grammar X4;
@@ -383,8 +368,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenTextMatch() throws Exception {
+  void testTokenTextMatch() throws Exception {
     String grammar =
       """
         grammar X4;
@@ -417,8 +401,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAssign() throws Exception {
+  void testAssign() throws Exception {
     String grammar =
       "grammar X5;\n" +
         "s   : expr ';'\n" +
@@ -440,8 +423,7 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLRecursiveExpr() throws Exception {
+  void testLRecursiveExpr() throws Exception {
     String grammar =
       """
         grammar X6;
@@ -463,13 +445,13 @@ public class ParseTreeMatcherTest extends AbstractBaseTest {
     checkPatternMatch(grammar, "expr", input, pattern, "X6");
   }
 
-  public ParseTreeMatch checkPatternMatch(String grammar, String startRule,
+  ParseTreeMatch checkPatternMatch(String grammar, String startRule,
                                           String input, String pattern,
                                           String grammarName) throws Exception {
     return checkPatternMatch(grammar, startRule, input, pattern, grammarName, false);
   }
 
-  public ParseTreeMatch checkPatternMatch(String grammar, String startRule,
+  ParseTreeMatch checkPatternMatch(String grammar, String startRule,
                                           String input, String pattern,
                                           String grammarName, boolean invertMatch) throws Exception {
     String grammarFileName = grammarName + ".g4";

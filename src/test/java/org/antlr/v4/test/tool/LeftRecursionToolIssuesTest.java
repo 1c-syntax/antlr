@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,21 +10,18 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.tool.ErrorType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  *
  */
-public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
+class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   protected boolean debug = false;
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSimple() {
+  void testSimple() {
     String grammar =
       """
         grammar T;
@@ -38,17 +35,17 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x", debug);
     String expecting = "(s (a x))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y", debug);
     expecting = "(s (a (a x) y))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     expecting = "(s (a (a (a x) y) z))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   /**
@@ -57,8 +54,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/161">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDirectCallToLeftRecursiveRule() {
+  void testDirectCallToLeftRecursiveRule() {
     String grammar =
       """
         grammar T;
@@ -71,22 +67,21 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x", debug);
     String expecting = "(a x)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x y", debug);
     expecting = "(a (a x) y)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
 
     found = execParser("T.g4", grammar, "TParser", "TLexer",
       "a", "x y z", debug);
     expecting = "(a (a (a x) y) z)\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSemPred() {
+  void testSemPred() {
     String grammar =
       """
         grammar T;
@@ -100,12 +95,11 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     String expecting = "(s (a (a (a x) y) z))\n";
-    assertEquals(expecting, found);
+    assertThat(found).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSemPredFailOption() {
+  void testSemPredFailOption() {
     String grammar =
       """
         grammar T;
@@ -119,13 +113,12 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer",
       "s", "x y z", debug);
     String expecting = "(s (a (a x) y z))\n";
-    assertEquals(expecting, found);
-    assertEquals("line 1:4 rule a custom message\n", stderrDuringParse);
+    assertThat(found).isEqualTo(expecting);
+    assertThat(stderrDuringParse).isEqualTo("line 1:4 rule a custom message\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTernaryExpr() {
+  void testTernaryExpr() {
     // must indicate EOF can follow or 'a<EOF>' won't match
     String grammar =
       """
@@ -160,8 +153,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/542">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTernaryExprExplicitAssociativity() {
+  void testTernaryExprExplicitAssociativity() {
     // must indicate EOF can follow or 'a<EOF>' won't match
     String grammar =
       """
@@ -191,8 +183,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testExpressions() {
+  void testExpressions() {
     // must indicate EOF can follow
     String grammar =
       """
@@ -223,8 +214,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testJavaExpressions() {
+  void testJavaExpressions() {
     // Generates about 7k in bytecodes for generated e_ rule;
     // Well within the 64k method limit. e_primary compiles
     // to about 2k in bytecodes.
@@ -301,14 +291,14 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       "(T)t.f()", "(s (e (e ( (type T) ) (e (e t) . f)) ( )) <EOF>)",
       "a.f(x)==T.c", "(s (e (e (e (e a) . f) ( (expressionList (e x)) )) == (e (e T) . c)) <EOF>)",
       "a.f().g(x,1)", "(s (e (e (e (e (e a) . f) ( )) . g) ( (expressionList (e x) , (e 1)) )) <EOF>)",
-      "new T[((n-1) * x) + 1]", "(s (e new (type T) [ (e (e ( (e (e ( (e (e n) - (e 1)) )) * (e x)) )) + (e 1)) ]) <EOF>)",
+      "new T[((n-1) * x) + 1]",
+      "(s (e new (type T) [ (e (e ( (e (e ( (e (e n) - (e 1)) )) * (e x)) )) + (e 1)) ]) <EOF>)",
     };
     runTests(grammar, tests, "s");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDeclarations() {
+  void testDeclarations() {
     // must indicate EOF can follow
     // binds less tight than suffixes
     String grammar =
@@ -344,8 +334,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActions() {
+  void testReturnValueAndActions() {
     String grammar =
       """
         grammar T;
@@ -377,8 +366,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * operator (similar to a ternary operator).</p>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsList1() {
+  void testReturnValueAndActionsList1() {
     String grammar =
       """
         grammar T;
@@ -412,8 +400,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <p>This test treats the {@code ,} and {@code >>} operators separately.</p>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsList2() {
+  void testReturnValueAndActionsList2() {
     String grammar =
       """
         grammar T;
@@ -435,14 +422,14 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       "a*b", "(s (expr (expr a) * (expr b)) <EOF>)",
       "a,c>>x", "(s (expr (expr (expr a) , (expr c)) >> (expr x)) <EOF>)",
       "x", "(s (expr x) <EOF>)",
-      "a*b,c,x*y>>r", "(s (expr (expr (expr (expr (expr a) * (expr b)) , (expr c)) , (expr (expr x) * (expr y))) >> (expr r)) <EOF>)",
+      "a*b,c,x*y>>r",
+      "(s (expr (expr (expr (expr (expr a) * (expr b)) , (expr c)) , (expr (expr x) * (expr y))) >> (expr r)) <EOF>)",
     };
     runTests(grammar, tests, "s");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLabelsOnOpSubrule() {
+  void testLabelsOnOpSubrule() {
     String grammar =
       """
         grammar T;
@@ -463,8 +450,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testReturnValueAndActionsAndLabels() {
+  void testReturnValueAndActionsAndLabels() {
     String grammar =
       """
         grammar T;
@@ -500,8 +486,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/433">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleAlternativesWithCommonLabel() {
+  void testMultipleAlternativesWithCommonLabel() {
     String grammar =
       """
         grammar T;
@@ -533,8 +518,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPrefixOpWithActionAndLabel() {
+  void testPrefixOpWithActionAndLabel() {
     String grammar =
       """
         grammar T;
@@ -558,8 +542,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testAmbigLR() {
+  void testAmbigLR() {
     String grammar =
       """
         grammar Expr;
@@ -584,24 +567,28 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         NEWLINE:'\\r'? '\\n' ;     // return newlines to parser (is end-statement signal)
         WS  :   [ \\t]+ -> skip ; // toss out whitespace
         """;
-    String result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "1\n", true);
+    var grammarFileName = "Expr.g4";
+    var exprParser = "ExprParser";
+    var exprLexer = "ExprLexer";
+    var ruleName = "prog";
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "1\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "a = 5\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "a = 5\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "b = 6\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "b = 6\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "a+b*2\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "a+b*2\n", true);
     assertThat(stderrDuringParse).isNull();
 
-    result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "(1+2)*3\n", true);
+    execParser(grammarFileName, grammar, exprParser, exprLexer, ruleName, "(1+2)*3\n", true);
     assertThat(stderrDuringParse).isNull();
   }
 
   @Test
-  public void testCheckForNonLeftRecursiveRule() {
+  void testCheckForNonLeftRecursiveRule() {
     String grammar =
       """
         grammar T;
@@ -612,12 +599,13 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String expected =
-      "error(" + ErrorType.NO_NON_LR_ALTS.code + "): T.g4:3:0: left recursive rule 'a' must contain an alternative which is not left recursive\n";
+      "error(" + ErrorType.NO_NON_LR_ALTS.code +
+      "): T.g4:3:0: left recursive rule 'a' must contain an alternative which is not left recursive\n";
     testErrors(new String[]{grammar, expected}, false);
   }
 
   @Test
-  public void testCheckForLeftRecursiveEmptyFollow() {
+  void testCheckForLeftRecursiveEmptyFollow() {
     String grammar =
       """
         grammar T;
@@ -629,7 +617,9 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         WS : (' '|'\\n') -> skip ;
         """;
     String expected =
-      "error(" + ErrorType.EPSILON_LR_FOLLOW.code + "): T.g4:3:0: left recursive rule 'a' contains a left recursive alternative which can be followed by the empty string\n";
+      "error(" + ErrorType.EPSILON_LR_FOLLOW.code +
+      "): T.g4:3:0: left recursive rule 'a' contains a left recursive alternative which can be followed by the empty " +
+        "string\n";
     testErrors(new String[]{grammar, expected}, false);
   }
 
@@ -639,8 +629,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/239">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testWhitespaceInfluence() {
+  void testWhitespaceInfluence() {
     String grammar =
       """
         grammar Expr;
@@ -687,7 +676,9 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
         // Tokens
         ID              : LETTER ALPHANUM*;
         NUMBER          : DIGIT+ ('.' DIGIT+)? (('e'|'E')('+'|'-')? DIGIT+)?;
-        DATE            : '\\'' DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT (' ' DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?)? '\\'';
+        DATE            :
+          '\\'' DIGIT DIGIT DIGIT DIGIT '-' DIGIT DIGIT '-' DIGIT DIGIT
+          (' ' DIGIT DIGIT ':' DIGIT DIGIT ':' DIGIT DIGIT ('.' DIGIT+)?)? '\\'';
         SQ_STRING       : '\\'' ('\\'\\'' | ~'\\'')* '\\'';
         DQ_STRING       : '"' ('\\\\"' | ~'"')* '"';
         WS              : [ \\t\\n\\r]+ -> skip ;
@@ -697,13 +688,13 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     String expected =
       "";
     String result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "Test(1,3)", false);
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
     assertThat(stderrDuringParse).isNull();
 
     expected =
       "";
     result = execParser("Expr.g4", grammar, "ExprParser", "ExprLexer", "prog", "Test(1, 3)", false);
-    assertEquals(expected, result);
+    assertThat(result).isEqualTo(expected);
     assertThat(stderrDuringParse).isNull();
   }
 
@@ -713,8 +704,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/509">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testPrecedenceFilterConsidersContext() {
+  void testPrecedenceFilterConsidersContext() {
     String grammar =
       """
         grammar T;
@@ -727,7 +717,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
 
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "prog",
       "aa", false);
-    assertEquals("(prog (statement (letterA a)) (statement (letterA a)) <EOF>)\n", found);
+    assertThat(found).isEqualTo("(prog (statement (letterA a)) (statement (letterA a)) <EOF>)\n");
   }
 
   /**
@@ -736,8 +726,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/625">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleActions() {
+  void testMultipleActions() {
     String grammar =
       """
         grammar T;
@@ -763,8 +752,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/625">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultipleActionsPredicatesOptions() {
+  void testMultipleActionsPredicatesOptions() {
     String grammar =
       """
         grammar T;
@@ -785,7 +773,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
     runTests(grammar, tests, "s");
   }
 
-  public void runTests(String grammar, String[] tests, String startRule) {
+  void runTests(String grammar, String[] tests, String startRule) {
     boolean success = rawGenerateAndBuildRecognizer("T.g4", grammar, "TParser", "TLexer");
     assertThat(success).isTrue();
     writeRecognizerAndCompile("TParser",
@@ -800,7 +788,7 @@ public class LeftRecursionToolIssuesTest extends AbstractBaseTest {
       writeFile(tmpdir, "input", test);
       String found = execRecognizer();
       System.out.print(test + " -> " + found);
-      assertEquals(expecting, found);
+      assertThat(found).isEqualTo(expecting);
     }
   }
 }

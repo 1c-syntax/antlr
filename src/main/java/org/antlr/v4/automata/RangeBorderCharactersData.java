@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -20,7 +20,11 @@ public class RangeBorderCharactersData {
   public int upperTo;
   public boolean mixOfLowerAndUpperCharCase;
 
-  public RangeBorderCharactersData(int lowerFrom, int upperFrom, int lowerTo, int upperTo, boolean mixOfLowerAndUpperCharCase) {
+  public RangeBorderCharactersData(int lowerFrom,
+                                   int upperFrom,
+                                   int lowerTo,
+                                   int upperTo,
+                                   boolean mixOfLowerAndUpperCharCase) {
     this.lowerFrom = lowerFrom;
     this.upperFrom = upperFrom;
     this.lowerTo = lowerTo;
@@ -28,7 +32,10 @@ public class RangeBorderCharactersData {
     this.mixOfLowerAndUpperCharCase = mixOfLowerAndUpperCharCase;
   }
 
-  public static RangeBorderCharactersData getAndCheckCharactersData(int from, int to, Grammar grammar, CommonTree tree) {
+  public static RangeBorderCharactersData getAndCheckCharactersData(int from,
+                                                                    int to,
+                                                                    Grammar grammar,
+                                                                    CommonTree tree) {
     int lowerFrom = Character.toLowerCase(from);
     int upperFrom = Character.toUpperCase(from);
     int lowerTo = Character.toLowerCase(to);

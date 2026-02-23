@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -13,6 +13,8 @@ import org.antlr.v4.Tool;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.TokenStream;
+import org.antlr.v4.runtime.Vocabulary;
+import org.antlr.v4.runtime.VocabularyImpl;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNState;
 import org.antlr.v4.runtime.atn.DecisionState;
@@ -21,9 +23,12 @@ import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.tool.Grammar;
 
-public class ParserInterpreterForTesting {
-  public static class DummyParser extends Parser {
+class ParserInterpreterForTesting {
+  static class DummyParser extends Parser {
     public final ATN atn;
+    private static final String[] _LITERAL_NAMES = makeLiteralNames();
+    private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
+    public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
     public Grammar g;
 
@@ -44,14 +49,25 @@ public class ParserInterpreterForTesting {
     }
 
     @Override
-    @Deprecated
-    public String[] getTokenNames() {
-      return g.getTokenNames();
+    public ATN getATN() {
+      return atn;
     }
 
     @Override
-    public ATN getATN() {
-      return atn;
+    @NotNull
+    public Vocabulary getVocabulary() {
+      return VOCABULARY;
+    }
+
+    private static String[] makeLiteralNames() {
+      return new String[] {
+        null
+      };
+    }
+    private static String[] makeSymbolicNames() {
+      return new String[] {
+        null
+      };
     }
   }
 

@@ -244,7 +244,7 @@ GetExpectedTokenNames() ::= "this.getExpectedTokens().toString(this.tokenNames)"
 RuleInvocationStack() ::= "getRuleInvocationStack()"
 
 FULL_CONTEXT_DFA() ::= "getInterpreter().enable_global_context_dfa = true;"
-LL_EXACT_AMBIG_DETECTION() ::= <<_interp.setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);>>
+LL_EXACT_AMBIG_DETECTION() ::= <<getInterpreter().setPredictionMode(PredictionMode.LL_EXACT_AMBIG_DETECTION);>>
 
 ParserToken(parser, token) ::= <%<parser>.<token>%>
 
@@ -267,16 +267,16 @@ PositionAdjustingLexerDef() ::= ""
 PositionAdjustingLexer() ::= <<
 @Override
 public Token nextToken() {
-	if (!(_interp instanceof PositionAdjustingLexerATNSimulator)) {
-		_interp = new PositionAdjustingLexerATNSimulator(this, _ATN);
+	if (!(getInterpreter() instanceof PositionAdjustingLexerATNSimulator)) {
+		setInterpreter(new PositionAdjustingLexerATNSimulator(this, _ATN));
 	}
 
 	return super.nextToken();
 }
 
 @Override
-public Token emit() {
-	switch (_type) {
+protected void emit() {
+	switch (getType()) {
 	case TOKENS:
 		handleAcceptPositionForKeyword("tokens");
 		break;
@@ -289,7 +289,7 @@ public Token emit() {
 		break;
 	}
 
-	return super.emit();
+	super.emit();
 }
 
 private boolean handleAcceptPositionForIdentifier() {

@@ -14,13 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
-          fetch-depth: ''
-      - run: |
-          git fetch --prune --unshallow
-      - name: Set up JDK 17
+          fetch-depth: 0
+      - name: Set up JDK
         uses: actions/setup-java@v5
         with:
-          java-version: 17
+          java-version: 21
           distribution: 'adopt'
       - name: SonarCloud Scan
         run: ./gradlew check sonar

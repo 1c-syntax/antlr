@@ -1,39 +1,32 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.misc;
 
+import lombok.Value;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
+
 /**
  * @author Sam Harwell
  */
-public class Tuple3<T1, T2, T3> {
+@NullMarked
+@Value
+public class Tuple3<T1 extends @Nullable Object, T2 extends @Nullable Object, T3 extends @Nullable Object> {
+  @Nullable T1 item1;
+  @Nullable T2 item2;
+  @Nullable T3 item3;
 
-  private final T1 item1;
-  private final T2 item2;
-  private final T3 item3;
-
-  public Tuple3(T1 item1, T2 item2, T3 item3) {
+  public Tuple3(@Nullable T1 item1, @Nullable T2 item2, @Nullable T3 item3) {
     this.item1 = item1;
     this.item2 = item2;
     this.item3 = item3;
-  }
-
-  public final T1 getItem1() {
-    return item1;
-  }
-
-  public final T2 getItem2() {
-    return item2;
-  }
-
-  public final T3 getItem3() {
-    return item3;
   }
 
   @Override

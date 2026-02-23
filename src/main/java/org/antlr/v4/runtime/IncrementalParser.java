@@ -1,55 +1,58 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Incremental parser implementation
  * <p>
- * There are only two differences between this parser and the underlying regular
- * Parser - guard rules and min/max tracking
+ * There are only two differences between this parser and the underlying regular Parser - guard rules and min/max
+ * tracking
  * <p>
- * The guard rule API is used in incremental mode to know when a rule context
- * can be reused. It looks for token changes in the bounds of the rule.
+ * The guard rule API is used in incremental mode to know when a rule context can be reused. It looks for token changes
+ * in the bounds of the rule.
  * <p>
- * The min/max tracking is used to track how far ahead/behind the parser looked
- * to correctly detect whether a token change can affect a parser rule in the future (IE when
- * handed to the guard rule of the next parse)
- *
- * @note See IncrementalParsing.md for more details on the theory behind this.
- * In order to make this easier in code generation, we use the parse
- * listener interface to do most of our work.
+ * The min/max tracking is used to track how far ahead/behind the parser looked to correctly detect whether a token
+ * change can affect a parser rule in the future (IE when handed to the guard rule of the next parse).
+ * <p>
+ * See IncrementalParsing.md for more details on the theory behind this. In order to make this easier in code
+ * generation, we use the parse listener interface to do most of our work.
  */
+@NullMarked
 public abstract class IncrementalParser extends Parser implements ParseTreeListener {
   // Current parser epoch. Incremented every time a new incremental parser is
   // created.
-  private static AtomicInteger _PARSER_EPOCH = new AtomicInteger(0);
+  private static final AtomicInteger _PARSER_EPOCH = new AtomicInteger(0);
 
-  private int parserEpoch;
-  private IncrementalParserData parseData;
+  @Getter
+  private final int parserEpoch;
+  private final @Nullable IncrementalParserData parseData;
 
   public IncrementalParser(TokenStream input) {
     this(input, null);
   }
 
-  public IncrementalParser(TokenStream input, IncrementalParserData parseData) {
+  public IncrementalParser(TokenStream input, @Nullable IncrementalParserData parseData) {
     super(input);
     this.parseData = parseData;
-    parserEpoch = IncrementalParser.incrementGlobalParserEpoch();
+    this.parserEpoch = incrementGlobalParserEpoch();
     // Register ourselves as our own parse listener. Life is weird.
     addParseListener(this);
   }
@@ -58,18 +61,16 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
     return IncrementalParser._PARSER_EPOCH.addAndGet(1);
   }
 
-  public int getParserEpoch() {
-    return parserEpoch;
-  }
-
   // Push the current token data onto the min max stack for the stream.
   private void pushCurrentTokenToMinMax() {
     var incStream = getInputStream();
     if (!(incStream instanceof IncrementalTokenStream incrementalTokenStream)) {
       throw new IllegalStateException("IncrementalParser requires IncrementalTokenStream as input");
     }
-    var token = this._input.LT(1);
-    incrementalTokenStream.pushMinMax(token.getTokenIndex(), token.getTokenIndex());
+    var token = _input.LT(1);
+    if (token != null) {
+      incrementalTokenStream.pushMinMax(token.getTokenIndex(), token.getTokenIndex());
+    }
   }
 
   // Pop the min max stack the stream is using and return the interval.
@@ -85,10 +86,13 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   /**
    * Guard a rule's previous context from being reused.
    * <p>
-   * This routine will check whether a given parser rule needs to be rerun, or if
-   * we already have context that can be reused for this parse.
+   * This routine will check whether a given parser rule needs to be rerun, or if we already have context that can be
+   * reused for this parse.
    */
-  public IncrementalParserRuleContext guardRule(IncrementalParserRuleContext parentCtx, int state, int ruleIndex) {
+  @Nullable
+  public IncrementalParserRuleContext guardRule(@Nullable IncrementalParserRuleContext parentCtx,
+                                                int state,
+                                                int ruleIndex) {
     // If we have no previous parse data, the rule needs to be run.
     if (this.parseData == null) {
       return null;
@@ -98,7 +102,7 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
       parentCtx != null ? parentCtx.depth() + 1 : 1,
       getState(),
       ruleIndex,
-      this._input.LT(1).getTokenIndex());
+      Objects.requireNonNull(_input.LT(1)).getTokenIndex());
 
     // We haven't see it, so we need to rerun this rule.
     if (existingCtx == null) {
@@ -121,8 +125,8 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   }
 
   /**
-   * Pop the min max stack the stream is using and union the interval into the
-   * passed in context. Return the interval for the context
+   * Pop the min max stack the stream is using and union the interval into the passed in context. Return the interval
+   * for the context
    *
    * @param ctx Context to union interval into.
    */
@@ -135,8 +139,8 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   }
 
   /**
-   * The new recursion context is an unfortunate edge case for us. It reparents
-   * the relationship between the contexts, so we need to merge intervals here.
+   * The new recursion context is an unfortunate edge case for us. It reparents the relationship between the contexts,
+   * so we need to merge intervals here.
    */
   @Override
   public void pushNewRecursionContext(ParserRuleContext localctx, int state, int ruleIndex) {
@@ -179,12 +183,10 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
 
   @Override
   public void visitTerminal(TerminalNode node) {
-
   }
 
   @Override
   public void visitErrorNode(ErrorNode node) {
-
   }
 
 }

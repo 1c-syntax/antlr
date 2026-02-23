@@ -1,14 +1,16 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.gui;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
 import org.abego.treelayout.TreeLayout;
@@ -90,6 +92,8 @@ public class TreeViewer extends JComponent {
     }
   }
 
+  @Setter
+  @Getter
   protected TreeTextProvider treeTextProvider;
   protected TreeLayout<Tree> treeLayout;
   protected java.util.List<Tree> highlightedNodes;
@@ -103,14 +107,25 @@ public class TreeViewer extends JComponent {
   protected double gapBetweenNodes = 7;
   protected int nodeWidthPadding = 2;  // added to left/right
   protected int nodeHeightPadding = 0; // added above/below
+  @Setter
+  @Getter
   protected int arcSize = 0;           // make an arc in node outline?
 
+  @Getter
   protected double scale = 1.0;
 
+  @Setter
+  @Getter
   protected Color boxColor = null;     // set to a color to make it draw background
 
+  @Setter
+  @Getter
   protected Color highlightedBoxColor = Color.lightGray;
+  @Setter
+  @Getter
   protected Color borderColor = null;
+  @Setter
+  @Getter
   protected Color textColor = Color.black;
 
   public TreeViewer(@Nullable List<String> ruleNames, Tree tree) {
@@ -132,14 +147,11 @@ public class TreeViewer extends JComponent {
 
   // ---------------- PAINT -----------------------------------------------
 
+  @Setter
   private boolean useCurvedEdges = false;
 
   public boolean getUseCurvedEdges() {
     return useCurvedEdges;
-  }
-
-  public void setUseCurvedEdges(boolean useCurvedEdges) {
-    this.useCurvedEdges = useCurvedEdges;
   }
 
   protected void paintEdges(Graphics g, Tree parent) {
@@ -646,14 +658,6 @@ public class TreeViewer extends JComponent {
     return s;
   }
 
-  public TreeTextProvider getTreeTextProvider() {
-    return treeTextProvider;
-  }
-
-  public void setTreeTextProvider(TreeTextProvider treeTextProvider) {
-    this.treeTextProvider = treeTextProvider;
-  }
-
   public void setFontSize(int sz) {
     fontSize = sz;
     font = new Font(fontName, fontStyle, fontSize);
@@ -705,46 +709,6 @@ public class TreeViewer extends JComponent {
     this.font = font;
   }
 
-  public int getArcSize() {
-    return arcSize;
-  }
-
-  public void setArcSize(int arcSize) {
-    this.arcSize = arcSize;
-  }
-
-  public Color getBoxColor() {
-    return boxColor;
-  }
-
-  public void setBoxColor(Color boxColor) {
-    this.boxColor = boxColor;
-  }
-
-  public Color getHighlightedBoxColor() {
-    return highlightedBoxColor;
-  }
-
-  public void setHighlightedBoxColor(Color highlightedBoxColor) {
-    this.highlightedBoxColor = highlightedBoxColor;
-  }
-
-  public Color getBorderColor() {
-    return borderColor;
-  }
-
-  public void setBorderColor(Color borderColor) {
-    this.borderColor = borderColor;
-  }
-
-  public Color getTextColor() {
-    return textColor;
-  }
-
-  public void setTextColor(Color textColor) {
-    this.textColor = textColor;
-  }
-
   protected TreeForTreeLayout<Tree> getTree() {
     return treeLayout.getTree();
   }
@@ -772,10 +736,6 @@ public class TreeViewer extends JComponent {
    */
   public TreeForTreeLayout<Tree> getTreeLayoutAdaptor(Tree root) {
     return new TreeLayoutAdaptor(root);
-  }
-
-  public double getScale() {
-    return scale;
   }
 
   public void setScale(double scale) {

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -20,11 +20,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ATNDeserializationTest extends AbstractBaseTest {
+class ATNDeserializationTest extends AbstractBaseTest {
   @Test
-  public void testSimpleNoBlock() throws Exception {
+  void testSimpleNoBlock() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A B ;");
@@ -32,7 +32,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOF() throws Exception {
+  void testEOF() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : EOF ;");
@@ -40,7 +40,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEOFInSet() throws Exception {
+  void testEOFInSet() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : (EOF|A) ;");
@@ -48,7 +48,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNot() throws Exception {
+  void testNot() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -58,7 +58,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testWildcard() throws Exception {
+  void testWildcard() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -68,7 +68,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B ;");
@@ -76,7 +76,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test3Alts() throws Exception {
+  void test3Alts() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A | A B | A B C ;");
@@ -84,7 +84,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSimpleLoop() throws Exception {
+  void testSimpleLoop() throws Exception {
     Grammar g = new Grammar(
       "parser grammar T;\n" +
         "a : A+ B ;");
@@ -92,7 +92,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRuleRef() throws Exception {
+  void testRuleRef() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar T;
@@ -103,7 +103,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerTwoRules() throws Exception {
+  void testLexerTwoRules() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -114,7 +114,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerEOF() throws Exception {
+  void testLexerEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -124,7 +124,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerEOFInSet() throws Exception {
+  void testLexerEOFInSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -134,7 +134,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerRange() throws Exception {
+  void testLexerRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -144,7 +144,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerLoops() throws Exception {
+  void testLexerLoops() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -154,7 +154,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSet() throws Exception {
+  void testLexerNotSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -164,7 +164,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSetWithRange() throws Exception {
+  void testLexerNotSetWithRange() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -174,7 +174,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerNotSetWithRange2() throws Exception {
+  void testLexerNotSetWithRange2() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -184,7 +184,7 @@ public class ATNDeserializationTest extends AbstractBaseTest {
   }
 
   @Test
-  public void test2ModesInLexer() throws Exception {
+  void test2ModesInLexer() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -207,6 +207,6 @@ public class ATNDeserializationTest extends AbstractBaseTest {
     ATN atn2 = new ATNDeserializer(options).deserialize(data);
     String atn2Data = ATNSerializer.getDecoded(atn2, Arrays.asList(g.getRuleNames()), Arrays.asList(g.getTokenNames()));
 
-    assertEquals(atnData, atn2Data);
+    assertThat(atn2Data).isEqualTo(atnData);
   }
 }

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -198,7 +198,7 @@ public class DFA {
    * overhead for storing the map of outgoing edges. The various
    * implementations of {@link EdgeMap} use this range to determine the best
    * memory savings will be obtained from sparse storage (e.g.
-   * {@link SingletonEdgeMap} or {@link SparseEdgeMap}) or dense storage
+   * {@link SingletonEdgeMap} or dense storage
    * ({@link ArrayEdgeMap}). Symbols values outside the range are supported
    * during prediction, but since DFA edges are never created for these
    * symbols they will always recompute the target state through a match and
@@ -243,7 +243,7 @@ public class DFA {
   /**
    * Gets whether this DFA is a precedence DFA. Precedence DFAs use a special
    * start state {@link #s0} which is not stored in {@link #states}. The
-   * {@link DFAState#edges} array for this start state contains outgoing edges
+   * {link DFAState#edges} array for this start state contains outgoing edges
    * supplying individual start states corresponding to specific precedence
    * values.
    *
@@ -310,22 +310,6 @@ public class DFA {
     }
   }
 
-  /**
-   * Sets whether this is a precedence DFA.
-   *
-   * @param precedenceDfa {@code true} if this is a precedence DFA; otherwise,
-   *                      {@code false}
-   * @throws UnsupportedOperationException if {@code precedenceDfa} does not
-   *                                       match the value of {@link #isPrecedenceDfa} for the current DFA.
-   * @deprecated This method no longer performs any action.
-   */
-  @Deprecated
-  public final void setPrecedenceDfa(boolean precedenceDfa) {
-    if (precedenceDfa != isPrecedenceDfa()) {
-      throw new UnsupportedOperationException("The precedenceDfa field cannot change after a DFA is constructed.");
-    }
-  }
-
   public boolean isEmpty() {
     if (isPrecedenceDfa()) {
       return s0.get().getEdgeMap().isEmpty() && s0full.get().getEdgeMap().isEmpty();
@@ -357,32 +341,12 @@ public class DFA {
     return toString(VocabularyImpl.EMPTY_VOCABULARY);
   }
 
-  /**
-   * @deprecated Use {@link #toString(Vocabulary)} instead.
-   */
-  @Deprecated
-  public String toString(@Nullable String[] tokenNames) {
-    if (s0.get() == null) return "";
-    DFASerializer serializer = new DFASerializer(this, tokenNames);
-    return serializer.toString();
-  }
-
   public String toString(@NotNull Vocabulary vocabulary) {
     if (s0.get() == null) {
       return "";
     }
 
     DFASerializer serializer = new DFASerializer(this, vocabulary);
-    return serializer.toString();
-  }
-
-  /**
-   * @deprecated Use {@link #toString(Vocabulary, String[])} instead.
-   */
-  @Deprecated
-  public String toString(@Nullable String[] tokenNames, @Nullable String[] ruleNames) {
-    if (s0.get() == null) return "";
-    DFASerializer serializer = new DFASerializer(this, tokenNames, ruleNames, atnStartState.atn);
     return serializer.toString();
   }
 

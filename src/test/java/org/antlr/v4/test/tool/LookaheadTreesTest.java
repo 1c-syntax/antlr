@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -16,7 +16,6 @@ import org.antlr.v4.runtime.LexerInterpreter;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.atn.DecisionInfo;
 import org.antlr.v4.runtime.atn.LookaheadEventInfo;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.tool.Grammar;
 import org.antlr.v4.tool.GrammarParserInterpreter;
 import org.antlr.v4.tool.LexerGrammar;
@@ -24,10 +23,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class LookaheadTreesTest {
-  public static final String lexerText =
+class LookaheadTreesTest {
+  static final String lexerText =
     """
       lexer grammar L;
       DOT  : '.' ;
@@ -43,7 +42,7 @@ public class LookaheadTreesTest {
       """;
 
   @Test
-  public void testAlts() throws Exception {
+  void testAlts() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -63,7 +62,7 @@ public class LookaheadTreesTest {
   }
 
   @Test
-  public void testIncludeEOF() throws Exception {
+  void testIncludeEOF() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -81,7 +80,7 @@ public class LookaheadTreesTest {
   }
 
   @Test
-  public void testCallLeftRecursiveRule() throws Exception {
+  void testCallLeftRecursiveRule() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -123,7 +122,7 @@ public class LookaheadTreesTest {
     CommonTokenStream tokens = new CommonTokenStream(lexEngine);
     GrammarParserInterpreter parser = g.createGrammarParserInterpreter(tokens);
     parser.setProfile(true);
-    ParseTree t = parser.parse(startRuleIndex);
+    parser.parse(startRuleIndex);
 
     DecisionInfo decisionInfo = parser.getParseInfo().getDecisionInfo()[decision];
     LookaheadEventInfo lookaheadEventInfo = decisionInfo.SLL_MaxLookEvent;
@@ -132,10 +131,10 @@ public class LookaheadTreesTest {
       GrammarParserInterpreter.getLookaheadParseTrees(g, parser, tokens, startRuleIndex, lookaheadEventInfo.decision,
         lookaheadEventInfo.startIndex, lookaheadEventInfo.stopIndex);
 
-    assertEquals(expectedTrees.length, lookaheadParseTrees.size());
+    assertThat(lookaheadParseTrees).hasSize(expectedTrees.length);
     for (int i = 0; i < lookaheadParseTrees.size(); i++) {
       ParserRuleContext lt = lookaheadParseTrees.get(i);
-      assertEquals(expectedTrees[i], Trees.toStringTree(lt, nodeTextProvider));
+      assertThat(Trees.toStringTree(lt, nodeTextProvider)).isEqualTo(expectedTrees[i]);
     }
   }
 }

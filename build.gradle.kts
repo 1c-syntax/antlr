@@ -8,7 +8,8 @@ plugins {
     id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.21.0"
-    id("org.sonarqube") version "7.1.0.6387"
+    id("org.sonarqube") version "7.2.2.6593"
+    id("io.freefair.lombok") version "9.2.0"
 }
 
 repositories {
@@ -41,27 +42,26 @@ gitVersioning.apply {
 }
 
 dependencies {
-    api("org.antlr", "antlr-runtime", "3.5.3")
-    api("org.antlr", "ST4", "4.3.4")
+    implementation("org.antlr:ST4:4.3.4")
+    implementation("commons-io:commons-io:2.21.0")
+    implementation("org.abego.treelayout:org.abego.treelayout.core:1.0.3")
 
-    compileOnly("com.ibm.icu", "icu4j", "77.1")
+    implementation("io.github.1c-syntax:utils:0.6.3")
+    api("org.jspecify:jspecify:1.0.0")
 
-    implementation("commons-io", "commons-io", "2.15.1")
-    implementation("org.abego.treelayout", "org.abego.treelayout.core", "1.0.3")
+    compileOnly("com.ibm.icu:icu4j:78.2")
 
-    implementation("io.github.1c-syntax", "utils", "0.6.3")
+    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testImplementation("org.assertj:assertj-core:3.27.7")
 
-    testImplementation("org.junit.jupiter", "junit-jupiter-api", "5.11.4")
-    testImplementation("org.junit.jupiter", "junit-jupiter-engine", "5.11.4")
-    testImplementation("org.junit.jupiter", "junit-jupiter-params", "5.11.4")
-    testImplementation("org.assertj", "assertj-core", "3.27.0")
-
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
     withSourcesJar()
     withJavadocJar()
 }
@@ -77,6 +77,12 @@ tasks.withType<Javadoc> {
     isFailOnError = false
     //todo разбор и корректировка javadoc не самая приоритетная задача, в будущем исправлю
     (options as StandardJavadocDocletOptions).addBooleanOption("Xdoclint:none", true)
+}
+
+tasks.javadoc {
+    exclude("dot/org/antlr/v4/**")
+    exclude("**/**/*.g")
+    exclude("**/**/*.g4")
 }
 
 tasks.test {

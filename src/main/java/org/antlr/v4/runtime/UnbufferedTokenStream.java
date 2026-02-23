@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,17 +10,19 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Objects;
 
+@NullMarked
 public class UnbufferedTokenStream implements TokenStream {
   protected TokenSource tokenSource;
 
   /**
-   * A moving window buffer of the data being scanned. While there's a marker,
-   * we keep adding to buffer. Otherwise, {@link #consume consume()} resets so
-   * we start filling at index 0 again.
+   * A moving window buffer of the data being scanned. While there's a marker, we keep adding to buffer. Otherwise,
+   * {@link #consume consume()} resets so we start filling at index 0 again.
    */
   protected Token[] tokens;
 
@@ -40,28 +42,26 @@ public class UnbufferedTokenStream implements TokenStream {
   protected int p = 0;
 
   /**
-   * Count up with {@link #mark mark()} and down with
-   * {@link #release release()}. When we {@code release()} the last mark,
-   * {@code numMarkers} reaches 0 and we reset the buffer. Copy
-   * {@code tokens[p]..tokens[n-1]} to {@code tokens[0]..tokens[(n-1)-p]}.
+   * Count up with {@link #mark mark()} and down with {@link #release release()}. When we {@code release()} the last
+   * mark, {@code numMarkers} reaches 0 and we reset the buffer. Copy {@code tokens[p]..tokens[n-1]} to
+   * {@code tokens[0]..tokens[(n-1)-p]}.
    */
   protected int numMarkers = 0;
 
   /**
    * This is the {@code LT(-1)} token for the current position.
    */
-  protected Token lastToken;
+  protected @Nullable Token lastToken;
 
   /**
-   * When {@code numMarkers > 0}, this is the {@code LT(-1)} token for the
-   * first token in {@link #tokens}. Otherwise, this is {@code null}.
+   * When {@code numMarkers > 0}, this is the {@code LT(-1)} token for the first token in {@link #tokens}. Otherwise,
+   * this is {@code null}.
    */
-  protected Token lastTokenBufferStart;
+  protected @Nullable Token lastTokenBufferStart;
 
   /**
-   * Absolute token index. It's the index of the token about to be read via
-   * {@code LT(1)}. Goes from 0 to the number of tokens in the entire stream,
-   * although the stream size is unknown before the end is reached.
+   * Absolute token index. It's the index of the token about to be read via {@code LT(1)}. Goes from 0 to the number of
+   * tokens in the entire stream, although the stream size is unknown before the end is reached.
    *
    * <p>This value is used to set the token indexes if the stream provides tokens
    * that implement {@link WritableToken}.</p>
@@ -90,6 +90,7 @@ public class UnbufferedTokenStream implements TokenStream {
   }
 
   @Override
+  @Nullable
   public Token LT(int i) {
     if (i == -1) {
       return lastToken;
@@ -111,7 +112,7 @@ public class UnbufferedTokenStream implements TokenStream {
 
   @Override
   public int LA(int i) {
-    return LT(i).getType();
+    return Objects.requireNonNull(LT(i)).getType();
   }
 
   @Override
@@ -119,23 +120,20 @@ public class UnbufferedTokenStream implements TokenStream {
     return tokenSource;
   }
 
-  @NotNull
   @Override
   public String getText() {
     return "";
   }
 
-  @NotNull
   @Override
   public String getText(RuleContext ctx) {
     return getText(ctx.getSourceInterval());
   }
 
-  @NotNull
   @Override
   public String getText(Object start, Object stop) {
-    if (start instanceof Token && stop instanceof Token) {
-      return getText(Interval.of(((Token) start).getTokenIndex(), ((Token) stop).getTokenIndex()));
+    if (start instanceof Token startToken && stop instanceof Token stopToken) {
+      return getText(Interval.of(startToken.getTokenIndex(), stopToken.getTokenIndex()));
     }
 
     throw new UnsupportedOperationException("The specified start and stop symbols are not supported.");
@@ -163,9 +161,9 @@ public class UnbufferedTokenStream implements TokenStream {
   }
 
   /**
-   * Make sure we have 'need' elements from current position {@link #p p}. Last valid
-   * {@code p} index is {@code tokens.length-1}.  {@code p+need-1} is the tokens index 'need' elements
-   * ahead.  If we need 1 element, {@code (p+1-1)==p} must be less than {@code tokens.length}.
+   * Make sure we have 'need' elements from current position {@link #p p}. Last valid {@code p} index is
+   * {@code tokens.length-1}.  {@code p+need-1} is the tokens index 'need' elements ahead.  If we need 1 element,
+   * {@code (p+1-1)==p} must be less than {@code tokens.length}.
    */
   protected void sync(int want) {
     int need = (p + want - 1) - n + 1; // how many more elements we need?
@@ -175,9 +173,8 @@ public class UnbufferedTokenStream implements TokenStream {
   }
 
   /**
-   * Add {@code n} elements to the buffer. Returns the number of tokens
-   * actually added to the buffer. If the return value is less than {@code n},
-   * then EOF was reached before {@code n} tokens could be added.
+   * Add {@code n} elements to the buffer. Returns the number of tokens actually added to the buffer. If the return
+   * value is less than {@code n}, then EOF was reached before {@code n} tokens could be added.
    */
   protected int fill(int n) {
     for (int i = 0; i < n; i++) {
@@ -192,13 +189,13 @@ public class UnbufferedTokenStream implements TokenStream {
     return n;
   }
 
-  protected void add(@NotNull Token t) {
+  protected void add(Token t) {
     if (n >= tokens.length) {
       tokens = Arrays.copyOf(tokens, tokens.length * 2);
     }
 
-    if (t instanceof WritableToken) {
-      ((WritableToken) t).setTokenIndex(getBufferStartIndex() + n);
+    if (t instanceof WritableToken writableToken) {
+      writableToken.setTokenIndex(getBufferStartIndex() + n);
     }
 
     tokens[n++] = t;
@@ -208,8 +205,8 @@ public class UnbufferedTokenStream implements TokenStream {
    * Return a marker that we can release later.
    *
    * <p>The specific marker value used for this class allows for some level of
-   * protection against misuse where {@code seek()} is called on a mark or
-   * {@code release()} is called in the wrong order.</p>
+   * protection against misuse where {@code seek()} is called on a mark or {@code release()} is called in the wrong
+   * order.</p>
    */
   @Override
   public int mark() {
@@ -287,7 +284,6 @@ public class UnbufferedTokenStream implements TokenStream {
     return tokenSource.getSourceName();
   }
 
-  @NotNull
   @Override
   public String getText(Interval interval) {
     int bufferStartIndex = getBufferStartIndex();

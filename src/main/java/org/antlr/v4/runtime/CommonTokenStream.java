@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,6 +10,7 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class extends {@link BufferedTokenStream} with functionality to filter
@@ -92,10 +93,15 @@ public class CommonTokenStream extends BufferedTokenStream {
   }
 
   @Override
+  @Nullable
   public Token LT(int k) {
     lazyInit();
-    if (k == 0) return null;
-    if (k < 0) return LB(-k);
+    if (k == 0) {
+      return null;
+    }
+    if (k < 0) {
+      return LB(-k);
+    }
     int i = p;
     int n = 1; // we know tokens[p] is a good one
     // find k good tokens

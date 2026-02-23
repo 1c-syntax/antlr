@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -70,12 +70,14 @@ public class LexerActionExecutor {
    * of {@code lexerActionExecutor} and {@code lexerAction}.
    */
   @NotNull
-  public static LexerActionExecutor append(@Nullable LexerActionExecutor lexerActionExecutor, @NotNull LexerAction lexerAction) {
+  public static LexerActionExecutor append(@Nullable LexerActionExecutor lexerActionExecutor,
+                                           @NotNull LexerAction lexerAction) {
     if (lexerActionExecutor == null) {
       return new LexerActionExecutor(new LexerAction[]{lexerAction});
     }
 
-    LexerAction[] lexerActions = Arrays.copyOf(lexerActionExecutor.lexerActions, lexerActionExecutor.lexerActions.length + 1);
+    LexerAction[] lexerActions = Arrays.copyOf(lexerActionExecutor.lexerActions,
+      lexerActionExecutor.lexerActions.length + 1);
     lexerActions[lexerActions.length - 1] = lexerAction;
     return new LexerActionExecutor(lexerActions);
   }

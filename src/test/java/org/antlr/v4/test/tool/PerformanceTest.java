@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -42,15 +42,15 @@ import org.antlr.v4.runtime.dfa.DFAState;
 import org.antlr.v4.runtime.dfa.EmptyEdgeMap;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.misc.MurmurHash;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.misc.Pair;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -94,10 +94,11 @@ import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PerformanceTest extends AbstractBaseTest {
+@NullMarked
+class PerformanceTest extends AbstractBaseTest {
   /**
-   * Parse all java files under this package within the JDK_SOURCE_ROOT
-   * (environment variable or property defined on the Java command line).
+   * Parse all java files under this package within the JDK_SOURCE_ROOT (environment variable or property defined on the
+   * Java command line).
    */
   private static final String TOP_PACKAGE;
 
@@ -111,16 +112,13 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * {@code true} to load java files from sub-packages of
-   * {@link #TOP_PACKAGE}.
+   * {@code true} to load java files from sub-packages of {@link #TOP_PACKAGE}.
    */
   private static final boolean RECURSIVE = true;
   /**
-   * {@code true} to read all source files from disk into memory before
-   * starting the parse. The default value is {@code true} to help prevent
-   * drive speed from affecting the performance results. This value may be set
-   * to {@code false} to support parsing large input sets which would not
-   * otherwise fit into memory.
+   * {@code true} to read all source files from disk into memory before starting the parse. The default value is
+   * {@code true} to help prevent drive speed from affecting the performance results. This value may be set to
+   * {@code false} to support parsing large input sets which would not otherwise fit into memory.
    */
   private static final boolean PRELOAD_SOURCES = true;
   /**
@@ -133,65 +131,54 @@ public class PerformanceTest extends AbstractBaseTest {
   private static final int MAX_FILES_PER_PARSE_ITERATION = Integer.MAX_VALUE;
 
   /**
-   * {@code true} to call {@link Collections#shuffle} on the list of input
-   * files before the first parse iteration.
+   * {@code true} to call {@link Collections#shuffle} on the list of input files before the first parse iteration.
    */
   private static final boolean SHUFFLE_FILES_AT_START = false;
   /**
-   * {@code true} to call {@link Collections#shuffle} before each parse
-   * iteration <em>after</em> the first.
+   * {@code true} to call {@link Collections#shuffle} before each parse iteration <em>after</em> the first.
    */
   private static final boolean SHUFFLE_FILES_AFTER_ITERATIONS = false;
   /**
-   * The instance of {@link Random} passed when calling
-   * {@link Collections#shuffle}.
+   * The instance of {@link Random} passed when calling {@link Collections#shuffle}.
    */
   private static final Random RANDOM = new Random();
 
   /**
-   * {@code true} to use the Java grammar with expressions in the v4
-   * left-recursive syntax (JavaLR.g4). {@code false} to use the standard
-   * grammar (Java.g4). In either case, the grammar is renamed in the
-   * temporary directory to Java.g4 before compiling.
+   * {@code true} to use the Java grammar with expressions in the v4 left-recursive syntax (JavaLR.g4). {@code false} to
+   * use the standard grammar (Java.g4). In either case, the grammar is renamed in the temporary directory to Java.g4
+   * before compiling.
    */
   private static final boolean USE_LR_GRAMMAR = true;
   /**
-   * {@code true} to specify the {@code -Xforce-atn} option when generating
-   * the grammar, forcing all decisions in {@code JavaParser} to be handled by
-   * {@link ParserATNSimulator#adaptivePredict}.
+   * {@code true} to specify the {@code -Xforce-atn} option when generating the grammar, forcing all decisions in
+   * {@code JavaParser} to be handled by {@link ParserATNSimulator#adaptivePredict}.
    */
   private static final boolean FORCE_ATN = false;
   /**
-   * {@code true} to specify the {@code -atn} option when generating the
-   * grammar. This will cause ANTLR to export the ATN for each decision as a
-   * DOT (GraphViz) file.
+   * {@code true} to specify the {@code -atn} option when generating the grammar. This will cause ANTLR to export the
+   * ATN for each decision as a DOT (GraphViz) file.
    */
   private static final boolean EXPORT_ATN_GRAPHS = true;
   /**
-   * {@code true} to specify the {@code -XdbgST} option when generating the
-   * grammar.
+   * {@code true} to specify the {@code -XdbgST} option when generating the grammar.
    */
   private static final boolean DEBUG_TEMPLATES = false;
   /**
-   * {@code true} to specify the {@code -XdbgSTWait} option when generating the
-   * grammar.
+   * {@code true} to specify the {@code -XdbgSTWait} option when generating the grammar.
    */
   private static final boolean DEBUG_TEMPLATES_WAIT = DEBUG_TEMPLATES;
   /**
-   * {@code true} to delete temporary (generated and compiled) files when the
-   * test completes.
+   * {@code true} to delete temporary (generated and compiled) files when the test completes.
    */
   private static final boolean DELETE_TEMP_FILES = true;
   /**
-   * {@code true} to use a {@link ParserInterpreter} for parsing instead of
-   * generated parser.
+   * {@code true} to use a {@link ParserInterpreter} for parsing instead of generated parser.
    */
   private static final boolean USE_PARSER_INTERPRETER = false;
 
   /**
-   * {@code true} to call {@link System#gc} and then wait for 5 seconds at the
-   * end of the test to make it easier for a profiler to grab a heap dump at
-   * the end of the test run.
+   * {@code true} to call {@link System#gc} and then wait for 5 seconds at the end of the test to make it easier for a
+   * profiler to grab a heap dump at the end of the test run.
    */
   private static final boolean PAUSE_FOR_HEAP_DUMP = false;
 
@@ -200,13 +187,11 @@ public class PerformanceTest extends AbstractBaseTest {
    */
   private static final boolean RUN_PARSER = true;
   /**
-   * {@code true} to use {@link BailErrorStrategy}, {@code false} to use
-   * {@link DefaultErrorStrategy}.
+   * {@code true} to use {@link BailErrorStrategy}, {@code false} to use {@link DefaultErrorStrategy}.
    */
   private static final boolean BAIL_ON_ERROR = false;
   /**
-   * {@code true} to compute a checksum for verifying consistency across
-   * optimizations and multiple passes.
+   * {@code true} to compute a checksum for verifying consistency across optimizations and multiple passes.
    */
   private static final boolean COMPUTE_CHECKSUM = true;
   /**
@@ -214,28 +199,24 @@ public class PerformanceTest extends AbstractBaseTest {
    */
   private static final boolean BUILD_PARSE_TREES = false;
   /**
-   * Use
-   * {@link ParseTreeWalker#DEFAULT}{@code .}{@link ParseTreeWalker#walk walk}
-   * with the {@code JavaParserBaseListener} to show parse tree walking
-   * overhead. If {@link #BUILD_PARSE_TREES} is {@code false}, the listener
-   * will instead be called during the parsing process via
-   * {@link Parser#addParseListener}.
+   * Use {@link ParseTreeWalker#DEFAULT}{@code .}{@link ParseTreeWalker#walk walk} with the
+   * {@code JavaParserBaseListener} to show parse tree walking overhead. If {@link #BUILD_PARSE_TREES} is {@code false},
+   * the listener will instead be called during the parsing process via {@link Parser#addParseListener}.
    */
   private static final boolean BLANK_LISTENER = false;
 
   private static final boolean EXPORT_LARGEST_CONFIG_CONTEXTS = false;
 
   /**
-   * Shows the number of {@link DFAState} and {@link ATNConfig} instances in
-   * the DFA cache at the end of each pass. If {@link #REUSE_LEXER_DFA} and/or
-   * {@link #REUSE_PARSER_DFA} are false, the corresponding instance numbers
-   * will only apply to one file (the last file if {@link #NUMBER_OF_THREADS}
-   * is 0, otherwise the last file which was parsed on the first thread).
+   * Shows the number of {@link DFAState} and {@link ATNConfig} instances in the DFA cache at the end of each pass. If
+   * {@link #REUSE_LEXER_DFA} and/or {@link #REUSE_PARSER_DFA} are false, the corresponding instance numbers will only
+   * apply to one file (the last file if {@link #NUMBER_OF_THREADS} is 0, otherwise the last file which was parsed on
+   * the first thread).
    */
   private static final boolean SHOW_DFA_STATE_STATS = true;
   /**
-   * If {@code true}, the DFA state statistics report includes a breakdown of
-   * the number of DFA states contained in each decision (with rule names).
+   * If {@code true}, the DFA state statistics report includes a breakdown of the number of DFA states contained in each
+   * decision (with rule names).
    */
   private static final boolean DETAILED_DFA_STATE_STATS = true;
 
@@ -243,16 +224,14 @@ public class PerformanceTest extends AbstractBaseTest {
 
   private static final boolean ENABLE_PARSER_DFA = true;
   /**
-   * If {@code true}, the DFA will be used for full context parsing as well as
-   * SLL parsing.
+   * If {@code true}, the DFA will be used for full context parsing as well as SLL parsing.
    */
   private static final boolean ENABLE_PARSER_FULL_CONTEXT_DFA = false;
 
   /**
-   * Specify the {@link PredictionMode} used by the
-   * {@link ParserATNSimulator}. If {@link #TWO_STAGE_PARSING} is
-   * {@code true}, this value only applies to the second stage, as the first
-   * stage will always use {@link PredictionMode#SLL}.
+   * Specify the {@link PredictionMode} used by the {@link ParserATNSimulator}. If {@link #TWO_STAGE_PARSING} is
+   * {@code true}, this value only applies to the second stage, as the first stage will always use
+   * {@link PredictionMode#SLL}.
    */
   private static final PredictionMode PREDICTION_MODE = PredictionMode.LL;
   private static final boolean FORCE_GLOBAL_CONTEXT = false;
@@ -268,47 +247,41 @@ public class PerformanceTest extends AbstractBaseTest {
   private static final boolean SHOW_CONFIG_STATS = false;
 
   /**
-   * If {@code true}, detailed statistics for the number of DFA edges were
-   * taken while parsing each file, as well as the number of DFA edges which
-   * required on-the-fly computation.
+   * If {@code true}, detailed statistics for the number of DFA edges were taken while parsing each file, as well as the
+   * number of DFA edges which required on-the-fly computation.
    */
   private static final boolean COMPUTE_TRANSITION_STATS = false;
   private static final boolean SHOW_TRANSITION_STATS_PER_FILE = false;
   /**
-   * If {@code true}, the transition statistics will be adjusted to a running
-   * total before reporting the final results.
+   * If {@code true}, the transition statistics will be adjusted to a running total before reporting the final results.
    */
   private static final boolean TRANSITION_RUNNING_AVERAGE = false;
   /**
-   * If {@code true}, transition statistics will be weighted according to the
-   * total number of transitions taken during the parsing of each file.
+   * If {@code true}, transition statistics will be weighted according to the total number of transitions taken during
+   * the parsing of each file.
    */
   private static final boolean TRANSITION_WEIGHTED_AVERAGE = false;
 
   /**
-   * If {@code true}, after each pass a summary of the time required to parse
-   * each file will be printed.
+   * If {@code true}, after each pass a summary of the time required to parse each file will be printed.
    */
   private static final boolean COMPUTE_TIMING_STATS = false;
   /**
-   * If {@code true}, the timing statistics for {@link #COMPUTE_TIMING_STATS}
-   * will be cumulative (i.e. the time reported for the <em>n</em>th file will
-   * be the total time required to parse the first <em>n</em> files).
+   * If {@code true}, the timing statistics for {@link #COMPUTE_TIMING_STATS} will be cumulative (i.e. the time reported
+   * for the <em>n</em>th file will be the total time required to parse the first <em>n</em> files).
    */
   private static final boolean TIMING_CUMULATIVE = false;
   /**
-   * If {@code true}, the timing statistics will include the parser only. This
-   * flag allows for targeted measurements, and helps eliminate variance when
-   * {@link #PRELOAD_SOURCES} is {@code false}.
+   * If {@code true}, the timing statistics will include the parser only. This flag allows for targeted measurements,
+   * and helps eliminate variance when {@link #PRELOAD_SOURCES} is {@code false}.
    * <p/>
    * This flag has no impact when {@link #RUN_PARSER} is {@code false}.
    */
   private static final boolean TIME_PARSE_ONLY = false;
 
   /**
-   * When {@code true}, messages will be printed to {@link System#err} when
-   * the first stage (SLL) parsing resulted in a syntax error. This option is
-   * ignored when {@link #TWO_STAGE_PARSING} is {@code false}.
+   * When {@code true}, messages will be printed to {@link System#err} when the first stage (SLL) parsing resulted in a
+   * syntax error. This option is ignored when {@link #TWO_STAGE_PARSING} is {@code false}.
    */
   private static final boolean REPORT_SECOND_STAGE_RETRY = true;
   private static final boolean REPORT_SYNTAX_ERRORS = true;
@@ -317,37 +290,31 @@ public class PerformanceTest extends AbstractBaseTest {
   private static final boolean REPORT_CONTEXT_SENSITIVITY = REPORT_FULL_CONTEXT;
 
   /**
-   * If {@code true}, a single {@code JavaLexer} will be used, and
-   * {@link Lexer#setInputStream} will be called to initialize it for each
-   * source file. Otherwise, a new instance will be created for each file.
+   * If {@code true}, a single {@code JavaLexer} will be used, and {@link Lexer#setInputStream} will be called to
+   * initialize it for each source file. Otherwise, a new instance will be created for each file.
    */
   private static final boolean REUSE_LEXER = false;
   /**
-   * If {@code true}, a single DFA will be used for lexing which is shared
-   * across all threads and files. Otherwise, each file will be lexed with its
-   * own DFA which is accomplished by creating one ATN instance per thread and
-   * clearing its DFA cache before lexing each file.
+   * If {@code true}, a single DFA will be used for lexing which is shared across all threads and files. Otherwise, each
+   * file will be lexed with its own DFA which is accomplished by creating one ATN instance per thread and clearing its
+   * DFA cache before lexing each file.
    */
   private static final boolean REUSE_LEXER_DFA = true;
   /**
-   * If {@code true}, a single {@code JavaParser} will be used, and
-   * {@link Parser#setInputStream} will be called to initialize it for each
-   * source file. Otherwise, a new instance will be created for each file.
+   * If {@code true}, a single {@code JavaParser} will be used, and {@link Parser#setInputStream} will be called to
+   * initialize it for each source file. Otherwise, a new instance will be created for each file.
    */
   private static final boolean REUSE_PARSER = false;
   /**
-   * If {@code true}, a single DFA will be used for parsing which is shared
-   * across all threads and files. Otherwise, each file will be parsed with
-   * its own DFA which is accomplished by creating one ATN instance per thread
-   * and clearing its DFA cache before parsing each file.
+   * If {@code true}, a single DFA will be used for parsing which is shared across all threads and files. Otherwise,
+   * each file will be parsed with its own DFA which is accomplished by creating one ATN instance per thread and
+   * clearing its DFA cache before parsing each file.
    */
   private static final boolean REUSE_PARSER_DFA = true;
   /**
-   * If {@code true}, the shared lexer and parser are reset after each pass.
-   * If {@code false}, all passes after the first will be fully "warmed up",
-   * which makes them faster and can compare them to the first warm-up pass,
-   * but it will not distinguish bytecode load/JIT time from warm-up time
-   * during the first pass.
+   * If {@code true}, the shared lexer and parser are reset after each pass. If {@code false}, all passes after the
+   * first will be fully "warmed up", which makes them faster and can compare them to the first warm-up pass, but it
+   * will not distinguish bytecode load/JIT time from warm-up time during the first pass.
    */
   private static final boolean CLEAR_DFA = false;
   /**
@@ -356,9 +323,8 @@ public class PerformanceTest extends AbstractBaseTest {
   private static final int PASSES = 4;
 
   /**
-   * This option controls the granularity of multi-threaded parse operations.
-   * If {@code true}, the parsing operation will be parallelized across files;
-   * otherwise the parsing will be parallelized across multiple iterations.
+   * This option controls the granularity of multi-threaded parse operations. If {@code true}, the parsing operation
+   * will be parallelized across files; otherwise the parsing will be parallelized across multiple iterations.
    */
   private static final boolean FILE_GRANULARITY = true;
 
@@ -383,8 +349,8 @@ public class PerformanceTest extends AbstractBaseTest {
       totalTransitionsPerFile = new long[PASSES][];
       computedTransitionsPerFile = new long[PASSES][];
     } else {
-      totalTransitionsPerFile = null;
-      computedTransitionsPerFile = null;
+      totalTransitionsPerFile = new long[0][];
+      computedTransitionsPerFile = new long[0][];
     }
   }
 
@@ -404,12 +370,12 @@ public class PerformanceTest extends AbstractBaseTest {
       computedTransitionsPerDecisionPerFile = new long[PASSES][][];
       fullContextTransitionsPerDecisionPerFile = new long[PASSES][][];
     } else {
-      decisionInvocationsPerFile = null;
-      fullContextFallbackPerFile = null;
-      nonSllPerFile = null;
-      totalTransitionsPerDecisionPerFile = null;
-      computedTransitionsPerDecisionPerFile = null;
-      fullContextTransitionsPerDecisionPerFile = null;
+      decisionInvocationsPerFile = new long[0][][];
+      fullContextFallbackPerFile = new long[0][][];
+      nonSllPerFile = new long[0][][];
+      totalTransitionsPerDecisionPerFile = new long[0][][];
+      computedTransitionsPerDecisionPerFile = new long[0][][];
+      fullContextTransitionsPerDecisionPerFile = new long[0][][];
     }
   }
 
@@ -421,20 +387,21 @@ public class PerformanceTest extends AbstractBaseTest {
       timePerFile = new long[PASSES][];
       tokensPerFile = new int[PASSES][];
     } else {
-      timePerFile = null;
-      tokensPerFile = null;
+      timePerFile = new long[0][];
+      tokensPerFile = new int[0][];
     }
   }
 
   private final AtomicIntegerArray tokenCount = new AtomicIntegerArray(PASSES);
 
   @Test
-  @Disabled
-  public void compileJdk() throws IOException, InterruptedException, ExecutionException {
+  @Disabled("Requires JDK_SOURCE_ROOT environment variable to be set")
+  void compileJdk() throws IOException, InterruptedException, ExecutionException {
     String jdkSourceRoot = getSourceRoot("JDK");
-    assertThat(jdkSourceRoot != null && !jdkSourceRoot.isEmpty())
+    assertThat(jdkSourceRoot)
       .as("The JDK_SOURCE_ROOT environment variable must be set for performance testing.")
-      .isTrue();
+      .isNotNull()
+      .isNotEmpty();
 
     compileJavaParser(USE_LR_GRAMMAR);
     final String lexerName = USE_LR_GRAMMAR ? "JavaLRLexer" : "JavaLexer";
@@ -448,7 +415,7 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     File directory = new File(jdkSourceRoot);
-    assertThat(directory.isDirectory()).isTrue();
+    assertThat(directory).matches(File::isDirectory);
 
     FilenameFilter filesFilter = FilenameFilters.extension(".java", false);
     FilenameFilter directoriesFilter = FilenameFilters.ALL_FILES;
@@ -456,67 +423,62 @@ public class PerformanceTest extends AbstractBaseTest {
 
     for (int i = 0; i < PASSES; i++) {
       if (COMPUTE_TRANSITION_STATS) {
-        totalTransitionsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
-        computedTransitionsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
+        totalTransitionsPerFile[i] = new long[sources.size()];
+        computedTransitionsPerFile[i] = new long[sources.size()];
 
         if (DETAILED_DFA_STATE_STATS) {
-          decisionInvocationsPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          fullContextFallbackPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          nonSllPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          totalTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          computedTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
-          fullContextTransitionsPerDecisionPerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)][];
+          decisionInvocationsPerFile[i] = new long[sources.size()][];
+          fullContextFallbackPerFile[i] = new long[sources.size()][];
+          nonSllPerFile[i] = new long[sources.size()][];
+          totalTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
+          computedTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
+          fullContextTransitionsPerDecisionPerFile[i] = new long[sources.size()][];
         }
       }
 
       if (COMPUTE_TIMING_STATS) {
-        timePerFile[i] = new long[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
-        tokensPerFile[i] = new int[Math.min(sources.size(), MAX_FILES_PER_PARSE_ITERATION)];
+        timePerFile[i] = new long[sources.size()];
+        tokensPerFile[i] = new int[sources.size()];
       }
     }
     System.out.format("Located %d source files.%n", sources.size());
     System.out.print(getOptionsDescription(TOP_PACKAGE));
 
-    ExecutorService executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? 1 : NUMBER_OF_THREADS, new NumberedThreadFactory());
-    List<Future<?>> passResults = new ArrayList<Future<?>>();
-    passResults.add(executorService.submit(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          parse1(0, factory, sources, SHUFFLE_FILES_AT_START);
-        } catch (InterruptedException ex) {
-          Logger.getLogger(PerformanceTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    ExecutorService executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? 1 : NUMBER_OF_THREADS,
+      new NumberedThreadFactory());
+    List<Future<?>> passResults = new ArrayList<>();
+    passResults.add(executorService.submit(() -> {
+      try {
+        parse1(0, factory, sources, SHUFFLE_FILES_AT_START);
+      } catch (InterruptedException ex) {
+        Logger.getLogger(PerformanceTest.class.getName()).log(Level.SEVERE, null, ex);
       }
     }));
     for (int i = 0; i < PASSES - 1; i++) {
       final int currentPass = i + 1;
-      passResults.add(executorService.submit(new Runnable() {
-        @Override
-        public void run() {
-          if (CLEAR_DFA) {
-            int index = FILE_GRANULARITY ? 0 : ((NumberedThread) Thread.currentThread()).getThreadNumber();
-            if (sharedLexers.length > 0 && sharedLexers[index] != null) {
-              ATN atn = sharedLexers[index].getATN();
-              atn.clearDFA();
-            }
-
-            if (sharedParsers.length > 0 && sharedParsers[index] != null) {
-              ATN atn = sharedParsers[index].getATN();
-              atn.clearDFA();
-            }
-
-            if (FILE_GRANULARITY) {
-              Arrays.fill(sharedLexers, null);
-              Arrays.fill(sharedParsers, null);
-            }
+      passResults.add(executorService.submit(() -> {
+        if (CLEAR_DFA) {
+          int index = FILE_GRANULARITY ? 0 : ((NumberedThread) Thread.currentThread()).getThreadNumber();
+          if (sharedLexers.length > 0 && sharedLexers[index] != null) {
+            ATN atn = sharedLexers[index].getATN();
+            atn.clearDFA();
           }
 
-          try {
-            parse2(currentPass, factory, sources, SHUFFLE_FILES_AFTER_ITERATIONS);
-          } catch (InterruptedException ex) {
-            Logger.getLogger(PerformanceTest.class.getName()).log(Level.SEVERE, null, ex);
+          if (sharedParsers.length > 0 && sharedParsers[index] != null) {
+            ATN atn = sharedParsers[index].getATN();
+            atn.clearDFA();
           }
+
+          if (FILE_GRANULARITY) {
+            Arrays.fill(sharedLexers, null);
+            Arrays.fill(sharedParsers, null);
+          }
+        }
+
+        try {
+          parse2(currentPass, factory, sources, SHUFFLE_FILES_AFTER_ITERATIONS);
+        } catch (InterruptedException ex) {
+          Logger.getLogger(PerformanceTest.class.getName()).log(Level.SEVERE, null, ex);
         }
       }));
     }
@@ -630,7 +592,14 @@ public class PerformanceTest extends AbstractBaseTest {
     System.out.format("File\tAverage\tStd. Dev.\t95%% Low\t95%% High\t66.7%% Low\t66.7%% High%n");
     for (int i = 0; i < stddev.length; i++) {
       final double averageValue = TRANSITION_WEIGHTED_AVERAGE ? weightedAverage[i] : average[i];
-      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n", i + 1, averageValue, stddev[i], averageValue - low95[i], high95[i] - averageValue, averageValue - low67[i], high67[i] - averageValue);
+      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n",
+        i + 1,
+        averageValue,
+        stddev[i],
+        averageValue - low95[i],
+        high95[i] - averageValue,
+        averageValue - low67[i],
+        high67[i] - averageValue);
     }
   }
 
@@ -699,7 +668,14 @@ public class PerformanceTest extends AbstractBaseTest {
     System.out.format("File\tAverage\tStd. Dev.\t95%% Low\t95%% High\t66.7%% Low\t66.7%% High%n");
     for (int i = 0; i < stddev.length; i++) {
       final double averageValue = average[i];
-      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n", i + 1, averageValue, stddev[i], averageValue - low95[i], high95[i] - averageValue, averageValue - low67[i], high67[i] - averageValue);
+      System.out.format("%d\t%e\t%e\t%e\t%e\t%e\t%e%n",
+        i + 1,
+        averageValue,
+        stddev[i],
+        averageValue - low95[i],
+        high95[i] - averageValue,
+        averageValue - low67[i],
+        high67[i] - averageValue);
     }
   }
 
@@ -736,7 +712,8 @@ public class PerformanceTest extends AbstractBaseTest {
     builder.append(newline);
 
     builder.append("Op=Lex").append(RUN_PARSER ? "+Parse" : " only");
-    builder.append(", Strategy=").append(BAIL_ON_ERROR ? BailErrorStrategy.class.getSimpleName() : DefaultErrorStrategy.class.getSimpleName());
+    builder.append(", Strategy=")
+      .append(BAIL_ON_ERROR ? BailErrorStrategy.class.getSimpleName() : DefaultErrorStrategy.class.getSimpleName());
     builder.append(", BuildParseTree=").append(BUILD_PARSE_TREES);
     builder.append(", WalkBlankListener=").append(BLANK_LISTENER);
 
@@ -756,10 +733,13 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * This method is separate from {@link #parse2} so the first pass can be distinguished when analyzing
-   * profiler results.
+   * This method is separate from {@link #parse2} so the first pass can be distinguished when analyzing profiler
+   * results.
    */
-  protected void parse1(int currentPass, ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parse1(int currentPass,
+                        ParserFactory factory,
+                        Collection<InputDescriptor> sources,
+                        boolean shuffleSources) throws InterruptedException {
     if (FILE_GRANULARITY) {
       System.gc();
     }
@@ -768,10 +748,13 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   /**
-   * This method is separate from {@link #parse1} so the first pass can be distinguished when analyzing
-   * profiler results.
+   * This method is separate from {@link #parse1} so the first pass can be distinguished when analyzing profiler
+   * results.
    */
-  protected void parse2(int currentPass, ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parse2(int currentPass,
+                        ParserFactory factory,
+                        Collection<InputDescriptor> sources,
+                        boolean shuffleSources) throws InterruptedException {
     if (FILE_GRANULARITY) {
       System.gc();
     }
@@ -779,13 +762,20 @@ public class PerformanceTest extends AbstractBaseTest {
     parseSources(currentPass, factory, sources, shuffleSources);
   }
 
-  protected List<InputDescriptor> loadSources(File directory, FilenameFilter filesFilter, FilenameFilter directoriesFilter, boolean recursive) {
-    List<InputDescriptor> result = new ArrayList<InputDescriptor>();
+  protected List<InputDescriptor> loadSources(File directory,
+                                              FilenameFilter filesFilter,
+                                              FilenameFilter directoriesFilter,
+                                              boolean recursive) {
+    List<InputDescriptor> result = new ArrayList<>();
     loadSources(directory, filesFilter, directoriesFilter, recursive, result);
     return result;
   }
 
-  protected void loadSources(File directory, FilenameFilter filesFilter, FilenameFilter directoriesFilter, boolean recursive, Collection<InputDescriptor> result) {
+  protected void loadSources(File directory,
+                             FilenameFilter filesFilter,
+                             FilenameFilter directoriesFilter,
+                             boolean recursive,
+                             Collection<InputDescriptor> result) {
     assert directory.isDirectory();
 
     File[] sources = directory.listFiles(filesFilter);
@@ -810,9 +800,12 @@ public class PerformanceTest extends AbstractBaseTest {
   int configOutputSize = 0;
 
   @SuppressWarnings("unused")
-  protected void parseSources(final int currentPass, final ParserFactory factory, Collection<InputDescriptor> sources, boolean shuffleSources) throws InterruptedException {
+  protected void parseSources(final int currentPass,
+                              final ParserFactory factory,
+                              Collection<InputDescriptor> sources,
+                              boolean shuffleSources) throws InterruptedException {
     if (shuffleSources) {
-      List<InputDescriptor> sourcesList = new ArrayList<InputDescriptor>(sources);
+      List<InputDescriptor> sourcesList = new ArrayList<>(sources);
       synchronized (RANDOM) {
         Collections.shuffle(sourcesList, RANDOM);
       }
@@ -825,12 +818,14 @@ public class PerformanceTest extends AbstractBaseTest {
     int inputSize = 0;
     int inputCount = 0;
 
-    Collection<Future<FileParseResult>> results = new ArrayList<Future<FileParseResult>>();
+    Collection<Future<FileParseResult>> results = new ArrayList<>();
     ExecutorService executorService;
     if (FILE_GRANULARITY) {
-      executorService = Executors.newFixedThreadPool(FILE_GRANULARITY ? NUMBER_OF_THREADS : 1, new NumberedThreadFactory());
+      executorService = Executors.newFixedThreadPool(
+        FILE_GRANULARITY ? NUMBER_OF_THREADS : 1, new NumberedThreadFactory());
     } else {
-      executorService = Executors.newSingleThreadExecutor(new FixedThreadNumberFactory(((NumberedThread) Thread.currentThread()).getThreadNumber()));
+      executorService = Executors.newSingleThreadExecutor(
+        new FixedThreadNumberFactory(((NumberedThread) Thread.currentThread()).getThreadNumber()));
     }
 
     for (InputDescriptor inputDescriptor : sources) {
@@ -842,21 +837,15 @@ public class PerformanceTest extends AbstractBaseTest {
       input.seek(0);
       inputSize += input.size();
       inputCount++;
-      Future<FileParseResult> futureChecksum = executorService.submit(new Callable<FileParseResult>() {
-        @Override
-        public FileParseResult call() {
-          // this incurred a great deal of overhead and was causing significant variations in performance results.
-          //System.out.format("Parsing file %s\n", input.getSourceName());
-          try {
-            return factory.parseFile(input, currentPass, ((NumberedThread) Thread.currentThread()).getThreadNumber());
-          } catch (IllegalStateException ex) {
-            ex.printStackTrace(System.err);
-          } catch (Throwable t) {
-            t.printStackTrace(System.err);
-          }
-
-          return null;
+      Future<FileParseResult> futureChecksum = executorService.submit(() -> {
+        // this incurred a great deal of overhead and was causing significant variations in performance results.
+        try {
+          return factory.parseFile(input, currentPass, ((NumberedThread) Thread.currentThread()).getThreadNumber());
+        } catch (Throwable t) {
+          t.printStackTrace(System.err);
         }
+
+        return null;
       });
 
       results.add(futureChecksum);
@@ -879,7 +868,8 @@ public class PerformanceTest extends AbstractBaseTest {
             nonSllPerFile[currentPass][currentIndex] = fileResult.nonSll;
             totalTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserTotalTransitions;
             computedTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserComputedTransitions;
-            fullContextTransitionsPerDecisionPerFile[currentPass][currentIndex] = fileResult.parserFullContextTransitions;
+            fullContextTransitionsPerDecisionPerFile[currentPass][currentIndex] =
+              fileResult.parserFullContextTransitions;
           }
         }
 
@@ -917,10 +907,9 @@ public class PerformanceTest extends AbstractBaseTest {
       if (SHOW_DFA_STATE_STATS) {
         int states = 0;
         int configs = 0;
-        Set<ATNConfig> uniqueConfigs = new HashSet<ATNConfig>();
+        Set<ATNConfig> uniqueConfigs = new HashSet<>();
 
-        for (int i = 0; i < modeToDFA.length; i++) {
-          DFA dfa = modeToDFA[i];
+        for (DFA dfa : modeToDFA) {
           if (dfa == null) {
             continue;
           }
@@ -932,7 +921,8 @@ public class PerformanceTest extends AbstractBaseTest {
           }
         }
 
-        System.out.format("There are %d lexer DFAState instances, %d configs (%d unique), %d prediction contexts.%n", states, configs, uniqueConfigs.size(), lexerInterpreter.atn.getContextCacheSize());
+        System.out.format("There are %d lexer DFAState instances, %d configs (%d unique), %d prediction contexts.%n",
+          states, configs, uniqueConfigs.size(), lexerInterpreter.atn.getContextCacheSize());
 
         if (DETAILED_DFA_STATE_STATS) {
           System.out.format("\tMode\tStates\tConfigs\tMode%n");
@@ -964,10 +954,9 @@ public class PerformanceTest extends AbstractBaseTest {
       if (SHOW_DFA_STATE_STATS) {
         int states = 0;
         int configs = 0;
-        Set<ATNConfig> uniqueConfigs = new HashSet<ATNConfig>();
+        Set<ATNConfig> uniqueConfigs = new HashSet<>();
 
-        for (int i = 0; i < decisionToDFA.length; i++) {
-          DFA dfa = decisionToDFA[i];
+        for (DFA dfa : decisionToDFA) {
           if (dfa == null) {
             continue;
           }
@@ -979,11 +968,14 @@ public class PerformanceTest extends AbstractBaseTest {
           }
         }
 
-        System.out.format("There are %d parser DFAState instances, %d configs (%d unique), %d prediction contexts.%n", states, configs, uniqueConfigs.size(), interpreter.atn.getContextCacheSize());
+        System.out.format("There are %d parser DFAState instances, %d configs (%d unique), %d prediction contexts.%n",
+          states, configs, uniqueConfigs.size(), interpreter.atn.getContextCacheSize());
 
         if (DETAILED_DFA_STATE_STATS) {
           if (COMPUTE_TRANSITION_STATS) {
-            System.out.format("\tDecision\tStates\tConfigs\tPredict (ALL)\tPredict (LL)\tNon-SLL\tTransitions\tTransitions (ATN)\tTransitions (LL)\tLA (SLL)\tLA (LL)\tRule%n");
+            System.out.format(
+              "\tDecision\tStates\tConfigs\tPredict (ALL)\tPredict (LL)\tNon-SLL\tTransitions\tTransitions (ATN)" +
+                "\tTransitions (LL)\tLA (SLL)\tLA (LL)\tRule%n");
           } else {
             System.out.format("\tDecision\tStates\tConfigs\tRule%n");
           }
@@ -1049,7 +1041,19 @@ public class PerformanceTest extends AbstractBaseTest {
               formatString = "\t%1$d\t%2$d\t%3$d\t%12$s%n";
             }
 
-            System.out.format(formatString, dfa.decision, dfa.states.size(), decisionConfigs, calls, fullContextCalls, nonSllCalls, transitions, computedTransitions, fullContextTransitions, lookahead, fullContextLookahead, ruleName);
+            System.out.format(formatString,
+              dfa.decision,
+              dfa.states.size(),
+              decisionConfigs,
+              calls,
+              fullContextCalls,
+              nonSllCalls,
+              transitions,
+              computedTransitions,
+              fullContextTransitions,
+              lookahead,
+              fullContextLookahead,
+              ruleName);
           }
         }
       }
@@ -1060,8 +1064,7 @@ public class PerformanceTest extends AbstractBaseTest {
       int globalConfigCount = 0;
       int[] contextsInDFAState = new int[0];
 
-      for (int i = 0; i < decisionToDFA.length; i++) {
-        DFA dfa = decisionToDFA[i];
+      for (DFA dfa : decisionToDFA) {
         if (dfa == null) {
           continue;
         }
@@ -1110,8 +1113,10 @@ public class PerformanceTest extends AbstractBaseTest {
       }
 
       if (SHOW_CONFIG_STATS && currentPass == 0) {
-        System.out.format("  DFA accept states: %d total, %d with only local context, %d with a global context%n", localDfaCount + globalDfaCount, localDfaCount, globalDfaCount);
-        System.out.format("  Config stats: %d total, %d local, %d global%n", localConfigCount + globalConfigCount, localConfigCount, globalConfigCount);
+        System.out.format("  DFA accept states: %d total, %d with only local context, %d with a global context%n",
+          localDfaCount + globalDfaCount, localDfaCount, globalDfaCount);
+        System.out.format("  Config stats: %d total, %d local, %d global%n", localConfigCount + globalConfigCount,
+          localConfigCount, globalConfigCount);
         if (SHOW_DFA_STATE_STATS) {
           for (int i = 0; i < contextsInDFAState.length; i++) {
             if (contextsInDFAState[i] != 0) {
@@ -1132,8 +1137,8 @@ public class PerformanceTest extends AbstractBaseTest {
 
   private static long sum(long[] array) {
     long result = 0;
-    for (int i = 0; i < array.length; i++) {
-      result += array[i];
+    for (long l : array) {
+      result += l;
     }
 
     return result;
@@ -1144,7 +1149,7 @@ public class PerformanceTest extends AbstractBaseTest {
     String parserName = leftRecursive ? "JavaLRParser" : "JavaParser";
     String lexerName = leftRecursive ? "JavaLRLexer" : "JavaLexer";
     String body = load(grammarFileName, null);
-    List<String> extraOptions = new ArrayList<String>();
+    List<String> extraOptions = new ArrayList<>();
     extraOptions.add("-Werror");
     if (FORCE_ATN) {
       extraOptions.add("-Xforce-atn");
@@ -1160,7 +1165,8 @@ public class PerformanceTest extends AbstractBaseTest {
     }
     extraOptions.add("-visitor");
     String[] extraOptionsArray = extraOptions.toArray(new String[extraOptions.size()]);
-    boolean success = rawGenerateAndBuildRecognizer(grammarFileName, body, parserName, lexerName, true, extraOptionsArray);
+    boolean success = rawGenerateAndBuildRecognizer(grammarFileName, body, parserName, lexerName, true,
+      extraOptionsArray);
     assertThat(success).isTrue();
   }
 
@@ -1182,12 +1188,16 @@ public class PerformanceTest extends AbstractBaseTest {
     updateChecksum(checksum, token.getChannel());
   }
 
-  protected ParserFactory getParserFactory(String lexerName, String parserName, String listenerName, final String entryPoint) {
+  protected ParserFactory getParserFactory(String lexerName,
+                                           String parserName,
+                                           String listenerName,
+                                           final String entryPoint) {
     try {
-      ClassLoader loader = new URLClassLoader(new URL[]{new File(tmpdir).toURI().toURL()}, ClassLoader.getSystemClassLoader());
+      var loader = new URLClassLoader(new URL[]{new File(tmpdir).toURI().toURL()}, ClassLoader.getSystemClassLoader());
       final Class<? extends Lexer> lexerClass = loader.loadClass(lexerName).asSubclass(Lexer.class);
       final Class<? extends Parser> parserClass = loader.loadClass(parserName).asSubclass(Parser.class);
-      final Class<? extends ParseTreeListener> listenerClass = loader.loadClass(listenerName).asSubclass(ParseTreeListener.class);
+      final Class<? extends ParseTreeListener> listenerClass = loader.loadClass(listenerName)
+        .asSubclass(ParseTreeListener.class);
 
       final Constructor<? extends Lexer> lexerCtor = lexerClass.getConstructor(CharStream.class);
       final Constructor<? extends Parser> parserCtor = parserClass.getConstructor(TokenStream.class);
@@ -1212,86 +1222,158 @@ public class PerformanceTest extends AbstractBaseTest {
         }
       }
 
-      return new ParserFactory() {
-        @SuppressWarnings("unused")
-        @Override
-        public FileParseResult parseFile(CharStream input, int currentPass, int thread) {
-          final MurmurHashChecksum checksum = new MurmurHashChecksum();
+      return (input, currentPass, thread) -> {
+        final MurmurHashChecksum checksum = new MurmurHashChecksum();
 
-          final long startTime = System.nanoTime();
-          assert thread >= 0 && thread < NUMBER_OF_THREADS;
+        final long startTime = System.nanoTime();
+        assert thread >= 0 && thread < NUMBER_OF_THREADS;
+
+        try {
+          ParseTreeListener listener = sharedListeners[thread];
+          if (listener == null) {
+            listener = listenerClass.getDeclaredConstructor().newInstance();
+            sharedListeners[thread] = listener;
+          }
+
+          Lexer lexer = sharedLexers[thread];
+          if (REUSE_LEXER && lexer != null) {
+            lexer.setInputStream(input);
+          } else {
+            Lexer previousLexer = lexer;
+            lexer = lexerCtor.newInstance(input);
+            sharedLexers[thread] = lexer;
+            ATN atn = (FILE_GRANULARITY || previousLexer == null ? lexer : previousLexer).getATN();
+            if (!REUSE_LEXER_DFA || (!FILE_GRANULARITY && previousLexer == null)) {
+              atn = sharedLexerATNs[thread];
+            }
+
+            if (!ENABLE_LEXER_DFA) {
+              lexer.setInterpreter(new NonCachingLexerATNSimulator(lexer, atn));
+            } else if (!REUSE_LEXER_DFA || COMPUTE_TRANSITION_STATS) {
+              lexer.setInterpreter(new StatisticsLexerATNSimulator(lexer, atn));
+            }
+          }
+
+          lexer.removeErrorListeners();
+          lexer.addErrorListener(DescriptiveLexerErrorListener.INSTANCE);
+
+          lexer.getInterpreter().optimize_tail_calls = OPTIMIZE_TAIL_CALLS;
+          if (ENABLE_LEXER_DFA && !REUSE_LEXER_DFA) {
+            lexer.getInterpreter().atn.clearDFA();
+          }
+
+          CommonTokenStream tokens = new CommonTokenStream(lexer);
+          tokens.fill();
+          tokenCount.addAndGet(currentPass, tokens.size());
+
+          if (COMPUTE_CHECKSUM) {
+            for (Token token : tokens.getTokens()) {
+              updateChecksum(checksum, token);
+            }
+          }
+
+          if (!RUN_PARSER) {
+            return new FileParseResult(input.getSourceName(), checksum.getValue(), null, tokens.size(),
+              startTime, lexer, null);
+          }
+
+          final long parseStartTime = System.nanoTime();
+          Parser parser = sharedParsers[thread];
+          if (REUSE_PARSER && parser != null) {
+            parser.setInputStream(tokens);
+          } else {
+            Parser previousParser = parser;
+
+            if (USE_PARSER_INTERPRETER) {
+              Parser referenceParser = parserCtor.newInstance(tokens);
+              parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(),
+                Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
+            } else {
+              parser = parserCtor.newInstance(tokens);
+            }
+
+            ATN atn = (FILE_GRANULARITY || previousParser == null ? parser : previousParser).getATN();
+            if (!REUSE_PARSER_DFA || (!FILE_GRANULARITY && previousParser == null)) {
+              atn = sharedParserATNs[thread];
+            }
+
+            if (!ENABLE_PARSER_DFA) {
+              parser.setInterpreter(new NonCachingParserATNSimulator(parser, atn));
+            } else if (!REUSE_PARSER_DFA || COMPUTE_TRANSITION_STATS) {
+              parser.setInterpreter(new StatisticsParserATNSimulator(parser, atn));
+            }
+
+            sharedParsers[thread] = parser;
+          }
+
+          parser.removeParseListeners();
+          parser.removeErrorListeners();
+          if (!TWO_STAGE_PARSING) {
+            parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
+            parser.addErrorListener(new SummarizingDiagnosticErrorListener());
+          }
+
+          if (ENABLE_PARSER_DFA && !REUSE_PARSER_DFA) {
+            parser.getInterpreter().atn.clearDFA();
+          }
+
+          parser.getInterpreter().setPredictionMode(TWO_STAGE_PARSING ? PredictionMode.SLL : PREDICTION_MODE);
+          parser.getInterpreter().force_global_context = FORCE_GLOBAL_CONTEXT && !TWO_STAGE_PARSING;
+          parser.getInterpreter().always_try_local_context = TRY_LOCAL_CONTEXT_FIRST || TWO_STAGE_PARSING;
+          parser.getInterpreter().enable_global_context_dfa = ENABLE_PARSER_FULL_CONTEXT_DFA;
+          parser.getInterpreter().optimize_ll1 = OPTIMIZE_LL1;
+          parser.getInterpreter().optimize_unique_closure = OPTIMIZE_UNIQUE_CLOSURE;
+          parser.getInterpreter().optimize_tail_calls = OPTIMIZE_TAIL_CALLS;
+          parser.getInterpreter().tail_call_preserves_sll = TAIL_CALL_PRESERVES_SLL;
+          parser.getInterpreter().treat_sllk1_conflict_as_ambiguity = TREAT_SLLK1_CONFLICT_AS_AMBIGUITY;
+          parser.setBuildParseTree(BUILD_PARSE_TREES);
+          if (!BUILD_PARSE_TREES && BLANK_LISTENER) {
+            parser.addParseListener(listener);
+          }
+          if (BAIL_ON_ERROR || TWO_STAGE_PARSING) {
+            parser.setErrorHandler(new BailErrorStrategy());
+          }
+
+          Method parseMethod = parserClass.getMethod(entryPoint);
+          Object parseResult;
 
           try {
-            ParseTreeListener listener = sharedListeners[thread];
-            if (listener == null) {
-              listener = listenerClass.newInstance();
-              sharedListeners[thread] = listener;
+            if (COMPUTE_CHECKSUM && !BUILD_PARSE_TREES) {
+              parser.addParseListener(new ChecksumParseTreeListener(checksum));
             }
 
-            Lexer lexer = sharedLexers[thread];
-            if (REUSE_LEXER && lexer != null) {
-              lexer.setInputStream(input);
+            if (USE_PARSER_INTERPRETER) {
+              ParserInterpreter parserInterpreter = (ParserInterpreter) parser;
+              parseResult = parserInterpreter.parse(Collections.lastIndexOfSubList(
+                Arrays.asList(parser.getRuleNames()), Collections.singletonList(entryPoint)));
             } else {
-              Lexer previousLexer = lexer;
-              lexer = lexerCtor.newInstance(input);
-              sharedLexers[thread] = lexer;
-              ATN atn = (FILE_GRANULARITY || previousLexer == null ? lexer : previousLexer).getATN();
-              if (!REUSE_LEXER_DFA || (!FILE_GRANULARITY && previousLexer == null)) {
-                atn = sharedLexerATNs[thread];
-              }
-
-              if (!ENABLE_LEXER_DFA) {
-                lexer.setInterpreter(new NonCachingLexerATNSimulator(lexer, atn));
-              } else if (!REUSE_LEXER_DFA || COMPUTE_TRANSITION_STATS) {
-                lexer.setInterpreter(new StatisticsLexerATNSimulator(lexer, atn));
-              }
+              parseResult = parseMethod.invoke(parser);
+            }
+          } catch (InvocationTargetException ex) {
+            if (!TWO_STAGE_PARSING) {
+              throw ex;
             }
 
-            lexer.removeErrorListeners();
-            lexer.addErrorListener(DescriptiveLexerErrorListener.INSTANCE);
-
-            lexer.getInterpreter().optimize_tail_calls = OPTIMIZE_TAIL_CALLS;
-            if (ENABLE_LEXER_DFA && !REUSE_LEXER_DFA) {
-              lexer.getInterpreter().atn.clearDFA();
+            String sourceName = tokens.getSourceName();
+            sourceName = sourceName != null && !sourceName.isEmpty() ? sourceName + ": " : "";
+            if (REPORT_SECOND_STAGE_RETRY) {
+              System.err.println(sourceName + "Forced to retry with full context.");
             }
 
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            tokens.fill();
-            tokenCount.addAndGet(currentPass, tokens.size());
-
-            if (COMPUTE_CHECKSUM) {
-              for (Token token : tokens.getTokens()) {
-                updateChecksum(checksum, token);
-              }
+            if (!(ex.getCause() instanceof ParseCancellationException)) {
+              throw ex;
             }
 
-            if (!RUN_PARSER) {
-              return new FileParseResult(input.getSourceName(), checksum.getValue(), null, tokens.size(), startTime, lexer, null);
-            }
-
-            final long parseStartTime = System.nanoTime();
-            Parser parser = sharedParsers[thread];
-            if (REUSE_PARSER && parser != null) {
+            tokens.seek(0);
+            if (REUSE_PARSER && sharedParsers[thread] != null) {
               parser.setInputStream(tokens);
             } else {
-              Parser previousParser = parser;
-
               if (USE_PARSER_INTERPRETER) {
                 Parser referenceParser = parserCtor.newInstance(tokens);
-                parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(), Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
+                parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(),
+                  Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
               } else {
                 parser = parserCtor.newInstance(tokens);
-              }
-
-              ATN atn = (FILE_GRANULARITY || previousParser == null ? parser : previousParser).getATN();
-              if (!REUSE_PARSER_DFA || (!FILE_GRANULARITY && previousParser == null)) {
-                atn = sharedLexerATNs[thread];
-              }
-
-              if (!ENABLE_PARSER_DFA) {
-                parser.setInterpreter(new NonCachingParserATNSimulator(parser, atn));
-              } else if (!REUSE_PARSER_DFA || COMPUTE_TRANSITION_STATS) {
-                parser.setInterpreter(new StatisticsParserATNSimulator(parser, atn));
               }
 
               sharedParsers[thread] = parser;
@@ -1299,18 +1381,18 @@ public class PerformanceTest extends AbstractBaseTest {
 
             parser.removeParseListeners();
             parser.removeErrorListeners();
-            if (!TWO_STAGE_PARSING) {
-              parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
-              parser.addErrorListener(new SummarizingDiagnosticErrorListener());
+            parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
+            parser.addErrorListener(new SummarizingDiagnosticErrorListener());
+            if (!ENABLE_PARSER_DFA) {
+              parser.setInterpreter(new NonCachingParserATNSimulator(parser, parser.getATN()));
+            } else if (!REUSE_PARSER_DFA) {
+              parser.setInterpreter(new StatisticsParserATNSimulator(parser, sharedParserATNs[thread]));
+            } else if (COMPUTE_TRANSITION_STATS) {
+              parser.setInterpreter(new StatisticsParserATNSimulator(parser, parser.getATN()));
             }
-
-            if (ENABLE_PARSER_DFA && !REUSE_PARSER_DFA) {
-              parser.getInterpreter().atn.clearDFA();
-            }
-
-            parser.getInterpreter().setPredictionMode(TWO_STAGE_PARSING ? PredictionMode.SLL : PREDICTION_MODE);
-            parser.getInterpreter().force_global_context = FORCE_GLOBAL_CONTEXT && !TWO_STAGE_PARSING;
-            parser.getInterpreter().always_try_local_context = TRY_LOCAL_CONTEXT_FIRST || TWO_STAGE_PARSING;
+            parser.getInterpreter().setPredictionMode(PREDICTION_MODE);
+            parser.getInterpreter().force_global_context = FORCE_GLOBAL_CONTEXT;
+            parser.getInterpreter().always_try_local_context = TRY_LOCAL_CONTEXT_FIRST;
             parser.getInterpreter().enable_global_context_dfa = ENABLE_PARSER_FULL_CONTEXT_DFA;
             parser.getInterpreter().optimize_ll1 = OPTIMIZE_LL1;
             parser.getInterpreter().optimize_unique_closure = OPTIMIZE_UNIQUE_CLOSURE;
@@ -1318,107 +1400,37 @@ public class PerformanceTest extends AbstractBaseTest {
             parser.getInterpreter().tail_call_preserves_sll = TAIL_CALL_PRESERVES_SLL;
             parser.getInterpreter().treat_sllk1_conflict_as_ambiguity = TREAT_SLLK1_CONFLICT_AS_AMBIGUITY;
             parser.setBuildParseTree(BUILD_PARSE_TREES);
+            if (COMPUTE_CHECKSUM && !BUILD_PARSE_TREES) {
+              parser.addParseListener(new ChecksumParseTreeListener(checksum));
+            }
             if (!BUILD_PARSE_TREES && BLANK_LISTENER) {
               parser.addParseListener(listener);
             }
-            if (BAIL_ON_ERROR || TWO_STAGE_PARSING) {
+            if (BAIL_ON_ERROR) {
               parser.setErrorHandler(new BailErrorStrategy());
             }
 
-            Method parseMethod = parserClass.getMethod(entryPoint);
-            Object parseResult;
-
-            try {
-              if (COMPUTE_CHECKSUM && !BUILD_PARSE_TREES) {
-                parser.addParseListener(new ChecksumParseTreeListener(checksum));
-              }
-
-              if (USE_PARSER_INTERPRETER) {
-                ParserInterpreter parserInterpreter = (ParserInterpreter) parser;
-                parseResult = parserInterpreter.parse(Collections.lastIndexOfSubList(Arrays.asList(parser.getRuleNames()), Collections.singletonList(entryPoint)));
-              } else {
-                parseResult = parseMethod.invoke(parser);
-              }
-            } catch (InvocationTargetException ex) {
-              if (!TWO_STAGE_PARSING) {
-                throw ex;
-              }
-
-              String sourceName = tokens.getSourceName();
-              sourceName = sourceName != null && !sourceName.isEmpty() ? sourceName + ": " : "";
-              if (REPORT_SECOND_STAGE_RETRY) {
-                System.err.println(sourceName + "Forced to retry with full context.");
-              }
-
-              if (!(ex.getCause() instanceof ParseCancellationException)) {
-                throw ex;
-              }
-
-              tokens.seek(0);
-              if (REUSE_PARSER && sharedParsers[thread] != null) {
-                parser.setInputStream(tokens);
-              } else {
-                if (USE_PARSER_INTERPRETER) {
-                  Parser referenceParser = parserCtor.newInstance(tokens);
-                  parser = new ParserInterpreter(referenceParser.getGrammarFileName(), referenceParser.getVocabulary(), Arrays.asList(referenceParser.getRuleNames()), referenceParser.getATN(), tokens);
-                } else {
-                  parser = parserCtor.newInstance(tokens);
-                }
-
-                sharedParsers[thread] = parser;
-              }
-
-              parser.removeParseListeners();
-              parser.removeErrorListeners();
-              parser.addErrorListener(DescriptiveErrorListener.INSTANCE);
-              parser.addErrorListener(new SummarizingDiagnosticErrorListener());
-              if (!ENABLE_PARSER_DFA) {
-                parser.setInterpreter(new NonCachingParserATNSimulator(parser, parser.getATN()));
-              } else if (!REUSE_PARSER_DFA) {
-                parser.setInterpreter(new StatisticsParserATNSimulator(parser, sharedParserATNs[thread]));
-              } else if (COMPUTE_TRANSITION_STATS) {
-                parser.setInterpreter(new StatisticsParserATNSimulator(parser, parser.getATN()));
-              }
-              parser.getInterpreter().setPredictionMode(PREDICTION_MODE);
-              parser.getInterpreter().force_global_context = FORCE_GLOBAL_CONTEXT;
-              parser.getInterpreter().always_try_local_context = TRY_LOCAL_CONTEXT_FIRST;
-              parser.getInterpreter().enable_global_context_dfa = ENABLE_PARSER_FULL_CONTEXT_DFA;
-              parser.getInterpreter().optimize_ll1 = OPTIMIZE_LL1;
-              parser.getInterpreter().optimize_unique_closure = OPTIMIZE_UNIQUE_CLOSURE;
-              parser.getInterpreter().optimize_tail_calls = OPTIMIZE_TAIL_CALLS;
-              parser.getInterpreter().tail_call_preserves_sll = TAIL_CALL_PRESERVES_SLL;
-              parser.getInterpreter().treat_sllk1_conflict_as_ambiguity = TREAT_SLLK1_CONFLICT_AS_AMBIGUITY;
-              parser.setBuildParseTree(BUILD_PARSE_TREES);
-              if (COMPUTE_CHECKSUM && !BUILD_PARSE_TREES) {
-                parser.addParseListener(new ChecksumParseTreeListener(checksum));
-              }
-              if (!BUILD_PARSE_TREES && BLANK_LISTENER) {
-                parser.addParseListener(listener);
-              }
-              if (BAIL_ON_ERROR) {
-                parser.setErrorHandler(new BailErrorStrategy());
-              }
-
-              parseResult = parseMethod.invoke(parser);
-            }
-
-            assertThat(parseResult).isInstanceOf(ParseTree.class);
-            if (COMPUTE_CHECKSUM && BUILD_PARSE_TREES) {
-              ParseTreeWalker.DEFAULT.walk(new ChecksumParseTreeListener(checksum), (ParseTree) parseResult);
-            }
-            if (BUILD_PARSE_TREES && BLANK_LISTENER) {
-              ParseTreeWalker.DEFAULT.walk(listener, (ParserRuleContext) parseResult);
-            }
-
-            return new FileParseResult(input.getSourceName(), checksum.getValue(), (ParseTree) parseResult, tokens.size(), TIME_PARSE_ONLY ? parseStartTime : startTime, lexer, parser);
-          } catch (Exception e) {
-            if (!REPORT_SYNTAX_ERRORS && e instanceof ParseCancellationException) {
-              return new FileParseResult("unknown", checksum.getValue(), null, 0, startTime, null, null);
-            }
-
-            e.printStackTrace(System.out);
-            throw new IllegalStateException(e);
+            parseResult = parseMethod.invoke(parser);
           }
+
+          assertThat(parseResult).isInstanceOf(ParseTree.class);
+          if (COMPUTE_CHECKSUM && BUILD_PARSE_TREES) {
+            ParseTreeWalker.DEFAULT.walk(new ChecksumParseTreeListener(checksum), (ParseTree) parseResult);
+          }
+          if (BUILD_PARSE_TREES && BLANK_LISTENER) {
+            ParseTreeWalker.DEFAULT.walk(listener, (ParserRuleContext) parseResult);
+          }
+
+          return new FileParseResult(input.getSourceName(), checksum.getValue(), (ParseTree) parseResult,
+            tokens.size(), TIME_PARSE_ONLY ? parseStartTime : startTime, lexer, parser);
+        } catch (Exception e) {
+          if (!REPORT_SYNTAX_ERRORS && e instanceof ParseCancellationException) {
+            return new FileParseResult("unknown", checksum.getValue(), null, 0,
+              startTime, null, null);
+          }
+
+          e.printStackTrace(System.out);
+          throw new IllegalStateException(e);
         }
       };
     } catch (Exception e) {
@@ -1451,7 +1463,8 @@ public class PerformanceTest extends AbstractBaseTest {
     public final long[] parserComputedTransitions;
     public final long[] parserFullContextTransitions;
 
-    public FileParseResult(String sourceName, int checksum, @Nullable ParseTree parseTree, int tokenCount, long startTime, Lexer lexer, Parser parser) {
+    public FileParseResult(String sourceName, int checksum, @Nullable ParseTree parseTree, int tokenCount,
+                           long startTime, Lexer lexer, Parser parser) {
       this.sourceName = sourceName;
       this.checksum = checksum;
       this.parseTree = parseTree;
@@ -1616,7 +1629,10 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    protected SimulatorState computeReachSet(DFA dfa, SimulatorState previous, int t, PredictionContextCache contextCache) {
+    protected SimulatorState computeReachSet(DFA dfa,
+                                             SimulatorState previous,
+                                             int t,
+                                             PredictionContextCache contextCache) {
       if (previous.useContext) {
         totalTransitions[decision]++;
         computedTransitions[decision]++;
@@ -1627,11 +1643,13 @@ public class PerformanceTest extends AbstractBaseTest {
     }
   }
 
+  @NullMarked
   private static class DescriptiveErrorListener extends BaseErrorListener {
     public static DescriptiveErrorListener INSTANCE = new DescriptiveErrorListener();
 
     @Override
-    public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Token> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
+                                              int charPositionInLine, String msg, @org.jspecify.annotations.Nullable RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1646,11 +1664,13 @@ public class PerformanceTest extends AbstractBaseTest {
 
   }
 
+  @NullMarked
   private static class DescriptiveLexerErrorListener implements ANTLRErrorListener<Integer> {
     public static DescriptiveLexerErrorListener INSTANCE = new DescriptiveLexerErrorListener();
 
     @Override
-    public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line, int charPositionInLine, String msg, RecognitionException e) {
+    public <T extends Integer> void syntaxError(Recognizer<T, ?> recognizer, T offendingSymbol, int line,
+                                                int charPositionInLine, String msg, @org.jspecify.annotations.Nullable RecognitionException e) {
       if (!REPORT_SYNTAX_ERRORS) {
         return;
       }
@@ -1670,7 +1690,8 @@ public class PerformanceTest extends AbstractBaseTest {
     private ATNConfigSet _sllConfigs;
 
     @Override
-    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
+    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact,
+                                BitSet ambigAlts, ATNConfigSet configs) {
       if (COMPUTE_TRANSITION_STATS && DETAILED_DFA_STATE_STATS) {
         BitSet sllPredictions = getConflictingAlts(_sllConflict, _sllConfigs);
         int sllPrediction = sllPredictions.nextSetBit(0);
@@ -1694,7 +1715,8 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, SimulatorState conflictState) {
+    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex,
+                                            BitSet conflictingAlts, SimulatorState conflictState) {
       _sllConflict = conflictingAlts;
       _sllConfigs = conflictState.s0.configs;
       if (!REPORT_FULL_CONTEXT) {
@@ -1711,7 +1733,8 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     @Override
-    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, SimulatorState acceptState) {
+    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction,
+                                         SimulatorState acceptState) {
       if (COMPUTE_TRANSITION_STATS && DETAILED_DFA_STATE_STATS) {
         BitSet sllPredictions = getConflictingAlts(_sllConflict, _sllConfigs);
         int sllPrediction = sllPredictions.nextSetBit(0);
@@ -1734,14 +1757,7 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   protected static final class FilenameFilters {
-    public static final FilenameFilter ALL_FILES = new FilenameFilter() {
-
-      @Override
-      public boolean accept(File dir, String name) {
-        return true;
-      }
-
-    };
+    public static final FilenameFilter ALL_FILES = (dir, name) -> true;
 
     public static FilenameFilter extension(String extension) {
       return extension(extension, true);
@@ -1891,15 +1907,15 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   protected static class NonCachingParserATNSimulator extends StatisticsParserATNSimulator {
-    private static final EmptyEdgeMap<DFAState> emptyMap = new EmptyEdgeMap<DFAState>(-1, -1);
+    private static final EmptyEdgeMap<DFAState> emptyMap = new EmptyEdgeMap<>(-1, -1);
 
     public NonCachingParserATNSimulator(Parser parser, ATN atn) {
       super(parser, atn);
     }
 
-    @NotNull
+
     @Override
-    protected DFAState createDFAState(@NotNull DFA dfa, @NotNull ATNConfigSet configs) {
+    protected DFAState createDFAState(DFA dfa, ATNConfigSet configs) {
       return new DFAState(emptyMap, dfa.getEmptyContextEdgeMap(), configs);
     }
 
@@ -1989,14 +2005,14 @@ public class PerformanceTest extends AbstractBaseTest {
     private final String source;
     private Reference<CodePointBuffer> inputStream;
 
-    public InputDescriptor(@NotNull String source) {
+    public InputDescriptor(String source) {
       this.source = source;
       if (PRELOAD_SOURCES) {
         getInputStream();
       }
     }
 
-    @NotNull
+
     public CharStream getInputStream() {
       CodePointBuffer buffer = inputStream != null ? inputStream.get() : null;
       if (buffer == null) {
@@ -2008,9 +2024,9 @@ public class PerformanceTest extends AbstractBaseTest {
         }
 
         if (PRELOAD_SOURCES) {
-          inputStream = new StrongReference<CodePointBuffer>(buffer);
+          inputStream = new StrongReference<>(buffer);
         } else {
-          inputStream = new SoftReference<CodePointBuffer>(buffer);
+          inputStream = new SoftReference<>(buffer);
         }
       }
 
@@ -2058,13 +2074,15 @@ public class PerformanceTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testExponentialInclude() {
+  void testExponentialInclude() {
     String grammarFormat =
-      "parser grammar Level_%d_%d;\n" +
-        "\n" +
-        "%s import Level_%d_1, Level_%d_2;\n" +
-        "\n" +
-        "rule_%d_%d : EOF;\n";
+      """
+        parser grammar Level_%d_%d;
+        
+        %s import Level_%d_1, Level_%d_2;
+        
+        rule_%d_%d : EOF;
+        """;
 
     System.out.println("dir " + tmpdir);
     mkdir(tmpdir);
@@ -2083,7 +2101,7 @@ public class PerformanceTest extends AbstractBaseTest {
     }
 
     ErrorQueue equeue = antlr("Level_0_1.g4", false);
-    assertThat(equeue.errors.isEmpty()).isTrue();
+    assertThat(equeue.errors).isEmpty();
 
     long endTime = System.nanoTime();
     System.out.format("%s milliseconds.%n", (endTime - startTime) / 1000000.0);

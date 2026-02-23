@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ActionSplitterTest extends AbstractBaseTest {
+class ActionSplitterTest extends AbstractBaseTest {
   static String[] exprs = {
     "foo", "['foo'<" + ActionSplitter.TEXT + ">]",
     "$x", "['$x'<" + ActionSplitter.ATTR + ">]",
@@ -29,10 +29,13 @@ public class ActionSplitterTest extends AbstractBaseTest {
     "$ID.text", "['$ID.text'<" + ActionSplitter.QUALIFIED_ATTR + ">]",
     "$ID", "['$ID'<" + ActionSplitter.ATTR + ">]",
     "$ID.getText()", "['$ID'<" + ActionSplitter.ATTR + ">, '.getText()'<" + ActionSplitter.TEXT + ">]",
-    "$ID.text = \"test\";", "['$ID.text'<" + ActionSplitter.QUALIFIED_ATTR + ">, ' = \"test\";'<" + ActionSplitter.TEXT + ">]",
-    "$a.line == $b.line", "['$a.line'<" + ActionSplitter.QUALIFIED_ATTR + ">, ' == '<" + ActionSplitter.TEXT + ">, '$b.line'<" + ActionSplitter.QUALIFIED_ATTR + ">]",
+    "$ID.text = \"test\";", "['$ID.text'<" + ActionSplitter.QUALIFIED_ATTR + ">, ' = \"test\";'<"
+    + ActionSplitter.TEXT + ">]",
+    "$a.line == $b.line", "['$a.line'<" + ActionSplitter.QUALIFIED_ATTR + ">, ' == '<" + ActionSplitter.TEXT
+    + ">, '$b.line'<" + ActionSplitter.QUALIFIED_ATTR + ">]",
     "$r.tree", "['$r.tree'<" + ActionSplitter.QUALIFIED_ATTR + ">]",
-    "foo $a::n bar", "['foo '<" + ActionSplitter.TEXT + ">, '$a::n'<" + ActionSplitter.NONLOCAL_ATTR + ">, ' bar'<" + ActionSplitter.TEXT + ">]",
+    "foo $a::n bar", "['foo '<" + ActionSplitter.TEXT + ">, '$a::n'<" + ActionSplitter.NONLOCAL_ATTR + ">, ' bar'<"
+    + ActionSplitter.TEXT + ">]",
     "$rule::x;", "['$rule::x'<" + ActionSplitter.NONLOCAL_ATTR + ">, ';'<" + ActionSplitter.TEXT + ">]",
     "$field::x = $field.st;", "['$field::x = $field.st;'<" + ActionSplitter.SET_NONLOCAL_ATTR + ">]",
     "$foo.get(\"ick\");", "['$foo'<" + ActionSplitter.ATTR + ">, '.get(\"ick\");'<" + ActionSplitter.TEXT + ">]",
@@ -40,12 +43,12 @@ public class ActionSplitterTest extends AbstractBaseTest {
 
 
   @Test
-  public void testExprs() {
+  void testExprs() {
     for (int i = 0; i < exprs.length; i += 2) {
       String input = exprs[i];
       String expect = exprs[i + 1];
       List<String> chunks = getActionChunks(input);
-      assertThat(chunks.toString()).as("input: " + input).isEqualTo(expect);
+      assertThat(chunks).as("input: " + input).hasToString(expect);
     }
   }
 

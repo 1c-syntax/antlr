@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,20 +10,17 @@
 package org.antlr.v4.test.tool;
 
 import org.antlr.v4.runtime.atn.ATNSerializer;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * test runtime parse errors
  */
 @SuppressWarnings("unused")
-public class ParseErrorsTest extends AbstractBaseTest {
+class ParseErrorsTest extends AbstractBaseTest {
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testTokenMismatch() {
+  void testTokenMismatch() {
     String grammar =
       """
         grammar T;
@@ -31,12 +28,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "aa", false);
     String expecting = "line 1:1 mismatched input 'a' expecting 'b'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletion() {
+  void testSingleTokenDeletion() {
     String grammar =
       """
         grammar T;
@@ -44,12 +40,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "aab", false);
     String expecting = "line 1:1 extraneous input 'a' expecting 'b'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionExpectingSet() {
+  void testSingleTokenDeletionExpectingSet() {
     String grammar =
       """
         grammar T;
@@ -57,12 +52,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "aab", false);
     String expecting = "line 1:1 extraneous input 'a' expecting {'b', 'c'}\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenInsertion() {
+  void testSingleTokenInsertion() {
     String grammar =
       """
         grammar T;
@@ -70,24 +64,22 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ac", false);
     String expecting = "line 1:1 missing 'b' at 'c'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConjuringUpToken() {
+  void testConjuringUpToken() {
     String grammar =
       """
         grammar T;
         a : 'a' x='b' {System.out.println("conjured="+$x);} 'c' ;""";
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ac", false);
     String expecting = "conjured=[@-1,-1:-1='<missing 'b'>',<2>,1:1]\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleSetInsertion() {
+  void testSingleSetInsertion() {
     String grammar =
       """
         grammar T;
@@ -95,24 +87,22 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ad", false);
     String expecting = "line 1:1 missing {'b', 'c'} at 'd'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConjuringUpTokenFromSet() {
+  void testConjuringUpTokenFromSet() {
     String grammar =
       """
         grammar T;
         a : 'a' x=('b'|'c') {System.out.println("conjured="+$x);} 'd' ;""";
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ad", false);
     String expecting = "conjured=[@-1,-1:-1='<missing 'b'>',<2>,1:1]\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL2() {
+  void testLL2() {
     String grammar =
       """
         grammar T;
@@ -124,12 +114,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ae", false);
     String expecting = "line 1:1 no viable alternative at input 'ae'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL3() {
+  void testLL3() {
     String grammar =
       """
         grammar T;
@@ -142,12 +131,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "abe", false);
     String expecting = "line 1:2 no viable alternative at input 'abe'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLLStar() {
+  void testLLStar() {
     String grammar =
       """
         grammar T;
@@ -159,12 +147,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "aaae", false);
     String expecting = "line 1:3 no viable alternative at input 'aaae'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionBeforeLoop() {
+  void testSingleTokenDeletionBeforeLoop() {
     String grammar =
       """
         grammar T;
@@ -175,12 +162,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
       line 1:3 token recognition error at: 'c'
       """;
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionBeforeLoop() {
+  void testMultiTokenDeletionBeforeLoop() {
     // can only delete 1 before loop
     String grammar =
       """
@@ -190,12 +176,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String expecting =
       "line 1:1 extraneous input 'a' expecting {'b', 'c'}\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionDuringLoop() {
+  void testSingleTokenDeletionDuringLoop() {
     String grammar =
       """
         grammar T;
@@ -203,12 +188,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ababbc", false);
     String expecting = "line 1:2 extraneous input 'a' expecting {'b', 'c'}\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionDuringLoop() {
+  void testMultiTokenDeletionDuringLoop() {
     String grammar =
       """
         grammar T;
@@ -220,14 +204,13 @@ public class ParseErrorsTest extends AbstractBaseTest {
         line 1:6 extraneous input 'a' expecting {'b', 'c'}
         """;
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   // ------
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionBeforeLoop2() {
+  void testSingleTokenDeletionBeforeLoop2() {
     String grammar =
       """
         grammar T;
@@ -238,12 +221,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
       line 1:3 token recognition error at: 'c'
       """;
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionBeforeLoop2() {
+  void testMultiTokenDeletionBeforeLoop2() {
     // can only delete 1 before loop
     String grammar =
       """
@@ -253,12 +235,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String expecting =
       "line 1:1 extraneous input 'a' expecting {'b', 'z', 'c'}\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionDuringLoop2() {
+  void testSingleTokenDeletionDuringLoop2() {
     String grammar =
       """
         grammar T;
@@ -266,12 +247,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ababbc", false);
     String expecting = "line 1:2 extraneous input 'a' expecting {'b', 'z', 'c'}\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testMultiTokenDeletionDuringLoop2() {
+  void testMultiTokenDeletionDuringLoop2() {
     String grammar =
       """
         grammar T;
@@ -283,12 +263,11 @@ public class ParseErrorsTest extends AbstractBaseTest {
         line 1:6 extraneous input 'a' expecting {'b', 'z', 'c'}
         """;
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testLL1ErrorInfo() {
+  void testLL1ErrorInfo() {
     String grammar =
       """
         grammar T;
@@ -303,12 +282,12 @@ public class ParseErrorsTest extends AbstractBaseTest {
         WS : ' ' -> skip ;\
         acClass
         @init
-        { System.out.println(getExpectedTokens().toString(tokenNames)); }
+        { System.out.println(getExpectedTokens().toString()); }
           : ;
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", "dog and software", false);
-    String expecting = "{'hardware', 'software'}\n";
-    assertEquals(expecting, result);
+    String expecting = "{4..5}\n";
+    assertThat(result).isEqualTo(expecting);
   }
 
   /**
@@ -316,19 +295,18 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/6">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidEmptyInput() {
+  void testInvalidEmptyInput() {
     String grammar =
       """
         grammar T;
         start : ID+;
         ID : [a-z]+;
-        
+
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", "", true);
     String expecting = "";
-    assertEquals(expecting, result);
-    assertEquals("line 1:0 mismatched input '<EOF>' expecting ID\n", this.stderrDuringParse);
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:0 mismatched input '<EOF>' expecting ID\n");
   }
 
   /**
@@ -336,8 +314,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/19">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testContextListGetters() {
+  void testContextListGetters() {
     String grammar =
       """
         grammar T;
@@ -354,7 +331,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g", grammar, "TParser", "TLexer", "s", "abab", true);
     String expecting = "abab\n";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
     assertThat(this.stderrDuringParse).isNull();
   }
 
@@ -373,32 +350,28 @@ public class ParseErrorsTest extends AbstractBaseTest {
         
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", input, true);
-    assertEquals("", result);
+    assertThat(result).isEmpty();
     assertThat(this.stderrDuringParse).isNull();
   }
 
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall1() {
+  void testDuplicatedLeftRecursiveCall1() {
     testDuplicatedLeftRecursiveCall("x");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall2() {
+  void testDuplicatedLeftRecursiveCall2() {
     testDuplicatedLeftRecursiveCall("xx");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall3() {
+  void testDuplicatedLeftRecursiveCall3() {
     testDuplicatedLeftRecursiveCall("xxx");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testDuplicatedLeftRecursiveCall4() {
+  void testDuplicatedLeftRecursiveCall4() {
     testDuplicatedLeftRecursiveCall("xxxx");
   }
 
@@ -407,8 +380,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * <a href="https://github.com/antlr/antlr4/issues/44">...</a>
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testConflictingAltAnalysis() {
+  void testConflictingAltAnalysis() {
     String grammar =
       """
         grammar T;
@@ -418,13 +390,12 @@ public class ParseErrorsTest extends AbstractBaseTest {
         """;
     String result = execParser("T.g", grammar, "TParser", "TLexer", "ss", "abab", true);
     String expecting = "";
-    assertEquals(expecting, result);
-    assertEquals(
+    assertThat(result).isEqualTo(expecting);
+    assertThat(this.stderrDuringParse).isEqualTo(
       """
         line 1:4 reportAttemptingFullContext d=0 (s), input='ab'
         line 1:2 reportContextSensitivity d=0 (s), input='a'
-        """,
-      this.stderrDuringParse);
+        """);
   }
 
   /**
@@ -436,8 +407,7 @@ public class ParseErrorsTest extends AbstractBaseTest {
    * serialized transitions point to states which were not removed.
    */
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testInvalidATNStateRemoval() {
+  void testInvalidATNStateRemoval() {
     String grammar =
       """
         grammar T;
@@ -445,17 +415,16 @@ public class ParseErrorsTest extends AbstractBaseTest {
         expr : primary expr? {} | expr '->' ID;
         primary : ID;
         ID : [a-z]+;
-        
+
         """;
     String result = execParser("T.g4", grammar, "TParser", "TLexer", "start", "x:x", true);
     String expecting = "";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
     assertThat(this.stderrDuringParse).isNull();
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testNoViableAltAvoidance() {
+  void testNoViableAltAvoidance() {
     // "a." matches 'a' to rule e but then realizes '.' won't match.
     // previously would cause noviablealt. now prediction pretends to
     // have "a' predict 2nd alt of e. Will get syntax error later so
@@ -474,32 +443,30 @@ public class ParseErrorsTest extends AbstractBaseTest {
     String expecting =
       "line 1:1 mismatched input '.' expecting '!'\n";
     String result = stderrDuringParse;
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleTokenDeletionConsumption() {
+  void testSingleTokenDeletionConsumption() {
     String grammar =
       """
         grammar T;
         set: ('b'|'c') ;
         a: 'a' set 'd' {System.out.println($set.stop);} ;""";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "aabd", false);
-    assertEquals("[@2,2:2='b',<1>,1:2]\n", found);
-    assertEquals("line 1:1 extraneous input 'a' expecting {'b', 'c'}\n", this.stderrDuringParse);
+    assertThat(found).isEqualTo("[@2,2:2='b',<1>,1:2]\n");
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:1 extraneous input 'a' expecting {'b', 'c'}\n");
   }
 
   @Test
-  @Disabled("Переделать на ANTLR runtime/Generator")
-  public void testSingleSetInsertionConsumption() {
+  void testSingleSetInsertionConsumption() {
     String grammar =
       """
         grammar T;
         set: ('b'|'c') ;
         a: 'a' set 'd' {System.out.println($set.stop);} ;""";
     String found = execParser("T.g4", grammar, "TParser", "TLexer", "a", "ad", false);
-    assertEquals("[@0,0:0='a',<3>,1:0]\n", found);
-    assertEquals("line 1:1 missing {'b', 'c'} at 'd'\n", this.stderrDuringParse);
+    assertThat(found).isEqualTo("[@0,0:0='a',<3>,1:0]\n");
+    assertThat(this.stderrDuringParse).isEqualTo("line 1:1 missing {'b', 'c'} at 'd'\n");
   }
 }

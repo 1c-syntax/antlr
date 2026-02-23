@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -13,80 +13,79 @@ import org.antlr.v4.misc.CharSupport;
 import org.antlr.v4.runtime.misc.IntervalSet;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CharSupportTest {
+class CharSupportTest {
 
   @Test
-  public void testGetANTLRCharLiteralForChar() {
-    assertEquals("'<INVALID>'", CharSupport.getANTLRCharLiteralForChar(-1));
-    assertEquals("'\\n'", CharSupport.getANTLRCharLiteralForChar('\n'));
-    assertEquals("'\\\\'", CharSupport.getANTLRCharLiteralForChar('\\'));
-    assertEquals("'\\''", CharSupport.getANTLRCharLiteralForChar('\''));
-    assertEquals("'b'", CharSupport.getANTLRCharLiteralForChar('b'));
-    assertEquals("'\\uFFFF'", CharSupport.getANTLRCharLiteralForChar(0xFFFF));
-    assertEquals("'\\u{10FFFF}'", CharSupport.getANTLRCharLiteralForChar(0x10FFFF));
+  void testGetANTLRCharLiteralForChar() {
+    assertThat(CharSupport.getANTLRCharLiteralForChar(-1)).isEqualTo("'<INVALID>'");
+    assertThat(CharSupport.getANTLRCharLiteralForChar('\n')).isEqualTo("'\\n'");
+    assertThat(CharSupport.getANTLRCharLiteralForChar('\\')).isEqualTo("'\\\\'");
+    assertThat(CharSupport.getANTLRCharLiteralForChar('\'')).isEqualTo("'\\''");
+    assertThat(CharSupport.getANTLRCharLiteralForChar('b')).isEqualTo("'b'");
+    assertThat(CharSupport.getANTLRCharLiteralForChar(0xFFFF)).isEqualTo("'\\uFFFF'");
+    assertThat(CharSupport.getANTLRCharLiteralForChar(0x10FFFF)).isEqualTo("'\\u{10FFFF}'");
   }
 
   @Test
-  public void testGetCharValueFromGrammarCharLiteral() {
-    assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral(null));
-    assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral(""));
-    assertEquals(-1, CharSupport.getCharValueFromGrammarCharLiteral("b"));
-    assertEquals(111, CharSupport.getCharValueFromGrammarCharLiteral("foo"));
+  void testGetCharValueFromGrammarCharLiteral() {
+    assertThat(CharSupport.getCharValueFromGrammarCharLiteral(null)).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromGrammarCharLiteral("")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromGrammarCharLiteral("b")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromGrammarCharLiteral("foo")).isEqualTo(111);
   }
 
   @Test
-  public void testGetStringFromGrammarStringLiteral() {
+  void testGetStringFromGrammarStringLiteral() {
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u{bbb")).isNull();
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u{[]bb")).isNull();
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u[]bb")).isNull();
     assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\ubb")).isNull();
 
-    assertEquals("oo»b", CharSupport.getStringFromGrammarStringLiteral("foo\\u{bb}bb"));
+    assertThat(CharSupport.getStringFromGrammarStringLiteral("foo\\u{bb}bb")).isEqualTo("oo»b");
   }
 
   @Test
-  public void testGetCharValueFromCharInGrammarLiteral() {
-    assertEquals(102, CharSupport.getCharValueFromCharInGrammarLiteral("f"));
+  void testGetCharValueFromCharInGrammarLiteral() {
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("f")).isEqualTo(102);
 
-    assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("' "));
-    assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("\\ "));
-    assertEquals(39, CharSupport.getCharValueFromCharInGrammarLiteral("\\'"));
-    assertEquals(10, CharSupport.getCharValueFromCharInGrammarLiteral("\\n"));
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("' ")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\ ")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\'")).isEqualTo(39);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\n")).isEqualTo(10);
 
-    assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("foobar"));
-    assertEquals(4660, CharSupport.getCharValueFromCharInGrammarLiteral("\\u1234"));
-    assertEquals(18, CharSupport.getCharValueFromCharInGrammarLiteral("\\u{12}"));
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("foobar")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\u1234")).isEqualTo(4660);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\u{12}")).isEqualTo(18);
 
-    assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("\\u{"));
-    assertEquals(-1, CharSupport.getCharValueFromCharInGrammarLiteral("foo"));
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("\\u{")).isEqualTo(-1);
+    assertThat(CharSupport.getCharValueFromCharInGrammarLiteral("foo")).isEqualTo(-1);
   }
 
   @Test
-  public void testParseHexValue() {
-    assertEquals(-1, CharSupport.parseHexValue("foobar", -1, 3));
-    assertEquals(-1, CharSupport.parseHexValue("foobar", 1, -1));
-    assertEquals(-1, CharSupport.parseHexValue("foobar", 1, 3));
-    assertEquals(35, CharSupport.parseHexValue("123456", 1, 3));
+  void testParseHexValue() {
+    assertThat(CharSupport.parseHexValue("foobar", -1, 3)).isEqualTo(-1);
+    assertThat(CharSupport.parseHexValue("foobar", 1, -1)).isEqualTo(-1);
+    assertThat(CharSupport.parseHexValue("foobar", 1, 3)).isEqualTo(-1);
+    assertThat(CharSupport.parseHexValue("123456", 1, 3)).isEqualTo(35);
   }
 
   @Test
-  public void testCapitalize() {
-    assertEquals("Foo", CharSupport.capitalize("foo"));
+  void testCapitalize() {
+    assertThat(CharSupport.capitalize("foo")).isEqualTo("Foo");
   }
 
   @Test
-  public void testGetIntervalSetEscapedString() {
-    assertEquals("", CharSupport.getIntervalSetEscapedString(new IntervalSet()));
-    assertEquals("'\\u0000'", CharSupport.getIntervalSetEscapedString(new IntervalSet(0)));
-    assertEquals("'\\u0001'..'\\u0003'", CharSupport.getIntervalSetEscapedString(new IntervalSet(3, 1, 2)));
+  void testGetIntervalSetEscapedString() {
+    assertThat(CharSupport.getIntervalSetEscapedString(new IntervalSet())).isEmpty();
+    assertThat(CharSupport.getIntervalSetEscapedString(new IntervalSet(0))).isEqualTo("'\\u0000'");
+    assertThat(CharSupport.getIntervalSetEscapedString(new IntervalSet(3, 1, 2))).isEqualTo("'\\u0001'..'\\u0003'");
   }
 
   @Test
-  public void testGetRangeEscapedString() {
-    assertEquals("'\\u0002'..'\\u0004'", CharSupport.getRangeEscapedString(2, 4));
-    assertEquals("'\\u0002'", CharSupport.getRangeEscapedString(2, 2));
+  void testGetRangeEscapedString() {
+    assertThat(CharSupport.getRangeEscapedString(2, 4)).isEqualTo("'\\u0002'..'\\u0004'");
+    assertThat(CharSupport.getRangeEscapedString(2, 2)).isEqualTo("'\\u0002'");
   }
 }

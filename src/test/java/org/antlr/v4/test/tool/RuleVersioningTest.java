@@ -1,19 +1,18 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.test.tool;
 
+import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Predicate;
 import org.antlr.v4.runtime.misc.Tuple;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Utils;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -32,19 +31,17 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Sam Harwell
  */
-@Disabled("Переделать на ANTLR runtime/Generator")
-public class RuleVersioningTest extends AbstractBaseTest {
+class RuleVersioningTest extends AbstractBaseTest {
 
   private Properties _properties;
 
   @Test
-  public void testPropertyEvaluation() throws Exception {
+  void testPropertyEvaluation() throws Exception {
     Properties properties = getProperties();
     assertThat(properties).isNotNull();
 
@@ -53,99 +50,100 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
     Set<String> templateNames = group.getTemplateNames();
     String templateName0 = "/PropertyEval0-sample-template";
-    assertThat(templateNames.contains(templateName0)).isTrue();
+    assertThat(templateNames).contains(templateName0);
     ST st = group.getInstanceOf(templateName0);
     assertThat(st).isNotNull();
     String result = st.render();
-    assertEquals("foo", result);
+    assertThat(result).isEqualTo("foo");
 
     String templateName1 = "/PropertyEval1-sample-template";
-    assertThat(templateNames.contains(templateName1)).isTrue();
+    assertThat(templateNames).contains(templateName1);
     ST st1 = group.getInstanceOf(templateName1);
     assertThat(st1).isNotNull();
     String result1 = st1.render();
-    assertEquals("foo", result1);
+    assertThat(result1).isEqualTo("foo");
 
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval0", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval1", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval2", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval3", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval4", "sample"));
-    assertEquals("foo", resolveProperty(properties, group, "PropertyEval5", "sample"));
+    assertThat(resolveProperty(properties, group, "PropertyEval0", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval1", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval2", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval3", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval4", "sample")).isEqualTo("foo");
+    assertThat(resolveProperty(properties, group, "PropertyEval5", "sample")).isEqualTo("foo");
   }
 
   @Test
-  public void testSingleDependency() throws Exception {
+  void testSingleDependency() throws Exception {
     testBasicGrammar("SingleDependency", "class TParser$Dependent", true);
   }
 
   @Test
-  public void testSingleDependencyFailed() throws Exception {
+  void testSingleDependencyFailed() throws Exception {
     testBasicGrammar("SingleDependencyFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammar() throws Exception {
+  void testMultipleDependencySingleGrammar() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammar", "", true);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammarFailed() throws Exception {
+  void testMultipleDependencySingleGrammarFailed() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammarFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMultipleDependencySingleGrammarFailed2() throws Exception {
+  void testMultipleDependencySingleGrammarFailed2() throws Exception {
     testBasicGrammar("MultipleDependencySingleGrammarFailed2", "class TParser$Dependent", false);
     String secondLine = stderrDuringParse.split("\\n", 3)[1];
     String expected = "Element class TParser$Dependent dependent on rule b@0 (found @1) in TParser";
-    assertEquals(expected, secondLine);
+    assertThat(secondLine).isEqualTo(expected);
   }
 
   @Test
-  public void testMultipleDependencyMultipleGrammar() throws Exception {
+  void testMultipleDependencyMultipleGrammar() throws Exception {
     // This is intended to test a class with multiple dependencies on different grammars,
     // but is not yet implemented.
     testGrammar("MultipleDependencyMultipleGrammar");
   }
 
   @Test
-  public void testClassDependency() throws Exception {
+  void testClassDependency() throws Exception {
     testBasicGrammar("ClassDependency", "class TParser$Dependent", true);
   }
 
   @Test
-  public void testClassDependencyFailed() throws Exception {
+  void testClassDependencyFailed() throws Exception {
     testBasicGrammar("ClassDependencyFailed", "class TParser$Dependent", false);
   }
 
   @Test
-  public void testMethodDependency() throws Exception {
+  void testMethodDependency() throws Exception {
     testBasicGrammar("MethodDependency", "public void TParser$Dependent.foo()", true);
   }
 
   @Test
-  public void testMethodDependencyFailed() throws Exception {
+  void testMethodDependencyFailed() throws Exception {
     testBasicGrammar("MethodDependencyFailed", "public void TParser$Dependent.foo()", false);
   }
 
   @Test
-  public void testConstructorDependency() throws Exception {
+  void testConstructorDependency() throws Exception {
     testBasicGrammar("ConstructorDependency", "public TParser$Dependent()", true);
   }
 
   @Test
-  public void testConstructorDependencyFailed() throws Exception {
+  void testConstructorDependencyFailed() throws Exception {
     testBasicGrammar("ConstructorDependencyFailed", "public TParser$Dependent()", false);
   }
 
   @Test
-  public void testDependencyOnInvalidRule() throws Exception {
+  void testDependencyOnInvalidRule() throws Exception {
     testGrammar("DependencyOnInvalidRule");
     assertNotNullOrEmpty(stderrDuringParse);
     String firstLine = stderrDuringParse.split("\\n", 2)[0];
-    String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element public TParser$Dependent() dependent on unknown rule 8@0 in TParser";
-    assertEquals(expected, firstLine);
+    String expected = "Exception in thread \"main\" java.lang.IllegalStateException: " +
+      "Element public TParser$Dependent() dependent on unknown rule 8@0 in TParser";
+    assertThat(firstLine).isEqualTo(expected);
   }
 
   @Override
@@ -160,8 +158,9 @@ public class RuleVersioningTest extends AbstractBaseTest {
     } else {
       assertNotNullOrEmpty(stderrDuringParse);
       String firstLine = stderrDuringParse.split("\\n", 2)[0];
-      String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element " + elementName + " dependent on rule a@1 (found @0) in TParser";
-      assertEquals(expected, firstLine);
+      String expected = "Exception in thread \"main\" java.lang.IllegalStateException: Element " + elementName
+        + " dependent on rule a@1 (found @0) in TParser";
+      assertThat(firstLine).isEqualTo(expected);
     }
   }
 
@@ -226,7 +225,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
   private STGroup createGroup(Properties properties) {
     STGroup group = new STGroup();
-    Map<String, Map<String, Object>> dictionaries = new HashMap<String, Map<String, Object>>();
+    Map<String, Map<String, Object>> dictionaries = new HashMap<>();
     for (Entry<Object, Object> entry : properties.entrySet()) {
       String key = entry.getKey().toString();
       String[] elements = key.split("\\.");
@@ -248,7 +247,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
   @Override
   public List<String> getCompileOptions() {
-    List<String> result = new ArrayList<String>(super.getCompileOptions());
+    List<String> result = new ArrayList<>(super.getCompileOptions());
     result.add(0, "-proc:none");
     return result;
   }
@@ -270,30 +269,26 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
     @Override
     public Set<Entry<String, Object>> entrySet() {
-      List<Entry<Object, Object>> entries = new ArrayList<Entry<Object, Object>>(properties.entrySet());
-      Utils.removeAll(entries, new Predicate<Entry<Object, Object>>() {
-
-        @Override
-        public boolean eval(Entry<Object, Object> arg) {
-          String key = arg.getKey().toString();
-          for (Pair<String, Integer> prefix : prefixes) {
-            if (key.startsWith(prefix.getItem1() + '.') || key.equals(prefix.getItem1())) {
-              // don't remove items matching the prefix
-              return false;
-            }
+      List<Entry<Object, Object>> entries = new ArrayList<>(properties.entrySet());
+      Utils.removeAll(entries, (Entry<Object, Object> arg) -> {
+        String key = arg.getKey().toString();
+        for (Pair<String, Integer> prefix : prefixes) {
+          if (key.startsWith(prefix.getItem1() + '.') || key.equals(prefix.getItem1())) {
+            // don't remove items matching the prefix
+            return false;
           }
-          // remove items without a match
-          return true;
         }
+        // remove items without a match
+        return true;
       });
 
-      final Map<String, Object> subkeyValues = new HashMap<String, Object>();
-      final Map<String, List<Pair<String, Integer>>> subkeyPrefixes = new HashMap<String, List<Pair<String, Integer>>>();
-      for (int i = 0; i < prefixes.size(); i++) {
-        Pair<String, Integer> prefix = prefixes.get(i);
+      final Map<String, Object> subkeyValues = new HashMap<>();
+      final Map<String, List<Pair<String, Integer>>> subkeyPrefixes = new HashMap<>();
+      for (Pair<String, Integer> prefix : prefixes) {
         for (Entry<Object, Object> entry : entries) {
           String key = entry.getKey().toString();
-          if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template") || key.equals(prefix.getItem1() + ".inherit")) {
+          if (key.equals(prefix.getItem1()) || key.equals(prefix.getItem1() + ".template")
+            || key.equals(prefix.getItem1() + ".inherit")) {
             // what to do with these items?
             throw new UnsupportedOperationException();
           } else if (key.startsWith(prefix.getItem1() + '.')) {
@@ -306,11 +301,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
               assert !subkeyValues.containsKey(subkey);
               subkey = subkey.substring(0, dot);
-              List<Pair<String, Integer>> prefixList = subkeyPrefixes.get(subkey);
-              if (prefixList == null) {
-                prefixList = new ArrayList<Pair<String, Integer>>();
-                subkeyPrefixes.put(subkey, prefixList);
-              }
+              List<Pair<String, Integer>> prefixList = subkeyPrefixes.computeIfAbsent(subkey, k -> new ArrayList<>());
 
               String nextPrefix = inherit ? entry.getValue().toString() : prefix.getItem1() + '.' + subkey;
               int priority = prefix.getItem2() + (inherit ? 1 : 0);
@@ -337,20 +328,16 @@ public class RuleVersioningTest extends AbstractBaseTest {
 
       // sort prefix lists by priority
       for (List<Pair<String, Integer>> list : subkeyPrefixes.values()) {
-        Collections.sort(list, new Comparator<Pair<String, Integer>>() {
-          @Override
-          public int compare(Pair<String, Integer> o1, Pair<String, Integer> o2) {
-            return o1.getItem2() - o2.getItem2();
-          }
-        });
+        list.sort(Comparator.comparingInt(Pair::getItem2));
       }
 
-      return new AbstractSet<Entry<String, Object>>() {
+      return new AbstractSet<>() {
         @Override
         public Iterator<Entry<String, Object>> iterator() {
-          return new Iterator<Entry<String, Object>>() {
+          return new Iterator<>() {
             final Iterator<Entry<String, Object>> valueIterator = subkeyValues.entrySet().iterator();
-            final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet().iterator();
+            final Iterator<Entry<String, List<Pair<String, Integer>>>> prefixIterator = subkeyPrefixes.entrySet()
+              .iterator();
 
             @Override
             public boolean hasNext() {
@@ -363,7 +350,7 @@ public class RuleVersioningTest extends AbstractBaseTest {
                 return valueIterator.next();
               } else {
                 final Entry<String, List<Pair<String, Integer>>> next = prefixIterator.next();
-                return new Entry<String, Object>() {
+                return new Entry<>() {
                   @Override
                   public String getKey() {
                     return next.getKey();

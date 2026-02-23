@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -29,13 +29,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ATNConstructionTest extends AbstractBaseTest {
+class ATNConstructionTest extends AbstractBaseTest {
 
   @Test
-  public void testA() throws Exception {
+  void testA() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A;");
@@ -50,7 +49,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAB() throws Exception {
+  void testAB() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A B ;");
@@ -66,7 +65,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorB() throws Exception {
+  void testAorB() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A | B {;} ;");
@@ -85,7 +84,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSetAorB() throws Exception {
+  void testSetAorB() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A | B ;");
@@ -100,7 +99,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerIsntSetMultiCharString() throws Exception {
+  void testLexerIsntSetMultiCharString() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : ('0x' | '0X') ;");
@@ -120,7 +119,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRange() throws Exception {
+  void testRange() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : 'a'..'c' ;"
@@ -136,7 +135,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSet() throws Exception {
+  void testCharSet() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [abc] ;"
@@ -152,7 +151,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetRange() throws Exception {
+  void testCharSetRange() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [a-c] ;"
@@ -168,7 +167,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodeBMPEscape() throws Exception {
+  void testCharSetUnicodeBMPEscape() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [\\uABCD] ;"
@@ -184,7 +183,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodeBMPEscapeRange() throws Exception {
+  void testCharSetUnicodeBMPEscapeRange() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [a-c\\uABCD-\\uABFF] ;"
@@ -200,7 +199,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodeSMPEscape() throws Exception {
+  void testCharSetUnicodeSMPEscape() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [\\u{10ABCD}] ;"
@@ -216,7 +215,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodeSMPEscapeRange() throws Exception {
+  void testCharSetUnicodeSMPEscapeRange() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [a-c\\u{10ABCD}-\\u{10ABFF}] ;"
@@ -232,7 +231,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodePropertyEscape() throws Exception {
+  void testCharSetUnicodePropertyEscape() throws Exception {
     // The Gothic script is long dead and unlikely to change (which would
     // cause this test to fail)
     LexerGrammar g = new LexerGrammar(
@@ -250,7 +249,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodePropertyInvertEscape() throws Exception {
+  void testCharSetUnicodePropertyInvertEscape() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [\\P{Gothic}] ;"
@@ -266,7 +265,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodeMultiplePropertyEscape() throws Exception {
+  void testCharSetUnicodeMultiplePropertyEscape() throws Exception {
     // Ditto the Mahajani script. Not going to change soon. I hope.
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
@@ -283,7 +282,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCharSetUnicodePropertyOverlap() throws Exception {
+  void testCharSetUnicodePropertyOverlap() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : [\\p{ASCII_Hex_Digit}\\p{Hex_Digit}] ;"
@@ -299,7 +298,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testRangeOrRange() throws Exception {
+  void testRangeOrRange() throws Exception {
     LexerGrammar g = new LexerGrammar(
       "lexer grammar P;\n" +
         "A : ('a'..'c' 'h' | 'q' 'j'..'l') ;"
@@ -320,7 +319,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testStringLiteralInParser() throws Exception {
+  void testStringLiteralInParser() throws Exception {
     Grammar g = new Grammar(
       "grammar P;\n" +
         "a : A|'b' ;"
@@ -336,7 +335,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testABorCD() throws Exception {
+  void testABorCD() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A B | C D;");
@@ -356,7 +355,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testbA() throws Exception {
+  void testbA() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar P;
@@ -382,7 +381,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testFollow() throws Exception {
+  void testFollow() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar P;
@@ -401,7 +400,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorEpsilon() throws Exception {
+  void testAorEpsilon() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A | ;");
@@ -419,7 +418,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAOptional() throws Exception {
+  void testAOptional() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A?;");
@@ -436,7 +435,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorBoptional() throws Exception {
+  void testAorBoptional() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A{;}|B)?;");
@@ -456,7 +455,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSetAorBoptional() throws Exception {
+  void testSetAorBoptional() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A|B)?;");
@@ -473,7 +472,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorBthenC() throws Exception {
+  void testAorBthenC() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A | B) C;");
@@ -489,7 +488,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAplus() throws Exception {
+  void testAplus() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A+;");
@@ -508,11 +507,13 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAplusSingleAltHasPlusASTPointingAtLoopBackState() throws Exception {
+  void testAplusSingleAltHasPlusASTPointingAtLoopBackState() throws Exception {
+    // (RULE a (BLOCK (ALT (+ (BLOCK (ALT A))))))
     Grammar g = new Grammar(
-      "parser grammar P;\n" +
-        "s : a B ;\n" +      // (RULE a (BLOCK (ALT (+ (BLOCK (ALT A))))))
-        "a : A+;");
+      """
+        parser grammar P;
+        s : a B ;
+        a : A+;""");
     String expecting =
       """
         RuleStart_a_2->PlusBlockStart_8
@@ -535,11 +536,11 @@ public class ATNConstructionTest extends AbstractBaseTest {
         covered.put(node, node.atnState);
       }
     }
-    assertEquals("{RULE=2, BLOCK=8, +=10, BLOCK=8, A=7}", covered.toString());
+    assertThat(covered).hasToString("{RULE=2, BLOCK=8, +=10, BLOCK=8, A=7}");
   }
 
   @Test
-  public void testAorBplus() throws Exception {
+  void testAorBplus() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A|B{;})+;");
@@ -561,7 +562,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorBorEmptyPlus() throws Exception {
+  void testAorBorEmptyPlus() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A | B | )+ ;");
@@ -584,7 +585,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testEmptyOrEmpty() throws Exception {
+  void testEmptyOrEmpty() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : | ;");
@@ -602,7 +603,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAStar() throws Exception {
+  void testAStar() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : A*;");
@@ -622,7 +623,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testNestedAstar() throws Exception {
+  void testNestedAstar() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (COMMA ID*)*;");
@@ -649,7 +650,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testAorBstar() throws Exception {
+  void testAorBstar() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : (A | B{;})* ;");
@@ -672,7 +673,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testPredicatedAorB() throws Exception {
+  void testPredicatedAorB() throws Exception {
     Grammar g = new Grammar(
       "parser grammar P;\n" +
         "a : {p1}? A | {p2}? B ;");
@@ -692,7 +693,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserRuleRefInLexerRule() {
+  void testParserRuleRefInLexerRule() {
     boolean threwException = false;
     ErrorQueue errorQueue = new ErrorQueue();
     try {
@@ -706,11 +707,11 @@ public class ATNConstructionTest extends AbstractBaseTest {
       Tool tool = new Tool();
       tool.removeListeners();
       tool.addListener(errorQueue);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       GrammarRootAST grammarRootAST = tool.parseGrammarFromString(gstr);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       Grammar g = tool.createGrammar(grammarRootAST);
-      assertEquals(0, errorQueue.size());
+      assertThat(errorQueue.size()).isZero();
       g.fileName = "<string>";
       tool.process(g, false);
     } catch (Exception e) {
@@ -718,10 +719,10 @@ public class ATNConstructionTest extends AbstractBaseTest {
       e.printStackTrace();
     }
     System.out.println(errorQueue);
-    assertEquals(1, errorQueue.errors.size());
-    assertEquals(ErrorType.PARSER_RULE_REF_IN_LEXER_RULE, errorQueue.errors.get(0).getErrorType());
-    assertEquals("[a, A]", Arrays.toString(errorQueue.errors.get(0).getArgs()));
-    assertThat(!threwException).isTrue();
+    assertThat(errorQueue.errors).hasSize(1);
+    assertThat(errorQueue.errors.get(0).getErrorType()).isEqualTo(ErrorType.PARSER_RULE_REF_IN_LEXER_RULE);
+    assertThat(Arrays.toString(errorQueue.errors.get(0).getArgs())).isEqualTo("[a, A]");
+    assertThat(threwException).isFalse();
   }
 
   /**
@@ -733,7 +734,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
    * RuleStop_e_3->BlockEnd_26
    */
   @Test
-  public void testForRepeatedTransitionsToStopState() throws Exception {
+  void testForRepeatedTransitionsToStopState() throws Exception {
     String gstr =
       """
         grammar T;
@@ -786,7 +787,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testDefaultMode() throws Exception {
+  void testDefaultMode() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar L;
@@ -811,7 +812,7 @@ public class ATNConstructionTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMode() throws Exception {
+  void testMode() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar L;
@@ -846,6 +847,6 @@ public class ATNConstructionTest extends AbstractBaseTest {
     ATNState startState = nfa.modeNameToStartState.get(modeName);
     ATNPrinter serializer = new ATNPrinter(g, startState);
     String result = serializer.asString();
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(expecting);
   }
 }

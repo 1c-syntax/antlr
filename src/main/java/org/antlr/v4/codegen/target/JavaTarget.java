@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -105,12 +105,7 @@ public class JavaTarget extends Target {
         switch (escapedCodePoint) {
           // Pass through any escapes that Java also needs
           //
-          case 'n':
-          case 'r':
-          case 't':
-          case 'b':
-          case 'f':
-          case '\\':
+          case 'n', 'r', 't', 'b', 'f', '\\':
             // Pass the escape through
             sb.append('\\');
             sb.appendCodePoint(escapedCodePoint);

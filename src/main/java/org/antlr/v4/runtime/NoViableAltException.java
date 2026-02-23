@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.atn.ATNConfigSet;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
@@ -37,6 +38,7 @@ public class NoViableAltException extends RecognitionException {
    * time the error occurred, of course the stream needs to keep a
    * buffer all of the tokens but later we might not have access to those.)
    */
+  @Getter
   @NotNull
   private final Token startToken;
 
@@ -59,10 +61,6 @@ public class NoViableAltException extends RecognitionException {
     this.deadEndConfigs = deadEndConfigs;
     this.startToken = startToken;
     this.setOffendingToken(recognizer, offendingToken);
-  }
-
-  public Token getStartToken() {
-    return startToken;
   }
 
   @Nullable

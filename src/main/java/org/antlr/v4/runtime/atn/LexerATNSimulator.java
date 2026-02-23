@@ -1,14 +1,16 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.IntStream;
 import org.antlr.v4.runtime.Lexer;
@@ -78,11 +80,15 @@ public class LexerATNSimulator extends ATNSimulator {
   /**
    * line number 1..n within the input
    */
+  @Setter
+  @Getter
   protected int line = 1;
 
   /**
    * The index of the character relative to the beginning of the line 0..n-1
    */
+  @Setter
+  @Getter
   protected int charPositionInLine = 0;
 
   protected int mode = Lexer.DEFAULT_MODE;
@@ -92,12 +98,6 @@ public class LexerATNSimulator extends ATNSimulator {
    */
   @NotNull
   protected final SimState prevAccept = new SimState();
-
-  /**
-   * @deprecated This field is no longer used.
-   */
-  @Deprecated
-  public static int match_calls = 0;
 
   public LexerATNSimulator(@NotNull ATN atn) {
     this(null, atn);
@@ -298,7 +298,10 @@ public class LexerATNSimulator extends ATNSimulator {
    * we can reach upon input {@code t}. Parameter {@code reach} is a return
    * parameter.
    */
-  protected void getReachableConfigSet(@NotNull CharStream input, @NotNull ATNConfigSet closure, @NotNull ATNConfigSet reach, int t) {
+  protected void getReachableConfigSet(@NotNull CharStream input,
+                                       @NotNull ATNConfigSet closure,
+                                       @NotNull ATNConfigSet reach,
+                                       int t) {
     // this is used to skip processing for configs which have a lower priority
     // than a config that already reached an accept state for the same rule
     int skipAlt = ATN.INVALID_ALT_NUMBER;
@@ -309,7 +312,8 @@ public class LexerATNSimulator extends ATNSimulator {
       }
 
       final ATNState state = c.getState();
-      for (int ti = 0, n = state.getNumberOfOptimizedTransitions(); ti < n; ti++) {               // for each optimized transition
+      // for each optimized transition
+      for (int ti = 0, n = state.getNumberOfOptimizedTransitions(); ti < n; ti++) {
         Transition trans = state.getOptimizedTransition(ti);
         ATNState target = getReachableTarget(trans, t);
         if (target != null) {
@@ -319,7 +323,12 @@ public class LexerATNSimulator extends ATNSimulator {
           }
 
           boolean treatEofAsEpsilon = t == CharStream.EOF;
-          if (closure(input, c.transform(target, lexerActionExecutor, true), reach, currentAltReachedAcceptState, true, treatEofAsEpsilon)) {
+          if (closure(input,
+            c.transform(target, lexerActionExecutor, true),
+            reach,
+            currentAltReachedAcceptState,
+            true,
+            treatEofAsEpsilon)) {
             // any remaining configs for this alt have a lower priority than
             // the one that just reached an accept state.
             skipAlt = c.getAlt();
@@ -374,7 +383,12 @@ public class LexerATNSimulator extends ATNSimulator {
    * @return {@code true} if an accept state is reached, otherwise
    * {@code false}.
    */
-  protected boolean closure(@NotNull CharStream input, @NotNull ATNConfig config, @NotNull ATNConfigSet configs, boolean currentAltReachedAcceptState, boolean speculative, boolean treatEofAsEpsilon) {
+  protected boolean closure(@NotNull CharStream input,
+                            @NotNull ATNConfig config,
+                            @NotNull ATNConfigSet configs,
+                            boolean currentAltReachedAcceptState,
+                            boolean speculative,
+                            boolean treatEofAsEpsilon) {
     final ATNState configState = config.getState();
     if (configState instanceof RuleStopState) {
       PredictionContext context = config.getContext();
@@ -395,7 +409,12 @@ public class LexerATNSimulator extends ATNSimulator {
         PredictionContext newContext = context.getParent(i); // "pop" return state
         ATNState returnState = atn.states.get(returnStateNumber);
         ATNConfig c = config.transform(returnState, newContext, false);
-        currentAltReachedAcceptState = closure(input, c, configs, currentAltReachedAcceptState, speculative, treatEofAsEpsilon);
+        currentAltReachedAcceptState = closure(input,
+          c,
+          configs,
+          currentAltReachedAcceptState,
+          speculative,
+          treatEofAsEpsilon);
       }
 
       return currentAltReachedAcceptState;
@@ -412,7 +431,12 @@ public class LexerATNSimulator extends ATNSimulator {
       Transition t = configState.getOptimizedTransition(i);
       ATNConfig c = getEpsilonTarget(input, config, t, configs, speculative, treatEofAsEpsilon);
       if (c != null) {
-        currentAltReachedAcceptState = closure(input, c, configs, currentAltReachedAcceptState, speculative, treatEofAsEpsilon);
+        currentAltReachedAcceptState = closure(input,
+          c,
+          configs,
+          currentAltReachedAcceptState,
+          speculative,
+          treatEofAsEpsilon);
       }
     }
 
@@ -487,7 +511,8 @@ public class LexerATNSimulator extends ATNSimulator {
           // getEpsilonTarget to return two configurations, so
           // additional modifications are needed before we can support
           // the split operation.
-          LexerActionExecutor lexerActionExecutor = LexerActionExecutor.append(config.getLexerActionExecutor(), atn.lexerActions[((ActionTransition) t).actionIndex]);
+          var lexerActionExecutor = LexerActionExecutor.append(
+            config.getLexerActionExecutor(), atn.lexerActions[((ActionTransition) t).actionIndex]);
           c = config.transform(t.target, lexerActionExecutor, true);
           break;
         } else {
@@ -661,22 +686,6 @@ public class LexerATNSimulator extends ATNSimulator {
   public String getText(@NotNull CharStream input) {
     // index is first lookahead char, don't include.
     return input.getText(Interval.of(startIndex, input.index() - 1));
-  }
-
-  public int getLine() {
-    return line;
-  }
-
-  public void setLine(int line) {
-    this.line = line;
-  }
-
-  public int getCharPositionInLine() {
-    return charPositionInLine;
-  }
-
-  public void setCharPositionInLine(int charPositionInLine) {
-    this.charPositionInLine = charPositionInLine;
   }
 
   public void consume(@NotNull CharStream input) {

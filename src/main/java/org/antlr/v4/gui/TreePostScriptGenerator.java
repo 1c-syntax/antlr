@@ -1,14 +1,16 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.gui;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.abego.treelayout.Configuration;
 import org.abego.treelayout.NodeExtentProvider;
 import org.abego.treelayout.TreeForTreeLayout;
@@ -48,6 +50,8 @@ public class TreePostScriptGenerator {
   protected int nodeHeightPaddingBelow = 5;
 
   protected Tree root;
+  @Setter
+  @Getter
   protected TreeTextProvider treeTextProvider;
   protected TreeLayout<Tree> treeLayout;
 
@@ -144,14 +148,6 @@ public class TreePostScriptGenerator {
     String s = treeTextProvider.getText(tree);
     s = Utils.escapeWhitespace(s, false);
     return s;
-  }
-
-  public TreeTextProvider getTreeTextProvider() {
-    return treeTextProvider;
-  }
-
-  public void setTreeTextProvider(TreeTextProvider treeTextProvider) {
-    this.treeTextProvider = treeTextProvider;
   }
 
 }

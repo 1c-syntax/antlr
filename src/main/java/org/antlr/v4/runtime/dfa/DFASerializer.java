@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -39,14 +39,6 @@ public class DFASerializer {
   @Nullable
   final ATN atn;
 
-  /**
-   * @deprecated Use {@link #DFASerializer(DFA, Vocabulary)} instead.
-   */
-  @Deprecated
-  public DFASerializer(@NotNull DFA dfa, @Nullable String[] tokenNames) {
-    this(dfa, VocabularyImpl.fromTokenNames(tokenNames), null, null);
-  }
-
   public DFASerializer(@NotNull DFA dfa, @NotNull Vocabulary vocabulary) {
     this(dfa, vocabulary, null, null);
   }
@@ -58,15 +50,10 @@ public class DFASerializer {
       parser != null ? parser.getATN() : null);
   }
 
-  /**
-   * @deprecated Use {@link #DFASerializer(DFA, Vocabulary, String[], ATN)} instead.
-   */
-  @Deprecated
-  public DFASerializer(@NotNull DFA dfa, @Nullable String[] tokenNames, @Nullable String[] ruleNames, @Nullable ATN atn) {
-    this(dfa, VocabularyImpl.fromTokenNames(tokenNames), ruleNames, atn);
-  }
-
-  public DFASerializer(@NotNull DFA dfa, @NotNull Vocabulary vocabulary, @Nullable String[] ruleNames, @Nullable ATN atn) {
+  public DFASerializer(@NotNull DFA dfa,
+                       @NotNull Vocabulary vocabulary,
+                       @Nullable String[] ruleNames,
+                       @Nullable ATN atn) {
     this.dfa = dfa;
     this.vocabulary = vocabulary;
     this.ruleNames = ruleNames;
@@ -86,7 +73,8 @@ public class DFASerializer {
         Map<Integer, DFAState> edges = s.getEdgeMap();
         Map<Integer, DFAState> contextEdges = s.getContextEdgeMap();
         for (Map.Entry<Integer, DFAState> entry : edges.entrySet()) {
-          if ((entry.getValue() == null || entry.getValue() == ATNSimulator.ERROR) && !s.isContextSymbol(entry.getKey())) {
+          if ((entry.getValue() == null || entry.getValue() == ATNSimulator.ERROR)
+            && !s.isContextSymbol(entry.getKey())) {
             continue;
           }
 

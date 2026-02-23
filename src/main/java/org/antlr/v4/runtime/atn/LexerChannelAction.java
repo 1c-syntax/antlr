@@ -1,27 +1,28 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.Lexer;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.MurmurHash;
 import org.antlr.v4.runtime.misc.NotNull;
 
 /**
- * Implements the {@code channel} lexer action by calling
- * {@link Lexer#setChannel} with the assigned channel.
+ * Implements the {@code channel} lexer action by calling {@link Lexer#setChannel} with the assigned channel.
  *
  * @author Sam Harwell
  * @since 4.2
  */
+@Getter
 public final class LexerChannelAction implements LexerAction {
+
   private final int channel;
 
   /**
@@ -31,15 +32,6 @@ public final class LexerChannelAction implements LexerAction {
    */
   public LexerChannelAction(int channel) {
     this.channel = channel;
-  }
-
-  /**
-   * Gets the channel to use for the {@link Token} created by the lexer.
-   *
-   * @return The channel to use for the {@link Token} created by the lexer.
-   */
-  public int getChannel() {
-    return channel;
   }
 
   /**

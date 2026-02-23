@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -29,14 +29,6 @@ public abstract class Recognizer extends OutputModelObject {
   public String grammarFileName;
   public String accessLevel;
   public Map<String, Integer> tokens;
-
-  /**
-   * @deprecated This field is provided only for compatibility with code
-   * generation targets which have not yet been updated to use
-   * {@link #literalNames} and {@link #symbolicNames}.
-   */
-  @Deprecated
-  public List<String> tokenNames;
 
   public List<String> literalNames;
   public List<String> symbolicNames;
@@ -76,7 +68,6 @@ public abstract class Recognizer extends OutputModelObject {
       superClass = null;
     }
 
-    tokenNames = translateTokenStringsToTarget(g.getTokenDisplayNames(), factory);
     literalNames = translateTokenStringsToTarget(g.getTokenLiteralNames(), factory);
     symbolicNames = translateTokenStringsToTarget(g.getTokenSymbolicNames(), factory);
     abstractRecognizer = g.isAbstract();

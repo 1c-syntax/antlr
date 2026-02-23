@@ -1,13 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.dfa;
+
+import lombok.Getter;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -18,6 +20,7 @@ import java.util.Set;
 /**
  * @author Sam Harwell
  */
+@Getter
 public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
 
   private final int key;
@@ -32,14 +35,6 @@ public final class SingletonEdgeMap<T> extends AbstractEdgeMap<T> {
       this.key = 0;
       this.value = null;
     }
-  }
-
-  public int getKey() {
-    return key;
-  }
-
-  public T getValue() {
-    return value;
   }
 
   @Override

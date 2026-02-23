@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -109,8 +109,7 @@ public class XPath {
       Token el = tokens.get(i);
       Token next;
       switch (el.getType()) {
-        case XPathLexer.ROOT:
-        case XPathLexer.ANYWHERE:
+        case XPathLexer.ROOT, XPathLexer.ANYWHERE:
           boolean anywhere = el.getType() == XPathLexer.ANYWHERE;
           i++;
           next = tokens.get(i);
@@ -125,9 +124,7 @@ public class XPath {
           i++;
           break;
 
-        case XPathLexer.TOKEN_REF:
-        case XPathLexer.RULE_REF:
-        case XPathLexer.WILDCARD:
+        case XPathLexer.TOKEN_REF, XPathLexer.RULE_REF, XPathLexer.WILDCARD:
           pathElements.add(getXPathElement(el, false));
           i++;
           break;
@@ -195,8 +192,8 @@ public class XPath {
    * {@link #evaluate}.
    */
   public Collection<ParseTree> evaluate(final ParseTree t) {
-    ParserRuleContext dummyRoot = new ParserRuleContext();
-    dummyRoot.children = Collections.singletonList(t); // don't set t's parent.
+    ParserRuleContext dummyRoot = new ParserRuleContext(null, -1);
+    dummyRoot.addAnyChild(t); // don't set t's parent.
 
     Collection<ParseTree> work = Collections.singleton(dummyRoot);
 

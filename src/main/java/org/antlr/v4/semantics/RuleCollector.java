@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -73,21 +73,18 @@ public class RuleCollector extends GrammarTreeVisitor {
 
     if (arg != null) {
       r.args = ScopeParser.parseTypedArgList(arg, arg.getText(), g);
-      r.args.type = AttributeDict.DictType.ARG;
-      r.args.ast = arg;
+      r.args.setType(AttributeDict.DictType.ARG);
       arg.resolver = r.alt[currentOuterAltNumber];
     }
 
     if (returns != null) {
       r.retvals = ScopeParser.parseTypedArgList(returns, returns.getText(), g);
-      r.retvals.type = AttributeDict.DictType.RET;
-      r.retvals.ast = returns;
+      r.retvals.setType(AttributeDict.DictType.RET);
     }
 
     if (locals != null) {
       r.locals = ScopeParser.parseTypedArgList(locals, locals.getText(), g);
-      r.locals.type = AttributeDict.DictType.LOCAL;
-      r.locals.ast = locals;
+      r.locals.setType(AttributeDict.DictType.LOCAL);
     }
 
     for (GrammarAST a : actions) {

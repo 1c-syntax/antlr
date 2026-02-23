@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -72,16 +72,22 @@ public class ATNPrinter {
         if (t instanceof EpsilonTransition) {
           buf.append("->").append(getStateString(t.target)).append('\n');
         } else if (t instanceof RuleTransition) {
-          buf.append("-").append(g.getRule(((RuleTransition) t).ruleIndex).name).append("->").append(getStateString(t.target)).append('\n');
+          buf.append("-")
+            .append(g.getRule(((RuleTransition) t).ruleIndex).name)
+            .append("->")
+            .append(getStateString(t.target))
+            .append('\n');
         } else if (t instanceof ActionTransition a) {
           buf.append("-").append(a).append("->").append(getStateString(t.target)).append('\n');
         } else if (t instanceof SetTransition st) {
-          boolean not = st instanceof NotSetTransition;
+          var not = st instanceof NotSetTransition;
+          buf.append("-").append(not ? "~" : "");
           if (g.isLexer()) {
-            buf.append("-").append(not ? "~" : "").append(st).append("->").append(getStateString(t.target)).append('\n');
+            buf.append(st);
           } else {
-            buf.append("-").append(not ? "~" : "").append(st.label().toString(g.getVocabulary())).append("->").append(getStateString(t.target)).append('\n');
+            buf.append(st.label().toString(g.getVocabulary()));
           }
+          buf.append("->").append(getStateString(t.target)).append('\n');
         } else if (t instanceof AtomTransition a) {
           String label = g.getTokenDisplayName(a.label);
           buf.append("-").append(label).append("->").append(getStateString(t.target)).append('\n');

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -104,7 +104,9 @@ public class CharSupport {
               if (charAt == '}') {
                 break;
               }
-              if (!Character.isDigit(charAt) && !(charAt >= 'a' && charAt <= 'f') && !(charAt >= 'A' && charAt <= 'F')) {
+              if (!Character.isDigit(charAt)
+                && !(charAt >= 'a' && charAt <= 'f')
+                && !(charAt >= 'A' && charAt <= 'F')) {
                 return null; // invalid escape sequence.
               }
             }
@@ -112,7 +114,9 @@ public class CharSupport {
             for (end = i + 2; end < i + 6; end++) {
               if (end > n) return null; // invalid escape sequence.
               char charAt = literal.charAt(end);
-              if (!Character.isDigit(charAt) && !(charAt >= 'a' && charAt <= 'f') && !(charAt >= 'A' && charAt <= 'F')) {
+              if (!Character.isDigit(charAt)
+                && !(charAt >= 'a' && charAt <= 'f')
+                && !(charAt >= 'A' && charAt <= 'F')) {
                 return null; // invalid escape sequence.
               }
             }

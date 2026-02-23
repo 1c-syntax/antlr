@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,6 +10,8 @@
 package org.antlr.v4.tool;
 
 import org.antlr.v4.tool.ast.ActionAST;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Grammars, rules, and alternatives all have symbols visible to
@@ -41,6 +43,7 @@ import org.antlr.v4.tool.ast.ActionAST;
  * $s		AttributeDict: s is a global scope
  * $s::y	Attribute: s is a global scope; y is prop within
  */
+@NullMarked
 public interface AttributeResolver {
   boolean resolvesToListLabel(String x, ActionAST node);
 
@@ -50,7 +53,7 @@ public interface AttributeResolver {
 
   boolean resolvesToToken(String x, ActionAST node);
 
-  Attribute resolveToAttribute(String x, ActionAST node);
+  @Nullable Attribute resolveToAttribute(String x, ActionAST node);
 
-  Attribute resolveToAttribute(String x, String y, ActionAST node);
+  @Nullable Attribute resolveToAttribute(String x, String y, ActionAST node);
 }

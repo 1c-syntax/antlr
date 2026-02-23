@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Setter;
 import org.antlr.v4.runtime.misc.IntervalSet;
 
 import java.util.ArrayList;
@@ -117,6 +118,7 @@ public abstract class ATNState {
 
   public int stateNumber = INVALID_STATE_NUMBER;
 
+  @Setter
   public int ruleIndex; // at runtime, we don't have Rule objects
 
   public boolean epsilonOnlyTransitions = false;
@@ -189,7 +191,8 @@ public abstract class ATNState {
     if (transitions.isEmpty()) {
       epsilonOnlyTransitions = e.isEpsilon();
     } else if (epsilonOnlyTransitions != e.isEpsilon()) {
-      System.err.format(Locale.getDefault(), "ATN state %d has both epsilon and non-epsilon transitions.\n", stateNumber);
+      System.err.format(Locale.getDefault(),
+        "ATN state %d has both epsilon and non-epsilon transitions.\n", stateNumber);
       epsilonOnlyTransitions = false;
     }
 
@@ -212,10 +215,6 @@ public abstract class ATNState {
 
   public final boolean onlyHasEpsilonTransitions() {
     return epsilonOnlyTransitions;
-  }
-
-  public void setRuleIndex(int ruleIndex) {
-    this.ruleIndex = ruleIndex;
   }
 
   public boolean isOptimized() {

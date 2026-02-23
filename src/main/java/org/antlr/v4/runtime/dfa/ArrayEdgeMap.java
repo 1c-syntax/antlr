@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -12,7 +12,6 @@ package org.antlr.v4.runtime.dfa;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -112,19 +111,9 @@ public final class ArrayEdgeMap<T> extends AbstractEdgeMap<T> {
       SingletonEdgeMap<? extends T> other = (SingletonEdgeMap<? extends T>) m;
       assert !other.isEmpty();
       return put(other.getKey(), other.getValue());
-    } else if (m instanceof SparseEdgeMap<?>) {
-      SparseEdgeMap<? extends T> other = (SparseEdgeMap<? extends T>) m;
-      synchronized (other) {
-        int[] keys = other.getKeys();
-        List<? extends T> values = other.getValues();
-        ArrayEdgeMap<T> result = this;
-        for (int i = 0; i < values.size(); i++) {
-          result = result.put(keys[i], values.get(i));
-        }
-        return result;
-      }
     } else {
-      throw new UnsupportedOperationException(String.format("EdgeMap of type %s is supported yet.", m.getClass().getName()));
+      throw new UnsupportedOperationException(String.format("EdgeMap of type %s is supported yet.",
+        m.getClass().getName()));
     }
   }
 

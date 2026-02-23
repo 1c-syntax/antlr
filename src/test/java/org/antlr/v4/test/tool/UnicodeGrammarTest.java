@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -23,11 +23,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnicodeGrammarTest extends AbstractBaseTest {
+class UnicodeGrammarTest extends AbstractBaseTest {
   @Test
-  public void unicodeBMPLiteralInGrammar() throws Exception {
+  void unicodeBMPLiteralInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -35,17 +35,17 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
         WORLD : ('world' | '\\u4E16\\u754C' | '\\u1000\\u1019\\u1039\\u1018\\u102C' );
         WS : [ \\t\\r\\n]+ -> skip;
         """;
-    String inputText = "hello \u4E16\u754C";
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    String inputText = "hello 世界";
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
-  public void unicodeSMPLiteralInGrammar() throws Exception {
+  void unicodeSMPLiteralInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -56,16 +56,16 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
     String inputText = new StringBuilder("hello ")
       .appendCodePoint(0x1F30E)
       .toString();
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
-  public void unicodeSMPRangeInGrammar() throws Exception {
+  void unicodeSMPRangeInGrammar() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -76,16 +76,16 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
     String inputText = new StringBuilder("hello ")
       .appendCodePoint(0x1F30E)
       .toString();
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
-  public void matchingDanglingSurrogateInInput() throws Exception {
+  void matchingDanglingSurrogateInInput() throws Exception {
     String grammarText =
       """
         grammar Unicode;
@@ -94,16 +94,16 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
         WS : [ \\t\\r\\n]+ -> skip;
         """;
     String inputText = "hello \uD83C";
-    assertEquals(
-      "(r:1 " + inputText + ")",
+    assertThat(
       parseTreeForGrammarWithInput(
         grammarText,
         "r",
-        inputText));
+        inputText))
+      .isEqualTo("(r:1 " + inputText + ")");
   }
 
   @Test
-  public void binaryGrammar() throws Exception {
+  void binaryGrammar() throws Exception {
     String grammarText =
       """
         grammar Binary;
@@ -135,15 +135,15 @@ public class UnicodeGrammarTest extends AbstractBaseTest {
       new InterpreterTreeTextProvider(grammar.getRuleNames());
     String result = Trees.toStringTree(parseTree, nodeTextProvider);
 
-    assertEquals(
-      "(r:1 \u0002\u0000\u0001\u0007 \u00D0\u00D2\u00D2\u00D3\u00D3\u00D3 \u00D0\u00D3\u00D3\u00D1 \u00FF)",
-      result);
+    assertThat(result)
+      .isEqualTo("(r:1 \u0002\u0000\u0001\u0007 ÐÒÒÓÓÓ ÐÓÓÑ ÿ)");
   }
 
   private static String parseTreeForGrammarWithInput(
     String grammarText,
     String rootRule,
     String inputText) throws Exception {
+
     Grammar grammar = new Grammar(grammarText);
     LexerInterpreter lexEngine = grammar.createLexerInterpreter(
       CharStreams.fromString(inputText));

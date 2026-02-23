@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,6 +10,8 @@
 package org.antlr.v4.codegen;
 
 
+import lombok.Getter;
+import lombok.Setter;
 import org.antlr.runtime.tree.CommonTreeNodeStream;
 import org.antlr.v4.analysis.LeftRecursiveRuleAltInfo;
 import org.antlr.v4.codegen.model.Action;
@@ -81,12 +83,21 @@ public class OutputModelController {
   /**
    * Context set by the SourceGenTriggers.g
    */
+  @Getter
   public int codeBlockLevel = -1;
   public int treeLevel = -1;
+  @Setter
+  @Getter
   public OutputModelObject root; // normally ParserFile, LexerFile, ...
   public Stack<RuleFunction> currentRule = new Stack<>();
+  @Setter
+  @Getter
   public Alternative currentOuterMostAlt;
+  @Getter
+  @Setter
   public CodeBlock currentBlock;
+  @Getter
+  @Setter
   public CodeBlockForOuterMostAlt currentOuterMostAlternativeBlock;
 
   public OutputModelController(OutputModelFactory factory) {
@@ -452,14 +463,6 @@ public class OutputModelController {
     return needs;
   }
 
-  public OutputModelObject getRoot() {
-    return root;
-  }
-
-  public void setRoot(OutputModelObject root) {
-    this.root = root;
-  }
-
   public RuleFunction getCurrentRuleFunction() {
     if (!currentRule.isEmpty()) return currentRule.peek();
     return null;
@@ -474,31 +477,4 @@ public class OutputModelController {
     return null;
   }
 
-  public Alternative getCurrentOuterMostAlt() {
-    return currentOuterMostAlt;
-  }
-
-  public void setCurrentOuterMostAlt(Alternative currentOuterMostAlt) {
-    this.currentOuterMostAlt = currentOuterMostAlt;
-  }
-
-  public void setCurrentBlock(CodeBlock blk) {
-    currentBlock = blk;
-  }
-
-  public CodeBlock getCurrentBlock() {
-    return currentBlock;
-  }
-
-  public void setCurrentOuterMostAlternativeBlock(CodeBlockForOuterMostAlt currentOuterMostAlternativeBlock) {
-    this.currentOuterMostAlternativeBlock = currentOuterMostAlternativeBlock;
-  }
-
-  public CodeBlockForOuterMostAlt getCurrentOuterMostAlternativeBlock() {
-    return currentOuterMostAlternativeBlock;
-  }
-
-  public int getCodeBlockLevel() {
-    return codeBlockLevel;
-  }
 }

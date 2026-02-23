@@ -1,13 +1,12 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
-
 package org.antlr.v4.test.runtime.java.api;
 
 import org.antlr.v4.runtime.CharStreams;
@@ -57,7 +56,7 @@ public class TestIncremental {
    * This test verifies the behavior of the incremental parser as a non-incremental parser.
    */
   @Test
-  public void testBasicIncrementalParse() {
+  void testBasicIncrementalParse() {
     TestIncrementalBasicLexer lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_1));
     TestIncrementalBasicParser parser = new TestIncrementalBasicParser(new IncrementalTokenStream(lexer));
     int startingEpoch = parser.getParserEpoch();
@@ -72,7 +71,7 @@ public class TestIncremental {
    * This test reparses text and asserts that the context was reused.
    */
   @Test
-  public void testBasicIncrementalReparse() {
+  void testBasicIncrementalReparse() {
     TestIncrementalBasicLexer lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_1));
     IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
     TestIncrementalBasicParser parser = new TestIncrementalBasicParser(tokenStream);
@@ -97,7 +96,7 @@ public class TestIncremental {
 
   // Test that reparsing with a delete reuses data not deleted.
   @Test
-  public void testBasicIncrementalDeleteWithWhitespace() {
+  void testBasicIncrementalDeleteWithWhitespace() {
     TestIncrementalBasicLexer lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_1));
     IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
     TestIncrementalBasicParser parser = new TestIncrementalBasicParser(tokenStream);
@@ -120,7 +119,7 @@ public class TestIncremental {
       .setOldToken((CommonToken) oldTokens.get(4))
       .build();
 
-    ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
+    ArrayList<TokenChange> changes = new ArrayList<>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
     parser = new TestIncrementalBasicParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
@@ -129,15 +128,15 @@ public class TestIncremental {
     // Should have been created by the second parser.
     assertEquals(secondEpoch, secondTree.epoch);
     // But all child nodes should have come from the old parse tree
-    for (ParseTree child : secondTree.children) {
-      IncrementalParserRuleContext incChild = (IncrementalParserRuleContext) child;
+    for (var child : secondTree.getChildren()) {
+      var incChild = (IncrementalParserRuleContext) child;
       assertEquals(startingEpoch, incChild.epoch);
     }
   }
 
   // Test that reparsing with a add reuses data not added.
   @Test
-  public void testBasicIncrementalAddWithWhitespace() {
+  void testBasicIncrementalAddWithWhitespace() {
     TestIncrementalBasicLexer lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_1));
     IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
     TestIncrementalBasicParser parser = new TestIncrementalBasicParser(tokenStream);
@@ -160,7 +159,7 @@ public class TestIncremental {
       .setNewToken((CommonToken) tokenStream.get(10))
       .build();
 
-    ArrayList<TokenChange> changes = new ArrayList<TokenChange>(Arrays.asList(firstChange, secondChange));
+    ArrayList<TokenChange> changes = new ArrayList<>(Arrays.asList(firstChange, secondChange));
     IncrementalParserData parserData = new IncrementalParserData(tokenStream, changes, firstTree);
     parser = new TestIncrementalBasicParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
@@ -183,7 +182,7 @@ public class TestIncremental {
    * This test verifies the behavior of the incremental parser as a non-incremental parser.
    */
   @Test
-  public void testJavaIncrementalParse() {
+  void testJavaIncrementalParse() {
     TestIncrementalJavaLexer lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_1));
     TestIncrementalJavaParser parser = new TestIncrementalJavaParser(new IncrementalTokenStream(lexer));
     int startingEpoch = parser.getParserEpoch();
@@ -198,7 +197,7 @@ public class TestIncremental {
    * This test reparses text and asserts that the context was reused.
    */
   @Test
-  public void testJavaIncrementalReparse() {
+  void testJavaIncrementalReparse() {
     TestIncrementalJavaLexer lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_1));
     IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
     TestIncrementalJavaParser parser = new TestIncrementalJavaParser(tokenStream);
@@ -211,7 +210,7 @@ public class TestIncremental {
     // Parse the same text with the old tree.
     lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_1));
     tokenStream = new IncrementalTokenStream(lexer);
-    IncrementalParserData parserData = new IncrementalParserData(tokenStream, new ArrayList<TokenChange>(), firstTree);
+    IncrementalParserData parserData = new IncrementalParserData(tokenStream, new ArrayList<>(), firstTree);
     parser = new TestIncrementalJavaParser(tokenStream, parserData);
     int secondEpoch = parser.getParserEpoch();
     IncrementalParserRuleContext secondTree = parser.compilationUnit();
@@ -225,7 +224,7 @@ public class TestIncremental {
    * This test changes a token in the java program and asserts that the right contexts were reused.
    */
   @Test
-  public void testJavaIncrementalReparseWithChange() {
+  void testJavaIncrementalReparseWithChange() {
     TestIncrementalJavaLexer lexer = new TestIncrementalJavaLexer(CharStreams.fromString(JAVA_PROGRAM_1));
     IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
     TestIncrementalJavaParser parser = new TestIncrementalJavaParser(tokenStream);

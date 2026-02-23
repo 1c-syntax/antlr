@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -19,10 +19,10 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class BufferedTokenStreamTest extends AbstractBaseTest {
+class BufferedTokenStreamTest extends AbstractBaseTest {
 
   protected TokenStream createTokenStream(TokenSource src) {
     return new BufferedTokenStream(src);
@@ -30,7 +30,7 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
 
 
   @Test
-  public void testFirstToken() throws Exception {
+  void testFirstToken() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -49,12 +49,11 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     TokenStream tokens = createTokenStream(lexEngine);
 
     String result = tokens.LT(1).getText();
-    String expecting = "x";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x");
   }
 
   @Test
-  public void test2ndToken() throws Exception {
+  void test2ndToken() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -73,12 +72,11 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     TokenStream tokens = createTokenStream(lexEngine);
 
     String result = tokens.LT(2).getText();
-    String expecting = " ";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo(" ");
   }
 
   @Test
-  public void testCompleteBuffer() throws Exception {
+  void testCompleteBuffer() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -106,12 +104,11 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     tokens.LT(i);
 
     String result = tokens.getText();
-    String expecting = "x = 3 * 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x = 3 * 0 + 2 * 0;");
   }
 
   @Test
-  public void testCompleteBufferAfterConsuming() throws Exception {
+  void testCompleteBufferAfterConsuming() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -136,12 +133,11 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
     }
 
     String result = tokens.getText();
-    String expecting = "x = 3 * 0 + 2 * 0;";
-    assertEquals(expecting, result);
+    assertThat(result).isEqualTo("x = 3 * 0 + 2 * 0;");
   }
 
   @Test
-  public void testLookback() throws Exception {
+  void testLookback() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -161,16 +157,16 @@ public class BufferedTokenStreamTest extends AbstractBaseTest {
 
     tokens.consume(); // get x into buffer
     Token t = tokens.LT(-1);
-    assertEquals("x", t.getText());
+    assertThat(t.getText()).isEqualTo("x");
 
     tokens.consume();
     tokens.consume(); // consume '='
     t = tokens.LT(-3);
-    assertEquals("x", t.getText());
+    assertThat(t.getText()).isEqualTo("x");
     t = tokens.LT(-2);
-    assertEquals(" ", t.getText());
+    assertThat(t.getText()).isEqualTo(" ");
     t = tokens.LT(-1);
-    assertEquals("=", t.getText());
+    assertThat(t.getText()).isEqualTo("=");
   }
 
 }

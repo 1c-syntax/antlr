@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -28,14 +28,13 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 // NOTICE: TOKENS IN LEXER, PARSER MUST BE SAME OR TOKEN TYPE MISMATCH
 
-public class ATNParserPredictionTest extends AbstractBaseTest {
+class ATNParserPredictionTest extends AbstractBaseTest {
   @Test
-  public void testAorB() throws Exception {
+  void testAorB() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -73,7 +72,7 @@ s0-'b'->:s2=>2
   }
 
   @Test
-  public void testEmptyInput() throws Exception {
+  void testEmptyInput() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -105,7 +104,7 @@ s0-'a'->:s1=>1
   }
 
   @Test
-  public void testPEGAchillesHeel() throws Exception {
+  void testPEGAchillesHeel() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -147,7 +146,7 @@ s1-'b'->:s3=>2
   }
 
   @Test
-  public void testRuleRefxory() throws Exception {
+  void testRuleRefxory() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -189,7 +188,7 @@ s0-'b'->:s2=>2
   }
 
   @Test
-  public void testOptionalRuleChasesGlobalFollow() throws Exception {
+  void testOptionalRuleChasesGlobalFollow() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -241,7 +240,7 @@ s0-'c'->:s3=>2
   }
 
   @Test
-  public void testLL1Ambig() throws Exception {
+  void testLL1Ambig() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -284,7 +283,7 @@ s1-'b'->:s3=>3
   }
 
   @Test
-  public void testLL2Ambig() throws Exception {
+  void testLL2Ambig() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -330,7 +329,7 @@ s2-'c'->:s4=>3
   }
 
   @Test
-  public void testRecursiveLeftPrefix() throws Exception {
+  void testRecursiveLeftPrefix() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -401,7 +400,7 @@ s7-')'->s1
   }
 
   @Test
-  public void testRecursiveLeftPrefixWithAorABIssue() throws Exception {
+  void testRecursiveLeftPrefixWithAorABIssue() throws Exception {
     LexerGrammar lg = new LexerGrammar(
       """
         lexer grammar L;
@@ -476,7 +475,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testContinuePrediction() throws Exception {
+  void testContinuePrediction() throws Exception {
     // Sam found prev def of ambiguity was too restrictive.
     // E.g., (13, 1, []), (13, 2, []), (12, 2, []) should not
     // be declared ambig since (12, 2, []) can take us to
@@ -500,7 +499,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testContinuePrediction2() throws Exception {
+  void testContinuePrediction2() throws Exception {
     // ID is ambig for first two alts, but ID SEMI lets us move forward with alt 3
     LexerGrammar lg = new LexerGrammar(
       """
@@ -522,7 +521,7 @@ s8-')'->s1
   }
 
   @Test
-  public void testAltsForLRRuleComputation() throws Exception {
+  void testAltsForLRRuleComputation() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -535,14 +534,14 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 2, 4]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 1, 3]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 2, 4]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 1, 3]");
   }
 
   @Test
-  public void testAltsForLRRuleComputation2() throws Exception {
+  void testAltsForLRRuleComputation2() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -554,14 +553,14 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 1, 3]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 2]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 1, 3]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 2]");
   }
 
   @Test
-  public void testAltsForLRRuleComputation3() throws Exception {
+  void testAltsForLRRuleComputation3() throws Exception {
     Grammar g = new Grammar(
       """
         grammar T;
@@ -576,10 +575,10 @@ s8-')'->s1
         INT : [0-9]+ ;
         WS : [ \\r\\t\\n]+ ;""");
     Rule e = g.getRule("e");
-    assertThat(e instanceof LeftRecursiveRule).isTrue();
+    assertThat(e).isInstanceOf(LeftRecursiveRule.class);
     LeftRecursiveRule lr = (LeftRecursiveRule) e;
-    assertEquals("[0, 1, 5]", Arrays.toString(lr.getPrimaryAlts()));
-    assertEquals("[0, 2, 3, 4]", Arrays.toString(lr.getRecursiveOpAlts()));
+    assertThat(Arrays.toString(lr.getPrimaryAlts())).isEqualTo("[0, 1, 5]");
+    assertThat(Arrays.toString(lr.getRecursiveOpAlts())).isEqualTo("[0, 2, 3, 4]");
   }
 
   /**
@@ -623,16 +622,16 @@ s8-')'->s1
 
     System.out.println(dot.getDOT(dfa, false));
 
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
 
     // Check adaptive prediction
     input.seek(0);
     alt = interp.adaptivePredict(input, decision, null);
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
     // run 2x; first time creates DFA in atn
     input.seek(0);
     alt = interp.adaptivePredict(input, decision, null);
-    assertEquals(expectedAlt, alt);
+    assertThat(alt).isEqualTo(expectedAlt);
   }
 
   public void checkDFAConstruction(LexerGrammar lg, Grammar g, int decision,
@@ -656,7 +655,7 @@ s8-')'->s1
         nvae.printStackTrace(System.err);
       }
       DFA dfa = interp.getATNSimulator().atn.decisionToDFA[decision];
-      assertEquals(dfaString[i], dfa.toString(g.getVocabulary(), g.rules.keySet().toArray(new String[0])));
+      assertThat(dfa.toString(g.getVocabulary(), g.rules.keySet().toArray(new String[0]))).isEqualTo(dfaString[i]);
     }
   }
 }

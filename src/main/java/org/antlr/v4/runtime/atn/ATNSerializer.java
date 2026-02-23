@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -415,14 +415,16 @@ public class ATNSerializer {
     int p = 0;
     int version = ATNDeserializer.toInt(data[p++]);
     if (version != ATNDeserializer.SERIALIZED_VERSION) {
-      String reason = String.format("Could not deserialize ATN with version %d (expected %d).", version, ATNDeserializer.SERIALIZED_VERSION);
+      var reason = String.format("Could not deserialize ATN with version %d (expected %d).",
+        version, ATNDeserializer.SERIALIZED_VERSION);
       throw new UnsupportedOperationException(new InvalidClassException(ATN.class.getName(), reason));
     }
 
     UUID uuid = ATNDeserializer.toUUID(data, p);
     p += 8;
     if (!uuid.equals(ATNDeserializer.SERIALIZED_UUID)) {
-      String reason = String.format(Locale.getDefault(), "Could not deserialize ATN with UUID %s (expected %s).", uuid, ATNDeserializer.SERIALIZED_UUID);
+      var reason = String.format(Locale.getDefault(),
+        "Could not deserialize ATN with UUID %s (expected %s).", uuid, ATNDeserializer.SERIALIZED_UUID);
       throw new UnsupportedOperationException(new InvalidClassException(ATN.class.getName(), reason));
     }
 
@@ -442,7 +444,10 @@ public class ATNSerializer {
       if (stype == ATNState.LOOP_END) {
         int loopBackStateNumber = ATNDeserializer.toInt(data[p++]);
         arg = " " + loopBackStateNumber;
-      } else if (stype == ATNState.PLUS_BLOCK_START || stype == ATNState.STAR_BLOCK_START || stype == ATNState.BLOCK_START) {
+      } else if (stype == ATNState.PLUS_BLOCK_START
+        || stype == ATNState.STAR_BLOCK_START
+        || stype == ATNState.BLOCK_START) {
+
         int endStateNumber = ATNDeserializer.toInt(data[p++]);
         arg = " " + endStateNumber;
       }
@@ -491,9 +496,19 @@ public class ATNSerializer {
       buf.append("mode ").append(i).append(":").append(s).append('\n');
     }
     int numBMPSets = ATNDeserializer.toInt(data[p++]);
-    p = appendSets(buf, data, p, numBMPSets, 0, ATNDeserializer.getUnicodeDeserializer(ATNDeserializer.UnicodeDeserializingMode.UNICODE_BMP));
+    p = appendSets(buf,
+      data,
+      p,
+      numBMPSets,
+      0,
+      ATNDeserializer.getUnicodeDeserializer(ATNDeserializer.UnicodeDeserializingMode.UNICODE_BMP));
     int numSMPSets = ATNDeserializer.toInt(data[p++]);
-    p = appendSets(buf, data, p, numSMPSets, numBMPSets, ATNDeserializer.getUnicodeDeserializer(ATNDeserializer.UnicodeDeserializingMode.UNICODE_SMP));
+    p = appendSets(buf,
+      data,
+      p,
+      numSMPSets,
+      numBMPSets,
+      ATNDeserializer.getUnicodeDeserializer(ATNDeserializer.UnicodeDeserializingMode.UNICODE_SMP));
     int nedges = ATNDeserializer.toInt(data[p++]);
     for (int i = 0; i < nedges; i++) {
       int src = ATNDeserializer.toInt(data[p]);
@@ -529,7 +544,12 @@ public class ATNSerializer {
     return buf.toString();
   }
 
-  private int appendSets(StringBuilder buf, char[] data, int p, int nsets, int setIndexOffset, ATNDeserializer.UnicodeDeserializer unicodeDeserializer) {
+  private int appendSets(StringBuilder buf,
+                         char[] data,
+                         int p,
+                         int nsets,
+                         int setIndexOffset,
+                         ATNDeserializer.UnicodeDeserializer unicodeDeserializer) {
     for (int i = 0; i < nsets; i++) {
       int nintervals = ATNDeserializer.toInt(data[p++]);
       buf.append(i + setIndexOffset).append(":");

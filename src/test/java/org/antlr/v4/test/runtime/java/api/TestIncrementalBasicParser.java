@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -26,8 +26,6 @@ import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.antlr.v4.runtime.atn.ParserATNSimulator;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
@@ -61,32 +59,6 @@ public class TestIncrementalBasicParser extends IncrementalParser {
 
   private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
   public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
-
-  /**
-   * @deprecated Use {@link #VOCABULARY} instead.
-   */
-  @Deprecated
-  public static final String[] tokenNames;
-
-  static {
-    tokenNames = new String[_SYMBOLIC_NAMES.length];
-    for (int i = 0; i < tokenNames.length; i++) {
-      tokenNames[i] = VOCABULARY.getLiteralName(i);
-      if (tokenNames[i] == null) {
-        tokenNames[i] = VOCABULARY.getSymbolicName(i);
-      }
-
-      if (tokenNames[i] == null) {
-        tokenNames[i] = "<INVALID>";
-      }
-    }
-  }
-
-  @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return tokenNames;
-  }
 
   @Override
   @NotNull
@@ -126,12 +98,11 @@ public class TestIncrementalBasicParser extends IncrementalParser {
 
   public TestIncrementalBasicParser(IncrementalTokenStream input) {
     this(input, null);
-    _interp = new ParserATNSimulator(this, _ATN);
   }
 
   public TestIncrementalBasicParser(IncrementalTokenStream input, IncrementalParserData data) {
     super(input, data);
-    _interp = new ParserATNSimulator(this, _ATN);
+    setInterpreter(new ParserATNSimulator(this, _ATN));
   }
 
 

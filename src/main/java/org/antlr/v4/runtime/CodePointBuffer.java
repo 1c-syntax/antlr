@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -248,12 +248,11 @@ public class CodePointBuffer {
           if (!Character.isHighSurrogate(c)) {
             byteToCharBuffer(utf16In.remaining());
             appendArrayChar(utf16In);
-            return;
           } else {
             byteToIntBuffer(utf16In.remaining());
             appendArrayInt(utf16In);
-            return;
           }
+          return;
         }
         inOffset++;
         outOffset++;
@@ -341,7 +340,7 @@ public class CodePointBuffer {
     private void byteToCharBuffer(int toAppend) {
       byteBuffer.flip();
       // CharBuffers hold twice as much per unit as ByteBuffers, so start with half the capacity.
-      CharBuffer newBuffer = CharBuffer.allocate(Math.max(byteBuffer.remaining() + toAppend, byteBuffer.capacity() / 2));
+      var newBuffer = CharBuffer.allocate(Math.max(byteBuffer.remaining() + toAppend, byteBuffer.capacity() / 2));
       while (byteBuffer.hasRemaining()) {
         newBuffer.put((char) (byteBuffer.get() & 0xFF));
       }

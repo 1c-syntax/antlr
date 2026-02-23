@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -16,16 +16,14 @@ import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.antlr.v4.runtime.tree.xpath.XPath;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@Disabled("Переделать на ANTLR runtime/Generator")
 public class XPathTest extends AbstractBaseTest {
   public static final String grammar = """
     grammar Expr;
@@ -64,7 +62,7 @@ public class XPathTest extends AbstractBaseTest {
     """;
 
   @Test
-  public void testValidPaths() throws Exception {
+  void testValidPaths() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -90,17 +88,20 @@ public class XPathTest extends AbstractBaseTest {
       "/!*",        // nothing at root
       "//expr//ID",    // any ID under any expression (tests antlr/antlr4#370)
     };
-    String[] expected = {"[func, func]", "[func, func]", "[func, func]", "[prog]", "[prog]", "[prog]", "[prog]", "[f, x, y, x, y, g, x, x]", "[y, x]", "[x, y, x]", "[return]", "[return]", "[3, 4, y, 1, 2, x]", "[stat, stat, stat, stat]", "[def, def]", "[;, ;, ;, ;]", "[3, 4, 1, 2]", "[expr, expr, expr, expr, expr, expr]", "[]", "[]", "[y, x]",};
+    String[] expected = {"[func, func]", "[func, func]", "[func, func]", "[prog]", "[prog]", "[prog]", "[prog]",
+      "[f, x, y, x, y, g, x, x]", "[y, x]", "[x, y, x]", "[return]", "[return]", "[3, 4, y, 1, 2, x]",
+      "[stat, stat, stat, stat]", "[def, def]", "[;, ;, ;, ;]", "[3, 4, 1, 2]", "[expr, expr, expr, expr, expr, expr]",
+      "[]", "[]", "[y, x]",};
 
     for (int i = 0; i < xpath.length; i++) {
       List<String> nodes = getNodeStrings(SAMPLE_PROGRAM, xpath[i], "prog", "ExprParser", "ExprLexer");
       String result = nodes.toString();
-      assertEquals("path " + xpath[i] + " failed", expected[i], result);
+      assertThat(result).as("path " + xpath[i] + " failed").isEqualTo(expected[i]);
     }
   }
 
   @Test
-  public void testWeirdChar() throws Exception {
+  void testWeirdChar() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -111,7 +112,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testWeirdChar2() throws Exception {
+  void testWeirdChar2() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -122,7 +123,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadSyntax() throws Exception {
+  void testBadSyntax() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -133,7 +134,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testMissingWordAtEnd() throws Exception {
+  void testMissingWordAtEnd() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -144,7 +145,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadTokenName() throws Exception {
+  void testBadTokenName() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -155,7 +156,7 @@ public class XPathTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testBadRuleName() throws Exception {
+  void testBadRuleName() throws Exception {
     boolean ok = rawGenerateAndBuildRecognizer("Expr.g4", grammar, "ExprParser", "ExprLexer", false);
     assertThat(ok).isTrue();
 
@@ -165,22 +166,26 @@ public class XPathTest extends AbstractBaseTest {
     testError(SAMPLE_PROGRAM, path, expected, "prog", "ExprParser", "ExprLexer");
   }
 
-  protected void testError(String input, String path, String expected, String startRuleName, String parserName, String lexerName) throws Exception {
+  protected void testError(String input,
+                           String path,
+                           String expected,
+                           String startRuleName,
+                           String parserName,
+                           String lexerName) throws Exception {
     Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);
 
-    IllegalArgumentException e = null;
-    try {
-      XPath.findAll(tree, path, parser);
-    } catch (IllegalArgumentException iae) {
-      e = iae;
-    }
-    assertThat(e).isNotNull();
-    assertEquals(expected, e.getMessage());
+    assertThatThrownBy(() -> XPath.findAll(tree, path, parser))
+      .isInstanceOf(IllegalArgumentException.class)
+      .hasMessage(expected);
   }
 
-  public List<String> getNodeStrings(String input, String xpath, String startRuleName, String parserName, String lexerName) throws Exception {
+  public List<String> getNodeStrings(String input,
+                                     String xpath,
+                                     String startRuleName,
+                                     String parserName,
+                                     String lexerName) throws Exception {
     Pair<Parser, Lexer> pl = getParserAndLexer(input, parserName, lexerName);
     Parser parser = pl.getItem1();
     ParseTree tree = execStartRule(startRuleName, parser);

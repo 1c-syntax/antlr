@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -10,13 +10,13 @@
 package org.antlr.v4.runtime;
 
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.jspecify.annotations.NullMarked;
 
 /**
- * This implementation of {@link ANTLRErrorStrategy} responds to syntax errors
- * by immediately canceling the parse operation with a
- * {@link ParseCancellationException}. The implementation ensures that the
- * {@link ParserRuleContext#exception} field is set for all parse tree nodes
- * that were not completed prior to encountering the error.
+ * This implementation of {@link ANTLRErrorStrategy} responds to syntax errors by immediately canceling the parse
+ * operation with a {@link ParseCancellationException}. The implementation ensures that the
+ * {@link ParserRuleContext#exception} field is set for all parse tree nodes that were not completed prior to
+ * encountering the error.
  *
  * <p>
  * This error strategy is useful in the following scenarios.</p>
@@ -39,16 +39,16 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
  *
  * @see Parser#setErrorHandler(ANTLRErrorStrategy)
  */
+@NullMarked
 public class BailErrorStrategy extends DefaultErrorStrategy {
   /**
-   * Instead of recovering from exception {@code e}, re-throw it wrapped
-   * in a {@link ParseCancellationException} so it is not caught by the
-   * rule function catches.  Use {@link Exception#getCause()} to get the
-   * original {@link RecognitionException}.
+   * Instead of recovering from exception {@code e}, re-throw it wrapped in a {@link ParseCancellationException} so it
+   * is not caught by the rule function catches.  Use {@link Exception#getCause()} to get the original
+   * {@link RecognitionException}.
    */
   @Override
   public void recover(Parser recognizer, RecognitionException e) {
-    for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
+    for (var context = recognizer.getContext(); context != null; context = context.getParent()) {
       context.exception = e;
     }
 
@@ -56,14 +56,12 @@ public class BailErrorStrategy extends DefaultErrorStrategy {
   }
 
   /**
-   * Make sure we don't attempt to recover inline; if the parser
-   * successfully recovers, it won't throw an exception.
+   * Make sure we don't attempt to recover inline; if the parser successfully recovers, it won't throw an exception.
    */
   @Override
-  public Token recoverInline(Parser recognizer)
-    throws RecognitionException {
-    InputMismatchException e = new InputMismatchException(recognizer);
-    for (ParserRuleContext context = recognizer.getContext(); context != null; context = context.getParent()) {
+  public Token recoverInline(Parser recognizer) throws RecognitionException {
+    var e = new InputMismatchException(recognizer);
+    for (var context = recognizer.getContext(); context != null; context = context.getParent()) {
       context.exception = e;
     }
 

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -30,17 +30,6 @@ public final class RuleTransition extends Transition {
 
   public boolean tailCall;
   public boolean optimizedTailCall;
-
-  /**
-   * @deprecated Use
-   * {@link #RuleTransition(RuleStartState, int, int, ATNState)} instead.
-   */
-  @Deprecated
-  public RuleTransition(@NotNull RuleStartState ruleStart,
-                        int ruleIndex,
-                        @NotNull ATNState followState) {
-    this(ruleStart, ruleIndex, 0, followState);
-  }
 
   public RuleTransition(@NotNull RuleStartState ruleStart,
                         int ruleIndex,

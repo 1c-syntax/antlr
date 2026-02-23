@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -20,13 +20,13 @@ import org.antlr.v4.tool.GrammarParserInterpreter;
 import org.antlr.v4.tool.LexerGrammar;
 import org.junit.jupiter.api.Test;
 
-import static org.antlr.v4.TestUtils.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Tests to ensure GrammarParserInterpreter subclass of ParserInterpreter
  * hasn't messed anything up.
  */
-public class GrammarParserInterpreterTest {
+class GrammarParserInterpreterTest {
   public static final String lexerText = """
     lexer grammar L;
     PLUS : '+' ;
@@ -37,7 +37,7 @@ public class GrammarParserInterpreterTest {
     """;
 
   @Test
-  public void testAlts() throws Exception {
+  void testAlts() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -52,7 +52,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testAltsAsSet() throws Exception {
+  void testAltsAsSet() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -67,7 +67,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testAltsWithLabels() throws Exception {
+  void testAltsWithLabels() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -83,7 +83,7 @@ public class GrammarParserInterpreterTest {
   }
 
   @Test
-  public void testOneAlt() throws Exception {
+  void testOneAlt() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -97,7 +97,7 @@ public class GrammarParserInterpreterTest {
 
 
   @Test
-  public void testLeftRecursionWithMultiplePrimaryAndRecursiveOps() throws Exception {
+  void testLeftRecursionWithMultiplePrimaryAndRecursiveOps() throws Exception {
     LexerGrammar lg = new LexerGrammar(lexerText);
     Grammar g = new Grammar(
       """
@@ -128,7 +128,7 @@ public class GrammarParserInterpreterTest {
     InterpreterTreeTextProvider nodeTextProvider = new InterpreterTreeTextProvider(g.getRuleNames());
     String treeStr = Trees.toStringTree(t, nodeTextProvider);
     System.out.println("parse tree: " + treeStr);
-    assertEquals(expectedParseTree, treeStr);
+    assertThat(treeStr).isEqualTo(expectedParseTree);
     return (InterpreterRuleContext) t;
   }
 }

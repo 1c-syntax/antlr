@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Utils;
@@ -67,7 +68,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
    */
   private final ArrayList<ATNConfig> configs;
 
+  @Getter
   private int uniqueAlt;
+  @Getter
   private ConflictInfo conflictInfo;
   // Used in parser and lexer. In lexer, it indicates we hit a pred
   // while computing a closure operation.  Don't make a DFA state from this.
@@ -82,6 +85,7 @@ public class ATNConfigSet implements Set<ATNConfig> {
    * Note: {@code outermostConfigSet} and {@link #dipsIntoOuterContext} should never
    * be true at the same time.
    */
+  @Getter
   private boolean outermostConfigSet;
 
   private int cachedHashCode = -1;
@@ -141,10 +145,6 @@ public class ATNConfigSet implements Set<ATNConfig> {
 
   public final boolean isReadOnly() {
     return mergedConfigs == null;
-  }
-
-  public boolean isOutermostConfigSet() {
-    return outermostConfigSet;
   }
 
   public void setOutermostConfigSet(boolean outermostConfigSet) {
@@ -275,7 +275,9 @@ public class ATNConfigSet implements Set<ATNConfig> {
     return true;
   }
 
-  private boolean mergeConfigContext(ATNConfig e, @Nullable PredictionContextCache contextCache, ATNConfig unmergedConfig) {
+  private boolean mergeConfigContext(ATNConfig e,
+                                     @Nullable PredictionContextCache contextCache,
+                                     ATNConfig unmergedConfig) {
     unmergedConfig.setOuterContextDepth(Math.max(unmergedConfig.getOuterContextDepth(), e.getOuterContextDepth()));
     if (e.isPrecedenceFilterSuppressed()) {
       unmergedConfig.setPrecedenceFilterSuppressed(true);
@@ -462,10 +464,6 @@ public class ATNConfigSet implements Set<ATNConfig> {
     return buf.toString();
   }
 
-  public int getUniqueAlt() {
-    return uniqueAlt;
-  }
-
   public boolean hasSemanticContext() {
     return hasSemanticContext;
   }
@@ -478,10 +476,6 @@ public class ATNConfigSet implements Set<ATNConfig> {
   public void markExplicitSemanticContext() {
     ensureWritable();
     hasSemanticContext = true;
-  }
-
-  public ConflictInfo getConflictInfo() {
-    return conflictInfo;
   }
 
   public void setConflictInfo(ConflictInfo conflictInfo) {

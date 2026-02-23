@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -19,13 +19,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import static org.antlr.v4.TestUtils.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenTypeAssignmentTest extends AbstractBaseTest {
+class TokenTypeAssignmentTest extends AbstractBaseTest {
 
   @Test
-  public void testParserSimpleTokens() throws Exception {
+  void testParserSimpleTokens() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar t;
@@ -37,7 +36,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testParserTokensSection() throws Exception {
+  void testParserTokensSection() throws Exception {
     Grammar g = new Grammar(
       """
         parser grammar t;
@@ -53,7 +52,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLexerTokensSection() throws Exception {
+  void testLexerTokensSection() throws Exception {
     LexerGrammar g = new LexerGrammar(
       """
         lexer grammar t;
@@ -69,7 +68,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testCombinedGrammarLiterals() throws Exception {
+  void testCombinedGrammarLiterals() throws Exception {
     // "foo" is not a token name
     Grammar g = new Grammar(
       """
@@ -86,7 +85,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testLiteralInParserAndLexer() throws Exception {
+  void testLiteralInParserAndLexer() throws Exception {
     // 'x' is token and char in lexer rule
     Grammar g = new Grammar(
       """
@@ -96,20 +95,18 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
 
     String literals = "['x']";
-    String foundLiterals = g.stringLiteralToTypeMap.keySet().toString();
-    assertEquals(literals, foundLiterals);
+    assertThat(g.stringLiteralToTypeMap.keySet()).hasToString(literals);
 
-    foundLiterals = g.implicitLexer.stringLiteralToTypeMap.keySet().toString();
-    assertEquals("['x']", foundLiterals); // pushed in lexer from parser
+    assertThat(g.implicitLexer.stringLiteralToTypeMap.keySet()).hasToString("['x']"); // pushed in lexer from parser
 
     String[] typeToTokenName = g.getTokenDisplayNames();
     Set<String> tokens = new LinkedHashSet<>();
     for (String t : typeToTokenName) if (t != null) tokens.add(t);
-    assertEquals("[<INVALID>, 'x', E]", tokens.toString());
+    assertThat(tokens).hasToString("[<INVALID>, 'x', E]");
   }
 
   @Test
-  public void testPredDoesNotHideNameToLiteralMapInLexer() throws Exception {
+  void testPredDoesNotHideNameToLiteralMapInLexer() throws Exception {
     // 'x' is token and char in lexer rule
     Grammar g = new Grammar(
       """
@@ -118,16 +115,16 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
         X: 'x' {true}?;
         """); // must match as alias even with pred
 
-    assertEquals("{'x'=1}", g.stringLiteralToTypeMap.toString());
-    assertEquals("{EOF=-1, X=1}", g.tokenNameToTypeMap.toString());
+    assertThat(g.stringLiteralToTypeMap).hasToString("{'x'=1}");
+    assertThat(g.tokenNameToTypeMap).hasToString("{EOF=-1, X=1}");
 
     // pushed in lexer from parser
-    assertEquals("{'x'=1}", g.implicitLexer.stringLiteralToTypeMap.toString());
-    assertEquals("{EOF=-1, X=1}", g.implicitLexer.tokenNameToTypeMap.toString());
+    assertThat(g.implicitLexer.stringLiteralToTypeMap).hasToString("{'x'=1}");
+    assertThat(g.implicitLexer.tokenNameToTypeMap).hasToString("{EOF=-1, X=1}");
   }
 
   @Test
-  public void testCombinedGrammarWithRefToLiteralButNoTokenIDRef() throws Exception {
+  void testCombinedGrammarWithRefToLiteralButNoTokenIDRef() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -140,7 +137,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   }
 
   @Test
-  public void testSetDoesNotMissTokenAliases() throws Exception {
+  void testSetDoesNotMissTokenAliases() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -156,7 +153,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
   // T E S T  L I T E R A L  E S C A P E S
 
   @Test
-  public void testParserCharLiteralWithEscape() throws Exception {
+  void testParserCharLiteralWithEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -164,11 +161,11 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\n'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\n'");
   }
 
   @Test
-  public void testParserCharLiteralWithBasicUnicodeEscape() throws Exception {
+  void testParserCharLiteralWithBasicUnicodeEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -176,11 +173,11 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\uABCD'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\uABCD'");
   }
 
   @Test
-  public void testParserCharLiteralWithExtendedUnicodeEscape() throws Exception {
+  void testParserCharLiteralWithExtendedUnicodeEscape() throws Exception {
     Grammar g = new Grammar(
       """
         grammar t;
@@ -188,7 +185,7 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
         """);
     Set<?> literals = g.stringLiteralToTypeMap.keySet();
     // must store literals how they appear in the antlr grammar
-    assertEquals("'\\u{1ABCD}'", literals.toArray()[0]);
+    assertThat(literals.toArray()[0]).isEqualTo("'\\u{1ABCD}'");
   }
 
   protected void checkSymbols(Grammar g, String rulesStr, String allValidTokensStr) {
@@ -209,16 +206,16 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
     StringTokenizer st = new StringTokenizer(allValidTokensStr, ", ");
     while (st.hasMoreTokens()) {
       String tokenName = st.nextToken();
-      assertThat(g.getTokenType(tokenName) != Token.INVALID_TYPE)
+      assertThat(g.getTokenType(tokenName))
         .as("token " + tokenName + " expected, but was undefined")
-        .isTrue();
+        .isNotEqualTo(Token.INVALID_TYPE);
       tokens.remove(tokenName);
     }
     // make sure there are not any others (other than <EOF> etc...)
     for (String tokenName : tokens) {
-      assertThat(g.getTokenType(tokenName) < Token.MIN_USER_TOKEN_TYPE)
+      assertThat(g.getTokenType(tokenName))
         .as("unexpected token name " + tokenName)
-        .isTrue();
+        .isLessThan(Token.MIN_USER_TOKEN_TYPE);
     }
 
     // make sure all expected rules are there
@@ -232,8 +229,9 @@ public class TokenTypeAssignmentTest extends AbstractBaseTest {
       n++;
     }
     // make sure there are no extra rules
-    assertEquals("number of rules mismatch; expecting " + n + "; found " + g.rules.size(),
-      n, g.rules.size());
+    assertThat(g.rules)
+      .as("number of rules mismatch; expecting " + n + "; found " + g.rules.size())
+      .hasSize(n);
 
   }
 

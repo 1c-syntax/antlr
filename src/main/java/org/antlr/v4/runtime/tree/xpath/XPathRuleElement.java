@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -31,11 +31,9 @@ public class XPathRuleElement extends XPathElement {
     // return all children of t that match nodeName
     List<ParseTree> nodes = new ArrayList<>();
     for (Tree c : Trees.getChildren(t)) {
-      if (c instanceof ParserRuleContext ctx) {
-        if ((ctx.getRuleIndex() == ruleIndex && !invert) ||
-          (ctx.getRuleIndex() != ruleIndex && invert)) {
-          nodes.add(ctx);
-        }
+      if (c instanceof ParserRuleContext ctx && ((ctx.getRuleIndex() == ruleIndex && !invert) ||
+        (ctx.getRuleIndex() != ruleIndex && invert))) {
+        nodes.add(ctx);
       }
     }
     return nodes;

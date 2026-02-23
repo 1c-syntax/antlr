@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -32,7 +32,7 @@ public class Action extends RuleElement {
 
   public Action(OutputModelFactory factory, ActionAST ast) {
     super(factory, ast);
-    RuleFunction rf = factory.getCurrentRuleFunction();
+    var rf = factory.getCurrentRuleFunction();
     if (ast != null) {
       chunks = ActionTranslator.translateAction(factory, rf, ast.token, ast);
     } else {
@@ -42,8 +42,8 @@ public class Action extends RuleElement {
 
   public Action(OutputModelFactory factory, StructDecl ctx, String action) {
     super(factory, null);
-    ActionAST ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
-    RuleFunction rf = factory.getCurrentRuleFunction();
+    var ast = new ActionAST(new CommonToken(ANTLRParser.ACTION, action));
+    var rf = factory.getCurrentRuleFunction();
     if (rf != null) { // we can translate
       ast.resolver = rf.rule;
       chunks = ActionTranslator.translateActionChunk(factory, rf, action, ast);

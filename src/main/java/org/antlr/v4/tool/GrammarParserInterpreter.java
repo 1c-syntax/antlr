@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -30,6 +30,7 @@ import org.antlr.v4.runtime.atn.RuleStartState;
 import org.antlr.v4.runtime.atn.StarLoopEntryState;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.Trees;
+import org.jspecify.annotations.NullMarked;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.List;
  *
  * @since 4.5.1
  */
+@NullMarked
 public class GrammarParserInterpreter extends ParserInterpreter {
   /**
    * The grammar associated with this interpreter. Unlike the
@@ -393,10 +395,12 @@ public class GrammarParserInterpreter extends ParserInterpreter {
         Constructor<? extends ParserInterpreter> ctor = c.getConstructor(Grammar.class, ATN.class, TokenStream.class);
         parser = ctor.newInstance(g, originalParser.getATN(), originalParser.getInputStream());
       } catch (Exception e) {
-        throw new IllegalArgumentException("can't create parser to match incoming " + originalParser.getClass().getSimpleName(), e);
+        throw new IllegalArgumentException("can't create parser to match incoming "
+          + originalParser.getClass().getSimpleName(), e);
       }
     } else { // must've been a generated parser
-      char[] serializedAtn = ATNSerializer.getSerializedAsChars(originalParser.getATN(), Arrays.asList(originalParser.getRuleNames()));
+      char[] serializedAtn = ATNSerializer.getSerializedAsChars(originalParser.getATN(),
+        Arrays.asList(originalParser.getRuleNames()));
       ATN deserialized = new ATNDeserializer().deserialize(serializedAtn);
       parser = new ParserInterpreter(originalParser.getGrammarFileName(),
         originalParser.getVocabulary(),

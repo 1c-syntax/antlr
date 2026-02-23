@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -28,8 +28,6 @@ import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.antlr.v4.runtime.atn.ParserATNSimulator;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.misc.Nullable;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.List;
@@ -178,32 +176,6 @@ public class TestIncrementalJavaParser extends IncrementalParser {
   private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
   public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
-  /**
-   * @deprecated Use {@link #VOCABULARY} instead.
-   */
-  @Deprecated
-  public static final String[] tokenNames;
-
-  static {
-    tokenNames = new String[_SYMBOLIC_NAMES.length];
-    for (int i = 0; i < tokenNames.length; i++) {
-      tokenNames[i] = VOCABULARY.getLiteralName(i);
-      if (tokenNames[i] == null) {
-        tokenNames[i] = VOCABULARY.getSymbolicName(i);
-      }
-
-      if (tokenNames[i] == null) {
-        tokenNames[i] = "<INVALID>";
-      }
-    }
-  }
-
-  @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return tokenNames;
-  }
-
   @Override
   @NotNull
   public Vocabulary getVocabulary() {
@@ -242,12 +214,11 @@ public class TestIncrementalJavaParser extends IncrementalParser {
 
   public TestIncrementalJavaParser(IncrementalTokenStream input) {
     this(input, null);
-    _interp = new ParserATNSimulator(this, _ATN);
   }
 
   public TestIncrementalJavaParser(IncrementalTokenStream input, IncrementalParserData data) {
     super(input, data);
-    _interp = new ParserATNSimulator(this, _ATN);
+    setInterpreter(new ParserATNSimulator(this, _ATN));
   }
 
 
@@ -8822,7 +8793,9 @@ public class TestIncrementalJavaParser extends IncrementalParser {
         _alt = getInterpreter().adaptivePredict(_input, 131, _ctx);
         while (_alt != 2 && _alt != ATN.INVALID_ALT_NUMBER) {
           if (_alt == 1) {
-            if (_parseListeners != null) triggerExitRuleEvent();
+            if (!_parseListeners.isEmpty()) {
+              triggerExitRuleEvent();
+            }
             _prevctx = _localctx;
             {
               setState(1199);
@@ -10326,59 +10299,37 @@ public class TestIncrementalJavaParser extends IncrementalParser {
   }
 
   public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
-    switch (ruleIndex) {
-      case 106:
-        return expression_sempred((ExpressionContext) _localctx, predIndex);
+    if (ruleIndex == 106) {
+      return expression_sempred((ExpressionContext) _localctx, predIndex);
     }
     return true;
   }
 
   private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
-    switch (predIndex) {
-      case 0:
-        return precpred(_ctx, 13);
-      case 1:
-        return precpred(_ctx, 12);
-      case 2:
-        return precpred(_ctx, 11);
-      case 3:
-        return precpred(_ctx, 10);
-      case 4:
-        return precpred(_ctx, 8);
-      case 5:
-        return precpred(_ctx, 7);
-      case 6:
-        return precpred(_ctx, 6);
-      case 7:
-        return precpred(_ctx, 5);
-      case 8:
-        return precpred(_ctx, 4);
-      case 9:
-        return precpred(_ctx, 3);
-      case 10:
-        return precpred(_ctx, 2);
-      case 11:
-        return precpred(_ctx, 1);
-      case 12:
-        return precpred(_ctx, 25);
-      case 13:
-        return precpred(_ctx, 24);
-      case 14:
-        return precpred(_ctx, 23);
-      case 15:
-        return precpred(_ctx, 22);
-      case 16:
-        return precpred(_ctx, 21);
-      case 17:
-        return precpred(_ctx, 19);
-      case 18:
-        return precpred(_ctx, 17);
-      case 19:
-        return precpred(_ctx, 16);
-      case 20:
-        return precpred(_ctx, 9);
-    }
-    return true;
+    return switch (predIndex) {
+      case 0 -> precpred(_ctx, 13);
+      case 1 -> precpred(_ctx, 12);
+      case 2 -> precpred(_ctx, 11);
+      case 3 -> precpred(_ctx, 10);
+      case 4 -> precpred(_ctx, 8);
+      case 5 -> precpred(_ctx, 7);
+      case 6 -> precpred(_ctx, 6);
+      case 7 -> precpred(_ctx, 5);
+      case 8 -> precpred(_ctx, 4);
+      case 9 -> precpred(_ctx, 3);
+      case 10 -> precpred(_ctx, 2);
+      case 11 -> precpred(_ctx, 1);
+      case 12 -> precpred(_ctx, 25);
+      case 13 -> precpred(_ctx, 24);
+      case 14 -> precpred(_ctx, 23);
+      case 15 -> precpred(_ctx, 22);
+      case 16 -> precpred(_ctx, 21);
+      case 17 -> precpred(_ctx, 19);
+      case 18 -> precpred(_ctx, 17);
+      case 19 -> precpred(_ctx, 16);
+      case 20 -> precpred(_ctx, 9);
+      default -> true;
+    };
   }
 
   public static final String _serializedATN =

@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -67,7 +67,9 @@ public class FlexibleHashMap<K, V> implements Map<K, V> {
     this(comparator, INITAL_CAPACITY, INITAL_BUCKET_CAPACITY);
   }
 
-  public FlexibleHashMap(@Nullable AbstractEqualityComparator<? super K> comparator, int initialCapacity, int initialBucketCapacity) {
+  public FlexibleHashMap(@Nullable AbstractEqualityComparator<? super K> comparator,
+                         int initialCapacity,
+                         int initialBucketCapacity) {
     if (comparator == null) {
       comparator = ObjectEqualityComparator.INSTANCE;
     }

@@ -1,13 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.gui;
+
+import lombok.Getter;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -40,6 +42,7 @@ public class PostScriptDocument {
 
   protected SystemFontMetrics fontMetrics;
   protected String fontName;
+  @Getter
   protected int fontSize = 12;
   protected double lineWidth = 0.3;
   protected String boundingBox;
@@ -197,7 +200,4 @@ public class PostScriptDocument {
     return fontMetrics.getLineHeight(fontSize);
   }
 
-  public int getFontSize() {
-    return fontSize;
-  }
 }

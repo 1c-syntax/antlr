@@ -1,14 +1,15 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
 package org.antlr.v4.runtime.atn;
 
+import lombok.Getter;
 import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.FailedPredicateException;
 import org.antlr.v4.runtime.IntStream;
@@ -25,10 +26,9 @@ import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.dfa.DFAState;
 import org.antlr.v4.runtime.misc.IntegerList;
 import org.antlr.v4.runtime.misc.Interval;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.misc.Nullable;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Tuple;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.BitSet;
@@ -45,85 +45,67 @@ import java.util.concurrent.atomic.AtomicReference;
  * The embodiment of the adaptive LL(*), ALL(*), parsing strategy.
  *
  * <p>
- * The basic complexity of the adaptive strategy makes it harder to understand.
- * We begin with ATN simulation to build paths in a DFA. Subsequent prediction
- * requests go through the DFA first. If they reach a state without an edge for
- * the current symbol, the algorithm fails over to the ATN simulation to
- * complete the DFA path for the current input (until it finds a conflict state
- * or uniquely predicting state).</p>
+ * The basic complexity of the adaptive strategy makes it harder to understand. We begin with ATN simulation to build
+ * paths in a DFA. Subsequent prediction requests go through the DFA first. If they reach a state without an edge for
+ * the current symbol, the algorithm fails over to the ATN simulation to complete the DFA path for the current input
+ * (until it finds a conflict state or uniquely predicting state).</p>
  *
  * <p>
- * All of that is done without using the outer context because we want to create
- * a DFA that is not dependent upon the rule invocation stack when we do a
- * prediction. One DFA works in all contexts. We avoid using context not
- * necessarily because it's slower, although it can be, but because of the DFA
- * caching problem. The closure routine only considers the rule invocation stack
- * created during prediction beginning in the decision rule. For example, if
- * prediction occurs without invoking another rule's ATN, there are no context
- * stacks in the configurations. When lack of context leads to a conflict, we
- * don't know if it's an ambiguity or a weakness in the strong LL(*) parsing
- * strategy (versus full LL(*)).</p>
+ * All of that is done without using the outer context because we want to create a DFA that is not dependent upon the
+ * rule invocation stack when we do a prediction. One DFA works in all contexts. We avoid using context not necessarily
+ * because it's slower, although it can be, but because of the DFA caching problem. The closure routine only considers
+ * the rule invocation stack created during prediction beginning in the decision rule. For example, if prediction occurs
+ * without invoking another rule's ATN, there are no context stacks in the configurations. When lack of context leads to
+ * a conflict, we don't know if it's an ambiguity or a weakness in the strong LL(*) parsing strategy (versus full
+ * LL(*)).</p>
  *
  * <p>
- * When SLL yields a configuration set with conflict, we rewind the input and
- * retry the ATN simulation, this time using full outer context without adding
- * to the DFA. Configuration context stacks will be the full invocation stacks
- * from the start rule. If we get a conflict using full context, then we can
- * definitively say we have a true ambiguity for that input sequence. If we
- * don't get a conflict, it implies that the decision is sensitive to the outer
- * context. (It is not context-sensitive in the sense of context-sensitive
- * grammars.)</p>
+ * When SLL yields a configuration set with conflict, we rewind the input and retry the ATN simulation, this time using
+ * full outer context without adding to the DFA. Configuration context stacks will be the full invocation stacks from
+ * the start rule. If we get a conflict using full context, then we can definitively say we have a true ambiguity for
+ * that input sequence. If we don't get a conflict, it implies that the decision is sensitive to the outer context. (It
+ * is not context-sensitive in the sense of context-sensitive grammars.)</p>
  *
  * <p>
- * The next time we reach this DFA state with an SLL conflict, through DFA
- * simulation, we will again retry the ATN simulation using full context mode.
- * This is slow because we can't save the results and have to "interpret" the
- * ATN each time we get that input.</p>
+ * The next time we reach this DFA state with an SLL conflict, through DFA simulation, we will again retry the ATN
+ * simulation using full context mode. This is slow because we can't save the results and have to "interpret" the ATN
+ * each time we get that input.</p>
  *
  * <p>
  * <strong>CACHING FULL CONTEXT PREDICTIONS</strong></p>
  *
  * <p>
- * We could cache results from full context to predicted alternative easily and
- * that saves a lot of time but doesn't work in presence of predicates. The set
- * of visible predicates from the ATN start state changes depending on the
- * context, because closure can fall off the end of a rule. I tried to cache
- * tuples (stack context, semantic context, predicted alt) but it was slower
- * than interpreting and much more complicated. Also required a huge amount of
- * memory. The goal is not to create the world's fastest parser anyway. I'd like
- * to keep this algorithm simple. By launching multiple threads, we can improve
- * the speed of parsing across a large number of files.</p>
+ * We could cache results from full context to predicted alternative easily and that saves a lot of time but doesn't
+ * work in presence of predicates. The set of visible predicates from the ATN start state changes depending on the
+ * context, because closure can fall off the end of a rule. I tried to cache tuples (stack context, semantic context,
+ * predicted alt) but it was slower than interpreting and much more complicated. Also required a huge amount of memory.
+ * The goal is not to create the world's fastest parser anyway. I'd like to keep this algorithm simple. By launching
+ * multiple threads, we can improve the speed of parsing across a large number of files.</p>
  *
  * <p>
- * There is no strict ordering between the amount of input used by SLL vs LL,
- * which makes it really hard to build a cache for full context. Let's say that
- * we have input A B C that leads to an SLL conflict with full context X. That
- * implies that using X we might only use A B but we could also use A B C D to
- * resolve conflict. Input A B C D could predict alternative 1 in one position
- * in the input and A B C E could predict alternative 2 in another position in
- * input. The conflicting SLL configurations could still be non-unique in the
- * full context prediction, which would lead us to requiring more input than the
- * original A B C.	To make a	prediction cache work, we have to track	the exact
- * input	used during the previous prediction. That amounts to a cache that maps
- * X to a specific DFA for that context.</p>
+ * There is no strict ordering between the amount of input used by SLL vs LL, which makes it really hard to build a
+ * cache for full context. Let's say that we have input A B C that leads to an SLL conflict with full context X. That
+ * implies that using X we might only use A B but we could also use A B C D to resolve conflict. Input A B C D could
+ * predict alternative 1 in one position in the input and A B C E could predict alternative 2 in another position in
+ * input. The conflicting SLL configurations could still be non-unique in the full context prediction, which would lead
+ * us to requiring more input than the original A B C.	To make a	prediction cache work, we have to track	the exact
+ * input	used during the previous prediction. That amounts to a cache that maps X to a specific DFA for that
+ * context.</p>
  *
  * <p>
- * Something should be done for left-recursive expression predictions. They are
- * likely LL(1) + pred eval. Easier to do the whole SLL unless error and retry
- * with full LL thing Sam does.</p>
+ * Something should be done for left-recursive expression predictions. They are likely LL(1) + pred eval. Easier to do
+ * the whole SLL unless error and retry with full LL thing Sam does.</p>
  *
  * <p>
  * <strong>AVOIDING FULL CONTEXT PREDICTION</strong></p>
  *
  * <p>
- * We avoid doing full context retry when the outer context is empty, we did not
- * dip into the outer context by falling off the end of the decision state rule,
- * or when we force SLL mode.</p>
+ * We avoid doing full context retry when the outer context is empty, we did not dip into the outer context by falling
+ * off the end of the decision state rule, or when we force SLL mode.</p>
  *
  * <p>
- * As an example of the not dip into outer context case, consider as super
- * constructor calls versus function calls. One grammar might look like
- * this:</p>
+ * As an example of the not dip into outer context case, consider as super constructor calls versus function calls. One
+ * grammar might look like this:</p>
  *
  * <pre>
  * ctorBody
@@ -143,152 +125,122 @@ import java.util.concurrent.atomic.AtomicReference;
  * </pre>
  *
  * <p>
- * In both cases I believe that no closure operations will dip into the outer
- * context. In the first case ctorBody in the worst case will stop at the '}'.
- * In the 2nd case it should stop at the ';'. Both cases should stay within the
- * entry rule and not dip into the outer context.</p>
+ * In both cases I believe that no closure operations will dip into the outer context. In the first case ctorBody in the
+ * worst case will stop at the '}'. In the 2nd case it should stop at the ';'. Both cases should stay within the entry
+ * rule and not dip into the outer context.</p>
  *
  * <p>
  * <strong>PREDICATES</strong></p>
  *
  * <p>
- * Predicates are always evaluated if present in either SLL or LL both. SLL and
- * LL simulation deals with predicates differently. SLL collects predicates as
- * it performs closure operations like ANTLR v3 did. It delays predicate
- * evaluation until it reaches and accept state. This allows us to cache the SLL
- * ATN simulation whereas, if we had evaluated predicates on-the-fly during
- * closure, the DFA state configuration sets would be different and we couldn't
+ * Predicates are always evaluated if present in either SLL or LL both. SLL and LL simulation deals with predicates
+ * differently. SLL collects predicates as it performs closure operations like ANTLR v3 did. It delays predicate
+ * evaluation until it reaches and accept state. This allows us to cache the SLL ATN simulation whereas, if we had
+ * evaluated predicates on-the-fly during closure, the DFA state configuration sets would be different and we couldn't
  * build up a suitable DFA.</p>
  *
  * <p>
- * When building a DFA accept state during ATN simulation, we evaluate any
- * predicates and return the sole semantically valid alternative. If there is
- * more than 1 alternative, we report an ambiguity. If there are 0 alternatives,
- * we throw an exception. Alternatives without predicates act like they have
- * true predicates. The simple way to think about it is to strip away all
- * alternatives with false predicates and choose the minimum alternative that
- * remains.</p>
+ * When building a DFA accept state during ATN simulation, we evaluate any predicates and return the sole semantically
+ * valid alternative. If there is more than 1 alternative, we report an ambiguity. If there are 0 alternatives, we throw
+ * an exception. Alternatives without predicates act like they have true predicates. The simple way to think about it is
+ * to strip away all alternatives with false predicates and choose the minimum alternative that remains.</p>
  *
  * <p>
- * When we start in the DFA and reach an accept state that's predicated, we test
- * those and return the minimum semantically viable alternative. If no
- * alternatives are viable, we throw an exception.</p>
+ * When we start in the DFA and reach an accept state that's predicated, we test those and return the minimum
+ * semantically viable alternative. If no alternatives are viable, we throw an exception.</p>
  *
  * <p>
- * During full LL ATN simulation, closure always evaluates predicates and
- * on-the-fly. This is crucial to reducing the configuration set size during
- * closure. It hits a landmine when parsing with the Java grammar, for example,
- * without this on-the-fly evaluation.</p>
+ * During full LL ATN simulation, closure always evaluates predicates and on-the-fly. This is crucial to reducing the
+ * configuration set size during closure. It hits a landmine when parsing with the Java grammar, for example, without
+ * this on-the-fly evaluation.</p>
  *
  * <p>
  * <strong>SHARING DFA</strong></p>
  *
  * <p>
- * All instances of the same parser share the same decision DFAs through a
- * static field. Each instance gets its own ATN simulator but they share the
- * same {@link ATN#decisionToDFA} field. They also share a
- * {@link PredictionContextCache} object that makes sure that all
- * {@link PredictionContext} objects are shared among the DFA states. This makes
- * a big size difference.</p>
+ * All instances of the same parser share the same decision DFAs through a static field. Each instance gets its own ATN
+ * simulator but they share the same {@link ATN#decisionToDFA} field. They also share a {@link PredictionContextCache}
+ * object that makes sure that all {@link PredictionContext} objects are shared among the DFA states. This makes a big
+ * size difference.</p>
  *
  * <p>
  * <strong>THREAD SAFETY</strong></p>
  *
  * <p>
- * The {@link ParserATNSimulator} locks on the {@link ATN#decisionToDFA} field when
- * it adds a new DFA object to that array. {@link #addDFAEdge}
- * locks on the DFA for the current decision when setting the
- * {@link DFAState#edges} field. {@link #addDFAState} locks on
- * the DFA for the current decision when looking up a DFA state to see if it
- * already exists. We must make sure that all requests to add DFA states that
- * are equivalent result in the same shared DFA object. This is because lots of
- * threads will be trying to update the DFA at once. The
- * {@link #addDFAState} method also locks inside the DFA lock
- * but this time on the shared context cache when it rebuilds the
- * configurations' {@link PredictionContext} objects using cached
- * subgraphs/nodes. No other locking occurs, even during DFA simulation. This is
- * safe as long as we can guarantee that all threads referencing
- * {@code s.edge[t]} get the same physical target {@link DFAState}, or
- * {@code null}. Once into the DFA, the DFA simulation does not reference the
- * {@link DFA#states} map. It follows the {@link DFAState#edges} field to new
- * targets. The DFA simulator will either find {@link DFAState#edges} to be
- * {@code null}, to be non-{@code null} and {@code dfa.edges[t]} null, or
- * {@code dfa.edges[t]} to be non-null. The
- * {@link #addDFAEdge} method could be racing to set the field
- * but in either case the DFA simulator works; if {@code null}, and requests ATN
- * simulation. It could also race trying to get {@code dfa.edges[t]}, but either
- * way it will work because it's not doing a test and set operation.</p>
+ * The {@link ParserATNSimulator} locks on the {@link ATN#decisionToDFA} field when it adds a new DFA object to that
+ * array. {@link #addDFAEdge} locks on the DFA for the current decision when setting the {DFAState#edges} field.
+ * {@link #addDFAState} locks on the DFA for the current decision when looking up a DFA state to see if it already
+ * exists. We must make sure that all requests to add DFA states that are equivalent result in the same shared DFA
+ * object. This is because lots of threads will be trying to update the DFA at once. The {@link #addDFAState} method
+ * also locks inside the DFA lock but this time on the shared context cache when it rebuilds the configurations'
+ * {@link PredictionContext} objects using cached subgraphs/nodes. No other locking occurs, even during DFA simulation.
+ * This is safe as long as we can guarantee that all threads referencing {@code s.edge[t]} get the same physical target
+ * {@link DFAState}, or {@code null}. Once into the DFA, the DFA simulation does not reference the {@link DFA#states}
+ * map. It follows the { DFAState#edges} field to new targets. The DFA simulator will either find {DFAState#edges} to be
+ * {@code null}, to be non-{@code null} and {@code dfa.edges[t]} null, or {@code dfa.edges[t]} to be non-null. The
+ * {@link #addDFAEdge} method could be racing to set the field but in either case the DFA simulator works; if
+ * {@code null}, and requests ATN simulation. It could also race trying to get {@code dfa.edges[t]}, but either way it
+ * will work because it's not doing a test and set operation.</p>
  *
  * <p>
  * <strong>Starting with SLL then failing to combined SLL/LL (Two-Stage
  * Parsing)</strong></p>
  *
  * <p>
- * Sam pointed out that if SLL does not give a syntax error, then there is no
- * point in doing full LL, which is slower. We only have to try LL if we get a
- * syntax error. For maximum speed, Sam starts the parser set to pure SLL
- * mode with the {@link BailErrorStrategy}:</p>
+ * Sam pointed out that if SLL does not give a syntax error, then there is no point in doing full LL, which is slower.
+ * We only have to try LL if we get a syntax error. For maximum speed, Sam starts the parser set to pure SLL mode with
+ * the {@link BailErrorStrategy}:</p>
  *
  * <pre>
- * parser.{@link Parser#getInterpreter() getInterpreter()}.{@link #setPredictionMode setPredictionMode}{@code (}{@link PredictionMode#SLL}{@code )};
+ * parser.{@link Parser#getInterpreter() getInterpreter()}.{@link #setPredictionMode setPredictionMode}
+ * {@code (}{@link PredictionMode#SLL}{@code )};
  * parser.{@link Parser#setErrorHandler setErrorHandler}(new {@link BailErrorStrategy}());
  * </pre>
  *
  * <p>
- * If it does not get a syntax error, then we're done. If it does get a syntax
- * error, we need to retry with the combined SLL/LL strategy.</p>
+ * If it does not get a syntax error, then we're done. If it does get a syntax error, we need to retry with the combined
+ * SLL/LL strategy.</p>
  *
  * <p>
- * The reason this works is as follows. If there are no SLL conflicts, then the
- * grammar is SLL (at least for that input set). If there is an SLL conflict,
- * the full LL analysis must yield a set of viable alternatives which is a
- * subset of the alternatives reported by SLL. If the LL set is a singleton,
- * then the grammar is LL but not SLL. If the LL set is the same size as the SLL
- * set, the decision is SLL. If the LL set has size &gt; 1, then that decision
- * is truly ambiguous on the current input. If the LL set is smaller, then the
- * SLL conflict resolution might choose an alternative that the full LL would
- * rule out as a possibility based upon better context information. If that's
- * the case, then the SLL parse will definitely get an error because the full LL
- * analysis says it's not viable. If SLL conflict resolution chooses an
- * alternative within the LL set, them both SLL and LL would choose the same
- * alternative because they both choose the minimum of multiple conflicting
- * alternatives.</p>
+ * The reason this works is as follows. If there are no SLL conflicts, then the grammar is SLL (at least for that input
+ * set). If there is an SLL conflict, the full LL analysis must yield a set of viable alternatives which is a subset of
+ * the alternatives reported by SLL. If the LL set is a singleton, then the grammar is LL but not SLL. If the LL set is
+ * the same size as the SLL set, the decision is SLL. If the LL set has size &gt; 1, then that decision is truly
+ * ambiguous on the current input. If the LL set is smaller, then the SLL conflict resolution might choose an
+ * alternative that the full LL would rule out as a possibility based upon better context information. If that's the
+ * case, then the SLL parse will definitely get an error because the full LL analysis says it's not viable. If SLL
+ * conflict resolution chooses an alternative within the LL set, them both SLL and LL would choose the same alternative
+ * because they both choose the minimum of multiple conflicting alternatives.</p>
  *
  * <p>
- * Let's say we have a set of SLL conflicting alternatives {@code {1, 2, 3}} and
- * a smaller LL set called <em>s</em>. If <em>s</em> is {@code {2, 3}}, then SLL
- * parsing will get an error because SLL will pursue alternative 1. If
+ * Let's say we have a set of SLL conflicting alternatives {@code {1, 2, 3}} and a smaller LL set called <em>s</em>. If
+ * <em>s</em> is {@code {2, 3}}, then SLL parsing will get an error because SLL will pursue alternative 1. If
  * <em>s</em> is {@code {1, 2}} or {@code {1, 3}} then both SLL and LL will
- * choose the same alternative because alternative one is the minimum of either
- * set. If <em>s</em> is {@code {2}} or {@code {3}} then SLL will get a syntax
- * error. If <em>s</em> is {@code {1}} then SLL will succeed.</p>
+ * choose the same alternative because alternative one is the minimum of either set. If <em>s</em> is {@code {2}} or
+ * {@code {3}} then SLL will get a syntax error. If <em>s</em> is {@code {1}} then SLL will succeed.</p>
  *
  * <p>
- * Of course, if the input is invalid, then we will get an error for sure in
- * both SLL and LL parsing. Erroneous input will therefore require 2 passes over
- * the input.</p>
+ * Of course, if the input is invalid, then we will get an error for sure in both SLL and LL parsing. Erroneous input
+ * will therefore require 2 passes over the input.</p>
  */
 public class ParserATNSimulator extends ATNSimulator {
   public static final boolean debug = false;
   public static final boolean dfa_debug = false;
   public static final boolean retry_debug = false;
 
-  @NotNull
+
   private PredictionMode predictionMode = PredictionMode.LL;
   public boolean force_global_context = false;
   public boolean always_try_local_context = true;
 
   /**
-   * Determines whether the DFA is used for full-context predictions. When
-   * {@code true}, the DFA stores transition information for both full-context
-   * and SLL parsing; otherwise, the DFA only stores SLL transition
-   * information.
+   * Determines whether the DFA is used for full-context predictions. When {@code true}, the DFA stores transition
+   * information for both full-context and SLL parsing; otherwise, the DFA only stores SLL transition information.
    *
    * <p>
-   * For some grammars, enabling the full-context DFA can result in a
-   * substantial performance improvement. However, this improvement typically
-   * comes at the expense of memory used for storing the cached DFA states,
-   * configuration sets, and prediction contexts.</p>
+   * For some grammars, enabling the full-context DFA can result in a substantial performance improvement. However, this
+   * improvement typically comes at the expense of memory used for storing the cached DFA states, configuration sets,
+   * and prediction contexts.</p>
    *
    * <p>
    * The default value is {@code false}.</p>
@@ -296,35 +248,27 @@ public class ParserATNSimulator extends ATNSimulator {
   public boolean enable_global_context_dfa = false;
   public boolean optimize_unique_closure = true;
   public boolean optimize_ll1 = true;
-  /**
-   * @deprecated This flag is not currently used by the ATN simulator.
-   */
-  @Deprecated
-  public boolean optimize_hidden_conflicted_configs = false;
   public boolean optimize_tail_calls = true;
   public boolean tail_call_preserves_sll = true;
   public boolean treat_sllk1_conflict_as_ambiguity = false;
 
+  @Getter
   @Nullable
   protected final Parser parser;
 
   /**
-   * When {@code true}, ambiguous alternatives are reported when they are
-   * encountered within {@link #execATN}. When {@code false}, these messages
-   * are suppressed. The default is {@code false}.
+   * When {@code true}, ambiguous alternatives are reported when they are encountered within {@link #execATN}. When
+   * {@code false}, these messages are suppressed. The default is {@code false}.
    * <p>
-   * When messages about ambiguous alternatives are not required, setting this
-   * to {@code false} enables additional internal optimizations which may lose
-   * this information.
+   * When messages about ambiguous alternatives are not required, setting this to {@code false} enables additional
+   * internal optimizations which may lose this information.
    */
   public boolean reportAmbiguities = false;
 
   /**
-   * By default we do full context-sensitive LL(*) parsing not
-   * Strong LL(*) parsing. If we fail with Strong LL(*) we
-   * try full LL(*). That means we rewind and use context information
-   * when closure operations fall off the end of the rule that
-   * holds the decision were evaluating.
+   * By default we do full context-sensitive LL(*) parsing not Strong LL(*) parsing. If we fail with Strong LL(*) we try
+   * full LL(*). That means we rewind and use context information when closure operations fall off the end of the rule
+   * that holds the decision were evaluating.
    */
   protected boolean userWantsCtxSensitive = true;
 
@@ -333,21 +277,20 @@ public class ParserATNSimulator extends ATNSimulator {
   /**
    * Testing only!
    */
-  public ParserATNSimulator(@NotNull ATN atn) {
+  public ParserATNSimulator(ATN atn) {
     this(null, atn);
   }
 
-  public ParserATNSimulator(@Nullable Parser parser, @NotNull ATN atn) {
+  public ParserATNSimulator(@Nullable Parser parser, ATN atn) {
     super(atn);
     this.parser = parser;
   }
 
-  @NotNull
   public final PredictionMode getPredictionMode() {
     return predictionMode;
   }
 
-  public final void setPredictionMode(@NotNull PredictionMode predictionMode) {
+  public final void setPredictionMode(PredictionMode predictionMode) {
     this.predictionMode = predictionMode;
   }
 
@@ -355,12 +298,12 @@ public class ParserATNSimulator extends ATNSimulator {
   public void reset() {
   }
 
-  public int adaptivePredict(@NotNull TokenStream input, int decision,
+  public int adaptivePredict(TokenStream input, int decision,
                              @Nullable ParserRuleContext outerContext) {
     return adaptivePredict(input, decision, outerContext, false);
   }
 
-  public int adaptivePredict(@NotNull TokenStream input,
+  public int adaptivePredict(TokenStream input,
                              int decision,
                              @Nullable ParserRuleContext outerContext,
                              boolean useContext) {
@@ -381,7 +324,8 @@ public class ParserATNSimulator extends ATNSimulator {
       useContext |= dfa.isContextSensitive();
     }
 
-    userWantsCtxSensitive = useContext || (predictionMode != PredictionMode.SLL && outerContext != null && !atn.decisionToState.get(decision).sll);
+    userWantsCtxSensitive = useContext
+      || (predictionMode != PredictionMode.SLL && outerContext != null && !atn.decisionToState.get(decision).sll);
     if (outerContext == null) {
       outerContext = ParserRuleContext.emptyContext();
     }
@@ -413,9 +357,9 @@ public class ParserATNSimulator extends ATNSimulator {
     return null;
   }
 
-  protected SimulatorState getStartState(@NotNull DFA dfa,
-                                         @NotNull TokenStream input,
-                                         @NotNull ParserRuleContext outerContext,
+  protected SimulatorState getStartState(DFA dfa,
+                                         TokenStream input,
+                                         ParserRuleContext outerContext,
                                          boolean useContext) {
 
     if (!useContext) {
@@ -467,9 +411,9 @@ public class ParserATNSimulator extends ATNSimulator {
     return new SimulatorState(outerContext, s0, useContext, remainingContext);
   }
 
-  protected int execDFA(@NotNull DFA dfa,
-                        @NotNull TokenStream input, int startIndex,
-                        @NotNull SimulatorState state) {
+  protected int execDFA(DFA dfa,
+                        TokenStream input, int startIndex,
+                        SimulatorState state) {
     ParserRuleContext outerContext = state.outerContext;
     if (dfa_debug) System.out.println("DFA decision " + dfa.decision +
       " exec LA(1)==" + getLookaheadName(input) +
@@ -492,7 +436,7 @@ public class ParserATNSimulator extends ATNSimulator {
 
           if (next == null) {
             // fail over to ATN
-            SimulatorState initialState = new SimulatorState(state.outerContext, s, state.useContext, remainingOuterContext);
+            var initialState = new SimulatorState(state.outerContext, s, state.useContext, remainingOuterContext);
             return execATN(dfa, input, startIndex, initialState);
           }
 
@@ -534,7 +478,8 @@ public class ParserATNSimulator extends ATNSimulator {
         SimulatorState initialState = new SimulatorState(outerContext, s, state.useContext, remainingOuterContext);
         alt = execATN(dfa, input, startIndex, initialState);
         if (dfa_debug) {
-          System.out.println("back from DFA update, alt=" + alt + ", dfa=\n" + dfa.toString(parser.getVocabulary(), parser.getRuleNames()));
+          System.out.println("back from DFA update, alt=" + alt + ", dfa=\n"
+            + dfa.toString(parser.getVocabulary(), parser.getRuleNames()));
           //dump(dfa);
         }
         // action already executed
@@ -604,7 +549,9 @@ public class ParserATNSimulator extends ATNSimulator {
         input.seek(startIndex);
       }
 
-      BitSet alts = evalSemanticContext(predicates, outerContext, reportAmbiguities && predictionMode == PredictionMode.LL_EXACT_AMBIG_DETECTION);
+      var alts = evalSemanticContext(predicates,
+        outerContext,
+        reportAmbiguities && predictionMode == PredictionMode.LL_EXACT_AMBIG_DETECTION);
       switch (alts.cardinality()) {
         case 0:
           throw noViableAlt(input, outerContext, s.configs, startIndex);
@@ -630,26 +577,22 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * Determines if a particular DFA state should be treated as an accept state
-   * for the current prediction mode. In addition to the {@code useContext}
-   * parameter, the {@link #getPredictionMode()} method provides the
-   * prediction mode controlling the prediction algorithm as a whole.
+   * Determines if a particular DFA state should be treated as an accept state for the current prediction mode. In
+   * addition to the {@code useContext} parameter, the {@link #getPredictionMode()} method provides the prediction mode
+   * controlling the prediction algorithm as a whole.
    *
    * <p>
-   * The default implementation simply returns the value of
-   * {@link DFAState#isAcceptState()} except for conflict states when
-   * {@code useContext} is {@code true} and {@link #getPredictionMode()} is
-   * {@link PredictionMode#LL_EXACT_AMBIG_DETECTION}. In that case, only
-   * conflict states where {@link ATNConfigSet#isExactConflict()} is
-   * {@code true} are considered accept states.
+   * The default implementation simply returns the value of {@link DFAState#isAcceptState()} except for conflict states
+   * when {@code useContext} is {@code true} and {@link #getPredictionMode()} is
+   * {@link PredictionMode#LL_EXACT_AMBIG_DETECTION}. In that case, only conflict states where
+   * {@link ATNConfigSet#isExactConflict()} is {@code true} are considered accept states.
    * </p>
    *
    * @param state      The DFA state to check.
-   * @param useContext {@code true} if the prediction algorithm is currently
-   *                   considering the full parser context; otherwise, {@code false} if the
-   *                   algorithm is currently performing a local context prediction.
-   * @return {@code true} if the specified {@code state} is an accept state;
-   * otherwise, {@code false}.
+   * @param useContext {@code true} if the prediction algorithm is currently considering the full parser context;
+   *                   otherwise, {@code false} if the algorithm is currently performing a local context prediction.
+   *
+   * @return {@code true} if the specified {@code state} is an accept state; otherwise, {@code false}.
    */
   protected boolean isAcceptState(DFAState state, boolean useContext) {
     if (!state.isAcceptState()) {
@@ -670,51 +613,33 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * Performs ATN simulation to compute a predicted alternative based
-   * upon the remaining input, but also updates the DFA cache to avoid
-   * having to traverse the ATN again for the same input sequence.
+   * Performs ATN simulation to compute a predicted alternative based upon the remaining input, but also updates the DFA
+   * cache to avoid having to traverse the ATN again for the same input sequence.
    * <p>
-   * There are some key conditions we're looking for after computing a new
-   * set of ATN configs (proposed DFA state):
-   * if the set is empty, there is no viable alternative for current symbol
-   * does the state uniquely predict an alternative?
-   * does the state have a conflict that would prevent us from
-   * putting it on the work list?
-   * if in non-greedy decision is there a config at a rule stop state?
+   * There are some key conditions we're looking for after computing a new set of ATN configs (proposed DFA state): if
+   * the set is empty, there is no viable alternative for current symbol does the state uniquely predict an alternative?
+   * does the state have a conflict that would prevent us from putting it on the work list? if in non-greedy decision is
+   * there a config at a rule stop state?
    * <p>
-   * We also have some key operations to do:
-   * add an edge from previous DFA state to potentially new DFA state, D,
-   * upon current symbol but only if adding to work list, which means in all
-   * cases except no viable alternative (and possibly non-greedy decisions?)
-   * collecting predicates and adding semantic context to DFA accept states
-   * adding rule context to context-sensitive DFA accept states
-   * consuming an input symbol
-   * reporting a conflict
-   * reporting an ambiguity
-   * reporting a context sensitivity
-   * reporting insufficient predicates
+   * We also have some key operations to do: add an edge from previous DFA state to potentially new DFA state, D, upon
+   * current symbol but only if adding to work list, which means in all cases except no viable alternative (and possibly
+   * non-greedy decisions?) collecting predicates and adding semantic context to DFA accept states adding rule context
+   * to context-sensitive DFA accept states consuming an input symbol reporting a conflict reporting an ambiguity
+   * reporting a context sensitivity reporting insufficient predicates
    * <p>
-   * We should isolate those operations, which are side-effecting, to the
-   * main work loop. We can isolate lots of code into other functions, but
-   * they should be side effect free. They can return package that
-   * indicates whether we should report something, whether we need to add a
-   * DFA edge, whether we need to augment accept state with semantic
-   * context or rule invocation context. Actually, it seems like we always
-   * add predicates if they exist, so that can simply be done in the main
-   * loop for any accept state creation or modification request.
+   * We should isolate those operations, which are side-effecting, to the main work loop. We can isolate lots of code
+   * into other functions, but they should be side effect free. They can return package that indicates whether we should
+   * report something, whether we need to add a DFA edge, whether we need to augment accept state with semantic context
+   * or rule invocation context. Actually, it seems like we always add predicates if they exist, so that can simply be
+   * done in the main loop for any accept state creation or modification request.
    * <p>
-   * cover these cases:
-   * dead end
-   * single alt
-   * single alt + preds
-   * conflict
-   * conflict + preds
+   * cover these cases: dead end single alt single alt + preds conflict conflict + preds
    * <p>
    * TODO: greedy + those
    */
-  protected int execATN(@NotNull DFA dfa,
-                        @NotNull TokenStream input, int startIndex,
-                        @NotNull SimulatorState initialState) {
+  protected int execATN(DFA dfa,
+                        TokenStream input, int startIndex,
+                        SimulatorState initialState) {
     final ParserRuleContext outerContext = initialState.outerContext;
     final boolean useContext = initialState.useContext;
 
@@ -777,7 +702,9 @@ public class ParserATNSimulator extends ATNSimulator {
             }
 
             // use complete evaluation here if we'll want to retry with full context if still ambiguous
-            conflictingAlts = evalSemanticContext(predPredictions, outerContext, attemptFullContext || reportAmbiguities);
+            conflictingAlts = evalSemanticContext(predPredictions,
+              outerContext,
+              attemptFullContext || reportAmbiguities);
             switch (conflictingAlts.cardinality()) {
               case 0:
                 throw noViableAlt(input, outerContext, D.configs, startIndex);
@@ -800,7 +727,13 @@ public class ParserATNSimulator extends ATNSimulator {
         if (!attemptFullContext) {
           if (conflictingAlts != null) {
             if (reportAmbiguities && conflictingAlts.cardinality() > 1) {
-              reportAmbiguity(dfa, D, startIndex, input.index(), D.configs.isExactConflict(), conflictingAlts, D.configs);
+              reportAmbiguity(dfa,
+                D,
+                startIndex,
+                input.index(),
+                D.configs.isExactConflict(),
+                conflictingAlts,
+                D.configs);
             }
 
             predictedAlt = conflictingAlts.nextSetBit(0);
@@ -831,18 +764,15 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * This method is used to improve the localization of error messages by
-   * choosing an alternative rather than throwing a
-   * {@link NoViableAltException} in particular prediction scenarios where the
-   * {@link #ERROR} state was reached during ATN simulation.
+   * This method is used to improve the localization of error messages by choosing an alternative rather than throwing a
+   * {@link NoViableAltException} in particular prediction scenarios where the {@link #ERROR} state was reached during
+   * ATN simulation.
    *
    * <p>
-   * The default implementation of this method uses the following
-   * algorithm to identify an ATN configuration which successfully parsed the
-   * decision entry rule. Choosing such an alternative ensures that the
-   * {@link ParserRuleContext} returned by the calling rule will be complete
-   * and valid, and the syntax error will be reported later at a more
-   * localized location.</p>
+   * The default implementation of this method uses the following algorithm to identify an ATN configuration which
+   * successfully parsed the decision entry rule. Choosing such an alternative ensures that the
+   * {@link ParserRuleContext} returned by the calling rule will be complete and valid, and the syntax error will be
+   * reported later at a more localized location.</p>
    *
    * <ul>
    * <li>If no configuration in {@code configs} reached the end of the
@@ -878,16 +808,14 @@ public class ParserATNSimulator extends ATNSimulator {
    * </p>
    *
    * @param input      The input {@link TokenStream}
-   * @param startIndex The start index for the current prediction, which is
-   *                   the input index where any semantic context in {@code configs} should be
-   *                   evaluated
-   * @param previous   The ATN simulation state immediately before the
-   *                   {@link #ERROR} state was reached
-   * @return The value to return from {@link #adaptivePredict}, or
-   * {@link ATN#INVALID_ALT_NUMBER} if a suitable alternative was not
-   * identified and {@link #adaptivePredict} should report an error instead.
+   * @param startIndex The start index for the current prediction, which is the input index where any semantic context
+   *                   in {@code configs} should be evaluated
+   * @param previous   The ATN simulation state immediately before the {@link #ERROR} state was reached
+   *
+   * @return The value to return from {@link #adaptivePredict}, or {@link ATN#INVALID_ALT_NUMBER} if a suitable
+   * alternative was not identified and {@link #adaptivePredict} should report an error instead.
    */
-  protected int handleNoViableAlt(@NotNull TokenStream input, int startIndex, @NotNull SimulatorState previous) {
+  protected int handleNoViableAlt(TokenStream input, int startIndex, SimulatorState previous) {
     if (previous.s0 != null) {
       BitSet alts = new BitSet();
       int maxAlt = 0;
@@ -967,7 +895,10 @@ public class ParserATNSimulator extends ATNSimulator {
     return null;
   }
 
-  protected SimulatorState computeReachSet(DFA dfa, SimulatorState previous, int t, PredictionContextCache contextCache) {
+  protected SimulatorState computeReachSet(DFA dfa,
+                                           SimulatorState previous,
+                                           int t,
+                                           PredictionContextCache contextCache) {
     final boolean useContext = previous.useContext;
     ParserRuleContext remainingGlobalContext = previous.remainingOuterContext;
 
@@ -999,7 +930,7 @@ public class ParserATNSimulator extends ATNSimulator {
 
     DFAState target = getExistingTargetState(s0, t);
     if (target == null) {
-      Pair<DFAState, ParserRuleContext> result = computeTargetState(dfa, s0, remainingGlobalContext, t, useContext, contextCache);
+      var result = computeTargetState(dfa, s0, remainingGlobalContext, t, useContext, contextCache);
       target = result.getItem1();
       remainingGlobalContext = result.getItem2();
     }
@@ -1013,24 +944,23 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * Get an existing target state for an edge in the DFA. If the target state
-   * for the edge has not yet been computed or is otherwise not available,
-   * this method returns {@code null}.
+   * Get an existing target state for an edge in the DFA. If the target state for the edge has not yet been computed or
+   * is otherwise not available, this method returns {@code null}.
    *
    * @param s The current DFA state
    * @param t The next input symbol
-   * @return The existing target DFA state for the given input symbol
-   * {@code t}, or {@code null} if the target state for this edge is not
-   * already cached
+   *
+   * @return The existing target DFA state for the given input symbol {@code t}, or {@code null} if the target state for
+   * this edge is not already cached
    */
   @Nullable
-  protected DFAState getExistingTargetState(@NotNull DFAState s, int t) {
+  protected DFAState getExistingTargetState(DFAState s, int t) {
     return s.getTarget(t);
   }
 
   /**
-   * Compute a target state for an edge in the DFA, and attempt to add the
-   * computed state and corresponding edge to the DFA.
+   * Compute a target state for an edge in the DFA, and attempt to add the computed state and corresponding edge to the
+   * DFA.
    *
    * @param dfa
    * @param s                      The current DFA state
@@ -1038,13 +968,13 @@ public class ParserATNSimulator extends ATNSimulator {
    * @param t                      The next input symbol
    * @param useContext
    * @param contextCache
-   * @return The computed target DFA state for the given input symbol
-   * {@code t}. If {@code t} does not lead to a valid DFA state, this method
-   * returns {@link #ERROR}.
+   *
+   * @return The computed target DFA state for the given input symbol {@code t}. If {@code t} does not lead to a valid
+   * DFA state, this method returns {@link #ERROR}.
    */
-  @NotNull
-  protected Pair<DFAState, ParserRuleContext> computeTargetState(@NotNull DFA dfa,
-                                                                 @NotNull DFAState s,
+
+  protected Pair<DFAState, ParserRuleContext> computeTargetState(DFA dfa,
+                                                                 DFAState s,
                                                                  ParserRuleContext remainingGlobalContext,
                                                                  int t,
                                                                  boolean useContext,
@@ -1107,7 +1037,8 @@ public class ParserATNSimulator extends ATNSimulator {
        * condition is not true when one or more configurations have been
        * withheld in skippedStopStates, or when the current symbol is EOF.
        */
-      if (optimize_unique_closure && skippedStopStates == null && t != Token.EOF && reachIntermediate.getUniqueAlt() != ATN.INVALID_ALT_NUMBER) {
+      if (optimize_unique_closure && skippedStopStates == null && t != Token.EOF
+        && reachIntermediate.getUniqueAlt() != ATN.INVALID_ALT_NUMBER) {
         reachIntermediate.setOutermostConfigSet(reach.isOutermostConfigSet());
         reach = reachIntermediate;
         break;
@@ -1184,19 +1115,19 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * Return a configuration set containing only the configurations from
-   * {@code configs} which are in a {@link RuleStopState}. If all
-   * configurations in {@code configs} are already in a rule stop state, this
-   * method simply returns {@code configs}.
+   * Return a configuration set containing only the configurations from {@code configs} which are in a
+   * {@link RuleStopState}. If all configurations in {@code configs} are already in a rule stop state, this method
+   * simply returns {@code configs}.
    *
    * @param configs      the configuration set to update
    * @param contextCache the {@link PredictionContext} cache
-   * @return {@code configs} if all configurations in {@code configs} are in a
-   * rule stop state, otherwise return a new configuration set containing only
-   * the configurations from {@code configs} which are in a rule stop state
+   *
+   * @return {@code configs} if all configurations in {@code configs} are in a rule stop state, otherwise return a new
+   * configuration set containing only the configurations from {@code configs} which are in a rule stop state
    */
-  @NotNull
-  protected ATNConfigSet removeAllConfigsNotInRuleStopState(@NotNull ATNConfigSet configs, PredictionContextCache contextCache) {
+
+  protected ATNConfigSet removeAllConfigsNotInRuleStopState(ATNConfigSet configs,
+                                                            PredictionContextCache contextCache) {
     if (PredictionMode.allConfigsInRuleStopStates(configs)) {
       return configs;
     }
@@ -1213,7 +1144,7 @@ public class ParserATNSimulator extends ATNSimulator {
     return result;
   }
 
-  @NotNull
+
   protected SimulatorState computeStartState(DFA dfa,
                                              ParserRuleContext globalContext,
                                              boolean useContext) {
@@ -1224,18 +1155,19 @@ public class ParserATNSimulator extends ATNSimulator {
 
     if (s0 != null) {
       if (!useContext) {
-        return new SimulatorState(globalContext, s0, useContext, globalContext);
+        return new SimulatorState(globalContext, s0, false, globalContext);
       }
 
       s0.setContextSensitive(atn);
     }
 
     final int decision = dfa.decision;
-    @NotNull final ATNState p = dfa.atnStartState;
+    final ATNState p = dfa.atnStartState;
 
     int previousContext = 0;
     ParserRuleContext remainingGlobalContext = globalContext;
-    PredictionContext initialContext = useContext ? PredictionContext.EMPTY_FULL : PredictionContext.EMPTY_LOCAL; // always at least the implicit call to start rule
+    // always at least the implicit call to start rule
+    var initialContext = useContext ? PredictionContext.EMPTY_FULL : PredictionContext.EMPTY_LOCAL;
     PredictionContextCache contextCache = new PredictionContextCache();
     if (useContext) {
       if (!enable_global_context_dfa) {
@@ -1357,11 +1289,9 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * This method transforms the start state computed by
-   * {@link #computeStartState} to the special start state used by a
-   * precedence DFA for a particular precedence value. The transformation
-   * process applies the following changes to the start state's configuration
-   * set.
+   * This method transforms the start state computed by {@link #computeStartState} to the special start state used by a
+   * precedence DFA for a particular precedence value. The transformation process applies the following changes to the
+   * start state's configuration set.
    *
    * <ol>
    * <li>Evaluate the precedence predicates for each configuration using
@@ -1410,14 +1340,15 @@ public class ParserATNSimulator extends ATNSimulator {
    * from being eliminated by the filter.
    * </p>
    *
-   * @param configs The configuration set computed by
-   *                {@link #computeStartState} as the start state for the DFA.
-   * @return The transformed configuration set representing the start state
-   * for a precedence DFA at a particular precedence level (determined by
-   * calling {@link Parser#getPrecedence}).
+   * @param configs The configuration set computed by {@link #computeStartState} as the start state for the DFA.
+   *
+   * @return The transformed configuration set representing the start state for a precedence DFA at a particular
+   * precedence level (determined by calling {@link Parser#getPrecedence}).
    */
-  @NotNull
-  protected ATNConfigSet applyPrecedenceFilter(@NotNull ATNConfigSet configs, ParserRuleContext globalContext, PredictionContextCache contextCache) {
+
+  protected ATNConfigSet applyPrecedenceFilter(ATNConfigSet configs,
+                                               ParserRuleContext globalContext,
+                                               PredictionContextCache contextCache) {
     Map<Integer, PredictionContext> statesFromAlt1 = new HashMap<>();
     ATNConfigSet configSet = new ATNConfigSet();
     for (ATNConfig config : configs) {
@@ -1465,7 +1396,7 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   @Nullable
-  protected ATNState getReachableTarget(@NotNull ATNConfig source, @NotNull Transition trans, int ttype) {
+  protected ATNState getReachableTarget(ATNConfig source, Transition trans, int ttype) {
     if (trans.matches(ttype, 0, atn.maxTokenType)) {
       return trans.target;
     }
@@ -1492,8 +1423,8 @@ public class ParserATNSimulator extends ATNSimulator {
     return predPredictions;
   }
 
-  protected SemanticContext[] getPredsForAmbigAlts(@NotNull BitSet ambigAlts,
-                                                   @NotNull ATNConfigSet configs,
+  protected SemanticContext[] getPredsForAmbigAlts(BitSet ambigAlts,
+                                                   ATNConfigSet configs,
                                                    int nalts) {
     // REACH=[1|1|[]|0:0, 1|2|[]|0:1]
 
@@ -1561,11 +1492,10 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   /**
-   * Look through a list of predicate/alt pairs, returning alts for the
-   * pairs that win. A {@code null} predicate indicates an alt containing an
-   * unpredicated config which behaves as "always true."
+   * Look through a list of predicate/alt pairs, returning alts for the pairs that win. A {@code null} predicate
+   * indicates an alt containing an unpredicated config which behaves as "always true."
    */
-  protected BitSet evalSemanticContext(@NotNull DFAState.PredPrediction[] predPredictions,
+  protected BitSet evalSemanticContext(DFAState.PredPrediction[] predPredictions,
                                        ParserRuleContext outerContext,
                                        boolean complete) {
     BitSet predictions = new BitSet();
@@ -1600,9 +1530,8 @@ public class ParserATNSimulator extends ATNSimulator {
    * Evaluate a semantic context within a specific parser context.
    *
    * <p>
-   * This method might not be called for every semantic context evaluated
-   * during the prediction process. In particular, we currently do not
-   * evaluate the following but it may change in the future:</p>
+   * This method might not be called for every semantic context evaluated during the prediction process. In particular,
+   * we currently do not evaluate the following but it may change in the future:</p>
    *
    * <ul>
    * <li>Precedence predicates (represented by
@@ -1617,12 +1546,12 @@ public class ParserATNSimulator extends ATNSimulator {
    * </ul>
    *
    * @param pred            The semantic context to evaluate
-   * @param parserCallStack The parser context in which to evaluate the
-   *                        semantic context
+   * @param parserCallStack The parser context in which to evaluate the semantic context
    * @param alt             The alternative which is guarded by {@code pred}
+   *
    * @since 4.3
    */
-  protected boolean evalSemanticContext(@NotNull SemanticContext pred, ParserRuleContext parserCallStack, int alt) {
+  protected boolean evalSemanticContext(SemanticContext pred, ParserRuleContext parserCallStack, int alt) {
     return pred.eval(parser, parserCallStack);
   }
 
@@ -1634,7 +1563,7 @@ public class ParserATNSimulator extends ATNSimulator {
 		  */
 
   protected void closure(ATNConfigSet sourceConfigs,
-                         @NotNull ATNConfigSet configs,
+                         ATNConfigSet configs,
                          boolean collectPredicates,
                          boolean hasMoreContext,
                          @Nullable PredictionContextCache contextCache,
@@ -1648,20 +1577,28 @@ public class ParserATNSimulator extends ATNSimulator {
     while (!currentConfigs.isEmpty()) {
       ATNConfigSet intermediate = new ATNConfigSet();
       for (ATNConfig config : currentConfigs) {
-        closure(config, configs, intermediate, closureBusy, collectPredicates, hasMoreContext, contextCache, 0, treatEofAsEpsilon);
+        closure(config,
+          configs,
+          intermediate,
+          closureBusy,
+          collectPredicates,
+          hasMoreContext,
+          contextCache,
+          0,
+          treatEofAsEpsilon);
       }
 
       currentConfigs = intermediate;
     }
   }
 
-  protected void closure(@NotNull ATNConfig config,
-                         @NotNull ATNConfigSet configs,
+  protected void closure(ATNConfig config,
+                         ATNConfigSet configs,
                          @Nullable ATNConfigSet intermediate,
-                         @NotNull Set<ATNConfig> closureBusy,
+                         Set<ATNConfig> closureBusy,
                          boolean collectPredicates,
                          boolean hasMoreContexts,
-                         @NotNull PredictionContextCache contextCache,
+                         PredictionContextCache contextCache,
                          int depth,
                          boolean treatEofAsEpsilon) {
 
@@ -1681,7 +1618,15 @@ public class ParserATNSimulator extends ATNSimulator {
           c.setOuterContextDepth(config.getOuterContextDepth());
           c.setPrecedenceFilterSuppressed(config.isPrecedenceFilterSuppressed());
           assert depth > Integer.MIN_VALUE;
-          closure(c, configs, intermediate, closureBusy, collectPredicates, hasMoreContexts, contextCache, depth - 1, treatEofAsEpsilon);
+          closure(c,
+            configs,
+            intermediate,
+            closureBusy,
+            collectPredicates,
+            hasMoreContexts,
+            contextCache,
+            depth - 1,
+            treatEofAsEpsilon);
         }
 
         if (!hasEmpty || !hasMoreContexts) {
@@ -1777,14 +1722,16 @@ public class ParserATNSimulator extends ATNSimulator {
           assert newDepth > Integer.MIN_VALUE;
           newDepth--;
         } else if (t instanceof RuleTransition) {
-          if (optimize_tail_calls && ((RuleTransition) t).optimizedTailCall && (!tail_call_preserves_sll || !PredictionContext.isEmptyLocal(predictionContext))) {
+          if (optimize_tail_calls && ((RuleTransition) t).optimizedTailCall
+            && (!tail_call_preserves_sll || !PredictionContext.isEmptyLocal(predictionContext))) {
             assert c.getContext() == predictionContext;
             if (newDepth == 0) {
               // the pop/push of a tail call would keep the depth
               // constant, except we latch if it goes negative
               newDepth--;
               if (!tail_call_preserves_sll && PredictionContext.isEmptyLocal(predictionContext)) {
-                // make sure the SLL config "dips into the outer context" or prediction may not fall back to LL on conflict
+                // make sure the SLL config "dips into the outer context" or prediction may not fall back to LL
+                // on conflict
                 c.setOuterContextDepth(c.getOuterContextDepth() + 1);
               }
             }
@@ -1801,19 +1748,32 @@ public class ParserATNSimulator extends ATNSimulator {
           }
         }
 
-        closure(c, configs, intermediate, closureBusy, continueCollecting, hasMoreContexts, contextCache, newDepth, treatEofAsEpsilon);
+        closure(c,
+          configs,
+          intermediate,
+          closureBusy,
+          continueCollecting,
+          hasMoreContexts,
+          contextCache,
+          newDepth,
+          treatEofAsEpsilon);
       }
     }
   }
 
-  @NotNull
+
   public String getRuleName(int index) {
     if (parser != null && index >= 0) return parser.getRuleNames()[index];
     return "<rule " + index + ">";
   }
 
   @Nullable
-  protected ATNConfig getEpsilonTarget(@NotNull ATNConfig config, @NotNull Transition t, boolean collectPredicates, boolean inContext, PredictionContextCache contextCache, boolean treatEofAsEpsilon) {
+  protected ATNConfig getEpsilonTarget(ATNConfig config,
+                                       Transition t,
+                                       boolean collectPredicates,
+                                       boolean inContext,
+                                       PredictionContextCache contextCache,
+                                       boolean treatEofAsEpsilon) {
     return switch (t.getSerializationType()) {
       case Transition.RULE -> ruleTransition(config, (RuleTransition) t, contextCache);
       case Transition.PRECEDENCE ->
@@ -1836,14 +1796,14 @@ public class ParserATNSimulator extends ATNSimulator {
     };
   }
 
-  @NotNull
-  protected ATNConfig actionTransition(@NotNull ATNConfig config, @NotNull ActionTransition t) {
+
+  protected ATNConfig actionTransition(ATNConfig config, ActionTransition t) {
     return config.transform(t.target, false);
   }
 
   @Nullable
-  protected ATNConfig precedenceTransition(@NotNull ATNConfig config,
-                                           @NotNull PrecedencePredicateTransition pt,
+  protected ATNConfig precedenceTransition(ATNConfig config,
+                                           PrecedencePredicateTransition pt,
                                            boolean collectPredicates,
                                            boolean inContext) {
     ATNConfig c;
@@ -1858,13 +1818,12 @@ public class ParserATNSimulator extends ATNSimulator {
   }
 
   @Nullable
-  protected ATNConfig predTransition(@NotNull ATNConfig config,
-                                     @NotNull PredicateTransition pt,
+  protected ATNConfig predTransition(ATNConfig config,
+                                     PredicateTransition pt,
                                      boolean collectPredicates,
                                      boolean inContext) {
     ATNConfig c;
-    if (collectPredicates &&
-      (!pt.isCtxDependent || (pt.isCtxDependent && inContext))) {
+    if (collectPredicates && (!pt.isCtxDependent || inContext)) {
       SemanticContext newSemCtx = SemanticContext.and(config.getSemanticContext(), pt.getPredicate());
       c = config.transform(pt.target, newSemCtx, false);
     } else {
@@ -1873,12 +1832,15 @@ public class ParserATNSimulator extends ATNSimulator {
     return c;
   }
 
-  @NotNull
-  protected ATNConfig ruleTransition(@NotNull ATNConfig config, @NotNull RuleTransition t, @Nullable PredictionContextCache contextCache) {
+
+  protected ATNConfig ruleTransition(ATNConfig config,
+                                     RuleTransition t,
+                                     @Nullable PredictionContextCache contextCache) {
     ATNState returnState = t.followState;
     PredictionContext newContext;
 
-    if (optimize_tail_calls && t.optimizedTailCall && (!tail_call_preserves_sll || !PredictionContext.isEmptyLocal(config.getContext()))) {
+    if (optimize_tail_calls && t.optimizedTailCall
+      && (!tail_call_preserves_sll || !PredictionContext.isEmptyLocal(config.getContext()))) {
       newContext = config.getContext();
     } else if (contextCache != null) {
       newContext = contextCache.getChild(config.getContext(), returnState.stateNumber);
@@ -1892,7 +1854,7 @@ public class ParserATNSimulator extends ATNSimulator {
   private static final Comparator<ATNConfig> STATE_ALT_SORT_COMPARATOR =
     Comparator.comparingInt((ATNConfig o) -> o.getState().getNonStopStateNumber()).thenComparingInt(ATNConfig::getAlt);
 
-  private ConflictInfo isConflicted(@NotNull ATNConfigSet configset, PredictionContextCache contextCache) {
+  private ConflictInfo isConflicted(ATNConfigSet configset, PredictionContextCache contextCache) {
     if (configset.getUniqueAlt() != ATN.INVALID_ALT_NUMBER || configset.size() <= 1) {
       return null;
     }
@@ -2060,7 +2022,7 @@ public class ParserATNSimulator extends ATNSimulator {
     return conflictingAlts;
   }
 
-  @NotNull
+
   public String getTokenName(int t) {
     if (t == Token.EOF) {
       return "EOF";
@@ -2079,7 +2041,7 @@ public class ParserATNSimulator extends ATNSimulator {
     return getTokenName(input.LA(1));
   }
 
-  public void dumpDeadEndConfigs(@NotNull NoViableAltException nvae) {
+  public void dumpDeadEndConfigs(NoViableAltException nvae) {
     System.err.println("dead end configs: ");
     for (ATNConfig c : nvae.getDeadEndConfigs()) {
       String trans = "no edges";
@@ -2096,10 +2058,10 @@ public class ParserATNSimulator extends ATNSimulator {
     }
   }
 
-  @NotNull
-  protected NoViableAltException noViableAlt(@NotNull TokenStream input,
-                                             @NotNull ParserRuleContext outerContext,
-                                             @NotNull ATNConfigSet configs,
+
+  protected NoViableAltException noViableAlt(TokenStream input,
+                                             ParserRuleContext outerContext,
+                                             ATNConfigSet configs,
                                              int startIndex) {
     return new NoViableAltException(parser, input,
       input.get(startIndex),
@@ -2107,7 +2069,7 @@ public class ParserATNSimulator extends ATNSimulator {
       configs, outerContext);
   }
 
-  protected int getUniqueAlt(@NotNull Collection<ATNConfig> configs) {
+  protected int getUniqueAlt(Collection<ATNConfig> configs) {
     int alt = ATN.INVALID_ALT_NUMBER;
     for (ATNConfig c : configs) {
       if (alt == ATN.INVALID_ALT_NUMBER) {
@@ -2119,7 +2081,7 @@ public class ParserATNSimulator extends ATNSimulator {
     return alt;
   }
 
-  protected boolean configWithAltAtStopState(@NotNull Collection<ATNConfig> configs, int alt) {
+  protected boolean configWithAltAtStopState(Collection<ATNConfig> configs, int alt) {
     for (ATNConfig c : configs) {
       if (c.getAlt() == alt) {
         if (c.getState() instanceof RuleStopState) {
@@ -2130,12 +2092,12 @@ public class ParserATNSimulator extends ATNSimulator {
     return false;
   }
 
-  @NotNull
-  protected DFAState addDFAEdge(@NotNull DFA dfa,
-                                @NotNull DFAState fromState,
+
+  protected DFAState addDFAEdge(DFA dfa,
+                                DFAState fromState,
                                 int t,
                                 IntegerList contextTransitions,
-                                @NotNull ATNConfigSet toConfigs,
+                                ATNConfigSet toConfigs,
                                 PredictionContextCache contextCache) {
     assert contextTransitions == null || contextTransitions.isEmpty() || dfa.isContextSensitive();
 
@@ -2178,8 +2140,11 @@ public class ParserATNSimulator extends ATNSimulator {
   /**
    * See comment on LexerInterpreter.addDFAState.
    */
-  @NotNull
-  protected DFAState addDFAContextState(@NotNull DFA dfa, @NotNull ATNConfigSet configs, int returnContext, PredictionContextCache contextCache) {
+
+  protected DFAState addDFAContextState(DFA dfa,
+                                        ATNConfigSet configs,
+                                        int returnContext,
+                                        PredictionContextCache contextCache) {
     if (returnContext != PredictionContext.EMPTY_FULL_STATE_KEY) {
       ATNConfigSet contextConfigs = new ATNConfigSet();
       for (ATNConfig config : configs) {
@@ -2198,8 +2163,8 @@ public class ParserATNSimulator extends ATNSimulator {
   /**
    * See comment on LexerInterpreter.addDFAState.
    */
-  @NotNull
-  protected DFAState addDFAState(@NotNull DFA dfa, @NotNull ATNConfigSet configs, PredictionContextCache contextCache) {
+
+  protected DFAState addDFAState(DFA dfa, ATNConfigSet configs, PredictionContextCache contextCache) {
     final boolean enableDfa = enable_global_context_dfa || !configs.isOutermostConfigSet();
     if (enableDfa) {
       if (!configs.isReadOnly()) {
@@ -2239,40 +2204,58 @@ public class ParserATNSimulator extends ATNSimulator {
     return added;
   }
 
-  @NotNull
-  protected DFAState createDFAState(@NotNull DFA dfa, @NotNull ATNConfigSet configs) {
+
+  protected DFAState createDFAState(DFA dfa, ATNConfigSet configs) {
     return new DFAState(dfa, configs);
   }
 
-  protected void reportAttemptingFullContext(@NotNull DFA dfa, @Nullable BitSet conflictingAlts, @NotNull SimulatorState conflictState, int startIndex, int stopIndex) {
+  protected void reportAttemptingFullContext(DFA dfa,
+                                             @Nullable BitSet conflictingAlts,
+                                             SimulatorState conflictState,
+                                             int startIndex,
+                                             int stopIndex) {
     if (debug || retry_debug) {
       Interval interval = Interval.of(startIndex, stopIndex);
       System.out.println("reportAttemptingFullContext decision=" + dfa.decision + ":" + conflictState.s0.configs +
         ", input=" + parser.getInputStream().getText(interval));
     }
     if (parser != null)
-      parser.getErrorListenerDispatch().reportAttemptingFullContext(parser, dfa, startIndex, stopIndex, conflictingAlts, conflictState);
+      parser.getErrorListenerDispatch().reportAttemptingFullContext(parser,
+        dfa,
+        startIndex,
+        stopIndex,
+        conflictingAlts,
+        conflictState);
   }
 
-  protected void reportContextSensitivity(@NotNull DFA dfa, int prediction, @NotNull SimulatorState acceptState, int startIndex, int stopIndex) {
+  protected void reportContextSensitivity(DFA dfa,
+                                          int prediction,
+                                          SimulatorState acceptState,
+                                          int startIndex,
+                                          int stopIndex) {
     if (debug || retry_debug) {
       Interval interval = Interval.of(startIndex, stopIndex);
       System.out.println("reportContextSensitivity decision=" + dfa.decision + ":" + acceptState.s0.configs +
         ", input=" + parser.getInputStream().getText(interval));
     }
     if (parser != null)
-      parser.getErrorListenerDispatch().reportContextSensitivity(parser, dfa, startIndex, stopIndex, prediction, acceptState);
+      parser.getErrorListenerDispatch().reportContextSensitivity(parser,
+        dfa,
+        startIndex,
+        stopIndex,
+        prediction,
+        acceptState);
   }
 
   /**
    * If context sensitive parsing, we know it's ambiguity not conflict
    */
-  protected void reportAmbiguity(@NotNull DFA dfa,
+  protected void reportAmbiguity(DFA dfa,
                                  DFAState D, // the DFA state from execATN() that had SLL conflicts
                                  int startIndex, int stopIndex,
                                  boolean exact,
-                                 @NotNull BitSet ambigAlts,
-                                 @NotNull ATNConfigSet configs) // configs that LL not SLL considered conflicting
+                                 BitSet ambigAlts,
+                                 ATNConfigSet configs) // configs that LL not SLL considered conflicting
   {
     if (debug || retry_debug) {
       Interval interval = Interval.of(startIndex, stopIndex);
@@ -2313,10 +2296,4 @@ public class ParserATNSimulator extends ATNSimulator {
     return context;
   }
 
-  /**
-   * @since 4.3
-   */
-  public Parser getParser() {
-    return parser;
-  }
 }

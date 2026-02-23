@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -123,17 +123,17 @@ public class LeftRecursiveRuleAnalyzer extends LeftRecursiveRuleWalker {
         } else if (a.equals(ASSOC.left.toString())) {
           assoc = ASSOC.left;
         } else {
-          tool.errMgr.grammarError(ErrorType.ILLEGAL_OPTION_VALUE, t.g.fileName, t.getOptionAST("assoc").getToken(), "assoc", assoc);
+          tool.errMgr.grammarError(ErrorType.ILLEGAL_OPTION_VALUE, t.g.fileName,
+            t.getOptionAST("assoc").getToken(), "assoc", assoc);
         }
       }
     }
 
     if (altAssociativity.get(alt) != null && altAssociativity.get(alt) != assoc) {
-      tool.errMgr.toolError(ErrorType.INTERNAL_ERROR, "all operators of alt " + alt + " of left-recursive rule must have same associativity");
+      tool.errMgr.toolError(ErrorType.INTERNAL_ERROR,
+        "all operators of alt " + alt + " of left-recursive rule must have same associativity");
     }
     altAssociativity.put(alt, assoc);
-
-//		System.out.println("setAltAssoc: op " + alt + ": " + t.getText()+", assoc="+assoc);
   }
 
   @Override

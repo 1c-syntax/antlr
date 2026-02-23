@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -12,11 +12,13 @@ package org.antlr.v4.tool.ast;
 import org.antlr.runtime.Token;
 import org.antlr.runtime.TokenStream;
 import org.antlr.runtime.tree.Tree;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@NullMarked
 public class GrammarRootAST extends GrammarASTWithOptions {
   public static final Map<String, String> defaultOptions = new HashMap<>();
 
@@ -27,12 +29,12 @@ public class GrammarRootAST extends GrammarASTWithOptions {
 
   public int grammarType; // LEXER, PARSER, GRAMMAR (combined)
   public boolean hasErrors;
+
   /**
    * Track stream used to create this tree
    */
-  @NotNull
   public final TokenStream tokenStream;
-  public Map<String, String> cmdLineOptions; // -DsuperClass=T on command line
+  public @Nullable Map<String, String> cmdLineOptions; // -DsuperClass=T on command line
   public String fileName;
 
   public GrammarRootAST(GrammarRootAST node) {
@@ -42,7 +44,7 @@ public class GrammarRootAST extends GrammarASTWithOptions {
     this.tokenStream = node.tokenStream;
   }
 
-  public GrammarRootAST(Token t, TokenStream tokenStream) {
+  public GrammarRootAST(Token t, @Nullable TokenStream tokenStream) {
     super(t);
     if (tokenStream == null) {
       throw new NullPointerException("tokenStream");
@@ -51,7 +53,7 @@ public class GrammarRootAST extends GrammarASTWithOptions {
     this.tokenStream = tokenStream;
   }
 
-  public GrammarRootAST(int type, Token t, TokenStream tokenStream) {
+  public GrammarRootAST(int type, Token t, @Nullable TokenStream tokenStream) {
     super(type, t);
     if (tokenStream == null) {
       throw new NullPointerException("tokenStream");
@@ -60,7 +62,7 @@ public class GrammarRootAST extends GrammarASTWithOptions {
     this.tokenStream = tokenStream;
   }
 
-  public GrammarRootAST(int type, Token t, String text, TokenStream tokenStream) {
+  public GrammarRootAST(int type, Token t, String text, @Nullable TokenStream tokenStream) {
     super(type, t, text);
     if (tokenStream == null) {
       throw new NullPointerException("tokenStream");
@@ -69,18 +71,22 @@ public class GrammarRootAST extends GrammarASTWithOptions {
     this.tokenStream = tokenStream;
   }
 
+  @Nullable
   public String getGrammarName() {
     Tree t = getChild(0);
-    if (t != null) return t.getText();
+    if (t != null) {
+      return t.getText();
+    }
     return null;
   }
 
   @Override
+  @Nullable
   public String getOptionString(String key) {
     if (cmdLineOptions != null && cmdLineOptions.containsKey(key)) {
       return cmdLineOptions.get(key);
     }
-    String value = super.getOptionString(key);
+    var value = super.getOptionString(key);
     if (value == null) {
       value = defaultOptions.get(key);
     }

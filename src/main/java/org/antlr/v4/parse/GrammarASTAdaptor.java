@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -39,7 +39,7 @@ public class GrammarASTAdaptor extends CommonTreeAdaptor {
   }
 
   @Override
-  /** Make sure even imaginary nodes know the input stream */
+  /* Make sure even imaginary nodes know the input stream */
   public GrammarAST create(int tokenType, String text) {
     GrammarAST t;
     if (tokenType == ANTLRParser.RULE) {
@@ -73,7 +73,9 @@ public class GrammarASTAdaptor extends CommonTreeAdaptor {
   }
 
   @Override
-  public GrammarASTErrorNode errorNode(org.antlr.runtime.TokenStream input, org.antlr.runtime.Token start, org.antlr.runtime.Token stop,
+  public GrammarASTErrorNode errorNode(org.antlr.runtime.TokenStream input,
+                                       org.antlr.runtime.Token start,
+                                       org.antlr.runtime.Token stop,
                                        org.antlr.runtime.RecognitionException e) {
     return new GrammarASTErrorNode(input, start, stop, e);
   }

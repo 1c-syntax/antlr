@@ -1,8 +1,8 @@
-/**
+/*
  * This file is a part of ANTLR.
  *
  * Copyright (c) 2012-2025 The ANTLR Project. All rights reserved.
- * Copyright (c) 2025 Valery Maximov <maximovvalery@gmail.com> and contributors
+ * Copyright (c) 2025-2026 Valery Maximov <maximovvalery@gmail.com> and contributors
  *
  * Use of this file is governed by the BSD-3-Clause license that
  * can be found in the LICENSE.txt file in the project root.
@@ -18,7 +18,7 @@ import org.antlr.v4.runtime.VocabularyImpl;
 import org.antlr.v4.runtime.atn.ATN;
 import org.antlr.v4.runtime.atn.ATNDeserializer;
 import org.antlr.v4.runtime.atn.LexerATNSimulator;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.jspecify.annotations.Nullable;
 
 public class XPathLexer extends Lexer {
   public static final int
@@ -59,34 +59,7 @@ public class XPathLexer extends Lexer {
   private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
   public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
-  /**
-   * @deprecated Use {@link #VOCABULARY} instead.
-   */
-  @Deprecated
-  public static final String[] tokenNames;
-
-  static {
-    tokenNames = new String[_SYMBOLIC_NAMES.length];
-    for (int i = 0; i < tokenNames.length; i++) {
-      tokenNames[i] = VOCABULARY.getLiteralName(i);
-      if (tokenNames[i] == null) {
-        tokenNames[i] = VOCABULARY.getSymbolicName(i);
-      }
-
-      if (tokenNames[i] == null) {
-        tokenNames[i] = "<INVALID>";
-      }
-    }
-  }
-
   @Override
-  @Deprecated
-  public String[] getTokenNames() {
-    return tokenNames;
-  }
-
-  @Override
-  @NotNull
   public Vocabulary getVocabulary() {
     return VOCABULARY;
   }
@@ -94,8 +67,7 @@ public class XPathLexer extends Lexer {
 
   public XPathLexer(CharStream input) {
     super(input);
-    _interp = new LexerATNSimulator(this, _ATN);
-    validateInputStream(_ATN, input);
+    setInterpreter(new LexerATNSimulator(this, _ATN));
   }
 
   @Override
@@ -114,25 +86,25 @@ public class XPathLexer extends Lexer {
   }
 
   @Override
-  @NotNull
+
   public String[] getChannelNames() {
     return channelNames;
   }
 
   @Override
-  @NotNull
+
   public String[] getModeNames() {
     return modeNames;
   }
 
   @Override
-  public void action(RuleContext _localctx, int ruleIndex, int actionIndex) {
+  public void action(@Nullable RuleContext _localctx, int ruleIndex, int actionIndex) {
     if (ruleIndex == 4) {
       ID_action(_localctx, actionIndex);
     }
   }
 
-  private void ID_action(RuleContext _localctx, int actionIndex) {
+  private void ID_action(@Nullable RuleContext _localctx, int actionIndex) {
     if (actionIndex == 0) {
       var text = getText();
       if (Character.isUpperCase(text.charAt(0))) {
@@ -144,7 +116,7 @@ public class XPathLexer extends Lexer {
   }
 
   @Override
-  public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
+  public boolean sempred(@Nullable RuleContext _localctx, int ruleIndex, int predIndex) {
     return switch (ruleIndex) {
       case 5 -> NameChar_sempred(_localctx, predIndex);
       case 6 -> NameStartChar_sempred(_localctx, predIndex);
@@ -152,16 +124,16 @@ public class XPathLexer extends Lexer {
     };
   }
 
-  private boolean NameChar_sempred(RuleContext _localctx, int predIndex) {
+  private boolean NameChar_sempred(@Nullable RuleContext _localctx, int predIndex) {
     if (predIndex == 0) {
-      return Character.isUnicodeIdentifierPart(_input.LA(-1));
+      return Character.isUnicodeIdentifierPart(getInputStream().LA(-1));
     }
     return true;
   }
 
-  private boolean NameStartChar_sempred(RuleContext _localctx, int predIndex) {
+  private boolean NameStartChar_sempred(@Nullable RuleContext _localctx, int predIndex) {
     if (predIndex == 1) {
-      return Character.isUnicodeIdentifierStart(_input.LA(-1));
+      return Character.isUnicodeIdentifierStart(getInputStream().LA(-1));
     }
     return true;
   }
