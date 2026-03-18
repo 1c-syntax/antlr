@@ -49,7 +49,7 @@ dependencies {
     implementation("io.github.1c-syntax:utils:0.7.0")
     api("org.jspecify:jspecify:1.0.0")
 
-    compileOnly("com.ibm.icu:icu4j:78.2")
+    compileOnly("com.ibm.icu:icu4j:78.3")
 
     testImplementation(platform("org.junit:junit-bom:6.0.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-params")
