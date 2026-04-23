@@ -43,7 +43,7 @@ gitVersioning.apply {
 
 dependencies {
     implementation("org.antlr:ST4:4.3.4")
-    implementation("commons-io:commons-io:2.21.0")
+    implementation("commons-io:commons-io:2.22.0")
     implementation("org.abego.treelayout:org.abego.treelayout.core:1.0.3")
 
     implementation("io.github.1c-syntax:utils:0.7.0")
