@@ -51,7 +51,7 @@ dependencies {
 
     compileOnly("com.ibm.icu:icu4j:78.3")
 
-    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation(platform("org.junit:junit-bom:6.1.0"))
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("org.assertj:assertj-core:3.27.7")
 
