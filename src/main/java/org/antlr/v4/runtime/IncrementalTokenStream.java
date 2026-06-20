@@ -95,11 +95,17 @@ public class IncrementalTokenStream extends CommonTokenStream {
 
   /** Минимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
   public int peekMinTokenIndex() {
+    if (sp == 0) {
+      throw new IndexOutOfBoundsException("Can't peek the min max state when there are 0 states");
+    }
     return minStack[sp - 1];
   }
 
   /** Максимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
   public int peekMaxTokenIndex() {
+    if (sp == 0) {
+      throw new IndexOutOfBoundsException("Can't peek the min max state when there are 0 states");
+    }
     return maxStack[sp - 1];
   }
 
