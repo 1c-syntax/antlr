@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.BitSet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -336,8 +337,16 @@ public class Trees {
    * @return Коллекция узлов нужных типов
    */
   public Collection<ParserRuleContext> findAllRuleNodes(ParseTree tree, Collection<Integer> ruleIndexes) {
+    // Индексы правил неотрицательны и невелики → переносим членство в BitSet один раз,
+    // чтобы на каждом узле дерева не было автобоксинга int→Integer и linear contains.
+    var mask = new BitSet();
+    for (Integer ruleIndex : ruleIndexes) {
+      if (ruleIndex != null && ruleIndex >= 0) {
+        mask.set(ruleIndex);
+      }
+    }
     List<ParserRuleContext> nodes = new ArrayList<>();
-    flatten(tree, nodes, ruleIndexes);
+    flatten(tree, nodes, mask);
     return nodes;
   }
 
@@ -746,10 +755,10 @@ public class Trees {
 
   private void flatten(@Nullable ParseTree tree,
                        List<ParserRuleContext> flatList,
-                       Collection<Integer> ruleIndexes) {
+                       BitSet ruleIndexes) {
     if (tree == null) {
       return;
-    } else if (tree instanceof ParserRuleContext ruleContext && ruleIndexes.contains(ruleContext.getIndex())) {
+    } else if (tree instanceof ParserRuleContext ruleContext && ruleIndexes.get(ruleContext.getIndex())) {
       flatList.add(ruleContext);
     }
 
