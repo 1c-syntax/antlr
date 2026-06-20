@@ -27,6 +27,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestIncremental {
@@ -65,6 +67,31 @@ public class TestIncremental {
     assertEquals(EXPECTED_TREE_1, tree.toStringTree(parser));
     // Should have been created by the first parser.
     assertEquals(startingEpoch, tree.epoch);
+  }
+
+  /**
+   * Verifies the low-level min/max stack API of {@link IncrementalTokenStream}:
+   * peeking or popping an empty stack fails fast, and after a push the peeked
+   * values reflect the pushed interval.
+   */
+  @Test
+  void testMinMaxStackApi() {
+    TestIncrementalBasicLexer lexer = new TestIncrementalBasicLexer(CharStreams.fromString(SAMPLE_TEXT_1));
+    IncrementalTokenStream tokenStream = new IncrementalTokenStream(lexer);
+
+    assertTrue(tokenStream.isMinMaxEmpty());
+    assertThrows(IndexOutOfBoundsException.class, tokenStream::peekMinTokenIndex);
+    assertThrows(IndexOutOfBoundsException.class, tokenStream::peekMaxTokenIndex);
+    assertThrows(IndexOutOfBoundsException.class, tokenStream::popMinMaxDiscard);
+    assertThrows(IndexOutOfBoundsException.class, tokenStream::popMinMax);
+
+    tokenStream.pushMinMax(2, 7);
+    assertFalse(tokenStream.isMinMaxEmpty());
+    assertEquals(2, tokenStream.peekMinTokenIndex());
+    assertEquals(7, tokenStream.peekMaxTokenIndex());
+
+    tokenStream.popMinMaxDiscard();
+    assertTrue(tokenStream.isMinMaxEmpty());
   }
 
   /**
