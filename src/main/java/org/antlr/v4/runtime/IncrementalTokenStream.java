@@ -12,7 +12,7 @@ package org.antlr.v4.runtime;
 import org.antlr.v4.runtime.misc.Interval;
 import org.jspecify.annotations.Nullable;
 
-import java.util.Stack;
+import java.util.Arrays;
 
 public class IncrementalTokenStream extends CommonTokenStream {
   /**
@@ -27,9 +27,14 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * is used to track how far ahead the grammar looked, since it may be outside
    * the rule context's start/stop tokens. We need to maintain a stack of such
    * indices.
+   * <p>
+   * Хранится двумя примитивными {@code int[]}-стеками (вместо {@code Stack<Interval>}):
+   * убирает синхронизацию legacy-{@link java.util.Stack} и аллокацию {@link Interval}
+   * на каждый {@link #LT} (горячий путь — миллионы вызовов на разбор крупного модуля).
    */
-
-  private final Stack<Interval> minMaxStack = new Stack<>();
+  private int[] minStack = new int[16];
+  private int[] maxStack = new int[16];
+  private int sp;
 
   /**
    * Constructs a new {@link IncrementalTokenStream} using the specified token
@@ -63,17 +68,47 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * @param max Maximum token index
    */
   public void pushMinMax(int min, int max) {
-    minMaxStack.push(Interval.of(min, max));
+    if (sp == minStack.length) {
+      minStack = Arrays.copyOf(minStack, sp << 1);
+      maxStack = Arrays.copyOf(maxStack, sp << 1);
+    }
+    minStack[sp] = min;
+    maxStack[sp] = max;
+    sp++;
   }
 
   /**
    * Pop the current minimum/maximum token state and return it.
    */
   public Interval popMinMax() {
-    if (minMaxStack.isEmpty()) {
+    if (sp == 0) {
       throw new IndexOutOfBoundsException("Can't pop the min max state when there are 0 states");
     }
-    return minMaxStack.pop();
+    sp--;
+    return Interval.of(minStack[sp], maxStack[sp]);
+  }
+
+  /** Признак пустого стека min/max (без аллокаций). */
+  public boolean isMinMaxEmpty() {
+    return sp == 0;
+  }
+
+  /** Минимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
+  public int peekMinTokenIndex() {
+    return minStack[sp - 1];
+  }
+
+  /** Максимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
+  public int peekMaxTokenIndex() {
+    return maxStack[sp - 1];
+  }
+
+  /** Снять вершину стека min/max без создания {@link Interval}. */
+  public void popMinMaxDiscard() {
+    if (sp == 0) {
+      throw new IndexOutOfBoundsException("Can't pop the min max state when there are 0 states");
+    }
+    sp--;
   }
 
   /**
@@ -86,11 +121,15 @@ public class IncrementalTokenStream extends CommonTokenStream {
     Token result = super.LT(k);
     // Adjust the top of the minimum maximum stack if the position/lookahead amount
     // changed.
-    if (!minMaxStack.isEmpty() && (lastP != p || lastK != k) && result != null) {
-      int lastIdx = minMaxStack.size() - 1;
-      Interval stackItem = minMaxStack.get(lastIdx);
-      minMaxStack.set(lastIdx, stackItem.union(Interval.of(result.getTokenIndex(), result.getTokenIndex())));
-
+    if (sp != 0 && (lastP != p || lastK != k) && result != null) {
+      int idx = result.getTokenIndex();
+      int top = sp - 1;
+      if (idx < minStack[top]) {
+        minStack[top] = idx;
+      }
+      if (idx > maxStack[top]) {
+        maxStack[top] = idx;
+      }
       lastP = p;
       lastK = k;
     }

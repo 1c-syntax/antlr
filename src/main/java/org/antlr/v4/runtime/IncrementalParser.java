@@ -10,7 +10,6 @@
 package org.antlr.v4.runtime;
 
 import lombok.Getter;
-import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -61,26 +60,20 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
     return IncrementalParser._PARSER_EPOCH.addAndGet(1);
   }
 
-  // Push the current token data onto the min max stack for the stream.
-  private void pushCurrentTokenToMinMax() {
+  private IncrementalTokenStream incStream() {
     var incStream = getInputStream();
     if (!(incStream instanceof IncrementalTokenStream incrementalTokenStream)) {
       throw new IllegalStateException("IncrementalParser requires IncrementalTokenStream as input");
     }
-    var token = _input.LT(1);
-    if (token != null) {
-      incrementalTokenStream.pushMinMax(token.getTokenIndex(), token.getTokenIndex());
-    }
+    return incrementalTokenStream;
   }
 
-  // Pop the min max stack the stream is using and return the interval.
-  private Interval popCurrentMinMax(IncrementalParserRuleContext ctx) {
-    var incStream = getInputStream();
-    if (!(incStream instanceof IncrementalTokenStream incrementalTokenStream)) {
-      throw new IllegalStateException("IncrementalParser requires IncrementalTokenStream as input");
+  // Push the current token data onto the min max stack for the stream.
+  private void pushCurrentTokenToMinMax() {
+    var token = _input.LT(1);
+    if (token != null) {
+      incStream().pushMinMax(token.getTokenIndex(), token.getTokenIndex());
     }
-
-    return incrementalTokenStream.popMinMax();
   }
 
   /**
@@ -125,20 +118,6 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   }
 
   /**
-   * Pop the min max stack the stream is using and union the interval into the passed in context. Return the interval
-   * for the context
-   *
-   * @param ctx Context to union interval into.
-   */
-  private Interval popAndHandleMinMax(IncrementalParserRuleContext ctx) {
-    Interval interval = popCurrentMinMax(ctx);
-    ctx.setMinMaxTokenIndex(ctx.getMinMaxTokenIndex().union(interval));
-    // Returning interval is wrong because there may have been child
-    // intervals already merged into this ctx.
-    return ctx.getMinMaxTokenIndex();
-  }
-
-  /**
    * The new recursion context is an unfortunate edge case for us. It reparents the relationship between the contexts,
    * so we need to merge intervals here.
    */
@@ -148,13 +127,15 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
     IncrementalParserRuleContext previous = (IncrementalParserRuleContext) this._ctx;
     // The incoming context becomes the parent
     IncrementalParserRuleContext incLocalCtx = (IncrementalParserRuleContext) localctx;
-    incLocalCtx.setMinMaxTokenIndex(incLocalCtx.getMinMaxTokenIndex().union(previous.getMinMaxTokenIndex()));
+    incLocalCtx.unionMinMax(previous.getMinTokenIndex(), previous.getMaxTokenIndex());
     super.pushNewRecursionContext(localctx, state, ruleIndex);
   }
 
   /*
-   * These two functions are parse of the ParseTreeListener API. We do not need to
-   * call super methods
+   * Min/max-учёт реализован через ParseTreeListener API (enterEveryRule/exitEveryRule).
+   * Слушатель ровно один — сам парсер, поэтому triggerEnter/ExitRuleEvent переопределены так,
+   * чтобы звать обработчики напрямую, без обхода списка _parseListeners и виртуальной
+   * диспетчеризации (это убирает заметную долю стоимости разбора на крупных модулях).
    */
 
   @Override
@@ -169,15 +150,17 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
   public void exitEveryRule(ParserRuleContext ctx) {
     // On exit, we need to merge the min max into the current context,
     // and then merge the current context interval into our parent.
-
-    // First merge with the interval on the top of the stack.
     IncrementalParserRuleContext incCtx = (IncrementalParserRuleContext) ctx;
-    Interval interval = popAndHandleMinMax(incCtx);
+
+    // First merge with the interval on the top of the stack (без аллокации Interval).
+    var stream = incStream();
+    incCtx.unionMinMax(stream.peekMinTokenIndex(), stream.peekMaxTokenIndex());
+    stream.popMinMaxDiscard();
 
     // Now merge with our parent interval.
     if (incCtx.parent != null) {
       IncrementalParserRuleContext parentIncCtx = (IncrementalParserRuleContext) incCtx.parent;
-      parentIncCtx.setMinMaxTokenIndex(parentIncCtx.getMinMaxTokenIndex().union(interval));
+      parentIncCtx.unionMinMax(incCtx.getMinTokenIndex(), incCtx.getMaxTokenIndex());
     }
   }
 
