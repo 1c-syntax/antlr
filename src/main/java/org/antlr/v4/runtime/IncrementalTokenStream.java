@@ -81,7 +81,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
    * Pop the current minimum/maximum token state and return it.
    */
   public Interval popMinMax() {
-    if (sp == 0) {
+    if (isMinMaxEmpty()) {
       throw new IndexOutOfBoundsException("Can't pop the min max state when there are 0 states");
     }
     sp--;
@@ -95,7 +95,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
 
   /** Минимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
   public int peekMinTokenIndex() {
-    if (sp == 0) {
+    if (isMinMaxEmpty()) {
       throw new IndexOutOfBoundsException("Can't peek the min max state when there are 0 states");
     }
     return minStack[sp - 1];
@@ -103,7 +103,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
 
   /** Максимальный тронутый индекс на вершине стека (горячий путь, без аллокаций). */
   public int peekMaxTokenIndex() {
-    if (sp == 0) {
+    if (isMinMaxEmpty()) {
       throw new IndexOutOfBoundsException("Can't peek the min max state when there are 0 states");
     }
     return maxStack[sp - 1];
@@ -111,7 +111,7 @@ public class IncrementalTokenStream extends CommonTokenStream {
 
   /** Снять вершину стека min/max без создания {@link Interval}. */
   public void popMinMaxDiscard() {
-    if (sp == 0) {
+    if (isMinMaxEmpty()) {
       throw new IndexOutOfBoundsException("Can't pop the min max state when there are 0 states");
     }
     sp--;
