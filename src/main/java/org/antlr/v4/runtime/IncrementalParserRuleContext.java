@@ -22,33 +22,51 @@ public class IncrementalParserRuleContext extends ParserRuleContext {
   // The epoch number is incremented every time a new parser instance is created.
   public int epoch = -1;
 
-  // The interval that stores the min/max token we touched during
-  // lookahead/lookbehind
-  private Interval _minMaxTokenIndex = Interval.of(Integer.MAX_VALUE, Integer.MIN_VALUE);
+  // Min/max индексы токенов, тронутых при lookahead/lookbehind.
+  // Хранятся двумя примитивами, чтобы не аллоцировать Interval на каждый узел правила
+  // и на каждое объединение (горячий путь инкрементального парсинга).
+  private int minTokenIndex = Integer.MAX_VALUE;
+  private int maxTokenIndex = Integer.MIN_VALUE;
 
   /**
    * Get the minimum token index this rule touched.
    */
   public int getMinTokenIndex() {
-    return _minMaxTokenIndex.a;
+    return minTokenIndex;
   }
 
   /**
    * Get the maximum token index this rule touched.
    */
   public int getMaxTokenIndex() {
-    return _minMaxTokenIndex.b;
+    return maxTokenIndex;
   }
 
   /**
    * Get the interval this rule touched.
    */
   public Interval getMinMaxTokenIndex() {
-    return _minMaxTokenIndex;
+    return Interval.of(minTokenIndex, maxTokenIndex);
   }
 
   public void setMinMaxTokenIndex(Interval index) {
-    _minMaxTokenIndex = index;
+    minTokenIndex = index.a;
+    maxTokenIndex = index.b;
+  }
+
+  /**
+   * Расширить интервал тронутых токенов без аллокации {@link Interval}.
+   *
+   * @param min минимальный индекс токена
+   * @param max максимальный индекс токена
+   */
+  public void unionMinMax(int min, int max) {
+    if (min < minTokenIndex) {
+      minTokenIndex = min;
+    }
+    if (max > maxTokenIndex) {
+      maxTokenIndex = max;
+    }
   }
 
   /**
