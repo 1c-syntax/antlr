@@ -139,6 +139,16 @@ public abstract class IncrementalParser extends Parser implements ParseTreeListe
    */
 
   @Override
+  protected void triggerEnterRuleEvent() {
+    enterEveryRule(_ctx);
+  }
+
+  @Override
+  protected void triggerExitRuleEvent() {
+    exitEveryRule(_ctx);
+  }
+
+  @Override
   public void enterEveryRule(ParserRuleContext ctx) {
     // During rule entry, we push a new min/max token state.
     pushCurrentTokenToMinMax();
