@@ -1,0 +1,54 @@
+name: Publish Javadoc
+
+on:
+  push:
+    branches:
+      - develop
+  release:
+    types: [published]
+  workflow_dispatch:
+
+# Allow only one concurrent deployment, skipping runs queued between the run
+# in-progress and latest queued. However, do NOT cancel in-progress runs as
+# we want to allow these production deployments to complete.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: 'temurin'
+          cache: gradle
+      - name: Generate Javadoc
+        run: ./gradlew javadoc --stacktrace
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Javadoc artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: build/docs/javadoc
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
