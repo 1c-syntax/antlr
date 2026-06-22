@@ -8,7 +8,7 @@
 
 ## Документация
 
-Javadoc публикуется на GitHub Pages: [https://1c-syntax.github.io/antlr/](https://1c-syntax.github.io/antlr/)
+Javadoc публикуется на GitHub Pages: [https://1c-syntax.github.io/antlr/javadoc/](https://1c-syntax.github.io/antlr/javadoc/)
 
 ## Благодарности
 
