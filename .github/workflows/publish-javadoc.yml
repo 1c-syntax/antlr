@@ -41,7 +41,7 @@ jobs:
           cp -r build/docs/javadoc/. _site/javadoc/
           echo '<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0; url=javadoc/">' > _site/index.html
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Upload Javadoc artifact
         uses: actions/upload-pages-artifact@v5
         with:
