@@ -46,7 +46,7 @@ dependencies {
     implementation("commons-io:commons-io:2.22.0")
     implementation("org.abego.treelayout:org.abego.treelayout.core:1.0.3")
 
-    implementation("io.github.1c-syntax:utils:0.7.2")
+    implementation("io.github.1c-syntax:utils:0.9.0")
     api("org.jspecify:jspecify:1.0.0")
 
     compileOnly("com.ibm.icu:icu4j:78.3")
