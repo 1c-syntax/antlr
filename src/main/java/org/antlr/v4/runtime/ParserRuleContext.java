@@ -55,9 +55,9 @@ public class ParserRuleContext extends RuleContext {
   private final List<ParseTree> children;
 
   /**
-   * Текст узла, посчитанный при первом обращении. Кэшируется простым полем, а не {@code Lazy}: узлов в дереве
-   * сотни тысяч, и у каждого {@code Lazy} — ещё лямбда и своя блокировка. Посчитанный разными потоками
-   * одновременно текст одинаков, поэтому гонка безвредна.
+   * Текст узла, посчитанный при первом обращении. Кэшируется полем, а не {@code Lazy}: узлов в дереве
+   * сотни тысяч, и у каждого {@code Lazy} — ещё лямбда и своя блокировка. Первое вычисление идёт под монитором
+   * самого узла, поэтому текст считается один раз и все получают один экземпляр.
    */
   private volatile @Nullable String text;
 
@@ -332,8 +332,13 @@ public class ParserRuleContext extends RuleContext {
   public String getText() {
     var result = text;
     if (result == null) {
-      result = super.getText();
-      text = result;
+      synchronized (this) {
+        result = text;
+        if (result == null) {
+          result = super.getText();
+          text = result;
+        }
+      }
     }
     return result;
   }
@@ -346,8 +351,13 @@ public class ParserRuleContext extends RuleContext {
   public List<Token> getTokens() {
     var result = tokens;
     if (result == null) {
-      result = computeTokens();
-      tokens = result;
+      synchronized (this) {
+        result = tokens;
+        if (result == null) {
+          result = computeTokens();
+          tokens = result;
+        }
+      }
     }
     return result;
   }
