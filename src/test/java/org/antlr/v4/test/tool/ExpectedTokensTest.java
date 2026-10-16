@@ -160,14 +160,15 @@ class ExpectedTokensTest extends AbstractBaseTest {
     ATN atn = g.getATN();
 
     // Simulate call stack after input '(x' from rule s
-    ParserRuleContext callStackFrom_s = new ParserRuleContext(null, 4);
+    ParserRuleContext root = ParserRuleContext.emptyContext();
+    ParserRuleContext callStackFrom_s = new ParserRuleContext(root, 4);
     ParserRuleContext callStackFrom_expr = new ParserRuleContext(callStackFrom_s, 9);
     int afterID = 14;
     IntervalSet tokens = atn.getExpectedTokens(afterID, callStackFrom_expr);
     assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{R, PLUS}");
 
     // Simulate call stack after input '(x' from within rule expr
-    callStackFrom_expr = new ParserRuleContext(null, 9);
+    callStackFrom_expr = new ParserRuleContext(ParserRuleContext.emptyContext(), 9);
     tokens = atn.getExpectedTokens(afterID, callStackFrom_expr);
     assertThat(tokens.toString(g.getVocabulary())).isEqualTo("{R, PLUS}");
   }
