@@ -65,6 +65,8 @@ class TokenizerTest {
 
     assertThat(describe(fromString.getTokens())).isEqualTo(describe(fromBytes.getTokens()));
     assertThat(fromString.getAst().toStringTree()).isEqualTo(fromBytes.getAst().toStringTree());
+    // новый текст применён: его последний идентификатор есть среди токенов
+    assertThat(describe(fromString.getTokens())).anyMatch(token -> token.endsWith(":bar"));
   }
 
   private static InputStream utf8(String text) {
