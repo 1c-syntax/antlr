@@ -9,7 +9,7 @@ plugins {
     id("me.qoomon.git-versioning") version "6.4.4"
     id("org.jreleaser") version "1.26.0"
     id("org.sonarqube") version "7.3.1.8318"
-    id("io.freefair.lombok") version "9.7.0"
+    id("io.freefair.lombok") version "9.8.2"
 }
 
 repositories {
