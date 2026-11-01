@@ -7,9 +7,9 @@ plugins {
     jacoco
     id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "6.4.4"
-    id("org.jreleaser") version "1.23.0"
-    id("org.sonarqube") version "7.3.0.8198"
-    id("io.freefair.lombok") version "9.4.0"
+    id("org.jreleaser") version "1.26.0"
+    id("org.sonarqube") version "7.3.1.8318"
+    id("io.freefair.lombok") version "9.8.2"
 }
 
 repositories {
@@ -46,12 +46,12 @@ dependencies {
     implementation("commons-io:commons-io:2.22.0")
     implementation("org.abego.treelayout:org.abego.treelayout.core:1.0.3")
 
-    implementation("io.github.1c-syntax:utils:0.7.0")
-    api("org.jspecify:jspecify:1.0.0")
+    implementation("io.github.1c-syntax:utils:0.10.1")
+    api("org.jspecify:jspecify:1.0.1")
 
-    compileOnly("com.ibm.icu:icu4j:78.3")
+    compileOnly("com.ibm.icu:icu4j:79.1")
 
-    testImplementation(platform("org.junit:junit-bom:6.0.3"))
+    testImplementation(platform("org.junit:junit-bom:6.1.3"))
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testImplementation("org.assertj:assertj-core:3.27.7")
 

@@ -9,7 +9,6 @@
  */
 package org.antlr.v4.runtime;
 
-import com.github._1c_syntax.utils.Lazy;
 import lombok.Getter;
 import org.antlr.v4.runtime.misc.Interval;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -56,14 +55,16 @@ public class ParserRuleContext extends RuleContext {
   private final List<ParseTree> children;
 
   /**
-   * Ленивое хранение текста. Несколько увеличивает потребление памяти в угоду ускорения получения содержимого
+   * Текст узла, посчитанный при первом обращении. Кэшируется полем, а не {@code Lazy}: узлов в дереве
+   * сотни тысяч, и у каждого {@code Lazy} — ещё лямбда и своя блокировка. Первое вычисление идёт под монитором
+   * самого узла, поэтому текст считается один раз и все получают один экземпляр.
    */
-  private final Lazy<String> text = new Lazy<>(super::getText);
+  private volatile @Nullable String text;
 
   /**
-   * Ленивое хранение токенов. Несколько увеличивает потребление памяти в угоду ускорения получения содержимого
+   * Токены узла, посчитанные при первом обращении; кэшируются так же, как текст.
    */
-  private final Lazy<List<Token>> tokens = new Lazy<>(this::computeTokens);
+  private volatile @Nullable List<Token> tokens;
 
   /**
    * Стартовая позиция (токен начала)
@@ -329,7 +330,17 @@ public class ParserRuleContext extends RuleContext {
 
   @Override
   public String getText() {
-    return text.getOrCompute();
+    var result = text;
+    if (result == null) {
+      synchronized (this) {
+        result = text;
+        if (result == null) {
+          result = super.getText();
+          text = result;
+        }
+      }
+    }
+    return result;
   }
 
   @Override
@@ -338,7 +349,17 @@ public class ParserRuleContext extends RuleContext {
   }
 
   public List<Token> getTokens() {
-    return tokens.getOrCompute();
+    var result = tokens;
+    if (result == null) {
+      synchronized (this) {
+        result = tokens;
+        if (result == null) {
+          result = computeTokens();
+          tokens = result;
+        }
+      }
+    }
+    return result;
   }
 
   private List<Token> computeTokens() {
