@@ -12,18 +12,19 @@ package org.antlr.v4.runtime;
 import com.github._1c_syntax.utils.Lazy;
 import org.antlr.v4.runtime.atn.PredictionMode;
 import org.antlr.v4.runtime.misc.NotNull;
-import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.function.Supplier;
 
 import static org.antlr.v4.runtime.Token.EOF;
 
@@ -38,7 +39,7 @@ import static org.antlr.v4.runtime.Token.EOF;
  */
 public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extends Parser> {
 
-  private InputStream content;
+  private Supplier<CharStream> content;
   private final Lexer lexer;
   private final Lazy<IncrementalTokenStream> tokenStream = new Lazy<>(this::computeTokenStream);
   private final Lazy<List<Token>> tokens = new Lazy<>(this::computeTokens);
@@ -56,10 +57,14 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
   private volatile List<Token> oldTokens;
 
   protected Tokenizer(@NotNull String content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
-    this(IOUtils.toInputStream(content, StandardCharsets.UTF_8), lexer, parserClass);
+    this(() -> charStream(content), lexer, parserClass);
   }
 
   protected Tokenizer(@NotNull InputStream content, @NotNull Lexer lexer, @NotNull Class<PARSER> parserClass) {
+    this(() -> charStream(content), lexer, parserClass);
+  }
+
+  private Tokenizer(Supplier<CharStream> content, Lexer lexer, Class<PARSER> parserClass) {
     this.content = content;
     this.lexer = lexer;
     this.parserClass = parserClass;
@@ -95,7 +100,7 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     if (!supportRebuild) {
       return;
     }
-    rebuild(IOUtils.toInputStream(newContent, StandardCharsets.UTF_8));
+    replaceContent(() -> charStream(newContent));
   }
 
   /**
@@ -109,7 +114,10 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
     if (!supportRebuild) {
       return;
     }
+    replaceContent(() -> charStream(newContent));
+  }
 
+  private void replaceContent(Supplier<CharStream> newContent) {
     rebuildLock.lock();
 
     try {
@@ -258,24 +266,40 @@ public abstract class Tokenizer<CONTEXT extends ParserRuleContext, PARSER extend
 
   private IncrementalTokenStream computeTokenStream() {
 
-    CharStream input;
-
-    try (
-      var ubis = new UnicodeBOMInputStream(content);
-      Reader inputStreamReader = new InputStreamReader(ubis, StandardCharsets.UTF_8)
-    ) {
-      ubis.skipBOM();
-      input = CharStreams.fromReader(inputStreamReader);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-
-    lexer.setInputStream(input);
+    lexer.setInputStream(content.get());
     lexer.removeErrorListener(ConsoleErrorListener.INSTANCE);
 
     var tempTokenStream = new IncrementalTokenStream(lexer);
     tempTokenStream.fill();
     return tempTokenStream;
+  }
+
+  /**
+   * Поток символов текста — без перекодирования строки в байты UTF-8 и обратно.
+   * <p>
+   * Метка порядка байтов в начале текста в поток не попадает, как и при чтении из потока байтов:
+   * позиции токенов отсчитываются от первого символа после неё.
+   */
+  private static CharStream charStream(String content) {
+    var start = content.startsWith("\uFEFF") ? 1 : 0;
+    var buffer = CharBuffer.allocate(content.length() - start);
+    buffer.put(content, start, content.length());
+    buffer.flip();
+    var builder = CodePointBuffer.builder(buffer.remaining());
+    builder.append(buffer);
+    return CodePointCharStream.fromBuffer(builder.build());
+  }
+
+  private static CharStream charStream(InputStream content) {
+    try (
+      var ubis = new UnicodeBOMInputStream(content);
+      Reader inputStreamReader = new InputStreamReader(ubis, StandardCharsets.UTF_8)
+    ) {
+      ubis.skipBOM();
+      return CharStreams.fromReader(inputStreamReader);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   protected IncrementalTokenStream getTokenStream() {
