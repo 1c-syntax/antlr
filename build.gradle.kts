@@ -7,7 +7,7 @@ plugins {
     jacoco
     id("cloud.rio.license") version "0.18.0"
     id("me.qoomon.git-versioning") version "7.0.0"
-    id("org.jreleaser") version "1.26.0"
+    id("org.jreleaser") version "1.27.0"
     id("org.sonarqube") version "7.6.0.18749"
     id("io.freefair.lombok") version "9.8.2"
 }
